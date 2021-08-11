@@ -14,20 +14,20 @@ const config = {
         }
     },
     // Needed?
-    variants: {
-        extend: {
-            transformOrigin: ['direction'],
-            inset: ['direction'],
-            padding: ['direction'],
-            margin: ['direction'],
-            borderRadius: ['direction'],
-            translate: ['direction'],
-        }
-    },
+    // variants: {
+    //     extend: {
+    //         transformOrigin: ['direction'],
+    //         inset: ['direction'],
+    //         padding: ['direction'],
+    //         margin: ['direction'],
+    //         borderRadius: ['direction'],
+    //         translate: ['direction'],
+    //     }
+    // },
     plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('tailwindcss-dir')(), //https://github.com/RonMelkhior/tailwindcss-dir
+        // require('@tailwindcss/forms'),
+        // require('@tailwindcss/typography'),
+        // require('tailwindcss-dir')(), //https://github.com/RonMelkhior/tailwindcss-dir
     ],
 };
 
