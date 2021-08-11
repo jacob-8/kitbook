@@ -12,6 +12,9 @@ module.exports = {
 		sourceType: 'module',
 		ecmaVersion: 2019
 	},
+	rules: {
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
+	},
 	env: {
 		browser: true,
 		es2017: true,
