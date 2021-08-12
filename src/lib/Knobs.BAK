@@ -1,0 +1,45 @@
+<script>
+  import { View } from 'svench'
+
+  const knobs = [
+    { name: 'text', default: 'Lorem ipsum dolor sit amet.' },
+    { name: 'number', type: 'number', default: 123 },
+    { name: 'range', type: 'range', default: 500, min: 0, max: 1000 },
+    { name: 'bool', type: 'bool', default: false },
+  ]
+</script>
+
+<View name="visual example" {knobs} let:knobs={{ text, number, range, bool }}>
+  <div class:border={bool} style="font-size: {range / 33}px">
+    {text} ({number})
+  </div>
+</View>
+
+<View
+  name="synthetic example"
+  {knobs}
+  let:knobs={{ text, number, range, bool }}>
+  <p>Some text: {text}</p>
+  <p>Also, some number: {number}</p>
+  <p>Another number: {range}</p>
+  <p>And some bool: {bool}</p>
+</View>
+
+<View
+  name="shortcut syntax"
+  knobs={{ text: '', number: 123, range: '0-100', bool: false }}
+  let:knobs={{ text, number, range, bool }}>
+  <p>Some text: {text}</p>
+  <p>Also, some number: {number}</p>
+  <p>Another number: {range}</p>
+  <p>And some bool: {bool}</p>
+</View>
+
+<style>
+  div {
+    padding: 1em;
+  }
+  .border {
+    border: 0.2em solid violet;
+  }
+</style>

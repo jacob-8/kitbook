@@ -1,0 +1,20 @@
+<script>
+	import { View } from 'svench';
+	import Button from './Button.svelte';
+	import { toast } from './Toasts.svelte';
+
+	const knobs = [
+    { name: 'message', default: 'Hello world' },
+    { name: 'duration', type: 'number', default: 3000 },
+    { name: 'error (todo)', type: 'bool', default: false },
+  ]
+</script>
+
+<!-- <svench:options title="Bar (with custom title)" /> -->
+
+<View name="Default" {knobs} let:knobs={{message, duration}}>
+	<Button onclick={() => toast(message, duration)}>Toast</Button>
+	{#await import('./Toasts.svelte') then { default: Toasts }}
+		<Toasts />
+	{/await}
+</View>

@@ -3,7 +3,7 @@ const colors = require('tailwindcss/colors');
 const config = {
     mode: 'jit',
     purge: [
-        "./src/**/*.{html,svelte,ts}",
+        "./src/**/*.{html,svelte,svench,ts}",
     ],
     theme: {
         extend: {

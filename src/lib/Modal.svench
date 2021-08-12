@@ -1,0 +1,21 @@
+<script>
+	import { View } from 'svench';
+	import Button from './Button.svelte';
+	import Modal from './Modal.svelte';
+	import ShowHide from './ShowHide.svelte';
+</script>
+
+<View name="Default">
+	<ShowHide let:show let:toggle>
+		<Button onclick={toggle}>Open modal</Button>
+		{#if show}
+			<Modal on:close={toggle}>
+				<div slot="heading">Heading</div>
+				Body content
+				<div slot="footer">
+					<Button onclick={toggle}>Close</Button>
+				</div>
+			</Modal>
+		{/if}
+	</ShowHide>
+</View>

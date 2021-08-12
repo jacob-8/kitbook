@@ -34,7 +34,7 @@
 <div class="fixed z-50 inset-x-0 bottom-0 flex flex-col items-center p-2">
 	{#each $toasts as toast (toast.id)}
 		<div
-			class="bg-black bg-opacity-75 text-white mt-2 p-3 rounded max-w-sm"
+			class="bg-black bg-opacity-75 text-white mt-2 px-3 py-2 rounded max-w-sm"
 			in:fly={{ delay: 0, duration: 300, x: 0, y: 50, opacity: 0.1, easing: backOut }}
 			out:fade={{ duration: 500 }}
 		>
@@ -44,10 +44,13 @@
 </div>
 <!-- Look at https://github.com/beyonk-adventures/svelte-notifications also -->
 
-<!-- To use, add once:
+<!-- To use, add once in root layout:
 {#await import('$lib/Toasts.svelte') then { default: Toasts }}
 	<Toasts />
 {/await}
 
 And use:
-toast('hello world') -->
+import { toast } from '$lib/ui/Toasts.svelte'; // double-check proper route
+toast('hello world') 
+toast('hello world', 5000) 
+-->

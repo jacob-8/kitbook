@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.svench": "svelte",
+    "*.svx": "markdown"
+  }
+}
