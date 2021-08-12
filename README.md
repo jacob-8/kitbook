@@ -8,7 +8,7 @@ Run `npm version patch` which will bump from 1.0.2 to 1.0.3 for example and then
 Run `npx svench`
 
 ## Preview
-Run `npx svench build` and `npx sirv-cli /.svench/build` to preview locally or view at __________.
+Run `npx svench build` and `npx sirv-cli /.svench/build` to preview locally or view at https://jwrunner-svelte-ui.vercel.app/.
 
 ### Components TODO
 CKEditor
