@@ -1,0 +1,66 @@
+{
+  "name": "@jwrunner/svelte-ui",
+  "version": "0.0.2",
+  "description": "Useful Svelte UI components shared across projects with some TW styles",
+  "svelte": "src/package/index.js",
+  "type": "module",
+  "devDependencies": {
+    "@sveltejs/kit": "next",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "autoprefixer": "^10.3.1",
+    "cssnano": "^5.0.6",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-svelte3": "^3.2.0",
+    "postcss": "^8.3.5",
+    "postcss-load-config": "^3.1.0",
+    "prettier": "~2.2.1",
+    "prettier-plugin-svelte": "^2.2.0",
+    "svelte": "^3.34.0",
+    "svelte-check": "^2.0.0",
+    "svelte-preprocess": "^4.7.4",
+    "svelte2tsx": "^0.4.5",
+    "svench": "^0.2.0-29",
+    "tailwindcss": "^2.2.4",
+    "tslib": "^2.0.0",
+    "typescript": "^4.0.0"
+  },
+  "peerDependencies": {
+    "typescript": "^4.0.0",
+    "svelte": "^3.34.0",
+    "tailwindcss": "^2.2.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwrunner/runner-ui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwrunner/runner-ui/issues"
+  },
+  "homepage": "https://github.com/jwrunner/runner-ui#readme",
+  "exports": {
+    "./package.json": "./package.json",
+    "./actions/longpress.js": "./actions/longpress.js",
+    "./actions/portal.js": "./actions/portal.js",
+    "./ActionSheet.svelte": "./ActionSheet.svelte",
+    "./Button.svelte": "./Button.svelte",
+    "./Copy.svelte": "./Copy.svelte",
+    "./data/JSON.svelte": "./data/JSON.svelte",
+    ".": "./index.js",
+    "./IntersectionObserver.svelte": "./IntersectionObserver.svelte",
+    "./Modal.svelte": "./Modal.svelte",
+    "./MultiSelect.svelte": "./MultiSelect.svelte",
+    "./PrintDate.svelte": "./PrintDate.svelte",
+    "./ResponsiveTable.svelte": "./ResponsiveTable.svelte",
+    "./ShowHide.svelte": "./ShowHide.svelte",
+    "./SideSheet.svelte": "./SideSheet.svelte",
+    "./Slideover.svelte": "./Slideover.svelte",
+    "./Store.svelte": "./Store.svelte",
+    "./Toasts.svelte": "./Toasts.svelte",
+    "./VirtualList.svelte": "./VirtualList.svelte"
+  }
+}
