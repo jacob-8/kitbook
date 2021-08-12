@@ -1,8 +1,7 @@
 {
   "name": "@jwrunner/svelte-ui",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Useful Svelte UI components shared across projects with some TW styles",
-  "svelte": "package/index.js",
   "type": "module",
   "devDependencies": {
     "@sveltejs/kit": "next",
