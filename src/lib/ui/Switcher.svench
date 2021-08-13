@@ -1,0 +1,27 @@
+<script>
+	import { View } from 'svench';
+	import Switcher from './Switcher.svelte';
+
+	const items = [
+		{
+			title: 'Apps',
+			key: 'APPS'
+		},
+		{
+			title: 'Deploy',
+			key: 'DEPLOY'
+		},
+		{
+			title: 'Settings',
+			key: 'SETTINGS'
+		}
+	];
+
+	let value = 'APPS';
+</script>
+
+<View name="default" let:action>
+	<Switcher headings={items} bind:value on:change={(e) => action('selected', e.detail.value)}>
+		{value}
+	</Switcher>
+</View>
