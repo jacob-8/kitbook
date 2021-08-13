@@ -1,28 +1,23 @@
 <script>
-  import { onMount } from 'svelte';
-
   export let string: string;
-  const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
 
-  function removeProtocol(s: string) {
-    return s.replace(/\https?:\/\//, '');
-  }
-  function prepareUrl(s: string) {
-    return s.replace(/\^www\./, 'http://');
-  }
-
-  function prepareResult(value: string) {
-    console.log({value})
-    if (urlRegex.test(value)) {
-      console.log({value}, 'made it')
-      return { display: removeProtocol(value), url: prepareUrl(value) };
+  function prepareDisplay(s: string) {
+    const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    if (urlRegex.test(s)) {
+      return s.replace(/https?:\/\//, '');
     } else {
-      return { display: value, url: null };
+      return s;
     }
   }
 
-  let result = { display: '', url: null };
-  onMount(() => (result = prepareResult(string)));
+  function prepareHref(s: string) {
+    const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    if (urlRegex.test(s)) {
+      return s.replace(/^www\./, 'http://');
+    } else {
+      return null;
+    }
+  }
 </script>
 
-<slot {result} />
+<slot display={prepareDisplay(string)} href={prepareHref(string)} />
