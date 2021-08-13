@@ -1,0 +1,13 @@
+<script>
+  import { View } from 'svench'
+</script>
+
+<View
+  name="shortcut syntax"
+  knobs={{ text: 'test', number: 123, range: '0-100;2', bool: false }}
+  let:knobs={{ text, number, range, bool }}>
+  <p>Text: {text}</p>
+  <p>Number: {number}</p>
+  <p>Range w/ default: {range}</p>
+  <p>Bool: {bool}</p>
+</View>

@@ -1,0 +1,44 @@
+<script>
+	import { View } from 'svench';
+	import Badge from './Badge.svelte';
+	const colors = ['red', 'orange', 'green', 'gray'];
+</script>
+
+<View name="links">
+	<!-- <Badge  {color}>Plain badge</Badge> -->
+	<Badge href="/">Link</Badge>
+	<Badge href="/" onx={() => alert('x')}>link w/ action</Badge>
+	<Badge href="/" target="_blank">External Link</Badge>
+	<Badge href="https://livingdictionaries.app" onx={() => alert('x')} target="_blank"
+		>livingdictionaries.app w/ action
+	</Badge>
+	<Badge href="https://livingdictionaries.app" onx={() => alert('x')} target="_blank"
+		>livingdictionaries-really-long-url-to-see-how-wrapping-works-for-the-badge-in-the.applivingdictionaries-really-long-url-to-see-how-wrapping-works-for-the-badge-in-the.app
+		w/ action
+	</Badge>
+</View>
+
+<View name="button">
+	<Badge onclick={() => alert('clicked')}>Clothes</Badge>
+	<Badge onclick={() => alert('clicked')} onx={() => alert('x')}>Animals</Badge>
+</View>
+
+<View name="colors">
+  <div class="text-center">
+
+    <div>
+      <Badge>primary</Badge>
+      {#each colors as color}
+			<Badge {color}>{color}</Badge>
+			&nbsp;
+      {/each}
+    </div>
+    <div>
+      <Badge onx={() => alert('x')}>primary</Badge>
+      {#each colors as color}
+			<Badge {color} onx={() => alert('x')}>{color}</Badge>
+			&nbsp;
+      {/each}
+    </div>
+  </div>
+</View>
