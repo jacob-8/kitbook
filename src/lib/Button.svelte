@@ -86,7 +86,7 @@
 <style>
 	a,
 	button {
-		@apply px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white uppercase;
+		@apply px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white;
 		@apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
 	}
 	.red {
