@@ -1,0 +1,29 @@
+<script>
+  import Badge from '$lib/ui/Badge.svelte';
+  import { View } from 'svench';
+  import DetectUrl from './DetectUrl.svelte';
+</script>
+
+<View name="text">
+  <DetectUrl string="Bob McNary" let:result>
+    {result.display} | {result.url}
+  </DetectUrl>
+  <br />
+  <DetectUrl string="Google.com" let:result>
+    {result.display} | {result.url}
+  </DetectUrl>
+</View>
+
+<View name="urls">
+  <DetectUrl string="http://google.com" let:result>
+    <Badge href={result.url} target="_blank">{result.display}</Badge>
+  </DetectUrl>
+  <!-- <DetectUrl string="http://google.com" let:result>
+    <Badge href={result.url} target="_blank">{result.display}</Badge>
+  </DetectUrl> -->
+  <!-- <DetectUrl string="https://www.google.com" let:result>
+    <Badge href={result.url} target="_blank">{result.display}</Badge>
+  </DetectUrl> -->
+</View>
+
+<a href="http://www.google.com">Google</a>
