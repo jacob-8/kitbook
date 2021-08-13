@@ -4,6 +4,15 @@
   const colors = ['red', 'orange', 'green', 'black', 'white'];
 </script>
 
+<View name="Stacked menu">
+  <div class="flex flex-col p-2 space-y-1">
+    <Button href="/" form="menu">Home</Button>
+    <Button href="/" form="menu" active={true}>About</Button>
+    <Button href="/" form="menu">Settings</Button>
+    <Button href="/" form="link">Terms</Button>
+  </div>
+</View>
+
 <View name="External link size">
   <Button href="/" size="sm" target="_blank">sm link</Button>
   <Button href="/" target="_blank">link</Button>

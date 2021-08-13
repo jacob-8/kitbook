@@ -8,9 +8,10 @@
 		type: 'button' | 'submit' = 'button',
 		target: '_blank' | '' = '',
 		size: 'sm' | 'md' | 'lg' = 'md',
-		form: 'primary' | 'outline' | 'simple' = 'outline',
+		form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' = 'outline',
 		color: 'red' | 'orange' | 'green' | 'black' | 'white' | string = undefined,
-		disabled = false;
+		disabled = false,
+		active = false;
 
 	$: disable = disabled || loading;
 
@@ -34,6 +35,7 @@
 		{href}
 		{target}
 		sveltekit:prefetch
+		class:active
 		class="{$$props.class} {form} {size} {color} text-center inline-block"
 	>
 		<slot />
@@ -55,6 +57,7 @@
 	</a>
 {:else}
 	<button
+		class:active
 		class:disabled={disable}
 		class="{$$props.class} {form} {size} {color} text-center inline-block"
 		{type}
@@ -81,12 +84,9 @@
 {/if}
 
 <style>
-	svg {
-		vertical-align: -2px;
-	}
 	a,
 	button {
-		@apply items-center px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white uppercase;
+		@apply px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white uppercase;
 		@apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
 	}
 	.red {
@@ -122,6 +122,19 @@
 	.simple {
 		@apply border-none shadow-none;
 	}
+	.menu,
+	.link {
+		@apply border-none shadow-none text-gray-700 hover:text-gray-900 focus:ring-gray-500;
+	}
+	.menu {
+		@apply rounded-lg hover:bg-gray-200;
+	}
+	.link {
+		@apply hover:underline hover:bg-transparent;
+	}
+	.active {
+		@apply bg-gray-200 text-gray-800;
+	}
 	.sm {
 		@apply text-xs px-2.5 py-1.5;
 	}
@@ -132,5 +145,8 @@
 	:disabled,
 	.disabled {
 		@apply opacity-50 cursor-not-allowed;
+	}
+	svg {
+		vertical-align: -2px;
 	}
 </style>
