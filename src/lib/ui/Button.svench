@@ -1,6 +1,6 @@
 <script>
   import { View } from 'svench';
-  import Button from './Button.svelte';
+  import Button from '$lib/ui/Button.svelte';
   const colors = ['red', 'orange', 'green', 'black', 'white'];
 </script>
 

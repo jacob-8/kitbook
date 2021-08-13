@@ -1,5 +1,5 @@
 <script>
-  import Button from '../Button.svelte';
+  import Button from '.$lib/ui/Button.svelte';
   import ShowHide from '../ShowHide.svelte';
   export let obj: Record<string, any>;
   $: json = JSON.stringify(obj, null, 2)

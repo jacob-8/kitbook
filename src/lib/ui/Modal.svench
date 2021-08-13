@@ -1,11 +1,11 @@
 <script>
 	import { View } from 'svench';
-	import Button from './Button.svelte';
-	import Modal from './Modal.svelte';
-	import ShowHide from './ShowHide.svelte';
+	import Button from '$lib/ui/Button.svelte';
+	import Modal from '$lib/ui/Modal.svelte';
+	import ShowHide from '$lib/functions/ShowHide.svelte';
 </script>
 
-<View name="Default">
+<View name="Relies on ShowHide">
 	<ShowHide let:show let:toggle>
 		<Button onclick={toggle}>Open modal</Button>
 		{#if show}

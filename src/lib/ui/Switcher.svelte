@@ -1,5 +1,5 @@
 <script>
-	import Button from '$lib/Button.svelte';
+	import Button from '$lib/ui/Button.svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ change: { value: string } }>();

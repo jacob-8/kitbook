@@ -1,0 +1,26 @@
+<script>
+	import { View } from 'svench';
+	import Store from './Store.svelte';
+	let value = 'world';
+</script>
+
+<!-- <svench:options title="Sibling Data Sharing" /> -->
+
+<View name="Store + Keyup Event (delayed by nature of event)">
+	<Store startWith="hello" let:set let:data>
+		<input
+			type="text"
+			value={data}
+			on:keyup={(e) => {
+				//@ts-ignore
+				set(e.target.value);
+			}}
+		/>
+		<div>{data}</div>
+	</Store>
+</View>
+
+<View name="2-way binding for comparison">
+	<input type="text" bind:value />
+	<div>{value}</div>
+</View>
