@@ -1,8 +1,8 @@
 <script>
-  import HideOnScroll from './HideOnScroll.svelte';
   import { View } from 'svench';
+  import HideOnScroll from './HideOnScroll.svelte';
   import ShowHide from './ShowHide.svelte';
-  import Button from '$lib/ui/Button.svelte';
+  import Button from '../ui/Button.svelte';
 
   let lines = [];
   for (let i = 1; i < 256; i++) {
@@ -31,7 +31,6 @@
     </main>
   </ShowHide>
 </View>
-
 
 <style>
   header {
