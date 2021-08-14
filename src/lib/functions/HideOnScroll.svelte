@@ -1,46 +1,49 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
+
   export let duration = '300ms';
   export let offset = 0;
   export let tolerance = 0;
 
-  let headerClass = 'show';
+  let headerClass = 'pin';
+  let lastHeaderClass = 'pin';
   let y = 0;
   let lastY = 0;
 
-  function deriveClass(y, dy) {
-    if (y < offset) {
-      return 'show';
-    }
-
-    if (Math.abs(dy) <= tolerance) {
-      return headerClass;
-    }
-
-    if (dy < 0) {
-      return 'show';
-    }
-
-    return 'hide';
+  const dispatch = createEventDispatcher();
+  function deriveClass(y = 0, scrolled = 0) {
+    if (y < offset) return 'pin';
+    if (!scrolled || Math.abs(scrolled) < tolerance) return headerClass;
+    const dir = scrolled < 0 ? 'down' : 'up';
+    if (dir === 'up') return 'pin';
+    if (dir === 'down') return 'unpin';
+    return headerClass;
   }
-
-  function updateClass(y) {
-    const dy = lastY - y;
+  function updateClass(y = 0) {
+    const scrolledPxs = lastY - y;
+    const result = deriveClass(y, scrolledPxs);
     lastY = y;
-    return deriveClass(y, dy);
+    return result;
   }
-
-  function setTransitionDuration(node: HTMLElement) {
+  function action(node) {
     node.style.transitionDuration = duration;
   }
-
-  $: headerClass = updateClass(y);
+  $: {
+    headerClass = updateClass(y);
+    if (headerClass !== lastHeaderClass) {
+      dispatch(headerClass);
+    }
+    lastHeaderClass = headerClass;
+  }
 </script>
 
 <svelte:window bind:scrollY={y} />
 
-<div use:setTransitionDuration class={headerClass}>
+<div use:action class={headerClass}>
   <slot />
 </div>
+
+<!-- From https://github.com/collardeau/svelte-headroom -->
 
 <style>
   div {
@@ -49,12 +52,10 @@
     top: 0;
     transition: transform 300ms linear;
   }
-  .show {
+  .pin {
     transform: translateY(0%);
   }
-  .hide {
+  .unpin {
     transform: translateY(-100%);
   }
 </style>
-
-<!-- From https://presstige.io/p/Hide-header-on-scroll-in-Svelte-219cc979e826459a97ede99c7c7fb09b -->

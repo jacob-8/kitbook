@@ -10,7 +10,7 @@
 
 <View>
   <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
-    <div class="header-content">Content inside vanishing header</div>
+    <div class="header-content p-5 bg-white bg-opacity-75">Content inside vanishing header</div>
   </HideOnScroll>
 
   <main>
