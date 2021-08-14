@@ -14,7 +14,7 @@
   <ShowHide let:toggle let:show>
     {#if show}
       <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
-        <header class="py-4 md:py-6 w-full">Content inside vanishing header</header>
+        <header class="py-4 md:py-6 w-full" style="background: linear-gradient(0deg, #f9f9fa00 0%, #f9f9fad9 40%, #f9f9fa 100%);">Content inside vanishing header</header>
       </HideOnScroll>
     {:else}
       Enter View 1 and then press "render naked" button in upper right and then turn on
@@ -31,9 +31,3 @@
     </main>
   </ShowHide>
 </View>
-
-<style>
-  header {
-    background: linear-gradient(0deg, #f9f9fa00 0%, #f9f9fad9 40%, #f9f9fa 100%);
-  }
-</style>
