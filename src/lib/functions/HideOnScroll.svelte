@@ -1,16 +1,14 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-
+  // From https://github.com/collardeau/svelte-headroom
   export let duration = '300ms';
   export let offset = 0;
   export let tolerance = 0;
+  export let zIndex = 1;
 
   let headerClass = 'pin';
-  let lastHeaderClass = 'pin';
   let y = 0;
   let lastY = 0;
 
-  const dispatch = createEventDispatcher();
   function deriveClass(y = 0, scrolled = 0) {
     if (y < offset) return 'pin';
     if (!scrolled || Math.abs(scrolled) < tolerance) return headerClass;
@@ -28,22 +26,14 @@
   function action(node) {
     node.style.transitionDuration = duration;
   }
-  $: {
-    headerClass = updateClass(y);
-    if (headerClass !== lastHeaderClass) {
-      dispatch(headerClass);
-    }
-    lastHeaderClass = headerClass;
-  }
+  $: headerClass = updateClass(y);
 </script>
 
 <svelte:window bind:scrollY={y} />
 
-<div use:action class={headerClass}>
+<div use:action class={headerClass} style="z-index: {zIndex};">
   <slot />
 </div>
-
-<!-- From https://github.com/collardeau/svelte-headroom -->
 
 <style>
   div {

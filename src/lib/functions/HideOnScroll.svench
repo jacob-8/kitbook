@@ -1,6 +1,8 @@
 <script>
   import HideOnScroll from './HideOnScroll.svelte';
   import { View } from 'svench';
+  import ShowHide from './ShowHide.svelte';
+  import Button from '$lib/ui/Button.svelte';
 
   let lines = [];
   for (let i = 1; i < 256; i++) {
@@ -9,15 +11,31 @@
 </script>
 
 <View>
-  <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
-    <div class="header-content p-5 bg-white bg-opacity-75">Content inside vanishing header</div>
-  </HideOnScroll>
+  <ShowHide let:toggle let:show>
+    {#if show}
+      <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
+        <header>Content inside vanishing header</header>
+      </HideOnScroll>
+    {:else}
+      Enter View 1 and then press "render naked" button in upper right and then turn on
+    {/if}
 
-  <main>
-    <div>This is a content of the page.</div>
-    <div>Just a lot of lines to make the page scrollable.</div>
-    {#each lines as line}
-      <div>A line number {line}.</div>
-    {/each}
-  </main>
+    <main>
+      <div>This is mock content of the page.</div>
+      <div>Just a lot of lines to make the page scrollable.</div>
+      <div>One more</div>
+      <Button onclick={toggle}>Turn {show ? 'off' : 'on'}</Button>
+      {#each lines as line}
+        <div>A line number {line}.</div>
+      {/each}
+    </main>
+  </ShowHide>
 </View>
+
+
+<style>
+  header {
+    @apply py-4 md:py-6 w-full;
+    background: linear-gradient(0deg, #f9f9fa00 0%, #f9f9fad9 40%, #f9f9fa 100%);
+  }
+</style>
