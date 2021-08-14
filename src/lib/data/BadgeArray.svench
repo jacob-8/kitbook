@@ -1,0 +1,10 @@
+<script>
+  import { View } from 'svench';
+  import BadgeArray from './BadgeArray.svelte';
+
+  const books = ['Lord of the Rings', 'www.books.com'];
+</script>
+
+<View>
+  <BadgeArray strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" />
+</View>
