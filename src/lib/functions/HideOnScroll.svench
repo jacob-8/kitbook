@@ -1,0 +1,23 @@
+<script>
+  import HideOnScroll from './HideOnScroll.svelte';
+  import { View } from 'svench';
+
+  let lines = [];
+  for (let i = 1; i < 256; i++) {
+    lines.push(i);
+  }
+</script>
+
+<View>
+  <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
+    <div class="header-content">Content inside vanishing header</div>
+  </HideOnScroll>
+
+  <main>
+    <div>This is a content of the page.</div>
+    <div>Just a lot of lines to make the page scrollable.</div>
+    {#each lines as line}
+      <div>A line number {line}.</div>
+    {/each}
+  </main>
+</View>
