@@ -1,14 +1,14 @@
 <script>
   import Button from '../ui/Button.svelte';
   import Badge from '../ui/Badge.svelte';
+  import DetectUrl from '../functions/DetectUrl.svelte';
 
-  import { createEventDispatcher } from 'svelte';
-  import DetectUrl from '$shared/functions/DetectUrl.svelte';
   export let strings: string[] = [],
     canEdit = false,
     promptMessage: string,
     addMessage: string;
 
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{ valueupdated: string[] }>();
 </script>
 
