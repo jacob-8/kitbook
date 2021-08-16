@@ -1,0 +1,10 @@
+<script>
+  import { View } from 'svench';
+  import Youtube from './Youtube.svelte';
+</script>
+
+<View>
+	<div style="width: 640px;">
+		<Youtube videoId="48gHuY4w0hY" />
+	</div>
+</View>
