@@ -110,7 +110,9 @@
     max-width: 100%;
   }
 
-  :global(.responsive iframe, .responsive object, .responsive embed) {
+  :global(.responsive iframe),
+  :global(.responsive object),
+  :global(.responsive embed) {
     position: absolute;
     top: 0;
     left: 0;

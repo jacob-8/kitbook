@@ -8,12 +8,11 @@
   export let right = 0;
 
   let intersecting = false;
-  let container;
-
+  let container: HTMLDivElement;
   let interval;
 
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{ intersected: null }>();
   $: if (intersecting === true) {
     dispatch('intersected');
     interval = setInterval(() => {
@@ -65,13 +64,6 @@
   });
 </script>
 
-<div bind:this={container}>
+<div style="width: 100%; height: 100%;" bind:this={container}>
   <slot {intersecting} />
 </div>
-
-<style>
-  div {
-    width: 100%;
-    height: 100%;
-  }
-</style>

@@ -17,7 +17,7 @@ interface YoutubeCaption {
 }
 
 export const getTracks = async (videoId: string): Promise<YoutubeCaptionTrack[]> => {
-  const response = await fetch(`http://video.google.com/timedtext?type=list&v=${videoId}`);
+  const response = await fetch(`https://video.google.com/timedtext?type=list&v=${videoId}`);
   const xml = await response.text();
   return parseTracksXml(xml);
 };
@@ -26,7 +26,7 @@ export const getCaptions = async (
   videoId: string,
   track: YoutubeCaptionTrack
 ): Promise<YoutubeCaption[]> => {
-  let url = `http://video.google.com/timedtext?type=track&v=${videoId}&lang=${track.langCode}`;
+  let url = `https://video.google.com/timedtext?type=track&v=${videoId}&lang=${track.langCode}`;
   if (track.name) url += `&name=${track.name}`;
   const response = await fetch(url);
   const xml = await response.text();
@@ -44,8 +44,8 @@ const options: Partial<X2jOptions> = {
   trimValues: true,
   parseTrueNumberOnly: false,
   arrayMode: false, //"strict"
-  attrValueProcessor: (val, attrName) => he.decode(val, {isAttributeValue: true}), //default is a=>a
-  tagValueProcessor : (val, tagName) => he.decode(val), //default is a=>a
+  attrValueProcessor: (val, attrName) => he.decode(val, { isAttributeValue: true }), //default is a=>a
+  tagValueProcessor: (val, tagName) => he.decode(val), //default is a=>a
 };
 
 export const parseTracksXml = (xml: string): YoutubeCaptionTrack[] => {
@@ -90,3 +90,7 @@ export const parseCaptionsXml = (xml: string): YoutubeCaption[] => {
 
 // from @os-team/youtube-captions though its sax depenency is only for Node so am using fast-xml-parser instead to cover browser usage
 // useful links: https://stackoverflow.com/questions/23665343/get-closed-caption-cc-for-youtube-video/30601863
+
+export const findCurrentCaption = (captions: YoutubeCaption[], time: number) => {
+  return captions.find(({ start, duration }) => start <= time && start + duration > time);
+};

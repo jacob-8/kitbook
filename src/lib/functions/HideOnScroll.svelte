@@ -4,6 +4,8 @@
   export let offset = 0;
   export let tolerance = 0;
   export let zIndex = 1;
+  export let direction: 'up' | 'down' = 'down';
+  export let bottom = false;
 
   let headerClass = 'pin';
   let y = 0;
@@ -13,8 +15,8 @@
     if (y < offset) return 'pin';
     if (!scrolled || Math.abs(scrolled) < tolerance) return headerClass;
     const dir = scrolled < 0 ? 'down' : 'up';
-    if (dir === 'up') return 'pin';
-    if (dir === 'down') return 'unpin';
+    if (dir !== direction) return 'pin';
+    if (dir === direction) return 'unpin';
     return headerClass;
   }
   function updateClass(y = 0) {
@@ -31,7 +33,7 @@
 
 <svelte:window bind:scrollY={y} />
 
-<div use:action class={headerClass} style="z-index: {zIndex};">
+<div use:action class={headerClass} class:bottom style="z-index: {zIndex};">
   <slot />
 </div>
 
@@ -47,5 +49,15 @@
   }
   .unpin {
     transform: translateY(-100%);
+  }
+  div.bottom {
+    top: unset;
+    bottom: 0;
+  }
+  .pin.bottom {
+    transform: translateY(0%);
+  }
+  .unpin.bottom {
+    transform: translateY(100%);
   }
 </style>

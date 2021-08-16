@@ -5,6 +5,10 @@
   const books = ['Lord of the Rings', 'www.books.com'];
 </script>
 
-<View>
+<View name="Basic display">
   <BadgeArray strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" />
+</View>
+
+<View name="Editable" let:action>
+  <BadgeArray canEdit strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" on:valueupdated={e => action('valueupdated', e.detail)} />
 </View>

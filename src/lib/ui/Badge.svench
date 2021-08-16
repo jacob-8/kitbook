@@ -5,7 +5,6 @@
 </script>
 
 <View name="links">
-	<!-- <Badge  {color}>Plain badge</Badge> -->
 	<Badge href="/">Link</Badge>
 	<Badge href="/" onx={() => alert('x')}>link w/ action</Badge>
 	<Badge href="/" target="_blank">External Link</Badge>
