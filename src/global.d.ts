@@ -5,3 +5,9 @@ declare namespace svelte.JSX {
     onlongpress?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
   }
 }
+
+// declare global {
+//   interface Window {
+//     onYouTubeIframeAPIReady: any;
+//   }
+// }

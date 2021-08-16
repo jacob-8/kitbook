@@ -1,13 +1,20 @@
 <script context="module">
-  // Useful Svelte example https://github.com/PandaWhisperer/svelte-youtube/blob/master/src/index.svelte
-  // not using VimeJS nor https://github.com/gajus/youtube-player
-  let tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  let firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  export const PlayerState = {
+    UNSTARTED: -1,
+    ENDED: 0,
+    PLAYING: 1,
+    PAUSED: 2,
+    BUFFERING: 3,
+    CUED: 5,
+  };
+
+  const script = document.createElement('script');
+  script.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(script);
 
   let iframeApiReady = false;
-  // @ts-ignore
+
+  //@ts-ignore
   window.onYouTubeIframeAPIReady = () => {
     window.dispatchEvent(new Event('iframeApiReady'));
     iframeApiReady = true;
@@ -16,55 +23,63 @@
 
 <script>
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-  import Button from './Button.svelte';
   export let videoId: string;
   let player: YT.Player;
 
-  onMount(() => {
-    iframeApiReady ? initPlayer() : window.addEventListener('iframeApiReady', initPlayer);
-  });
+  const dispatch = createEventDispatcher<{
+    ready: YT.PlayerEvent;
+    error: YT.OnErrorEvent;
+    stateChange: YT.OnStateChangeEvent;
+    playbackRateChange: YT.OnPlaybackRateChangeEvent;
+    playbackQualityChange: YT.OnPlaybackQualityChangeEvent;
+  }>();
+
+  onMount(() =>
+    iframeApiReady ? initPlayer() : window.addEventListener('iframeApiReady', initPlayer)
+  );
 
   function initPlayer() {
     player = new YT.Player('player', {
-      height: '390',
-      width: '640',
       videoId,
       playerVars: {
+        modestbranding: 1,
         playsinline: 1,
+        rel: 0,
       },
       events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange,
+        onReady: (e) => dispatch('ready', e),
+        onError: (e) => dispatch('error', e),
+        onStateChange: (e) => dispatch('stateChange', e),
+        onPlaybackRateChange: (e) => dispatch('playbackRateChange', e),
+        onPlaybackQualityChange: (e) => dispatch('playbackQualityChange', e),
       },
     });
   }
 
-  function onPlayerReady() {
-    console.log('ready!');
-    player.playVideo();
-    // setInterval(() => {
-    //   dispatch('currentPlayTime', player.getCurrentTime());
-    //   console.log(player.getCurrentTime());
-    // }, 1000);
-  }
-
-  const dispatch = createEventDispatcher();
-  function onPlayerStateChange({ data }) {
-    dispatch('PlayerStateChange', data);
-    console.log(Object.keys(YT.PlayerState).find((key) => YT.PlayerState[key] === data));
-    if (data == YT.PlayerState.PLAYING) {}
-  }
-
-  onDestroy(() => {
-    player.destroy();
-  });
+  onDestroy(() => player.destroy());
 </script>
 
-<div id="player" />
+<div class="responsive">
+  <div id="player" />
+</div>
+{#if player}
+  <slot {player} />
+{/if}
 
-<Button onclick={() => player.pauseVideo()}>Pause</Button>
-<Button onclick={() => player.playVideo()}>Play</Button>
-<Button onclick={() => player.stopVideo()}>Stop</Button>
-<Button onclick={() => player.seekTo(100, true)}>100ss</Button>
-<Button onclick={() => player.setPlaybackRate(.75)}>.75</Button>
-<Button onclick={() => player.setPlaybackRate(1)}>1</Button>
+<style>
+  .responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  :global(.responsive iframe, .responsive object, .responsive embed) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

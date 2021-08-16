@@ -1,10 +1,37 @@
 <script>
   import { View } from 'svench';
-  import Youtube from './Youtube.svelte';
+  import Button from './Button.svelte';
+  import Youtube, { PlayerState} from './Youtube.svelte';
+
+  // function onPlayerReady({ detail: { target } }: { detail: { target: YT.Player } }) {
+  function onPlayerReady({ detail: { target } }) {
+    console.log('ready!');
+    target.playVideo();
+    // setInterval(() => {
+    //   dispatch('currentPlayTime', player.getCurrentTime());
+    //   console.log(player.getCurrentTime());
+    // }, 1000);
+  }
 </script>
 
-<View>
-	<div style="width: 640px;">
-		<Youtube videoId="48gHuY4w0hY" />
-	</div>
+<View name="Responsive" knobs={{width: '200-1000;640'}} let:knobs={{width}}>
+  <div style="width: {width}px;">
+    <Youtube
+      videoId="48gHuY4w0hY"
+      let:player
+      on:ready={onPlayerReady}
+      on:stateChange={(e) => {
+        console.log(Object.keys(PlayerState).find((key) => PlayerState[key] === e.detail.data));
+        if (e.detail.data == PlayerState.PLAYING) {
+          console.log('playing');
+        }
+      }}>
+      <Button onclick={() => player.pauseVideo()}>Pause</Button>
+      <Button onclick={() => player.playVideo()}>Play</Button>
+      <Button onclick={() => player.stopVideo()}>Stop</Button>
+      <Button onclick={() => player.seekTo(100, true)}>100ss</Button>
+      <Button onclick={() => player.setPlaybackRate(0.75)}>.75</Button>
+      <Button onclick={() => player.setPlaybackRate(1)}>1</Button>
+    </Youtube>
+  </div>
 </View>
