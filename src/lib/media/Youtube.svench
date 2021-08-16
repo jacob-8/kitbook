@@ -1,6 +1,6 @@
 <script>
   import { View } from 'svench';
-  import Button from './Button.svelte';
+  import Button from '../ui/Button.svelte';
   import Youtube, { PlayerState } from './Youtube.svelte';
 
   // const onPlayerReady = ({ detail }: { detail: YT.Player }) => {
