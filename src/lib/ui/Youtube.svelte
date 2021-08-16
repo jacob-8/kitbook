@@ -27,7 +27,7 @@
   let player: YT.Player;
 
   const dispatch = createEventDispatcher<{
-    ready: YT.PlayerEvent;
+    ready: YT.Player;
     error: YT.OnErrorEvent;
     stateChange: YT.OnStateChangeEvent;
     playbackRateChange: YT.OnPlaybackRateChangeEvent;
@@ -47,23 +47,58 @@
         rel: 0,
       },
       events: {
-        onReady: (e) => dispatch('ready', e),
-        onError: (e) => dispatch('error', e),
-        onStateChange: (e) => dispatch('stateChange', e),
-        onPlaybackRateChange: (e) => dispatch('playbackRateChange', e),
-        onPlaybackQualityChange: (e) => dispatch('playbackQualityChange', e),
+        onReady: (e) => {
+          state = e.target.getPlayerState();
+          playbackRate = e.target.getPlaybackRate();
+          playbackQuality = e.target.getPlaybackQuality();
+          readyPlayer = e.target;
+          dispatch('ready', e.target);
+        },
+        onError: (e) => {
+          error = e.data;
+          errorExplanation = Object.keys(YT.PlayerError).find(
+            (key) => YT.PlayerError[key] === error
+          );
+          dispatch('error', e);
+        },
+        onStateChange: (e) => {
+          state = e.data;
+          dispatch('stateChange', e);
+        },
+        onPlaybackRateChange: (e) => {
+          playbackRate = e.data;
+          dispatch('playbackRateChange', e);
+        },
+        onPlaybackQualityChange: (e) => {
+          playbackQuality = e.data;
+          dispatch('playbackQualityChange', e);
+        },
       },
     });
   }
 
-  onDestroy(() => player.destroy());
+  let error: YT.PlayerError;
+  let errorExplanation: string;
+  let state: YT.PlayerState;
+  let playbackRate: number;
+  let playbackQuality: string;
+  let readyPlayer: YT.Player;
+
+  onDestroy(() => player && player.destroy());
 </script>
 
 <div class="responsive">
-  <div id="player" />
+  {#if !error}
+    <div id="player" />
+  {:else}
+    <div style="text-align: center; margin-top: 20px;">
+      Playback Error {error}: {errorExplanation}
+    </div>
+  {/if}
 </div>
-{#if player}
-  <slot {player} />
+
+{#if readyPlayer}
+  <slot {player} {state} {playbackRate} {playbackQuality} />
 {/if}
 
 <style>
