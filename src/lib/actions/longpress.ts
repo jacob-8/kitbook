@@ -1,4 +1,4 @@
-export function longpress(node: Node, duration = 500) {
+export function longpress(node: Node, duration = 400) {
   let start: number; // for shortpress
   let shortpressed: number; // so touchend and mouseup events don't both emit on touch devices
   let timer; // for longpress
