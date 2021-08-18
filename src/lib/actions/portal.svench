@@ -1,0 +1,26 @@
+<script>
+  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from '$lib/ui/Button.svelte';
+  import { View } from 'svench';
+  import { portal } from './portal';
+</script>
+
+<View>
+  <ShowHide let:show let:toggle>
+    <Button onclick={toggle}>Toggle 'use:portal'</Button>
+    <div class="relative" style="height: 100px; width: 300px;">
+      {#if show}
+        <div
+          use:portal
+          class="p-6 flex items-center justify-center font-bold bg-blue-200 rounded-full z-10 absolute bottom-0 right-0">
+          I've been portaled to the body.
+        </div>
+      {:else}
+        <div
+          class="p-6 flex items-center justify-center font-bold bg-blue-200 rounded-full z-10 absolute bottom-0 right-0">
+          I haven't been portaled.
+        </div>
+      {/if}
+    </div>
+  </ShowHide>
+</View>
