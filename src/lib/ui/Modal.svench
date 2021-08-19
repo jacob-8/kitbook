@@ -1,21 +1,28 @@
 <script>
-	import { View } from 'svench';
-	import Button from '$lib/ui/Button.svelte';
-	import Modal from '$lib/ui/Modal.svelte';
-	import ShowHide from '$lib/functions/ShowHide.svelte';
+  import { View } from 'svench';
+  import Button from '$lib/ui/Button.svelte';
+  import Modal from '$lib/ui/Modal.svelte';
+  import ShowHide from '$lib/functions/ShowHide.svelte';
 </script>
 
-<View name="Relies on ShowHide">
-	<ShowHide let:show let:toggle>
-		<Button onclick={toggle}>Open modal</Button>
-		{#if show}
-			<Modal on:close={toggle}>
-				<div slot="heading">Heading</div>
-				Body content
-				<div slot="footer">
-					<Button onclick={toggle}>Close</Button>
-				</div>
-			</Modal>
-		{/if}
-	</ShowHide>
+<View name="Relies on ShowHide" let:action>
+  <ShowHide let:show let:toggle>
+    <Button onclick={toggle}>Open modal</Button>
+    {#if show}
+      <Modal on:close={toggle}>
+        <div slot="heading">Heading</div>
+        <form
+          on:submit|preventDefault={(e) => {
+            action('submitted', e);
+            toggle();
+          }}>
+          Body content
+          <div class="modal-footer space-x-1">
+            <Button form="simple" onclick={toggle}>Close</Button>
+            <Button form="primary" type="submit">Save</Button>
+          </div>
+        </form>
+      </Modal>
+    {/if}
+  </ShowHide>
 </View>

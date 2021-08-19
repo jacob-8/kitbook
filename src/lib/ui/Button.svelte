@@ -8,7 +8,7 @@
 		type: 'button' | 'submit' = 'button',
 		target: '_blank' | '' = '',
 		size: 'sm' | 'md' | 'lg' = 'md',
-		form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' | 'badge' = 'outline',
+		form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' = 'outline',
 		color: 'red' | 'orange' | 'green' | 'black' | 'white' | string = undefined,
 		disabled = false,
 		active = false;
