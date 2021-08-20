@@ -1,11 +1,17 @@
 <script>
   import { portal } from '$lib/actions/portal';
 
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import { fade } from 'svelte/transition';
 
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
+
+  onMount(() => {
+    // document.body.classList.add('no-scroll');
+    // const body = document.querySelector("body");
+    document.body.style.overflow = 'hidden';
+  });
 
   let modal: HTMLDivElement;
 
@@ -16,16 +22,17 @@
     }
 
     if (e.key === 'Tab') {
+      // trap focus
       const nodes = modal.querySelectorAll('*');
       //@ts-ignore
       const tabbable = Array.from(nodes).filter((n) => n.tabIndex >= 0);
-      
+
       let index = tabbable.indexOf(document.activeElement);
       if (index === -1 && e.shiftKey) index = 0;
-      
+
       index += tabbable.length + (e.shiftKey ? -1 : 1);
       index %= tabbable.length;
-      
+
       //@ts-ignore
       tabbable[index].focus();
       e.preventDefault();
@@ -38,6 +45,7 @@
     onDestroy(() => {
       //@ts-ignore
       previously_focused.focus();
+      document.body.style.overflow = 'auto';
     });
   }
 </script>
