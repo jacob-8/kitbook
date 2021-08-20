@@ -1,0 +1,19 @@
+<script>
+  import { View } from 'svench';
+  import Menu from './Menu.svelte';
+</script>
+
+<View block>
+  <div class="relative bg-white p-3" style="height: 250px;">
+    <!-- <Menu class="right-2 top-11" /> -->
+    <Menu class="right-2">
+      <div class="px-4 py-2 text-xs font-semibold text-gray-600 border-b">John Smith</div>
+      <a href="/admin">
+        Admin Panel
+        <i class="fas fa-key" />
+      </a>
+      <a href="/account"> Settings </a>
+      <button> Log out </button>
+    </Menu>
+  </div>
+</View>
