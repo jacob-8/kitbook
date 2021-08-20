@@ -5,7 +5,7 @@
 </script>
 
 <View name="Stacked menu">
-  <div class="flex flex-col p-2 space-y-1">
+  <div class="flex flex-col p-2 space-y-1 w-96">
     <Button href="/" form="menu">Home</Button>
     <Button href="/" form="menu" active={true}>About</Button>
     <Button href="/" form="menu">Settings</Button>
@@ -64,5 +64,11 @@
 <View name="ctrl click" let:action>
   <Button onclick={({ ctrlKey }) => action('button click', { ctrlKey })}>
 		Click with Ctrl
+	</Button>
+</View>
+
+<View name="text">
+  <Button form="text">
+		Log In
 	</Button>
 </View>

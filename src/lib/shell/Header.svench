@@ -1,0 +1,23 @@
+<script>
+  import Button from '$lib/ui/Button.svelte';
+  import { View } from 'svench';
+  import Header from './Header.svelte';
+</script>
+
+<View name="signed in | Home" block>
+  <Header user={{ uid: '123', displayName: 'John' }} />
+</View>
+
+<View name="signed out | non-home long name" block>
+  <Header>About page that has a Really Quite Ridiculously Long Page Name</Header>
+</View>
+
+<View name="signed out | has menu" block let:action>
+  <Header>
+    <div
+      slot="left"
+      class="whitespace-nowrap overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
+      <Button form="text" onclick={action('menu opened')} class="!text-lg !font-semibold">= Bahasa Lani</Button>
+    </div>
+  </Header>
+</View>

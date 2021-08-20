@@ -3,8 +3,8 @@
   import SplitPane from './SplitPane.svelte';
 </script>
 
-<View name="Position 30">
-  <div style="width: 400px; height: 400px;">
+<View name="Position 30" block>
+  <div style="height: 400px;">
     <SplitPane --divider-hover="hsl(195, 53%, 70%)" pos={30}>
       <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>
       <section class="text-center" slot="b">Slot B</section>
@@ -12,8 +12,8 @@
   </div>
 </View>
 
-<View name="Customized (try the knobs)" knobs={{ vertical: true, pos: '10-90;50' }} let:knobs={{ vertical, pos }}>
-  <div style="width: 400px; height: 400px;">
+<View name="Customized (try the knobs)" knobs={{ vertical: true, pos: '10-90;50' }} let:knobs={{ vertical, pos }} block>
+  <div style="height: 400px;">
     <SplitPane --divider-hover="hsl(195, 53%, 70%)" type={vertical ? 'vertical' : 'horizontal'} {pos}>
       <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>
       <section class="text-center" slot="b">Slot B</section>

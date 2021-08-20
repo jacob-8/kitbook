@@ -3,12 +3,9 @@
 	function toggle() {
 		show = !show;
 	}
-
-	// Usage example:
-	// <ShowHide let:show let:toggle>
-  // 	<Button onclick={toggle}>Show</Button>;
-  // 	{#if show}Toggled content{/if}
-	// </ShowHide>
+	function set(value: boolean) {
+		show = value;
+	}
 </script>
 
-<slot {show} {toggle} />
+<slot {show} {toggle} {set} />

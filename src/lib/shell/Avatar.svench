@@ -1,0 +1,34 @@
+<script>
+  import { View } from 'svench';
+  import Avatar from './Avatar.svelte';
+</script>
+
+<View name="image">
+  <Avatar
+    user={{
+      displayName: 'John Smith',
+      photoURL:
+        'https://lh5.googleusercontent.com/-qCXZXfIkRQ8/AAAAAAAAAAI/AAAAAAAAACc/wAdH8yns3QQ/photo.jpg',
+    }} />
+</View>
+
+<View name="broken image">
+  <Avatar
+    user={{
+      displayName: 'John Smith',
+      photoURL:
+        'https://broken-link.broken.jpg',
+    }} />
+</View>
+
+<View name="full name">
+  <Avatar user={{ displayName: 'John Smith' }} />
+</View>
+
+<View name="single name">
+  <Avatar user={{ displayName: 'John' }} />
+</View>
+
+<View name="No display name, use email">
+  <Avatar user={{ email: 'j@gc.com', displayName: null }} />
+</View>
