@@ -6,7 +6,7 @@
     ) => any = undefined,
     href = undefined,
     type: 'button' | 'submit' = 'button',
-    target: '_blank' | '' = '',
+    target: '_blank' = undefined,
     size: 'sm' | 'md' | 'lg' = 'md',
     form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
     color: 'red' | 'orange' | 'green' | 'black' | 'white' | string = undefined,
@@ -31,14 +31,13 @@
 </script>
 
 {#if href}
-  <a
-    {href}
-    {target}
-    sveltekit:prefetch
-    class:active
-    class="{$$props.class} {form} {size} {color} text-center inline-block">
-    <slot />
-    {#if target === '_blank'}
+  {#if target === '_blank'}
+    <a
+      {href}
+      target="_blank"
+      rel="noopener"
+      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      <slot />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-4 w-4 inline"
@@ -49,8 +48,16 @@
         <path
           d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
       </svg>
-    {/if}
-  </a>
+    </a>
+  {:else}
+    <a
+      {href}
+      sveltekit:prefetch
+      class:active
+      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      <slot />
+    </a>
+  {/if}
 {:else}
   <button
     class:active

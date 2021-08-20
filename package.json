@@ -1,6 +1,6 @@
 {
 	"name": "@jwrunner/svelte-ui",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Useful Svelte UI components shared across projects with some TW styles",
 	"type": "module",
 	"scripts": {

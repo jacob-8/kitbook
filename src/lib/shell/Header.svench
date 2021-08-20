@@ -18,7 +18,7 @@
   <Header>
     <div
       slot="left"
-      class="whitespace-nowrap overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
+      class="overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
       <Button form="text" onclick={action('menu opened')} class="!text-lg !font-semibold">= Bahasa Lani</Button>
     </div>
   </Header>

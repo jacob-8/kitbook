@@ -5,7 +5,10 @@
 
 <View block>
   <div class="relative bg-white p-3" style="height: 250px;">
-    <!-- <Menu class="right-2 top-11" /> -->
+
+    <!-- with portal -->
+    <!-- <Menu class="ltr:right-2 rtl:left-2 top-11" /> -->
+
     <Menu class="right-2">
       <div class="px-4 py-2 text-xs font-semibold text-gray-600">John Smith</div>
       <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">j@jim.com</div>
