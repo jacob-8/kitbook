@@ -5,14 +5,14 @@
   import type { IUser } from '$lib/interfaces';
   import Button from '$lib/ui/Button.svelte';
   import Avatar from './Avatar.svelte';
+  import Menu from './Menu.svelte';
   export let user: IUser = undefined;
 </script>
 
 <header>
   {#if $$slots.default}
     <Button form="text" href="/" class="!text-lg !font-semibold">H</Button>
-    <div
-      class="text-lg font-semibold p-3 whitespace-nowrap overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
+    <div class="text-lg font-semibold p-3 overflow-x-auto md:overflow-hidden md:overflow-ellipsis">
       <slot />
     </div>
   {:else if $$slots.left}
@@ -25,12 +25,21 @@
   <Button form="text" href="/">Contact</Button>
   {#if user}
     <ShowHide let:show let:toggle let:set>
-      <div use:clickOutside on:clickOutside={() => set(false)}>
+      <div class="relative" use:clickOutside on:clickOutside={() => set(false)}>
         <button class="px-3 py-1" type="button" on:click={toggle}>
           <Avatar {user} />
         </button>
         {#if show}
-          <div class="fixed top-0 right-0">Menu</div>
+          <Menu class="right-2">
+            <div class="px-4 py-2 text-xs font-semibold text-gray-600">{user.displayName}</div>
+            <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">{user.email}</div>
+            <a href="/admin">
+              Admin Panel
+              <i class="fas fa-key" />
+            </a>
+            <a href="/account"> Settings </a>
+            <button> Log out </button>
+          </Menu>
         {/if}
       </div>
     </ShowHide>
@@ -54,7 +63,7 @@
 
 <style>
   header {
-    @apply top-0 left-0 right-0 flex items-center bg-white h-[50px] z-[2];
+    @apply top-0 left-0 right-0 flex items-center bg-white h-[50px] z-[2] whitespace-nowrap;
     /* @apply fixed; */
   }
 </style>
