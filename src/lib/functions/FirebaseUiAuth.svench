@@ -1,0 +1,8 @@
+<script>
+  import { View } from 'svench';
+  import FirebaseUiAuth from './FirebaseUiAuth.svelte';
+</script>
+
+<View>
+  <FirebaseUiAuth />
+</View>
