@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // From https://github.com/collardeau/svelte-headroom
   export let duration = '300ms';
   export let offset = 0;

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let videoId: string;
   import { getCaptions, getTracks } from './captions';
 

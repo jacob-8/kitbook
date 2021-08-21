@@ -18,7 +18,7 @@
 		"test": "jest"
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "^1.0.0-next.154",
 		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.15",
 		"@testing-library/jest-dom": "^5.12.0",
 		"@testing-library/svelte": "^3.0.3",

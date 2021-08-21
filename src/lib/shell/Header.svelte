@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { clickOutside } from '$lib/actions/clickOutside';
 
   import ShowHide from '$lib/functions/ShowHide.svelte';

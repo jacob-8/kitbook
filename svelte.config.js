@@ -6,7 +6,6 @@ const config = {
 		defaults: {
 			sourceMap: true,
 			style: 'postcss',
-			script: 'typescript'
 		},
 		postcss: true,
 	}),

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { writable } from 'svelte/store';
   type T = $$Generic;
   export let startWith: T = undefined;

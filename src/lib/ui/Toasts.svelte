@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
 	type IToast = {
 		message: string;
 		id?: number;
@@ -26,7 +26,7 @@
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import { fade, fly } from 'svelte/transition';
 	import { backOut } from 'svelte/easing';
 </script>

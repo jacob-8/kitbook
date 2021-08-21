@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import type { IUser } from '$lib/interfaces';
   export let user: IUser;
 </script>

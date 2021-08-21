@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   let dialog;
   let backdrop;
   let startX;

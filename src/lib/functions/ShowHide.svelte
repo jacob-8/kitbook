@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	let show = false;
 	function toggle() {
 		show = !show;

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Button from '../ui/Button.svelte';
   import Badge from '../ui/Badge.svelte';
   import DetectUrl from '../functions/DetectUrl.svelte';

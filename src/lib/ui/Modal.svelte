@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { portal } from '$lib/actions/portal';
 
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';

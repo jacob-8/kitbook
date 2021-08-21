@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let string: string;
 
   function prepareDisplay(s: string) {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let date: Date;
   function printDate(date: Date | number): string {
     return new Intl.DateTimeFormat('en-US', {

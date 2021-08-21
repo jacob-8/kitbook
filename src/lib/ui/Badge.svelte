@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let onclick: (
       e: MouseEvent & {
         currentTarget: EventTarget & HTMLButtonElement;

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/ui/Button.svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 

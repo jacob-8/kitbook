@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { tick, createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	export let text: string;

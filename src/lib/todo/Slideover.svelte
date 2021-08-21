@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher, onDestroy } from 'svelte';
   import { fly, fade } from 'svelte/transition';
 

@@ -1,6 +1,6 @@
-<script>
-	import Button from '$lib/Button.svelte';
-	import { toast } from '$lib/Toasts.svelte';
+<script lang="ts">
+	import Button from '$lib/ui/Button.svelte';
+	import { toast } from '$lib/ui/Toasts.svelte';
 </script>
 
 <h1>Welcome to SvelteKit</h1>

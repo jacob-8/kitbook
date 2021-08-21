@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { fly } from 'svelte/transition';
   // import { portal } from '$lib/actions/portal';
 </script>

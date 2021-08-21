@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   // from https://github.com/sveltejs/svelte-repl/blob/master/src/Repl.svelte
   import * as yootils from 'yootils';
   import { createEventDispatcher } from 'svelte';

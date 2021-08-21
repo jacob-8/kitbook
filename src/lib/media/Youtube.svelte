@@ -1,4 +1,4 @@
-<script context="module">
+<script context="module" lang="ts">
   export const PlayerState = {
     UNSTARTED: -1,
     ENDED: 0,
@@ -21,7 +21,7 @@
   };
 </script>
 
-<script>
+<script lang="ts">
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   export let videoId: string;
   let player: YT.Player;
