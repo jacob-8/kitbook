@@ -21,7 +21,6 @@
   let container: HTMLDivElement;
 
   onMount(async () => {
-    console.log('mounting firebaseuiauth');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js');
     if (window && window.firebase && window.firebase.apps && window.firebase.apps.length === 0) {
@@ -35,7 +34,6 @@
         measurementId: 'G-ETJQSSXDVF',
       };
       window.firebase.initializeApp(firebaseConfig);
-      console.log('initializing firebaseauthui firebase instance');
     }
     await loadStylesOnce('https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css');
     await loadScriptOnce('https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js');
@@ -52,7 +50,10 @@
           const isNewUser = authResult.additionalUserInfo.isNewUser;
           // const providerId = authResult.additionalUserInfo.providerId; // password or google.com
           // var operationType = authResult.operationType; //signIn
-          updateUserData(user, isNewUser);
+          dispatch('user', {
+            user,
+            isNewUser,
+          });
           dispatch('close', {
             text: 'auth success',
           });
@@ -108,10 +109,6 @@
     window.location.replace('/');
   }
 
-  function updateUserData(user, isNewUser) {
-    console.log(user);
-    console.log({isNewUser});
-  }
 </script>
 
 {#if loading}
