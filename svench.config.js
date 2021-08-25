@@ -12,7 +12,7 @@ const vite = {
   resolve: {
     alias: {
       $app: path.resolve(__dirname, '.svelte-kit/dev/runtime/app'),
-      $lib: path.resolve(__dirname, 'src/lib')
+      $lib: path.resolve(__dirname, 'src/lib'),
     }
   }
 }

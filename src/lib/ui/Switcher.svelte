@@ -16,7 +16,7 @@
 </script>
 
 <section>
-	<header class="space-x-1 p-1">
+	<header class="{$$props.class} space-x-1 p-1">
 		{#each headings as heading}
 			<div id={heading.key}>
 				<Button
@@ -37,6 +37,6 @@
 
 <style>
 	header {
-		@apply flex overflow-y-auto;
+		@apply flex overflow-x-auto whitespace-nowrap;
 	}
 </style>
