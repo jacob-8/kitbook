@@ -1,10 +1,10 @@
 <script>
   import { View } from 'svench';
-  import { clickOutside } from './clickOutside';
+  import { clickoutside } from './clickoutside';
 </script>
 
 <View let:action>
   <div class="p-10">
-    <div class="p-5 bg-red-300" use:clickOutside on:clickOutside={action('clicked outside')}>Click outside me</div>
+    <div class="p-5 bg-red-300" use:clickoutside on:clickoutside={action('clicked outside')}>Click outside me</div>
   </div>
 </View>

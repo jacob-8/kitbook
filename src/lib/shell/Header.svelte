@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { IUser } from '$lib/interfaces';
-  import { clickOutside } from '../actions/clickOutside';
+  import type { IUser } from '../interfaces';
+  import { clickoutside } from '../actions/clickoutside';
   import ShowHide from '../functions/ShowHide.svelte';
   import Button from '../ui/Button.svelte';
   import Avatar from './Avatar.svelte';
@@ -24,7 +24,7 @@
   <Button form="text" href="/">Contact</Button>
   {#if user}
     <ShowHide let:show let:toggle let:set>
-      <div class="relative" use:clickOutside on:clickOutside={() => set(false)}>
+      <div class="relative" use:clickoutside on:clickoutside={() => set(false)}>
         <button class="px-3 py-1" type="button" on:click={toggle}>
           <Avatar {user} />
         </button>
