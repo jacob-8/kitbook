@@ -1,7 +1,7 @@
 {
-	"name": "svelteui",
-	"version": "0.0.1",
-	"description": "Useful Svelte UI components",
+	"name": "svelte-pieces",
+	"version": "1.0.0",
+	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
 		"dev": "svelte-kit dev",
@@ -12,7 +12,7 @@
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"package": "svelte-kit package",
-		"release": "npm run package && npm publish package",
+		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release",
 		"svench-build": "svench build",
 		"test": "jest"
@@ -58,13 +58,18 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/jwrunner/svelte-ui.git"
+		"url": "git+https://github.com/jacobbowdoin/svelte-pieces.git"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"Svelte",
+		"SvelteKit",
+		"Typescript",
+		"UI"
+	],
+	"author": "Jacob Bowdoin",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/jwrunner/svelte-ui/issues"
+		"url": "https://github.com/jacobbowdoin/svelte-pieces/issues"
 	},
-	"homepage": "https://github.com/jwrunner/svelte-ui#readme"
+	"homepage": "https://github.com/jacobbowdoin/svelte-pieces#readme"
 }
