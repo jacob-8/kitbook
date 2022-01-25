@@ -1,5 +1,5 @@
 <script>
-  import Badge from '$lib/ui/Badge.svelte';
+  import Badge from '../ui/Badge.svelte';
   import { View } from 'svench';
   import DetectUrl from './DetectUrl.svelte';
 </script>

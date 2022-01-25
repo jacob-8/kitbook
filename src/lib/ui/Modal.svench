@@ -1,8 +1,8 @@
 <script>
   import { View } from 'svench';
-  import Button from '$lib/ui/Button.svelte';
-  import Modal from '$lib/ui/Modal.svelte';
-  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from './Button.svelte';
+  import Modal from './Modal.svelte';
+  import ShowHide from '../functions/ShowHide.svelte';
 </script>
 
 <View name="Relies on ShowHide" let:action>
@@ -17,8 +17,9 @@
             toggle();
           }}>
           Body content
-          <div class="modal-footer space-x-1">
+          <div class="modal-footer">
             <Button form="simple" onclick={toggle}>Close</Button>
+            <div class="w-1"></div>
             <Button form="primary" type="submit">Save</Button>
           </div>
         </form>

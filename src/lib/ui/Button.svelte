@@ -103,7 +103,7 @@
     @apply hover:underline;
   }
   .text {
-    @apply p-3;
+    @apply p-3 text-base font-normal;
   }
   .active {
     @apply bg-gray-200 text-gray-800;

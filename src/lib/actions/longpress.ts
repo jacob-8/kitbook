@@ -1,7 +1,8 @@
 export function longpress(node: Node, duration = 400) {
   let start: number; // for shortpress
-  let shortpressed: number; // so touchend and mouseup events don't both emit on touch devices
+  let shortpressEmitted: number; // so touchend and mouseup events don't both emit on touch devices
   let timer; // for longpress
+  let scrolled = 0;
 
   const handleDown = () => {
     start = Date.now();
@@ -12,11 +13,20 @@ export function longpress(node: Node, duration = 400) {
   };
 
   const handleUp = () => {
-    if (!(shortpressed > Date.now() - duration / 2) && Date.now() - start < duration) {
+    const shortpressRecentlyEmitted = shortpressEmitted > Date.now() - duration / 2;
+    const recentlyScrolled = Date.now() - scrolled < duration;
+    const lessThanDurationHasElapsed = Date.now() - start < duration / 2;
+    
+    if (!shortpressRecentlyEmitted && !recentlyScrolled && lessThanDurationHasElapsed) {
       node.dispatchEvent(new CustomEvent('shortpress'));
-      shortpressed = Date.now(); 
+      shortpressEmitted = Date.now();
     }
 
+    clearTimeout(timer);
+  };
+
+  const handleMove = () => {
+    scrolled = Date.now();
     clearTimeout(timer);
   };
 
@@ -24,6 +34,7 @@ export function longpress(node: Node, duration = 400) {
   node.addEventListener('mouseup', handleUp);
   node.addEventListener('touchstart', handleDown);
   node.addEventListener('touchend', handleUp);
+  node.addEventListener('touchmove', handleMove);
 
   return {
     update(newDuration: number) {
@@ -32,8 +43,9 @@ export function longpress(node: Node, duration = 400) {
     destroy() {
       node.removeEventListener('mousedown', handleDown);
       node.removeEventListener('mouseup', handleUp);
-      node.addEventListener('touchstart', handleDown);
-      node.addEventListener('touchend', handleUp);
+      node.removeEventListener('touchstart', handleDown);
+      node.removeEventListener('touchend', handleUp);
+      node.removeEventListener('touchmove', handleMove);
     },
   };
 }

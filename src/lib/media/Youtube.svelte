@@ -8,17 +8,19 @@
     CUED: 5,
   };
 
-  const script = document.createElement('script');
-  script.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(script);
-
   let iframeApiReady = false;
 
-  //@ts-ignore
-  window.onYouTubeIframeAPIReady = () => {
-    window.dispatchEvent(new Event('iframeApiReady'));
-    iframeApiReady = true;
-  };
+  if (typeof window !== undefined) {
+    const script = document.createElement('script');
+    script.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(script);
+
+    //@ts-ignore
+    window.onYouTubeIframeAPIReady = () => {
+      window.dispatchEvent(new Event('iframeApiReady'));
+      iframeApiReady = true;
+    };
+  }
 </script>
 
 <script lang="ts">

@@ -5,6 +5,6 @@
 
 <View let:action>
   <div class="p-10">
-    <div class="p-5 bg-red-300" use:clickOutside on:clickedOutside={action('clicked outside')}>Click outside me</div>
+    <div class="p-5 bg-red-300" use:clickOutside on:clickOutside={action('clicked outside')}>Click outside me</div>
   </div>
 </View>

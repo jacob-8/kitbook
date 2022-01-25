@@ -1,0 +1,12 @@
+<script>
+  import { View } from 'svench';
+
+  // function autofocus(node: HTMLInputElement) {
+  function autofocus(node) {
+    setTimeout(() => node.focus(), 15);
+  }
+</script>
+
+<View name="Too simple to need a component">
+  <input class="m-2 p-2" type="text" use:autofocus placeholder="Just start typing..." />
+</View>

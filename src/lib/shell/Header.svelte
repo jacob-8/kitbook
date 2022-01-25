@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { clickOutside } from '$lib/actions/clickOutside';
-
-  import ShowHide from '$lib/functions/ShowHide.svelte';
   import type { IUser } from '$lib/interfaces';
-  import Button from '$lib/ui/Button.svelte';
+  import { clickOutside } from '../actions/clickOutside';
+  import ShowHide from '../functions/ShowHide.svelte';
+  import Button from '../ui/Button.svelte';
   import Avatar from './Avatar.svelte';
   import Menu from './Menu.svelte';
   export let user: IUser = undefined;
@@ -50,7 +49,7 @@
         <span class="ml-1 hidden sm:inline"> Log In </span>
       </Button>
       {#if show}
-        {#await import('$lib/ui/Modal.svelte') then { default: Modal }}
+        {#await import('../ui/Modal.svelte') then { default: Modal }}
           <Modal on:close={toggle}>
             <div slot="heading">Log In</div>
             Place component here

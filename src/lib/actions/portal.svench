@@ -1,6 +1,6 @@
 <script>
-  import ShowHide from '$lib/functions/ShowHide.svelte';
-  import Button from '$lib/ui/Button.svelte';
+  import ShowHide from '../functions/ShowHide.svelte';
+  import Button from '../ui/Button.svelte';
   import { View } from 'svench';
   import { portal } from './portal';
 </script>

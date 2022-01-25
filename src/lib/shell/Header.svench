@@ -1,5 +1,5 @@
 <script>
-  import Button from '$lib/ui/Button.svelte';
+  import Button from '../ui/Button.svelte';
   import { View } from 'svench';
   import Header from './Header.svelte';
 </script>

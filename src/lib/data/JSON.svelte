@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Button from '$lib/ui/Button.svelte';
-  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from '../ui/Button.svelte';
+  import ShowHide from '../functions/ShowHide.svelte';
   export let obj: Record<string, any>;
   $: json = JSON.stringify(obj, null, 2)
     .replace(/&/g, '&amp;')

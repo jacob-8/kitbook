@@ -1,0 +1,46 @@
+<script>
+  import { View } from 'svench';
+  import BadgeArrayEmit from './BadgeArrayEmit.svelte';
+
+  let books = ['Lord of the Rings', 'www.books.com'];
+</script>
+
+<svelte:head>
+  <script src="https://kit.fontawesome.com/5ef47f4770.js" crossorigin="anonymous"></script>
+</svelte:head>
+
+<View name="Log clicks" let:action>
+  <BadgeArrayEmit
+    strings={books || []}
+    canEdit={true}
+    addMessage="Add Book"
+    on:itemclicked={(e) => action('itemclicked', e.detail)}
+    on:itemremoved={(e) => action('itemremoved', e.detail)}
+    on:additem={(e) => action('additem', e.detail)} />
+</View>
+
+<View name="Edit array" let:action>
+  <BadgeArrayEmit
+    strings={books || []}
+    canEdit={true}
+    addMessage="Add Book"
+    on:itemclicked={(e) => action('itemclicked', e.detail)}
+    on:additem={(e) => {
+      const string = prompt('What book would you like to avoid?');
+      if (string) {
+        books = [...books, string.trim()];
+      }
+    }}
+    on:itemremoved={(e) => {
+      books.splice(e.detail.index, 1);
+      books = books;
+    }} />
+</View>
+
+<View name="Handles a string" let:action>
+  <BadgeArrayEmit strings={'How about this?'} canEdit addMessage="foo" on:additem={action('fired')} />
+</View>
+
+<View name="Handles null" let:action>
+  <BadgeArrayEmit strings={null} canEdit addMessage="foo" on:additem={action('fired')} />
+</View>

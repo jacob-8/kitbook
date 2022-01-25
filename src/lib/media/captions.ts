@@ -1,4 +1,5 @@
-import { parse, X2jOptions } from 'fast-xml-parser';
+import { parse } from 'fast-xml-parser';
+import type { X2jOptions } from 'fast-xml-parser';
 import he from 'he';
 
 interface YoutubeCaptionTrack {
@@ -10,7 +11,7 @@ interface YoutubeCaptionTrack {
   langDefault: boolean;
 }
 
-interface YoutubeCaption {
+export interface YoutubeCaption {
   text: string;
   start: number;
   duration?: number;

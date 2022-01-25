@@ -45,12 +45,12 @@
 <!-- Look at https://github.com/beyonk-adventures/svelte-notifications also -->
 
 <!-- To use, add once in root layout:
-{#await import('$lib/Toasts.svelte') then { default: Toasts }}
+{#await import('$svelteui/Toasts.svelte') then { default: Toasts }}
 	<Toasts />
 {/await}
 
 And use:
-import { toast } from '$lib/ui/Toasts.svelte'; // double-check proper route
+import { toast } from '$svelteui/ui/Toasts.svelte'; // double-check proper route
 toast('hello world') 
 toast('hello world', 5000) 
 -->

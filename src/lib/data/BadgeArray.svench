@@ -5,10 +5,43 @@
   const books = ['Lord of the Rings', 'www.books.com'];
 </script>
 
+<svelte:head>
+  <script src="https://kit.fontawesome.com/5ef47f4770.js" crossorigin="anonymous"></script>
+</svelte:head>
+
 <View name="Basic display">
   <BadgeArray strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" />
 </View>
 
+<View name="Basic display (RTL)">
+  <div dir="rtl">
+    <BadgeArray
+      strings={books || []}
+      promptMessage="What is the book name?"
+      addMessage="Add Book" />
+  </div>
+</View>
+
 <View name="Editable" let:action>
-  <BadgeArray canEdit strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" on:valueupdated={e => action('valueupdated', e.detail)} />
+  <BadgeArray
+    canEdit
+    strings={books || []}
+    promptMessage="What is the book name?"
+    addMessage="Add Book"
+    on:valueupdated={(e) => action('valueupdated', e.detail)} />
+</View>
+
+<View name="Editable (RTL)" let:action>
+  <div dir="rtl">
+    <BadgeArray
+      canEdit
+      strings={books || []}
+      promptMessage="What is the book name?"
+      addMessage="Add Book"
+      on:valueupdated={(e) => action('valueupdated', e.detail)} />
+  </div>
+</View>
+
+<View name="Handles a string" let:action>
+  <BadgeArray strings={'How about this?'} />
 </View>

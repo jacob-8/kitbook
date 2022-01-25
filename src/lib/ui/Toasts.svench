@@ -1,6 +1,6 @@
 <script>
 	import { View } from 'svench';
-	import Button from '$lib/ui/Button.svelte';
+	import Button from './Button.svelte';
 	import { toast } from './Toasts.svelte';
 
 	const knobs = [

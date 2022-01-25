@@ -5,7 +5,6 @@
 
   export let strings: string[] = [],
     canEdit = false,
-    promptMessage: string,
     addMessage: string;
 
   $: if (typeof strings === 'string') {
@@ -13,44 +12,31 @@
   }
 
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher<{ valueupdated: string[] }>();
+  const dispatch = createEventDispatcher<{
+    itemclicked: { value: string; index: number };
+    itemremoved: { value: string; index: number };
+    additem: boolean;
+  }>();
 </script>
 
 <div class="{$$props.class} flex flex-wrap">
   {#if canEdit}
     {#if strings}
-      {#each strings as string, i}
+      {#each strings as string, index}
         <DetectUrl {string} let:display let:href>
           <Badge
             {href}
             class="mb-1"
             target="_blank"
-            onx={() => {
-              strings.splice(i, 1);
-              strings = strings;
-              dispatch('valueupdated', strings);
-            }}>
+            onclick={() => dispatch('itemclicked', { value: string, index })}
+            onx={() => dispatch('itemremoved', { value: string, index })}>
             {display}
           </Badge>
           <div class="w-1" />
         </DetectUrl>
       {/each}
     {/if}
-    <Button
-      class="mb-1"
-      onclick={() => {
-        const string = prompt(promptMessage);
-        if (string) {
-          if (strings) {
-            strings = [...strings, string.trim()];
-          } else {
-            strings = [string.trim()];
-          }
-          dispatch('valueupdated', strings);
-        }
-      }}
-      color="orange"
-      size="sm">
+    <Button class="mb-1" onclick={() => dispatch('additem')} color="orange" size="sm">
       <i class="fas fa-plus" />
       {addMessage}
     </Button>

@@ -20,6 +20,7 @@
   <a {href} {target} sveltekit:prefetch class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
+      <span class="w-2" />
       <button type="button" on:click|preventDefault={onx} class="badge-x">
         <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
           <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
@@ -42,6 +43,7 @@
   <button on:click={onclick} class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
+      <span class="w-2" />
       <button type="button" on:click|stopPropagation={onx} class="badge-x">
         <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
           <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
@@ -53,6 +55,7 @@
   <div class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
+      <span class="w-2" />
       <button type="button" on:click={onx} class="badge-x">
         <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
           <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
@@ -83,7 +86,7 @@
   }
   .badge-x {
     @apply text-primary-400 hover:bg-primary-200 hover:text-primary-500 focus:bg-primary-500;
-    @apply flex-shrink-0 h-4 w-4 rounded-full inline-flex items-center justify-center focus:outline-none focus:text-white ml-1 -mr-1;
+    @apply flex-shrink-0 h-4 w-4 rounded-full inline-flex items-center justify-center focus:outline-none focus:text-white -mx-1;
   }
   .red .badge-x {
     @apply text-red-400 hover:bg-red-200 hover:text-red-500 focus:bg-red-500 focus:text-white;
