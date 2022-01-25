@@ -1,20 +1,16 @@
 <script>
-	import { View } from 'svench';
-	import Button from '../ui/Button.svelte';
-	import Copy from './Copy.svelte';
+  import { View } from 'svench';
+  import Button from '../ui/Button.svelte';
 
-	let text = 'sample message';
+  let text = 'sample message';
 </script>
 
 <View name="Input message" let:action>
   <input bind:value={text} />
-	<Copy {text} let:copy>
-		<Button
-			onclick={async () => {
-				copy();
-				const clip = await navigator.clipboard.readText();
-				action('copied', clip); // doesn't return anything
-			}}>Copy</Button
-		>
-	</Copy>
+  <Button
+    onclick={async () => {
+      navigator.clipboard.writeText(text);
+      const clip = await navigator.clipboard.readText();
+      action('copied', clip); // doesn't return anything
+    }}>Copy</Button>
 </View>
