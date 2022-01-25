@@ -7,6 +7,7 @@
   <Avatar
     user={{
       displayName: 'John Smith',
+      email: 'b@gc.com',
       photoURL:
         'https://lh5.googleusercontent.com/-qCXZXfIkRQ8/AAAAAAAAAAI/AAAAAAAAACc/wAdH8yns3QQ/photo.jpg',
     }} />
@@ -16,19 +17,20 @@
   <Avatar
     user={{
       displayName: 'John Smith',
+      email: 'b@gc.com',
       photoURL:
         'https://broken-link.broken.jpg',
     }} />
 </View>
 
 <View name="full name">
-  <Avatar user={{ displayName: 'John Smith' }} />
+  <Avatar user={{ displayName: 'John Smith', email: 'b@gc.com', }} />
 </View>
 
 <View name="single name">
-  <Avatar user={{ displayName: 'John' }} />
+  <Avatar user={{ displayName: 'John', email: 'b@gc.com', }} />
 </View>
 
 <View name="No display name, use email">
-  <Avatar user={{ email: 'j@gc.com', displayName: null }} />
+  <Avatar user={{ email: 'b@gc.com', displayName: null }} />
 </View>

@@ -1,10 +1,14 @@
 <script lang="ts">
-  import type { IUser } from '$lib/interfaces';
+  interface IUser {
+    displayName: string;
+    photoURL?: string;
+    email: string;
+  }
   export let user: IUser;
 </script>
 
 {#if user.photoURL}
-  <img alt={user.displayName[0]} src={user.photoURL} />
+  <img alt={user.displayName && user.displayName[0] || user.email[0]} src={user.photoURL} />
 {:else}
   <div>
     {#if user.displayName}

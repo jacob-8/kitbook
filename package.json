@@ -1,6 +1,6 @@
 {
-	"name": "@sveed/svelte-ui",
-	"version": "0.1.1",
+	"name": "svelteui",
+	"version": "0.0.1",
 	"description": "Useful Svelte UI components",
 	"type": "module",
 	"scripts": {
