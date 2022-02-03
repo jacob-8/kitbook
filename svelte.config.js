@@ -10,6 +10,7 @@ const config = {
 		postcss: true,
 	}),
 
+	disableDependencyReinclusion: ['svench'],
 	kit: {
 		target: '#svelte',
 		package: {
