@@ -10,5 +10,6 @@ Run `npx svench` - note that sometimes you have to run `npx svench` a couple tim
 ## Preview
 Run `npx svench build` and `npx sirv-cli /.svench/build` to preview locally or view at ...
 
-### Components TODO
-CKEditor
+### TODO
+- Add CKEditor
+- upgrade Tailwind and don't make components have to depend on Tailwind
