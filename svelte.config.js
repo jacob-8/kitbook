@@ -14,9 +14,7 @@ const config = {
 	kit: {
 		target: '#svelte',
 		package: {
-			files: {
-				exclude: ['*.svench']
-			}
+			files: (filepath) => !(filepath.match(/(\.story|\.svench)/))
 		}
 	}
 };

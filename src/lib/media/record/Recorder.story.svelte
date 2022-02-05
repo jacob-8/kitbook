@@ -35,6 +35,7 @@
               const blob = await stop();
               console.log(blob);
             }}>Stop</Button>
+            <!-- Should the Blob be stored in the Recorder component so it can be passed down, or emitted so it can be listened for? -->
           <Button
             onclick={() => {
               console.log(recorder.getState());
