@@ -7,6 +7,8 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
 
+  export let audio = true,
+    video = true;
   let stream: MediaStream;
   let devices: MediaDeviceInfo[] = [];
   $: microphones = devices.filter((d) => d.kind === 'audioinput');
@@ -33,12 +35,16 @@
   function requestStream() {
     closeStream();
     const constraints = {
-      audio: {
-        deviceId: $selectedMicrophone ? { exact: $selectedMicrophone.deviceId } : undefined,
-      },
-      video: {
-        deviceId: $selectedCamera ? { exact: $selectedCamera.deviceId } : undefined,
-      },
+      audio: audio
+        ? {
+            deviceId: $selectedMicrophone ? { exact: $selectedMicrophone.deviceId } : undefined,
+          }
+        : false,
+      video: video
+        ? {
+            deviceId: $selectedCamera ? { exact: $selectedCamera.deviceId } : undefined,
+          }
+        : false,
     };
     return navigator.mediaDevices.getUserMedia(constraints);
   }

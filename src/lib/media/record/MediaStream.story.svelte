@@ -15,7 +15,7 @@
   }
 </script>
 
-<Variant name="Default" description="List Cameras">
+<Variant name="Audio + Video" description="List Devices">
   <div>
     <MediaStream
       let:stream
@@ -49,4 +49,13 @@
       {/if}
     </MediaStream>
   </div>
+</Variant>
+
+<Variant name="Audio" description="Audio Only">
+  <MediaStream video={false} let:stream>
+    {#if stream}
+      <!-- svelte-ignore a11y-media-has-caption -->
+      <video muted volume={0} use:srcObject={stream} autoplay playsinline controls />
+    {/if}
+  </MediaStream>
 </Variant>
