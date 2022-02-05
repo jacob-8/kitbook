@@ -1,18 +1,7 @@
 <script>
-  import Button from '$lib/ui/Button.svelte';
+  import { srcObject, Button } from '$lib';
   import { Variant } from '@vitebook/client';
   import MediaStream from './MediaStream.svelte';
-
-  function srcObject(node, stream) {
-    node.srcObject = stream;
-    return {
-      update(newStream) {
-        if (node.srcObject != newStream) {
-          node.srcObject = newStream;
-        }
-      },
-    };
-  }
 </script>
 
 <Variant name="Audio + Video" description="List Devices">

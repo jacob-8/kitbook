@@ -23,7 +23,6 @@
   }
 
   onMount(async () => {
-    console.log($selectedMicrophone);
     try {
       stream = await requestStream();
       devices = await navigator.mediaDevices.enumerateDevices();

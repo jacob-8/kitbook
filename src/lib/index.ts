@@ -1,6 +1,7 @@
 export { clickoutside } from './actions/clickoutside';
 export { longpress } from './actions/longpress';
 export { portal } from './actions/portal';
+export { srcObject } from './actions/srcObject';
 
 export { default as BadgeArray } from './data/BadgeArray.svelte';
 export { default as BadgeArrayEmit } from './data/BadgeArrayEmit.svelte';
