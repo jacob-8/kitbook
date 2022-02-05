@@ -1,43 +1,59 @@
-<script context="module" lang="ts">
-  //   import type * as recordrtc from 'recordrtc';
-  //   declare const RecordRTC: recordrtc;
-</script>
-
 <script lang="ts">
-  //   import { onMount } from 'svelte';
-  //   import { loadScriptOnce } from '$lib/helpers/loader';
-  // import { invokeSaveAsDialog, RecordRTCPromisesHandler } from 'recordrtc';
+  import { onDestroy } from 'svelte';
   import RecordRTC from 'recordrtc';
-  import type { Options } from 'recordrtc';
+  import type { Options, State } from 'recordrtc';
 
   export let stream: MediaStream, options: Options;
-  // let recorder: RecordRTCPromisesHandler;
   let recorder: RecordRTC;
+  let recordingTime = 0;
+  let interval;
+  let state: State;
+
   $: {
     if (recorder) {
       recorder.stopRecording();
     }
-    // recorder = new RecordRTCPromisesHandler(stream, options);
     recorder = new RecordRTC(stream, options);
+    state = recorder.getState();
   }
 
-  //   onMount(async () => {
-  // await loadScriptOnce('https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.2/RecordRTC.js');
-  // RecordRTC = (await import('recordrtc')).default;
-  //   });
-
-  async function start() {
+  function start() {
     recorder.startRecording();
+    state = recorder.getState();
+    startTimer();
+  }
+
+  function pause() {
+    if (state === 'recording') {
+      recorder.pauseRecording();
+      state = recorder.getState();
+      clearInterval(interval);
+    } else if (state === 'paused') {
+      recorder.resumeRecording();
+      state = recorder.getState();
+      startTimer();
+    }
   }
 
   function stop(): Promise<Blob> {
     return new Promise((resolve) => {
+      clearInterval(interval);
+      recordingTime = 0;
       recorder.stopRecording(() => {
+        state = recorder.getState();
         let blob = recorder.getBlob();
         resolve(blob);
       });
     });
   }
+
+  function startTimer() {
+    interval = setInterval(() => {
+      recordingTime += 1;
+    }, 1000);
+  }
+
+  onDestroy(() => recorder && recorder.stopRecording());
 </script>
 
-<slot {start} {stop} {recorder} />
+<slot {start} {pause} {stop} {recorder} {recordingTime} {state} />
