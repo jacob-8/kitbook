@@ -19,14 +19,14 @@
     }
   });
 
-  function requestStream() {
+  function requestStream({microphoneDeviceId: string, cameraDeviceId: string} = {}) {
     closeStream();
     const constraints = {
       audio: {
-        deviceId: selectedMicrophone ? { exact: selectedMicrophone.deviceId } : undefined,
+        deviceId: microphoneDeviceId ? { exact: microphoneDeviceId } : undefined,
       },
       video: {
-        deviceId: selectedCamera ? { exact: selectedCamera.deviceId } : undefined,
+        deviceId: cameraDeviceId ? { exact: cameraDeviceId } : undefined,
       },
     };
     return navigator.mediaDevices.getUserMedia(constraints);
@@ -47,24 +47,6 @@
     stream = await requestStream();
   }
 </script>
-
-<!-- <div>
-  <pre>{JSON.stringify(devices, null, 1)}</pre>
-  <pre>{JSON.stringify(cameras, null, 1)}</pre>
-  <pre>{JSON.stringify(microphones, null, 1)}</pre>
-</div> -->
-
-{#each microphones as microphone}
-  <div>
-    <button on:click={() => selectMicrophone(microphone)}>{microphone.label}</button>
-  </div>
-{/each}
-
-{#each cameras as camera}
-  <div>
-    <button on:click={() => selectCamera(camera)}>{camera.label}</button>
-  </div>
-{/each}
 
 <slot {stream} {devices} {cameras} {microphones} />
 
