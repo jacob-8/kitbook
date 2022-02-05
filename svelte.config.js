@@ -12,7 +12,6 @@ const config = {
 
 	disableDependencyReinclusion: ['svench'],
 	kit: {
-		target: '#svelte',
 		package: {
 			files: (filepath) => !(filepath.match(/(\.story|\.svench)/))
 		}
