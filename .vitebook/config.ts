@@ -24,7 +24,12 @@ export default defineConfig<DefaultThemeConfig>({
     defaultThemePlugin(),
     svelte({
       extensions: ['.svelte', '.md'],
-      preprocess: preprocess(),
+      preprocess: preprocess({
+        defaults: {
+          style: 'postcss',
+        },
+        postcss: true,
+      }),
     }),
   ],
   site: {
