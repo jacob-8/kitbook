@@ -6,7 +6,7 @@ import { shikiMarkdownPlugin } from '@vitebook/markdown-shiki/node';
 import preprocess from 'svelte-preprocess';
 
 export default defineConfig<DefaultThemeConfig>({
-  include: ['docs/**/*.md', 'src/**/*.story.svelte'],
+  include: ['src/**/*.md', 'src/**/*.story.svelte'],
   alias: {
     $lib: '/src/lib',
   },
