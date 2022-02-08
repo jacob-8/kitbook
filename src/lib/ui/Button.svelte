@@ -8,8 +8,8 @@
     type: 'button' | 'submit' = 'button',
     target: '_blank' = undefined,
     size: 'sm' | 'md' | 'lg' = 'md',
-    form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
-    color: 'red' | 'orange' | 'green' | 'black' | 'white' | string = undefined,
+    form: 'outline' | 'filled' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
+    color: 'red' | 'orange' | 'green' | 'black' | 'white' | 'primary' = 'primary',
     disabled = false,
     active = false;
 
@@ -88,14 +88,65 @@
 <style>
   a,
   button {
-    @apply px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white;
-    @apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
+    @apply rounded hover:text-white;
+    /* @apply rounded focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white; */
   }
+
+  .primary {
+    @apply text-primary-700 hover:bg-primary-500;
+    /* @apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500; */
+  }
+  /* .red {
+    @apply focus:ring-red-500 text-red-700 hover:bg-red-500 border-red-500;
+  }
+  .orange {
+    @apply focus:ring-orange-500 text-orange-700 hover:bg-orange-500 border-orange-500;
+  }
+  .green {
+    @apply focus:ring-green-500 text-green-700 hover:bg-green-500 border-green-500;
+  }
+  .black {
+    @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-900 border-gray-500;
+  }
+  .white {
+    @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-500 hover:bg-opacity-25;
+  } */
+
+  .filled {
+    @apply text-white;
+  }
+  .filled.primary {
+    @apply bg-primary-600 hover:bg-primary-700;
+  }
+  /* .filled.red {
+    @apply bg-red-600 hover:bg-red-700;
+  }
+  .filled.orange {
+    @apply bg-orange-600 hover:bg-orange-700;
+  }
+  .filled.green {
+    @apply bg-green-600 hover:bg-green-700;
+  }
+  .filled.black {
+    @apply bg-gray-800 hover:bg-gray-900;
+  }
+  .filled.white {
+    @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
+  } */
+
+  .filled {
+    @apply border border-transparent shadow-sm focus:outline-none;
+  }
+  .outline {
+    /* @apply border border-transparent shadow-sm focus:outline-none; */
+  }
+
   .menu,
   .link,
   .text {
     @apply border-none shadow-none hover:bg-transparent text-gray-600 hover:text-black focus:ring-gray-500;
   }
+
   .menu {
     @apply rounded-lg hover:bg-gray-200;
   }
@@ -108,46 +159,18 @@
   .active {
     @apply bg-gray-200 text-gray-800;
   }
-  .red {
-    @apply focus:ring-red-500 text-red-700 hover:bg-red-500 border-red-500;
-  }
-  .orange {
-    @apply focus:ring-orange-500 text-orange-700 hover:bg-orange-500 border-orange-500;
-  }
-  .green {
-    @apply focus:ring-green-500 text-green-700 hover:bg-green-500 border-green-500;
-  }
-  .black {
-    @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-900 border-gray-500;
-  }
-  .primary {
-    @apply text-white bg-primary-600 hover:bg-primary-700 border-none;
-  }
-  .primary.red {
-    @apply bg-red-600 hover:bg-red-700;
-  }
-  .primary.orange {
-    @apply bg-orange-600 hover:bg-orange-700;
-  }
-  .primary.green {
-    @apply bg-green-600 hover:bg-green-700;
-  }
-  .primary.black {
-    @apply bg-gray-800 hover:bg-gray-900;
-  }
-  .primary.white {
-    @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
-  }
-  .simple {
-    @apply border-none shadow-none;
-  }
+
   .sm {
-    @apply text-xs px-2.5 py-1.5;
+    @apply font-medium text-xs px-2.5 py-1.5;
+  }
+  .md {
+    @apply font-medium text-sm px-4 py-2;
   }
   .lg {
     @apply font-bold px-5 py-2.5;
     /* text-base */
   }
+
   :disabled,
   .disabled {
     @apply opacity-50 cursor-not-allowed;
