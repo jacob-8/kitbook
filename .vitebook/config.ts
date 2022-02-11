@@ -33,6 +33,7 @@ export default defineConfig<DefaultThemeConfig>({
     }),
   ],
   site: {
+    baseUrl: '/<REPO>/',
     title: 'Svelte Pieces',
     description: 'Useful Svelte UI pieces for building web apps.',
     theme: {

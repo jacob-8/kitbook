@@ -3,5 +3,5 @@
 </script>
 
 <Variant name="Default" description="List Cameras">
-  <div>hello</div>
+  <div>hello world</div>
 </Variant>
