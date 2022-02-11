@@ -4,7 +4,7 @@
 
 <svench:options title="Getting started" tree />
 
-# Svelte-UI Svench Workbench
+# Svelte-Pieces Svench Workbench
 
 _A workbench for Svelte components, in the form of a companion web app, to experiment, develop, and document components and Views quickly._
 
