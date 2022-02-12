@@ -133,10 +133,7 @@
     @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
   }
 
-  .filled {
-    @apply border shadow-sm;
-  }
-  .outlined {
+  .filled, .outlined {
     @apply border shadow-sm;
   }
 
