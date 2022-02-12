@@ -1,6 +1,6 @@
 {
 	"name": "svelte-pieces",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
@@ -14,6 +14,7 @@
 		"package": "svelte-kit package",
 		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release",
+		"svench": "svench",
 		"svench-build": "svench build",
 		"test": "jest",
 		"vitebook:dev": "vitebook dev",

@@ -28,9 +28,6 @@
 </View>
 
 <View name="colors" let:action>
-  <button
-    class="font-medium text-sm px-4 py-2 text-indigo-700 border border-indigo-500 rounded focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100"
-    >Outline</button>
   {#each colors as color}
     <div class="my-1 flex justify-around">
       <Button onclick={action('Clicked')} {color}>{color}</Button>

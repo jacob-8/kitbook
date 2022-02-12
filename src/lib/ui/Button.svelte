@@ -14,6 +14,7 @@
     active = false;
 
   $: disable = disabled || loading;
+  $: fill = form === 'outline' ? 'outlined' : form;
 
   export let loading = false;
   async function runWithSpinner(event) {
@@ -36,7 +37,7 @@
       {href}
       target="_blank"
       rel="noopener"
-      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block">
       <slot />
       {#if form !== 'text' && form !== 'link'}
         <svg
@@ -56,7 +57,7 @@
       {href}
       sveltekit:prefetch
       class:active
-      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block">
       <slot />
     </a>
   {/if}
@@ -64,7 +65,7 @@
   <button
     class:active
     class:disabled={disable}
-    class="{$$props.class} {form} {size} {color} text-center inline-block"
+    class="{$$props.class} {fill} {size} {color} text-center inline-block"
     {type}
     on:click={runWithSpinner}
     disabled={disable}>
@@ -88,15 +89,13 @@
 <style>
   a,
   button {
-    @apply rounded hover:text-white;
-    /* @apply rounded focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white; */
+    @apply rounded hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
   .primary {
-    @apply text-primary-700 hover:bg-primary-500;
-    /* @apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500; */
+    @apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
   }
-  /* .red {
+  .red {
     @apply focus:ring-red-500 text-red-700 hover:bg-red-500 border-red-500;
   }
   .orange {
@@ -110,7 +109,7 @@
   }
   .white {
     @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-500 hover:bg-opacity-25;
-  } */
+  }
 
   .filled {
     @apply text-white;
@@ -118,7 +117,7 @@
   .filled.primary {
     @apply bg-primary-600 hover:bg-primary-700;
   }
-  /* .filled.red {
+  .filled.red {
     @apply bg-red-600 hover:bg-red-700;
   }
   .filled.orange {
@@ -132,13 +131,13 @@
   }
   .filled.white {
     @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
-  } */
+  }
 
   .filled {
-    @apply border border-transparent shadow-sm focus:outline-none;
+    @apply border shadow-sm;
   }
-  .outline {
-    /* @apply border border-transparent shadow-sm focus:outline-none; */
+  .outlined {
+    @apply border shadow-sm;
   }
 
   .menu,
