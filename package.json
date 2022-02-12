@@ -1,6 +1,6 @@
 {
 	"name": "svelte-pieces",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
@@ -20,6 +20,11 @@
 		"vitebook:dev": "vitebook dev",
 		"vitebook:build": "vitebook build",
 		"vitebook:preview": "vitebook preview"
+	},
+	"dependencies": {
+		"fast-xml-parser": "^3.19.0",
+		"recordrtc": "^5.6.2",
+		"yootils": "^0.3.1"
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^1.0.0-next.260",
@@ -41,14 +46,12 @@
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.4.0",
-		"fast-xml-parser": "^3.19.0",
 		"he": "^1.2.0",
 		"jest": "^27.4.7",
 		"postcss": "^8.4.6",
 		"postcss-load-config": "^3.1.1",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.6.0",
-		"recordrtc": "^5.6.2",
 		"svelte": "^3.46.4",
 		"svelte-check": "^2.4.2",
 		"svelte-jester": "^2.3.1",
@@ -60,8 +63,7 @@
 		"tslib": "^2.3.1",
 		"typescript": "^4.0.0",
 		"vite": "^2.7.13",
-		"vitebook-addons": "^0.0.2",
-		"yootils": "^0.3.1"
+		"vitebook-addons": "^0.0.2"
 	},
 	"peerDependencies": {
 		"svelte": "^3.46.4",
