@@ -2,7 +2,7 @@ import { parse } from 'fast-xml-parser';
 import type { X2jOptions } from 'fast-xml-parser';
 import he from 'he';
 
-interface YoutubeCaptionTrack {
+export interface YoutubeCaptionTrack {
   id: number;
   name: string;
   langCode: string;
@@ -18,20 +18,24 @@ export interface YoutubeCaption {
 }
 
 export const getTracks = async (videoId: string): Promise<YoutubeCaptionTrack[]> => {
-  const response = await fetch(`https://video.google.com/timedtext?type=list&v=${videoId}`);
+  const response = await fetch(
+    `https://cors-proxy.peoples.workers.dev/?https://python.zerotohero.ca/timedtext?v=${videoId}&type=list`
+  );
   const xml = await response.text();
   return parseTracksXml(xml);
 };
 
 export const getCaptions = async (
   videoId: string,
-  track: YoutubeCaptionTrack
+  { langCode, name }: YoutubeCaptionTrack
 ): Promise<YoutubeCaption[]> => {
-  let url = `https://video.google.com/timedtext?type=track&v=${videoId}&lang=${track.langCode}`;
-  if (track.name) url += `&name=${track.name}`;
+  const url = `https://cors-proxy.peoples.workers.dev/?https://python.zerotohero.ca/timedtext?v=${videoId}&lang=${langCode}${
+    name ? '&name=' + name : ''
+  }&fmt=srv3`; //https://python.zerotohero.ca/timedtext?v=7XeYmKhrK9Q&lang=zh-Hans&fmt=srv3
+  // if (name) url += `&name=${name}`;
   const response = await fetch(url);
   const xml = await response.text();
-  return parseCaptionsXml(xml);
+  return parseSrv3CaptionsXml(xml);
 };
 
 const options: Partial<X2jOptions> = {
@@ -71,22 +75,43 @@ export const parseTracksXml = (xml: string): YoutubeCaptionTrack[] => {
   });
 };
 
-export const parseCaptionsXml = (xml: string): YoutubeCaption[] => {
+// deprecated with the passing of YouTube's API
+// export const parseCaptionsXml = (xml: string): YoutubeCaption[] => {
+//   const res = parse(xml, options);
+
+//   if (!res.transcript || !Array.isArray(res.transcript.text)) {
+//     return [];
+//   }
+
+//   return res.transcript.text
+//     .map((item) => {
+//       return {
+//         text: item.text || '',
+//         start: Number(item.start),
+//         duration: item.dur ? Number(item.dur) : undefined,
+//       };
+//     })
+//     .filter((item) => item.text);
+// };
+
+export const parseSrv3CaptionsXml = (xml: string): YoutubeCaption[] => {
   const res = parse(xml, options);
 
-  if (!res.transcript || !Array.isArray(res.transcript.text)) {
+  if (!(res?.timedtext?.body?.p && Array.isArray(res.timedtext.body.p))) {
     return [];
   }
 
-  return res.transcript.text
+  const lines = res.timedtext.body.p;
+  return lines
     .map((item) => {
       return {
         text: item.text || '',
-        start: Number(item.start),
-        duration: item.dur ? Number(item.dur) : undefined,
+        start: Number(item.t) / 1000,
+        duration: item.d ? Number(item.d) / 1000 : undefined,
       };
     })
     .filter((item) => item.text);
+    // see https://github.com/longjiang/zerotohero-nuxt/blob/master/lib/youtube.js#L40-L54 if having trouble with empty lines or out of order
 };
 
 // from @os-team/youtube-captions though its sax depenency is only for Node so am using fast-xml-parser instead to cover browser usage
