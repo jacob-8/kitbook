@@ -1,43 +1,50 @@
-<script lang="ts" context="module">
-  import type { PageMeta } from '@vitebook/client';
-
-  export const __pageMeta: PageMeta = {
-    title: 'Button',
-    description: 'My awesome button.',
-  };
-</script>
-
 <script>
+  import { srcObject, Button } from '$lib';
   import { Variant } from '@vitebook/client';
-  import { EventsAddon, eventCallback } from '@vitebook/client/addons';
-  import { Knobs } from 'vitebook-addons';
-
-  let title = 'Click Me';
+  import MediaStream from './MediaStream.svelte';
 </script>
 
-<Variant name="Default" description="The default button.">
-  <!-- <Button on:click={eventCallback}>{title}</Button> -->
+<Variant name="Audio + Video" description="List Devices">
+  <div>
+    <MediaStream
+      let:stream
+      let:microphones
+      let:cameras
+      let:chooseMicrophone
+      let:chooseCamera
+      let:selectedMicrophone
+      let:selectedCamera>
+      {#each microphones as microphone}
+        <div>
+          <Button
+            onclick={() => chooseMicrophone(microphone)}
+            form={selectedMicrophone.deviceId === microphone.deviceId ? 'primary' : 'simple'}
+            >{microphone.label}</Button>
+        </div>
+      {/each}
+
+      {#each cameras as camera}
+        <div>
+          <Button
+            onclick={() => chooseCamera(camera)}
+            form={selectedCamera.deviceId === camera.deviceId ? 'primary' : 'simple'}
+            >{camera.label}</Button>
+        </div>
+      {/each}
+
+      {#if stream}
+        <!-- svelte-ignore a11y-media-has-caption -->
+        <video muted volume={0} use:srcObject={stream} autoplay playsinline controls />
+      {/if}
+    </MediaStream>
+  </div>
 </Variant>
 
-<Variant name="Knobbed" description="Trying knobs">
-  <Knobs
-    input={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }}
-    let:output={{ myBool, myNum, myStr, myRange }}
-  >
-    <!-- <Button on:click={eventCallback}>{myStr}</Button> -->
-  </Knobs>
+<Variant name="Audio" description="Audio Only">
+  <MediaStream video={false} let:stream>
+    {#if stream}
+      <!-- svelte-ignore a11y-media-has-caption -->
+      <video muted volume={0} use:srcObject={stream} autoplay playsinline controls />
+    {/if}
+  </MediaStream>
 </Variant>
-
-<Variant name="Knobbed2" description="Trying knobs">
-  <Knobs
-    input={{
-      firstProp: { type: 'text', default: 'hello world' },
-      secondProp: { type: 'number', default: 123 },
-    }}
-    let:output={{ firstProp, secondProp }}
-  >
-    <!-- <Button on:click={eventCallback}>{firstProp}, {secondProp}</Button> -->
-  </Knobs>
-</Variant>
-
-<EventsAddon />

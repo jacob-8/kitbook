@@ -10,6 +10,9 @@ Run `npx svench` - note that sometimes you have to run `npx svench` a couple tim
 ## Preview
 Run `npx svench build` and `npx sirv-cli /.svench/build` to preview locally or view at https://svelte-ui-three.vercel.app/
 
+## Potential Issues
+If you import a a component from the index entrypoint like `import { Button } from 'svelte-pieces/ui/Button.svelte';` then you may have errors if some of the CJS dependencies of other unused components are not included in the Vite config like so `optimizeDeps.include: ['he']` Using a deep import like `import Button from 'svelte-pieces/ui/Button.svelte';` solves the problem but do be aware of the optional [prebundlesveltelibraries](https://github.com/sveltejs/vite-plugin-svelte/blob/main/docs/config.md#prebundlesveltelibraries) flag in the `svelte.config.js` if that is ever needed. (learning how to use these components as a published package is still in progress)
+
 ### TODO
 - Add CKEditor
 - upgrade Tailwind and don't make components have to depend on Tailwind

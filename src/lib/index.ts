@@ -1,6 +1,7 @@
 export { clickoutside } from './actions/clickoutside';
 export { longpress } from './actions/longpress';
 export { portal } from './actions/portal';
+export { srcObject } from './actions/srcObject';
 
 export { default as BadgeArray } from './data/BadgeArray.svelte';
 export { default as BadgeArrayEmit } from './data/BadgeArrayEmit.svelte';
@@ -14,6 +15,8 @@ export { default as Store } from './functions/HideOnScroll.svelte';
 
 export { default as Youtube } from './media/Youtube.svelte';
 export { default as YoutubeCaptions } from './media/YoutubeCaptions.svelte';
+export { default as MediaStream } from './media/record/MediaStream.svelte';
+export { default as Recorder } from './media/record/Recorder.svelte';
 
 export { default as Avatar } from './shell/Avatar.svelte';
 export { default as Header } from './shell/Header.svelte';

@@ -7,10 +7,9 @@
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
+  export let noscroll = false;
   onMount(() => {
-    // document.body.classList.add('no-scroll');
-    // const body = document.querySelector("body");
-    document.body.style.overflow = 'hidden';
+    noscroll && (document.body.style.overflow = 'hidden');
   });
 
   let modal: HTMLDivElement;

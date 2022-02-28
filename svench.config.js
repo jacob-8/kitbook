@@ -7,7 +7,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('vite').UserConfig} */
 const vite = {
   server: {
-    host: '0.0.0.0',
+    hmr: {
+      clientPort: process.env.HMR_HOST ? 443 : 3000,
+      host: process.env.HMR_HOST
+        ? process.env.HMR_HOST.substring('https://'.length)
+        : 'localhost',
+    },
   },
   resolve: {
     alias: {
@@ -17,4 +22,4 @@ const vite = {
   }
 }
 
-export default { vite };
+export default { vite, port: 3000 };

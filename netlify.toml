@@ -1,0 +1,6 @@
+[build]
+  command = "npm run vitebook:build"
+  publish = ".vitebook/dist"
+
+[build.environment]
+  NODE_VERSION = "16"

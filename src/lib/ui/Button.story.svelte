@@ -1,51 +1,60 @@
-<script>
-  import { View } from 'svench';
+<script lang="ts">
+  import { Variant } from '@vitebook/client';
+  import { eventCallback, EventsAddon } from '@vitebook/client/addons';
   import Button from './Button.svelte';
-  //   https://swyxkit.netlify.app/how-to-add-jsdoc-typechecking-to-sveltekit
-  /** @type {('red' | 'orange' | 'green' | 'black' | 'white' | 'primary')[]} */
-  const colors = ['primary', 'red', 'orange', 'green', 'black', 'white'];
+  const colors: ('red' | 'orange' | 'green' | 'black' | 'white' | 'primary')[] = [
+    'primary',
+    'red',
+    'orange',
+    'green',
+    'black',
+    'white',
+  ];
 </script>
 
-<View name="Stacked menu">
+<EventsAddon />
+
+<Variant name="Stacked menu">
   <div class="flex flex-col p-2 space-y-1 w-96">
     <Button href="/" form="menu">Home</Button>
     <Button href="/" form="menu" active={true}>About</Button>
     <Button href="/" form="menu">Settings</Button>
     <Button href="/" form="link">Terms</Button>
   </div>
-</View>
+</Variant>
 
-<View name="External link size">
+<Variant name="External link size">
   <Button href="/" size="sm" target="_blank">sm link</Button>
   <Button href="/" target="_blank">link</Button>
   <Button href="/" size="lg" target="_blank">lg link</Button>
-</View>
+</Variant>
 
-<View name="Forms">
+<Variant name="Forms">
   <Button href="/">Outline link</Button>
-  <Button form="filled" href="/">filled link</Button>
+  <Button form="filled" href="/">Filled link</Button>
   <Button form="simple" href="/">Simple link</Button>
-</View>
+</Variant>
 
-<View name="colors" let:action>
+<Variant name="Colors">
+  <button class="font-medium text-sm px-4 py-2 text-indigo-700 border border-indigo-500 rounded focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100">Outline</button>
   {#each colors as color}
     <div class="my-1 flex justify-around">
-      <Button onclick={action('Clicked')} {color}>{color}</Button>
+      <Button onclick={eventCallback} {color}>{color}</Button>
       &nbsp;
       <Button href="/" {color} form="filled">{color}</Button>
       &nbsp;
-      <Button onclick={action('Clicked')} {color} form="simple">{color}</Button>
+      <Button onclick={eventCallback} {color} form="simple">{color}</Button>
     </div>
   {/each}
-</View>
+</Variant>
 
-<View name="white" block>
+<Variant name="White (on dark)">
   <div class="bg-gray-900 p-2 text-center">
-    <Button onclick={() => {}} color="white" form="filled" size="lg">filled white</Button>
+    <Button onclick={() => {}} color="white" form="filled" size="lg">Primary white</Button>
   </div>
-</View>
+</Variant>
 
-<View name="Loading state">
+<Variant name="Loading state">
   <Button
     onclick={async () =>
       await new Promise((resolve) => {
@@ -53,20 +62,20 @@
         setTimeout(resolve, 1000);
       })}>1-second Log click</Button>
   <Button onclick={() => alert('Should never show')} loading>Save</Button>
-</View>
+</Variant>
 
-<View name="disabled click">
+<Variant name="disabled click">
   <Button disabled onclick={() => alert('Should never show')}>Disabled button</Button>
-</View>
+</Variant>
 
-<View name="lg click">
+<Variant name="lg click">
   <Button onclick={() => alert('Clicked')} size="lg">Alert me</Button>
-</View>
+</Variant>
 
-<View name="ctrl click" let:action>
-  <Button onclick={({ ctrlKey }) => action('button click', { ctrlKey })}>Click with Ctrl</Button>
-</View>
+<Variant name="ctrl click">
+  <Button onclick={({ ctrlKey }) => alert(`${{ ctrlKey }}`)}>Click with Ctrl</Button>
+</Variant>
 
-<View name="text">
+<Variant name="text">
   <Button form="text">Log In</Button>
-</View>
+</Variant>

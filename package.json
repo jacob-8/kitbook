@@ -1,6 +1,6 @@
 {
 	"name": "svelte-pieces",
-	"version": "1.0.1",
+	"version": "1.0.4",
 	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
@@ -14,11 +14,17 @@
 		"package": "svelte-kit package",
 		"release": "npm run package && cd package && npm publish",
 		"postversion": "git push && git push --tags && npm run release",
+		"svench": "svench",
 		"svench-build": "svench build",
 		"test": "jest",
 		"vitebook:dev": "vitebook dev",
-    "vitebook:build": "vitebook build",
-    "vitebook:preview": "vitebook preview"
+		"vitebook:build": "vitebook build",
+		"vitebook:preview": "vitebook preview"
+	},
+	"dependencies": {
+		"fast-xml-parser": "^3.19.0",
+		"recordrtc": "^5.6.2",
+		"yootils": "^0.3.1"
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^1.0.0-next.260",
@@ -26,20 +32,20 @@
 		"@testing-library/jest-dom": "^5.16.2",
 		"@testing-library/svelte": "^3.0.3",
 		"@types/jest": "^27.4.0",
+		"@types/recordrtc": "^5.6.8",
 		"@types/youtube": "^0.0.46",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
-		"@vitebook/client": "0.19.11",
-    "@vitebook/core": "0.19.11",
-    "@vitebook/markdown-shiki": "0.19.11",
-    "@vitebook/markdown-svelte": "0.19.11",
-    "@vitebook/theme-default": "0.19.11",
+		"@vitebook/client": "^0.21.3",
+		"@vitebook/core": "^0.21.3",
+		"@vitebook/markdown-shiki": "^0.21.3",
+		"@vitebook/markdown-svelte": "^0.21.3",
+		"@vitebook/theme-default": "^0.21.3",
 		"autoprefixer": "^10.4.2",
 		"cssnano": "^5.0.16",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.4.0",
-		"fast-xml-parser": "^3.19.0",
 		"he": "^1.2.0",
 		"jest": "^27.4.7",
 		"postcss": "^8.4.6",
@@ -57,8 +63,7 @@
 		"tslib": "^2.3.1",
 		"typescript": "^4.0.0",
 		"vite": "^2.7.13",
-		"vitebook-addons": "^0.0.2",
-		"yootils": "^0.3.1"
+		"vitebook-addons": "^0.0.2"
 	},
 	"peerDependencies": {
 		"svelte": "^3.46.4",

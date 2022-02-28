@@ -8,12 +8,13 @@
     type: 'button' | 'submit' = 'button',
     target: '_blank' = undefined,
     size: 'sm' | 'md' | 'lg' = 'md',
-    form: 'outline' | 'primary' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
-    color: 'red' | 'orange' | 'green' | 'black' | 'white' | string = undefined,
+    form: 'outline' | 'filled' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
+    color: 'red' | 'orange' | 'green' | 'black' | 'white' | 'primary' = 'primary',
     disabled = false,
     active = false;
 
   $: disable = disabled || loading;
+  $: fill = form === 'outline' ? 'outlined' : form;
 
   export let loading = false;
   async function runWithSpinner(event) {
@@ -36,7 +37,7 @@
       {href}
       target="_blank"
       rel="noopener"
-      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block">
       <slot />
       {#if form !== 'text' && form !== 'link'}
         <svg
@@ -56,7 +57,7 @@
       {href}
       sveltekit:prefetch
       class:active
-      class="{$$props.class} {form} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block">
       <slot />
     </a>
   {/if}
@@ -64,7 +65,7 @@
   <button
     class:active
     class:disabled={disable}
-    class="{$$props.class} {form} {size} {color} text-center inline-block"
+    class="{$$props.class} {fill} {size} {color} text-center inline-block"
     {type}
     on:click={runWithSpinner}
     disabled={disable}>
@@ -88,25 +89,11 @@
 <style>
   a,
   button {
-    @apply px-4 py-2 border border-transparent text-sm font-medium rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 hover:text-white;
+    @apply rounded hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .primary {
     @apply focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
-  }
-  .menu,
-  .link,
-  .text {
-    @apply border-none shadow-none hover:bg-transparent text-gray-600 hover:text-black focus:ring-gray-500;
-  }
-  .menu {
-    @apply rounded-lg hover:bg-gray-200;
-  }
-  .link {
-    @apply hover:underline;
-  }
-  .text {
-    @apply p-3 text-base font-normal;
-  }
-  .active {
-    @apply bg-gray-200 text-gray-800;
   }
   .red {
     @apply focus:ring-red-500 text-red-700 hover:bg-red-500 border-red-500;
@@ -120,34 +107,66 @@
   .black {
     @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-900 border-gray-500;
   }
-  .primary {
-    @apply text-white bg-primary-600 hover:bg-primary-700 border-none;
+  .white {
+    @apply focus:ring-gray-500 text-gray-800 hover:bg-gray-500 hover:bg-opacity-25;
   }
-  .primary.red {
+
+  .filled {
+    @apply text-white;
+  }
+  .filled.primary {
+    @apply bg-primary-600 hover:bg-primary-700;
+  }
+  .filled.red {
     @apply bg-red-600 hover:bg-red-700;
   }
-  .primary.orange {
+  .filled.orange {
     @apply bg-orange-600 hover:bg-orange-700;
   }
-  .primary.green {
+  .filled.green {
     @apply bg-green-600 hover:bg-green-700;
   }
-  .primary.black {
+  .filled.black {
     @apply bg-gray-800 hover:bg-gray-900;
   }
-  .primary.white {
+  .filled.white {
     @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
   }
-  .simple {
-    @apply border-none shadow-none;
+
+  .filled, .outlined {
+    @apply border shadow-sm;
   }
+
+  .menu,
+  .link,
+  .text {
+    @apply border-none shadow-none hover:bg-transparent text-gray-600 hover:text-black focus:ring-gray-500;
+  }
+
+  .menu {
+    @apply rounded-lg hover:bg-gray-200;
+  }
+  .link {
+    @apply hover:underline;
+  }
+  .text {
+    @apply p-3 text-base font-normal;
+  }
+  .active {
+    @apply bg-gray-200 text-gray-800;
+  }
+
   .sm {
-    @apply text-xs px-2.5 py-1.5;
+    @apply font-medium text-xs px-2.5 py-1.5;
+  }
+  .md {
+    @apply font-medium text-sm px-4 py-2;
   }
   .lg {
     @apply font-bold px-5 py-2.5;
     /* text-base */
   }
+
   :disabled,
   .disabled {
     @apply opacity-50 cursor-not-allowed;

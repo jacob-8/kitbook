@@ -1,29 +1,15 @@
 const colors = require('tailwindcss/colors');
 
 const config = {
-    mode: 'jit',
-    purge: [
-        "./src/**/*.{html,svelte,svench,ts}",
-    ],
+    content: ['./src/**/*.{html,js,svelte,ts}'],
     theme: {
         extend: {
             colors: {
                 primary: colors.blue,
-                orange: colors.orange,
+                green: colors.emerald, // can find-replace these to remove
             },
         }
     },
-    // Needed?
-    // variants: {
-    //     extend: {
-    //         transformOrigin: ['direction'],
-    //         inset: ['direction'],
-    //         padding: ['direction'],
-    //         margin: ['direction'],
-    //         borderRadius: ['direction'],
-    //         translate: ['direction'],
-    //     }
-    // },
     plugins: [
         // require('@tailwindcss/forms'),
         // require('@tailwindcss/typography'),
