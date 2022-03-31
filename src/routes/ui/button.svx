@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { Variant } from '@vitebook/client';
-  import { eventCallback, EventsAddon } from '@vitebook/client/addons';
-  import Button from './Button.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import Button from '$lib/ui/Button.svelte';
   const colors: ('red' | 'orange' | 'green' | 'black' | 'white' | 'primary')[] = [
     'primary',
     'red',
@@ -12,49 +11,46 @@
   ];
 </script>
 
-<EventsAddon />
-
-<Variant name="Stacked menu">
+<Story name="Stacked menu">
   <div class="flex flex-col p-2 space-y-1 w-96">
     <Button href="/" form="menu">Home</Button>
     <Button href="/" form="menu" active={true}>About</Button>
     <Button href="/" form="menu">Settings</Button>
     <Button href="/" form="link">Terms</Button>
   </div>
-</Variant>
+</Story>
 
-<Variant name="External link size">
+<Story name="External link size">
   <Button href="/" size="sm" target="_blank">sm link</Button>
   <Button href="/" target="_blank">link</Button>
   <Button href="/" size="lg" target="_blank">lg link</Button>
-</Variant>
+</Story>
 
-<Variant name="Forms">
+<Story name="Forms">
   <Button href="/">Outline link</Button>
-  <Button form="filled" href="/">Filled link</Button>
+  <Button form="filled" href="/">filled link</Button>
   <Button form="simple" href="/">Simple link</Button>
-</Variant>
+</Story>
 
-<Variant name="Colors">
-  <button class="font-medium text-sm px-4 py-2 text-indigo-700 border border-indigo-500 rounded focus:shadow-outline hover:bg-indigo-500 hover:text-indigo-100">Outline</button>
+<Story name="colors">
   {#each colors as color}
     <div class="my-1 flex justify-around">
-      <Button onclick={eventCallback} {color}>{color}</Button>
+      <Button onclick={() => alert('Clicked')} {color}>{color}</Button>
       &nbsp;
       <Button href="/" {color} form="filled">{color}</Button>
       &nbsp;
-      <Button onclick={eventCallback} {color} form="simple">{color}</Button>
+      <Button onclick={() => alert('Clicked')} {color} form="simple">{color}</Button>
     </div>
   {/each}
-</Variant>
+</Story>
 
-<Variant name="White (on dark)">
+<Story name="white">
   <div class="bg-gray-900 p-2 text-center">
-    <Button onclick={() => {}} color="white" form="filled" size="lg">Primary white</Button>
+    <Button onclick={() => {}} color="white" form="filled" size="lg">filled white</Button>
   </div>
-</Variant>
+</Story>
 
-<Variant name="Loading state">
+<Story name="Loading state">
   <Button
     onclick={async () =>
       await new Promise((resolve) => {
@@ -62,20 +58,20 @@
         setTimeout(resolve, 1000);
       })}>1-second Log click</Button>
   <Button onclick={() => alert('Should never show')} loading>Save</Button>
-</Variant>
+</Story>
 
-<Variant name="disabled click">
+<Story name="disabled click">
   <Button disabled onclick={() => alert('Should never show')}>Disabled button</Button>
-</Variant>
+</Story>
 
-<Variant name="lg click">
+<Story name="lg click">
   <Button onclick={() => alert('Clicked')} size="lg">Alert me</Button>
-</Variant>
+</Story>
 
-<Variant name="ctrl click">
-  <Button onclick={({ ctrlKey }) => alert(`${{ ctrlKey }}`)}>Click with Ctrl</Button>
-</Variant>
+<Story name="ctrl click">
+  <Button onclick={({ ctrlKey }) => console.log({ ctrlKey })}>Log click with Ctrl</Button>
+</Story>
 
-<Variant name="text">
+<Story name="text">
   <Button form="text">Log In</Button>
-</Variant>
+</Story>

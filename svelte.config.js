@@ -8,12 +8,12 @@ import mdsvexConfig from './mdsvex.config.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: [...mdsvexConfig.extensions],
+  extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
     preprocess(),
     mdsvex(mdsvexConfig),
     windi({
-      // configPath: './windi.config.js',
+      configPath: './windi.config.js',
       experimental: {
         icons: {
           prefix: 'i-',
@@ -28,6 +28,9 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    package: {
+			files: (filepath) => !(filepath.match(/(\.story|\.svench)/))
+		},
     vite: {
       resolve: {
 				alias: {

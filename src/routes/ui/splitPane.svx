@@ -1,22 +1,22 @@
-<script>
-  import { View } from 'svench';
-  import SplitPane from './SplitPane.svelte';
+<script lang="ts">
+  import Story from '$kitbook/stories/Story.svelte';
+  import SplitPane from '$lib/ui/SplitPane.svelte';
 </script>
 
-<View name="Position 30" block>
+<Story name="Position 30">
   <div style="height: 400px;">
     <SplitPane --divider-hover="hsl(195, 53%, 70%)" pos={30}>
       <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>
       <section class="text-center" slot="b">Slot B</section>
     </SplitPane>
   </div>
-</View>
+</Story>
 
-<View name="Customized (try the knobs)" knobs={{ vertical: true, pos: '10-90;50' }} let:knobs={{ vertical, pos }} block>
+<Story name="Vertical" input={{ vertical: true, pos: '10-90;50' }} let:output={{ vertical, pos }}>
   <div style="height: 400px;">
-    <SplitPane --divider-hover="hsl(195, 53%, 70%)" type={vertical ? 'vertical' : 'horizontal'} {pos}>
+    <SplitPane --divider-hover="hsl(195, 53%, 70%)" type={vertical ? 'vertical' : 'horizontal'} pos={+pos}>
       <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>
       <section class="text-center" slot="b">Slot B</section>
     </SplitPane>
   </div>
-</View>
+</Story>

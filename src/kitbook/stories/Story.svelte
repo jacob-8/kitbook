@@ -17,7 +17,7 @@
 <textarea placeholder="fragment.search" bind:value={$route.fragment.search} /> -->
 
 {#if name !== 'default'}
-### {name}
+  <h3>{name}</h3>
 {/if}
 
 <div class="not-prose border-gray-300 border">

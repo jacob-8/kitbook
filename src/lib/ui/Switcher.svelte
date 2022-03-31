@@ -8,7 +8,7 @@
 	export let value: string;
 
 	onMount(() => focusActive(`#${value}`));
-	$: focusActive(`#${value}`);
+	$: typeof window !== 'undefined' && focusActive(`#${value}`);
 
 	function focusActive(el: string) {
 		document.querySelector(el)?.scrollIntoView({ inline: 'center' });

@@ -1,23 +1,18 @@
-<script>
-  import { View } from 'svench';
-  import HideOnScroll from './HideOnScroll.svelte';
-  import ShowHide from './ShowHide.svelte';
-  import Button from '../ui/Button.svelte';
-
-  let lines = [];
-  for (let i = 1; i < 256; i++) {
-    lines.push(i);
-  }
+<script lang="ts">
+  import Story from '$kitbook/stories/Story.svelte';
+  import HideOnScroll from '$lib/functions/HideOnScroll.svelte';
+  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from '$lib/ui/Button.svelte';
 </script>
 
-<View>
+<Story>
   <ShowHide let:toggle let:show>
     {#if show}
       <HideOnScroll duration={'300ms'} offset={50} tolerance={5}>
         <header class="py-4 md:py-6 w-full" style="background: linear-gradient(0deg, #f9f9fa00 0%, #f9f9fad9 40%, #f9f9fa 100%);">Content inside vanishing header</header>
       </HideOnScroll>
     {:else}
-      Enter View 1 and then press "render naked" button in upper right and then turn on
+      Enter Story 1 and then press "render naked" button in upper right and then turn on
     {/if}
 
     <main>
@@ -25,9 +20,9 @@
       <div>Just a lot of lines to make the page scrollable.</div>
       <div>One more</div>
       <Button onclick={toggle}>Turn {show ? 'off' : 'on'}</Button>
-      {#each lines as line}
-        <div>A line number {line}.</div>
+      {#each [...Array(256)] as line}
+        <div>A line...</div>
       {/each}
     </main>
   </ShowHide>
-</View>
+</Story>

@@ -37,7 +37,7 @@
       {/each}
     {/if}
     <Button class="mb-1" onclick={() => dispatch('additem')} color="orange" size="sm">
-      <i class="fas fa-plus" />
+      <span class="i-fa-solid-plus" />
       {addMessage}
     </Button>
   {:else if strings}

@@ -67,7 +67,7 @@
         class="text-gray-400 hover:text-gray-500 focus:outline-none
           focus:text-gray-500 transition ease-in-out duration-150"
         aria-label="Close">
-        <i class="far fa-times fa-lg" /></button>
+        <span class="i-fa-solid-times text-lg" /></button>
     </div>
 
     <div class="flex-1 overflow-y-auto">

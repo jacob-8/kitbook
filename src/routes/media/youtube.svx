@@ -1,7 +1,7 @@
 <script>
-  import { View } from 'svench';
-  import Button from '../ui/Button.svelte';
-  import Youtube, { PlayerState } from './Youtube.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import Button from '$lib/ui/Button.svelte';
+  import Youtube, { PlayerState } from '$lib/media/Youtube.svelte';
 
   // const onPlayerReady = ({ detail }: { detail: YT.Player }) => {
   const onPlayerReady = ({ detail }) => {
@@ -14,7 +14,7 @@
   };
 </script>
 
-<View name="Responsive" knobs={{ width: '200-1000;640' }} let:knobs={{ width }}>
+<Story name="Responsive" input={{ width: '200-1000;640' }} let:output={{ width }}>
   <div style="width: {width}px;">
     <Youtube videoId="48gHuY4w0hY" let:player on:ready={onPlayerReady} let:state let:playbackRate>
       {#if state === PlayerState['PLAYING'] || state === PlayerState['BUFFERING']}
@@ -30,4 +30,4 @@
       <Button active={playbackRate === 1} onclick={() => player.setPlaybackRate(1)}>1</Button>
     </Youtube>
   </div>
-</View>
+</Story>

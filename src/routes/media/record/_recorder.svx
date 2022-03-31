@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { Variant } from '@vitebook/client';
-  import MediaStream from './MediaStream.svelte';
-  import { srcObject, Button } from '$lib';
-  import Recorder from './Recorder.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import MediaStream from '$lib/media/record/MediaStream.svelte';
+  import { srcObject, Button, Recorder } from '$lib';
   import type { Options } from 'recordrtc';
 
   const options: Options = {
@@ -13,7 +12,7 @@
   };
 </script>
 
-<Variant name="Kitchen Sink" description="All Recorder Actions">
+<Story>
   <div>
     <MediaStream let:stream>
       {#if stream}
@@ -49,4 +48,4 @@
       {/if}
     </MediaStream>
   </div>
-</Variant>
+</Story>

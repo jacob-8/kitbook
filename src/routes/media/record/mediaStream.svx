@@ -1,10 +1,9 @@
 <script>
-  import { srcObject, Button } from '$lib';
-  import { Variant } from '@vitebook/client';
-  import MediaStream from './MediaStream.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import { srcObject, Button, MediaStream } from '$lib';
 </script>
 
-<Variant name="Audio + Video" description="List Devices">
+<Story name="Audio + Video List Devices">
   <div>
     <MediaStream
       let:stream
@@ -18,7 +17,7 @@
         <div>
           <Button
             onclick={() => chooseMicrophone(microphone)}
-            form={selectedMicrophone.deviceId === microphone.deviceId ? 'primary' : 'simple'}
+            form={selectedMicrophone.deviceId === microphone.deviceId ? 'filled' : 'simple'}
             >{microphone.label}</Button>
         </div>
       {/each}
@@ -27,7 +26,7 @@
         <div>
           <Button
             onclick={() => chooseCamera(camera)}
-            form={selectedCamera.deviceId === camera.deviceId ? 'primary' : 'simple'}
+            form={selectedCamera.deviceId === camera.deviceId ? 'filled' : 'simple'}
             >{camera.label}</Button>
         </div>
       {/each}
@@ -38,13 +37,13 @@
       {/if}
     </MediaStream>
   </div>
-</Variant>
+</Story>
 
-<Variant name="Audio" description="Audio Only">
+<Story name="Audio Only">
   <MediaStream video={false} let:stream>
     {#if stream}
       <!-- svelte-ignore a11y-media-has-caption -->
       <video muted volume={0} use:srcObject={stream} autoplay playsinline controls />
     {/if}
   </MediaStream>
-</Variant>
+</Story>

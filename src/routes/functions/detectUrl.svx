@@ -1,10 +1,10 @@
 <script>
-  import Badge from '../ui/Badge.svelte';
-  import { View } from 'svench';
-  import DetectUrl from './DetectUrl.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import Badge from '$lib/ui/Badge.svelte';
+  import DetectUrl from '$lib/functions/DetectUrl.svelte';
 </script>
 
-<View name="text">
+<Story name="text">
   <DetectUrl string="Bob McNary" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
@@ -12,30 +12,30 @@
   <DetectUrl string="Google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
-</View>
+</Story>
 
-<View name="http://google.com">
+<Story name="http://google.com">
   <DetectUrl string="http://google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
-</View>
+</Story>
 
-<View name="www.google.com">
+<Story name="www.google.com">
   <DetectUrl string="www.google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
-</View>
+</Story>
 
-<View name="https://google.com">
+<Story name="https://google.com">
   <DetectUrl string="https://google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
-</View>
+</Story>
 
-<View name="https://www.google.com">
+<Story name="https://www.google.com">
   <DetectUrl string="https://www.google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
-</View>
+</Story>
 
 <a href="http://www.google.com">Google</a>

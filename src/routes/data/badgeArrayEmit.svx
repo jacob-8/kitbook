@@ -1,0 +1,42 @@
+<script>
+  import Story from '$kitbook/stories/Story.svelte';
+  import BadgeArrayEmit from '$lib/data/BadgeArrayEmit.svelte';
+
+  let books = ['Lord of the Rings', 'www.books.com'];
+</script>
+
+<Story name="Log clicks">
+  <BadgeArrayEmit
+    strings={books || []}
+    canEdit={true}
+    addMessage="Add Book"
+    on:itemclicked={(e) => console.log('itemclicked', e.detail)}
+    on:itemremoved={(e) => console.log('itemremoved', e.detail)}
+    on:additem={(e) => console.log('additem', e.detail)} />
+</Story>
+
+<Story name="Edit array">
+  <BadgeArrayEmit
+    strings={books || []}
+    canEdit={true}
+    addMessage="Add Book"
+    on:itemclicked={(e) => console.log('itemclicked', e.detail)}
+    on:additem={(e) => {
+      const string = prompt('What book would you like to avoid?');
+      if (string) {
+        books = [...books, string.trim()];
+      }
+    }}
+    on:itemremoved={(e) => {
+      books.splice(e.detail.index, 1);
+      books = books;
+    }} />
+</Story>
+
+<Story name="Handles a string">
+  <BadgeArrayEmit strings={'How about this?'} canEdit addMessage="foo" on:additem={() => alert('fired')} />
+</Story>
+
+<Story name="Handles null">
+  <BadgeArrayEmit strings={null} canEdit addMessage="foo" on:additem={() => alert('fired')} />
+</Story>

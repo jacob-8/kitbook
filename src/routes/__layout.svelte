@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { parseModulesIntoFolders, type Folder } from '$kitbook/sidebar/pages';
-  const modules = import.meta.glob('./**/*.{md,svelte}');
+  const modules = import.meta.glob('./**/*.{md,svx}');
 
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {

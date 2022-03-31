@@ -1,0 +1,24 @@
+<script>
+	import Story from '$kitbook/stories/Story.svelte';
+	import Store from '$lib/functions/Store.svelte';
+	let value = 'world';
+</script>
+
+<Story name="Store + input Event">
+	<Store startWith="hello" let:set let:store={text}>
+		<input
+			type="text"
+			value={text}
+			on:input={(e) => {
+				//@ts-ignore
+				set(e.target.value);
+			}}
+		/>
+		<div>{text}</div>
+	</Store>
+</Story>
+
+<Story name="2-way binding for comparison">
+	<input type="text" bind:value />
+	<div>{value}</div>
+</Story>

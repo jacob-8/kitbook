@@ -1,47 +1,43 @@
-<script>
-  import { View } from 'svench';
-  import BadgeArray from './BadgeArray.svelte';
+<script lang="ts">
+  import Story from '$kitbook/stories/Story.svelte';
+  import BadgeArray from '$lib/data/BadgeArray.svelte';
 
   const books = ['Lord of the Rings', 'www.books.com'];
 </script>
 
-<svelte:head>
-  <script src="https://kit.fontawesome.com/5ef47f4770.js" crossorigin="anonymous"></script>
-</svelte:head>
-
-<View name="Basic display">
+<Story name="Basic display">
   <BadgeArray strings={books || []} promptMessage="What is the book name?" addMessage="Add Book" />
-</View>
+</Story>
 
-<View name="Basic display (RTL)">
+<Story name="Basic display (RTL)">
   <div dir="rtl">
     <BadgeArray
       strings={books || []}
       promptMessage="What is the book name?"
       addMessage="Add Book" />
   </div>
-</View>
+</Story>
 
-<View name="Editable" let:action>
+<Story name="Editable">
   <BadgeArray
     canEdit
     strings={books || []}
     promptMessage="What is the book name?"
     addMessage="Add Book"
-    on:valueupdated={(e) => action('valueupdated', e.detail)} />
-</View>
+    on:valueupdated={(e) => console.log('valueupdated', e.detail)} />
+</Story>
 
-<View name="Editable (RTL)" let:action>
+<Story name="Editable (RTL)">
   <div dir="rtl">
     <BadgeArray
       canEdit
       strings={books || []}
       promptMessage="What is the book name?"
       addMessage="Add Book"
-      on:valueupdated={(e) => action('valueupdated', e.detail)} />
+      on:valueupdated={(e) => console.log('valueupdated', e.detail)} />
   </div>
-</View>
+</Story>
 
-<View name="Handles a string" let:action>
+<Story name="Handles a string">
   <BadgeArray strings={'How about this?'} />
-</View>
+</Story>

@@ -28,7 +28,7 @@
 
 <ShowHide let:show let:toggle>
   <Button onclick={toggle} form="simple" color="black">
-    <i class="fas fa-code" />
+    <span class="i-fa-solid-code" />
   </Button>
   {#if show}
     <div class="fullscreen">

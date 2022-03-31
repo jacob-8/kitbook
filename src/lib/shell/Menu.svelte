@@ -1,13 +1,16 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  // import { portal } from '../actions/portal';
+  export let top = 8;
+  export let right = 8;
+  export let portal = (node: HTMLElement) => {};
 </script>
 
-<!-- use:portal if needed to solve z-index issues, putting menu on the document body doesn't work great in Svench-->
 <div
+  use:portal
   transition:fly={{ y: -10, duration: 150 }}
-  class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
-shadow-lg">
+  class="absolute z-30 w-48 rounded-md
+shadow-lg"
+style="top: {top}px; right: {right}px;">
   <div class="sv-menu">
     <slot />
   </div>

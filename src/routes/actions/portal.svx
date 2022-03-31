@@ -1,11 +1,11 @@
 <script>
-  import ShowHide from '../functions/ShowHide.svelte';
-  import Button from '../ui/Button.svelte';
-  import { View } from 'svench';
-  import { portal } from './portal';
+  import Story from '$kitbook/stories/Story.svelte';
+  import ShowHide from '$lib/functions/ShowHide.svelte';
+  import Button from '$lib/ui/Button.svelte';
+  import { portal } from '$lib/actions/portal';
 </script>
 
-<View>
+<Story>
   <ShowHide let:show let:toggle>
     <Button onclick={toggle}>Toggle 'use:portal'</Button>
     <div class="relative" style="height: 100px; width: 300px;">
@@ -23,4 +23,4 @@
       {/if}
     </div>
   </ShowHide>
-</View>
+</Story>

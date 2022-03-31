@@ -1,0 +1,13 @@
+<script>
+  import Story from '$kitbook/stories/Story.svelte';
+  import { longpress } from '$lib/actions/longpress';
+</script>
+
+<Story input={{ duration: '200-2000;1000' }} let:output={{ duration }}>
+  <button
+    class="p-3 hover:bg-gray-200"
+    type="button"
+    use:longpress={+duration}
+    on:longpress={() => console.log('longpress')}
+    on:shortpress={() => console.log('shortpress')}>Press/tap more or less than {duration}</button>
+</Story>

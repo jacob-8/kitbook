@@ -1,10 +1,15 @@
-<script>
-	import { View } from 'svench';
-	import Badge from './Badge.svelte';
-	const colors = ['red', 'orange', 'green', 'gray'];
-</script>
+<script lang="ts">
+  import Story from '$kitbook/stories/Story.svelte';
+	import Badge from '$lib/ui/Badge.svelte';
+  const colors: ('red' | 'orange' | 'green' | 'black' | 'white' | 'primary')[] = [
+    'primary',
+    'red',
+    'orange',
+    'green',
+    'black',
+  ];</script>
 
-<View name="links">
+<Story name="links">
 	<Badge href="/">Link</Badge>
 	<Badge href="/" onx={() => alert('x')}>link w/ action</Badge>
 	<Badge href="/" target="_blank">External Link</Badge>
@@ -15,16 +20,15 @@
 		>livingdictionaries-really-long-url-to-see-how-wrapping-works-for-the-badge-in-the.applivingdictionaries-really-long-url-to-see-how-wrapping-works-for-the-badge-in-the.app
 		w/ action
 	</Badge>
-</View>
+</Story>
 
-<View name="button">
+<Story name="button">
 	<Badge onclick={() => alert('clicked')}>Clothes</Badge>
 	<Badge onclick={() => alert('clicked')} onx={() => alert('x')}>Animals</Badge>
-</View>
+</Story>
 
-<View name="colors">
+<Story name="colors">
   <div class="text-center">
-
     <div>
       <Badge>primary</Badge>
       {#each colors as color}
@@ -40,4 +44,4 @@
       {/each}
     </div>
   </div>
-</View>
+</Story>

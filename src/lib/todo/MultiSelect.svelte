@@ -121,7 +121,7 @@
             class="token-remove cursor-pointer justify-center items-center flex
             bg-blue-300 hover:bg-blue-400 rounded-full h-4 w-4 ml-1"
             title="Remove {s.name}">
-            <i class="far fa-times fa-sm" />
+            <span class="i-fa-solid-times text-sm" />
           </div>
         {/if}
       </div>

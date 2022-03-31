@@ -1,15 +1,20 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
-  import RecordRTC from 'recordrtc';
+  import { onMount, onDestroy } from 'svelte';
+  import type RecordRTCType from 'recordrtc';
   import type { Options, State } from 'recordrtc';
 
   export let stream: MediaStream, options: Options;
-  let recorder: RecordRTC;
+  let RecordRTC: typeof RecordRTCType;
+  let recorder: RecordRTCType;
   let recordingTime = 0;
   let interval;
   let state: State;
 
-  $: {
+  onMount(async () => {
+    RecordRTC = (await import('recordrtc')).default; // Will cause issues w/ making the window object exist and other SSR problems if imported server side
+  });
+
+  $: if (RecordRTC) {
     if (recorder) {
       recorder.stopRecording();
     }

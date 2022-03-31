@@ -51,7 +51,7 @@
       }}
       color="orange"
       size="sm">
-      <i class="fas fa-plus" />
+      <span class="i-fa-solid-plus" />
       {addMessage}
     </Button>
   {:else if strings}

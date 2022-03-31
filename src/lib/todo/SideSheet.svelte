@@ -68,7 +68,7 @@
       aria-label="Close panel"
       class="text-gray-400 hover:text-gray-500 transition ease-in-out
       duration-150 h-7 flex items-center">
-      <i class="far fa-times fa-lg fa-fw" />
+      <span class="i-fa-solid-times text-lg" />
     </button>
   </header>
 

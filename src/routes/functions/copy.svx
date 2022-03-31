@@ -1,0 +1,24 @@
+<script>
+  import Story from '$kitbook/stories/Story.svelte';
+  import Button from '$lib/ui/Button.svelte';
+
+  let text = 'sample message';
+</script>
+
+<Story name="Input message">
+  <input bind:value={text} />
+  <Button
+    onclick={async () => {
+      navigator.clipboard.writeText(text);
+      const clip = await navigator.clipboard.readText();
+      console.log('copied', clip);
+    }}>Copy</Button>
+</Story>
+
+```ts
+async function copy(text: string) {
+  navigator.clipboard.writeText(text);
+  const clip = await navigator.clipboard.readText();
+  console.log('copied', clip);
+}
+```

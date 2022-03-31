@@ -1,9 +1,8 @@
 {
   "files.associations": {
     "*.svench": "svelte",
-    "*.svx": "markdown"
+    "*.svx": "svelte"
   },
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "css.lint.unknownAtRules": "ignore",
 }

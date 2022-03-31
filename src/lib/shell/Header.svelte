@@ -29,12 +29,12 @@
           <Avatar {user} />
         </button>
         {#if show}
-          <Menu class="right-2">
+          <Menu>
             <div class="px-4 py-2 text-xs font-semibold text-gray-600">{user.displayName}</div>
             <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">{user.email}</div>
             <a href="/admin">
               Admin Panel
-              <i class="fas fa-key" />
+              <span class="i-fa-solid-key" />
             </a>
             <a href="/account"> Settings </a>
             <button> Log out </button>
@@ -45,7 +45,7 @@
   {:else}
     <ShowHide let:show let:toggle>
       <Button form="text" onclick={toggle}>
-        <i class="far fa-sign-in" />
+        <span class="i-fa-solid-sign-in-alt" />
         <span class="ml-1 hidden sm:inline"> Log In </span>
       </Button>
       {#if show}
@@ -62,7 +62,6 @@
 
 <style>
   header {
-    @apply top-0 left-0 right-0 flex items-center bg-white h-[50px] z-[2] whitespace-nowrap;
-    /* @apply fixed; */
+    @apply top-0 left-0 right-0 flex items-center bg-white h-[50px] z-2 whitespace-nowrap;
   }
 </style>

@@ -1,9 +1,9 @@
 <script>
-  import { View } from 'svench';
-  import Avatar from './Avatar.svelte';
+  import Story from '$kitbook/stories/Story.svelte';
+  import Avatar from '$lib/shell/Avatar.svelte';
 </script>
 
-<View name="image">
+<Story name="image">
   <Avatar
     user={{
       displayName: 'John Smith',
@@ -11,9 +11,9 @@
       photoURL:
         'https://lh5.googleusercontent.com/-qCXZXfIkRQ8/AAAAAAAAAAI/AAAAAAAAACc/wAdH8yns3QQ/photo.jpg',
     }} />
-</View>
+</Story>
 
-<View name="broken image">
+<Story name="broken image">
   <Avatar
     user={{
       displayName: 'John Smith',
@@ -21,16 +21,16 @@
       photoURL:
         'https://broken-link.broken.jpg',
     }} />
-</View>
+</Story>
 
-<View name="full name">
+<Story name="full name">
   <Avatar user={{ displayName: 'John Smith', email: 'b@gc.com', }} />
-</View>
+</Story>
 
-<View name="single name">
+<Story name="single name">
   <Avatar user={{ displayName: 'John', email: 'b@gc.com', }} />
-</View>
+</Story>
 
-<View name="No display name, use email">
+<Story name="No display name, use email">
   <Avatar user={{ email: 'b@gc.com', displayName: null }} />
-</View>
+</Story>
