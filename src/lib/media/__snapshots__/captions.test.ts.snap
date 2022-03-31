@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
 exports[`parseTracksXml returns array of tracks 1`] = `
-Array [
-  Object {
+[
+  {
     "id": 0,
     "langCode": "ar",
     "langDefault": false,
@@ -10,7 +10,7 @@ Array [
     "langTranslated": "Arabic",
     "name": "",
   },
-  Object {
+  {
     "id": 2,
     "langCode": "bn",
     "langDefault": false,
@@ -18,7 +18,7 @@ Array [
     "langTranslated": "Bangla",
     "name": "",
   },
-  Object {
+  {
     "id": 1,
     "langCode": "bg",
     "langDefault": false,
@@ -26,7 +26,7 @@ Array [
     "langTranslated": "Bulgarian",
     "name": "",
   },
-  Object {
+  {
     "id": 3,
     "langCode": "ca",
     "langDefault": false,
@@ -34,7 +34,7 @@ Array [
     "langTranslated": "Catalan",
     "name": "",
   },
-  Object {
+  {
     "id": 54,
     "langCode": "zh-HK",
     "langDefault": false,
@@ -42,7 +42,7 @@ Array [
     "langTranslated": "Chinese (Hong Kong)",
     "name": "",
   },
-  Object {
+  {
     "id": 53,
     "langCode": "zh-CN",
     "langDefault": false,
@@ -50,7 +50,7 @@ Array [
     "langTranslated": "Chinese (Simplified)",
     "name": "",
   },
-  Object {
+  {
     "id": 55,
     "langCode": "zh-TW",
     "langDefault": false,
@@ -58,7 +58,7 @@ Array [
     "langTranslated": "Chinese (Traditional)",
     "name": "",
   },
-  Object {
+  {
     "id": 21,
     "langCode": "hr",
     "langDefault": false,
@@ -66,7 +66,7 @@ Array [
     "langTranslated": "Croatian",
     "name": "",
   },
-  Object {
+  {
     "id": 4,
     "langCode": "cs",
     "langDefault": false,
@@ -74,7 +74,7 @@ Array [
     "langTranslated": "Czech",
     "name": "",
   },
-  Object {
+  {
     "id": 5,
     "langCode": "da",
     "langDefault": false,
@@ -82,7 +82,7 @@ Array [
     "langTranslated": "Danish",
     "name": "",
   },
-  Object {
+  {
     "id": 33,
     "langCode": "nl-BE",
     "langDefault": false,
@@ -90,7 +90,7 @@ Array [
     "langTranslated": "Dutch (Belgium)",
     "name": "",
   },
-  Object {
+  {
     "id": 34,
     "langCode": "nl-NL",
     "langDefault": false,
@@ -98,7 +98,7 @@ Array [
     "langTranslated": "Dutch (Netherlands)",
     "name": "",
   },
-  Object {
+  {
     "id": 8,
     "langCode": "en-GB",
     "langDefault": true,
@@ -106,7 +106,7 @@ Array [
     "langTranslated": "English (United Kingdom)",
     "name": "",
   },
-  Object {
+  {
     "id": 9,
     "langCode": "en-US",
     "langDefault": false,
@@ -114,7 +114,7 @@ Array [
     "langTranslated": "English (United States)",
     "name": "CC",
   },
-  Object {
+  {
     "id": 12,
     "langCode": "et",
     "langDefault": false,
@@ -122,7 +122,7 @@ Array [
     "langTranslated": "Estonian",
     "name": "",
   },
-  Object {
+  {
     "id": 15,
     "langCode": "fil",
     "langDefault": false,
@@ -130,7 +130,7 @@ Array [
     "langTranslated": "Filipino",
     "name": "",
   },
-  Object {
+  {
     "id": 14,
     "langCode": "fi",
     "langDefault": false,
@@ -138,7 +138,7 @@ Array [
     "langTranslated": "Finnish",
     "name": "",
   },
-  Object {
+  {
     "id": 16,
     "langCode": "fr-BE",
     "langDefault": false,
@@ -146,7 +146,7 @@ Array [
     "langTranslated": "French (Belgium)",
     "name": "",
   },
-  Object {
+  {
     "id": 17,
     "langCode": "fr-CA",
     "langDefault": false,
@@ -154,7 +154,7 @@ Array [
     "langTranslated": "French (Canada)",
     "name": "",
   },
-  Object {
+  {
     "id": 18,
     "langCode": "fr-FR",
     "langDefault": false,
@@ -162,7 +162,7 @@ Array [
     "langTranslated": "French (France)",
     "name": "",
   },
-  Object {
+  {
     "id": 6,
     "langCode": "de",
     "langDefault": false,
@@ -170,7 +170,7 @@ Array [
     "langTranslated": "German",
     "name": "",
   },
-  Object {
+  {
     "id": 7,
     "langCode": "el",
     "langDefault": false,
@@ -178,7 +178,7 @@ Array [
     "langTranslated": "Greek",
     "name": "",
   },
-  Object {
+  {
     "id": 19,
     "langCode": "gu",
     "langDefault": false,
@@ -186,7 +186,7 @@ Array [
     "langTranslated": "G     ujarati",
     "name": "",
   },
-  Object {
+  {
     "id": 24,
     "langCode": "iw",
     "langDefault": false,
@@ -194,7 +194,7 @@ Array [
     "langTranslated": "Hebrew",
     "name": "",
   },
-  Object {
+  {
     "id": 20,
     "langCode": "hi",
     "langDefault": false,
@@ -202,7 +202,7 @@ Array [
     "langTranslated": "Hindi",
     "name": "",
   },
-  Object {
+  {
     "id": 22,
     "langCode": "i     d",
     "langDefault": false,
@@ -210,7 +210,7 @@ Array [
     "langTranslated": "Indonesian",
     "name": "",
   },
-  Object {
+  {
     "id": 23,
     "langCode": "it",
     "langDefault": false,
@@ -218,7 +218,7 @@ Array [
     "langTranslated": "Italian",
     "name": "",
   },
-  Object {
+  {
     "id": 25,
     "langCode": "ja",
     "langDefault": false,
@@ -226,7 +226,7 @@ Array [
     "langTranslated": "Japanese",
     "name": "",
   },
-  Object {
+  {
     "id": 26,
     "langCode": "kn",
     "langDefault": false,
@@ -234,7 +234,7 @@ Array [
     "langTranslated": "Kannada",
     "name": "",
   },
-  Object {
+  {
     "id": 27,
     "langCode": "ko",
     "langDefault": false,
@@ -242,7 +242,7 @@ Array [
     "langTranslated": "Korean",
     "name": "",
   },
-  Object {
+  {
     "id": 29,
     "langCode": "lv",
     "langDefault": false,
@@ -250,7 +250,7 @@ Array [
     "langTranslated": "Latvian",
     "name": "",
   },
-  Object {
+  {
     "id": 28,
     "langCode": "lt",
     "langDefault": false,
@@ -258,7 +258,7 @@ Array [
     "langTranslated": "Lithuanian",
     "name": "",
   },
-  Object {
+  {
     "id": 32,
     "langCode": "ms",
     "langDefault": false,
@@ -266,7 +266,7 @@ Array [
     "langTranslated": "Malay",
     "name": "",
   },
-  Object {
+  {
     "id": 30,
     "langCode": "ml",
     "langDefault": false,
@@ -274,7 +274,7 @@ Array [
     "langTranslated": "Malayalam",
     "name": "",
   },
-  Object {
+  {
     "id": 31,
     "langCode": "mr",
     "langDefault": false,
@@ -282,7 +282,7 @@ Array [
     "langTranslated": "Marathi",
     "name": "",
   },
-  Object {
+  {
     "id": 35,
     "langCode": "no",
     "langDefault": false,
@@ -290,7 +290,7 @@ Array [
     "langTranslated": "Norwegian",
     "name": "",
   },
-  Object {
+  {
     "id": 13,
     "langCode": "fa",
     "langDefault": false,
@@ -298,7 +298,7 @@ Array [
     "langTranslated": "Persian",
     "name": "",
   },
-  Object {
+  {
     "id": 37,
     "langCode": "pl",
     "langDefault": false,
@@ -306,7 +306,7 @@ Array [
     "langTranslated": "Polish",
     "name": "",
   },
-  Object {
+  {
     "id": 38,
     "langCode": "pt-BR",
     "langDefault": false,
@@ -314,7 +314,7 @@ Array [
     "langTranslated": "Portuguese (Brazil)",
     "name": "",
   },
-  Object {
+  {
     "id": 39,
     "langCode": "pt-PT",
     "langDefault": false,
@@ -322,7 +322,7 @@ Array [
     "langTranslated": "Portuguese (Portugal)",
     "name": "",
   },
-  Object {
+  {
     "id": 36,
     "langCode": "pa",
     "langDefault": false,
@@ -330,7 +330,7 @@ Array [
     "langTranslated": "Punjabi",
     "name": "",
   },
-  Object {
+  {
     "id": 40,
     "langCode": "ro",
     "langDefault": false,
@@ -338,7 +338,7 @@ Array [
     "langTranslated": "Romanian",
     "name": "",
   },
-  Object {
+  {
     "id": 41,
     "langCode": "ru",
     "langDefault": false,
@@ -346,7 +346,7 @@ Array [
     "langTranslated": "Russian",
     "name": "",
   },
-  Object {
+  {
     "id": 44,
     "langCode": "sr",
     "langDefault": false,
@@ -354,7 +354,7 @@ Array [
     "langTranslated": "Serbian",
     "name": "",
   },
-  Object {
+  {
     "id": 42,
     "langCode": "sk",
     "langDefault": false,
@@ -362,7 +362,7 @@ Array [
     "langTranslated": "Slovak",
     "name": "",
   },
-  Object {
+  {
     "id": 43,
     "langCode": "sl",
     "langDefault": false,
@@ -370,7 +370,7 @@ Array [
     "langTranslated": "Slovenian",
     "name": "",
   },
-  Object {
+  {
     "id": 10,
     "langCode": "es-419",
     "langDefault": false,
@@ -378,7 +378,7 @@ Array [
     "langTranslated": "Spanish (Latin America)",
     "name": "",
   },
-  Object {
+  {
     "id": 11,
     "langCode": "es-ES",
     "langDefault": false,
@@ -386,7 +386,7 @@ Array [
     "langTranslated": "Spanish (Spain)",
     "name": "",
   },
-  Object {
+  {
     "id": 46,
     "langCode": "sw",
     "langDefault": false,
@@ -394,7 +394,7 @@ Array [
     "langTranslated": "Swahili",
     "name": "",
   },
-  Object {
+  {
     "id": 45,
     "langCode": "sv",
     "langDefault": false,
@@ -402,7 +402,7 @@ Array [
     "langTranslated": "Swedish",
     "name": "",
   },
-  Object {
+  {
     "id": 47,
     "langCode": "ta",
     "langDefault": false,
@@ -410,7 +410,7 @@ Array [
     "langTranslated": "T     amil",
     "name": "",
   },
-  Object {
+  {
     "id": 48,
     "langCode": "te",
     "langDefault": false,
@@ -418,7 +418,7 @@ Array [
     "langTranslated": "Telugu",
     "name": "",
   },
-  Object {
+  {
     "id": 49,
     "langCode": "th",
     "langDefault": false,
@@ -426,7 +426,7 @@ Array [
     "langTranslated": "Thai",
     "name": "",
   },
-  Object {
+  {
     "id": 50,
     "langCode": "tr",
     "langDefault": false,
@@ -434,7 +434,7 @@ Array [
     "langTranslated": "Turkish",
     "name": "",
   },
-  Object {
+  {
     "id": 51,
     "langCode": "uk",
     "langDefault": false,
@@ -442,7 +442,7 @@ Array [
     "langTranslated": "Ukrainian",
     "name": "",
   },
-  Object {
+  {
     "id": 52,
     "langCode": "vi",
     "langDefault": false,
