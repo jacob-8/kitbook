@@ -1,3 +1,0 @@
-.page[class*='type-']:not([class*='md']) > .page__container {
-  flex-direction: column;
-}
