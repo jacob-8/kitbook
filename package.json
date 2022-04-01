@@ -1,6 +1,6 @@
 {
 	"name": "svelte-pieces",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
@@ -19,6 +19,7 @@
 	},
 	"dependencies": {
 		"fast-xml-parser": "^3.19.0",
+		"he": "^1.2.0",
 		"recordrtc": "^5.6.2",
 		"yootils": "^0.3.1"
 	},
@@ -34,7 +35,6 @@
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.4.0",
-		"he": "^1.2.0",
     "mdsvex": "^0.10.5",
 		"prettier": "^2.5.1",
 		"prettier-plugin-svelte": "^2.6.0",

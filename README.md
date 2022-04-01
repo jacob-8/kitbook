@@ -19,4 +19,5 @@ If you import a a component from the index entrypoint like `import { Button } fr
 
 ### TODO
 - solve non-breaking errors in Header.svelte
+- publish @ld/components for MediaStream and Recorder, then bump version
 - Add CKEditor?

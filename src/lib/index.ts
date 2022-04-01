@@ -15,8 +15,6 @@ export { default as Store } from './functions/HideOnScroll.svelte';
 
 export { default as Youtube } from './media/Youtube.svelte';
 export { default as YoutubeCaptions } from './media/YoutubeCaptions.svelte';
-export { default as MediaStream } from './media/record/MediaStream.svelte';
-export { default as Recorder } from './media/record/Recorder.svelte';
 
 export { default as Avatar } from './shell/Avatar.svelte';
 export { default as Header } from './shell/Header.svelte';

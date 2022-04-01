@@ -1,6 +1,5 @@
 {
   "files.associations": {
-    "*.svench": "svelte",
     "*.svx": "svelte"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
