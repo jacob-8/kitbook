@@ -29,7 +29,7 @@
           <Avatar {user} />
         </button>
         {#if show}
-          <Menu>
+          <Menu class="right-2">
             <div class="px-4 py-2 text-xs font-semibold text-gray-600">{user.displayName}</div>
             <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">{user.email}</div>
             <a href="/admin">

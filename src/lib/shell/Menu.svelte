@@ -1,16 +1,13 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  export let top = 8;
-  export let right = 8;
   export let portal = (node: HTMLElement) => {};
 </script>
 
 <div
   use:portal
   transition:fly={{ y: -10, duration: 150 }}
-  class="absolute z-30 w-48 rounded-md
-shadow-lg"
-style="top: {top}px; right: {right}px;">
+  class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
+shadow-lg">
   <div class="sv-menu">
     <slot />
   </div>
@@ -23,7 +20,6 @@ style="top: {top}px; right: {right}px;">
   :global(.sv-menu a),
   :global(.sv-menu label),
   :global(.sv-menu button) {
-    @apply text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100
-      transition ease-in-out duration-150;
+    @apply text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150;
   }
 </style>

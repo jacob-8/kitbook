@@ -20,6 +20,7 @@ specifiers:
   recordrtc: ^5.6.2
   svelte: ^3.46.4
   svelte-check: ^2.4.2
+  svelte-deep-wind-preprocess: ^0.0.1
   svelte-preprocess: ^4.10.2
   svelte-store-router: ^2.0.10
   svelte-windicss-preprocess: ~4.1.0
@@ -53,6 +54,7 @@ devDependencies:
   prettier-plugin-svelte: 2.6.0_prettier@2.6.1+svelte@3.46.5
   svelte: 3.46.5
   svelte-check: 2.4.6_svelte@3.46.5
+  svelte-deep-wind-preprocess: 0.0.1
   svelte-preprocess: 4.10.4_svelte@3.46.5+typescript@4.6.3
   svelte-store-router: 2.0.10_svelte@3.46.5
   svelte-windicss-preprocess: 4.1.7
@@ -1922,6 +1924,10 @@ packages:
       - sass
       - stylus
       - sugarss
+    dev: true
+
+  /svelte-deep-wind-preprocess/0.0.1:
+    resolution: {integrity: sha512-T+8+Mi4i1Z24BIGqM4OLnxWovF16w09ws+8P+FbvCe1m4mz4j/9NBby2zfa2u3PsNHc9/fUjRs83u/GitAa0eg==}
     dev: true
 
   /svelte-hmr/0.14.11_svelte@3.46.5:

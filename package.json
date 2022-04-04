@@ -1,6 +1,6 @@
 {
 	"name": "svelte-pieces",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"description": "Useful Svelte UI pieces for building web apps",
 	"type": "module",
 	"scripts": {
@@ -42,6 +42,7 @@
 		"svelte-check": "^2.4.2",
 		"svelte-preprocess": "^4.10.2",
     "svelte-store-router": "^2.0.10",
+		"svelte-deep-wind-preprocess": "^0.0.1",
     "svelte-windicss-preprocess": "~4.1.0",
 		"svelte2tsx": "^0.5.2",
 		"tslib": "^2.3.1",
