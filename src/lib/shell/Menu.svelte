@@ -1,17 +1,29 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  export let portal = (node: HTMLElement) => {};
+  import { portal } from '../actions/portal';
+  export let portalTarget: string; // 'body' | '#direction' for example
 </script>
 
-<div
-  use:portal
-  transition:fly={{ y: -10, duration: 150 }}
-  class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
+{#if portalTarget}
+  <div
+    use:portal={portalTarget}
+    transition:fly={{ y: -10, duration: 150 }}
+    class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
 shadow-lg">
-  <div class="sv-menu">
-    <slot />
+    <div class="sv-menu">
+      <slot />
+    </div>
   </div>
-</div>
+{:else}
+  <div
+    transition:fly={{ y: -10, duration: 150 }}
+    class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
+shadow-lg">
+    <div class="sv-menu">
+      <slot />
+    </div>
+  </div>
+{/if}
 
 <style>
   .sv-menu {
