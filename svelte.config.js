@@ -14,7 +14,7 @@ const config = {
   preprocess: [
     preprocess(),
     mdsvex(mdsvexConfig),
-		deepWind(),
+		deepWind({globalPrefix: true}),
     windi({
       configPath: './windi.config.js',
       experimental: {
@@ -31,9 +31,6 @@ const config = {
 
   kit: {
     adapter: adapter(),
-    package: {
-			files: (filepath) => !(filepath.match(/(\.story|\.svench)/))
-		},
     vite: {
       resolve: {
 				alias: {

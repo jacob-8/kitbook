@@ -40,16 +40,7 @@
       class="{$$props.class} {fill} {size} {color} text-center inline-block">
       <slot />
       {#if form !== 'text' && form !== 'link'}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4 inline"
-          viewBox="0 0 20 20"
-          fill="currentColor">
-          <path
-            d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-          <path
-            d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-        </svg>
+        <span class="i-tabler-external-link" style="vertical-align: -2px;" />
       {/if}
     </a>
   {:else}
@@ -71,17 +62,7 @@
     disabled={disable}>
     <slot />
     {#if loading}
-      <svg
-        class="animate-spin ml-1 -mr-1 h-5 w-5 inline"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
-        <path
-          class="opacity-75"
-          fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-      </svg>
+      <span class="i-gg-spinner animate-spin ml-1 -mr-1" style="vertical-align: -2px;" />
     {/if}
   </button>
 {/if}
@@ -133,7 +114,8 @@
     @apply bg-gray-100 hover:bg-white text-black focus:ring-white;
   }
 
-  .filled, .outlined {
+  .filled,
+  .outlined {
     @apply border shadow-sm;
   }
 
@@ -170,8 +152,5 @@
   :disabled,
   .disabled {
     @apply opacity-50 cursor-not-allowed;
-  }
-  svg {
-    vertical-align: -2px;
   }
 </style>

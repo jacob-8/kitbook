@@ -12,7 +12,7 @@
 </script>
 
 <Story name="Stacked menu">
-  <div class="flex flex-col p-2 space-y-1 w-96">
+  <div class="flex flex-col p-2 w-96">
     <Button href="/" form="menu">Home</Button>
     <Button href="/" form="menu" active={true}>About</Button>
     <Button href="/" form="menu">Settings</Button>
