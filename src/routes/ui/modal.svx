@@ -19,7 +19,6 @@
           Body content
           <div class="modal-footer">
             <Button form="simple" onclick={toggle}>Close</Button>
-            <div class="w-1"></div>
             <Button form="filled" type="submit">Save</Button>
           </div>
         </form>
