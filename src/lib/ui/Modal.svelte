@@ -91,7 +91,7 @@
   </div>
 </div>
 
-<style global windi:global>
+<style global>
   /* allows us to use portal and keep the footer inside the form element */
   .modal-footer {
     @apply -m-4 sm:-m-6 mt-4 sm:mt-6 px-4 py-3 sm:px-6 bg-gray-50 flex flex-wrap justify-end;
