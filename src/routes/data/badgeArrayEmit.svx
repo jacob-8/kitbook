@@ -1,18 +1,36 @@
 <script>
   import Story from '$kitbook/stories/Story.svelte';
   import BadgeArrayEmit from '$lib/data/BadgeArrayEmit.svelte';
+  import Set from '$lib/functions/Set.svelte';
 
   let books = ['Lord of the Rings', 'www.books.com'];
 </script>
 
-<Story name="Log clicks">
-  <BadgeArrayEmit
-    strings={books || []}
-    canEdit={true}
-    addMessage="Add Book"
-    on:itemclicked={(e) => console.log('itemclicked', e.detail)}
-    on:itemremoved={(e) => console.log('itemremoved', e.detail)}
-    on:additem={(e) => console.log('additem', e.detail)} />
+<Story
+  name="Edit array via Set component"
+  input={{ canEdit: true, minimum: 0 }}
+  let:output={{ canEdit, minimum }}>
+  <Set
+    input={['A Tale of Four Cities', 'www.google.com']}
+    let:value={editedBooks}
+    let:add
+    let:remove>
+    <BadgeArrayEmit
+      strings={editedBooks}
+      {canEdit}
+      {minimum}
+      addMessage="Add Book"
+      on:itemclicked={(e) => console.log('itemclicked', e.detail)}
+      on:itemremoved={(e) => {
+        remove(e.detail.value);
+      }}
+      on:additem={() => {
+        const string = prompt('What would you like to add?');
+        if (string) {
+          add(string.trim());
+        }
+      }} />
+  </Set>
 </Story>
 
 <Story name="Edit array">
@@ -34,7 +52,7 @@
 </Story>
 
 <Story name="Handles a string">
-  <BadgeArrayEmit strings={'How about this?'} canEdit addMessage="foo" on:additem={() => alert('fired')} />
+  <BadgeArrayEmit strings={'How about this?'} addMessage="foo" on:additem={() => alert('fired')} />
 </Story>
 
 <Story name="Handles null">

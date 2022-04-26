@@ -1,0 +1,25 @@
+<script lang="ts">
+  import Story from '$kitbook/stories/Story.svelte';
+  import Set from '$lib/functions/Set.svelte';
+  import Button from '$lib/ui/Button.svelte';
+
+  let books = ['Kullamazoo', 'foo'];
+</script>
+
+<Story input={{ firstItem: 'bar' }} let:output={{ firstItem }}>
+  <Set input={[firstItem, ...books]} let:update let:value let:remove let:add let:size>
+    <pre>{JSON.stringify(value, null, 1)}</pre>
+    <div>
+      Size: {size}
+    </div>
+    <Button
+      onclick={() => {
+        const string = prompt('What would you like to add?');
+        if (string) {
+          add(string.trim());
+        }
+      }}>Add</Button>
+    <Button onclick={() => update(['foo', 'fi', 'fee'])}>Update</Button>
+    <Button onclick={() => remove(value[0])}>Remove "{value[0]}"</Button>
+  </Set>
+</Story>

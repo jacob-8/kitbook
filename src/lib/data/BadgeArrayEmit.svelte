@@ -5,7 +5,8 @@
 
   export let strings: string[] = [],
     canEdit = false,
-    addMessage: string;
+    addMessage: string,
+    minimum = 0;
 
   $: if (typeof strings === 'string') {
     strings = [strings];
@@ -29,17 +30,21 @@
             class="mb-1"
             target="_blank"
             onclick={() => dispatch('itemclicked', { value: string, index })}
-            onx={() => dispatch('itemremoved', { value: string, index })}>
+            onx={strings.length > minimum
+              ? () => dispatch('itemremoved', { value: string, index })
+              : null}>
             {display}
           </Badge>
           <div class="w-1" />
         </DetectUrl>
       {/each}
     {/if}
-    <Button class="mb-1" onclick={() => dispatch('additem')} color="orange" size="sm">
-      <span class="i-fa-solid-plus" />
-      {addMessage}
-    </Button>
+    <slot name="add">
+      <Button class="mb-1" onclick={() => dispatch('additem')} color="orange" size="sm">
+        <span class="i-fa-solid-plus" />
+        {addMessage}
+      </Button>
+    </slot>
   {:else if strings}
     {#each strings as string}
       <DetectUrl {string} let:display let:href>
