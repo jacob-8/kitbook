@@ -1,24 +1,12 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
-	"compilerOptions": {
-		"paths": {
-			"$lib": [
-				"src/lib"
-			],
-			"$lib/*": [
-				"src/lib/*"
-			],
-			"$kitbook": [
-				"src/kitbook"
-			],
-			"$kitbook/*": [
-				"src/kitbook/*"
-			]
-		},
-		"types": [
-			"youtube",
-			"vitest/globals",
-			"vitest/importMeta"
-		]
-	}
+  "extends": "./.svelte-kit/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "$lib": ["src/lib"],
+      "$lib/*": ["src/lib/*"],
+      "$kitbook": ["src/kitbook"],
+      "$kitbook/*": ["src/kitbook/*"]
+    },
+    "types": ["youtube", "vitest/globals", "vitest/importMeta"]
+  }
 }

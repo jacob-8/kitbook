@@ -1,5 +1,5 @@
 {
-	"singleQuote": true,
-	"printWidth": 100,
-	"svelteBracketNewLine": false
+  "singleQuote": true,
+  "printWidth": 100,
+  "bracketSameLine": false
 }

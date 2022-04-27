@@ -15,10 +15,10 @@ jobs:
       - run: pnpm install
       - run: pnpm test
       - run: pnpm package
-      
+
       - id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: "./package/package.json"
-          access: "public"
+          package: './package/package.json'
+          access: 'public'

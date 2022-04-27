@@ -29,7 +29,8 @@
               strings.splice(i, 1);
               strings = strings;
               dispatch('valueupdated', strings);
-            }}>
+            }}
+          >
             {display}
           </Badge>
           <div class="w-1" />
@@ -50,7 +51,8 @@
         }
       }}
       color="orange"
-      size="sm">
+      size="sm"
+    >
       <span class="i-fa-solid-plus" />
       {addMessage}
     </Button>

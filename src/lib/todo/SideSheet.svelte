@@ -47,7 +47,8 @@
   class="fixed inset-0 bg-black backdrop"
   data-smooth={!startX}
   {open}
-  on:click={() => (open = false)} />
+  on:click={() => (open = false)}
+/>
 
 <!-- {$$props.class}  -->
 <div
@@ -57,7 +58,8 @@
   data-smooth={!startX}
   on:touchstart={touchStart}
   on:touchmove={touchMove}
-  on:touchend={touchEnd}>
+  on:touchend={touchEnd}
+>
   <header class="flex items-start justify-between mb-4 sm:mb-6">
     <h2 class="text-lg leading-7 font-medium text-gray-900">
       <slot name="title" />
@@ -67,7 +69,8 @@
       on:click={() => (open = false)}
       aria-label="Close panel"
       class="text-gray-400 hover:text-gray-500 transition ease-in-out
-      duration-150 h-7 flex items-center">
+      duration-150 h-7 flex items-center"
+    >
       <span class="i-fa-solid-times text-lg" />
     </button>
   </header>

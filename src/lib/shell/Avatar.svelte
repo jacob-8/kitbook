@@ -8,7 +8,7 @@
 </script>
 
 {#if user.photoURL}
-  <img alt={user.displayName && user.displayName[0] || user.email[0]} src={user.photoURL} />
+  <img alt={(user.displayName && user.displayName[0]) || user.email[0]} src={user.photoURL} />
 {:else}
   <div>
     {#if user.displayName}

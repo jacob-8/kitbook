@@ -9,7 +9,8 @@
     use:portal={portalTarget}
     transition:fly={{ y: -10, duration: 150 }}
     class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
-shadow-lg">
+shadow-lg"
+  >
     <div class="sv-menu">
       <slot />
     </div>
@@ -18,7 +19,8 @@ shadow-lg">
   <div
     transition:fly={{ y: -10, duration: 150 }}
     class="{$$props.class} absolute z-30 mt-2 w-48 rounded-md
-shadow-lg">
+shadow-lg"
+  >
     <div class="sv-menu">
       <slot />
     </div>

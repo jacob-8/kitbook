@@ -63,7 +63,8 @@
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-headline"
-    bind:this={modal}>
+    bind:this={modal}
+  >
     <div class="p-4 sm:p-6 overflow-y-auto flex-1">
       <div class="flex">
         <h3 class="text-lg leading-6 font-medium text-gray-900 flex-grow" id="modal-headline">
@@ -74,13 +75,15 @@
           type="button"
           class="h-12 w-12 -m-4 flex justify-center items-center text-gray-400 hover:text-gray-700 focus:outline-none
           focus:text-gray-700 focus:ring-2 rounded"
-          aria-label="Close">
+          aria-label="Close"
+        >
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2"
-              d="M6 18L18 6M6 6l12 12" />
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>

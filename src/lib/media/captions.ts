@@ -111,7 +111,7 @@ export const parseSrv3CaptionsXml = (xml: string): YoutubeCaption[] => {
       };
     })
     .filter((item) => item.text);
-    // see https://github.com/longjiang/zerotohero-nuxt/blob/master/lib/youtube.js#L40-L54 if having trouble with empty lines or out of order
+  // see https://github.com/longjiang/zerotohero-nuxt/blob/master/lib/youtube.js#L40-L54 if having trouble with empty lines or out of order
 };
 
 // from @os-team/youtube-captions though its sax depenency is only for Node so am using fast-xml-parser instead to cover browser usage

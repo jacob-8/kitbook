@@ -16,7 +16,7 @@ export function longpress(node: Node, duration = 400) {
     const shortpressRecentlyEmitted = shortpressEmitted > Date.now() - duration / 2;
     const recentlyScrolled = Date.now() - scrolled < duration;
     const lessThanDurationHasElapsed = Date.now() - start < duration / 2;
-    
+
     if (!shortpressRecentlyEmitted && !recentlyScrolled && lessThanDurationHasElapsed) {
       node.dispatchEvent(new CustomEvent('shortpress'));
       shortpressEmitted = Date.now();

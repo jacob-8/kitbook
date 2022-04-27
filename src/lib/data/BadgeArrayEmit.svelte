@@ -32,7 +32,8 @@
             onclick={() => dispatch('itemclicked', { value: string, index })}
             onx={strings.length > minimum
               ? () => dispatch('itemremoved', { value: string, index })
-              : null}>
+              : null}
+          >
             {display}
           </Badge>
           <div class="w-1" />

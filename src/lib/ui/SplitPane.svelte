@@ -88,7 +88,8 @@
       class="{type} divider"
       style="{side}: calc({pos}% - 8px)"
       use:drag={setPos}
-      use:touchDrag={setTouchPos} />
+      use:touchDrag={setTouchPos}
+    />
   {/if}
 </div>
 

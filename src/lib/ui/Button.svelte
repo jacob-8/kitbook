@@ -37,7 +37,8 @@
       {href}
       target="_blank"
       rel="noopener"
-      class="{$$props.class} {fill} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block"
+    >
       <slot />
       {#if form !== 'text' && form !== 'link'}
         <span class="i-tabler-external-link" style="vertical-align: -2px;" />
@@ -48,7 +49,8 @@
       {href}
       sveltekit:prefetch
       class:active
-      class="{$$props.class} {fill} {size} {color} text-center inline-block">
+      class="{$$props.class} {fill} {size} {color} text-center inline-block"
+    >
       <slot />
     </a>
   {/if}
@@ -59,7 +61,8 @@
     class="{$$props.class} {fill} {size} {color} text-center inline-block"
     {type}
     on:click={runWithSpinner}
-    disabled={disable}>
+    disabled={disable}
+  >
     <slot />
     {#if loading}
       <span class="i-gg-spinner animate-spin ml-1 -mr-1" style="vertical-align: -2px;" />

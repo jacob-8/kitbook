@@ -3,5 +3,5 @@
     "*.svx": "svelte"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "css.lint.unknownAtRules": "ignore",
+  "css.lint.unknownAtRules": "ignore"
 }

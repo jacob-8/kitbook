@@ -114,13 +114,15 @@
       <div
         class="token items-center flex rounded-lg px-2 py-1 whitespace-nowrap
         text-sm font-medium leading-4 bg-blue-100 text-blue-800 mr-2 my-1"
-        data-id={s.value}>
+        data-id={s.value}
+      >
         <span>{s.name}</span>
         {#if !readonly}
           <div
             class="token-remove cursor-pointer justify-center items-center flex
             bg-blue-300 hover:bg-blue-400 rounded-full h-4 w-4 ml-1"
-            title="Remove {s.name}">
+            title="Remove {s.name}"
+          >
             <span class="i-fa-solid-times text-sm" />
           </div>
         {/if}
@@ -139,7 +141,8 @@
           bind:this={input}
           on:keyup={handleKeyup}
           on:blur={handleBlur}
-          placeholder={calculatedPlaceholder} />
+          placeholder={calculatedPlaceholder}
+        />
         <!-- <div
           class="remove-all"
           title="Remove All"
@@ -158,7 +161,8 @@
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
-          viewBox="0 0 18 18">
+          viewBox="0 0 18 18"
+        >
           <path d="M5 8l4 4 4-4z" />
         </svg>
       {/if}
@@ -173,12 +177,14 @@
     <ul
       class="options"
       transition:fly={{ duration: 200, y: 5 }}
-      on:mousedown|preventDefault={handleOptionMousedown}>
+      on:mousedown|preventDefault={handleOptionMousedown}
+    >
       {#each filtered as option}
         <li
           class:selected={selected[option.value]}
           class:active={activeOption === option}
-          data-value={option.value}>
+          data-value={option.value}
+        >
           {option.name}
         </li>
       {/each}

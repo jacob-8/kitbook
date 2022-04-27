@@ -47,7 +47,8 @@
   class="backdrop"
   data-smooth={!startY}
   {open}
-  on:click={() => (open = false)} />
+  on:click={() => (open = false)}
+/>
 
 <div
   bind:this={dialog}
@@ -56,7 +57,8 @@
   data-smooth={!startY}
   on:touchstart={touchStart}
   on:touchmove={touchMove}
-  on:touchend={touchEnd}>
+  on:touchend={touchEnd}
+>
   <slot />
 </div>
 

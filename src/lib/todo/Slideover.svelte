@@ -55,7 +55,8 @@
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-headline"
-    bind:this={modal}>
+    bind:this={modal}
+  >
     <div class="p-5 flex items-start justify-between space-x-3 border-b border-gray-300">
       <h3 class="text-lg leading-6 font-medium text-gray-900 pr-6" id="modal-headline">
         <slot name="heading" />
@@ -66,8 +67,10 @@
         type="button"
         class="text-gray-400 hover:text-gray-500 focus:outline-none
           focus:text-gray-500 transition ease-in-out duration-150"
-        aria-label="Close">
-        <span class="i-fa-solid-times text-lg" /></button>
+        aria-label="Close"
+      >
+        <span class="i-fa-solid-times text-lg" /></button
+      >
     </div>
 
     <div class="flex-1 overflow-y-auto">

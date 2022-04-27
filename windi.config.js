@@ -8,10 +8,10 @@ export default defineConfig({
     extend: {
       colors: {
         primary: colors.blue,
-      }
-    }
+      },
+    },
   },
   plugins: [
     // forms,
-  ]
+  ],
 });

@@ -8,7 +8,11 @@ import { parseTracksXml } from './captions';
 // });
 
 test('parseTracksXml returns array even when there is 1 track', () => {
-  expect(parseTracksXml('<?xml version="1.0" encoding="utf-8" ?><transcript_list docid="14931616755950075552"><track id="0" name="" lang_code="en" lang_original="English" lang_translated="English" lang_default="true"/></transcript_list>')).toHaveLength(1);
+  expect(
+    parseTracksXml(
+      '<?xml version="1.0" encoding="utf-8" ?><transcript_list docid="14931616755950075552"><track id="0" name="" lang_code="en" lang_original="English" lang_translated="English" lang_default="true"/></transcript_list>'
+    )
+  ).toHaveLength(1);
 });
 
 test('parseTracksXml returns array of tracks', () => {

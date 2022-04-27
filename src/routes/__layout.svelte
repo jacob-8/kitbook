@@ -14,7 +14,12 @@
   export let folder: Folder;
 </script>
 
-<Layout {folder} activeURL={$page.url.pathname} githubURL="https://github.com/jacob-8/svelte-pieces">
-  <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment>
+<Layout
+  {folder}
+  activeURL={$page.url.pathname}
+  githubURL="https://github.com/jacob-8/svelte-pieces"
+>
+  <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment
+  >
   <slot />
 </Layout>
