@@ -43,7 +43,7 @@
     {/if}
   </a>
 {:else if onclick}
-  <button on:click={onclick} class:active class="{$$props.class} {size} {color}">
+  <button type="button" on:click={onclick} class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
       <span class="w-2" />
