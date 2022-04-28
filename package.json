@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Useful Svelte UI pieces for building web apps",
   "type": "module",
   "scripts": {
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.22.0",
     "@sveltejs/adapter-auto": "1.0.0-next.40",
-    "@sveltejs/kit": "1.0.0-next.315",
+    "@sveltejs/kit": "1.0.0-next.314",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.41",
     "@testing-library/jest-dom": "^5.16.2",
     "@types/recordrtc": "^5.6.8",
