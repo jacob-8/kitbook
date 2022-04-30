@@ -22,5 +22,3 @@
 <form on:submit|preventDefault={submitWithLoading}>
   <slot {loading} />
 </form>
-
-<form on:submit={() => {}} />

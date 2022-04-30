@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Useful Svelte UI pieces for building web apps",
   "type": "module",
   "scripts": {

@@ -6,7 +6,7 @@
 <!-- prettier-ignore -->
 # Form
 
-A simple componet that contains a form element and receives a function to fire on submit. If the function is asynchronous then you can use the loading slot value to display a spinner, block activity, or otherwise indicate that the form is processing.
+A simple component that contains a form element and receives a function to fire on submit. If the function is asynchronous then you can use the loading slot value to display a spinner, block activity, or otherwise indicate that the form is processing.
 
 <Story input={{ seconds: 1 }} let:output={{ seconds }}>
   <Form
