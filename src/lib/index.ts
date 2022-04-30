@@ -6,6 +6,7 @@ export { srcObject } from './actions/srcObject';
 export { default as BadgeArray } from './data/BadgeArray.svelte';
 export { default as BadgeArrayEmit } from './data/BadgeArrayEmit.svelte';
 export { default as JSON } from './data/JSON.svelte';
+export { default as Form } from './data/Form.svelte';
 
 export { default as DetectUrl } from './functions/DetectUrl.svelte';
 export { default as HideOnScroll } from './functions/HideOnScroll.svelte';

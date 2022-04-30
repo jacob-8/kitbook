@@ -1,0 +1,22 @@
+<script>
+  import Story from '$kitbook/stories/Story.svelte';
+  import { Button, Form } from '$lib';
+</script>
+
+<!-- prettier-ignore -->
+# Form
+
+A simple componet that contains a form element and receives a function to fire on submit. If the function is asynchronous then you can use the loading slot value to display a spinner, block activity, or otherwise indicate that the form is processing.
+
+<Story input={{ seconds: 1 }} let:output={{ seconds }}>
+  <Form
+    let:loading
+    onsubmit={async () => {
+      console.log('starting');
+      await new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+      console.log('finishing');
+    }}>
+    <input class="border border-gray-500 rounded" type="text" placeholder="Type and hit enter" />
+    <Button {loading} type="submit">Submit</Button>
+  </Form>
+</Story>
