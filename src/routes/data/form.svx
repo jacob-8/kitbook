@@ -20,3 +20,5 @@ A simple component that contains a form element and receives a function to fire 
     <Button {loading} type="submit">Submit</Button>
   </Form>
 </Story>
+
+Note that if you include a button with `type="submit"` in the form, and pass the `loading` prop it will automatically be disabled when the form is processing and the form will not allow duplicate submissions while processing. This is a web platform feature.

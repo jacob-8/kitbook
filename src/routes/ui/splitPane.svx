@@ -3,6 +3,8 @@
   import SplitPane from '$lib/ui/SplitPane.svelte';
 </script>
 
+# Split Pane
+
 <Story name="Position 30">
   <div style="height: 400px;">
     <SplitPane --divider-hover="hsl(195, 53%, 70%)" pos={30}>
@@ -20,3 +22,5 @@
     </SplitPane>
   </div>
 </Story>
+
+Can Learn more from https://github.com/orefalo/svelte-splitpanes
