@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/svelte-pieces/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.32.3
+
+      - run: pnpm install
+      - run: pnpm test -F svelte-pieces
+      - run: pnpm package -F svelte-pieces
+
+      - id: publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: './packages/svelte-pieces/package/package.json'
+          access: 'public'
