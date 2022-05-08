@@ -13,12 +13,6 @@
 		"sourceMap": true,
 		// "strict": true,
 		"target": "es2020",
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$kitbook": ["src/kitbook"],
-      "$kitbook/*": ["src/kitbook/*"]
-    },
     "types": ["youtube", "vitest/globals", "vitest/importMeta"]
   }
 }
