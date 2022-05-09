@@ -1,5 +1,5 @@
 <script>
-	import Story from '$kitbook/stories/Story.svelte';
+	import { Story } from 'kitbook';
 	import Store from '$lib/functions/Store.svelte';
 	let value = 'world';
 </script>

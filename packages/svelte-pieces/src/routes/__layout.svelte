@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { parseModulesIntoFolders, type Folder } from '$kitbook/sidebar/pages';
+  import { parseModulesIntoFolders, type Folder } from 'kitbook';
   const modules = import.meta.glob('./**/*.{md,svx}');
 
   import type { Load } from '@sveltejs/kit';
@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-  import Layout from '$kitbook/Layout.svelte';
+  import { Layout } from 'kitbook';
   import { page } from '$app/stores';
   export let folder: Folder;
 </script>

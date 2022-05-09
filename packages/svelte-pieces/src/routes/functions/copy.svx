@@ -1,5 +1,5 @@
 <script>
-  import Story from '$kitbook/stories/Story.svelte';
+  import { Story } from 'kitbook';
   import Button from '$lib/ui/Button.svelte';
 
   let text = 'sample message';

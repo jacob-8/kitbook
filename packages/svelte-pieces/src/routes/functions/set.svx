@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Story from '$kitbook/stories/Story.svelte';
+  import { Story } from 'kitbook';
   import Set from '$lib/functions/Set.svelte';
   import Button from '$lib/ui/Button.svelte';
 

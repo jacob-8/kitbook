@@ -1,5 +1,5 @@
 <script>
-  import Story from '$kitbook/stories/Story.svelte';
+  import { Story } from 'kitbook';
   import Badge from '$lib/ui/Badge.svelte';
   import DetectUrl from '$lib/functions/DetectUrl.svelte';
 </script>

@@ -13,7 +13,7 @@ module.exports = {
   },
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2019,
+    ecmaVersion: 2020,
   },
   rules: {
 		'@typescript-eslint/no-var-requires': 'off',

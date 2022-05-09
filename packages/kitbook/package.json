@@ -2,6 +2,9 @@
   "name": "kitbook",
   "version": "0.0.2",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
+  "type": "module",
+  "svelte": "src/lib/index.ts",
+  "main": "src/lib/index.ts",
   "scripts": {
     "dev": "svelte-kit dev -p 3163",
     "build": "svelte-kit build",
@@ -16,9 +19,9 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "1.0.0-next.326",
     "mdsvex": "^0.10.5",
-    "svelte": "^3.46.0",
+    "svelte": "^3.48.0",
     "svelte-check": "^2.2.6",
     "svelte-deep-wind-preprocess": "^0.0.7",
     "svelte-preprocess": "^4.10.6",
@@ -26,11 +29,10 @@
     "svelte-windicss-preprocess": "~4.1.0",
     "svelte2tsx": "^0.5.9",
     "tslib": "^2.4.0",
-    "typescript": "~4.6.2",
-    "vitest": "^0.10.0",
-    "windicss": "^3.5.1"
+    "typescript": "~4.6.4",
+    "vitest": "^0.12.0",
+    "windicss": "^3.5.2"
   },
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git"

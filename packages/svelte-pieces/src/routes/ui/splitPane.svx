@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Story from '$kitbook/stories/Story.svelte';
+  import { Story } from 'kitbook';
   import SplitPane from '$lib/ui/SplitPane.svelte';
 </script>
 

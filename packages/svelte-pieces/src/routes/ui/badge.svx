@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Story from '$kitbook/stories/Story.svelte';
+  import { Story } from 'kitbook';
 	import Badge from '$lib/ui/Badge.svelte';
   const colors: ('red' | 'orange' | 'green' | 'black' | 'white' | 'primary')[] = [
     'primary',
