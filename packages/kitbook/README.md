@@ -12,3 +12,10 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 
 See [README](../../README.md) for more.
 
+## TODO
+
+- Easily adjust screen size
+- Scrollspy TOC
+- Playwright visual regression testing
+- Bake prism css into Layout w/ optional flag (currently in app.html)
+- Dark mode

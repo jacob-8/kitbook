@@ -21,9 +21,6 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 - MDSvex (Markdown + Svelte Components) to enable easy documenation as you build
 - Easy knobs (thanks @rixo and Svench!)
 - Quickly compare a single component with a variety of inputs
-- TODO: Easily adjust screen size
-- TODO: Scrollspy TOC
-- TODO: Playwright visual regression testing
 
 ## Why?
 

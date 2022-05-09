@@ -15,7 +15,7 @@ jobs:
           version: 6.32.3
 
       - run: pnpm install
-      - run: pnpm package -F kitbook
+      - run: pnpm -F kitbook package
       
       - id: publish
         uses: JS-DevTools/npm-publish@v1
