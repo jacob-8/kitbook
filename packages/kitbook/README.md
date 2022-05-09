@@ -10,7 +10,7 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
  <a href="https://kitbook.vercel.app/">View the Kitbook used to document and build Kitbook itself</a>
 </p>
 
-See [README](../../README.md) for more.
+See [README](../../README.md) for more
 
 ## TODO
 
