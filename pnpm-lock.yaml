@@ -35,6 +35,7 @@ importers:
       svelte: ^3.48.0
       svelte-check: ^2.2.6
       svelte-deep-wind-preprocess: ^0.0.7
+      svelte-pieces: ^1.0.17
       svelte-preprocess: ^4.10.6
       svelte-store-router: ^2.0.10
       svelte-windicss-preprocess: ~4.1.0
@@ -51,6 +52,7 @@ importers:
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
       svelte-deep-wind-preprocess: 0.0.7
+      svelte-pieces: link:../svelte-pieces
       svelte-preprocess: 4.10.6_wwvk7nlptlrqo2czohjtk6eiqm
       svelte-store-router: 2.0.10_svelte@3.48.0
       svelte-windicss-preprocess: 4.1.7

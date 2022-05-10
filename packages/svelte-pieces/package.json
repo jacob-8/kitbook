@@ -3,6 +3,8 @@
   "version": "1.0.17",
   "description": "Useful Svelte UI pieces for building web apps",
   "type": "module",
+  "svelte": "src/lib/index.ts",
+  "main": "src/lib/index.ts",
   "scripts": {
     "dev": "svelte-kit dev -p 3210",
     "build": "svelte-kit build",
