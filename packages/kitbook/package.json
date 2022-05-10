@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -54,5 +54,5 @@
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
-  "homepage": "https://github.com/jacob-8/kitbook#readme"
+  "homepage": "https://github.com/jacob-8/kitbook/tree/main/packages/kitbook"
 }
