@@ -1,5 +1,5 @@
 <p align="center">
-<img src="packages/kitbook/static/kitbook.svg" height="80">
+<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="80">
 </p>
 
 <p align="center">
@@ -38,9 +38,9 @@ While **[Svench](https://svench-docs.vercel.app/)**, **[Storybook](https://codin
 - Since all the roadblocks I've run into with each of these tools come from trying to use a tool that is outside of the SvelteKit box and which looks inside (Svench and Vitebook often struggle with the differences in how Windows handles file paths because neither developer uses a PC), the only guaranteed solution for a tool which keeps up with the pre-1.0 changes is to **use SvelteKit itself**! I will never have to shim SvelteKit imports, nor will I have issues with the API changing before 1.0.
 
 ## Examples
-- [Kitbook's Kitbook](https://kitbook.vercel.app/)
+- [Kitbook's Kitbook](https://kitbook.vercel.app/) - try out at https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/kitbook
 - [Living Dictionaries Kitbook](https://ld-parts.vercel.app/)
-- [Svelte Pieces](https://svelte-pieces.vercel.app/) (contained in this monorepo, see below)
+- [Svelte Pieces](https://svelte-pieces.vercel.app/) (contained in this monorepo, see below) - try out at https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/svelte-pieces
 
 # Svelte-Pieces
 https://svelte-pieces.vercel.app/
