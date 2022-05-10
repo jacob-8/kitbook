@@ -73,6 +73,7 @@ importers:
       he: ^1.2.0
       kitbook: ^0.0.3
       mdsvex: ^0.10.5
+      replace-in-file: ^6.3.2
       svelte: ^3.48.0
       svelte-check: ^2.7.0
       svelte-deep-wind-preprocess: ^0.0.7
@@ -97,6 +98,7 @@ importers:
       '@types/youtube': 0.0.46
       kitbook: link:../kitbook
       mdsvex: 0.10.5_svelte@3.48.0
+      replace-in-file: 6.3.2
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
       svelte-deep-wind-preprocess: 0.0.7

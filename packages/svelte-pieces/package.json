@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "svelte-kit dev -p 3210",
     "build": "svelte-kit build",
-    "package": "svelte-kit package",
+    "package": "svelte-kit package && node update-packaged-index-path.js",
     "preview": "svelte-kit preview",
     "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
@@ -32,6 +32,7 @@
     "@types/youtube": "^0.0.46",
     "kitbook": "^0.0.3",
     "mdsvex": "^0.10.5",
+    "replace-in-file": "^6.3.2",
     "svelte": "^3.48.0",
     "svelte-check": "^2.7.0",
     "svelte-deep-wind-preprocess": "^0.0.7",
