@@ -71,7 +71,7 @@ importers:
       '@types/youtube': ^0.0.46
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: ^0.0.3
+      kitbook: ^0.0.4
       mdsvex: ^0.10.5
       replace-in-file: ^6.3.2
       svelte: ^3.48.0
