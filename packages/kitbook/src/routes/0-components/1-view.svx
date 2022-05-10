@@ -1,0 +1,5 @@
+<script>
+  import { Story } from '$lib';
+</script>
+
+<Story>Hello World from inside a view</Story>

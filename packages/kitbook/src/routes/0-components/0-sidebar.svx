@@ -1,0 +1,41 @@
+<script>
+  import Sidebar from '$lib/sidebar/Sidebar.svelte';
+  import { Story, parseModulesIntoFolders } from '$lib';
+  import { page } from '$app/stores';
+
+  const modules = {
+    './9-privacy-policy.md': () => Promise.resolve({}),
+    './index.md': () => Promise.resolve({}),
+    './0-get-started.md': () => Promise.resolve({}),
+    './0-components/0-Button.svelte': () => Promise.resolve({}),
+    './0-components/1-Switch.svelte': () => Promise.resolve({}),
+    './0-components/0-ui/0-Button.svelte': () => Promise.resolve({}),
+    './0-components/play-audio-section.svelte': () => Promise.resolve({}), // test this to remove section hyphen
+    './[reference]/__layout.svelte': () => Promise.resolve({}),
+    './a/b/c-d/e.svelte': () => Promise.resolve({}),
+    './a/b/c-d/f.svelte': () => Promise.resolve({}),
+  };
+</script>
+
+<Story input={{ githubURL: 'https//github.com' }} let:output={{ githubURL }}>
+  <div class="flex h-[300px] overflow-auto">
+    <Sidebar folder={parseModulesIntoFolders(modules)} activeURL={$page.url.pathname} {githubURL}>
+      <svelte:fragment slot="header"><slot name="header" /></svelte:fragment>
+      <svelte:fragment slot="index"
+        ><slot name="index">
+          <span class="i-ic-round-home mr-1" />Kitbook
+        </slot></svelte:fragment
+      >
+      <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
+    </Sidebar>
+    <div class="h-[200vh]">
+      This element is taller than the parent which mimics the way the page element will work so this
+      can test the stickyness of the sidebar
+    </div>
+  </div>
+</Story>
+
+<!-- prettier-ignore -->
+## Todo: 
+- Add top level icons
+- Add optional width prop
