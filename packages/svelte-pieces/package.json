@@ -28,7 +28,7 @@
     "@sveltejs/vite-plugin-svelte": "1.0.0-next.43",
     "@testing-library/jest-dom": "^5.16.4",
     "@types/youtube": "^0.0.46",
-    "kitbook": "^0.0.2",
+    "kitbook": "^0.0.3",
     "mdsvex": "^0.10.5",
     "svelte": "^3.48.0",
     "svelte-check": "^2.7.0",

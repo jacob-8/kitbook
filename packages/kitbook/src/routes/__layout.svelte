@@ -1,13 +1,11 @@
 <script lang="ts" context="module">
-  import { Layout, parseModulesIntoFolders } from 'kitbook';
+  import { Layout, parseModulesIntoFolders } from '$lib';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {
     return { stuff: { folder: parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}')) } };
   };
 </script>
 
-<Layout githubURL="https://github.com/jacob-8/svelte-pieces">
-  <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment
-  >
+<Layout githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook#readme">
   <slot />
 </Layout>

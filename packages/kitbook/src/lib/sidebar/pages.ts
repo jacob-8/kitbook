@@ -21,6 +21,9 @@ type Modules = Record<string, () => Promise<{ [key: string]: any }>>;
 
 function parsePages(modules: Modules): Page[] {
   const paths = Object.keys(modules);
+  if (!paths.length) {
+    throw new Error('Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"')
+  }
   let pages = paths.map((path) => {
     const match = path.match(/^\.\/(.*\/)*(.+)\.(.+)$/);
     const [, dir, name, ext] = match;
