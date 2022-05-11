@@ -7,8 +7,11 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 ## Add [MDSvex](https://mdsvex.pngwn.io/) 
 - Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
-- Set up your extensions in `mdsvex.config.js`, I use `['.md', '.svelte']`
-- If using other extensions such as `.svx` you can add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
+- Set your extensions in `mdsvex.config.js` to `['.md', '.svx']` to allow for a powerful combination:
+  - Use the `.md` extension when you want markdown intellisense and highlighting
+  - Use the `.svx` extension you want svelte intellisense and highlighting. *Using `.svx`* for Svelte files you want MDSvex to process is a nice way to keep MDSvex from having to process your regular Svelte components (and helps avoid potential bugs)
+  - Notice the icons in the sidebar tell you which files are `.md` files (<span class="i-simple-icons-markdown" />) and which are `.svx` files (<span class="i-simple-icons-svelte" />).
+- If using extensions such as `.svx` you should add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
 
 ## Set Up Your Sidebar
 
