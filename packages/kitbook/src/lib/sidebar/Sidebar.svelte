@@ -3,8 +3,7 @@
   import type { Folder as FolderType } from './pages';
   export let folder: FolderType;
   export let activeURL: string;
-  export let githubURL: string = undefined;
-
+  export let root = '/';
   export let showSidebar = false;
 </script>
 
@@ -12,18 +11,13 @@
   class:-translate-x-full={!showSidebar}
   class="md:translate-x-0 fixed left-0 transform duration-200 md:sticky bg-white flex flex-col w-50 flex-shrink-0 h-100vh md:h-[calc(100vh-52px)] top-0 md:top-52px overflow-auto z-3"
 >
-  <Folder {folder} {activeURL} expanded />
-
-  {#if githubURL}
-    <div class="p-3 text-sm font-semibold">
-      <a class="hover:underline" href={githubURL} target="_blank">
-        <span class="i-mdi-github mb-1 mr-1" />View GitHub Repo<span
-          class="i-tabler-external-link mb-1 ml-1 opacity-25"
-        />
-      </a>
-    </div>
-  {/if}
+  <Folder {folder} {activeURL} {root} expanded />
   <slot name="footer" />
+
+  <a href="https://github.com/jacob-8/kitbook" target="_blank" class="ml-3 my-4 block">
+    <span class="text-sm text-gray-400 block mb-1"> Created with </span>
+    <img alt="Kitbook" src="/kitbook.svg" style="height: 20px;" />
+  </a>
 </div>
 
 {#if showSidebar}

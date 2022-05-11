@@ -15,8 +15,8 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 ## Set Up Your Sidebar
 
-- Install Kitbook, `npm i -D kitbook` or `pnpm add -D kitbook`
-- In your chosen folder, add a `__layout.svelte` file with the following code which will get a list of your pages, and pass them to Kitbook's `Layout` component:
+- Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
+- In your chosen folder (`src/routes/kitbook` in this example), add a `__layout.svelte` file with the following code which will get a list of your pages, and pass them to Kitbook's `Layout` component:
 
 ```svelte
 <script lang="ts" context="module">
@@ -24,41 +24,45 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
     const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
-    return { stuff: { folder } };
+    return { stuff: { kitbook: { folder, root: '/kitbook' } } }; 
+    // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
   };
 </script>
 
-<Layout githubURL="https://github.com/jacob-8/kitbook">
+<Layout title="Kitbook" githubURL="https://github.com/jacob-8/kitbook">
   <slot />
 </Layout>
 ```
 
 ### Sidebar Notes
+- If you pass in your githubURL, an icon to your repo will be placed in the Kitbook header
+- Pass in the title of your Kitbook, or alternatively use the `title` slot of the `Layout` component if you want to change more than just the string (to use a different icon or a logo for example)
+- There is an optional `footer` slots in the sidebar which is placed beneath the navigation tree and above the "Created with Kitbook" link.
 - See https://vitejs.dev/guide/features.html#glob-import to learn more about the glob import and note that you should adjust the `{md,svelte}` file endings to suit your purposes in accordance with how you've set up MDSvex extensions. As we are not resolving the returned Promise functions that would load each module, we don't need to be concerned about speed issues from using `import.meta.glob('./**/*.{md,svelte}')` when our Kitbook gets large.
-- The `header` and `footer` slots are optional. They provide good places to put a title or Github repo links.
 
 ## Add styles that will be used for your components.  
 - This could be as simple as importing a css file in your `__layout.svelte` file depending on how you do styles.
-- Kitbook's components use [Windicss](https://windicss.org/) and [Unocss icons](https://antfu.me/posts/icons-in-pure-css). See [Building Kitbook / Add Windicss](/[1]building-kitbook/add-windicss) if you'd like to know how to do that. *Skip the Typography/prose parts unless you want to also use those in your components and not just your documentation.*
+- Kitbook's components use [Windicss](https://windicss.org/) and [Unocss icons](https://antfu.me/posts/icons-in-pure-css) but you don't need to add these unless you want to use them for your own app's components. See [Add Windicss](/9-maintainer-notes/0-add-windicss) if you'd like to know how to do that. *Skip the Typography/prose parts unless you want to also use those in your components and not just your documentation.*
 
 ## Add your first page
 
-- Create a `foo.svelte`, `foo.md`, or `foo.svx` file depending on the extension you choose and start documenting and prototyping your first component. 
-  - Consider using `.md` extensions when doing more writing and wanting VSCode's formatting and intellisense to help you with Markdown, then use `.svelte` (or `.svx` if that's your flavor) when doing more coding as the Svelte's intellisense and formatting will then kick in allowing for import completion, type checking and such. Because MDSVex allows you to write Markdown in Svelte components and vice versa, the extension really doesn't matter and you can switch it back and forth depending on your needs.
-- Name your file according to how you want it shown in the sidebar, use the `#-foo-bar.extentsion` schema to sort the sidebar navigation. `1-get-started.md` will be displayed as `Get Started` and will show up before `2-page-header.svelte` which will be displayed as `Page Header`.
+- Create a `foo.md` or `foo.svx` file (or could be something else depending on the extensions you chose) and start documenting and prototyping your first component. 
+  - Consider using `.md` extensions when doing more writing and wanting VSCode's formatting and intellisense to help you with Markdown, then use `.svx` when doing more coding as Svelte's intellisense and formatting will then kick in allowing for import completion, type checking and such. Because MDSVex allows you to write Markdown in Svelte components and vice versa, the extension really doesn't matter and you can switch it back and forth depending on your needs. Do know that you may need to add `<!--prettier-ignore>` above sections of markdown `.svx` files if you use prettier and want to avoid the code from being collapsed into a single paragraph.
+- Name your file according to how you want it shown in the sidebar, use the `#-foo-bar.extension` schema to sort the sidebar navigation. `1-get-started.md` will be displayed as `Get Started` and will show up before `2-button.svelte` which will be displayed as `Button`.
   - Folder naming follows the same conventions. `0-components` will show up as `Components` and all pages within that folder will automatically be nested in the sidebar.
 - Document what you are about to build (it's a good habit to start right from the beginning), create the component, and then import it:
 ```svelte
 <script lang="ts">
-  import Button from 'kitbook/Button.svelte';
+  import Button from '$lib/Button.svelte';
 </script>
 
 Here's a basic button:
+
 <Button>Hello Kitbook</Button>
 
 TODO: Add props
 ```
-  - Note how you don't even need a "Story" or "View" component wrapper to document your component library. You can start with just documentation and simple imports. *But that's not why you're here, so let's get to the good stuff.*
+  - Note how you don't even need the `Story` component wrapper to document your component library. You can start with just documentation and simple imports. *But that's not why you're here, so let's get to the good stuff.*
 
 - Add the `Story` component to access the prototyping features:
 ```svelte
@@ -66,16 +70,10 @@ TODO: Add props
   import Story from 'kitbook';
 </script>
 
-<Story name="Default Button" knobs={{ name: 'John'}} let:knobs={{ name }}>
+<Story name="Fancy Button" knobs={{ name: 'John'}} let:props={{ name }}>
   <Button>Hello {name}</Button>
 </Story>
 ```
 
-- Use knobs
-- Document your component and add more stories for each situation as seen here:
-
-...TODO...
-
-## Customization
-
-The default Kitbook components are relatively simple. If you'd like to create your own theme please do so. If you think others will benefit from your improvements, please fork the repo and submit a pull request.
+- Now try editing the name knob
+- Continue to document your component and [add stories](/2-add-stories) for each situation as seen in this repo and the other [examples](/3-examples).

@@ -5,6 +5,7 @@
 
   export let folder: Folder;
   export let activeURL: string;
+  export let root = "/";
   export let expanded = true;
 
   onMount(() => {
@@ -36,7 +37,7 @@
 {#if expanded}
   {#each folder.pages as page}
     {#if page.url !== '/'}
-      <Page {page} {activeURL} depth={folder.depth} />
+      <Page {page} {activeURL} {root} depth={folder.depth} />
     {/if}
   {/each}
   {#each folder.folders as subfolder}

@@ -1,6 +1,8 @@
 # Add Vitest
 
-- pnpm add -D vitest --filter=kitbook
+**Here's how we added Vitest to Kitbook. This is only for maintenance reference, but you can also implement in your repo if desired.**
+
+- `pnpm --filter=kitbook add -D vitest`
 - turn on `globals` option and [In-source testing](https://vitest.dev/guide/features.html#in-source-testing) by creating a `vitest.config.ts` file:
 ```ts
 import { defineConfig } from 'vitest/config';
