@@ -15,11 +15,12 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 ## Set Up Your Sidebar
 
+- Install Kitbook, `npm i -D kitbook` or `pnpm add -D kitbook`
 - In your chosen folder, add a `__layout.svelte` file with the following code which will get a list of your pages, and pass them to Kitbook's `Layout` component:
 
 ```svelte
 <script lang="ts" context="module">
-  import { Layout, parseModulesIntoFolders } from '$lib';
+  import { Layout, parseModulesIntoFolders } from 'kitbook';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
     const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
@@ -27,10 +28,9 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
   };
 </script>
 
-<Layout githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook#readme">
+<Layout githubURL="https://github.com/jacob-8/kitbook">
   <slot />
 </Layout>
-
 ```
 
 ### Sidebar Notes

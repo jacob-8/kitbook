@@ -1,5 +1,6 @@
 # To-Do List
 
+- solve over-applied global scrollbar css
 - Story layout improvements
 - move Github link into header
 - Next and Previous pages (see Docusaurus/Vitebook)
