@@ -8,10 +8,10 @@
 
 <Story
   name="Edit array via Set component"
-  input={{ canEdit: true, minimum: 0 }}
-  let:output={{ canEdit, minimum }}>
+  knobs={{ canEdit: true, minimum: 0 }}
+  let:props={{ canEdit, minimum }}>
   <Set
-    input={['A Tale of Four Cities', 'www.google.com']}
+    knobs={['A Tale of Four Cities', 'www.google.com']}
     let:value={editedBooks}
     let:add
     let:remove>

@@ -14,7 +14,7 @@
   </div>
 </Story>
 
-<Story name="Vertical" input={{ vertical: true, pos: '10-90;50' }} let:output={{ vertical, pos }}>
+<Story name="Vertical" knobs={{ vertical: true, pos: '10-90;50' }} let:props={{ vertical, pos }}>
   <div style="height: 400px;">
     <SplitPane --divider-hover="hsl(195, 53%, 70%)" type={vertical ? 'vertical' : 'horizontal'} pos={+pos}>
       <section class="bg-black text-white h-full text-center" slot="a">Slot A</section>

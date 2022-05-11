@@ -8,36 +8,35 @@
   import parseInput from './knobs';
   import Knobs from './Knobs.svelte';
   type T = $$Generic;
-  export let input: T = undefined;
+  let input: T = undefined;
+  export { input as knobs };
   $: knobs = input && parseInput<T>(input);
 </script>
 
-<!-- <button on:click={() => ($route.query.sort = 'name')}>sort by name</button>
-<button on:click={() => ($route.fragment.modal = true)}>open modal window</button>
-<textarea placeholder="fragment.search" bind:value={$route.fragment.search} /> -->
-
-{#if name !== 'default'}
-  <h3>{name}</h3>
-{/if}
-
-<div class="not-prose border-gray-300 border">
-  <!-- Move into floatable window -->
-  {#if knobs}
-    <Knobs {restoreState} id={name.replace(' ', '_')} {knobs} />
-  {/if}
+<div class="not-prose border-gray-200 border shadow my-4">
+  <div class="bg-gray-200 p-2">
+    <div class="font-semibold text-sm">{name}</div>
+    {#if knobs}
+      <Knobs {restoreState} id={name.replace(' ', '_')} {knobs} />
+    {/if}
+  </div>
 
   <div style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}">
-    <slot output={$knobs} />
+    <div class="p-2 hover:bg-gray-100 h-full">
+      <div class="bg-white">
+        <slot props={$knobs} />
+      </div>
+    </div>
   </div>
 </div>
 
 <!--
  @component
- Pass knobs properties (boolean, string, number, or range) to the `input` prop access values from `let:output`. Typescript provides autocompletion for the proper properties on the way out. I prefer to use the shortcut notation as documented in the [Svench docs](https://svench-docs.vercel.app/_/Usage/knobs#knobs-passed-as-plain-objects-shortcut-notation) with the type of the knob being inferred from it.
+ Pass knobs properties (boolean, string, number, or range) to the `knobs` prop, then access values from `let:props`. Typescript provides autocompletion for the props on the way out. I prefer to use the shortcut notation as documented in the [Svench docs](https://svench-docs.vercel.app/_/Usage/knobs#knobs-passed-as-plain-objects-shortcut-notation) with the type of the knob being inferred from it.
 
 Range knobs can be declared using a default value matching the format ${minValue}${maxValue};${initialValue} (e.g., -10-10;5).
 
-Example usage: `<Story input={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }} let:output={{myBool, myNum, myStr, myRange}}>`
+Example usage: `<Story knobs={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }} let:props={{myBool, myNum, myStr, myRange}}>`
 
 TODO: Though full object notation works as seen in the Svench docs, the type interface will be incorrect. If someone has a compelling use case for full object notation, they can help me know how to improve the use of Generics and types through the `knobs.ts` file to achieve such.
 -->

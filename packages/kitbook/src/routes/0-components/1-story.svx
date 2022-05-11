@@ -1,0 +1,15 @@
+<script>
+  import { Story } from '$lib';
+</script>
+
+<!-- prettier-ignore -->
+# Story
+
+The Story component is the basic building block of Kitbook. 
+
+<Story>
+  <Story>Hello World from inside a Story</Story>
+</Story>
+
+<Story name="With Knobs" knobs={{value: true}} let:props={{value}}>{value}</Story>
+<Story name="Height 200" height={200} knobs={{value: true}} let:props={{value}}>{value}</Story>

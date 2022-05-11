@@ -10,7 +10,7 @@
 
 <div
   class:-translate-x-full={!showSidebar}
-  class="md:translate-x-0 fixed left-0 transform duration-200 md:sticky bg-white flex flex-col w-50 flex-shrink-0 h-[calc(100vh-52px)] top-0 md:top-52px overflow-auto z-3"
+  class="md:translate-x-0 fixed left-0 transform duration-200 md:sticky bg-white flex flex-col w-50 flex-shrink-0 h-100vh md:h-[calc(100vh-52px)] top-0 md:top-52px overflow-auto z-3"
 >
   <Folder {folder} {activeURL} expanded />
 

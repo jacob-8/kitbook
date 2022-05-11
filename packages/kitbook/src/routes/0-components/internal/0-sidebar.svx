@@ -17,7 +17,7 @@
   };
 </script>
 
-<Story input={{ githubURL: 'https//github.com' }} let:output={{ githubURL }}>
+<Story knobs={{ githubURL: 'https//github.com' }} let:props={{ githubURL }}>
   <div class="flex h-[300px] overflow-auto">
     <Sidebar folder={parseModulesIntoFolders(modules)} activeURL={$page.url.pathname} {githubURL}>
       <svelte:fragment slot="header"><slot name="header" /></svelte:fragment>

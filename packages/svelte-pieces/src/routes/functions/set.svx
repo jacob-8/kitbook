@@ -6,8 +6,8 @@
   let books = ['Kullamazoo', 'foo'];
 </script>
 
-<Story input={{ firstItem: 'bar' }} let:output={{ firstItem }}>
-  <Set input={[firstItem, ...books]} let:update let:value let:remove let:add let:size>
+<Story knobs={{ firstItem: 'bar' }} let:props={{ firstItem }}>
+  <Set knobs={[firstItem, ...books]} let:update let:value let:remove let:add let:size>
     <pre>{JSON.stringify(value, null, 1)}</pre>
     <div>
       Size: {size}

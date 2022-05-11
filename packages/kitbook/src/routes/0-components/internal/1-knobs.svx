@@ -1,0 +1,15 @@
+<script>
+  import Knobs from '$lib/stories/Knobs.svelte';
+  import Story from '$lib/stories/Story.svelte';
+  import parseInput from '$lib/stories/knobs';
+</script>
+
+# Knobs
+
+<Story knobs={{ fieldName: 'change_me' }} let:props={{ fieldName }}>
+  <Knobs id="knobs" knobs={parseInput({ [fieldName]: true })} />
+  <pre></pre>
+</Story>
+
+Note: The Knobs component is not exported as they are part of the story component. If someone has a
+use case where this component should be exported, please create an issue.
