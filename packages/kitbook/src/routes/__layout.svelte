@@ -1,8 +1,9 @@
 <script lang="ts" context="module">
   import { Layout, parseModulesIntoFolders } from '$lib';
   import type { Load } from '@sveltejs/kit';
-  export const load: Load = async () => {
-    return { stuff: { folder: parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}')) } };
+  export const load: Load = () => {
+    const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
+    return { stuff: { folder } };
   };
 </script>
 

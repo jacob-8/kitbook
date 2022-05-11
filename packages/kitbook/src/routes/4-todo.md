@@ -1,11 +1,14 @@
 # To-Do List
 
+- Story layout improvements
+- move Github link into header
 - Next and Previous pages (see Docusaurus/Vitebook)
-- Easily adjust screen size
+- Easily adjust screen size use full-screen view
 - Scrollspy TOC
-- Playwright visual regression testing
+- Easy markdown bookmark hyperlinks
 - Bake prism css into Layout w/ optional flag (currently in app.html)
 - Dark mode
+- Investigate Playwright or [Viteshot](https://viteshot.com/) for visual regression screenshot testing
 
 ## Contributing
 

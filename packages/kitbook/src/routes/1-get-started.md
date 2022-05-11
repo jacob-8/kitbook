@@ -1,14 +1,14 @@
 # Get Started: How to Create a KitBook
 
 
-## Add [MDSvex](https://mdsvex.pngwn.io/) 
-  - Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
-  - Set up your extensions in `mdsvex.config.js`, I use `['.md', '.svelte']`
-  - If using other extensions such as `.svx` you can add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
-
 ## Choose a folder in your `src/routes` directory
-   - A Kitbook can be either a new SvelteKit app--run `npm init svelte@next` and start in `src/routes`--or it can be put in a sub-route of an existing app (e.g. `src/routes/kitbook`). 
-     - *If you have a monorepo and want to create a new component library using Kitbook, create a new folder with the name of your component library (e.g. `packages/components`) and run `pnpm init svelte@next`. [Building Svelte Society: Monorepos with Pngwn](https://youtu.be/gKxz7R9dX0w) helped me understand how this could be helpful in certain situations where code needs to be shared across projects.*
+You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and put your Kitbook files right in `src/routes` (useful for monorepos) or you can put your Kitbook files in a sub-route of an existing app (e.g. `src/routes/kitbook`). 
+ - *If you have a monorepo and want to create a new component library using Kitbook, create a new folder with the name of your component library (e.g. `packages/components`) and init a new svelte app there. [Building Svelte Society: Monorepos with Pngwn](https://youtu.be/gKxz7R9dX0w) helped me understand how this could be helpful in certain situations where code needs to be shared across projects.*
+
+## Add [MDSvex](https://mdsvex.pngwn.io/) 
+- Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
+- Set up your extensions in `mdsvex.config.js`, I use `['.md', '.svelte']`
+- If using other extensions such as `.svx` you can add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
 
 ## Set Up Your Sidebar
 
@@ -16,25 +16,18 @@
 
 ```svelte
 <script lang="ts" context="module">
-  import { parsePages, type Page } from 'kitbook/sidebar/pages';
-  const modules = import.meta.glob('./**/*.{md,svelte}');
-  
+  import { Layout, parseModulesIntoFolders } from '$lib';
   import type { Load } from '@sveltejs/kit';
-  export const load: Load = async () => {
-    return { props: { pages: parsePages(modules) } };
+  export const load: Load = () => {
+    const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
+    return { stuff: { folder } };
   };
 </script>
 
-<script lang="ts">
-  import Layout from 'kitbook/Layout.svelte';
-  export let pages: Page[];
-</script>
-
-<Layout {pages}>
-  <svelte:fragment slot="header">Kitbook</svelte:fragment>
+<Layout githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook#readme">
   <slot />
-  <div class="p-3 text-sm font-semibold" slot="footer">View Repo</div>
 </Layout>
+
 ```
 
 ### Sidebar Notes

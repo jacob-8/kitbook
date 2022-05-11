@@ -10,4 +10,4 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 
 ## Start Building Components
 
-[Get Started](/0-get-started) or view some [examples](/3-examples) (note that you're looking at one right now as Kitbook is built using Kitbook!)
+[Get Started](/1-get-started) or view some [examples](/3-examples) (note that you're looking at one right now as Kitbook is built using Kitbook!)

@@ -1,3 +1,4 @@
 # Layout
 
-To document
+To document further
+- Footer slot
