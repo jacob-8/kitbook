@@ -1,6 +1,6 @@
 # To-Do List
 
-- flesh out basic documentation while installing in projects already using Kitbook
+- install in projects already using Kitbook via copy folder method to flesh out basic documentation
 - Story layout improvements
 - solve over-applied global scrollbar css
 - Next and Previous pages (see Docusaurus/Vitebook)
