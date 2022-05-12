@@ -2,4 +2,4 @@
   export let route: string;
 </script>
 
-<a href={route}>Navigate to Kitbook</a>
+<a href={route} style="background: pink; padding: 5px; border-radius: 4px;">Navigate to Kitbook</a>
