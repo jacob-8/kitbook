@@ -4,7 +4,7 @@
 *(you have been warned, early-adopters)*
 
 - install in projects already using Kitbook via copy folder method to flesh out basic documentation
-- Story layout improvements
+- Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
 - solve over-applied global scrollbar css
 - Easily adjust screen size use full-screen view
 - Scrollspy TOC on right hand side

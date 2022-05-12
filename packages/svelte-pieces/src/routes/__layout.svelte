@@ -1,13 +1,16 @@
 <script lang="ts" context="module">
-  import { Layout, parseModulesIntoFolders } from 'kitbook';
+  import { Layout } from 'kitbook';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = async () => {
-    return { stuff: { folder: parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}')) } };
+    const modules = import.meta.glob('./**/*.{md,svx}');
+    return { stuff: { kitbook: { modules } } };
   };
 </script>
 
-<Layout githubURL="https://github.com/jacob-8/svelte-pieces">
-  <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment
-  >
+<Layout
+  title="Svelte Pieces"
+  githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces"
+>
+  <!-- <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment> -->
   <slot />
 </Layout>
