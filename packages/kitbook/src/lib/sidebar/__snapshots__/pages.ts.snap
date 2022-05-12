@@ -102,6 +102,12 @@ exports[`putPagesIntoFolders organizes pages into proper folders based on dir 1`
       "path": "./0-get-started.md",
       "url": "/0-get-started",
     },
+    {
+      "ext": "md",
+      "name": "examples",
+      "path": "./3-examples.md",
+      "url": "/3-examples",
+    },
   ],
   "url": "/",
 }

@@ -3,7 +3,6 @@
   export let showSidebar = false;
   export let githubURL: string = undefined;
   export let root = "/";
-  console.log({root})
 </script>
 
 <header

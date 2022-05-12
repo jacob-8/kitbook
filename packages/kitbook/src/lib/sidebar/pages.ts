@@ -13,13 +13,13 @@ export type Page = {
   url: string;
 };
 
+export type Modules = Record<string, () => Promise<{ [key: string]: any }>>;
+
 function removeInitialDigitAndHyphens(string: string) {
   return string.replace(/^\d+/, '').replace(/-/g, ' ').trim();
 }
 
-type Modules = Record<string, () => Promise<{ [key: string]: any }>>;
-
-function parsePages(modules: Modules): Page[] {
+export function parsePages(modules: Modules): Page[] {
   const paths = Object.keys(modules);
   if (!paths.length) {
     throw new Error('Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"')
@@ -42,7 +42,7 @@ function parsePages(modules: Modules): Page[] {
   return pages;
 }
 
-function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
+export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
   const rootFolder: Folder = {
     name: '.',
     url: '/',
@@ -81,26 +81,36 @@ function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
   return rootFolder;
 }
 
-export function parseModulesIntoFolders(modules: Modules): Folder {
-  return putPagesIntoFolders(parsePages(modules));
+export function findActivePage(pages: Page[], url: string): Page {
+  return pages.find((page) => page.url === url);
 }
 
 if (import.meta.vitest) {
   const modules = {
+    // ./0-components/0-layout.md
+    // ./0-components/1-story.svx
+    // ./0-components/internal/0-sidebar.svx
+    // ./0-components/internal/1-knobs.svx
+    // ./0-why-kitbook.md
+    // ./1-get-started.md
+    // ./2-add-stories.md
+    // ./9-maintainer-notes/0-add-windicss.md
+    // ./9-maintainer-notes/1-deploy-to-vercel.md
     './9-privacy-policy.md': () => Promise.resolve({}),
-    './index.md': () => Promise.resolve({}),
     './0-get-started.md': () => Promise.resolve({}),
     './0-components/0-Button.svelte': () => Promise.resolve({}),
     './0-components/1-Switch.svelte': () => Promise.resolve({}),
     './0-components/0-ui/0-Button.svelte': () => Promise.resolve({}),
     './0-components/play-audio-section.svelte': () => Promise.resolve({}), // test this to remove section hyphen
+    './3-examples.md': () => Promise.resolve({}),
     './[reference]/__layout.svelte': () => Promise.resolve({}),
     './a/b/c-d/e.svelte': () => Promise.resolve({}),
     './a/b/c-d/f.svelte': () => Promise.resolve({}),
+    './index.md': () => Promise.resolve({}),
   };
+  const pages = parsePages(modules);
 
   test('putPagesIntoFolders organizes pages into proper folders based on dir', () => {
-    const pages = parsePages(modules);
     expect(putPagesIntoFolders(pages)).toMatchSnapshot();
   });
 
@@ -150,6 +160,12 @@ if (import.meta.vitest) {
           "url": "/0-components/play-audio-section",
         },
         {
+          "ext": "md",
+          "name": "examples",
+          "path": "./3-examples.md",
+          "url": "/3-examples",
+        },
+        {
           "ext": "svelte",
           "name": "e",
           "path": "./a/b/c-d/e.svelte",
@@ -164,4 +180,23 @@ if (import.meta.vitest) {
       ]
     `);
   });
+
+  test('findActivePage returns page that includes current url', () => {
+    expect(findActivePage(pages, '/3-examples')).toMatchInlineSnapshot(`
+      {
+        "ext": "md",
+        "name": "examples",
+        "path": "./3-examples.md",
+        "url": "/3-examples",
+      }
+    `);
+    expect(findActivePage(pages, '/')).toMatchInlineSnapshot(`
+      {
+        "ext": "md",
+        "name": "index",
+        "path": "./index.md",
+        "url": "/",
+      }
+    `);
+  })
 }

@@ -20,11 +20,11 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 ```svelte
 <script lang="ts" context="module">
-  import { Layout, parseModulesIntoFolders } from 'kitbook';
+  import { Layout } from '$lib';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
-    const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
-    return { stuff: { kitbook: { folder, root: '/kitbook' } } }; 
+    const modules = import.meta.glob('./**/*.{md,svx}');
+    return { stuff: { kitbook: { modules, root: '/kitbook' } } };
     // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
   };
 </script>

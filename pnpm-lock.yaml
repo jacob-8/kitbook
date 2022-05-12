@@ -71,7 +71,7 @@ importers:
       '@types/youtube': ^0.0.46
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: ^0.0.5
+      kitbook: ^0.0.7
       mdsvex: ^0.10.5
       replace-in-file: ^6.3.2
       svelte: ^3.48.0
@@ -96,7 +96,7 @@ importers:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.43_svelte@3.48.0
       '@testing-library/jest-dom': 5.16.4
       '@types/youtube': 0.0.46
-      kitbook: 0.0.5
+      kitbook: link:../kitbook
       mdsvex: 0.10.5_svelte@3.48.0
       replace-in-file: 6.3.2
       svelte: 3.48.0
@@ -115,7 +115,7 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
-      kitbook: 0.0.5
+      kitbook: 0.0.6
       mdsvex: ^0.10.5
       svelte: ^3.44.0
       svelte-check: ^2.2.6
@@ -124,8 +124,8 @@ importers:
       typescript: ~4.6.2
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.40
-      '@sveltejs/kit': 1.0.0-next.326_svelte@3.48.0
-      kitbook: 0.0.5
+      '@sveltejs/kit': 1.0.0-next.328_svelte@3.48.0
+      kitbook: 0.0.6
       mdsvex: 0.10.5_svelte@3.48.0
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
@@ -471,6 +471,26 @@ packages:
 
   /@sveltejs/kit/1.0.0-next.326_svelte@3.48.0:
     resolution: {integrity: sha512-prJqmXZ2H1wmFfnMw7wDujfbkcA8vuubuqUkpVVmXhfh2+SEzQscPTNwxoE5EJxb5sywtLWEvYx3hv1gPS4Lvg==}
+    engines: {node: '>=14.13'}
+    hasBin: true
+    peerDependencies:
+      svelte: ^3.44.0
+    dependencies:
+      '@sveltejs/vite-plugin-svelte': 1.0.0-next.43_svelte@3.48.0+vite@2.9.8
+      chokidar: 3.5.3
+      sade: 1.8.1
+      svelte: 3.48.0
+      vite: 2.9.8
+    transitivePeerDependencies:
+      - diff-match-patch
+      - less
+      - sass
+      - stylus
+      - supports-color
+    dev: true
+
+  /@sveltejs/kit/1.0.0-next.328_svelte@3.48.0:
+    resolution: {integrity: sha512-L1RJ7wwLkOgo7aE+JiYppJEtVsSIpGPfgBZtjrS3J0avXVYUSTy+AfXbvjFJxTdk94uuCcTLUk/0vVODFm+Khg==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -1952,8 +1972,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kitbook/0.0.5:
-    resolution: {integrity: sha512-hkQrRxJUk6oUwH0RaDT5ca1JIA8aLtlChHC0imNqQSvjBEzsWBUJc5ConUlxroIaRhttgEOfPt5UzCB0bdu+YQ==}
+  /kitbook/0.0.6:
+    resolution: {integrity: sha512-vxlUSzFdMB68S/5tU3/mTod0TCkWiD8H0VaIjdKrqX82/DQzk74pg+3soYTdW6jTUBZpePjsJ0yc1R8WgwBTSQ==}
     dev: true
 
   /kleur/4.1.4:

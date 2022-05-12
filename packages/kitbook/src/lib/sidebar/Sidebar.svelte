@@ -16,7 +16,11 @@
 
   <a href="https://github.com/jacob-8/kitbook" target="_blank" class="ml-3 my-4 block">
     <span class="text-sm text-gray-400 block mb-1"> Created with </span>
-    <img alt="Kitbook" src="/kitbook.svg" style="height: 20px;" />
+    <img
+      alt="Kitbook"
+      src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg"
+      style="height: 20px;"
+    />
   </a>
 </div>
 

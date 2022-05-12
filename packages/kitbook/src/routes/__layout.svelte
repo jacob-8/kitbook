@@ -1,10 +1,9 @@
 <script lang="ts" context="module">
-  import { Layout, parseModulesIntoFolders } from '$lib';
+  import { Layout } from '$lib';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
-    const folder = parseModulesIntoFolders(import.meta.glob('./**/*.{md,svx}'));
-    console.log({folder});
-    return { stuff: { kitbook: { folder } } };
+    const modules = import.meta.glob('./**/*.{md,svx}');
+    return { stuff: { kitbook: { modules } } };
   };
 </script>
 
