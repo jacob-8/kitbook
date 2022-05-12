@@ -1,7 +1,8 @@
 <script>
   import Sidebar from '$lib/sidebar/Sidebar.svelte';
-  import { Story, parseModulesIntoFolders } from '$lib';
+  import { Story } from '$lib';
   import { page } from '$app/stores';
+  import { parsePages, putPagesIntoFolders } from '$lib/sidebar/pages';
 
   const modules = {
     './9-privacy-policy.md': () => Promise.resolve({}),
@@ -17,9 +18,9 @@
   };
 </script>
 
-<Story knobs={{ githubURL: 'https//github.com' }} let:props={{ githubURL }}>
+<Story>
   <div class="flex h-[300px] overflow-auto">
-    <Sidebar folder={parseModulesIntoFolders(modules)} activeURL={$page.url.pathname} {githubURL}>
+    <Sidebar folder={putPagesIntoFolders(parsePages(modules))} activeURL={$page.url.pathname}>
       <svelte:fragment slot="header"><slot name="header" /></svelte:fragment>
       <svelte:fragment slot="index"
         ><slot name="index">
