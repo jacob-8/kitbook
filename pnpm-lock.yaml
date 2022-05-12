@@ -44,6 +44,8 @@ importers:
       typescript: ~4.6.4
       vitest: ^0.12.0
       windicss: ^3.5.2
+    dependencies:
+      svelte-store-router: 2.0.10_svelte@3.48.0
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.40
       '@sveltejs/kit': 1.0.0-next.326_svelte@3.48.0
@@ -54,7 +56,6 @@ importers:
       svelte-deep-wind-preprocess: 0.0.7
       svelte-pieces: link:../svelte-pieces
       svelte-preprocess: 4.10.6_wwvk7nlptlrqo2czohjtk6eiqm
-      svelte-store-router: 2.0.10_svelte@3.48.0
       svelte-windicss-preprocess: 4.1.7
       svelte2tsx: 0.5.9_wwvk7nlptlrqo2czohjtk6eiqm
       tslib: 2.4.0
@@ -71,14 +72,13 @@ importers:
       '@types/youtube': ^0.0.46
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: ^0.0.7
+      kitbook: ^0.0.8
       mdsvex: ^0.10.5
       replace-in-file: ^6.3.2
       svelte: ^3.48.0
       svelte-check: ^2.7.0
       svelte-deep-wind-preprocess: ^0.0.7
       svelte-preprocess: ^4.10.6
-      svelte-store-router: ^2.0.10
       svelte-windicss-preprocess: ~4.1.0
       svelte2tsx: ^0.5.9
       tslib: ^2.4.0
@@ -103,7 +103,6 @@ importers:
       svelte-check: 2.7.0_svelte@3.48.0
       svelte-deep-wind-preprocess: 0.0.7
       svelte-preprocess: 4.10.6_wwvk7nlptlrqo2czohjtk6eiqm
-      svelte-store-router: 2.0.10_svelte@3.48.0
       svelte-windicss-preprocess: 4.1.7
       svelte2tsx: 0.5.9_wwvk7nlptlrqo2czohjtk6eiqm
       tslib: 2.4.0
@@ -115,7 +114,7 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
-      kitbook: 0.0.6
+      kitbook: 0.0.7
       mdsvex: ^0.10.5
       svelte: ^3.44.0
       svelte-check: ^2.2.6
@@ -125,7 +124,7 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.40
       '@sveltejs/kit': 1.0.0-next.328_svelte@3.48.0
-      kitbook: 0.0.6
+      kitbook: 0.0.7
       mdsvex: 0.10.5_svelte@3.48.0
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
@@ -1972,8 +1971,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kitbook/0.0.6:
-    resolution: {integrity: sha512-vxlUSzFdMB68S/5tU3/mTod0TCkWiD8H0VaIjdKrqX82/DQzk74pg+3soYTdW6jTUBZpePjsJ0yc1R8WgwBTSQ==}
+  /kitbook/0.0.7:
+    resolution: {integrity: sha512-yEzmetJ/c/zM9Xqz1CymSb3VjNVvb4ZKlZHkw7RnEvGxt3tyZfHBop7uamk+0U/kQdmRVgoB4MmoIp4QOT/sxw==}
     dev: true
 
   /kleur/4.1.4:
@@ -2435,7 +2434,7 @@ packages:
 
   /rambda/6.9.0:
     resolution: {integrity: sha512-yosVdGg1hNGkXPzqGiOYNEpXKjEOxzUCg2rB0l+NKdyCaSf4z+i5ojbN0IqDSezMMf71YEglI+ZUTgTffn5afw==}
-    dev: true
+    dev: false
 
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -2492,7 +2491,6 @@ packages:
   /regexparam/2.0.0:
     resolution: {integrity: sha512-gJKwd2MVPWHAIFLsaYDZfyKzHNS4o7E/v8YmNf44vmeV2e4YfVoDToTOKTvE7ab68cRJ++kLuEXJBaEeJVt5ow==}
     engines: {node: '>=8'}
-    dev: true
 
   /regexpp/3.2.0:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}
@@ -2884,7 +2882,7 @@ packages:
       rambda: 6.9.0
       regexparam: 2.0.0
       svelte: 3.48.0
-    dev: true
+    dev: false
 
   /svelte-windicss-preprocess/4.1.7:
     resolution: {integrity: sha512-+jQD1zlpOlKg1AFOs/2wrubzUbRzG4KBCzeho7kXyUoSi4OOWqMP1l4roHZTEOqLqmja4eVi0RVEI5RhjqgZIA==}
