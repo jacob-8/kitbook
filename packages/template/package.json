@@ -13,7 +13,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "kitbook": "0.0.7",
+    "kitbook": "0.0.8",
     "mdsvex": "^0.10.5",
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.6",
