@@ -1,6 +1,5 @@
 # To-Do List
 
-- deploy skeleton template to Vercel and make sure it's ready to use
 - flesh out basic documentation while installing in projects already using Kitbook
 - Story layout improvements
 - solve over-applied global scrollbar css

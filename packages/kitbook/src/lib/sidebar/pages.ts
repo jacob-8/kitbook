@@ -22,7 +22,9 @@ function removeInitialDigitAndHyphens(string: string) {
 export function parsePages(modules: Modules): Page[] {
   const paths = Object.keys(modules);
   if (!paths.length) {
-    throw new Error('Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"')
+    throw new Error(
+      'Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"'
+    );
   }
   let pages = paths.map((path) => {
     const match = path.match(/^\.\/(.*\/)*(.+)\.(.+)$/);
@@ -81,8 +83,13 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
   return rootFolder;
 }
 
-export function findActivePage(pages: Page[], url: string): Page {
-  return pages.find((page) => page.url === url);
+export function findActivePage(pages: Page[], urlPathname: string): Page {
+  const activePage = pages.find((page) => {
+    const regex = new RegExp(`${page.url}$`);
+    return regex.test(urlPathname);
+  });
+  if (activePage) return activePage;
+  return pages.find((page) => page.url === '/');
 }
 
 if (import.meta.vitest) {
@@ -190,6 +197,9 @@ if (import.meta.vitest) {
         "url": "/3-examples",
       }
     `);
+  });
+
+  test('findActivePage handles index page', () => {
     expect(findActivePage(pages, '/')).toMatchInlineSnapshot(`
       {
         "ext": "md",
@@ -198,5 +208,27 @@ if (import.meta.vitest) {
         "url": "/",
       }
     `);
-  })
+  });
+
+  test('findActivePage works when kitbook is placed in a subfolder', () => {
+    expect(findActivePage(pages, '/foo/kitbookroot/3-examples')).toMatchInlineSnapshot(`
+      {
+        "ext": "md",
+        "name": "examples",
+        "path": "./3-examples.md",
+        "url": "/3-examples",
+      }
+    `);
+  });
+
+  test('findActivePage returns kitbook index when no matches', () => {
+    expect(findActivePage(pages, '/foo/kitbookroot')).toMatchInlineSnapshot(`
+      {
+        "ext": "md",
+        "name": "index",
+        "path": "./index.md",
+        "url": "/",
+      }
+    `);
+  });
 }
