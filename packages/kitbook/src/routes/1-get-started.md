@@ -29,7 +29,7 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
   };
 </script>
 
-<Layout title="Kitbook" githubURL="https://github.com/jacob-8/kitbook">
+<Layout title="Kitbook" githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook">
   <slot />
 </Layout>
 ```
