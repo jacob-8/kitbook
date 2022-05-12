@@ -72,7 +72,7 @@ importers:
       '@types/youtube': ^0.0.46
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: ^0.0.8
+      kitbook: ^0.0.9
       mdsvex: ^0.10.5
       replace-in-file: ^6.3.2
       svelte: ^3.48.0
@@ -96,7 +96,7 @@ importers:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.43_svelte@3.48.0
       '@testing-library/jest-dom': 5.16.4
       '@types/youtube': 0.0.46
-      kitbook: 0.0.8_svelte@3.48.0
+      kitbook: link:../kitbook
       mdsvex: 0.10.5_svelte@3.48.0
       replace-in-file: 6.3.2
       svelte: 3.48.0
@@ -114,7 +114,7 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
-      kitbook: 0.0.8
+      kitbook: 0.0.9
       mdsvex: ^0.10.5
       svelte: ^3.44.0
       svelte-check: ^2.2.6
@@ -124,7 +124,7 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.40
       '@sveltejs/kit': 1.0.0-next.328_svelte@3.48.0
-      kitbook: 0.0.8_svelte@3.48.0
+      kitbook: link:../kitbook
       mdsvex: 0.10.5_svelte@3.48.0
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
@@ -1971,14 +1971,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kitbook/0.0.8_svelte@3.48.0:
-    resolution: {integrity: sha512-JfBWJqVLjhALMMPtn7En7E6QOJNNz25zKgAnqk0v9n6IXGycajHtXhI0OSy2uOEkKQ+7wFNtbh2/3XrvSoxx+Q==}
-    dependencies:
-      svelte-store-router: 2.0.10_svelte@3.48.0
-    transitivePeerDependencies:
-      - svelte
-    dev: true
-
   /kleur/4.1.4:
     resolution: {integrity: sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==}
     engines: {node: '>=6'}
@@ -2438,6 +2430,7 @@ packages:
 
   /rambda/6.9.0:
     resolution: {integrity: sha512-yosVdGg1hNGkXPzqGiOYNEpXKjEOxzUCg2rB0l+NKdyCaSf4z+i5ojbN0IqDSezMMf71YEglI+ZUTgTffn5afw==}
+    dev: false
 
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -2885,6 +2878,7 @@ packages:
       rambda: 6.9.0
       regexparam: 2.0.0
       svelte: 3.48.0
+    dev: false
 
   /svelte-windicss-preprocess/4.1.7:
     resolution: {integrity: sha512-+jQD1zlpOlKg1AFOs/2wrubzUbRzG4KBCzeho7kXyUoSi4OOWqMP1l4roHZTEOqLqmja4eVi0RVEI5RhjqgZIA==}
