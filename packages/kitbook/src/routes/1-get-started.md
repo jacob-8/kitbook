@@ -21,9 +21,10 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 ```svelte
 <script lang="ts" context="module">
   import { Layout } from 'kitbook';
+  const modules = import.meta.glob('./**/*.{md,svx}');
+
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
-    const modules = import.meta.glob('./**/*.{md,svx}');
     return { stuff: { kitbook: { modules, root: '/kitbook' } } };
     // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
   };
@@ -67,7 +68,7 @@ TODO: Add props
 - Add the `Story` component to access the prototyping features:
 ```svelte
 <script lang="ts">
-  import Story from 'kitbook';
+  import { Story } from 'kitbook';
 </script>
 
 <Story name="Fancy Button" knobs={{ name: 'John'}} let:props={{ name }}>
