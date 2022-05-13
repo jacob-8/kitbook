@@ -20,7 +20,7 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 ```svelte
 <script lang="ts" context="module">
-  import { Layout } from '$lib';
+  import { Layout } from 'kitbook';
   import type { Load } from '@sveltejs/kit';
   export const load: Load = () => {
     const modules = import.meta.glob('./**/*.{md,svx}');
