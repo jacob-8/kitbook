@@ -11,9 +11,13 @@
   let input: T = undefined;
   export { input as knobs };
   $: knobs = input && parseInput<T>(input);
+
+  function set(field: string, value: any) {
+    $knobs[field] = value;
+  }
 </script>
 
-<div class="not-prose border-gray-200 border shadow my-4">
+<div class="{$$props.class} not-prose border-gray-200 border shadow my-4 overflow-hidden">
   <div class="bg-gray-200 p-2">
     <div class="font-semibold text-sm">{name}</div>
     {#if knobs}
@@ -24,7 +28,7 @@
   <div style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}">
     <div class="p-2 hover:bg-gray-100 h-full">
       <div class="bg-white">
-        <slot props={$knobs} />
+        <slot props={$knobs} {set} />
       </div>
     </div>
   </div>
@@ -37,6 +41,8 @@
 Range knobs can be declared using a default value matching the format ${minValue}${maxValue};${initialValue} (e.g., -10-10;5).
 
 Example usage: `<Story knobs={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }} let:props={{myBool, myNum, myStr, myRange}}>`
+
+TODO: accept negative values for range initialValue
 
 TODO: Though full object notation works as seen in the Svench docs, the type interface will be incorrect. If someone has a compelling use case for full object notation, they can help me know how to improve the use of Generics and types through the `knobs.ts` file to achieve such.
 -->
