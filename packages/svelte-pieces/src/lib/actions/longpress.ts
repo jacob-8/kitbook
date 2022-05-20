@@ -1,3 +1,12 @@
+/**
+ * Add to app.d.ts file:
+ * ```declare namespace svelte.JSX {
+      interface HTMLAttributes<T> {
+        onlongpress?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
+        onshortpress?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
+      }
+    }```
+ */
 export function longpress(node: Node, duration = 400) {
   let start: number; // for shortpress
   let shortpressEmitted: number; // so touchend and mouseup events don't both emit on touch devices
