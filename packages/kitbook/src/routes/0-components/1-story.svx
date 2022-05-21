@@ -13,3 +13,6 @@ The Story component is the basic building block of Kitbook.
 
 <Story name="With Knobs" knobs={{value: true}} let:props={{value}}>{value}</Story>
 <Story name="Height 200" height={200} knobs={{value: true}} let:props={{value}}>{value}</Story>
+
+- todo: range prop needs typed as a number, not text on the way out
+- add range prop labels

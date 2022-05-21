@@ -27,7 +27,7 @@
 
   <div style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}">
     <div class="p-2 hover:bg-gray-100 h-full">
-      <div class="bg-white">
+      <div class="bg-white h-full">
         <slot props={$knobs} {set} />
       </div>
     </div>
