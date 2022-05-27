@@ -7,6 +7,7 @@
 - close sidebar when mobile navigation happens
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
 - solve over-applied global scrollbar css
+- try svelte-pathfinder for query params store (https://github.com/sveltetools/svelte-pathfinder or https://github.com/sveltejs/kit/issues/969)
 - Easily adjust screen size use full-screen view
 - Scrollspy TOC on right hand side
 - Easy markdown bookmark hyperlinks
