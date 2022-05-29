@@ -1,0 +1,28 @@
+<script>
+  import ResponsiveTable from '$lib/ui/ResponsiveTable.svelte';
+import { Story } from 'kitbook';
+
+</script>
+
+<!-- prettier-ignore -->
+# Responsive Table
+
+- Use `sticky` prop if you want to make the header sticky
+- Then you can also use `<th></th>` elements in your first column if you want if to be sticky
+
+<Story height={400} width={200} knobs={{sticky: true}} let:props={{sticky}}>
+  <ResponsiveTable {sticky}>
+    <thead>
+      <th>Dictionaries</th>
+      <th>number</th>
+      <th>public</th>
+    </thead>
+    {#each [...Array(100)] as item, index}
+       <tr>
+         <th>yalk{index}</th>
+         <td style="width: 4000px;">{index} and some big long cell that keeps stretching things out for a ways. Let's see how far we can make this thing go. Well really we should probably be able to define a width here.</td>
+         <td>{index % 2 ? 'yes' : 'no'}</td>
+       </tr>
+    {/each}
+  </ResponsiveTable>
+</Story>
