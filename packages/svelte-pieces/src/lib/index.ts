@@ -27,3 +27,4 @@ export { default as Modal } from './ui/Modal.svelte';
 export { default as SplitPane } from './ui/SplitPane.svelte';
 export { default as Switcher } from './ui/Switcher.svelte';
 export { default as Toasts } from './ui/Toasts.svelte';
+export { default as ResponsiveTable } from './ui/ResponsiveTable.svelte';

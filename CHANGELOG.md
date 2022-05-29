@@ -1,5 +1,9 @@
 # svelte-pieces
 
+## 1.0.21
+
+- - Removed header cell styling from `ResponsiveTable.svelte` and added `stickyHeading` and `stickyColumn` options.
+
 ## 1.0.13
 
 ### Hotfix
