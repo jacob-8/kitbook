@@ -18,7 +18,7 @@
     @apply sticky left-0 z-2;
   }
   :global(.stickyColumn td:first-child) {
-    @apply sticky left-0 bg-white;
+    @apply sticky left-0 z-1 bg-white;
   }
   /* End Sticky */
 
