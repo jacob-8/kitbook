@@ -10,18 +10,6 @@
 </div>
 
 <style>
-  /* Sticky */
-  :global(.stickyHeading th) {
-    @apply sticky top-0 z-1;
-  }
-  :global(.stickyColumn th:first-child) {
-    @apply sticky left-0 z-2;
-  }
-  :global(.stickyColumn td:first-child) {
-    @apply sticky left-0 z-1 bg-white;
-  }
-  /* End Sticky */
-
   .responsive-wrapper {
     @apply overflow-auto border rounded w-full h-full;
   }
@@ -43,4 +31,14 @@
     @apply px-3 py-2 border-b border-gray-200 text-sm;
   }
 
+  /* Sticky */
+  :global(.stickyHeading thead th) {
+    @apply sticky top-0 z-1;
+  }
+  :global(.stickyColumn thead th:first-child) {
+    @apply sticky left-0 z-2;
+  }
+  :global(.stickyColumn td:first-child) {
+    @apply sticky left-0 z-1 bg-white;
+  }
 </style>
