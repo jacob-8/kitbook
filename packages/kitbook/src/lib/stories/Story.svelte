@@ -19,7 +19,39 @@
 
 <div class="{$$props.class} not-prose border-gray-200 border shadow my-4 overflow-hidden">
   <div class="bg-gray-200 p-2">
-    <div class="font-semibold text-sm">{name}</div>
+    <div class="font-semibold text-sm flex">
+      {name}
+      <div class="ml-auto" />
+      <button
+        title="toggle width"
+        class="p-1 opacity-50 hover:opacity-100"
+        on:click={() => (width ? (width = undefined) : (width = 300))}
+        ><span class="i-ant-design-column-width-outlined" /></button
+      >
+      <button
+        title="toggle height"
+        class="p-1 opacity-50 hover:opacity-100"
+        on:click={() => (height ? (height = undefined) : (height = 200))}
+        ><span class="i-ant-design-column-height-outlined" /></button
+      >
+    </div>
+
+    {#if width || height}
+      <div class="text-sm mt-2">
+        {#if width}
+          <label>
+            Width:
+            <input type="number" bind:value={width} class="w-15" />
+          </label>
+        {/if}
+        {#if height}
+          <label>
+            Height:
+            <input type="number" bind:value={height} class="w-15" />
+          </label>
+        {/if}
+      </div>
+    {/if}
     {#if knobs}
       <Knobs {restoreState} id={name.replace(' ', '_')} {knobs} />
     {/if}
