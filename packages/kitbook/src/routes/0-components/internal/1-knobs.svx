@@ -6,10 +6,36 @@
 
 # Knobs
 
-<Story knobs={{ fieldName: 'change_me' }} let:props={{ fieldName }}>
+<Story name="boolean knob" knobs={{ fieldName: 'toggle_me' }} let:props={{ fieldName }}>
   <Knobs id="knobs" knobs={parseInput({ [fieldName]: true })} />
-  <pre></pre>
 </Story>
+
+<Story
+  name="string knob"
+  knobs={{ fieldName: 'stringFieldName', startingValue: 'my string value' }}
+  let:props={{ fieldName, startingValue }}
+>
+  <Knobs id="knobs" knobs={parseInput({ [fieldName]: startingValue })} />
+</Story>
+
+<Story
+  name="number knob"
+  knobs={{ fieldName: 'numberFieldName', startingValue: 2 }}
+  let:props={{ fieldName, startingValue }}
+>
+  <Knobs id="knobs" knobs={parseInput({ [fieldName]: startingValue })} />
+</Story>
+
+<Story
+  name="range knob"
+  knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
+  let:props={{ fieldName, min, max, defaultValue }}
+>
+  <Knobs id="knobs" knobs={parseInput({ [fieldName]: `${min}-${max};${defaultValue}` })} />
+</Story>
+
+<!-- prettier-ignore -->
+- Note that currently the range knob breaks when given negative default value (the regex parser needs improved if desiring to fix.)
 
 Note: The Knobs component is not exported as they are part of the story component. If someone has a
 use case where this component should be exported, please create an issue.
