@@ -37,11 +37,10 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 
 - Add the type for the `stuff.kitbook` prop to your `app.d.t.s` file:
 ```ts
-import type { KitbookStuff } from "kitbook";
 declare namespace App {
   ...
   interface Stuff {
-    kitbook: KitbookStuff;
+    kitbook: import('kitbook').KitbookStuff;
   }
 }
 ```
