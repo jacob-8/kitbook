@@ -22,4 +22,3 @@ on.
 
 <!-- prettier-ignore -->
 - todo: range prop needs typed as a number, not text on the way out
-- add range prop labels
