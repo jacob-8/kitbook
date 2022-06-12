@@ -6,7 +6,7 @@ While **[Svench](https://svench-docs.vercel.app/)**, **[Storybook](https://codin
 
 - **[Storybook](https://codingcat.dev/tutorial/integrating-storybook-with-sveltekit)**, even though it works with Vite now for better speed, it is still **way** too large and slow. Plus it's very buggy with SvelteKit still from my experience.
 
-- **[Vitebook](https://vitebook.dev/)** is what I thought was the missing answer and I was using it in Gitpod with much delight until I found it doesn't even work in Windows or in Vercel (AWS node versioning issue)... While very extendable, I find it much better suited for documentation and not for prototyping. *Maybe Windows is the problem... but hey, if a tool doesn't work everywhere, it might as well work nowhere.*
+- **[Vitebook](https://vitebook.dev/)** is the most visually appealing but doesn't work in Windows... While very extendable, I find it much better suited for documentation and not for prototyping as important prototyping features are either missing or too verbose to implement.
 
 - Additionally, none have a good solution to how to mock/shim SvelteKit imports like `import { browser } from "$app/env";`?
 
