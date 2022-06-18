@@ -29,5 +29,6 @@ export { default as Switcher } from './ui/Switcher.svelte';
 export { default as Toasts } from './ui/Toasts.svelte';
 export { default as ResponsiveTable } from './ui/ResponsiveTable.svelte';
 
+export { default as QueryParam } from './stores/QueryParam.svelte';
 export { createPersistedStore } from './stores/persisted';
 export { createQueryParamStore } from './stores/queryParam';

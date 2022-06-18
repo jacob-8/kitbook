@@ -35,7 +35,6 @@ export function createQueryParamStore<T>(
   };
 
   const setStoreValue = (value: T) => {
-    console.log({ storeValue: value });
     browser && localStorage.setItem(key, JSON.stringify(value));
     log && console.log(`URL set ${key} to ${value}`);
     set(value);
@@ -46,7 +45,6 @@ export function createQueryParamStore<T>(
   const start = () => {
     const _teardown = page.subscribe(({ url: { searchParams } }) => {
       let value = decodeParam(searchParams.get(key)) as unknown as T;
-      console.log({ value });
 
       // Subsequent URL changes
       if (!firstUrlCheck) return setStoreValue(value);

@@ -1,5 +1,9 @@
 # svelte-pieces
 
+## 1.0.23
+
+- - Added `createPersistedStore`, `createQueryParamStore`, and `<QueryParam>` component
+
 ## 1.0.21
 
 - - Removed header cell styling from `ResponsiveTable.svelte` and added `stickyHeading` and `stickyColumn` options.
