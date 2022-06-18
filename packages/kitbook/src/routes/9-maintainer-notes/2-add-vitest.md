@@ -31,7 +31,7 @@ export default defineConfig({
 if (import.meta.vitest) {
   test('foo(bar) returns...', () => {
     expect(foo(bar)).toMatchInlineSnapshot();
-  }
+  })
 }
 ```
 
