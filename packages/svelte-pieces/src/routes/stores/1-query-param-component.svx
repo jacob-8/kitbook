@@ -1,0 +1,36 @@
+<script lang="ts">
+  import { Story } from 'kitbook';
+  import QueryParam from '$lib/stores/QueryParam.svelte';
+  import Button from '$lib/ui/Button.svelte';
+  const persist: 'localStorage' | 'sessionStorage' = 'localStorage';
+</script>
+
+# Use Query Param Component
+
+<Story
+  knobs={{
+    key: 'from_component',
+    replaceState: true,
+    startWith: 'hello',
+    log: false,
+    persist,
+  }}
+  let:props
+>
+  <QueryParam {...props} let:value let:set let:remove on:value={(e) => console.log(e.detail)}>
+    <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
+
+    <Button href="/stores/1-query-param-component?{props.key}=123">nav to 123</Button>
+    <Button onclick={() => set('hey')}>Set to 'hey'</Button>
+    <Button onclick={remove}>Remove</Button>
+  </QueryParam>
+</Story>
+
+```svelte
+<QueryParam key="my_key" startWith="hello" persist="localStorage" let:value let:set let:remove on:value={(e) => console.log(e.detail)}>
+  <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
+  <Button href="/stores/1-query-param-component?my_key=hi">nav to hi</Button>
+  <Button onclick={() => set('hey')}>Set to 'hey'</Button>
+  <Button onclick={remove}>Remove</Button>
+</QueryParam>
+```
