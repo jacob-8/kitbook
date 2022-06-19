@@ -17,7 +17,7 @@
 </script>
 
 <div class="min-h-[100vh]">
-  <Header bind:showSidebar {githubURL} {root}>
+  <Header bind:showSidebar {githubURL} activeURL={$page.url.pathname} {root}>
     <svelte:fragment slot="title"
       ><slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot
       ></svelte:fragment

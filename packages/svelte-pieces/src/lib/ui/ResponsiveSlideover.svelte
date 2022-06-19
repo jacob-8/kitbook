@@ -22,12 +22,12 @@
   class:xl:block={showWidth === 'xl'}
   class="hidden {desktopClasses}"
 >
-  {#if $$slots.title}
+  {#if $$slots.desktopTitle}
     <h3 class="text-lg font-medium text-gray-900 p-3 border-b border-gray-300">
-      <slot name="title" />
+      <slot name="desktopTitle" />
     </h3>
   {/if}
-  <slot name="desktop-heading" />
+  <slot name="desktopHeading" />
   <slot name="heading" />
   <slot />
   <!-- <slot name="desktop" /> -->
@@ -50,10 +50,10 @@
       on:close={() => (open = false)}
     >
       <svelte:fragment slot="heading">
-        {#if $$slots.title}
+        {#if $$slots.mobileTitle}
           <div class="flex items-start justify-between border-b border-gray-300">
             <h3 class="text-lg font-medium text-gray-900 p-3" id="modal-headline">
-              <slot name="title" />
+              <slot name="mobileTitle" />
             </h3>
             <button
               on:click={() => (open = false)}
@@ -66,7 +66,7 @@
             >
           </div>
         {/if}
-        <slot name="mobile-heading" />
+        <slot name="mobileHeading" />
         <slot name="heading" />
       </svelte:fragment>
       <slot />

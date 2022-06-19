@@ -1,3 +1,10 @@
+# kitbook
+
+## 0.0.15
+
+- - Using `<ResponsiveSlideover>` for sidebar menu and improved header styling
+
+
 # svelte-pieces
 
 ## 1.0.24

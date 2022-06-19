@@ -22,8 +22,8 @@
       <ResponsiveSlideover showWidth={size} open={show}>
         <div slot="title">Universal Title</div>
         <div class="p-3 border-b font-semibold" slot="heading">Universal Heading</div>
-        <div class="p-3 border-b font-semibold" slot="desktop-heading">Desktop Heading</div>
-        <div class="p-3 border-b font-semibold" slot="mobile-heading">Mobile Heading</div>
+        <div class="p-3 border-b font-semibold" slot="desktopHeading">Desktop Heading</div>
+        <div class="p-3 border-b font-semibold" slot="mobileHeading">Mobile Heading</div>
         <div class="p-3 hover:bg-gray-100">Menu Item</div>
         <div class="p-3 hover:bg-gray-100">Menu Item</div>
         <div class="p-3 hover:bg-gray-100">Menu Item</div>

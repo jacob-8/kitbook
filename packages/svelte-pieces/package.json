@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Useful Svelte UI pieces for building web apps",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -30,7 +30,7 @@
     "@sveltejs/vite-plugin-svelte": "1.0.0-next.45",
     "@testing-library/jest-dom": "^5.16.4",
     "@types/youtube": "^0.0.46",
-    "kitbook": "0.0.13",
+    "kitbook": "0.0.14",
     "mdsvex": "^0.10.5",
     "replace-in-file": "^6.3.2",
     "svelte": "^3.48.0",

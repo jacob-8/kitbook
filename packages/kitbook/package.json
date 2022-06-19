@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -18,6 +18,7 @@
     "test": "vitest -u"
   },
   "dependencies": {
+    "svelte-pieces": "^1.0.25",
     "svelte-store-router": "^2.0.10"
   },
   "devDependencies": {
@@ -28,7 +29,6 @@
     "svelte": "^3.48.0",
     "svelte-check": "^2.2.6",
     "svelte-deep-wind-preprocess": "^0.0.7",
-    "svelte-pieces": "^1.0.23",
     "svelte-preprocess": "^4.10.6",
     "svelte-windicss-preprocess": "~4.1.0",
     "svelte2tsx": "^0.5.10",
