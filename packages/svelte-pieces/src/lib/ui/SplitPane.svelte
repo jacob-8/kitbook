@@ -1,6 +1,5 @@
 <script lang="ts">
   // from https://github.com/sveltejs/svelte-repl/blob/master/src/Repl.svelte
-  import * as yootils from 'yootils';
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   export let type: 'vertical' | 'horizontal' = 'horizontal';
@@ -14,7 +13,10 @@
   $: size = type === 'vertical' ? h : w;
   $: min = 100 * (buffer / size);
   $: max = 100 - min;
-  $: pos = yootils.clamp(pos, min, max);
+  function clamp(num: number, min: number, max: number) {
+    return num < min ? min : num > max ? max : num;
+  }
+  $: pos = clamp(pos, min, max);
   const refs: any = {};
   let dragging = false;
   function setPos(event) {

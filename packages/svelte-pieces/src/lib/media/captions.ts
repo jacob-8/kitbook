@@ -1,5 +1,4 @@
-import { parse } from 'fast-xml-parser';
-import type { X2jOptions } from 'fast-xml-parser';
+import { parse, type X2jOptions } from 'fast-xml-parser';
 import he from 'he';
 
 export interface YoutubeCaptionTrack {

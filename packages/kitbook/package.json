@@ -18,7 +18,7 @@
     "test": "vitest -u"
   },
   "dependencies": {
-    "svelte-pieces": "^1.0.25",
+    "svelte-pieces": "^1.0.26",
     "svelte-store-router": "^2.0.10"
   },
   "devDependencies": {

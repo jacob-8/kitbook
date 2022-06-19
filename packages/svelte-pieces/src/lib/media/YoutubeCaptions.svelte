@@ -1,6 +1,5 @@
 <script lang="ts">
   export let videoId: string;
-  import { getCaptions, getTracks } from './captions';
   import type { YoutubeCaption, YoutubeCaptionTrack } from './captions';
 
   let captions: YoutubeCaption[] = [];
@@ -8,6 +7,7 @@
 
   import { onMount } from 'svelte';
   onMount(async () => {
+    const { getCaptions, getTracks } = await import('./captions');
     const tracks = await getTracks(videoId);
     track = findTrackByOrderPreference(tracks);
     if (track) {
