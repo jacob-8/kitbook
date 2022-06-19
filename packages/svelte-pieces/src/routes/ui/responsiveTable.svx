@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ResponsiveTable from '$lib/ui/ResponsiveTable.svelte';
   import { Story } from 'kitbook';
 </script>

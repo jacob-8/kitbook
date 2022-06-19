@@ -1,5 +1,9 @@
 # svelte-pieces
 
+## 1.0.24
+
+- - Added `<Slideover>` and `<ResponsiveSlideover>` components
+
 ## 1.0.23
 
 - - Added `createPersistedStore`, `createQueryParamStore`, and `<QueryParam>` component

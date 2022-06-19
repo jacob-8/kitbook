@@ -28,6 +28,9 @@ export { default as SplitPane } from './ui/SplitPane.svelte';
 export { default as Switcher } from './ui/Switcher.svelte';
 export { default as Toasts } from './ui/Toasts.svelte';
 export { default as ResponsiveTable } from './ui/ResponsiveTable.svelte';
+export { default as Slideover } from './ui/Slideover.svelte';
+export { default as ResponsiveSlideover } from './ui/ResponsiveSlideover.svelte';
+export { default as ResponsiveSlots } from './ui/ResponsiveSlots.svelte';
 
 export { default as QueryParam } from './stores/QueryParam.svelte';
 export { createPersistedStore } from './stores/persisted';

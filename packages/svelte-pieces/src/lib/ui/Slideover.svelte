@@ -2,7 +2,13 @@
   import { createEventDispatcher, onDestroy } from 'svelte';
   import { fly, fade } from 'svelte/transition';
 
-  const dispatch = createEventDispatcher();
+  export let zIndex = 60;
+  export let duration = 200;
+  export let side: 'left' | 'right' = 'right';
+  export let widthRem = 16;
+  export let maxWidthPercentage = 70;
+
+  const dispatch = createEventDispatcher<{ close: boolean }>();
   const close = () => dispatch('close');
 
   let modal: HTMLElement;
@@ -43,35 +49,44 @@
 
 <svelte:window on:keydown={handle_keydown} />
 
-<div class="fixed inset-y-0 right-0 flex" style="z-index: 60;">
-  <div class="fixed inset-0 transition-opacity" transition:fade={{ duration: 200 }}>
+<div
+  class:right-0={side === 'right'}
+  class:left-0={side === 'left'}
+  class="fixed inset-y-0 flex"
+  style="z-index: {zIndex};"
+>
+  <div class="fixed inset-0 transition-opacity" transition:fade={{ duration }}>
     <div class="absolute inset-0 bg-black opacity-25" on:click={close} />
   </div>
 
   <div
-    transition:fly={{ x: 200, duration: 200 }}
+    transition:fly={{ x: side === 'right' ? 200 : -200, duration }}
     class="bg-white overflow-hidden shadow-xl transform
     transition-all w-64 h-full flex flex-col"
+    style="width: {widthRem}rem; max-width: {maxWidthPercentage}vw;"
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-headline"
     bind:this={modal}
   >
-    <div class="p-5 flex items-start justify-between space-x-3 border-b border-gray-300">
-      <h3 class="text-lg leading-6 font-medium text-gray-900 pr-6" id="modal-headline">
-        <slot name="heading" />
-      </h3>
+    {#if $$slots.title}
+      <div class="flex items-start justify-between border-b border-gray-300">
+        <h3 class="text-lg font-medium text-gray-900 p-3" id="modal-headline">
+          <slot name="title" />
+        </h3>
+        <button
+          on:click={close}
+          type="button"
+          class="text-gray-400 px-3 py-4 flex hover:text-gray-500 focus:outline-none
+    focus:text-gray-500 transition ease-in-out duration-150"
+          aria-label="Close"
+        >
+          <span class="i-fa-solid-times text-lg" /></button
+        >
+      </div>
+    {/if}
 
-      <button
-        on:click={close}
-        type="button"
-        class="text-gray-400 hover:text-gray-500 focus:outline-none
-          focus:text-gray-500 transition ease-in-out duration-150"
-        aria-label="Close"
-      >
-        <span class="i-fa-solid-times text-lg" /></button
-      >
-    </div>
+    <slot name="heading" />
 
     <div class="flex-1 overflow-y-auto">
       <slot />
