@@ -24,6 +24,7 @@ export function createQueryParamStore<T>(
   const { key, startWith, log, replaceState, persist } = opts;
 
   const updateQueryParam = (value: any) => {
+    if (!browser) return; // safety check in case store value is assigned via $: call server side
     if (value === undefined || value === null || value === '') return removeQueryParam();
     // from https://github.com/sveltejs/kit/issues/969
     const url = new URL(window.location.href);
