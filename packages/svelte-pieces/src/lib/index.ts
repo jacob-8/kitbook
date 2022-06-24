@@ -34,4 +34,4 @@ export { default as ResponsiveSlots } from './ui/ResponsiveSlots.svelte';
 
 export { default as QueryParam } from './stores/QueryParam.svelte';
 export { createPersistedStore } from './stores/persisted';
-export { createQueryParamStore } from './stores/queryParam';
+export { createQueryParamStore, type QueryParamStore } from './stores/queryParam';

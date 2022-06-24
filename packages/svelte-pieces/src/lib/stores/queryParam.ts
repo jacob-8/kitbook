@@ -1,8 +1,13 @@
-import { writable } from 'svelte/store';
+import { writable, type Readable } from 'svelte/store';
 import { browser } from '$app/env';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 import { decodeParam, encodeParam } from './url-helpers';
+
+export interface QueryParamStore<T> extends Readable<T> {
+  set: (value: any) => void;
+  remove: () => void;
+}
 
 export function createQueryParamStore<T>(
   opts: {
@@ -15,7 +20,7 @@ export function createQueryParamStore<T>(
     key: 'queryParam',
     replaceState: true,
   }
-) {
+): QueryParamStore<T> {
   const { key, startWith, log, replaceState, persist } = opts;
 
   const updateQueryParam = (value: any) => {
