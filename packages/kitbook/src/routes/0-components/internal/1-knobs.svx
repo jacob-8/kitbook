@@ -34,6 +34,14 @@
   <Knobs id="knobs" knobs={parseInput({ [fieldName]: `${min}-${max};${defaultValue}` })} />
 </Story>
 
+<Story
+  name="color knob"
+  knobs={{ fieldName: 'color', defaultValue: '#000000' }}
+  let:props={{ fieldName, defaultValue }}
+>
+  <Knobs id="knobs" knobs={parseInput({ [fieldName]: defaultValue })} />
+</Story>
+
 <!-- prettier-ignore -->
 - Note that currently the range knob breaks when given negative default value (the regex parser needs improved if desiring to fix.)
 

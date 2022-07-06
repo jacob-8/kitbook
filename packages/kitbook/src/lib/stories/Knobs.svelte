@@ -23,7 +23,20 @@
   {@const fieldId = name + id}
   <label class="block my-1" for={fieldId}>
     <span class="inline-block mr-2">{label || name}</span>
-    {#if type === 'text' || type === 'string'}
+    {#if type === 'string' && name === 'color' && props.default.startsWith('#')}
+      <input
+        id={fieldId}
+        type="color"
+        bind:value={$knobs[name]}
+        {...props}
+        on:input={(e) => ($route.query[`${id}__${name}`] = e.currentTarget.value)}
+       />
+       <span class="text-xs text-gray-400"
+        >({$knobs[
+          name
+        ]})</span
+      >
+    {:else if type === 'text' || type === 'string'}
       <input
         id={fieldId}
         bind:value={$knobs[name]}
