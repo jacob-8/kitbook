@@ -74,7 +74,7 @@ importers:
       '@types/youtube': ^0.0.46
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: 0.0.14
+      kitbook: 0.0.15
       mdsvex: ^0.10.5
       replace-in-file: ^6.3.2
       svelte: ^3.48.0
@@ -96,7 +96,7 @@ importers:
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.45_svelte@3.48.0
       '@testing-library/jest-dom': 5.16.4
       '@types/youtube': 0.0.46
-      kitbook: 0.0.14_svelte@3.48.0
+      kitbook: 0.0.15_svelte@3.48.0
       mdsvex: 0.10.5_svelte@3.48.0
       replace-in-file: 6.3.2
       svelte: 3.48.0
@@ -114,7 +114,7 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': 1.0.0-next.48
       '@sveltejs/kit': 1.0.0-next.345
-      kitbook: 0.0.13
+      kitbook: 0.0.15
       mdsvex: ^0.10.5
       svelte: ^3.44.0
       svelte-check: ^2.2.6
@@ -124,7 +124,7 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto': 1.0.0-next.48
       '@sveltejs/kit': 1.0.0-next.345_svelte@3.48.0
-      kitbook: 0.0.13_svelte@3.48.0
+      kitbook: 0.0.15_svelte@3.48.0
       mdsvex: 0.10.5_svelte@3.48.0
       svelte: 3.48.0
       svelte-check: 2.7.0_svelte@3.48.0
@@ -1727,7 +1727,6 @@ packages:
     hasBin: true
     dependencies:
       strnum: 1.0.5
-    dev: false
 
   /fastq/1.13.0:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
@@ -1976,7 +1975,6 @@ packages:
   /he/1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
-    dev: false
 
   /hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
@@ -2192,17 +2190,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kitbook/0.0.13_svelte@3.48.0:
-    resolution: {integrity: sha512-YH44XRDHrXua/s+B4vKzg4QIOBVn+I9ozYIyhEasHt2XQIE5tsuM0ng9YpJrTu95uV53Zc5wRpV9QMt39ASSLA==}
+  /kitbook/0.0.15_svelte@3.48.0:
+    resolution: {integrity: sha512-KekCbGtg9eHxQUAhyxe66aD281iK/drVpADdSdVxkR4o37RreQP5n1KL1TmXXrPvzQhkU+OXpIbTIukPW+k56A==}
     dependencies:
-      svelte-store-router: 2.0.10_svelte@3.48.0
-    transitivePeerDependencies:
-      - svelte
-    dev: true
-
-  /kitbook/0.0.14_svelte@3.48.0:
-    resolution: {integrity: sha512-kIpr6KtHPvHLdU4pHgLbRMZDP76xYZ6XTEPFQW593QZ85UCk3tdz7n7IKyE7gvrfPPQEN+o8J6SKV3g6j3FrRA==}
-    dependencies:
+      svelte-pieces: 1.0.28_svelte@3.48.0
       svelte-store-router: 2.0.10_svelte@3.48.0
     transitivePeerDependencies:
       - svelte
@@ -3251,7 +3242,6 @@ packages:
 
   /strnum/1.0.5:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
-    dev: false
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -3310,6 +3300,16 @@ packages:
     peerDependencies:
       svelte: '>=3.19.0'
     dependencies:
+      svelte: 3.48.0
+    dev: true
+
+  /svelte-pieces/1.0.28_svelte@3.48.0:
+    resolution: {integrity: sha512-OHMjoxys3Pe2YLJ+UUjlvD4xI0MWgrgnxibtoEqjyRcfeQEYrGAvKS2D6L+qAiCLxcEXSZfT2hh4VC+ysL0REQ==}
+    peerDependencies:
+      svelte: ^3.46.4
+    dependencies:
+      fast-xml-parser: 3.21.1
+      he: 1.2.0
       svelte: 3.48.0
     dev: true
 
