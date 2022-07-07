@@ -23,7 +23,7 @@
   {@const fieldId = name + id}
   <label class="block my-1" for={fieldId}>
     <span class="inline-block mr-2">{label || name}</span>
-    {#if type === 'string' && name === 'color' && props.default.startsWith('#')}
+    {#if type === 'string' && /^#[a-fA-F0-9]{6}$/.test(props.default)}
       <input
         id={fieldId}
         type="color"
