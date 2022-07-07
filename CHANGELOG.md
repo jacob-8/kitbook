@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.16
+
+- - Add color knob, shown when a value similar to `#000000` is used
+
 ## 0.0.15
 
 - - Using `<ResponsiveSlideover>` for sidebar menu and improved header styling
