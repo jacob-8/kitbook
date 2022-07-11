@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { spring } from 'svelte/motion';
-  import { createEventDispatcher, onMount, tick } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
@@ -15,24 +15,17 @@
   let contentHeight = 100;
   let innerHeight = 500;
   $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight) / innerHeight) * 100;
-
-  onMount(async () => {
-    await tick(); // wait until sheetHeightPercentage is calculated from content
-    setTop([sheetHeightPercentage, start]);
-  });
-
-  $: setTop([sheetHeightPercentage]);
   $: maxTop = Math.max(sheetHeightPercentage, max);
-
+  $: setTop([maxTop, start]);
   function setTop(values: number[]) {
-    top.set(Math.max(...values, max));
+    top.set(Math.max(...values));
   }
 
   let previousTouch: Touch;
   function setTouchPos(e: TouchEvent) {
     const touch = e.touches[0];
     if (previousTouch) {
-      const movementY = touch.clientY - previousTouch.clientY;
+      const movementY = touch.clientY - previousTouch.clientY; // touch equivalent to top += e.movementY mouse option
       const percentageChange = (100 * movementY) / innerHeight;
       draggedTo += percentageChange;
     } else if (!draggedTo) {
@@ -62,7 +55,7 @@
     };
   }
 
-  $: opacity = draggedTo > min ? draggedTo / min : 1;
+  $: opacity = draggedTo > min ? (100 - draggedTo) / (100 - min) : 1;
 </script>
 
 <!-- <svelte:window bind:innerHeight /> -->
@@ -82,11 +75,6 @@
   <div class="font-semibold flex" bind:clientHeight={headerHeight} use:touchDrag={setTouchPos}>
     <div class="p-2 pr-12">
       <slot name="header" />
-    </div>
-    <div class="p-2">
-      {headerHeight} + {contentHeight} / {innerHeight} = {sheetHeightPercentage.toFixed(1)}, {$top.toFixed(
-        1
-      )}
     </div>
   </div>
   <button

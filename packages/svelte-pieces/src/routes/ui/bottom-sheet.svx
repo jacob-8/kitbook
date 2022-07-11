@@ -8,23 +8,37 @@
 <!-- prettier-ignore -->
 # Bottom Sheet
 
-<Story knobs={{max: 10, start: 40, contentHeight: 250}} let:props={{max, start, contentHeight}} let:set>
+- draggable only by touch
+- auto-resizes to fit content, up until max or start value (whichever is the larger restriction in terms of percentage distance from top)
+
+<Story
+  knobs={{ max: 10, start: 40, contentHeight: 250 }}
+  let:props={{ max, start, contentHeight }}
+  let:set
+>
   <div class="max-w-400px h-500px relative border-red-400 border overflow-hidden">
     <ShowHide let:show let:toggle>
       <Button size="sm" onclick={toggle} form="filled">Toggle Show</Button>
       <Button size="sm" onclick={() => set('max', 10)} active={max === 10}>Top max</Button>
       <Button size="sm" onclick={() => set('max', 40)} active={max === 40}>Middle max</Button>
-      <Button size="sm" onclick={() => set('max', 15)} active={max === 15}>Bottom max</Button>
+      <Button size="sm" onclick={() => set('max', 85)} active={max === 85}>Bottom max</Button>
       <Button size="sm" onclick={() => set('start', 10)} active={start === 10}>Top Start</Button>
       <Button size="sm" onclick={() => set('start', 40)} active={start === 40}>Middle Start</Button>
-      <Button size="sm" onclick={() => set('start', 15)} active={start === 15}>Bottom Start</Button>
-      <Button size="sm" onclick={() => set('contentHeight', 500)} active={contentHeight === 500}>Tall Content</Button>
-      <Button size="sm" onclick={() => set('contentHeight', 250)} active={contentHeight === 250}>Med Content</Button>
-      <Button size="sm" onclick={() => set('contentHeight', 100)} active={contentHeight === 100}>Short Content</Button>
+      <Button size="sm" onclick={() => set('start', 85)} active={start === 85}>Bottom Start</Button>
+      <Button size="sm" onclick={() => set('contentHeight', 500)} active={contentHeight === 500}
+        >Tall Content</Button
+      >
+      <Button size="sm" onclick={() => set('contentHeight', 250)} active={contentHeight === 250}
+        >Med Content</Button
+      >
+      <Button size="sm" onclick={() => set('contentHeight', 100)} active={contentHeight === 100}
+        >Short Content</Button
+      >
       {#if !show}
         <BottomSheet on:close={toggle} {max} {start}>
           <div slot="header">Title</div>
-          <p style="height: {contentHeight}px" class="bg-gray-100">Content</p>
+          <!-- <p class="bg-gray-100" style="height: {contentHeight}px">Content</p> -->
+          <img alt="placeholder" src="https://fakeimg.pl/200x{contentHeight}" />
         </BottomSheet>
       {/if}
     </ShowHide>

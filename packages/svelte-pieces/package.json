@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "Useful Svelte UI pieces for building web apps",
   "type": "module",
   "svelte": "src/lib/index.ts",

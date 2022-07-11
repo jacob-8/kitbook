@@ -11,6 +11,10 @@
 
 # svelte-pieces
 
+## 1.0.31
+
+- - Added `<BottomSheet>` component
+
 ## 1.0.24
 
 - - Added `<Slideover>` and `<ResponsiveSlideover>` components
