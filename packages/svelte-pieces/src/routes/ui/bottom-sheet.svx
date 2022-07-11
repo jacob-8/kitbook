@@ -8,15 +8,15 @@
 <!-- prettier-ignore -->
 # Bottom Sheet
 
-<Story knobs={{max: 90, start: 60, contentHeight: 250}} let:props={{max, start, contentHeight}} let:set>
-  <div class="w-400px h-500px relative border-red-400 border overflow-hidden">
+<Story knobs={{max: 10, start: 40, contentHeight: 250}} let:props={{max, start, contentHeight}} let:set>
+  <div class="max-w-400px h-500px relative border-red-400 border overflow-hidden">
     <ShowHide let:show let:toggle>
       <Button size="sm" onclick={toggle} form="filled">Toggle Show</Button>
-      <Button size="sm" onclick={() => set('max', 90)} active={max === 90}>Top max</Button>
-      <Button size="sm" onclick={() => set('max', 60)} active={max === 60}>Middle max</Button>
+      <Button size="sm" onclick={() => set('max', 10)} active={max === 10}>Top max</Button>
+      <Button size="sm" onclick={() => set('max', 40)} active={max === 40}>Middle max</Button>
       <Button size="sm" onclick={() => set('max', 15)} active={max === 15}>Bottom max</Button>
-      <Button size="sm" onclick={() => set('start', 90)} active={start === 90}>Top Start</Button>
-      <Button size="sm" onclick={() => set('start', 60)} active={start === 60}>Middle Start</Button>
+      <Button size="sm" onclick={() => set('start', 10)} active={start === 10}>Top Start</Button>
+      <Button size="sm" onclick={() => set('start', 40)} active={start === 40}>Middle Start</Button>
       <Button size="sm" onclick={() => set('start', 15)} active={start === 15}>Bottom Start</Button>
       <Button size="sm" onclick={() => set('contentHeight', 500)} active={contentHeight === 500}>Tall Content</Button>
       <Button size="sm" onclick={() => set('contentHeight', 250)} active={contentHeight === 250}>Med Content</Button>

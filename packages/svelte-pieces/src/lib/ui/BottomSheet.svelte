@@ -5,16 +5,16 @@
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
-  export let max = 90;
-  export let min = 15;
-  export let start = 60;
-  let top = spring(100 - start);
+  export let max = 10;
+  export let min = 85;
+  export let start = 40;
+  let top = spring(start);
   let draggedTo: number;
 
   let headerHeight = 44;
   let contentHeight = 100;
   let innerHeight = 500;
-  $: sheetHeightPercentage = ((headerHeight + contentHeight) / innerHeight) * 100;
+  $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight) / innerHeight) * 100;
 
   onMount(async () => {
     await tick(); // wait until sheetHeightPercentage is calculated from content
@@ -22,9 +22,10 @@
   });
 
   $: setTop([sheetHeightPercentage]);
+  $: maxTop = Math.max(sheetHeightPercentage, max);
 
   function setTop(values: number[]) {
-    top.set(100 - Math.min(...values, max));
+    top.set(Math.max(...values, max));
   }
 
   let previousTouch: Touch;
@@ -46,8 +47,9 @@
       const ontouchend = () => {
         window.removeEventListener('touchmove', callback, false);
         window.removeEventListener('touchend', ontouchend, false);
-        if (dragFlipped < min) close();
+        if (draggedTo > min) close();
         previousTouch = null;
+        draggedTo = Math.max(maxTop, draggedTo);
       };
       window.addEventListener('touchmove', callback, false);
       window.addEventListener('touchend', ontouchend, false);
@@ -60,8 +62,7 @@
     };
   }
 
-  $: dragFlipped = 100 - draggedTo;
-  $: opacity = dragFlipped < min ? dragFlipped / min : 1;
+  $: opacity = draggedTo > min ? draggedTo / min : 1;
 </script>
 
 <!-- <svelte:window bind:innerHeight /> -->
@@ -69,8 +70,9 @@
 
 <div
   transition:fly={{ y: 500 }}
-  style="top: {draggedTo ||
-    $top}%; box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 8px; opacity: {opacity}"
+  style="top: {draggedTo
+    ? Math.max(maxTop - 1, draggedTo)
+    : $top}%; box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 8px; opacity: {opacity}"
   class="bg-white absolute w-full bottom-0 rounded-t-2xl flex flex-col"
 >
   <div class="absolute top-0 text-center w-full">
@@ -81,11 +83,11 @@
     <div class="p-2 pr-12">
       <slot name="header" />
     </div>
-    <!-- <div class="p-2">
+    <div class="p-2">
       {headerHeight} + {contentHeight} / {innerHeight} = {sheetHeightPercentage.toFixed(1)}, {$top.toFixed(
         1
       )}
-    </div> -->
+    </div>
   </div>
   <button
     on:click={close}
