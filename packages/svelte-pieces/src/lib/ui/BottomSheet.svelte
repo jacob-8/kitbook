@@ -5,6 +5,8 @@
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
+  export let zIndex = 1;
+  export let width = 400;
   export let max = 10;
   export let min = 85;
   export let start = 40;
@@ -58,35 +60,36 @@
   $: opacity = draggedTo > min ? (100 - draggedTo) / (100 - min) : 1;
 </script>
 
-<!-- <svelte:window bind:innerHeight /> -->
-<div bind:clientHeight={innerHeight} class="absolute inset-0 -z-1" />
+<svelte:window bind:innerHeight />
 
 <div
   transition:fly={{ y: 500 }}
   style="top: {draggedTo
     ? Math.max(maxTop - 1, draggedTo)
-    : $top}%; box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 8px; opacity: {opacity}"
-  class="bg-white absolute w-full bottom-0 rounded-t-2xl flex flex-col"
+    : $top}%; opacity: {opacity}; z-index: {zIndex}"
+  class="fixed inset-x-0 bottom-0 flex justify-center"
 >
-  <div class="absolute top-0 text-center w-full">
-    <span class="i-ph-minus-bold text-5xl text-gray-300 pointer-events-none -mt-4" />
-  </div>
-
-  <div class="font-semibold flex" bind:clientHeight={headerHeight} use:touchDrag={setTouchPos}>
-    <div class="p-2 pr-12">
-      <slot name="header" />
+  <div class="bg-white rounded-t-2xl flex flex-col relative" style="box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 8px;  width: {width}px; max-width: 100%;">
+    <div class="absolute top-0 text-center w-full md:hidden">
+      <span class="i-ph-minus-bold text-5xl text-gray-300 pointer-events-none -mt-4" />
     </div>
-  </div>
-  <button
-    on:click={close}
-    class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl absolute top-0 right-0"
-  >
-    <span class="i-fa-solid-times mb-1" />
-  </button>
 
-  <div class="overflow-y-auto">
-    <div class="p-2" bind:clientHeight={contentHeight}>
-      <slot />
+    <div class="font-semibold flex" bind:clientHeight={headerHeight} use:touchDrag={setTouchPos}>
+      <div class="p-2 pr-12">
+        <slot name="header" />
+      </div>
+    </div>
+    <button
+      on:click={close}
+      class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl absolute top-0 right-0"
+    >
+      <span class="i-fa-solid-times mb-1" />
+    </button>
+
+    <div class="overflow-y-auto">
+      <div class="p-2" bind:clientHeight={contentHeight}>
+        <slot />
+      </div>
     </div>
   </div>
 </div>
