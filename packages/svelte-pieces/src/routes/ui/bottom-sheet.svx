@@ -35,7 +35,7 @@
     >
     {#if !show}
       <BottomSheet on:close={toggle} {max} {start}>
-        <div slot="header">Title</div>
+        <!-- <div slot="header">Title</div> -->
         <!-- <p class="bg-gray-100" style="height: {contentHeight}px">Content</p> -->
         <img alt="placeholder" src="https://fakeimg.pl/200x{contentHeight}" />
       </BottomSheet>

@@ -6,7 +6,7 @@
   const close = () => dispatch('close');
 
   export let zIndex = 1;
-  export let width = 400;
+  export let width = 600;
   export let max = 10;
   export let min = 85;
   export let start = 40;
@@ -81,7 +81,7 @@
     </div>
     <button
       on:click={close}
-      class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl absolute top-0 right-0"
+      class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl absolute top-0 right-0 z-1"
     >
       <span class="i-fa-solid-times mb-1" />
     </button>
