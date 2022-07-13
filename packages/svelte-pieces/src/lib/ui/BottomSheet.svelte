@@ -16,7 +16,8 @@
   let headerHeight = 44;
   let contentHeight = 100;
   let innerHeight = 500;
-  $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight) / innerHeight) * 100;
+  const SCROLL_BUFFER = 2;
+  $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight + SCROLL_BUFFER) / innerHeight) * 100;
   $: maxTop = Math.max(sheetHeightPercentage, max);
   $: setTop([maxTop, maxAuto]);
   function setTop(values: number[]) {
@@ -83,16 +84,18 @@
     </div>
 
     <div class="font-semibold flex" bind:clientHeight={headerHeight}>
-      <div class="p-2">
-        <slot name="header" />
-      </div>
-      <button
-        on:click={close}
-        class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl"
-      >
-        <span class="i-fa-solid-times mb-1" />
-      </button>
+      {#if $$slots.header}
+        <div class="p-2">
+          <slot name="header" />
+        </div>
+      {/if}
     </div>
+    <button
+      on:click={close}
+      class="ml-auto px-3 py-2 text-gray-500 hover:text-gray-800 rounded-xl absolute top-0 right-0 z-1"
+    >
+      <span class="i-fa-solid-times mb-1" />
+    </button>
 
     <div class="overflow-y-auto" on:touchmove|stopPropagation={(e) => touchMove(e, true)}>
       <div class="p-2" bind:clientHeight={contentHeight}>
