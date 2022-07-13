@@ -14,7 +14,7 @@
 
   let modal: HTMLDivElement;
 
-  const handle_keydown = (e) => {
+  const handleKeydown = (e) => {
     if (e.key === 'Escape') {
       close();
       return;
@@ -49,7 +49,7 @@
   }
 </script>
 
-<svelte:window on:keydown={handle_keydown} />
+<svelte:window on:keydown={handleKeydown} />
 
 <div use:portal class="fixed inset-0 p-4 flex items-center justify-center" style="z-index: 60;">
   <div class="fixed inset-0 transition-opacity" transition:fade={{ duration: 200 }}>

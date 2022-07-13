@@ -52,12 +52,12 @@
 
 <div
   bind:this={dialog}
-  class="root shadow"
+  class="root shadow pt-20"
   data-fullscreen={fullscreen}
   data-smooth={!startY}
-  on:touchstart={touchStart}
-  on:touchmove={touchMove}
-  on:touchend={touchEnd}
+  on:touchstart|self|preventDefault={touchStart}
+  on:touchmove|self|preventDefault={touchMove}
+  on:touchend|self|preventDefault={touchEnd}
 >
   <slot />
 </div>
