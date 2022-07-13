@@ -12,9 +12,10 @@
   export let maxAuto = 40;
   let top = spring(min);
 
-  let sheetHeight = 400;
+  let headerHeight = 44;
+  let contentHeight = 100;
   let innerHeight = 500;
-  $: sheetHeightPercentage = 100 - (sheetHeight / innerHeight) * 100;
+  $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight) / innerHeight) * 100;
   $: maxTop = Math.max(sheetHeightPercentage, max);
   $: setTop([maxTop, maxAuto]);
   function setTop(values: number[]) {
@@ -50,19 +51,18 @@
   style="top: {draggedTo
     ? Math.max(maxTop - 1, draggedTo)
     : $top}%; opacity: {opacity}; z-index: {zIndex}"
-  class="fixed inset-x-0 bottom-0 flex justify-center items-start pointer-events-none"
+  class="fixed inset-x-0 bottom-0 flex justify-center pointer-events-none"
 >
   <div
-    bind:clientHeight={sheetHeight}
     class="bg-white rounded-t-2xl flex flex-col relative pointer-events-auto"
     style="box-shadow: rgba(0, 0, 0, 0.12) 0px -1px 8px;  width: {width}px; max-width: 100%;"
   >
-    <div class="absolute top-0 text-center w-full md:hidden z-0 pointer-events-none">
+    <div class="absolute top-0 text-center w-full md:hidden pointer-events-none">
       <span class="i-ph-minus-bold text-5xl text-gray-300 -mt-4" />
     </div>
 
     <div
-      class="font-semibold flex"
+      class="font-semibold flex" bind:clientHeight={headerHeight}
       on:touchstart={touchStart}
       on:touchmove|preventDefault={touchMove}
       on:touchend={touchEnd}
@@ -79,7 +79,7 @@
     </div>
 
     <div class="overflow-y-auto">
-      <div class="p-2">
+      <div class="p-2" bind:clientHeight={contentHeight}>
         <slot />
       </div>
     </div>
