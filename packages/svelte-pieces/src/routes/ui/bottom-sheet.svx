@@ -12,7 +12,7 @@
 - auto-resizes to fit content, up until max or start value (whichever is the larger restriction in terms of percentage distance from top)
 
 <Story
-  knobs={{ max: 10, maxAuto: 40, contentHeight: 250 }}
+  knobs={{ max: 10, maxAuto: 40, contentHeight: 500 }}
   let:props={{ max, maxAuto, contentHeight }}
   let:set
 >
@@ -59,6 +59,7 @@
 
 <!-- prettier-ignore -->
 - It doesn't make sense to set the start to a greater value than max.
+- Press escape to close
 
 ## Inspiration 
 - native apps (e.g. Chrome word definition lookup when holding down on a word) 

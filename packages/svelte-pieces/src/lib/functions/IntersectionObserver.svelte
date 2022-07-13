@@ -1,30 +1,17 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy, createEventDispatcher } from 'svelte';
 
   export let once = false;
+  export let intervalMs: number = undefined;
   export let top = 0;
   export let bottom = 0;
   export let left = 0;
   export let right = 0;
+  export let heightPercentage = 100;
 
   let intersecting = false;
   let container: HTMLDivElement;
   let interval;
-
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher<{ intersected: null }>();
-  $: if (intersecting === true) {
-    dispatch('intersected');
-    interval = setInterval(() => {
-      if (intersecting === true) {
-        dispatch('intersected');
-      }
-    }, 1000);
-  }
-  import { onDestroy } from 'svelte';
-  onDestroy(() => {
-    clearInterval(interval);
-  });
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
@@ -62,8 +49,26 @@
     window.addEventListener('scroll', handler);
     return () => window.removeEventListener('scroll', handler);
   });
+
+  const dispatch = createEventDispatcher<{ intersected: null, hidden: null }>();
+  $: if (intersecting === true) {
+    dispatch('intersected');
+    if (intervalMs) {
+      interval = setInterval(() => {
+        if (intersecting === true) {
+          dispatch('intersected');
+        }
+      }, intervalMs);
+    }
+  } else {
+    dispatch('hidden')
+  }
+  
+  onDestroy(() => {
+    clearInterval(interval);
+  });
 </script>
 
-<div style="width: 100%; height: 100%;" bind:this={container}>
+<div style="width: 100%; height: {heightPercentage}%;" bind:this={container}>
   <slot {intersecting} />
 </div>

@@ -1,0 +1,12 @@
+<script lang="ts">
+  import IntersectionObserver from '$lib/functions/IntersectionObserver.svelte';
+  import { Story } from 'kitbook';
+</script>
+
+# Intersection Observer - todo
+
+<Story>
+  <IntersectionObserver let:intersecting>
+    {intersecting}
+  </IntersectionObserver>
+</Story>
