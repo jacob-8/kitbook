@@ -23,6 +23,7 @@
     top.set(Math.max(...values));
   }
 
+  let firstTouchY: number;
   let previousY: number;
   let draggedTo: number;
   let contentScrolledTop = true;
@@ -30,7 +31,8 @@
   let ignoreContentDrag = false;
 
   function touchStart(e: TouchEvent) {
-    previousY = e.touches[0].clientY;
+    firstTouchY = e.touches[0].clientY;
+    previousY = firstTouchY;
   }
   function touchMove(e: TouchEvent, fromContent = false) {
     if (ignoreContentDrag) return;
@@ -40,7 +42,7 @@
     previousY = currentY;
 
     if (fromContent) {
-      const direction = movementY > 0 ? 'down' : 'up';
+      const direction = currentY - firstTouchY > 0 ? 'down' : 'up';
       if (direction === 'down' && !contentScrolledTop) return (ignoreContentDrag = true);
       if (direction === 'up' && !contentScrolledBottom) return (ignoreContentDrag = true);
     }
@@ -91,10 +93,7 @@
       </button>
     </div>
 
-    <div
-      class="overflow-y-auto"
-      on:touchmove|stopPropagation={(e) => touchMove(e, true)}
-    >
+    <div class="overflow-y-auto" on:touchmove|stopPropagation={(e) => touchMove(e, true)}>
       <div class="p-2" bind:clientHeight={contentHeight}>
         <IntersectionObserver
           heightPercentage={0}
