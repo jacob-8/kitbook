@@ -8,7 +8,7 @@
 
   export let zIndex = 1;
   export let width = 600;
-  export let max = 10;
+  export let max = 10; // top: __% value so 0 is top of window, 100 is bottom.
   export let min = 85;
   export let maxAuto = 40;
   let top = spring(min);
@@ -35,12 +35,13 @@
     previousY = firstTouchY;
   }
   function touchMove(e: TouchEvent, fromContent = false) {
-    if (ignoreContentDrag) return;
+    if (ignoreContentDrag) return; // don't resize sheet if user is scrolling content that still needs scrolled
     if (!draggedTo) draggedTo = $top;
     const currentY = e.touches[0].clientY;
     const movementY = currentY - previousY; // touch equivalent to top += e.movementY mouse option
     previousY = currentY;
 
+    // determine if scrolling content that needs scrolled
     if (fromContent) {
       const direction = currentY - firstTouchY > 0 ? 'down' : 'up';
       if (direction === 'down' && !contentScrolledTop) return (ignoreContentDrag = true);
