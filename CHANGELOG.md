@@ -11,6 +11,12 @@
 
 # svelte-pieces
 
+Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon.
+
+## 1.0.36
+
+- - Rename `<Set>` to `<ReactiveSet>` because of odd Svelte package error that doesn't emit types for a component named "Set"
+
 ## 1.0.31
 
 - - Added `<BottomSheet>` component

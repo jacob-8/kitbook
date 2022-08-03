@@ -27,4 +27,4 @@
   }
 </script>
 
-<slot value={$array} {update} {add} {remove} size={set.size} />
+<slot value={$array} {add} {update} {remove} size={set.size} />

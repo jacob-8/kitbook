@@ -13,6 +13,7 @@ export { default as HideOnScroll } from './functions/HideOnScroll.svelte';
 export { default as PrintDate } from './functions/PrintDate.svelte';
 export { default as ShowHide } from './functions/ShowHide.svelte';
 export { default as Store } from './functions/HideOnScroll.svelte';
+export { default as ReactiveSet } from './functions/ReactiveSet.svelte';
 
 export { default as Youtube } from './media/Youtube.svelte';
 export { default as YoutubeCaptions } from './media/YoutubeCaptions.svelte';
