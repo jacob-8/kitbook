@@ -7,9 +7,9 @@ import mdsvexConfig from './mdsvex.config.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  experimental: {
-    inspector: true
-  },
+  // experimental: {
+  //   inspector: true
+  // },
     
   extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
@@ -31,11 +31,6 @@ const config = {
 
   kit: {
     adapter: adapter(),
-    vite: {
-      define: {
-        'import.meta.vitest': false,
-      },
-    }
   },
 };
 

@@ -1,16 +1,15 @@
 {
   "name": "kitbook",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
   "main": "src/lib/index.ts",
   "scripts": {
-    "dev": "svelte-kit dev -p 3163",
-    "build": "svelte-kit build",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "package": "svelte-kit package && node update-packaged-index-path.js",
-    "preview": "svelte-kit preview",
-    "prepare": "svelte-kit sync",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
@@ -22,8 +21,8 @@
     "svelte-store-router": "^2.0.10"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "1.0.0-next.48",
-    "@sveltejs/kit": "1.0.0-next.345",
+    "@sveltejs/adapter-auto": "1.0.0-next.64",
+    "@sveltejs/kit": "1.0.0-next.403",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
     "svelte": "^3.49.0",
@@ -34,7 +33,8 @@
     "svelte2tsx": "^0.5.13",
     "tslib": "^2.4.0",
     "typescript": "~4.7.4",
-    "vitest": "^0.20.3",
+    "vite": "^3.0.4",
+    "vitest": "^0.21.0",
     "windicss": "^3.5.6"
   },
   "repository": {

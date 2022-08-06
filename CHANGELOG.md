@@ -13,6 +13,10 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon.
 
+## 1.0.37
+
+- - `createQueryParamStore` and `<QueryParam>` now use history.replaceState instead of SvelteKit `goto` method when `replaceState: true` so that setting query params from input field update will not break focus on every keystroke
+
 ## 1.0.36
 
 - - Rename `<Set>` to `<ReactiveSet>` because of odd Svelte package error that doesn't emit types for a component named "Set"
