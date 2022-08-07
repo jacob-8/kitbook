@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.17
+
+- - switch from using `svelte-store-router` to `svelte-pieces` `QueryParam` component for `Knobs`
+
 ## 0.0.16
 
 - - Add color knob, shown when a value similar to `#000000` is used
