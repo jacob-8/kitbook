@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition';
   import { spring } from 'svelte/motion';
   import { createEventDispatcher } from 'svelte';
-  import IntersectionObserver from '$lib/functions/IntersectionObserver.svelte';
+  import IntersectionObserver from '../functions/IntersectionObserver.svelte';
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
 
@@ -17,7 +17,8 @@
   let contentHeight = 100;
   let innerHeight = 500;
   const SCROLL_BUFFER = 2;
-  $: sheetHeightPercentage = 100 - ((headerHeight + contentHeight + SCROLL_BUFFER) / innerHeight) * 100;
+  $: sheetHeightPercentage =
+    100 - ((headerHeight + contentHeight + SCROLL_BUFFER) / innerHeight) * 100;
   $: maxTop = Math.max(sheetHeightPercentage, max);
   $: setTop([maxTop, maxAuto]);
   function setTop(values: number[]) {

@@ -2,7 +2,7 @@
   export let name = 'default'; // must be unique for queryParams interaction with knobs to not share state
   export let width: number = undefined;
   export let height: number = undefined;
-  export let restoreState = true;
+  export let persist: 'localStorage' | 'sessionStorage' = undefined;
 
   // knobs
   import parseInput from './knobs';
@@ -53,7 +53,7 @@
       </div>
     {/if}
     {#if knobs}
-      <Knobs {restoreState} id={name.replace(' ', '_')} {knobs} />
+      <Knobs {persist} id={name.replace(' ', '_')} {knobs} />
     {/if}
   </div>
 
