@@ -47,13 +47,15 @@ if (import.meta.vitest) {
   });
 
   test('decodeParam', () => {
-    expect(decodeParam(undefined)).toMatchInlineSnapshot('undefined');
+    expect(decodeParam(undefined)).toEqual(undefined);
+    expect(decodeParam(null)).toEqual(null);
     expect(decodeParam('Hello')).toMatchInlineSnapshot('"Hello"');
     expect(decodeParam('Hello%20world%3F%20%26%20some%20%3D%20that')).toMatchInlineSnapshot(
       '"Hello world? & some = that"'
     );
-    expect(decodeParam('45')).toMatchInlineSnapshot('45');
-    expect(decodeParam('true')).toMatchInlineSnapshot('true');
+    expect(decodeParam('45')).toEqual(45);
+    expect(decodeParam('true')).toEqual(true);
+    expect(decodeParam('false')).toEqual(false);
     expect(
       decodeParam(
         '%7B%22foo%22%3A%22hi%20there%22%2C%22bar%22%3A%7B%22blah%22%3A123%2C%22quux%22%3A%5B1%2C2%2C3%5D%7D%7D'
