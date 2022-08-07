@@ -9,14 +9,16 @@ export interface QueryParamStore<T> extends Readable<T> {
   remove: () => void;
 }
 
+export interface QueryParamStoreOptions<T> {
+  key: string;
+  replaceState?: boolean;
+  startWith?: T;
+  log?: boolean;
+  persist?: 'localStorage' | 'sessionStorage';
+}
+
 export function createQueryParamStore<T>(
-  opts: {
-    key: string;
-    replaceState?: boolean;
-    startWith?: T;
-    log?: boolean;
-    persist?: 'localStorage' | 'sessionStorage';
-  } = {
+  opts: QueryParamStoreOptions<T> = {
     key: 'queryParam',
     replaceState: true,
   }
@@ -25,32 +27,47 @@ export function createQueryParamStore<T>(
 
   const updateQueryParam = (value: any) => {
     if (!browser) return; // safety check in case store value is assigned via $: call server side
-    if (value === undefined || value === null || value === '') return removeQueryParam();
+    if (value === undefined || value === null) return removeQueryParam();
     // from https://github.com/sveltejs/kit/issues/969
     const url = new URL(window.location.href);
     url.searchParams.set(key, encodeParam(value));
-    goto(url.toString(), { replaceState, noscroll: true });
+
+    if (replaceState) {
+      history.replaceState({}, '', url);
+      setStoreValue(value);
+    } else {
+      goto(url.toString(), { noscroll: true }); // breaks input focus
+    }
+
     log && console.log(`user action changed: ${key} to ${value}`);
   };
 
   const removeQueryParam = () => {
     const url = new URL(window.location.href);
     url.searchParams.delete(key);
-    goto(url.toString(), { replaceState, noscroll: true });
+
+    if (replaceState) {
+      history.replaceState({}, '', url);
+      setStoreValue(null);
+    } else {
+      goto(url.toString(), { noscroll: true }); // breaks input focus
+    }
+
     log && console.log(`user action removed: ${key}`);
   };
 
-  const setStoreValue = (value: T) => {
-    browser && localStorage.setItem(key, JSON.stringify(value));
-    log && console.log(`URL set ${key} to ${value}`);
-    set(value);
+  const setStoreValue = (value: string) => {
+    const properlyTypedValue = decodeParam(value) as T;
+    browser && localStorage.setItem(key, JSON.stringify(properlyTypedValue));
+    log && console.log(`URL set ${key} to ${properlyTypedValue}`);
+    set(properlyTypedValue);
   };
 
   let firstUrlCheck = true;
 
   const start = () => {
     const _teardown = page.subscribe(({ url: { searchParams } }) => {
-      let value = decodeParam(searchParams.get(key)) as unknown as T;
+      let value = searchParams.get(key);
 
       // Subsequent URL changes
       if (!firstUrlCheck) return setStoreValue(value);
@@ -64,11 +81,11 @@ export function createQueryParamStore<T>(
       // 2nd Priority: local/sessionStorage
       if (!browser) return;
       if (persist === 'localStorage') {
-        value = JSON.parse(localStorage.getItem(key)) as unknown as T;
+        value = JSON.parse(localStorage.getItem(key));
         log && console.log(`cached: ${key} is ${value}`);
       }
       if (persist === 'sessionStorage') {
-        value = JSON.parse(sessionStorage.getItem(key)) as unknown as T;
+        value = JSON.parse(sessionStorage.getItem(key));
         log && console.log(`cached: ${key} is ${value}`);
       }
       if (value) return updateQueryParam(value);

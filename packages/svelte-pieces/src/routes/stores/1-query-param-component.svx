@@ -26,8 +26,24 @@
   </QueryParam>
 </Story>
 
+<Story>
+  <QueryParam key="text" startWith="hey" persist="localStorage" let:value let:set on:value={(e) => console.log(e.detail)}>
+    <input type="text" {value} on:input={(e) => set(e.currentTarget.value)} placeholder="Type here" />
+    <input type="text" {value} on:input={(e) => set(e.currentTarget.value)} placeholder="Type here" />
+    <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
+  </QueryParam>
+</Story>
+
 ```svelte
-<QueryParam key="my_key" startWith="hello" persist="localStorage" let:value let:set let:remove on:value={(e) => console.log(e.detail)}>
+<QueryParam
+  key="my_key"
+  startWith="hello"
+  persist="localStorage"
+  let:value
+  let:set
+  let:remove
+  on:value={(e) => console.log(e.detail)}
+>
   <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
   <Button href="/stores/1-query-param-component?my_key=hi">nav to hi</Button>
   <Button onclick={() => set('hey')}>Set to 'hey'</Button>

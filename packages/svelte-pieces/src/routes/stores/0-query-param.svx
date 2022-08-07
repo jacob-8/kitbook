@@ -70,4 +70,4 @@ Update by setting store value:
 
 ## Notes
 
-If a similar Fragment store was created you could also bind to it (not practical for query params as your input will lose focus every letter change)
+If you set query params via an input, make sure to not turn off `replaceState` as that will break input focus on every keystroke.
