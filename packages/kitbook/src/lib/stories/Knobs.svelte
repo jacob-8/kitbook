@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Knobs } from './knobs';
-  import QueryParam from 'svelte-pieces/src/lib/stores/QueryParam.svelte';
+  import { QueryParam } from 'svelte-pieces';
 
   export let knobs: Knobs<any>;
   export let id: string;

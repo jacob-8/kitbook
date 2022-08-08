@@ -8,14 +8,13 @@ import 'prism-svelte';
 const { format } = prettier;
 
 /**
- * Inject `code` and `highlightCode` props to <Story>
+ * Inject `code` prop to <Story>
  */
 export function codePreview() {
   function visitor(node) {
     if (node.value.startsWith('<Story')) {
       node.value = placeContentIntoCodeAttribute(node.value);
     }
-    // if (!node.value.startsWith('<script') && !node.value.startsWith('<style') && !node.value.startsWith('<!--'))
   }
 
   return (tree) => {
