@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -17,7 +17,11 @@
     "test": "vitest -u"
   },
   "dependencies": {
-    "svelte-pieces": "^1.0.26"
+    "magic-string": "^0.26.2",
+    "prism-svelte": "^0.5.0",
+    "prismjs": "^1.28.0",
+    "svelte-pieces": "^1.0.26",
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "1.0.0-next.64",

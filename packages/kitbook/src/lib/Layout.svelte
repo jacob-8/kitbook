@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import './styles/prism-vsc-dark-plus.css';
   import Windi from './styles/Windi.svelte';
   import Header from './Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';

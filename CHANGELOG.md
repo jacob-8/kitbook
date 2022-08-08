@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.18
+
+- - Add code preview to `<Story>` using remark plugin
+
 ## 0.0.17
 
 - - switch from using `svelte-store-router` to `svelte-pieces` `QueryParam` component for `Knobs`

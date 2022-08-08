@@ -31,7 +31,7 @@
   knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
   let:props={{ fieldName, min, max, defaultValue }}
 >
-  <Knobs id="rKnobChild" knobs={parseInput({ [fieldName]: `${min}-${max};${defaultValue}` })} />
+  <Knobs id="rKnobChild" knobs={parseInput({ [fieldName]: {min} + '-' + {max} +';' + {defaultValue} })} />
 </Story>
 
 - Note that currently the range knob breaks when given negative default value (the regex parser needs improved if desiring to fix.)

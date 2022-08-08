@@ -235,7 +235,8 @@
   --tw-prose-captions: #6b7280;
   --tw-prose-code: #111827;
   --tw-prose-pre-code: #e5e7eb;
-  --tw-prose-pre-bg: #1f2937;
+  /* --tw-prose-pre-bg: #1f2937; */
+  --tw-prose-pre-bg: #1e1e1e;
   --tw-prose-th-borders: #d1d5db;
   --tw-prose-td-borders: #e5e7eb;
   --tw-prose-invert-body: #d1d5db;

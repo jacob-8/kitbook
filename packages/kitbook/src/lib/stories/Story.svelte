@@ -3,6 +3,8 @@
   export let width: number = undefined;
   export let height: number = undefined;
   export let persist: 'localStorage' | 'sessionStorage' = undefined;
+  export let code: string = undefined;
+  export let highlightedCode: string = undefined;
 
   // knobs
   import parseInput from './knobs';
@@ -64,7 +66,9 @@
       </div>
     </div>
   </div>
+
 </div>
+<pre>{@html code}</pre>
 
 <!--
  @component
