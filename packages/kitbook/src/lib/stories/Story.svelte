@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import ShowHide from 'svelte-pieces/src/lib/functions/ShowHide.svelte';
+  import { ShowHide } from 'svelte-pieces';
 
   export let name = 'default'; // must be unique for queryParams interaction with knobs to not share state
   export let width: number = undefined;
