@@ -1,10 +1,5 @@
-<script lang="ts" context="module">
+<script lang="ts">
   import { Layout } from 'kitbook';
-  import type { Load } from '@sveltejs/kit';
-  export const load: Load = async () => {
-    const modules = import.meta.glob('./**/*.{md,svx}');
-    return { stuff: { kitbook: { modules } } };
-  };
 </script>
 
 <Layout
