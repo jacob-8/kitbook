@@ -5,16 +5,16 @@
   import { parsePages, putPagesIntoFolders } from '$lib/sidebar/pages';
 
   const modules = {
-    './9-privacy-policy.md': () => Promise.resolve({}),
-    './index.md': () => Promise.resolve({}),
-    './0-get-started.md': () => Promise.resolve({}),
-    './0-components/0-Button.svelte': () => Promise.resolve({}),
-    './0-components/1-Switch.svelte': () => Promise.resolve({}),
-    './0-components/0-ui/0-Button.svelte': () => Promise.resolve({}),
-    './0-components/play-audio-section.svelte': () => Promise.resolve({}), // test this to remove section hyphen
-    './[reference]/__layout.svelte': () => Promise.resolve({}),
-    './a/b/c-d/e.svelte': () => Promise.resolve({}),
-    './a/b/c-d/f.svelte': () => Promise.resolve({}),
+    './9-privacy-policy/+page.md': () => Promise.resolve({}),
+    './+page.md': () => Promise.resolve({}),
+    './0-get-started/+page.md': () => Promise.resolve({}),
+    './0-components/0-Button/+page.svx': () => Promise.resolve({}),
+    './0-components/1-Switch/+page.svx': () => Promise.resolve({}),
+    './0-components/0-ui/0-Button/+page.svx': () => Promise.resolve({}),
+    './0-components/play-audio-section/+page.svx': () => Promise.resolve({}), // test this to remove section hyphen
+    './[reference]/+layout.svelte': () => Promise.resolve({}),
+    './a/b/c-d/e/+page.svx': () => Promise.resolve({}),
+    './a/b/c-d/f/+page.svx': () => Promise.resolve({}),
   };
 </script>
 

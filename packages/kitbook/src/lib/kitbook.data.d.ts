@@ -1,6 +1,6 @@
 import type { Modules } from '$lib/sidebar/pages';
 
-export type KitbookStuff = {
+export type KitbookData = {
   modules: Modules;
   root?: string;
 };

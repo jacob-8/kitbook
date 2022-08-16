@@ -6,7 +6,7 @@
   export let folder: Folder;
   export let activeURL: string;
   export let root = "/";
-  export let expanded = true;
+  export let expanded = false;
 
   onMount(() => {
     if (activeURL.indexOf(folder.url) !== -1) {

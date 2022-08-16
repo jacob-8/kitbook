@@ -9,8 +9,8 @@
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
 
-  $: root = $page.stuff.kitbook.root;
-  $: pages = parsePages($page.stuff.kitbook.modules);
+  $: root = $page.data.kitbook.root;
+  $: pages = parsePages($page.data.kitbook.modules);
   $: folder = putPagesIntoFolders(pages);
   $: activePage = findActivePage(pages, $page.url.pathname);
 

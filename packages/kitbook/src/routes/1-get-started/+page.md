@@ -35,15 +35,7 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 </Layout>
 ```
 
-- Add the type for the `stuff.kitbook` prop to your `app.d.t.s` file:
-```ts
-declare namespace App {
-  ...
-  interface Stuff {
-    kitbook: import('kitbook').KitbookStuff;
-  }
-}
-```
+- TODO: How do you add the `KitbookData` type to `$page.data.kitbook`?
 
 ### Sidebar Notes
 - If you pass in your githubURL, an icon to your repo will be placed in the Kitbook header

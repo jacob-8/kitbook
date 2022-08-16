@@ -19,6 +19,15 @@ function removeInitialDigitAndHyphens(string: string) {
   return string.replace(/^\d+/, '').replace(/-/g, ' ').trim();
 }
 
+export function parsePath(path: string) {
+  const [, dir, ext] = path.match(/^\.(.*)*\/\+page\.(.+)$/);
+  if (dir) {
+    return { dir, name: dir.split('/').pop(), ext };
+  } else {
+    return { dir, name: 'index', ext };
+  }
+}
+
 export function parsePages(modules: Modules): Page[] {
   const paths = Object.keys(modules);
   if (!paths.length) {
@@ -26,25 +35,25 @@ export function parsePages(modules: Modules): Page[] {
       'Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"'
     );
   }
-  let pages = paths.map((path) => {
-    const match = path.match(/^\.\/(.*\/)*(.+)\.(.+)$/);
-    const [, dir, name, ext] = match;
+  const pagePaths = paths.filter((path) => path.indexOf('+page') > -1);
+  const pages = pagePaths.map((path) => {
+    const { dir, name, ext } = parsePath(path);
     return {
       path,
       name: removeInitialDigitAndHyphens(name),
       ext,
-      url: `/${dir || ''}${name === 'index' ? '' : name}`,
+      url: dir || '/',
     };
   });
   const indexPageIndex = pages.findIndex((page) => page.url === '/');
   const indexPage = pages.splice(indexPageIndex, 1)[0];
   pages.unshift(indexPage);
-  pages = pages.filter((page) => page.name !== '__layout');
   // todo sort pages to end if directory undefined
   return pages;
 }
 
 export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
+  if (!pagesToOrganize) throw new Error('No pages found ending in +page.{md,svx,chosen-extension} found');
   const rootFolder: Folder = {
     name: '.',
     url: '/',
@@ -53,13 +62,13 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
     pages: [],
   };
   pagesToOrganize.forEach((page) => {
-    const path = page.path.split('/');
+    const path = page.url.split('/');
     let currentFolder = rootFolder;
     path.forEach((folderName, index) => {
       const cleanedFolderName = removeInitialDigitAndHyphens(folderName);
       if (index === path.length - 1) {
         currentFolder.pages.push(page); // is a page
-      } else if (folderName === '.') {
+      } else if (folderName === '') {
         currentFolder = rootFolder;
       } else {
         let folder = currentFolder.folders.find((folder) => folder.name === cleanedFolderName);
@@ -91,4 +100,3 @@ export function findActivePage(pages: Page[], urlPathname: string): Page {
   if (activePage) return activePage;
   return pages.find((page) => page.url === '/');
 }
-

@@ -6,9 +6,6 @@ declare namespace App {
   // interface Locals {}
   // interface Platform {}
   // interface Session {}
-  interface Stuff {
-    kitbook: import('kitbook').KitbookStuff;
-  }
 }
 
 // declare global {
