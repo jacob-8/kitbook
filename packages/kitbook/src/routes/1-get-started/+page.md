@@ -16,18 +16,11 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 ## Set Up Your Sidebar
 
 - Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
-- In your chosen folder (`src/routes/kitbook` in this example), add a `__layout.svelte` file with the following code which will get a list of your pages, and pass them to Kitbook's `Layout` component:
+- To add a list of your route pages to `$page.data.kitbook` for Kitbook's `Layout` component to consume, in your chosen folder (`src/routes/kitbook` in this example), add a `+layout.svelte` file with:
 
 ```svelte
-<script lang="ts" context="module">
+<script lang="ts">
   import { Layout } from 'kitbook';
-  const modules = import.meta.glob('./**/*.{md,svx}');
-
-  import type { Load } from '@sveltejs/kit';
-  export const load: Load = () => {
-    return { stuff: { kitbook: { modules, root: '/kitbook' } } };
-    // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
-  };
 </script>
 
 <Layout title="Kitbook" githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook">
@@ -35,7 +28,15 @@ You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and
 </Layout>
 ```
 
-- TODO: How do you add the `KitbookData` type to `$page.data.kitbook`?
+And a `+layout.ts` file with:
+```ts
+import type { LayoutLoad } from './$types';
+export const load: LayoutLoad = () => {
+  const modules = import.meta.glob('./**/*.{md,svx}');
+  return { kitbook: { modules, root: '/kitbook' } };
+  // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
+};
+```
 
 ### Sidebar Notes
 - If you pass in your githubURL, an icon to your repo will be placed in the Kitbook header

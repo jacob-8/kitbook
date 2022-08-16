@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.20
+
+- - Update to handle SvelteKit's file/folder naming breaking changes
+
 ## 0.0.18
 
 - - Add code preview to `<Story>` using remark plugin
@@ -20,6 +24,10 @@
 # svelte-pieces
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon.
+
+## 1.0.38
+
+- - Update to handle SvelteKit's file/folder naming breaking changes
 
 ## 1.0.37
 
