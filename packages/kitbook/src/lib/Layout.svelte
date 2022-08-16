@@ -13,12 +13,13 @@
   $: pages = parsePages($page.data.kitbook.modules);
   $: folder = putPagesIntoFolders(pages);
   $: activePage = findActivePage(pages, $page.url.pathname);
+  $: activeURL = $page.url.pathname;
 
   let showSidebar = false;
 </script>
 
 <div class="min-h-[100vh]">
-  <Header bind:showSidebar {githubURL} activeURL={$page.url.pathname} {root}>
+  <Header bind:showSidebar {githubURL} {activeURL} {root}>
     <svelte:fragment slot="title"
       ><slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot
       ></svelte:fragment
@@ -26,7 +27,7 @@
   </Header>
 
   <div class="flex">
-    <Sidebar bind:showSidebar {folder} activeURL={$page.url.pathname} {root}>
+    <Sidebar bind:showSidebar {folder} {activeURL} {root}>
       <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
     </Sidebar>
 
