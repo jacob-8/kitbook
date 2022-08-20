@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -20,6 +20,8 @@
     "magic-string": "^0.26.2",
     "prism-svelte": "^0.5.0",
     "prismjs": "^1.28.0",
+		"prettier": "^2.7.1",
+    "prettier-plugin-svelte": "^2.5.0",
     "svelte-pieces": "^1.0.37",
     "unist-util-visit": "^4.1.0"
   },
