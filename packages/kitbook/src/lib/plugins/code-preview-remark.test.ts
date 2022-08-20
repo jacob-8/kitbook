@@ -48,8 +48,7 @@ test('placeContentIntoCodeAttribute handles', async () => {
   ).toMatchInlineSnapshot(`
     "<Story code={\`<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>Knobs</span>
       <span class=\\"token attr-name\\">id</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>rKnobChild<span class=\\"token punctuation\\">\\"</span></span>
-      <span class=\\"token attr-name\\">knobs=</span><span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">{</span><span class=\\"token function\\">parseInput</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">{</span> <span class=\\"token punctuation\\">[</span>fieldName<span class=\\"token punctuation\\">]</span><span class=\\"token operator\\">:</span> <span class=\\"token template-string\\"><span class=\\"token template-punctuation string\\">\\\\\`</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\${</span>min<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token string\\">-</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\${</span>max<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token string\\">;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\${</span>defaultValue<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token template-punctuation string\\">\`</span></span> <span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">)</span><span class=\\"token punctuation\\">}</span></span>
-    <span class=\\"token punctuation\\">/></span></span>\`} 
+      <span class=\\"token attr-name\\">knobs=</span><span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">{</span><span class=\\"token function\\">parseInput</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">{</span> <span class=\\"token punctuation\\">[</span>fieldName<span class=\\"token punctuation\\">]</span><span class=\\"token operator\\">:</span> <span class=\\"token template-string\\"><span class=\\"token template-punctuation string\\">\\\\\`</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\\\\\${</span>min<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token string\\">-</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\\\\\${</span>max<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token string\\">;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">\\\\\${</span>defaultValue<span class=\\"token interpolation-punctuation punctuation\\">}</span></span><span class=\\"token template-punctuation string\\">\\\\\`</span></span> <span class=\\"token punctuation\\">}</span><span class=\\"token punctuation\\">)</span><span class=\\"token punctuation\\">}</span></span> <span class=\\"token punctuation\\">/></span></span>\`} 
       name=\\"range knob\\"
       knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
       let:props={{ fieldName, min, max, defaultValue }}
@@ -59,9 +58,9 @@ test('placeContentIntoCodeAttribute handles', async () => {
   `);
 });
 
-// import fs from 'fs';
-// test('placeContentIntoCodeAttribute', async () => {
-// const inputFile = fs.readFileSync('./input/foo.svelte', 'utf-8');
-// const result = placeContentIntoCodeAttribute(inputFile);
-// fs.writeFileSync('./output/foo.svelte', result.code, 'utf-8');
-// });
+import fs from 'fs';
+test('placeContentIntoCodeAttribute handles backticks and ${', async () => {
+const inputFile = fs.readFileSync('./src/lib/plugins/input/Backticks.svelte', 'utf-8');
+const result = placeContentIntoCodeAttribute(inputFile);
+fs.writeFileSync('./src/lib/plugins/output/Backticks.svelte', result, 'utf-8');
+});

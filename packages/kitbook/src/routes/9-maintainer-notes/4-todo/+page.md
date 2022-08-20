@@ -3,9 +3,9 @@
 ## Important before considering this a publicly shareable project
 *(you have been warned, early-adopters)*
 
-- add remark plugin
-  - Show Code for each story
-  - Scrollspy TOC on right hand side (maybe client-side only for setup simplicity)
+- update github links to include `/+page`
+- update prettier not to wrap line
+- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
 - solve over-applied global scrollbar css
 - Easily adjust screen size use full-screen view

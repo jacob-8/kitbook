@@ -6,7 +6,7 @@
   export let root = '/';
 </script>
 
-<header class="top-0 z-1 sticky flex p-1 bg-white border-b border-gray-300">
+<header class="top-0 z-10 sticky flex p-1 bg-white border-b border-gray-300">
   <button
     class="p-2 text-2xl font-semibold flex items-center md:hidden"
     on:click={() => (showSidebar = !showSidebar)}

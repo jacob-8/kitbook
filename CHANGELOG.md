@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.23
+
+- - Improve remark code preview plugin to allow backticks inside a `Story` block
+ 
 ## 0.0.21
 
 - - Add `expanded` prop to `<Layout>` if desiring to start with folder tree already expanded.

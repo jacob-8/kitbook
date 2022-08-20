@@ -1,3 +1,4 @@
+// From https://github.com/techniq/svelte-ux/blob/master/src/lib/plugins/remark.js
 import { visit } from 'unist-util-visit';
 import prettier from 'prettier/esm/standalone.mjs';
 import typescriptPlugin from 'prettier/esm/parser-typescript.mjs';
@@ -39,11 +40,12 @@ export function placeContentIntoCodeAttribute(html, tagName = "Story") {
         const formattedCode = format(code, {
           parser: 'svelte',
           plugins: [typescriptPlugin, sveltePlugin],
+          bracketSameLine: true,
         });
         const highlightedCode = Prism.highlight(formattedCode, Prism.languages.svelte, 'svelte');
 
         const injectStart = node.start + '<'.length + tagName.length;
-        s.appendLeft(injectStart, ` code={\`${highlightedCode.replace('`', '\\`').trim()}\`} `);
+        s.appendLeft(injectStart, ` code={\`${highlightedCode.replace(/`/g, '\\`').replace(/\$\{/g, '\\${').trim()}\`} `);
       }
     }
   })
