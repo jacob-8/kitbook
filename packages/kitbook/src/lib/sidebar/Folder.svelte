@@ -36,6 +36,6 @@
     {/if}
   {/each}
   {#each folder.folders as subfolder}
-    <svelte:self folder={subfolder} {activeURL} />
+    <svelte:self folder={subfolder} {expanded} {activeURL} />
   {/each}
 {/if}

@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.21
+
+- - Add `expanded` prop to `<Layout>` if desiring to start with folder tree already expanded.
+
 ## 0.0.20
 
 - - Update to handle SvelteKit's file/folder naming breaking changes

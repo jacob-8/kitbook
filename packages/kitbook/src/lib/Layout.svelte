@@ -8,6 +8,7 @@
 
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
+  export let expanded = false;
 
   $: root = $page.data.kitbook.root;
   $: pages = parsePages($page.data.kitbook.modules);
@@ -27,7 +28,7 @@
   </Header>
 
   <div class="flex">
-    <Sidebar bind:showSidebar {folder} {activeURL} {root}>
+    <Sidebar bind:showSidebar {folder} {activeURL} {root} {expanded}>
       <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
     </Sidebar>
 
