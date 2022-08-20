@@ -12,7 +12,7 @@ export { default as DetectUrl } from './functions/DetectUrl.svelte';
 export { default as HideOnScroll } from './functions/HideOnScroll.svelte';
 export { default as PrintDate } from './functions/PrintDate.svelte';
 export { default as ShowHide } from './functions/ShowHide.svelte';
-export { default as Store } from './functions/HideOnScroll.svelte';
+export { default as Store } from './functions/Store.svelte';
 export { default as ReactiveSet } from './functions/ReactiveSet.svelte';
 
 export { default as Youtube } from './media/Youtube.svelte';
