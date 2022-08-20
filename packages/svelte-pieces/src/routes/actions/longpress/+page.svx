@@ -3,7 +3,7 @@
   import { longpress } from '$lib/actions/longpress';
 </script>
 
-<Story knobs={{ duration: '200-2000;1000' }} let:props={{ duration }}>
+<Story showCode knobs={{ duration: '200-2000;1000' }} let:props={{ duration }}>
   <button
     class="p-3 hover:bg-gray-200"
     type="button"

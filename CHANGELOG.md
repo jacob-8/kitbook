@@ -3,6 +3,7 @@
 ## 0.0.21
 
 - - Add `expanded` prop to `<Layout>` if desiring to start with folder tree already expanded.
+  - Add ability to start off with code preview showing by adding `showCode` prop to `Story` 
 
 ## 0.0.20
 

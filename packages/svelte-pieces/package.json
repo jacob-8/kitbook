@@ -27,7 +27,7 @@
     "@sveltejs/kit": "1.0.0-next.414",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
-    "kitbook": "0.0.20",
+    "kitbook": "0.0.21",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
     "svelte": "^3.49.0",

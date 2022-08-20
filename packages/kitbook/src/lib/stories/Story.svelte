@@ -1,13 +1,12 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { ShowHide } from 'svelte-pieces';
 
   export let name = 'default'; // must be unique for queryParams interaction with knobs to not share state
   export let width: number = undefined;
   export let height: number = undefined;
   export let persist: 'localStorage' | 'sessionStorage' = undefined;
   export let code: string = undefined;
-  // export let highlightedCode: string = undefined;
+  export let showCode = false;
 
   // knobs
   import parseInput from './knobs';
@@ -22,71 +21,71 @@
   }
 </script>
 
-<ShowHide let:show let:toggle>
-  <div class="h-4" />
-  <div class="{$$props.class} not-prose border-gray-200 border shadow overflow-hidden">
-    <div class="bg-gray-200 p-2">
-      <div class="font-semibold text-sm flex">
-        {name}
-        <div class="ml-auto" />
+<div class="h-4" />
+<div class="{$$props.class} not-prose border-gray-200 border shadow overflow-hidden">
+  <div class="bg-gray-200 p-2">
+    <div class="font-semibold text-sm flex">
+      {name}
+      <div class="ml-auto" />
 
-        {#if code}
-          <button title="toggle width" class="p-1 opacity-50 hover:opacity-100" on:click={toggle}
-            ><span class="i-tabler-code" /></button
-          >
-        {/if}
+      {#if code}
         <button
-          title="toggle width"
+          title="Code Preview"
+          class:text-blue-600={showCode}
+          class:opacity-90={showCode}
           class="p-1 opacity-50 hover:opacity-100"
-          on:click={() => (width ? (width = undefined) : (width = 300))}
-          ><span class="i-ant-design-column-width-outlined" /></button
+          on:click={() => (showCode = !showCode)}><span class="i-tabler-code" /></button
         >
-        <button
-          title="toggle height"
-          class="p-1 opacity-50 hover:opacity-100"
-          on:click={() => (height ? (height = undefined) : (height = 200))}
-          ><span class="i-ant-design-column-height-outlined" /></button
-        >
-      </div>
-
-      {#if width || height}
-        <div class="text-sm mt-2">
-          {#if width}
-            <label>
-              Width:
-              <input type="number" bind:value={width} class="w-15" />
-            </label>
-          {/if}
-          {#if height}
-            <label>
-              Height:
-              <input type="number" bind:value={height} class="w-15" />
-            </label>
-          {/if}
-        </div>
       {/if}
-      {#if knobs}
-        <Knobs {persist} id={name.replace(' ', '_')} {knobs} />
-      {/if}
+      <button
+        title="toggle width"
+        class="p-1 opacity-50 hover:opacity-100"
+        on:click={() => (width ? (width = undefined) : (width = 300))}
+        ><span class="i-ant-design-column-width-outlined" /></button
+      >
+      <button
+        title="toggle height"
+        class="p-1 opacity-50 hover:opacity-100"
+        on:click={() => (height ? (height = undefined) : (height = 200))}
+        ><span class="i-ant-design-column-height-outlined" /></button
+      >
     </div>
 
-    <div
-      style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}"
-    >
-      <div class="p-2 hover:bg-gray-100 h-full">
-        <div class="bg-white h-full">
-          <slot props={$knobs} {set} />
-        </div>
+    {#if width || height}
+      <div class="text-sm mt-2">
+        {#if width}
+          <label>
+            Width:
+            <input type="number" bind:value={width} class="w-15" />
+          </label>
+        {/if}
+        {#if height}
+          <label>
+            Height:
+            <input type="number" bind:value={height} class="w-15" />
+          </label>
+        {/if}
+      </div>
+    {/if}
+    {#if knobs}
+      <Knobs {persist} id={name.replace(' ', '_')} {knobs} />
+    {/if}
+  </div>
+
+  <div style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}">
+    <div class="p-2 hover:bg-gray-100 h-full">
+      <div class="bg-white h-full">
+        <slot props={$knobs} {set} />
       </div>
     </div>
   </div>
+</div>
 
-  {#if show && code}
-    <pre class="mt-2" transition:slide>{@html code}</pre>
-  {/if}
+{#if showCode && code}
+  <pre class="mt-2" transition:slide|local>{@html code}</pre>
+{/if}
 
-  <div class="h-4" />
-</ShowHide>
+<div class="h-4" />
 
 <!--
  @component
