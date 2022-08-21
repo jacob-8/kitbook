@@ -3,20 +3,17 @@
 ## Important before considering this a publicly shareable project
 *(you have been warned, early-adopters)*
 
-- update github links to include `/+page`
-- update prettier not to wrap line
-- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)
-- Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
-- solve over-applied global scrollbar css
 - Easily adjust screen size use full-screen view
-- Bake prism css into Layout w/ optional flag (currently in app.html)
 - Next and Previous pages (see Docusaurus/Vitebook)
   - requires ordering pages and finding active page index
-- Indicate in the header when on the homepage
+- Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
+- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)
 - Easy markdown bookmark hyperlinks
   - FoamBubble like linking, backlinks, and connections graph
+- Bake prism css into Layout w/ optional flag (currently in app.html)
 
 ## Nice to Have
+- solve over-applied global scrollbar css
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
 - use `import?raw` to pass in component's code to view in a story
 - consider setting up an options object that can be passed to kitbook via stuff to make future additions easy to implement
