@@ -3,6 +3,7 @@
 ## Important before considering this a publicly shareable project
 *(you have been warned, early-adopters)*
 
+- Add component docs with sveld
 - Easily adjust screen size use full-screen view
 - Next and Previous pages (see Docusaurus/Vitebook)
   - requires ordering pages and finding active page index
