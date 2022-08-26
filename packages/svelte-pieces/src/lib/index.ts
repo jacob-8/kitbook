@@ -17,6 +17,7 @@ export { default as ReactiveSet } from './functions/ReactiveSet.svelte';
 
 export { default as Youtube } from './media/Youtube.svelte';
 export { default as YoutubeCaptions } from './media/YoutubeCaptions.svelte';
+export { default as QrCode } from './media/QrCode.svelte';
 
 export { default as Avatar } from './shell/Avatar.svelte';
 export { default as Header } from './shell/Header.svelte';

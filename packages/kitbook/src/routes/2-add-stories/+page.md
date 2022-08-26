@@ -7,7 +7,7 @@ To make it easy to learn and copy from a `Story`, add the following to your `mds
 
 ```diff
 import { defineMDSveXConfig as defineConfig } from 'mdsvex';
-+import { codePreview } from 'kitbook/plugins/code-preview-remark.js';
++import { codePreview } from 'kitbook/plugins/code-preview-remark';
 
 const config = defineConfig({
   extensions: ['.md', '.svx'],
