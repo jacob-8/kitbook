@@ -3,7 +3,7 @@ https://svelte-pieces.vercel.app/
 
 <a href="https://www.npmjs.com/package/svelte-pieces"><img src="https://img.shields.io/npm/v/svelte-pieces?color=729B1B&label="></a>
 
-To install components run `npm i -D svelte-pieces` or `pnpm add -D svelte-pieces`
+To install components run `npm i -D svelte-pieces` or `pnpm add -D svelte-pieces`.
 
 ## To update NPM package
 
