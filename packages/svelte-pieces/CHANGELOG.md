@@ -2,6 +2,10 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon.
 
+## 1.0.41
+
+- - Fix missing `portalTarget` prop in `Header`'s `Menu` component
+
 ## 1.0.40
 
 - - Add `QrCode` component

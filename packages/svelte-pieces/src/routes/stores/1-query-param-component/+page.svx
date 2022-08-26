@@ -19,7 +19,6 @@
 >
   <QueryParam {...props} let:value let:set let:remove on:value={(e) => console.log(e.detail)}>
     <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
-
     <Button href="/stores/1-query-param-component?{props.key}=123">nav to 123</Button>
     <Button onclick={() => set('hey')}>Set to 'hey'</Button>
     <Button onclick={remove}>Remove</Button>
@@ -34,19 +33,3 @@
   </QueryParam>
 </Story>
 
-```svelte
-<QueryParam
-  key="my_key"
-  startWith="hello"
-  persist="localStorage"
-  let:value
-  let:set
-  let:remove
-  on:value={(e) => console.log(e.detail)}
->
-  <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
-  <Button href="/stores/1-query-param-component?my_key=hi">nav to hi</Button>
-  <Button onclick={() => set('hey')}>Set to 'hey'</Button>
-  <Button onclick={remove}>Remove</Button>
-</QueryParam>
-```

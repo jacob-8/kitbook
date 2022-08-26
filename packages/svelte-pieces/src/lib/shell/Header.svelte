@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { IUser } from '../interfaces';
   import { clickoutside } from '../actions/clickoutside';
   import ShowHide from '../functions/ShowHide.svelte';
   import Button from '../ui/Button.svelte';
   import Avatar from './Avatar.svelte';
   import Menu from './Menu.svelte';
+  import type { IUser } from './user.interface';
   export let user: IUser = undefined;
 </script>
 
@@ -24,12 +24,12 @@
   <Button form="text" href="/">Contact</Button>
   {#if user}
     <ShowHide let:show let:toggle let:set>
-      <div class="relative" use:clickoutside on:clickoutside={() => set(false)}>
+      <div id="userMenu" class="relative" use:clickoutside on:clickoutside={() => set(false)}>
         <button class="px-3 py-1" type="button" on:click={toggle}>
           <Avatar {user} />
         </button>
         {#if show}
-          <Menu class="right-2">
+          <Menu portalTarget="#userMenu" class="top-8 right-2">
             <div class="px-4 py-2 text-xs font-semibold text-gray-600">{user.displayName}</div>
             <div class="px-4 py-2 -mt-3 text-xs text-gray-600 border-b">{user.email}</div>
             <a href="/admin">

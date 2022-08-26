@@ -1,7 +1,7 @@
 <script>
   import { Story } from 'kitbook';
   import BadgeArrayEmit from '$lib/data/BadgeArrayEmit.svelte';
-  import Set from '$lib/functions/Set.svelte';
+  import ReactiveSet from '$lib/functions/ReactiveSet.svelte';
 
   let books = ['Lord of the Rings', 'www.books.com'];
 </script>
@@ -10,8 +10,8 @@
   name="Edit array via Set component"
   knobs={{ canEdit: true, minimum: 0 }}
   let:props={{ canEdit, minimum }}>
-  <Set
-    knobs={['A Tale of Four Cities', 'www.google.com']}
+  <ReactiveSet
+    input={['A Tale of Four Cities', 'www.google.com']}
     let:value={editedBooks}
     let:add
     let:remove>
@@ -30,7 +30,7 @@
           add(string.trim());
         }
       }} />
-  </Set>
+  </ReactiveSet>
 </Story>
 
 <Story name="Edit array">

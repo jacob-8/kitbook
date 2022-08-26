@@ -1,9 +1,5 @@
 <script lang="ts">
-  interface IUser {
-    displayName: string;
-    photoURL?: string;
-    email: string;
-  }
+  import type { IUser } from './user.interface';
   export let user: IUser;
 </script>
 
