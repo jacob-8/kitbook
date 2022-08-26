@@ -1,11 +1,13 @@
-<script>
+<script lang="ts">
   import { Story } from 'kitbook';
   import Button from '$lib/ui/Button.svelte';
-
   let text = 'sample message';
 </script>
 
-<Story name="Input message">
+<!-- prettier-ignore -->
+# Copy
+
+<Story name="Input message" showCode>
   <input bind:value={text} />
   <Button
     onclick={async () => {
@@ -15,10 +17,4 @@
     }}>Copy</Button>
 </Story>
 
-```ts
-async function copy(text: string) {
-  navigator.clipboard.writeText(text);
-  const clip = await navigator.clipboard.readText();
-  console.log('copied', clip);
-}
-```
+*(too simple to need a component)*

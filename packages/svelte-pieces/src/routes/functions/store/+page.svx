@@ -4,7 +4,9 @@
 	let value = 'world';
 </script>
 
-<Story name="Store + input Event">
+# Store
+
+<Story name="Store + input Event" showCode>
 	<Store startWith="hello" let:set let:store={text}>
 		<input
 			type="text"

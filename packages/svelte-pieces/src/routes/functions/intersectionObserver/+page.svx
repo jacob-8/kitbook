@@ -3,7 +3,7 @@
   import { Story } from 'kitbook';
 </script>
 
-# Intersection Observer - todo
+# Intersection Observer
 
 <Story>
   <IntersectionObserver let:intersecting>

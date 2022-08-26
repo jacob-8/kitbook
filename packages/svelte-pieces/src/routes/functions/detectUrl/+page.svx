@@ -4,6 +4,8 @@
   import DetectUrl from '$lib/functions/DetectUrl.svelte';
 </script>
 
+# Detect URL
+
 <Story name="text">
   <DetectUrl string="Bob McNary" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
@@ -14,7 +16,7 @@
   </DetectUrl>
 </Story>
 
-<Story name="http://google.com">
+<Story name="http://google.com" showCode>
   <DetectUrl string="http://google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
