@@ -15,7 +15,7 @@
   $: qr = QrCode.encodeText(value, ecl);
 
   $: fgPath = (() => {
-    let parts: Array<string> = [];
+    let parts: string[] = [];
     for (let y = 0; y < qr.size; y++) {
       for (let x = 0; x < qr.size; x++) {
         if (qr.getModule(x, y)) parts.push(`M${x},${y}h1v1h-1z`);

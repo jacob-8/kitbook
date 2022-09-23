@@ -8,7 +8,7 @@ While **[Svench](https://svench-docs.vercel.app/)**, **[Storybook](https://codin
 
 - **[Vitebook](https://vitebook.dev/)** is the most visually appealing but doesn't work in Windows... While very extendable, I find it much better suited for documentation and not for prototyping as important prototyping features are either missing or too verbose to implement.
 
-- Additionally, none have a good solution to how to mock/shim SvelteKit imports like `import { browser } from "$app/env";`?
+- Additionally, none have a good solution to how to mock/shim SvelteKit imports like `import { browser } from "$app/environment";`?
 
 ## The Solution
 - Since all the roadblocks I've run into with each of these tools come from trying to use a tool that is outside of the SvelteKit box and which looks inside (Svench and Vitebook often struggle with the differences in how Windows handles file paths because neither developer uses a PC), the only guaranteed solution for a tool which keeps up with the pre-1.0 changes is to **use SvelteKit itself**! I will never have to shim SvelteKit imports, nor will I have issues with the API changing before 1.0.

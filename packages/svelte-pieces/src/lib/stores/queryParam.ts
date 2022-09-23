@@ -1,5 +1,4 @@
 import { writable, type Readable } from 'svelte/store';
-import { browser } from '$app/env';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 import { decodeParam, encodeParam } from './url-helpers';
@@ -26,7 +25,7 @@ export function createQueryParamStore<T>(
   const { key, startWith, log, replaceState, persist } = opts;
 
   const updateQueryParam = (value: any) => {
-    if (!browser) return; // safety check in case store value is assigned via $: call server side
+    if (typeof window === 'undefined') return; // safety check in case store value is assigned via $: call server side
     if (value === undefined || value === null) return removeQueryParam();
     // from https://github.com/sveltejs/kit/issues/969
     const url = new URL(window.location.href);
@@ -58,7 +57,7 @@ export function createQueryParamStore<T>(
 
   const setStoreValue = (value: string) => {
     const properlyTypedValue = decodeParam(value) as T;
-    browser && localStorage.setItem(key, JSON.stringify(properlyTypedValue));
+    typeof window !== 'undefined' && localStorage.setItem(key, JSON.stringify(properlyTypedValue));
     log && console.log(`URL set ${key} to ${properlyTypedValue}`);
     set(properlyTypedValue);
   };
@@ -79,7 +78,7 @@ export function createQueryParamStore<T>(
       if (value !== undefined && value !== null && value !== '') return setStoreValue(value);
 
       // 2nd Priority: local/sessionStorage
-      if (!browser) return;
+      if (typeof window === 'undefined') return;
       if (persist === 'localStorage') {
         value = JSON.parse(localStorage.getItem(key));
         log && console.log(`cached: ${key} is ${value}`);
