@@ -4,6 +4,7 @@
   import { Story } from 'kitbook';
 
   const showSomething = createPersistedStore<boolean>('myCustomKeyName', true, true);
+  const showSomethingElse = createPersistedStore<boolean>('myCustomKeyName2', true, true);
 </script>
 
 <!-- prettier-ignore -->
@@ -17,7 +18,9 @@ The type definition will be automatically inferred from the value passed in, tho
 
 <Story name="tab synced">
   {$showSomething}
-  <Button onclick={() => ($showSomething = !$showSomething)}>Toggle</Button>
+  <Button onclick={() => ($showSomething = !$showSomething)}>Toggle showSomething</Button>,
+  {$showSomethingElse}
+  <Button onclick={() => ($showSomethingElse = !$showSomethingElse)}>Toggle showSomethingElse</Button>
 </Story>
 
 Tab syncing can be seen if you open this page in two tabs and toggle the value.
