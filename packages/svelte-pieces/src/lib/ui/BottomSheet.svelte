@@ -8,22 +8,13 @@
 
   export let zIndex = 1;
   export let width = 600;
+  export let duration = 200;
   export let max = 10; // top: __% value so 0 is top of window, 100 is bottom.
   export let min = 85;
-  export let maxAuto = 40;
-  let top = spring(min);
+  export let start = 40;
+  let top = spring(start);
 
-  let headerHeight = 44;
-  let contentHeight = 100;
   let innerHeight = 500;
-  const SCROLL_BUFFER = 2;
-  $: sheetHeightPercentage =
-    100 - ((headerHeight + contentHeight + SCROLL_BUFFER) / innerHeight) * 100;
-  $: maxTop = Math.max(sheetHeightPercentage, max);
-  $: setTop([maxTop, maxAuto]);
-  function setTop(values: number[]) {
-    top.set(Math.max(...values));
-  }
 
   let firstTouchY: number;
   let previousY: number;
@@ -57,7 +48,7 @@
   function touchEnd() {
     if (draggedTo > min) close();
     previousY = null;
-    draggedTo = Math.max(maxTop, draggedTo);
+    draggedTo = Math.max(max, draggedTo);
     ignoreContentDrag = false;
   }
 
@@ -67,9 +58,9 @@
 <svelte:window bind:innerHeight on:keydown={(e) => e.key === 'Escape' && close()} />
 
 <div
-  transition:fly={{ y: 500 }}
+  transition:fly={{ y: 500, duration }}
   style="top: {draggedTo
-    ? Math.max(maxTop - 1, draggedTo)
+    ? Math.max(max - 1, draggedTo)
     : $top}%; opacity: {opacity}; z-index: {zIndex}"
   class="fixed inset-x-0 bottom-0 flex justify-center pointer-events-none"
 >
@@ -84,7 +75,7 @@
       <span class="i-ph-minus-bold text-5xl text-gray-300 -mt-4" />
     </div>
 
-    <div class="font-semibold flex" bind:clientHeight={headerHeight}>
+    <div class="font-semibold flex">
       {#if $$slots.header}
         <div class="p-2">
           <slot name="header" />
@@ -99,7 +90,7 @@
     </button>
 
     <div class="overflow-y-auto" on:touchmove|stopPropagation={(e) => touchMove(e, true)}>
-      <div class="p-2" bind:clientHeight={contentHeight}>
+      <div class="p-2">
         <IntersectionObserver
           heightPercentage={0}
           on:intersected={() => (contentScrolledTop = true)}

@@ -9,11 +9,11 @@
 # Bottom Sheet
 
 - draggable only by touch
-- auto-resizes to fit content, up until max or start value (whichever is the larger restriction in terms of percentage distance from top)
+- `max`, `start`, and `min` are percentages from the top, so a max of 10 will let the sheet be dragged up to a height of 90%.
 
 <Story
-  knobs={{ max: 10, maxAuto: 40, contentHeight: 500 }}
-  let:props={{ max, maxAuto, contentHeight }}
+  knobs={{ max: 10, start: 40, contentHeight: 500, duration: 150 }}
+  let:props={{ max, start, contentHeight, duration }}
   let:set
 >
   <ShowHide let:show let:toggle>
@@ -21,11 +21,9 @@
     <Button size="sm" onclick={() => set('max', 10)} active={max === 10}>Top max</Button>
     <Button size="sm" onclick={() => set('max', 40)} active={max === 40}>Middle max</Button>
     <Button size="sm" onclick={() => set('max', 85)} active={max === 85}>Bottom max</Button>
-    <Button size="sm" onclick={() => set('maxAuto', 10)} active={maxAuto === 10}>Top Auto</Button>
-    <Button size="sm" onclick={() => set('maxAuto', 40)} active={maxAuto === 40}>Middle Auto</Button
-    >
-    <Button size="sm" onclick={() => set('maxAuto', 85)} active={maxAuto === 85}>Bottom Auto</Button
-    >
+    <Button size="sm" onclick={() => set('start', 10)} active={start === 10}>Top Start</Button>
+    <Button size="sm" onclick={() => set('start', 40)} active={start === 40}>Middle Start</Button>
+    <Button size="sm" onclick={() => set('start', 85)} active={start === 85}>Bottom Start</Button>
     <Button size="sm" onclick={() => set('contentHeight', 500)} active={contentHeight === 500}
       >Tall Content</Button
     >
@@ -36,7 +34,7 @@
       >Short Content</Button
     >
     {#if !show}
-      <BottomSheet on:close={toggle} {max} {maxAuto}>
+      <BottomSheet on:close={toggle} {max} {start} {duration}>
         <div slot="header">
           Title
           <Button
@@ -70,6 +68,7 @@
 </Story>
 
 <!-- prettier-ignore -->
+- ~~auto-resizes to fit content, up until max or start value (whichever is the larger restriction in terms of percentage distance from top)~~ (janky on mobile, but see BottomSheet.svelte file history if ever wanting to look at the code)
 - It doesn't make sense to set the start to a greater value than max.
 - Press escape to close
 
