@@ -47,7 +47,7 @@
   {:else}
     <a
       {href}
-      sveltekit:prefetch
+      data-sveltekit-prefetch
       class:active
       class="{$$props.class} {fill} {size} {color} text-center inline-block"
     >
