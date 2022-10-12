@@ -26,22 +26,23 @@
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
+    "@iconify/json": "^2.1.115",
     "@sveltejs/adapter-auto": "1.0.0-next.66",
     "@sveltejs/kit": "1.0.0-next.442",
     "@sveltejs/package": "1.0.0-next.1",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
+    "@unocss/preset-icons": "^0.45.26",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",
-    "svelte-deep-wind-preprocess": "^0.0.8",
     "svelte-preprocess": "^4.10.7",
-    "svelte-windicss-preprocess": "~4.1.0",
     "svelte2tsx": "^0.5.14",
+    "temp-s-p-u": "^0.0.4",
     "tslib": "^2.4.0",
     "typescript": "~4.8.2",
+    "unocss": "^0.45.29",
     "vite": "^3.0.9",
-    "vitest": "^0.22.1",
-    "windicss": "^3.5.6"
+    "vitest": "^0.22.1"
   },
   "repository": {
     "type": "git",
