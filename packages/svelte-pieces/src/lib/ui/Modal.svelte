@@ -87,13 +87,13 @@
   </div>
 </div>
 
-<style global>
+<style>
   /* allows us to use portal and keep the footer inside the form element */
-  .modal-footer {
-    @apply -m-4 sm:-m-6 mt-4 sm:mt-6 px-4 py-3 sm:px-6 bg-gray-50 flex flex-wrap justify-end;
+  :global(.modal-footer) {
+    --at-apply: -m-4 sm:-m-6 mt-4 sm:mt-6 px-4 py-3 sm:px-6 bg-gray-50 flex flex-wrap justify-end;
   }
 
-  .modal-footer > :not([hidden]) ~ :not([hidden]) {
+  :global(.modal-footer > :not([hidden]) ~ :not([hidden])) {
     --tw-space-x-reverse: 0;
     margin-right: calc(0.25rem * var(--tw-space-x-reverse));
     margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));

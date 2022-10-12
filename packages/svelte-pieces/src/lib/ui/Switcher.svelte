@@ -37,6 +37,6 @@
 
 <style>
   header {
-    @apply flex overflow-x-auto whitespace-nowrap;
+    --at-apply: flex overflow-x-auto whitespace-nowrap;
   }
 </style>

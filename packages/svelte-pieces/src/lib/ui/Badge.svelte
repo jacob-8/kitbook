@@ -17,7 +17,7 @@
 </script>
 
 {#if href}
-  <a {href} {target} sveltekit:prefetch class:active class="{$$props.class} {size} {color}">
+  <a {href} {target} data-sveltekit-prefetch class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
       <span class="w-2" />
@@ -72,35 +72,35 @@
   a,
   button:not(.badge-x),
   div {
-    @apply inline-flex items-center py-1 px-2 rounded-md text-xs font-medium;
-    @apply bg-primary-100 text-primary-800;
+    --at-apply: inline-flex items-center py-1 px-2 rounded-md text-xs font-medium;
+    --at-apply: bg-blue-100 text-blue-800;
   }
   .red {
-    @apply bg-red-100 text-red-800;
+    --at-apply: bg-red-100 text-red-800;
   }
   .orange {
-    @apply bg-orange-100 text-orange-800;
+    --at-apply: bg-orange-100 text-orange-800;
   }
   .green {
-    @apply bg-green-100 text-green-800;
+    --at-apply: bg-green-100 text-green-800;
   }
   .gray {
-    @apply bg-gray-100 text-gray-800;
+    --at-apply: bg-gray-100 text-gray-800;
   }
   .badge-x {
-    @apply text-primary-400 hover:bg-primary-200 hover:text-primary-500 focus:bg-primary-500;
-    @apply flex-shrink-0 h-4 w-4 rounded-full inline-flex items-center justify-center focus:outline-none focus:text-white -mx-1;
+    --at-apply: text-blue-400 hover:bg-blue-200 hover:text-blue-500 focus:bg-blue-500;
+    --at-apply: flex-shrink-0 h-4 w-4 rounded-full inline-flex items-center justify-center focus:outline-none focus:text-white -mx-1;
   }
   .red .badge-x {
-    @apply text-red-400 hover:bg-red-200 hover:text-red-500 focus:bg-red-500 focus:text-white;
+    --at-apply: text-red-400 hover:bg-red-200 hover:text-red-500 focus:bg-red-500 focus:text-white;
   }
   .orange .badge-x {
-    @apply text-orange-400 hover:bg-orange-200 hover:text-orange-500 focus:bg-orange-500 focus:text-white;
+    --at-apply: text-orange-400 hover:bg-orange-200 hover:text-orange-500 focus:bg-orange-500 focus:text-white;
   }
   .green .badge-x {
-    @apply text-green-400 hover:bg-green-200 hover:text-green-500 focus:bg-green-500 focus:text-white;
+    --at-apply: text-green-400 hover:bg-green-200 hover:text-green-500 focus:bg-green-500 focus:text-white;
   }
   .gray .badge-x {
-    @apply text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:bg-gray-500 focus:text-white;
+    --at-apply: text-gray-400 hover:bg-gray-200 hover:text-gray-500 focus:bg-gray-500 focus:text-white;
   }
 </style>

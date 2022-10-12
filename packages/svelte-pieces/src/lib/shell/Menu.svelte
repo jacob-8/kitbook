@@ -29,11 +29,11 @@ shadow-lg"
 
 <style>
   .sv-menu {
-    @apply py-1 rounded-md bg-white flex flex-col;
+    --at-apply: py-1 rounded-md bg-white flex flex-col;
   }
   :global(.sv-menu a),
   :global(.sv-menu label),
   :global(.sv-menu button) {
-    @apply text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150;
+    --at-apply: text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150;
   }
 </style>

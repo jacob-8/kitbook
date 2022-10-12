@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import './styles/prism-vsc-dark-plus.css';
-  import Windi from './styles/Windi.svelte';
+  import './styles/tw-prose.css';
+
+  import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
   import { parsePages, putPagesIntoFolders, findActivePage } from './sidebar/pages';
@@ -48,4 +49,19 @@
   </div>
 </div>
 
-<Windi />
+<style>
+  :global(pre) {
+    /* ! not working in transformer directives yet */
+    /* --at-apply: !-mx-3 !md:mx-0 !rounded-none !md:rounded-md */
+    margin-left: -0.75rem !important;
+    margin-right: -0.75rem !important;
+    border-radius: 0rem !important;
+  }
+  @media (min-width: 768px) {
+    :global(pre) {
+      margin-left: 0rem !important;
+      margin-right: 0rem !important;
+      border-radius: 0.375rem !important;
+    }
+  }
+</style>

@@ -20,9 +20,9 @@
   div {
     width: 34px;
     height: 34px;
-    @apply rounded-full;
+    --at-apply: rounded-full;
   }
   div {
-    @apply flex items-center justify-center font-semibold bg-gray-100 hover:bg-gray-200 uppercase;
+    --at-apply: flex items-center justify-center font-semibold bg-gray-100 hover:bg-gray-200 uppercase;
   }
 </style>
