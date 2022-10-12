@@ -73,7 +73,7 @@
   button:not(.badge-x),
   div {
     --at-apply: inline-flex items-center py-1 px-2 rounded-md text-xs font-medium;
-    --at-apply: bg-primary-100 text-primary-800;
+    --at-apply: bg-blue-100 text-blue-800;
   }
   .red {
     --at-apply: bg-red-100 text-red-800;
@@ -88,7 +88,7 @@
     --at-apply: bg-gray-100 text-gray-800;
   }
   .badge-x {
-    --at-apply: text-primary-400 hover:bg-primary-200 hover:text-primary-500 focus:bg-primary-500;
+    --at-apply: text-blue-400 hover:bg-blue-200 hover:text-blue-500 focus:bg-blue-500;
     --at-apply: flex-shrink-0 h-4 w-4 rounded-full inline-flex items-center justify-center focus:outline-none focus:text-white -mx-1;
   }
   .red .badge-x {

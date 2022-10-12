@@ -77,7 +77,7 @@
   }
 
   .primary {
-    --at-apply: focus:ring-primary-500 text-primary-700 hover:bg-primary-500 border-primary-500;
+    --at-apply: focus:ring-blue-500 text-blue-700 hover:bg-blue-500 border-blue-500;
   }
   .red {
     --at-apply: focus:ring-red-500 text-red-700 hover:bg-red-500 border-red-500;
@@ -99,7 +99,7 @@
     --at-apply: text-white;
   }
   .filled.primary {
-    --at-apply: bg-primary-600 hover:bg-primary-700;
+    --at-apply: bg-blue-600 hover:bg-blue-700;
   }
   .filled.red {
     --at-apply: bg-red-600 hover:bg-red-700;
