@@ -1,12 +1,31 @@
 <script lang="ts">
   import IntersectionObserver from '$lib/functions/IntersectionObserver.svelte';
+  import IntersectionObserverShared from '$lib/functions/IntersectionObserverShared.svelte';
   import { Story } from 'kitbook';
 </script>
 
 # Intersection Observer
 
-<Story>
+<Story name="single Use">
   <IntersectionObserver let:intersecting>
     {intersecting}
   </IntersectionObserver>
+</Story>
+
+<Story name="shared use">
+  <IntersectionObserverShared let:intersecting>
+    <div style="height: 500px;">
+      {intersecting}
+    </div>
+  </IntersectionObserverShared>
+  <IntersectionObserverShared let:intersecting>
+    <div style="height: 500px;">
+      {intersecting}
+    </div>
+  </IntersectionObserverShared>
+  <IntersectionObserverShared let:intersecting>
+    <div style="height: 500px;">
+      {intersecting}
+    </div>
+  </IntersectionObserverShared>
 </Story>
