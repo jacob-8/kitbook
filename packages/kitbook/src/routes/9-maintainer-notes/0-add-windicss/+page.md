@@ -1,5 +1,9 @@
 # Add Windicss to SvelteKit
 
+*Notice: Kitbook has switched to using UnoCSS, but these notes will remain here for the present until UnoCSS setup notes can be added.*
+
+--------------
+
 [Windicss](https://windicss.org/) lets us use TailwindCSS style utility classes but takes things a step further by allowing us to have all styles scoped to their particular component. This guarantees we'll never have a large bloated CSS file as our web app grows. Sure, some common styles like `.m-1` will be duplicated but that's better than the mental fatigue of trying to decide if it's worth using some obscure class in some obscure component knowing that now every page of the site will have to load down that CSS.
 
 ## Install and Config

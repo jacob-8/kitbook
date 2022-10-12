@@ -1,5 +1,9 @@
 # kitbook
 
+## 0.0.24
+
+- - Switch to using UnoCSS's compiled styles, classes will no longer duplicate with any other CSS framework
+
 ## 0.0.23
 
 - - Improve remark code preview plugin to allow backticks inside a `Story` block

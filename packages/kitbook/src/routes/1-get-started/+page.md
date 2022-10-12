@@ -49,7 +49,7 @@ Add your desired [prism](https://prismjs.com/) theme css to `app.html`. `<link h
 
 ## Add styles that will be used for your components.  
 - This could be as simple as importing a css file in your `__layout.svelte` file depending on how you do styles.
-- Kitbook's components use [Windicss](https://windicss.org/) and [Unocss icons](https://antfu.me/posts/icons-in-pure-css) but you don't need to add these unless you want to use them for your own app's components. See [Add Windicss](/9-maintainer-notes/0-add-windicss) if you'd like to know how to do that. *Skip the Typography/prose parts unless you want to also use those in your components and not just your documentation.*
+- Kitbook's components use [UnoCSS](https://github.com/unocss/unocss) but the classes have already been compiled into hashed names. You can use whatever styles framework you like.
 
 ## Add your first page
 
