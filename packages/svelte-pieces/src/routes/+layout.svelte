@@ -9,3 +9,5 @@
   <!-- <svelte:fragment slot="index"><span class="i-ic-round-home mr-1" /> Svelte Pieces</svelte:fragment> -->
   <slot />
 </Layout>
+
+<style uno:preflights global></style>

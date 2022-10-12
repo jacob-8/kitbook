@@ -35,10 +35,10 @@
 
 {#if open}
   <div
-    class:<sm:block={showWidth === 'sm'}
-    class:<md:block={showWidth === 'md'}
-    class:<lg:block={showWidth === 'lg'}
-    class:<xl:block={showWidth === 'xl'}
+    class:lt-sm:block={showWidth === 'sm'}
+    class:lt-md:block={showWidth === 'md'}
+    class:lt-lg:block={showWidth === 'lg'}
+    class:lt-xl:block={showWidth === 'xl'}
     class="hidden {mobileClasses}"
   >
     <Slideover
