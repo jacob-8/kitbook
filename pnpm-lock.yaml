@@ -92,7 +92,7 @@ importers:
       '@unocss/preset-icons': ^0.45.26
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: 0.0.23
+      kitbook: 0.0.24
       mdsvex: ^0.10.6
       replace-in-file: ^6.3.5
       svelte: ^3.49.0
@@ -116,7 +116,7 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@types/youtube': 0.0.47
       '@unocss/preset-icons': 0.45.26
-      kitbook: 0.0.23_svelte@3.49.0
+      kitbook: 0.0.24_svelte@3.49.0
       mdsvex: 0.10.6_svelte@3.49.0
       replace-in-file: 6.3.5
       svelte: 3.49.0
@@ -2723,6 +2723,20 @@ packages:
     resolution: {integrity: sha512-eE169Tx+fkMOP2cAMJme9WJ2EuWbzp7tRWpeWfWMBUzF3NhIdj+oMo9qBOV+/CemEW3jyzO0s5nZ7RB3imK+aw==}
     dependencies:
       magic-string: 0.26.2
+      prettier: 2.7.1
+      prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
+      prism-svelte: 0.5.0
+      prismjs: 1.29.0
+      svelte-pieces: 1.0.39_svelte@3.49.0
+      unist-util-visit: 4.1.1
+    transitivePeerDependencies:
+      - svelte
+    dev: true
+
+  /kitbook/0.0.24_svelte@3.49.0:
+    resolution: {integrity: sha512-AhqqYzFmQFN/Emb8CyhFIVbRFkUkTvQpNoy3NAtIAs+zn2Y8OdJ0sJbGn7KPVwhyp9hfhr10QmBOodhJsiEBtw==}
+    dependencies:
+      magic-string: 0.26.7
       prettier: 2.7.1
       prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
       prism-svelte: 0.5.0
