@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Layout } from 'kitbook';
-  import 'virtual:windi.css';
 </script>
 
 <Layout

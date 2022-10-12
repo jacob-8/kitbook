@@ -62,6 +62,6 @@
 
 <style>
   header {
-    @apply top-0 left-0 right-0 flex items-center bg-white h-[50px] z-2 whitespace-nowrap;
+    --at-apply: top-0 left-0 right-0 flex items-center bg-white h-[50px] z-2 whitespace-nowrap;
   }
 </style>
