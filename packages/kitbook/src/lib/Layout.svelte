@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { page } from '$app/stores';
   import './styles/prism-vsc-dark-plus.css';
-  import Windi from './styles/Windi.svelte';
+  import './tw-prose.css';
+
+  import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
   import { parsePages, putPagesIntoFolders, findActivePage } from './sidebar/pages';
@@ -48,4 +49,8 @@
   </div>
 </div>
 
-<Windi />
+<style>
+  :global(pre) {
+    --at-apply: !-mx-3 md:!mx-0 !rounded-none md:!rounded-md
+  }
+</style>
