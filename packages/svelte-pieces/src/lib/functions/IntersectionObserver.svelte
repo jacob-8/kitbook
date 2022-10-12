@@ -15,7 +15,7 @@
 
   onMount(() => {
     if (typeof IntersectionObserver !== 'undefined') {
-      const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
+      const rootMargin = `${top}px ${right}px ${bottom}px ${left}px`;
 
       const observer = new IntersectionObserver(
         (entries) => {
