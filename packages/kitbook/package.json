@@ -22,27 +22,27 @@
     "prettier-plugin-svelte": "^2.5.0",
     "prism-svelte": "^0.5.0",
     "prismjs": "^1.29.0",
-    "svelte-pieces": "^1.0.37",
+    "svelte-pieces": "^1.0.44",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
-    "@iconify/json": "^2.1.115",
+    "@iconify/json": "^2.1.121",
     "@sveltejs/adapter-auto": "1.0.0-next.66",
     "@sveltejs/kit": "1.0.0-next.442",
     "@sveltejs/package": "1.0.0-next.1",
+    "@unocss/preset-icons": "^0.45.29",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
-    "@unocss/preset-icons": "^0.45.26",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",
     "svelte-preprocess": "^4.10.7",
     "svelte2tsx": "^0.5.14",
-    "temp-s-p-u": "^0.0.4",
+    "temp-s-p-u": "^0.0.5",
     "tslib": "^2.4.0",
-    "typescript": "~4.8.2",
+    "typescript": "~4.8.4",
     "unocss": "^0.45.29",
     "vite": "^3.0.9",
-    "vitest": "^0.22.1"
+    "vitest": "^0.24.1"
   },
   "repository": {
     "type": "git",

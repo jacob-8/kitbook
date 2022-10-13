@@ -12,7 +12,7 @@ const config = {
   preprocess: [
     preprocess(),
     mdsvex(mdsvexConfig),
-    UnoCSS(),
+    UnoCSS({ options: { classPrefix: 'sp-' } }),
   ],
 
   kit: {
