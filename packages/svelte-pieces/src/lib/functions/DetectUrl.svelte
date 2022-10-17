@@ -2,7 +2,7 @@
   export let string: string;
 
   function prepareDisplay(s: string) {
-    const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    const urlRegex = /^(((https?:\/\/)|(www\.))[^\s]+)/g;
     if (urlRegex.test(s)) {
       return s.replace(/https?:\/\//, '');
     } else {
@@ -11,7 +11,7 @@
   }
 
   function prepareHref(s: string) {
-    const urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+    const urlRegex = /^(((https?:\/\/)|(www\.))[^\s]+)/g;
     if (urlRegex.test(s)) {
       return s.replace(/^www\./, 'http://');
     } else {

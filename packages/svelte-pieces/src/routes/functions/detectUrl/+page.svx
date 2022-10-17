@@ -14,6 +14,9 @@
   <DetectUrl string="Google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>
+  <DetectUrl string="Image Source: Jacob Bowdoin, CC BY-SA 2.5 <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons" let:display let:href>
+    <Badge {href} target="_blank">{display}</Badge>
+  </DetectUrl>
 </Story>
 
 <Story name="http://google.com" showCode>
