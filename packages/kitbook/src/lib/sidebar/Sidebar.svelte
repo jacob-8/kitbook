@@ -42,7 +42,7 @@ focus:text-gray-500 transition ease-in-out duration-150"
     <Folder {folder} {activeURL} {root} {expanded} />
     <slot name="footer" />
 
-    <a href="https://github.com/jacob-8/kitbook" target="_blank" class="ml-3 my-4 block">
+    <a href="https://github.com/jacob-8/kitbook" target="_blank" rel="noopener noreferrer" class="ml-3 my-4 block">
       <span class="text-sm text-gray-400 block mb-1"> Created with </span>
       <img
         alt="Kitbook"

@@ -25,6 +25,7 @@
             {href}
             class="mb-1"
             target="_blank"
+            rel="noopener noreferrer"
             onx={() => {
               strings.splice(i, 1);
               strings = strings;
@@ -59,7 +60,7 @@
   {:else if strings}
     {#each strings as string}
       <DetectUrl {string} let:display let:href>
-        <Badge class="mb-1" {href} target="_blank">
+        <Badge class="mb-1" {href} target="_blank" rel="noopener noreferrer">
           {display}
         </Badge>
         <div class="w-1" />

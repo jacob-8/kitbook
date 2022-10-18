@@ -17,7 +17,7 @@
 </script>
 
 {#if href}
-  <a {href} {target} data-sveltekit-prefetch class:active class="{$$props.class} {size} {color}">
+  <a {href} {target} rel="noopener noreferrer" data-sveltekit-prefetch class:active class="{$$props.class} {size} {color}">
     <slot />
     {#if onx}
       <span class="w-2" />
