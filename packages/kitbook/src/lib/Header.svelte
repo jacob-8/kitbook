@@ -28,6 +28,7 @@
       class="hover:bg-gray-100 p-2 text-lg font-semibold flex items-center rounded"
       href={githubURL}
       target="_blank"
+      rel="noopener noreferrer"
       title="View GitHub Repo"
     >
       <span class="i-mdi-github" />

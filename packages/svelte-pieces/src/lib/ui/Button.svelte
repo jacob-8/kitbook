@@ -36,7 +36,7 @@
     <a
       {href}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       class="{$$props.class} {fill} {size} {color} text-center inline-block"
     >
       <slot />

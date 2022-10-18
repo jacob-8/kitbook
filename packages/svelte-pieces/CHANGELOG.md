@@ -2,6 +2,10 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon.
 
+## 1.0.46
+
+- - Update Button external links to include `noopener noreferrer`
+
 ## 1.0.44
 
 - - Switch to using UnoCSS compiled styles for building components.

@@ -29,6 +29,7 @@
             {href}
             class="mb-1"
             target="_blank"
+            rel="noopener noreferrer"
             onclick={() => dispatch('itemclicked', { value: string, index })}
             onx={strings.length > minimum
               ? () => dispatch('itemremoved', { value: string, index })
@@ -49,7 +50,7 @@
   {:else if strings}
     {#each strings as string}
       <DetectUrl {string} let:display let:href>
-        <Badge class="mb-1" {href} target="_blank">
+        <Badge class="mb-1" {href} target="_blank" rel="noopener noreferrer">
           {display}
         </Badge>
         <div class="w-1" />
