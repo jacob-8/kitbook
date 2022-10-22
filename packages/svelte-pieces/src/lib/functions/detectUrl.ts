@@ -1,4 +1,4 @@
-const urlRegex = /(((https?:\/\/)|(www\.))[^\s>]+[$\w])/g;
+const urlRegex = /(((https?:\/\/)|(www\.))[^\s>]+\w\/?)/g;
 
 export function prepareDisplay(s: string) {
   if (urlRegex.test(s)) {
@@ -18,7 +18,7 @@ export function prepareHref(s: string) {
 }
 
 if (import.meta.vitest) {
-  test('prepareHref handles https, http, www', () => {
+  test('prepareHref finds urls starting with https://, http://, and www.', () => {
     expect(prepareHref('https://google.com')).toMatchInlineSnapshot('"https://google.com"');
     expect(prepareHref('http://google.com')).toMatchInlineSnapshot('"http://google.com"');
     expect(prepareHref('www.google.com')).toMatchInlineSnapshot('"http://google.com"');
@@ -32,10 +32,10 @@ if (import.meta.vitest) {
     ).toMatchInlineSnapshot('"https://creativecommons.org/licenses/by-sa/2.5"');
   });
 
-  test('prepareHref avoid non alpahnumeric characters at the end of the url', () => {
-    expect(prepareHref('https://example.com,')).toMatchInlineSnapshot('"https://example.com"');
-    expect(prepareHref('https://example.com/.')).toMatchInlineSnapshot('"https://example.com"');
-    expect(prepareHref('https://example.com.,´')).toMatchInlineSnapshot('"https://example.com"');
+  test('prepareHref does not capture non alpahnumeric characters at the end of the url except slash (avoids punctuation)', () => {
+    expect(prepareHref('Here is a good site, https://example.com, and you should vist.')).toMatchInlineSnapshot('"https://example.com"');
+    expect(prepareHref('How does this look https://example.com/?')).toMatchInlineSnapshot('"https://example.com/"');
+    expect(prepareHref('https://example.com.,?')).toMatchInlineSnapshot('"https://example.com"');
   });
 
   test('prepareHref handles no match and undefined', () => {
