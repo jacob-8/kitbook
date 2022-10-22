@@ -1,4 +1,4 @@
-const urlRegex = /(((https?:\/\/)|(www\.))[^\s>]+)/g;
+const urlRegex = /(((https?:\/\/)|(www\.))[^\s>]+\w\/?)/g;
 
 export function prepareDisplay(s: string) {
   if (urlRegex.test(s)) {
@@ -18,23 +18,33 @@ export function prepareHref(s: string) {
 }
 
 if (import.meta.vitest) {
-  test('prepareHref handles https, http, www', () => {
-    expect(prepareHref("https://google.com")).toMatchInlineSnapshot('"https://google.com"');
-    expect(prepareHref("http://google.com")).toMatchInlineSnapshot('"http://google.com"');
-    expect(prepareHref("www.google.com")).toMatchInlineSnapshot('"http://google.com"');
+  test('prepareHref finds urls starting with https://, http://, and www.', () => {
+    expect(prepareHref('https://google.com')).toMatchInlineSnapshot('"https://google.com"');
+    expect(prepareHref('http://google.com')).toMatchInlineSnapshot('"http://google.com"');
+    expect(prepareHref('www.google.com')).toMatchInlineSnapshot('"http://google.com"');
   });
 
   test('prepareHref handles urls inside strings, inside brackets, and returns 1st url if 2 found', () => {
-    expect(prepareHref("Source: <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons, http://google.com")).toMatchInlineSnapshot('"https://creativecommons.org/licenses/by-sa/2.5"');
+    expect(
+      prepareHref(
+        'Source: <https://creativecommons.org/licenses/by-sa/2.5>, via Wikimedia Commons, http://google.com'
+      )
+    ).toMatchInlineSnapshot('"https://creativecommons.org/licenses/by-sa/2.5"');
+  });
+
+  test('prepareHref does not capture non alpahnumeric characters at the end of the url except slash (avoids punctuation)', () => {
+    expect(prepareHref('Here is a good site, https://example.com, and you should vist.')).toMatchInlineSnapshot('"https://example.com"');
+    expect(prepareHref('How does this look https://example.com/?')).toMatchInlineSnapshot('"https://example.com/"');
+    expect(prepareHref('https://example.com.,?')).toMatchInlineSnapshot('"https://example.com"');
   });
 
   test('prepareHref handles no match and undefined', () => {
-    expect(prepareHref("Foo")).toMatchInlineSnapshot('null');
+    expect(prepareHref('Foo')).toMatchInlineSnapshot('null');
     expect(prepareHref(undefined)).toMatchInlineSnapshot('null');
   });
-  
+
   test('prepareDisplay handles no match', () => {
-    expect(prepareDisplay("Foo")).toMatchInlineSnapshot('"Foo"');
+    expect(prepareDisplay('Foo')).toMatchInlineSnapshot('"Foo"');
     expect(prepareDisplay(undefined)).toMatchInlineSnapshot('undefined');
   });
 }
