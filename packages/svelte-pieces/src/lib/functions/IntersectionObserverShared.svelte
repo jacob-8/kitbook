@@ -45,10 +45,6 @@
             for (var entry of entries) {
               const callback = mapping.get(entry.target);
               callback && callback(entry.isIntersecting);
-              
-              if (intersecting && once) {
-                remove(container);
-              }
             }
           },
           {
@@ -84,6 +80,7 @@
 
   const dispatch = createEventDispatcher<{ intersected: null; hidden: null }>();
   $: if (intersecting === true) {
+    once && remove(container);
     dispatch('intersected');
     if (intervalMs) {
       interval = setInterval(() => {
