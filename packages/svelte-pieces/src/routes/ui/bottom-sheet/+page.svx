@@ -33,7 +33,7 @@
     <Button size="sm" onclick={() => set('contentHeight', 100)} active={contentHeight === 100}
       >Short Content</Button
     >
-    {#if !show}
+    {#if show}
       <BottomSheet on:close={toggle} {max} {start} {duration}>
         <div slot="header">
           Title
@@ -67,7 +67,20 @@
   </ShowHide>
 </Story>
 
+<Story name="set pixels">
+  <ShowHide let:show let:toggle>
+    <Button size="sm" onclick={toggle} form="filled">Toggle Show</Button>
+    {#if show}
+      <BottomSheet startType="pixels" start={400} on:close={toggle}>
+        <p class="bg-gray-100" style="height: 250px">Content</p>
+      </BottomSheet>
+    {/if}
+  </ShowHide>
+</Story>
+
 <!-- prettier-ignore -->
+
+## Notes
 - ~~auto-resizes to fit content, up until max or start value (whichever is the larger restriction in terms of percentage distance from top)~~ (janky on mobile, but see BottomSheet.svelte file history if ever wanting to look at the code)
 - It doesn't make sense to set the start to a greater value than max.
 - Press escape to close
@@ -79,6 +92,3 @@
 - splitpane 
 - hammerJS 
 - [interact.js](https://github.com/taye/interact.js)
-
-## Possibilities
-- handle back button to close?

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { spring } from 'svelte/motion';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import IntersectionObserver from '../functions/IntersectionObserver.svelte';
   const dispatch = createEventDispatcher();
   const close = () => dispatch('close');
@@ -12,9 +12,16 @@
   export let max = 10; // top: __% value so 0 is top of window, 100 is bottom.
   export let min = 85;
   export let start = 40;
+  export let startType: 'percentage' | 'pixels' = 'percentage';
   let top = spring(start);
-
   let innerHeight = 500;
+
+  onMount(() => {
+    if (startType === 'pixels') {
+      const _top = 100 - (start / innerHeight) * 100;
+      top = spring(Math.max(max, _top));
+    }
+  });
 
   let firstTouchY: number;
   let previousY: number;
