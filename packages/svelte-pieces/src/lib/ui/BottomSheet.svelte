@@ -99,13 +99,11 @@
     <div class="overflow-y-auto" on:touchmove|stopPropagation={(e) => touchMove(e, true)}>
       <div class="p-2">
         <IntersectionObserver
-          heightPercentage={0}
           on:intersected={() => (contentScrolledTop = true)}
           on:hidden={() => (contentScrolledTop = false)}
         />
         <slot />
         <IntersectionObserver
-          heightPercentage={0}
           on:intersected={() => (contentScrolledBottom = true)}
           on:hidden={() => (contentScrolledBottom = false)}
         />

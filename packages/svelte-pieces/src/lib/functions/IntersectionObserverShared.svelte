@@ -2,7 +2,7 @@
   // learned how to implement a single observer from https://www.bennadel.com/blog/3954-intersectionobserver-api-performance-many-vs-shared-in-angular-11-0-5.htm
   let observer: IntersectionObserver;
 
-  // As each element registers with the observer, we map Elements to Callbacks so when an element's intersection changes can invoke its callback
+  // As each element registers with the observer, map Elements to Callbacks so when an element's intersection changes its callback is invoked
   const mapping = new Map();
 
   function add(element: HTMLDivElement, callback: Function) {
@@ -28,6 +28,8 @@
   export let left = 0;
   export let right = 0;
   export let threshold = 0;
+  export let width = 'unset';
+  export let height = 'unset';
 
   let intersecting = false;
   let container: HTMLDivElement;
@@ -100,6 +102,6 @@
 </script>
 
 <!-- Could use a span and container.firstElementChild as another option if divs break page flow -->
-<div bind:this={container}>
+<div style="width: {width}; height: {height};" bind:this={container}>
   <slot {intersecting} />
 </div>
