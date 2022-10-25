@@ -28,7 +28,6 @@
   export let left = 0;
   export let right = 0;
   export let threshold = 0;
-  export let heightPercentage = 100;
 
   let intersecting = false;
   let container: HTMLDivElement;
@@ -42,7 +41,6 @@
         observer = new IntersectionObserver(
           (entries) => {
             for (var entry of entries) {
-              console.log({ entry });
               const callback = mapping.get(entry.target);
               callback && callback(entry.isIntersecting);
               
@@ -59,8 +57,6 @@
       }
 
       add(container, (isIntersecting: boolean) => {
-        console.log({container});
-        console.log({isIntersecting});
         intersecting = isIntersecting;
       });
 
@@ -103,6 +99,7 @@
   });
 </script>
 
-<div style="width: 100%; height: {heightPercentage}%;" bind:this={container}>
+<!-- Could use a span and container.firstElementChild as another option if divs break page flow -->
+<div bind:this={container}>
   <slot {intersecting} />
 </div>
