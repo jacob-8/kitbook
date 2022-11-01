@@ -2,6 +2,10 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum.
 
+## 1.0.52
+
+- - Add `modified` event to `<ReactiveSet>`
+
 ## 1.0.51
 
 - - Add `<DataList>` component to allow for usage of a restricted DataList that can exclude addition of custom write-ins
