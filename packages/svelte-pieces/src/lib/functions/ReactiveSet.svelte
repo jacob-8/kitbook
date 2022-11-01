@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{
-    modified: Set<T>;
+    modified: T[];
   }>();
 
   import { readable } from 'svelte/store';
@@ -24,13 +24,13 @@
   function add(item: T) {
     set.add(item);
     set = set;
-    dispatch('modified', set);
+    dispatch('modified', Array.from(set));
   }
 
   function remove(item: T) {
     set.delete(item);
     set = set;
-    dispatch('modified', set);
+    dispatch('modified', Array.from(set));
   }
 </script>
 
