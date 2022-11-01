@@ -1,9 +1,10 @@
-<script lang="javascript">
+<script>
   import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
   export let value = [];
   export let readonly = false;
-  export let placeholder = '';
+  export let placeholder = 'Select';
+  export let first = false;
 
   $: calculatedPlaceholder = value && value.length ? '' : placeholder;
 
@@ -13,7 +14,6 @@
     activeOption,
     showOptions = false,
     selected = {},
-    first = true,
     slot;
 
   onMount(() => {

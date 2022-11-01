@@ -5,7 +5,7 @@
 
   export let strings: string[] = [],
     canEdit = false,
-    addMessage: string,
+    addMessage = 'Add',
     minimum = 0;
 
   $: if (typeof strings === 'string') {

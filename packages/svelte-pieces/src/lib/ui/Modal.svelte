@@ -4,7 +4,7 @@
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   import { fade } from 'svelte/transition';
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{ close: boolean }>();
   const close = () => dispatch('close');
 
   export let noscroll = false;
