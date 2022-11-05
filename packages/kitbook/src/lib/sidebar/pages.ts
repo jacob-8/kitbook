@@ -29,12 +29,10 @@ export function parsePath(path: string) {
 }
 
 export function parsePages(modules: Modules): Page[] {
+  console.log(modules)
   const paths = Object.keys(modules);
-  if (!paths.length) {
-    throw new Error(
-      'Did not find any modules (page files in your routes directory) that match your "import.meta.glob" pattern. Have you added any pages in your routes directory yet with an extension matching your glob pattern? The default pattern is "./**/*.{md,svx}"'
-    );
-  }
+  if (!paths.length) return []
+
   const pagePaths = paths.filter((path) => path.indexOf('+page') > -1);
   const pages = pagePaths.map((path) => {
     const { dir, name, ext } = parsePath(path);
@@ -53,7 +51,6 @@ export function parsePages(modules: Modules): Page[] {
 }
 
 export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
-  if (!pagesToOrganize) throw new Error('No pages found ending in +page.{md,svx,chosen-extension} found');
   const rootFolder: Folder = {
     name: '.',
     url: '/',
@@ -61,6 +58,9 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
     folders: [],
     pages: [],
   };
+  return rootFolder;
+
+  if (!pagesToOrganize?.length) return rootFolder;
   pagesToOrganize.forEach((page) => {
     const path = page.url.split('/');
     let currentFolder = rootFolder;
@@ -92,11 +92,11 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
   return rootFolder;
 }
 
-export function findActivePage(pages: Page[], urlPathname: string): Page {
-  const activePage = pages.find((page) => {
-    const regex = new RegExp(`${page.url}$`);
-    return regex.test(urlPathname);
-  });
-  if (activePage) return activePage;
-  return pages.find((page) => page.url === '/');
-}
+// export function findActivePage(pages: Page[], urlPathname: string): Page {
+//   const activePage = pages.find((page) => {
+//     const regex = new RegExp(`${page.url}$`);
+//     return regex.test(urlPathname);
+//   });
+//   if (activePage) return activePage;
+//   return pages.find((page) => page.url === '/');
+// }

@@ -5,16 +5,15 @@
   import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
-  import { parsePages, putPagesIntoFolders, findActivePage } from './sidebar/pages';
+  import { parsePages, putPagesIntoFolders } from './sidebar/pages';
 
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
   export let expanded = false;
+  export let root = '/kitbook';
 
-  $: root = $page.data.kitbook.root;
-  $: pages = parsePages($page.data.kitbook.modules);
+  $: pages = parsePages($page.data.modules);
   $: folder = putPagesIntoFolders(pages);
-  $: activePage = findActivePage(pages, $page.url.pathname);
   $: activeURL = $page.url.pathname;
 
   let showSidebar = false;
@@ -35,17 +34,6 @@
 
     <div class="tw-prose max-w-full w-[90ch] p-3 pb-16">
       <slot />
-
-      {#if githubURL}
-        <a
-          href={githubURL + '/src/routes' + (root || '') + activePage.path.substring(1)}
-          class="text-blue-500 hover:text-blue-600 flex items-center my-5"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span class="i-iconoir-page-edit text-lg mr-1" />Edit page on GitHub</a
-        >
-      {/if}
     </div>
   </div>
 </div>
