@@ -1,5 +1,93 @@
 // Vitest Snapshot v1
 
+exports[`combineModulesIntoPages properly combines Pages 1`] = `
+[
+  {
+    "name": "README",
+    "storyModulePath": "/README.md",
+    "url": "/README",
+  },
+  {
+    "name": "why kitbook",
+    "storyModulePath": "/src/docs/0-why-kitbook.md",
+    "url": "/docs/0-why-kitbook",
+  },
+  {
+    "name": "get started",
+    "storyModulePath": "/src/docs/1-get-started.md",
+    "url": "/docs/1-get-started",
+  },
+  {
+    "name": "index",
+    "storyModulePath": "/src/docs/index.md",
+    "url": "/docs/index",
+  },
+  {
+    "name": "unocss",
+    "storyModulePath": "/src/docs/my-notes/0-unocss.md",
+    "url": "/docs/my-notes/0-unocss",
+  },
+  {
+    "name": "deploy to vercel",
+    "storyModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
+    "url": "/docs/my-notes/1-deploy-to-vercel",
+  },
+  {
+    "componentModulePath": "/src/lib/A.svelte",
+    "name": "A",
+    "url": "/lib/A",
+  },
+  {
+    "componentModulePath": "/src/lib/B.svelte",
+    "name": "B",
+    "storyModulePath": "/src/lib/B.svx",
+    "url": "/lib/B",
+  },
+  {
+    "componentModulePath": "/src/lib/a/C.svelte",
+    "name": "C",
+    "url": "/lib/a/C",
+    "variantsModulePath": "/src/lib/a/C.variants.ts",
+  },
+  {
+    "componentModulePath": "/src/lib/a/D.svelte",
+    "name": "D",
+    "storyModulePath": "/src/lib/a/D.svx",
+    "url": "/lib/a/D",
+    "variantsModulePath": "/src/lib/a/D.variants.ts",
+  },
+  {
+    "name": "E",
+    "storyModulePath": "/src/lib/E.svx",
+    "url": "/lib/E",
+  },
+  {
+    "componentModulePath": "/src/routes/+page.svelte",
+    "name": "page",
+    "url": "/routes/+page",
+  },
+  {
+    "componentModulePath": "/src/routes/a/+page.svelte",
+    "name": "page",
+    "storyModulePath": "/src/routes/a/_page.svx",
+    "url": "/routes/a/+page",
+  },
+  {
+    "componentModulePath": "/src/routes/b/+page.svelte",
+    "name": "page",
+    "url": "/routes/b/+page",
+    "variantsModulePath": "/src/routes/b/_page.variants.ts",
+  },
+  {
+    "componentModulePath": "/src/routes/c/+page.svelte",
+    "name": "page",
+    "storyModulePath": "/src/routes/c/_page.svx",
+    "url": "/routes/c/+page",
+    "variantsModulePath": "/src/routes/c/_page.variants.ts",
+  },
+]
+`;
+
 exports[`parseModules properly returns array of Pages 1`] = `
 [
   {
@@ -94,49 +182,49 @@ exports[`parseModules properly returns array of Pages 1`] = `
   },
   {
     "ext": "svelte",
-    "name": "+page",
+    "name": "page",
     "path": "/src/routes/+page.svelte",
     "url": "/routes/+page",
   },
   {
     "ext": "svelte",
-    "name": "+page",
+    "name": "page",
     "path": "/src/routes/a/+page.svelte",
     "url": "/routes/a/+page",
   },
   {
     "ext": "svx",
-    "name": "_page",
+    "name": "page",
     "path": "/src/routes/a/_page.svx",
     "url": "/routes/a/_page",
   },
   {
     "ext": "svelte",
-    "name": "+page",
+    "name": "page",
     "path": "/src/routes/b/+page.svelte",
     "url": "/routes/b/+page",
   },
   {
     "ext": "variants.ts",
-    "name": "_page",
+    "name": "page",
     "path": "/src/routes/b/_page.variants.ts",
     "url": "/routes/b/_page",
   },
   {
     "ext": "svelte",
-    "name": "+page",
+    "name": "page",
     "path": "/src/routes/c/+page.svelte",
     "url": "/routes/c/+page",
   },
   {
     "ext": "svx",
-    "name": "_page",
+    "name": "page",
     "path": "/src/routes/c/_page.svx",
     "url": "/routes/c/_page",
   },
   {
     "ext": "variants.ts",
-    "name": "_page",
+    "name": "page",
     "path": "/src/routes/c/_page.variants.ts",
     "url": "/routes/c/_page",
   },
@@ -162,15 +250,13 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "name": "my notes",
           "pages": [
             {
-              "ext": "md",
               "name": "unocss",
-              "path": "/src/docs/my-notes/0-unocss.md",
+              "storyModulePath": "/src/docs/my-notes/0-unocss.md",
               "url": "/docs/my-notes/0-unocss",
             },
             {
-              "ext": "md",
               "name": "deploy to vercel",
-              "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
+              "storyModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
               "url": "/docs/my-notes/1-deploy-to-vercel",
             },
           ],
@@ -180,21 +266,18 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
       "name": "docs",
       "pages": [
         {
-          "ext": "md",
           "name": "why kitbook",
-          "path": "/src/docs/0-why-kitbook.md",
+          "storyModulePath": "/src/docs/0-why-kitbook.md",
           "url": "/docs/0-why-kitbook",
         },
         {
-          "ext": "md",
           "name": "get started",
-          "path": "/src/docs/1-get-started.md",
+          "storyModulePath": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
         {
-          "ext": "md",
           "name": "index",
-          "path": "/src/docs/index.md",
+          "storyModulePath": "/src/docs/index.md",
           "url": "/docs/index",
         },
       ],
@@ -209,34 +292,17 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "name": "a",
           "pages": [
             {
-              "ext": "svelte",
+              "componentModulePath": "/src/lib/a/C.svelte",
               "name": "C",
-              "path": "/src/lib/a/C.svelte",
               "url": "/lib/a/C",
+              "variantsModulePath": "/src/lib/a/C.variants.ts",
             },
             {
-              "ext": "variants.ts",
-              "name": "C",
-              "path": "/src/lib/a/C.variants.ts",
-              "url": "/lib/a/C",
-            },
-            {
-              "ext": "svelte",
+              "componentModulePath": "/src/lib/a/D.svelte",
               "name": "D",
-              "path": "/src/lib/a/D.svelte",
+              "storyModulePath": "/src/lib/a/D.svx",
               "url": "/lib/a/D",
-            },
-            {
-              "ext": "svx",
-              "name": "D",
-              "path": "/src/lib/a/D.svx",
-              "url": "/lib/a/D",
-            },
-            {
-              "ext": "variants.ts",
-              "name": "D",
-              "path": "/src/lib/a/D.variants.ts",
-              "url": "/lib/a/D",
+              "variantsModulePath": "/src/lib/a/D.variants.ts",
             },
           ],
           "url": "/lib/a",
@@ -245,34 +311,20 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
       "name": "lib",
       "pages": [
         {
-          "ext": "svelte",
+          "componentModulePath": "/src/lib/A.svelte",
           "name": "A",
-          "path": "/src/lib/A.svelte",
           "url": "/lib/A",
         },
         {
-          "ext": "svelte",
+          "componentModulePath": "/src/lib/B.svelte",
           "name": "B",
-          "path": "/src/lib/B.svelte",
+          "storyModulePath": "/src/lib/B.svx",
           "url": "/lib/B",
         },
         {
-          "ext": "svx",
-          "name": "B",
-          "path": "/src/lib/B.svx",
-          "url": "/lib/B",
-        },
-        {
-          "ext": "svx",
           "name": "E",
-          "path": "/src/lib/E.svx",
+          "storyModulePath": "/src/lib/E.svx",
           "url": "/lib/E",
-        },
-        {
-          "ext": "foo.svelte",
-          "name": "A",
-          "path": "/src/lib/A.foo.svelte",
-          "url": "/lib/A",
         },
       ],
       "url": "/lib",
@@ -286,16 +338,10 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "name": "a",
           "pages": [
             {
-              "ext": "svelte",
-              "name": "+page",
-              "path": "/src/routes/a/+page.svelte",
+              "componentModulePath": "/src/routes/a/+page.svelte",
+              "name": "page",
+              "storyModulePath": "/src/routes/a/_page.svx",
               "url": "/routes/a/+page",
-            },
-            {
-              "ext": "svx",
-              "name": "_page",
-              "path": "/src/routes/a/_page.svx",
-              "url": "/routes/a/_page",
             },
           ],
           "url": "/routes/a",
@@ -306,16 +352,10 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "name": "b",
           "pages": [
             {
-              "ext": "svelte",
-              "name": "+page",
-              "path": "/src/routes/b/+page.svelte",
+              "componentModulePath": "/src/routes/b/+page.svelte",
+              "name": "page",
               "url": "/routes/b/+page",
-            },
-            {
-              "ext": "variants.ts",
-              "name": "_page",
-              "path": "/src/routes/b/_page.variants.ts",
-              "url": "/routes/b/_page",
+              "variantsModulePath": "/src/routes/b/_page.variants.ts",
             },
           ],
           "url": "/routes/b",
@@ -326,22 +366,11 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "name": "c",
           "pages": [
             {
-              "ext": "svelte",
-              "name": "+page",
-              "path": "/src/routes/c/+page.svelte",
+              "componentModulePath": "/src/routes/c/+page.svelte",
+              "name": "page",
+              "storyModulePath": "/src/routes/c/_page.svx",
               "url": "/routes/c/+page",
-            },
-            {
-              "ext": "svx",
-              "name": "_page",
-              "path": "/src/routes/c/_page.svx",
-              "url": "/routes/c/_page",
-            },
-            {
-              "ext": "variants.ts",
-              "name": "_page",
-              "path": "/src/routes/c/_page.variants.ts",
-              "url": "/routes/c/_page",
+              "variantsModulePath": "/src/routes/c/_page.variants.ts",
             },
           ],
           "url": "/routes/c",
@@ -350,9 +379,8 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
       "name": "routes",
       "pages": [
         {
-          "ext": "svelte",
-          "name": "+page",
-          "path": "/src/routes/+page.svelte",
+          "componentModulePath": "/src/routes/+page.svelte",
+          "name": "page",
           "url": "/routes/+page",
         },
       ],
@@ -362,9 +390,8 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
   "name": ".",
   "pages": [
     {
-      "ext": "md",
       "name": "README",
-      "path": "/README.md",
+      "storyModulePath": "/README.md",
       "url": "/README",
     },
   ],

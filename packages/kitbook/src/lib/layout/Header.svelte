@@ -3,7 +3,7 @@
   export let showSidebar = false;
   export let githubURL: string = undefined;
   export let activeURL: string;
-  export let root = '/';
+  export let root: string;
 </script>
 
 <header class="top-0 z-10 sticky flex p-1 bg-white border-b border-gray-300">

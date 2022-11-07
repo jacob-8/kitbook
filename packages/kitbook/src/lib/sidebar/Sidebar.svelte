@@ -4,7 +4,7 @@
   import type { Folder as FolderType } from '../layout/pages';
   export let folder: FolderType;
   export let activeURL: string;
-  export let root = '/';
+  export let root: string;
   export let showSidebar = false;
   export let title = 'Kitbook';
   export let expanded = false;

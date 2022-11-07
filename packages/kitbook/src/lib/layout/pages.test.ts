@@ -51,10 +51,10 @@ test('parseModules properly returns array of Pages', () => {
   expect(parseModules(modules)).toMatchSnapshot();
 });
 
-// test('combineModulesIntoPages properly combines Pages', () => {
-//   const pages = parseModules(modules);
-//   expect(combineModulesIntoPages(pages)).toMatchSnapshot();
-// });
+test('combineModulesIntoPages properly combines Pages', () => {
+  const pages = parseModules(modules);
+  expect(combineModulesIntoPages(pages)).toMatchSnapshot();
+});
 
 test('putPagesIntoFolders organizes Pages into proper folders', () => {
   const pages = parseModules(modules);
@@ -88,14 +88,14 @@ test('parsePath parses path correctly', () => {
     {
       "dir": "routes/a/",
       "ext": "svelte",
-      "name": "+page",
+      "name": "page",
     }
   `);
   expect(parsePath('/src/routes/a/_page.variants.ts')).toMatchInlineSnapshot(`
     {
       "dir": "routes/a/",
       "ext": "variants.ts",
-      "name": "_page",
+      "name": "page",
     }
   `);
 });

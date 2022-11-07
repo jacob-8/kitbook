@@ -3,6 +3,7 @@
 ## Important before considering this a publicly shareable project
 *(you have been warned, early-adopters)*
 
+- debug why root is not being passed down
 - Add component docs with sveld
 - Easily adjust screen size use full-screen view
 - Next and Previous pages (see Docusaurus/Vitebook)
@@ -16,7 +17,7 @@
 ## Nice to Have
 - solve over-applied global scrollbar css
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
-- use `import?raw` to pass in component's code to view in a story
+- pass in component's code to view in a story
 - consider setting up an options object that can be passed to kitbook via stuff to make future additions easy to implement
   - for example: optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - could refactor to use activePage instead of activeUrl to make code simpler

@@ -6,19 +6,15 @@ export type Folder = {
   pages?: Page[];
 };
 
-// create 1 page, show any stories/docs first, then default component view, then any variants
 export type Page = {
   name: string;
-  ext: string;
-  path: string;
   url: string;
-  // type?: 'story' | 'component' | 'page' | 'variants';
-  // 1st check for story/docs (md/svx)
+  ext?: string;
+  path?: string;
+  // organize sibling modules into 1 page, show stories/docs first, then default component view, then variants
   storyModulePath?: string;
-  // 2nd check for component or page (svelte)
   componentModulePath?: string;
   pageModulePath?: string;
-  // 3rd check for variants (variants.ts)
   variantsModulePath?: string;
 };
 
@@ -31,7 +27,7 @@ function removeInitialDigitAndHyphens(string: string) {
 export function parsePath(path: string) {
   if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
 
-  const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
+  const match = path.match(/^\/src\/(.*\/)[+_]?(.+?)\.(.+)$/);
   if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure your Kitbook Layout Load import meta glob starts with '/src/**'`);
   const [, dir, name, ext] = match;
   return { dir, name, ext };
@@ -60,9 +56,27 @@ export function parseModules(modules: Modules, root = '/kitbook'): Page[] {
 }
 
 export function combineModulesIntoPages(uncombined: Page[]): Page[] {
-  return uncombined;
+  const combined: Record<string, Page> = {};
+
+  for (const page of uncombined) {
+    const url = page.url.replace(/[+_]?page/, 'page'); // strip page prefixes for merging
+    if (!combined[url])
+      combined[url] = { name: page.name, url: page.url }
+
+    // Will skip files not matching expected extensions, e.g. /src/A/Bar.foo.svelte
+    if (['md', 'svx'].includes(page.ext)) {
+      combined[url].storyModulePath = page.path
+    } else if (page.name === '+page') {
+      combined[url].pageModulePath = page.path
+    } else if (page.ext === 'svelte') {
+      combined[url].componentModulePath = page.path
+    } else if (page.ext === 'variants.ts') {
+      combined[url].variantsModulePath = page.path
+    }
+  }
+
+  return Object.values(combined);
 }
-// Will skip file if an unexpected additional . is found in file name, e.g. /src/A/Bar.foo.svelte
 
 export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
   const rootFolder: Folder = {

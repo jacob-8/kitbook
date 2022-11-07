@@ -4,10 +4,10 @@
 
   export let folder: Folder;
   export let activeURL: string;
-  export let root = "/";
+  export let root: string;
   export let expanded = false;
-  
-  const isRootFolder = folder.name === '.'
+
+  const isRootFolder = folder.name === '.';
   let actualExpandedState = activeURL.indexOf(folder.url) !== -1 || expanded;
   $: active = activeURL.indexOf(folder.url) !== -1;
 </script>
