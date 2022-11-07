@@ -1,144 +1,196 @@
-import { parsePages, putPagesIntoFolders, parsePath } from "./pages";
+import { parseModules, putPagesIntoFolders, parsePath } from "./pages";
 
 const modules = {
-  svxModules: {
-    '/src/docs/0-why-kitbook.md': () => Promise.resolve({}),
-    '/src/docs/1-get-started.md': () => Promise.resolve({}),
-    '/src/docs/2-add-stories.md': () => Promise.resolve({}),
-    '/src/docs/3-examples.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/0-add-windicss.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/2-add-vitest.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/3-contributing.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/4-todo.md': () => Promise.resolve({}),
-    '/src/docs/9-maintainer-notes/5-inspiration.md': () => Promise.resolve({}),
-    '/src/docs/index.md': () => Promise.resolve({}),
-    '/src/lib/Layout.svx': () => Promise.resolve({}),
-    '/src/lib/sidebar/Sidebar.svx': () => Promise.resolve({}),
-    '/src/lib/stories/Knobs.svx': () => Promise.resolve({}),
-    '/src/lib/stories/Story.svx': () => Promise.resolve({})
-  },
-  componentModules: {
-    '/src/lib/Header.svelte': () => Promise.resolve({}),
-    '/src/lib/Layout.svelte': () => Promise.resolve({}),
-    '/src/lib/plugins/input/Backticks.svelte': () => Promise.resolve({}),
-    '/src/lib/plugins/output/Backticks.svelte': () => Promise.resolve({}),
-    '/src/lib/sidebar/Folder.svelte': () => Promise.resolve({}),
-    '/src/lib/sidebar/Page.svelte': () => Promise.resolve({}),
-    '/src/lib/sidebar/Sidebar.svelte': () => Promise.resolve({}),
-    '/src/lib/stories/Knobs.svelte': () => Promise.resolve({}),
-    '/src/lib/stories/Story.svelte': () => Promise.resolve({})
-  }
+  // markdown docs
+  '/src/docs/0-why-kitbook.md': () => Promise.resolve({}),
+  '/src/docs/1-get-started.md': () => Promise.resolve({}),
+  '/src/docs/maintainer-notes/0-unocss.md': () => Promise.resolve({}),
+  '/src/docs/maintainer-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
+  '/src/docs/index.md': () => Promise.resolve({}),
+  
+  // components
+  '/src/lib/Header.svelte': () => Promise.resolve({}), // by itself
+
+  '/src/lib/Layout.svelte': () => Promise.resolve({}), // with svx
+  '/src/lib/Layout.svx': () => Promise.resolve({}),
+
+  '/src/lib/sidebar/Folder.svelte': () => Promise.resolve({}), // with variants
+  '/src/lib/sidebar/Folder.variants.ts': () => Promise.resolve({}),
+  
+  '/src/lib/sidebar/Sidebar.svelte': () => Promise.resolve({}), // with svx and variants
+  '/src/lib/sidebar/Sidebar.svx': () => Promise.resolve({}),
+  '/src/lib/sidebar/Sidebar.variants.ts': () => Promise.resolve({}),
+  
+  '/src/lib/sidebar/Page.svelte': () => Promise.resolve({}),
+  
+  // page data variants
+  '/src/routes/+page.svelte': () => Promise.resolve({}),
+  '/src/routes/_page.variants.ts': () => Promise.resolve({}),
+  '/src/routes/a/+page.svelte': () => Promise.resolve({}),
+  '/src/routes/a/_page.variants.ts': () => Promise.resolve({}),
+  
+  // ignore layout files
+  '/src/routes/+layout.svelte': () => Promise.resolve({}), 
+  // ignore kitbook route files
+  '/src/routes/kitbook/+layout.svelte': () => Promise.resolve({}),
+  '/src/routes/kitbook/[...file]/+page.svelte': () => Promise.resolve({}),
+  '/src/routes/kitbook/sandbox/[...id]/+page@.svelte': () => Promise.resolve({})
 }
 
-// const modules = {
-//   './9-privacy-policy/+page.md': () => Promise.resolve({}),
-//   './0-get-started/+page.md': () => Promise.resolve({}),
-//   './0-components/0-Button/+page.svelte': () => Promise.resolve({}),
-//   './0-components/1-Switch/+page.svelte': () => Promise.resolve({}),
-//   './0-components/0-ui/0-Button/+page.svelte': () => Promise.resolve({}),
-//   './0-components/play-audio-section/+page.svelte': () => Promise.resolve({}), // test this to remove section hyphen
-//   './3-examples/+page.md': () => Promise.resolve({}),
-//   './[reference]/+layout.svelte': () => Promise.resolve({}),
-//   './a/b/c-d/e/+page.svelte': () => Promise.resolve({}),
-//   './a/b/c-d/f/+page.svelte': () => Promise.resolve({}),
-//   './+page.md': () => Promise.resolve({}),
-// };
-const pages = parsePages(modules);
-
-test('putPagesIntoFolders organizes pages into proper folders based on dir', () => {
+test('putPagesIntoFolders organizes pages into proper folders', () => {
+  const pages = parseModules(modules);
   expect(putPagesIntoFolders(pages)).toMatchSnapshot();
 });
 
-test('parsePages properly returns array of Page objects', () => {
-  expect(parsePages(modules)).toMatchInlineSnapshot(`
+test('parseModules properly returns array of Page objects', () => {
+  expect(parseModules(modules)).toMatchInlineSnapshot(`
     [
       {
         "ext": "md",
-        "name": "index",
-        "path": "./+page.md",
-        "url": "/",
-      },
-      {
-        "ext": "md",
-        "name": "privacy policy",
-        "path": "./9-privacy-policy/+page.md",
-        "url": "/9-privacy-policy",
+        "name": "why kitbook",
+        "path": "/src/docs/0-why-kitbook.md",
+        "url": "docs/",
       },
       {
         "ext": "md",
         "name": "get started",
-        "path": "./0-get-started/+page.md",
-        "url": "/0-get-started",
-      },
-      {
-        "ext": "svelte",
-        "name": "Button",
-        "path": "./0-components/0-Button/+page.svelte",
-        "url": "/0-components/0-Button",
-      },
-      {
-        "ext": "svelte",
-        "name": "Switch",
-        "path": "./0-components/1-Switch/+page.svelte",
-        "url": "/0-components/1-Switch",
-      },
-      {
-        "ext": "svelte",
-        "name": "Button",
-        "path": "./0-components/0-ui/0-Button/+page.svelte",
-        "url": "/0-components/0-ui/0-Button",
-      },
-      {
-        "ext": "svelte",
-        "name": "play audio section",
-        "path": "./0-components/play-audio-section/+page.svelte",
-        "url": "/0-components/play-audio-section",
+        "path": "/src/docs/1-get-started.md",
+        "url": "docs/",
       },
       {
         "ext": "md",
-        "name": "examples",
-        "path": "./3-examples/+page.md",
-        "url": "/3-examples",
+        "name": "unocss",
+        "path": "/src/docs/maintainer-notes/0-unocss.md",
+        "url": "docs/maintainer-notes/",
+      },
+      {
+        "ext": "md",
+        "name": "deploy to vercel",
+        "path": "/src/docs/maintainer-notes/1-deploy-to-vercel.md",
+        "url": "docs/maintainer-notes/",
+      },
+      {
+        "ext": "md",
+        "name": "index",
+        "path": "/src/docs/index.md",
+        "url": "docs/",
       },
       {
         "ext": "svelte",
-        "name": "e",
-        "path": "./a/b/c-d/e/+page.svelte",
-        "url": "/a/b/c-d/e",
+        "name": "Header",
+        "path": "/src/lib/Header.svelte",
+        "url": "lib/",
       },
       {
         "ext": "svelte",
-        "name": "f",
-        "path": "./a/b/c-d/f/+page.svelte",
-        "url": "/a/b/c-d/f",
+        "name": "Layout",
+        "path": "/src/lib/Layout.svelte",
+        "url": "lib/",
+      },
+      {
+        "ext": "svx",
+        "name": "Layout",
+        "path": "/src/lib/Layout.svx",
+        "url": "lib/",
+      },
+      {
+        "ext": "svelte",
+        "name": "Folder",
+        "path": "/src/lib/sidebar/Folder.svelte",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "variants.ts",
+        "name": "Folder",
+        "path": "/src/lib/sidebar/Folder.variants.ts",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "svelte",
+        "name": "Sidebar",
+        "path": "/src/lib/sidebar/Sidebar.svelte",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "svx",
+        "name": "Sidebar",
+        "path": "/src/lib/sidebar/Sidebar.svx",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "variants.ts",
+        "name": "Sidebar",
+        "path": "/src/lib/sidebar/Sidebar.variants.ts",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "svelte",
+        "name": "Page",
+        "path": "/src/lib/sidebar/Page.svelte",
+        "url": "lib/sidebar/",
+      },
+      {
+        "ext": "svelte",
+        "name": "+page",
+        "path": "/src/routes/+page.svelte",
+        "url": "routes/",
+      },
+      {
+        "ext": "variants.ts",
+        "name": "_page",
+        "path": "/src/routes/_page.variants.ts",
+        "url": "routes/",
+      },
+      {
+        "ext": "svelte",
+        "name": "+page",
+        "path": "/src/routes/a/+page.svelte",
+        "url": "routes/a/",
+      },
+      {
+        "ext": "variants.ts",
+        "name": "_page",
+        "path": "/src/routes/a/_page.variants.ts",
+        "url": "routes/a/",
       },
     ]
   `);
 });
 
 test('parsePath parses path correctly', () => {
-  expect(parsePath('./a/b/c-d/f/+page.svx')).toMatchInlineSnapshot(`
+  expect(parsePath('/src/docs/0-why-kitbook.md')).toMatchInlineSnapshot(`
     {
-      "dir": "/a/b/c-d/f",
-      "ext": "svx",
-      "name": "f",
+      "dir": "docs/",
+      "ext": "md",
+      "name": "0-why-kitbook",
     }
   `);
-  expect(parsePath('./a/+page.svx')).toMatchInlineSnapshot(`
+  expect(parsePath('/src/docs/index.md')).toMatchInlineSnapshot(`
     {
-      "dir": "/a",
-      "ext": "svx",
-      "name": "a",
-    }
-  `);
-  expect(parsePath('./+page.svx')).toMatchInlineSnapshot(`
-    {
-      "dir": undefined,
-      "ext": "svx",
+      "dir": "docs/",
+      "ext": "md",
       "name": "index",
     }
   `);
+  expect(parsePath('/src/routes/a/+page.svelte')).toMatchInlineSnapshot(`
+    {
+      "dir": "routes/a/",
+      "ext": "svelte",
+      "name": "+page",
+    }
+  `);
+  expect(parsePath('/src/routes/a/_page.variants.ts')).toMatchInlineSnapshot(`
+    {
+      "dir": "routes/a/",
+      "ext": "variants.ts",
+      "name": "_page",
+    }
+  `);
+});
+
+test.skip('throws error upon receiving unusable path', () => {
+  expect(parsePath('+page.ts')).toThrow();
+  // expect(parsePath('+page.ts')).toThrowErrorMatchingInlineSnapshot();
 });
 
 // test('findActivePage returns page that includes current url', () => {

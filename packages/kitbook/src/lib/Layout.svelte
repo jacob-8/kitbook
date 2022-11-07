@@ -5,14 +5,14 @@
   import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
-  import { parsePages, putPagesIntoFolders } from './sidebar/pages';
+  import { parseModules, putPagesIntoFolders } from './sidebar/pages';
 
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
   export let expanded = false;
   export let root = '/kitbook';
 
-  $: pages = parsePages($page.data.modules);
+  $: pages = parseModules($page.data.modules, root);
   $: folder = putPagesIntoFolders(pages);
   $: activeURL = $page.url.pathname;
 

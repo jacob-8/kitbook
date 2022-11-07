@@ -20,21 +20,22 @@ function removeInitialDigitAndHyphens(string: string) {
 }
 
 export function parsePath(path: string) {
-  const [, dir, ext] = path.match(/^\.(.*)*\/\+page\.(.+)$/);
-  if (dir) {
-    return { dir, name: dir.split('/').pop(), ext };
-  } else {
-    return { dir, name: 'index', ext };
-  }
+  const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
+  if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure your Kitbook Layout Load import meta glob starts with '/src/**'`);
+  const [, dir, name, ext] = match;
+  return { dir, name, ext };
 }
 
-export function parsePages(modules: Modules): Page[] {
-  console.log(modules)
-  const paths = Object.keys(modules);
+export function parseModules(modules: Modules, root = '/kitbook'): Page[] {
+  const paths = Object.keys(modules)
+    .filter(p => {
+      return !p.includes(`/src/routes${root}`) &&
+        !p.includes('+layout.svelte')
+    });
+
   if (!paths.length) return []
 
-  const pagePaths = paths.filter((path) => path.indexOf('+page') > -1);
-  const pages = pagePaths.map((path) => {
+  const pages = paths.map((path) => {
     const { dir, name, ext } = parsePath(path);
     return {
       path,
@@ -43,10 +44,6 @@ export function parsePages(modules: Modules): Page[] {
       url: dir || '/',
     };
   });
-  const indexPageIndex = pages.findIndex((page) => page.url === '/');
-  const indexPage = pages.splice(indexPageIndex, 1)[0];
-  pages.unshift(indexPage);
-  // todo sort pages to end if directory undefined
   return pages;
 }
 
