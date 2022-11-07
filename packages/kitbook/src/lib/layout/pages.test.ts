@@ -88,14 +88,14 @@ test('parsePath parses path correctly', () => {
     {
       "dir": "routes/a/",
       "ext": "svelte",
-      "name": "page",
+      "name": "+page",
     }
   `);
   expect(parsePath('/src/routes/a/_page.variants.ts')).toMatchInlineSnapshot(`
     {
       "dir": "routes/a/",
       "ext": "variants.ts",
-      "name": "page",
+      "name": "_page",
     }
   `);
 });

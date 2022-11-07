@@ -29,7 +29,7 @@ function removeInitialDigitAndHyphens(string: string) {
 export function parsePath(path: string) {
   if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
 
-  const match = path.match(/^\/src\/(.*\/)[+_]?(.+?)\.(.+)$/);
+  const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
   if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure your Kitbook Layout Load import meta glob starts with '/src/**'`);
   const [, dir, name, ext] = match;
   return { dir, name, ext };

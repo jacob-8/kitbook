@@ -5,4 +5,8 @@ type SvelteComponentProps<T> = T extends abstract new (
   ? Svelte2TsxComponentConstructorParameters<P>["props"]
   : never;
 
-export type Variants<T> = { name?: string, props: SvelteComponentProps<T> }[]
+export type Variants<T> = {
+  name?: string,
+  description?: string,
+  props: SvelteComponentProps<T>
+}[]

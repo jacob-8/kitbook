@@ -3,15 +3,31 @@
   export let data: PageData;
 </script>
 
-<svelte:component this={data?.component} />
+{#if data?.story}
+  <svelte:component this={data.story} />
+  <pre>{data.storyRaw}</pre>
+{/if}
 
-<pre>{data.raw}</pre>
+<hr />
 
-<!-- If no story yet then show default message on home route on how to create a story. Set up page matcher to show index file, looking first in   -->
+{#if data?.component || data?.page}
+  {#if data?.variants}
+    {#each data.variants as variant}
+      <div>
+        {variant.name}:<br />
+        <svelte:component this={data.component || data.page} {...variant.props} />
+      </div>
+    {/each}
+    <pre>{data.variantsRaw}</pre>
+  {:else}
+    <svelte:component this={data.component || data.page} />
+  {/if}
+  <pre>{data.componentRaw || data.pageRaw}</pre>
+{/if}
 
 <!-- {#if githubURL}
   <a
-    href={githubURL + '/src/routes' + (root || '') + activePage?.path.substring(1)}
+    href={githubURL + '/src/' + (root || '') + activePage?.path.substring(1)}
     class="text-blue-500 hover:text-blue-600 flex items-center my-5"
     target="_blank"
     rel="noopener noreferrer"

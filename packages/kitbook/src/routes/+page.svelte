@@ -4,5 +4,5 @@
   export let data: PageData;
 </script>
 
-Welcome {data.name}<br />
+Welcome {data?.name}<br />
 <a href="/kitbook">Kitbook</a>
