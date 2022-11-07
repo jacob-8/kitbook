@@ -1,11 +1,11 @@
 <script lang="ts">
-  import './styles/prism-vsc-dark-plus.css';
-  import './styles/tw-prose.css';
+  import '../styles/prism-vsc-dark-plus.css';
+  import '../styles/tw-prose.css';
 
   import { page } from '$app/stores';
   import Header from './Header.svelte';
-  import Sidebar from './sidebar/Sidebar.svelte';
-  import { parseModules, putPagesIntoFolders } from './sidebar/pages';
+  import Sidebar from '../sidebar/Sidebar.svelte';
+  import { parseModules, putPagesIntoFolders } from './pages';
 
   export let title = 'Kitbook';
   export let githubURL: string = undefined;

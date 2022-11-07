@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Folder } from './pages';
+  import type { Folder } from '../layout/pages';
   import Page from './Page.svelte';
 
   export let folder: Folder;

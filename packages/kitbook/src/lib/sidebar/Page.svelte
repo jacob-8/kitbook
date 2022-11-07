@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Page } from './pages';
+  import type { Page } from '../layout/pages';
   export let page: Page;
   export let activeURL: string;
   export let depth: number;
