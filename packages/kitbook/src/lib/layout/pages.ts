@@ -18,6 +18,8 @@ export type Page = {
   variantsModulePath?: string;
 };
 
+export type PageMap = Record<string, Page>;
+
 export type Modules = Record<string, () => Promise<{ [key: string]: any }>>;
 
 function removeInitialDigitAndHyphens(string: string) {
@@ -55,11 +57,11 @@ export function parseModules(modules: Modules, root = '/kitbook'): Page[] {
   return pages;
 }
 
-export function combineModulesIntoPages(uncombined: Page[]): Page[] {
-  const combined: Record<string, Page> = {};
+export function combineModulesIntoPages(uncombined: Page[]): PageMap {
+  const combined: PageMap = {};
 
   for (const page of uncombined) {
-    const url = page.url.replace(/[+_]?page/, 'page'); // strip page prefixes for merging
+    const url = page.url.replace('_page', '+page'); // allow _page to be merged with +page
     if (!combined[url])
       combined[url] = { name: page.name, url: page.url }
 
@@ -75,10 +77,10 @@ export function combineModulesIntoPages(uncombined: Page[]): Page[] {
     }
   }
 
-  return Object.values(combined);
+  return combined;
 }
 
-export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
+export function putPagesIntoFolders(combinedPages: PageMap): Folder {
   const rootFolder: Folder = {
     name: '.',
     url: '/',
@@ -87,6 +89,7 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
     pages: [],
   };
 
+  const pagesToOrganize = Object.values(combinedPages)
   if (!pagesToOrganize?.length) return rootFolder;
 
   pagesToOrganize.forEach((page) => {

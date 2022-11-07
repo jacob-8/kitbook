@@ -1,91 +1,91 @@
 // Vitest Snapshot v1
 
 exports[`combineModulesIntoPages properly combines Pages 1`] = `
-[
-  {
+{
+  "/README": {
     "name": "README",
     "storyModulePath": "/README.md",
     "url": "/README",
   },
-  {
+  "/docs/0-why-kitbook": {
     "name": "why kitbook",
     "storyModulePath": "/src/docs/0-why-kitbook.md",
     "url": "/docs/0-why-kitbook",
   },
-  {
+  "/docs/1-get-started": {
     "name": "get started",
     "storyModulePath": "/src/docs/1-get-started.md",
     "url": "/docs/1-get-started",
   },
-  {
+  "/docs/index": {
     "name": "index",
     "storyModulePath": "/src/docs/index.md",
     "url": "/docs/index",
   },
-  {
+  "/docs/my-notes/0-unocss": {
     "name": "unocss",
     "storyModulePath": "/src/docs/my-notes/0-unocss.md",
     "url": "/docs/my-notes/0-unocss",
   },
-  {
+  "/docs/my-notes/1-deploy-to-vercel": {
     "name": "deploy to vercel",
     "storyModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
     "url": "/docs/my-notes/1-deploy-to-vercel",
   },
-  {
+  "/lib/A": {
     "componentModulePath": "/src/lib/A.svelte",
     "name": "A",
     "url": "/lib/A",
   },
-  {
+  "/lib/B": {
     "componentModulePath": "/src/lib/B.svelte",
     "name": "B",
     "storyModulePath": "/src/lib/B.svx",
     "url": "/lib/B",
   },
-  {
+  "/lib/E": {
+    "name": "E",
+    "storyModulePath": "/src/lib/E.svx",
+    "url": "/lib/E",
+  },
+  "/lib/a/C": {
     "componentModulePath": "/src/lib/a/C.svelte",
     "name": "C",
     "url": "/lib/a/C",
     "variantsModulePath": "/src/lib/a/C.variants.ts",
   },
-  {
+  "/lib/a/D": {
     "componentModulePath": "/src/lib/a/D.svelte",
     "name": "D",
     "storyModulePath": "/src/lib/a/D.svx",
     "url": "/lib/a/D",
     "variantsModulePath": "/src/lib/a/D.variants.ts",
   },
-  {
-    "name": "E",
-    "storyModulePath": "/src/lib/E.svx",
-    "url": "/lib/E",
-  },
-  {
+  "/routes/+page": {
     "componentModulePath": "/src/routes/+page.svelte",
     "name": "page",
     "url": "/routes/+page",
   },
-  {
+  "/routes/a/+page": {
     "componentModulePath": "/src/routes/a/+page.svelte",
     "name": "page",
     "storyModulePath": "/src/routes/a/_page.svx",
     "url": "/routes/a/+page",
   },
-  {
+  "/routes/b/+page": {
     "componentModulePath": "/src/routes/b/+page.svelte",
     "name": "page",
     "url": "/routes/b/+page",
     "variantsModulePath": "/src/routes/b/_page.variants.ts",
   },
-  {
+  "/routes/c/+page": {
     "componentModulePath": "/src/routes/c/+page.svelte",
     "name": "page",
     "storyModulePath": "/src/routes/c/_page.svx",
     "url": "/routes/c/+page",
     "variantsModulePath": "/src/routes/c/_page.variants.ts",
   },
-]
+}
 `;
 
 exports[`parseModules properly returns array of Pages 1`] = `
