@@ -9,6 +9,12 @@ const config = {
 	build: {
 		target: 'es2015' //es6
 	},
+	server: {
+    fs: {
+      // Allow serving files from one level up to the project root for displaying README.md in Kitbook
+      allow: ['..']
+    }
+  },
 	test: {
 		globals: true,
 		includeSource: ['src/**/*.ts'],

@@ -1,7 +1,5 @@
-import type { PageLoad } from './$types';
-
-export const load: PageLoad = async ({ params, parent }) => {
-    const data = await parent();
+export async function pageLoad({ params, parent }) {
+	const data = await parent();
     console.log({ params })
     if (params.file) {
         // use params to find right file
@@ -16,9 +14,9 @@ export const load: PageLoad = async ({ params, parent }) => {
         return { component: component.default, raw };
     }
 
-    // possible if allow Vite server to access one level up
+    // possible if you allow Vite server to access one level up
     const component = await data?.modules['/README.md']() as any
     const raw = await data?.modulesRaw['/README.md']()
 
     return { component: component?.default, raw };
-};
+}
