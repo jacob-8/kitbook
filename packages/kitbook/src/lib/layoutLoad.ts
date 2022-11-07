@@ -3,8 +3,8 @@
 // **/*.variants.ts contains component props for displaying variants
 
 export async function layoutLoad() {
-	const modules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}',]);
-	const modulesRaw = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}'], { as: 'raw' });
+	const modules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']);
+	const modulesRaw = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md'], { as: 'raw' });
 
 	return {
 		modules,

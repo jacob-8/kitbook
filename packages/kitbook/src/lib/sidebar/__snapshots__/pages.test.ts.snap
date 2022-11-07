@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`putPagesIntoFolders organizes pages into proper folders based on dir 1`] = `
+exports[`putPagesIntoFolders organizes pages into proper folders 1`] = `
 {
   "depth": 0,
   "folders": [
@@ -10,103 +10,167 @@ exports[`putPagesIntoFolders organizes pages into proper folders based on dir 1`
         {
           "depth": 2,
           "folders": [],
-          "name": "ui",
+          "name": "maintainer notes",
           "pages": [
             {
-              "ext": "svelte",
-              "name": "Button",
-              "path": "./0-components/0-ui/0-Button/+page.svelte",
-              "url": "/0-components/0-ui/0-Button",
+              "ext": "md",
+              "name": "unocss",
+              "path": "docs/maintainer-notes/0-unocss.md",
+              "url": "docs/maintainer-notes/",
+            },
+            {
+              "ext": "md",
+              "name": "deploy to vercel",
+              "path": "docs/maintainer-notes/1-deploy-to-vercel.md",
+              "url": "docs/maintainer-notes/",
             },
           ],
-          "url": "/0-components/0-ui",
+          "url": "docs/maintainer-notes",
         },
       ],
-      "name": "components",
+      "name": "docs",
       "pages": [
         {
-          "ext": "svelte",
-          "name": "Button",
-          "path": "./0-components/0-Button/+page.svelte",
-          "url": "/0-components/0-Button",
+          "ext": "md",
+          "name": "why kitbook",
+          "path": "docs/0-why-kitbook.md",
+          "url": "docs/",
         },
         {
-          "ext": "svelte",
-          "name": "Switch",
-          "path": "./0-components/1-Switch/+page.svelte",
-          "url": "/0-components/1-Switch",
+          "ext": "md",
+          "name": "get started",
+          "path": "docs/1-get-started.md",
+          "url": "docs/",
         },
         {
-          "ext": "svelte",
-          "name": "play audio section",
-          "path": "./0-components/play-audio-section/+page.svelte",
-          "url": "/0-components/play-audio-section",
+          "ext": "md",
+          "name": "index",
+          "path": "docs/index.md",
+          "url": "docs/",
         },
       ],
-      "url": "/0-components",
+      "url": "docs",
     },
     {
       "depth": 1,
       "folders": [
         {
           "depth": 2,
-          "folders": [
+          "folders": [],
+          "name": "sidebar",
+          "pages": [
             {
-              "depth": 3,
-              "folders": [],
-              "name": "c d",
-              "pages": [
-                {
-                  "ext": "svelte",
-                  "name": "e",
-                  "path": "./a/b/c-d/e/+page.svelte",
-                  "url": "/a/b/c-d/e",
-                },
-                {
-                  "ext": "svelte",
-                  "name": "f",
-                  "path": "./a/b/c-d/f/+page.svelte",
-                  "url": "/a/b/c-d/f",
-                },
-              ],
-              "url": "/a/b/c-d",
+              "ext": "svelte",
+              "name": "Folder",
+              "path": "lib/sidebar/Folder.svelte",
+              "url": "lib/sidebar/",
+            },
+            {
+              "ext": "variants.ts",
+              "name": "Folder",
+              "path": "lib/sidebar/Folder.variants.ts",
+              "url": "lib/sidebar/",
+            },
+            {
+              "ext": "svelte",
+              "name": "Sidebar",
+              "path": "lib/sidebar/Sidebar.svelte",
+              "url": "lib/sidebar/",
+            },
+            {
+              "ext": "svx",
+              "name": "Sidebar",
+              "path": "lib/sidebar/Sidebar.svx",
+              "url": "lib/sidebar/",
+            },
+            {
+              "ext": "variants.ts",
+              "name": "Sidebar",
+              "path": "lib/sidebar/Sidebar.variants.ts",
+              "url": "lib/sidebar/",
+            },
+            {
+              "ext": "svelte",
+              "name": "Page",
+              "path": "lib/sidebar/Page.svelte",
+              "url": "lib/sidebar/",
             },
           ],
-          "name": "b",
-          "pages": [],
-          "url": "/a/b",
+          "url": "lib/sidebar",
         },
       ],
-      "name": "a",
-      "pages": [],
-      "url": "/a",
+      "name": "lib",
+      "pages": [
+        {
+          "ext": "svelte",
+          "name": "Header",
+          "path": "lib/Header.svelte",
+          "url": "lib/",
+        },
+        {
+          "ext": "svelte",
+          "name": "Layout",
+          "path": "lib/Layout.svelte",
+          "url": "lib/",
+        },
+        {
+          "ext": "svx",
+          "name": "Layout",
+          "path": "lib/Layout.svx",
+          "url": "lib/",
+        },
+      ],
+      "url": "lib",
+    },
+    {
+      "depth": 1,
+      "folders": [
+        {
+          "depth": 2,
+          "folders": [],
+          "name": "a",
+          "pages": [
+            {
+              "ext": "svelte",
+              "name": "+page",
+              "path": "routes/a/+page.svelte",
+              "url": "routes/a/",
+            },
+            {
+              "ext": "variants.ts",
+              "name": "_page",
+              "path": "routes/a/_page.variants.ts",
+              "url": "routes/a/",
+            },
+          ],
+          "url": "routes/a",
+        },
+      ],
+      "name": "routes",
+      "pages": [
+        {
+          "ext": "svelte",
+          "name": "+page",
+          "path": "routes/+page.svelte",
+          "url": "routes/",
+        },
+        {
+          "ext": "variants.ts",
+          "name": "_page",
+          "path": "routes/_page.variants.ts",
+          "url": "routes/",
+        },
+      ],
+      "url": "routes",
     },
   ],
   "name": ".",
   "pages": [
     {
       "ext": "md",
-      "name": "index",
-      "path": "./+page.md",
+      "name": "README",
+      "path": "/README.md",
       "url": "/",
-    },
-    {
-      "ext": "md",
-      "name": "privacy policy",
-      "path": "./9-privacy-policy/+page.md",
-      "url": "/9-privacy-policy",
-    },
-    {
-      "ext": "md",
-      "name": "get started",
-      "path": "./0-get-started/+page.md",
-      "url": "/0-get-started",
-    },
-    {
-      "ext": "md",
-      "name": "examples",
-      "path": "./3-examples/+page.md",
-      "url": "/3-examples",
     },
   ],
   "url": "/",

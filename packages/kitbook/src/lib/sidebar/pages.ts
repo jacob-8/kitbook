@@ -20,6 +20,8 @@ function removeInitialDigitAndHyphens(string: string) {
 }
 
 export function parsePath(path: string) {
+  if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
+
   const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
   if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure your Kitbook Layout Load import meta glob starts with '/src/**'`);
   const [, dir, name, ext] = match;
@@ -38,10 +40,10 @@ export function parseModules(modules: Modules, root = '/kitbook'): Page[] {
   const pages = paths.map((path) => {
     const { dir, name, ext } = parsePath(path);
     return {
-      path,
+      path: path.replace('/src/', ''),
       name: removeInitialDigitAndHyphens(name),
       ext,
-      url: dir || '/',
+      url: dir,
     };
   });
   return pages;
@@ -55,14 +57,16 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
     folders: [],
     pages: [],
   };
-  return rootFolder;
 
   if (!pagesToOrganize?.length) return rootFolder;
+
   pagesToOrganize.forEach((page) => {
-    const path = page.url.split('/');
     let currentFolder = rootFolder;
+
+    const path = page.url.split('/');
     path.forEach((folderName, index) => {
       const cleanedFolderName = removeInitialDigitAndHyphens(folderName);
+
       if (index === path.length - 1) {
         currentFolder.pages.push(page); // is a page
       } else if (folderName === '') {
@@ -76,7 +80,7 @@ export function putPagesIntoFolders(pagesToOrganize: Page[]): Folder {
               .slice(0, index + 1)
               .join('/')
               .replace(/^\./, ''),
-            depth: index,
+            depth: index + 1,
             folders: [],
             pages: [],
           };
