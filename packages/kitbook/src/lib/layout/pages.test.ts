@@ -2,40 +2,49 @@ import { parseModules, putPagesIntoFolders, parsePath } from "./pages";
 
 const modules = {
   '/README.md': () => Promise.resolve({}),
+
   // markdown docs
   '/src/docs/0-why-kitbook.md': () => Promise.resolve({}),
   '/src/docs/1-get-started.md': () => Promise.resolve({}),
-  '/src/docs/maintainer-notes/0-unocss.md': () => Promise.resolve({}),
-  '/src/docs/maintainer-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
   '/src/docs/index.md': () => Promise.resolve({}),
+  '/src/docs/my-notes/0-unocss.md': () => Promise.resolve({}),
+  '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
   
   // components
-  '/src/lib/Header.svelte': () => Promise.resolve({}), // by itself
+  '/src/lib/A.svelte': () => Promise.resolve({}), // by itself
+  
+  '/src/lib/B.svelte': () => Promise.resolve({}), // with svx
+  '/src/lib/B.svx': () => Promise.resolve({}),
+  
+  '/src/lib/a/C.svelte': () => Promise.resolve({}), // with variants
+  '/src/lib/a/C.variants.ts': () => Promise.resolve({}),
+  
+  '/src/lib/a/D.svelte': () => Promise.resolve({}), // with svx and variants
+  '/src/lib/a/D.svx': () => Promise.resolve({}),
+  '/src/lib/a/D.variants.ts': () => Promise.resolve({}),
+  
+  '/src/lib/E.svx': () => Promise.resolve({}), // svx by itself (e.g. display combinations of components)
+  
+  // pages
+  '/src/routes/+page.svelte': () => Promise.resolve({}), // by itself
+  
+  '/src/routes/a/+page.svelte': () => Promise.resolve({}), // with svx
+  '/src/routes/a/_page.svx': () => Promise.resolve({}),
 
-  '/src/lib/Layout.svelte': () => Promise.resolve({}), // with svx
-  '/src/lib/Layout.svx': () => Promise.resolve({}),
-
-  '/src/lib/sidebar/Folder.svelte': () => Promise.resolve({}), // with variants
-  '/src/lib/sidebar/Folder.variants.ts': () => Promise.resolve({}),
+  '/src/routes/b/+page.svelte': () => Promise.resolve({}), // with variants
+  '/src/routes/b/_page.variants.ts': () => Promise.resolve({}),
   
-  '/src/lib/sidebar/Sidebar.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/lib/sidebar/Sidebar.svx': () => Promise.resolve({}),
-  '/src/lib/sidebar/Sidebar.variants.ts': () => Promise.resolve({}),
+  '/src/routes/c/+page.svelte': () => Promise.resolve({}), // with svx and variants
+  '/src/routes/c/_page.svx': () => Promise.resolve({}),
+  '/src/routes/c/_page.variants.ts': () => Promise.resolve({}),
   
-  '/src/lib/sidebar/Page.svelte': () => Promise.resolve({}),
-  
-  // page data variants
-  '/src/routes/+page.svelte': () => Promise.resolve({}),
-  '/src/routes/_page.variants.ts': () => Promise.resolve({}),
-  '/src/routes/a/+page.svelte': () => Promise.resolve({}),
-  '/src/routes/a/_page.variants.ts': () => Promise.resolve({}),
-  
-  // ignore layout files
+  // ignore layout files and kitbook route files
   '/src/routes/+layout.svelte': () => Promise.resolve({}), 
-  // ignore kitbook route files
-  '/src/routes/kitbook/+layout.svelte': () => Promise.resolve({}),
   '/src/routes/kitbook/[...file]/+page.svelte': () => Promise.resolve({}),
-  '/src/routes/kitbook/sandbox/[...id]/+page@.svelte': () => Promise.resolve({})
+  '/src/routes/kitbook/sandbox/[...id]/+page@.svelte': () => Promise.resolve({}),
+  
+  // unrecognized extensions will be ignored in combineModulesIntoPages()
+  '/src/lib/A.foo.svelte': () => Promise.resolve({}),
 }
 
 test('putPagesIntoFolders organizes pages into proper folders', () => {
@@ -50,115 +59,145 @@ test('parseModules properly returns array of Page objects', () => {
         "ext": "md",
         "name": "README",
         "path": "/README.md",
-        "url": "/",
+        "url": "/README",
       },
       {
         "ext": "md",
         "name": "why kitbook",
-        "path": "docs/0-why-kitbook.md",
-        "url": "docs/",
+        "path": "/src/docs/0-why-kitbook.md",
+        "url": "/docs/0-why-kitbook",
       },
       {
         "ext": "md",
         "name": "get started",
-        "path": "docs/1-get-started.md",
-        "url": "docs/",
-      },
-      {
-        "ext": "md",
-        "name": "unocss",
-        "path": "docs/maintainer-notes/0-unocss.md",
-        "url": "docs/maintainer-notes/",
-      },
-      {
-        "ext": "md",
-        "name": "deploy to vercel",
-        "path": "docs/maintainer-notes/1-deploy-to-vercel.md",
-        "url": "docs/maintainer-notes/",
+        "path": "/src/docs/1-get-started.md",
+        "url": "/docs/1-get-started",
       },
       {
         "ext": "md",
         "name": "index",
-        "path": "docs/index.md",
-        "url": "docs/",
+        "path": "/src/docs/index.md",
+        "url": "/docs/index",
+      },
+      {
+        "ext": "md",
+        "name": "unocss",
+        "path": "/src/docs/my-notes/0-unocss.md",
+        "url": "/docs/my-notes/0-unocss",
+      },
+      {
+        "ext": "md",
+        "name": "deploy to vercel",
+        "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
+        "url": "/docs/my-notes/1-deploy-to-vercel",
       },
       {
         "ext": "svelte",
-        "name": "Header",
-        "path": "lib/Header.svelte",
-        "url": "lib/",
+        "name": "A",
+        "path": "/src/lib/A.svelte",
+        "url": "/lib/A",
       },
       {
         "ext": "svelte",
-        "name": "Layout",
-        "path": "lib/Layout.svelte",
-        "url": "lib/",
+        "name": "B",
+        "path": "/src/lib/B.svelte",
+        "url": "/lib/B",
       },
       {
         "ext": "svx",
-        "name": "Layout",
-        "path": "lib/Layout.svx",
-        "url": "lib/",
+        "name": "B",
+        "path": "/src/lib/B.svx",
+        "url": "/lib/B",
       },
       {
         "ext": "svelte",
-        "name": "Folder",
-        "path": "lib/sidebar/Folder.svelte",
-        "url": "lib/sidebar/",
+        "name": "C",
+        "path": "/src/lib/a/C.svelte",
+        "url": "/lib/a/C",
       },
       {
         "ext": "variants.ts",
-        "name": "Folder",
-        "path": "lib/sidebar/Folder.variants.ts",
-        "url": "lib/sidebar/",
+        "name": "C",
+        "path": "/src/lib/a/C.variants.ts",
+        "url": "/lib/a/C",
       },
       {
         "ext": "svelte",
-        "name": "Sidebar",
-        "path": "lib/sidebar/Sidebar.svelte",
-        "url": "lib/sidebar/",
+        "name": "D",
+        "path": "/src/lib/a/D.svelte",
+        "url": "/lib/a/D",
       },
       {
         "ext": "svx",
-        "name": "Sidebar",
-        "path": "lib/sidebar/Sidebar.svx",
-        "url": "lib/sidebar/",
+        "name": "D",
+        "path": "/src/lib/a/D.svx",
+        "url": "/lib/a/D",
       },
       {
         "ext": "variants.ts",
-        "name": "Sidebar",
-        "path": "lib/sidebar/Sidebar.variants.ts",
-        "url": "lib/sidebar/",
+        "name": "D",
+        "path": "/src/lib/a/D.variants.ts",
+        "url": "/lib/a/D",
       },
       {
-        "ext": "svelte",
-        "name": "Page",
-        "path": "lib/sidebar/Page.svelte",
-        "url": "lib/sidebar/",
+        "ext": "svx",
+        "name": "E",
+        "path": "/src/lib/E.svx",
+        "url": "/lib/E",
       },
       {
         "ext": "svelte",
         "name": "+page",
-        "path": "routes/+page.svelte",
-        "url": "routes/",
-      },
-      {
-        "ext": "variants.ts",
-        "name": "_page",
-        "path": "routes/_page.variants.ts",
-        "url": "routes/",
+        "path": "/src/routes/+page.svelte",
+        "url": "/routes/+page",
       },
       {
         "ext": "svelte",
         "name": "+page",
-        "path": "routes/a/+page.svelte",
-        "url": "routes/a/",
+        "path": "/src/routes/a/+page.svelte",
+        "url": "/routes/a/+page",
+      },
+      {
+        "ext": "svx",
+        "name": "_page",
+        "path": "/src/routes/a/_page.svx",
+        "url": "/routes/a/_page",
+      },
+      {
+        "ext": "svelte",
+        "name": "+page",
+        "path": "/src/routes/b/+page.svelte",
+        "url": "/routes/b/+page",
       },
       {
         "ext": "variants.ts",
         "name": "_page",
-        "path": "routes/a/_page.variants.ts",
-        "url": "routes/a/",
+        "path": "/src/routes/b/_page.variants.ts",
+        "url": "/routes/b/_page",
+      },
+      {
+        "ext": "svelte",
+        "name": "+page",
+        "path": "/src/routes/c/+page.svelte",
+        "url": "/routes/c/+page",
+      },
+      {
+        "ext": "svx",
+        "name": "_page",
+        "path": "/src/routes/c/_page.svx",
+        "url": "/routes/c/_page",
+      },
+      {
+        "ext": "variants.ts",
+        "name": "_page",
+        "path": "/src/routes/c/_page.variants.ts",
+        "url": "/routes/c/_page",
+      },
+      {
+        "ext": "foo.svelte",
+        "name": "A",
+        "path": "/src/lib/A.foo.svelte",
+        "url": "/lib/A",
       },
     ]
   `);
@@ -179,6 +218,13 @@ test('parsePath parses path correctly', () => {
       "name": "index",
     }
   `);
+  expect(parsePath('/README.md')).toMatchInlineSnapshot(`
+    {
+      "dir": "/",
+      "ext": "md",
+      "name": "README",
+    }
+  `);
   expect(parsePath('/src/routes/a/+page.svelte')).toMatchInlineSnapshot(`
     {
       "dir": "routes/a/",
@@ -195,51 +241,8 @@ test('parsePath parses path correctly', () => {
   `);
 });
 
-test.skip('throws error upon receiving unusable path', () => {
+test.skip('skips and logs warning upon receiving unusable path', () => {
   expect(parsePath('+page.ts')).toThrow();
   // expect(parsePath('+page.ts')).toThrowErrorMatchingInlineSnapshot();
 });
 
-// test('findActivePage returns page that includes current url', () => {
-//   expect(findActivePage(pages, '/3-examples')).toMatchInlineSnapshot(`
-//     {
-//       "ext": "md",
-//       "name": "examples",
-//       "path": "./3-examples/+page.md",
-//       "url": "/3-examples",
-//     }
-//   `);
-// });
-
-// test('findActivePage handles index page', () => {
-//   expect(findActivePage(pages, '/')).toMatchInlineSnapshot(`
-//     {
-//       "ext": "md",
-//       "name": "index",
-//       "path": "./+page.md",
-//       "url": "/",
-//     }
-//   `);
-// });
-
-// test('findActivePage works when kitbook is placed in a subfolder', () => {
-//   expect(findActivePage(pages, '/foo/kitbookroot/3-examples')).toMatchInlineSnapshot(`
-//     {
-//       "ext": "md",
-//       "name": "examples",
-//       "path": "./3-examples/+page.md",
-//       "url": "/3-examples",
-//     }
-//   `);
-// });
-
-// test('findActivePage returns kitbook index when no matches', () => {
-//   expect(findActivePage(pages, '/foo/kitbookroot')).toMatchInlineSnapshot(`
-//     {
-//       "ext": "md",
-//       "name": "index",
-//       "path": "./+page.md",
-//       "url": "/",
-//     }
-//   `);
-// });
