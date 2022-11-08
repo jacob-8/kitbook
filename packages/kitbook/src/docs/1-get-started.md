@@ -2,15 +2,16 @@
 
 
 ## Choose a folder in your `src/routes` directory
-You can either make a new SvelteKit app (see [docs](https://kit.svelte.dev)) and put your Kitbook files right in `src/routes` (useful for monorepos) or you can put your Kitbook files in a sub-route of an existing app (e.g. `src/routes/kitbook`). 
+You can either make a new [SvelteKit](https://kit.svelte.dev) app and put your Kitbook files right in `src/routes` (useful for monorepos) or you can put your Kitbook files in a sub-route of an existing app (e.g. `src/routes/kitbook`). 
  - *If you have a monorepo and want to create a new component library using Kitbook, create a new folder with the name of your component library (e.g. `packages/components`) and init a new svelte app there. [Building Svelte Society: Monorepos with Pngwn](https://youtu.be/gKxz7R9dX0w) helped me understand how this could be helpful in certain situations where code needs to be shared across projects.*
 
 ## Add [MDSvex](https://mdsvex.pngwn.io/) 
 - Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
 - Set your extensions in `mdsvex.config.js` to `['.md', '.svx']` to allow for a powerful combination:
   - Use the `.md` extension when you want markdown intellisense and highlighting
-  - Use the `.svx` extension you want svelte intellisense and highlighting. *Using `.svx`* for Svelte files you want MDSvex to process is a nice way to keep MDSvex from having to process your regular Svelte components (and helps avoid potential bugs)
-  - Notice the icons in the sidebar tell you which files are `.md` files (<span class="i-simple-icons-markdown" />) and which are `.svx` files (<span class="i-simple-icons-svelte" />).
+    - I recommend using the [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) extension to allow for easy pasting of links into markdown and such.
+  - Use the `.svx` extension when you want svelte intellisense and highlighting. *Using `.svx`* for Svelte files you want MDSvex to process is a nice way to keep MDSvex from having to process your regular Svelte components (and helps avoid potential bugs)
+  <!-- - Notice the icons in the sidebar tell you which files are `.md` files (<span class="i-simple-icons-markdown" />) and which are `.svx` files (<span class="i-simple-icons-svelte" />). -->
 - If using extensions such as `.svx` you should add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
 
 ## Set Up Your Sidebar

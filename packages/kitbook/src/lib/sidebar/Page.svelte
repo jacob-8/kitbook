@@ -21,7 +21,7 @@
     class:border-l-2={active}
     class:border-blue-700={active}
   />
-  <span class="py-2">
+  <span class="py-1">
     {page.name}
     <span class="opacity-30">
       {#if ['svelte', 'svx'].includes(page.ext)}

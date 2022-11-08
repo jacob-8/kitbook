@@ -4,32 +4,32 @@ exports[`combineModulesIntoPages properly combines Pages 1`] = `
 {
   "/README": {
     "name": "README",
-    "storyModulePath": "/README.md",
+    "svxModulePath": "/README.md",
     "url": "/README",
   },
   "/docs/0-why-kitbook": {
     "name": "why kitbook",
-    "storyModulePath": "/src/docs/0-why-kitbook.md",
+    "svxModulePath": "/src/docs/0-why-kitbook.md",
     "url": "/docs/0-why-kitbook",
   },
   "/docs/1-get-started": {
     "name": "get started",
-    "storyModulePath": "/src/docs/1-get-started.md",
+    "svxModulePath": "/src/docs/1-get-started.md",
     "url": "/docs/1-get-started",
   },
   "/docs/index": {
     "name": "index",
-    "storyModulePath": "/src/docs/index.md",
+    "svxModulePath": "/src/docs/index.md",
     "url": "/docs/index",
   },
   "/docs/my-notes/0-unocss": {
     "name": "unocss",
-    "storyModulePath": "/src/docs/my-notes/0-unocss.md",
+    "svxModulePath": "/src/docs/my-notes/0-unocss.md",
     "url": "/docs/my-notes/0-unocss",
   },
   "/docs/my-notes/1-deploy-to-vercel": {
     "name": "deploy to vercel",
-    "storyModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
+    "svxModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
     "url": "/docs/my-notes/1-deploy-to-vercel",
   },
   "/lib/A": {
@@ -40,12 +40,12 @@ exports[`combineModulesIntoPages properly combines Pages 1`] = `
   "/lib/B": {
     "componentModulePath": "/src/lib/B.svelte",
     "name": "B",
-    "storyModulePath": "/src/lib/B.svx",
+    "svxModulePath": "/src/lib/B.svx",
     "url": "/lib/B",
   },
   "/lib/E": {
     "name": "E",
-    "storyModulePath": "/src/lib/E.svx",
+    "svxModulePath": "/src/lib/E.svx",
     "url": "/lib/E",
   },
   "/lib/a/C": {
@@ -57,7 +57,7 @@ exports[`combineModulesIntoPages properly combines Pages 1`] = `
   "/lib/a/D": {
     "componentModulePath": "/src/lib/a/D.svelte",
     "name": "D",
-    "storyModulePath": "/src/lib/a/D.svx",
+    "svxModulePath": "/src/lib/a/D.svx",
     "url": "/lib/a/D",
     "variantsModulePath": "/src/lib/a/D.variants.ts",
   },
@@ -69,7 +69,7 @@ exports[`combineModulesIntoPages properly combines Pages 1`] = `
   "/routes/a/+page": {
     "name": "+page",
     "pageModulePath": "/src/routes/a/+page.svelte",
-    "storyModulePath": "/src/routes/a/_page.svx",
+    "svxModulePath": "/src/routes/a/_page.svx",
     "url": "/routes/a/+page",
   },
   "/routes/b/+page": {
@@ -81,7 +81,7 @@ exports[`combineModulesIntoPages properly combines Pages 1`] = `
   "/routes/c/+page": {
     "name": "+page",
     "pageModulePath": "/src/routes/c/+page.svelte",
-    "storyModulePath": "/src/routes/c/_page.svx",
+    "svxModulePath": "/src/routes/c/_page.svx",
     "url": "/routes/c/+page",
     "variantsModulePath": "/src/routes/c/_page.variants.ts",
   },
@@ -251,12 +251,12 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
           "pages": [
             {
               "name": "unocss",
-              "storyModulePath": "/src/docs/my-notes/0-unocss.md",
+              "svxModulePath": "/src/docs/my-notes/0-unocss.md",
               "url": "/docs/my-notes/0-unocss",
             },
             {
               "name": "deploy to vercel",
-              "storyModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
+              "svxModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
               "url": "/docs/my-notes/1-deploy-to-vercel",
             },
           ],
@@ -267,17 +267,17 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
       "pages": [
         {
           "name": "why kitbook",
-          "storyModulePath": "/src/docs/0-why-kitbook.md",
+          "svxModulePath": "/src/docs/0-why-kitbook.md",
           "url": "/docs/0-why-kitbook",
         },
         {
           "name": "get started",
-          "storyModulePath": "/src/docs/1-get-started.md",
+          "svxModulePath": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
         {
           "name": "index",
-          "storyModulePath": "/src/docs/index.md",
+          "svxModulePath": "/src/docs/index.md",
           "url": "/docs/index",
         },
       ],
@@ -300,7 +300,7 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
             {
               "componentModulePath": "/src/lib/a/D.svelte",
               "name": "D",
-              "storyModulePath": "/src/lib/a/D.svx",
+              "svxModulePath": "/src/lib/a/D.svx",
               "url": "/lib/a/D",
               "variantsModulePath": "/src/lib/a/D.variants.ts",
             },
@@ -318,12 +318,12 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
         {
           "componentModulePath": "/src/lib/B.svelte",
           "name": "B",
-          "storyModulePath": "/src/lib/B.svx",
+          "svxModulePath": "/src/lib/B.svx",
           "url": "/lib/B",
         },
         {
           "name": "E",
-          "storyModulePath": "/src/lib/E.svx",
+          "svxModulePath": "/src/lib/E.svx",
           "url": "/lib/E",
         },
       ],
@@ -340,7 +340,7 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
             {
               "name": "+page",
               "pageModulePath": "/src/routes/a/+page.svelte",
-              "storyModulePath": "/src/routes/a/_page.svx",
+              "svxModulePath": "/src/routes/a/_page.svx",
               "url": "/routes/a/+page",
             },
           ],
@@ -368,7 +368,7 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
             {
               "name": "+page",
               "pageModulePath": "/src/routes/c/+page.svelte",
-              "storyModulePath": "/src/routes/c/_page.svx",
+              "svxModulePath": "/src/routes/c/_page.svx",
               "url": "/routes/c/+page",
               "variantsModulePath": "/src/routes/c/_page.variants.ts",
             },
@@ -391,7 +391,7 @@ exports[`putPagesIntoFolders organizes Pages into proper folders 1`] = `
   "pages": [
     {
       "name": "README",
-      "storyModulePath": "/README.md",
+      "svxModulePath": "/README.md",
       "url": "/README",
     },
   ],

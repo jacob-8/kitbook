@@ -3,12 +3,14 @@
   export let data: PageData;
 </script>
 
-{#if data?.story}
-  <svelte:component this={data.story} />
-  <pre>{data.storyRaw}</pre>
+{#if data?.svx}
+  <svelte:component this={data.svx} />
 {/if}
 
-<hr />
+<!-- {#if data?.svxRaw}
+  <pre>{data.svxRaw}</pre>
+  <hr />
+{/if} -->
 
 {#if data?.component || data?.page}
   {#if data?.variants}
@@ -22,7 +24,7 @@
   {:else}
     <svelte:component this={data.component || data.page} />
   {/if}
-  <pre>{data.componentRaw || data.pageRaw}</pre>
+  <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
 {/if}
 
 <!-- {#if githubURL}

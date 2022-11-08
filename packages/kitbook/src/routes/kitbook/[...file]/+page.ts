@@ -1,46 +1,69 @@
+import type { Variants } from '$lib';
+import GetStartedSvelte from '$lib/stories/GetStarted.svelte';
 import type { PageLoad } from './$types';
 
 // type Module = () => Promise<{ [key: string]: any }>
 
 export const load: PageLoad = async ({ params, parent }) => {
     const data = await parent();
-    // console.log({ params, data })
-    if (params.file) {
-        const storyModulePath = data?.pages['/' + params.file].storyModulePath
-        const componentModulePath = data?.pages['/' + params.file].componentModulePath
-        const pageModulePath = data?.pages['/' + params.file].pageModulePath
-        const variantsModulePath = data?.pages['/' + params.file].variantsModulePath
 
-        const story = await data?.modules[storyModulePath]?.() as any
-        const storyRaw = await data?.modulesRaw[storyModulePath]?.()
-        const component = await data?.modules[componentModulePath]?.() as any
-        const componentRaw = await data?.modulesRaw[componentModulePath]?.()
-        const page = await data?.modules[pageModulePath]?.() as any
-        const pageRaw = await data?.modulesRaw[pageModulePath]?.()
-        const variants = await data?.modules[variantsModulePath]?.() as any
-        const variantsRaw = await data?.modulesRaw[variantsModulePath]?.()
+    if (!data?.modules) throw new Error('No modules found, did you import layoutLoad into your Kitbook layout.ts file and do you have any page, svelte, md, or svx files in your project?')
 
+    if (!data?.pages) throw new Error('No pages found, did you import layoutLoad into your Kitbook layout.ts file and do you have any page, svelte, md, or svx files in your project?')
+
+    const { pages, modules, modulesRaw } = data;
+    const _page = pages['/' + params.file]; // todo, update page names to match modules with / or place module fetch function inside page
+
+    if (_page) {
+        const svxModulePath = _page.svxModulePath
+        const svx = (await modules[svxModulePath]?.() as any)?.default as any
+        const svxRaw = await modulesRaw[svxModulePath]?.()
+
+        const componentModulePath = _page.componentModulePath
+        const component = (await modules[componentModulePath]?.() as any)?.default as any
+        const componentRaw = await modulesRaw[componentModulePath]?.()
+
+        const pageModulePath = _page.pageModulePath
+        const page = (await modules[pageModulePath]?.() as any)?.default as any
+        const pageRaw = await modulesRaw[pageModulePath]?.()
+
+        const variantsModulePath = _page.variantsModulePath
+        const variants = (await modules[variantsModulePath]?.() as any)?.variants as Variants<any>
+        const variantsRaw = await modulesRaw[variantsModulePath]?.()
+
+        // if ()
         return {
-            story: story?.default,
-            storyRaw,
-            component: component?.default,
+            svx,
+            svxRaw,
+            component,
             componentRaw,
-            page: page?.default,
+            page,
             pageRaw,
-            variants: variants?.variants,
+            variants,
             variantsRaw,
         };
     }
 
-    if (data?.modules['/src/docs/index.md']) {
-        const story = await data.modules['/src/docs/index.md']() as any
-        const storyRaw = await data.modulesRaw['/src/docs/index.md']()
-        return { story: story?.default, storyRaw };
+    if (modules['/src/docs/index.md']) {
+        const svx = (await modules['/src/docs/index.md']() as any)?.default as any
+        const svxRaw = await modulesRaw['/src/docs/index.md']()
+        return { svx, svxRaw };
     }
 
-    // possible if allow Vite server to access one level up
-    const story = await data?.modules['/README.md']() as any
-    const storyRaw = await data?.modulesRaw['/README.md']()
+    if (modules['/src/docs/index.svx']) {
+        const svx = (await modules['/src/docs/index.svx']() as any)?.default as any
+        const svxRaw = await modulesRaw['/src/docs/index.svx']()
+        return { svx, svxRaw };
+    }
 
-    return { story: story?.default, storyRaw };
+    try {
+        // possible if you allow Vite server to access one level up
+        const svx = (await modules['/README.md']() as any)?.default as any
+        const svxRaw = await modulesRaw['/README.md']()
+        return { svx, svxRaw };
+    } catch (e) {
+        console.log(e)
+    }
+
+    return { svx: GetStartedSvelte as any };
 };

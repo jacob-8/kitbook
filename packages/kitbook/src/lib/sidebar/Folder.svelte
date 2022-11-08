@@ -23,7 +23,7 @@
       class="border-l border-gray-300 hover:border-blue-700 pr-3"
       class:border-dotted={!active}
     />
-    <span class="py-2">
+    <span class="py-1">
       {folder.name}
     </span>
   </div>
@@ -31,7 +31,7 @@
 
 {#if isRootFolder || actualExpandedState}
   {#each folder.pages as page}
-    {#if page.url !== '/'}
+    {#if page.svxModulePath !== '/README.md' && page.svxModulePath !== '/src/docs/index.md' && page.svxModulePath !== '/src/docs/index.svx'}
       <Page {page} {activeURL} {root} depth={folder.depth} />
     {/if}
   {/each}

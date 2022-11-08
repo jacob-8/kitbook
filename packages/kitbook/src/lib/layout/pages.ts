@@ -12,7 +12,7 @@ export type Page = {
   ext?: string;
   path?: string;
   // organize sibling modules into 1 page, show stories/docs first, then default component view, then variants
-  storyModulePath?: string;
+  svxModulePath?: string;
   componentModulePath?: string;
   pageModulePath?: string;
   variantsModulePath?: string;
@@ -67,7 +67,7 @@ export function combineModulesIntoPages(uncombined: Page[]): PageMap {
 
     // Will skip files not matching expected extensions, e.g. /src/A/Bar.foo.svelte
     if (['md', 'svx'].includes(page.ext)) {
-      combined[url].storyModulePath = page.path
+      combined[url].svxModulePath = page.path
     } else if (page.name === '+page') {
       combined[url].pageModulePath = page.path
     } else if (page.ext === 'svelte') {

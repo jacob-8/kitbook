@@ -4,7 +4,10 @@
 *(you have been warned, early-adopters)*
 
 - debug why root is not being passed down
+- debug why Folder, Page, and Sidebar are not working
+- rename page routes using folder name
 - Add component docs with sveld
+- iframe
 - Easily adjust screen size use full-screen view
 - Next and Previous pages (see Docusaurus/Vitebook)
   - requires ordering pages and finding active page index

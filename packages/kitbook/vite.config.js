@@ -13,6 +13,7 @@ const config = {
     fs: {
       // Allow serving files from one level up to the project root for displaying README.md in Kitbook
       allow: ['..']
+			// can set via plugin config?
     }
   },
 	test: {
