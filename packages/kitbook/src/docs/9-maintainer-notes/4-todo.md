@@ -24,6 +24,7 @@
 - consider setting up an options object that can be passed to kitbook via stuff to make future additions easy to implement
   - for example: optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - could refactor to use activePage instead of activeUrl to make code simpler
+- dynamic slots: https://github.com/sveltejs/svelte/issues/2588 && https://github.com/sveltejs/svelte/pull/4296
 - edit on Gitpod link?
 - Dark mode
 - Investigate [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) or [Viteshot](https://viteshot.com/) for visual regression screenshot testing
