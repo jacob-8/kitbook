@@ -98,7 +98,7 @@
   });
 </script>
 
-<!-- Could use a span and container.firstElementChild as another option if divs break page flow -->
 <div style="width: {width}; height: {height};" bind:this={container}>
   <slot {intersecting} />
 </div>
+<slot name="noElement" />
