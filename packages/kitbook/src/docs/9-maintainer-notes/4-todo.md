@@ -18,6 +18,7 @@
 - Bake prism css into Layout w/ optional flag (currently in app.html)
 
 ## Nice to Have
+- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
 - solve over-applied global scrollbar css
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
 - pass in component's code to view in a story

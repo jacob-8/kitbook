@@ -9,6 +9,9 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "kitbook": "kitbook dev",
+    "kitbook:build": "kitbook build",
+    "kitbook:preview": "kitbook preview",
     "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
@@ -31,6 +34,8 @@
     "@sveltejs/kit": "1.0.0-next.442",
     "@sveltejs/package": "1.0.0-next.1",
     "@unocss/preset-icons": "^0.45.29",
+    "cac": "^6.7.14",
+    "kleur": "^4.1.5",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
     "svelte": "^3.49.0",
@@ -43,6 +48,9 @@
     "unocss": "^0.45.29",
     "vite": "^3.0.9",
     "vitest": "^0.24.1"
+  },
+  "bin": {
+    "kitbook": "./src/cli/index.js"
   },
   "repository": {
     "type": "git",

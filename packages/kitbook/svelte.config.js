@@ -8,10 +8,8 @@ import UnoCSS from 'temp-s-p-u';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
     preprocess(),
-    mdsvex(mdsvexConfig),
     UnoCSS({ options: { classPrefix: 'kb-' } }),
   ],
 
@@ -27,5 +25,17 @@ const config = {
     }
   },
 };
+
+if (process.env.KITBOOK) {
+  config.extensions = ['.svelte', ...mdsvexConfig.extensions];
+  config.preprocess = [
+    preprocess(),
+    mdsvex(mdsvexConfig),
+    UnoCSS({ options: { classPrefix: 'kb-' } }),
+  ];
+  config.kit.files = {
+    routes: 'src/.kitbook'
+  }
+}
 
 export default config;

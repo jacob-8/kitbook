@@ -3,7 +3,7 @@
   export let page: Page;
   export let activeURL: string;
   export let depth: number;
-  export let root = '/kitbook';
+  export let root = '/';
   $: href = root === '/' ? page.url : root + page.url;
   $: active = activeURL === href;
 </script>

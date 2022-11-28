@@ -10,7 +10,7 @@
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
   export let expanded = false;
-  export let root = '/kitbook';
+  export let root = '/';
 
   $: folder = putPagesIntoFolders($page.data.pages);
   $: activeURL = $page.url.pathname;
