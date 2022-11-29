@@ -34,7 +34,7 @@ if (process.env.KITBOOK) {
     UnoCSS({ options: { classPrefix: 'kb-' } }),
   ];
   config.kit.files = {
-    routes: 'src/kitbook'
+    routes: 'src/lib/routes'
   }
 }
 
