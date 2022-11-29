@@ -1,9 +1,14 @@
 # Get Started: How to Create a KitBook
 
+- Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
 
-## Choose a folder in your `src/routes` directory
-You can either make a new [SvelteKit](https://kit.svelte.dev) app and put your Kitbook files right in `src/routes` (useful for monorepos) or you can put your Kitbook files in a sub-route of an existing app (e.g. `src/routes/kitbook`). 
- - *If you have a monorepo and want to create a new component library using Kitbook, create a new folder with the name of your component library (e.g. `packages/components`) and init a new svelte app there. [Building Svelte Society: Monorepos with Pngwn](https://youtu.be/gKxz7R9dX0w) helped me understand how this could be helpful in certain situations where code needs to be shared across projects.*
+## Copy Kitbook routes folder
+Copy the ____ folder in the `kitbook` package into `src/kitbook`. This contains:
+
+- root `+layout.ts` to get list of app files via glob import
+- sandboxed iframe route that only shows 1 particular story in an isolated context, ready to be imported into story pages
+- `+layout.svelte` wrapper for the main view, separated from the sandboxed page via a `(main)` group
+- a main page that accepts a file param to know which story page to show
 
 ## Add [MDSvex](https://mdsvex.pngwn.io/) 
 - Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
@@ -14,39 +19,18 @@ You can either make a new [SvelteKit](https://kit.svelte.dev) app and put your K
   <!-- - Notice the icons in the sidebar tell you which files are `.md` files (<span class="i-simple-icons-markdown" />) and which are `.svx` files (<span class="i-simple-icons-svelte" />). -->
 - If using extensions such as `.svx` you should add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
 
-## Set Up Your Sidebar
+## Add Environment variables
 
-- Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
-- To add a list of your route pages to `$page.data.kitbook` for Kitbook's `Layout` component to consume, in your chosen folder (`src/routes/kitbook` in this example), add a `+layout.svelte` file with:
+Add the following optional variables to your `.env` file:
 
-```svelte
-<script lang="ts">
-  import { Layout } from 'kitbook';
-</script>
-
-<Layout title="Kitbook" githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook">
-  <slot />
-</Layout>
+```toml
+PUBLIC_KITBOOK_TITLE=Fantastic App Kitbook
+PUBLIC_GITHUB_URL=https://github.com/jacob-8/kitbook/tree/main/packages/kitbook
 ```
-
-And a `+layout.ts` file with:
-```ts
-import type { LayoutLoad } from './$types';
-export const load: LayoutLoad = () => {
-  const modules = import.meta.glob('./**/*.{md,svx}');
-  return { kitbook: { modules, root: '/kitbook' } };
-  // root property is only needed if you place your kitbook in a sub-route and not in the root route folder.
-};
-```
-
-### Sidebar Notes
 - If you pass in your githubURL, an icon to your repo will be placed in the Kitbook header
-- Pass in the title of your Kitbook, or alternatively use the `title` slot of the `Layout` component if you want to change more than just the string (to use a different icon or a logo for example)
-- There is an optional `footer` slots in the sidebar which is placed beneath the navigation tree and above the "Created with Kitbook" link.
-- See https://vitejs.dev/guide/features.html#glob-import to learn more about the glob import and note that you should adjust the `{md,svelte}` file endings to suit your purposes in accordance with how you've set up MDSvex extensions. As we are not resolving the returned Promise functions that would load each module, we don't need to be concerned about speed issues from using `import.meta.glob('./**/*.{md,svelte}')` when our Kitbook gets large.
 
 ## Add Prism styles
-Add your desired [prism](https://prismjs.com/) theme css to `app.html`. `<link href="https://unpkg.com/prismjs@1.27.0/themes/prism-tomorrow.css" rel="stylesheet" />` for example.
+NEED to make this baked in, and able to change if desired [prism](https://prismjs.com/) theme css to `app.html`. `<link href="https://unpkg.com/prismjs@1.27.0/themes/prism-tomorrow.css" rel="stylesheet" />` for example.
 
 ## Add styles that will be used for your components.  
 - This could be as simple as importing a css file in your `__layout.svelte` file depending on how you do styles.

@@ -12,7 +12,6 @@
   export let expanded = false;
 
   $: folder = putPagesIntoFolders($page.data.pages);
-  console.log({folder})
   $: activeURL = $page.url.pathname;
 
   let showSidebar = false;
@@ -20,10 +19,7 @@
 
 <div class="min-h-[100vh]">
   <Header bind:showSidebar {githubURL} {activeURL}>
-    <svelte:fragment slot="title"
-      ><slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot
-      ></svelte:fragment
-    >
+    <slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot>
   </Header>
 
   <div class="flex">

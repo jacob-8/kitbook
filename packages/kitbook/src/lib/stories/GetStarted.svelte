@@ -1,10 +1,4 @@
-- run a `create-kitbook` command to:
-  - add a docs folder w/ a sample doc
-  - add a Kitbook folder w/ Kitbook routes
-  - add mdsvex
-  - add `kitbook.vite.config.js` files
-  - add if kitbook section to svelte.config.js
-  - leave a URL to documentation
+
 
 ## Notes
 
