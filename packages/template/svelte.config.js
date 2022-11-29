@@ -5,15 +5,21 @@ import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...mdsvexConfig.extensions],
-
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
-  preprocess: [preprocess(), mdsvex(mdsvexConfig)],
+  preprocess: [preprocess()],
 
   kit: {
     adapter: adapter(),
   },
 };
+
+if (process.env.KITBOOK) {
+  config.extensions = ['.svelte', ...mdsvexConfig.extensions];
+  config.preprocess = [preprocess(), mdsvex(mdsvexConfig)];
+  config.kit.files = {
+    routes: 'node_modules/kitbook/routes'
+  }
+}
 
 export default config;

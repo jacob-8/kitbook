@@ -5,6 +5,9 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
+    "kitbook": "vite dev --config kitbook.vite.config.js",
+    "kitbook:build": "vite build --config kitbook.vite.config.js",
+    "kitbook:preview": "vite preview --config kitbook.vite.config.js",
     "package": "svelte-kit package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
@@ -12,7 +15,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "1.0.0-next.66",
     "@sveltejs/kit": "1.0.0-next.442",
-    "kitbook": "0.0.24",
+    "kitbook": "0.0.25",
     "mdsvex": "^0.10.6",
     "svelte": "^3.49.0",
     "svelte-check": "^2.8.1",

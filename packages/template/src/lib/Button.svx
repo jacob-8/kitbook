@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Button from '$lib/Button.svelte';
   import { Story } from 'kitbook';
+  import Button from './Button.svelte';
 </script>
 
 # Button
