@@ -25,6 +25,7 @@
     "prettier-plugin-svelte": "^2.8.1",
     "prism-svelte": "^0.5.0",
     "prismjs": "^1.29.0",
+    "svelte": "^3.53.1",
     "svelte-pieces": "^1.0.44",
     "unist-util-visit": "^4.1.1"
   },
@@ -38,7 +39,6 @@
     "kleur": "^4.1.5",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",
-    "svelte": "^3.53.1",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
     "svelte2tsx": "^0.5.20",

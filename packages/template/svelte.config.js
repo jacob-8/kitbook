@@ -12,6 +12,14 @@ const config = {
   kit: {
     adapter: adapter(),
   },
+
+  vitePlugin: {
+    experimental: {
+      inspector: {
+        holdMode: true,
+      }
+    }
+  },
 };
 
 if (process.env.KITBOOK) {
@@ -20,6 +28,7 @@ if (process.env.KITBOOK) {
   config.kit.files = {
     routes: 'node_modules/kitbook/routes'
   }
+  config.kit.outDir = '.svelte-kit-kitbook'
 }
 
 export default config;
