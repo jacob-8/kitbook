@@ -34,7 +34,7 @@ if (process.env.KITBOOK) {
     UnoCSS({ options: { classPrefix: 'kb-' } }),
   ];
   config.kit.files = {
-    routes: 'src/lib/routes'
+    routes: 'src/lib/kitbook-routes'
   }
   config.kit.outDir = '.svelte-kit-kitbook'
 }
