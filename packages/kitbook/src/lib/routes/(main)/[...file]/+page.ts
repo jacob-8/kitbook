@@ -1,5 +1,5 @@
-import type { Variants } from '../../../';
-import GetStartedSvelte from '../../../stories/GetStarted.svelte';
+import type { Variants } from 'kitbook';
+import GetStartedSvelte from './GetStarted.svelte';
 import type { PageLoad } from './$types';
 
 // type Module = () => Promise<{ [key: string]: any }>

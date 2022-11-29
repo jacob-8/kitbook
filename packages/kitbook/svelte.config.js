@@ -36,6 +36,7 @@ if (process.env.KITBOOK) {
   config.kit.files = {
     routes: 'src/lib/routes'
   }
+  config.kit.outDir = '.svelte-kit-kitbook'
 }
 
 export default config;

@@ -26,7 +26,7 @@ if (process.env.KITBOOK) {
   config.extensions = ['.svelte', ...mdsvexConfig.extensions];
   config.preprocess = [preprocess(), mdsvex(mdsvexConfig)];
   config.kit.files = {
-    routes: 'node_modules/kitbook/routes'
+    routes: 'src/kitbook'
   }
   config.kit.outDir = '.svelte-kit-kitbook'
 }

@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { Layout } from '../../';
-  import { PUBLIC_KITBOOK_TITLE, PUBLIC_GITHUB_URL } from '$env/static/public';
+  import { Layout } from 'kitbook';
 </script>
 
-<Layout expanded title={PUBLIC_KITBOOK_TITLE} githubURL={PUBLIC_GITHUB_URL}>
+<Layout expanded title="Kitbook" githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/kitbook">
   <slot />
 </Layout>

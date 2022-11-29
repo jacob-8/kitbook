@@ -7,31 +7,31 @@
   {#if data?.svx}
     <svelte:component this={data.svx} />
   {/if}
+</div>
 
-  <!-- <iframe width="300" height="200" title="" src="/sandbox/hello?isolate" /> -->
+<!-- <iframe width="300" height="200" title="" src="/sandbox/hello?isolate" /> -->
 
-  <!-- {#if data?.svxRaw}
+<!-- {#if data?.svxRaw}
   <pre>{data.svxRaw}</pre>
   <hr />
 {/if} -->
 
-  {#if data?.component || data?.page}
-    {#if data?.variants}
-      {#each data.variants as variant}
-        <div>
-          {variant.name}:<br />
-          <svelte:component this={data.component || data.page} {...variant.props} />
-        </div>
-      {/each}
-      <pre>{data.variantsRaw}</pre>
-    {:else}
-      If no variants are provided, then place sandboxed component here with default props based off
-      component types
-      <svelte:component this={data.component || data.page} />
-    {/if}
-    <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
+{#if data?.component || data?.page}
+  {#if data?.variants}
+    {#each data.variants as variant}
+      <div>
+        {variant.name}:<br />
+        <svelte:component this={data.component || data.page} {...variant.props} />
+      </div>
+    {/each}
+    <pre>{data.variantsRaw}</pre>
+  {:else}
+    If no variants are provided, then place sandboxed component here with default props based off
+    component types
+    <svelte:component this={data.component || data.page} />
   {/if}
-</div>
+  <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
+{/if}
 
 <!-- {#if githubURL}
   <a
