@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -10,8 +10,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "kitbook": "vite dev --config kitbook.vite.config.js",
-    "kitbook:build": "kitbook build",
-    "kitbook:preview": "kitbook preview",
+    "kitbook:build": "vite build --config kitbook.vite.config.js",
+    "kitbook:preview": "vite preview --config kitbook.vite.config.js",
     "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
@@ -49,8 +49,9 @@
     "vite": "^3.0.9",
     "vitest": "^0.24.1"
   },
-  "bin": {
-    "kitbook": "./src/cli/index.js"
+  "publishConfig": {
+    "directory": "package",
+    "linkDirectory": true
   },
   "repository": {
     "type": "git",
