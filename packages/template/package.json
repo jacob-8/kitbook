@@ -13,16 +13,16 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "1.0.0-next.66",
-    "@sveltejs/kit": "1.0.0-next.442",
+    "@sveltejs/adapter-auto": "1.0.0-next.90",
+    "@sveltejs/kit": "1.0.0-next.567",
     "kitbook": "0.0.25",
     "mdsvex": "^0.10.6",
-    "svelte": "^3.49.0",
-    "svelte-check": "^2.8.1",
+    "svelte": "^3.53.1",
+    "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
-    "tslib": "^2.3.1",
-    "typescript": "~4.8.4",
-    "vite": "^3.0.9"
+    "tslib": "^2.4.1",
+    "typescript": "~4.9.3",
+    "vite": "^3.2.4"
   },
   "type": "module"
 }
