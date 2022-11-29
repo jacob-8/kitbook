@@ -4,10 +4,11 @@
   import type { Folder as FolderType } from '../layout/pages';
   export let folder: FolderType;
   export let activeURL: string;
-  export let root: string;
   export let showSidebar = false;
   export let title = 'Kitbook';
   export let expanded = false;
+
+  let root = '/'
 
   import { afterNavigate } from '$app/navigation';
   afterNavigate(() => {
@@ -39,7 +40,7 @@ focus:text-gray-500 transition ease-in-out duration-150"
   </div>
 
   <div class="md:sticky flex flex-col md:h-[calc(100vh-53px)] md:top-53px md:w-50 overflow-x-auto">
-    <Folder {folder} {activeURL} {root} {expanded} />
+    <Folder {folder} {activeURL} {expanded} />
     <slot name="footer" />
 
     <a href="https://github.com/jacob-8/kitbook" target="_blank" rel="noopener noreferrer" class="ml-3 my-4 block">

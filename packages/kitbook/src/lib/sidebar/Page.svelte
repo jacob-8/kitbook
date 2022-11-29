@@ -3,16 +3,14 @@
   export let page: Page;
   export let activeURL: string;
   export let depth: number;
-  export let root = '/';
-  $: href = root === '/' ? page.url : root + page.url;
-  $: active = activeURL === href;
+  $: active = activeURL === page.url;
 </script>
 
 <a
   class:font-semibold={active}
   class:text-blue-600={active}
   class="hover:text-blue-700 capitalize pr-3 text-sm flex"
-  {href}
+  href={page.url}
   style="padding-left: calc(0.75rem * {depth}"
 >
   <span

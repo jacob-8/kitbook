@@ -10,16 +10,16 @@
   export let title = 'Kitbook';
   export let githubURL: string = undefined;
   export let expanded = false;
-  export let root = '/';
 
   $: folder = putPagesIntoFolders($page.data.pages);
+  console.log({folder})
   $: activeURL = $page.url.pathname;
 
   let showSidebar = false;
 </script>
 
 <div class="min-h-[100vh]">
-  <Header bind:showSidebar {githubURL} {activeURL} {root}>
+  <Header bind:showSidebar {githubURL} {activeURL}>
     <svelte:fragment slot="title"
       ><slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot
       ></svelte:fragment
@@ -27,7 +27,7 @@
   </Header>
 
   <div class="flex">
-    <Sidebar bind:showSidebar {folder} {activeURL} {root} {expanded}>
+    <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
       <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
     </Sidebar>
 

@@ -4,7 +4,6 @@
 
   export let folder: Folder;
   export let activeURL: string;
-  export let root: string;
   export let expanded = false;
 
   const isRootFolder = folder.name === '.';
@@ -32,7 +31,7 @@
 {#if isRootFolder || actualExpandedState}
   {#each folder.pages as page}
     {#if page.svxModulePath !== '/README.md' && page.svxModulePath !== '/src/docs/index.md' && page.svxModulePath !== '/src/docs/index.svx'}
-      <Page {page} {activeURL} {root} depth={folder.depth} />
+      <Page {page} {activeURL} depth={folder.depth} />
     {/if}
   {/each}
   {#each folder.folders as subfolder}

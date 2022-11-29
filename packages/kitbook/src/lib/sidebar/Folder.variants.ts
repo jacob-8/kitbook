@@ -7,16 +7,22 @@ export const variants: Variants<typeof Folder> = [
     name: 'First',
     props: {
       activeURL: 'foo',
-      folder: null
+      folder: {
+        name: '.',
+        url: '/',
+        depth: 0,
+        folders: [],
+        pages: [],
+      }
     },
   },
-  {
-    name: 'Second',
-    props: {
-      activeURL: 'bar',
-      folder: null
-    },
-  }
+  // {
+  //   name: 'Second',
+  //   props: {
+  //     activeURL: 'bar',
+  //     folder: null
+  //   },
+  // }
 ]
 
 // Note, can't do the same with slots as Svelte doesn't allow for dynamically named slots

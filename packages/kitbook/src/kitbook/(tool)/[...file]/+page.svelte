@@ -7,6 +7,8 @@
   <svelte:component this={data.svx} />
 {/if}
 
+<!-- <iframe width="300" height="200" title="" src="/sandbox/hello?isolate" /> -->
+
 <!-- {#if data?.svxRaw}
   <pre>{data.svxRaw}</pre>
   <hr />
@@ -22,7 +24,8 @@
     {/each}
     <pre>{data.variantsRaw}</pre>
   {:else}
-    <svelte:component this={data.component || data.page} />
+    If no variants are provided, then place sandboxed component here with default props based off component types
+    <!-- <svelte:component this={data.component || data.page} /> -->
   {/if}
   <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
 {/if}

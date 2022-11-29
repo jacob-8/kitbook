@@ -3,7 +3,7 @@
   export let showSidebar = false;
   export let githubURL: string = undefined;
   export let activeURL: string;
-  export let root: string;
+  let root = "/";
 </script>
 
 <header class="top-0 z-10 sticky flex p-1 bg-white border-b border-gray-300">
@@ -18,7 +18,7 @@
     class:text-blue-600={activeURL === root}
     class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800"
   >
-    <slot name="title" />
+    <slot>Kitbook</slot>
   </a>
   <div class="flex-1" />
   <!-- <Button form="menu">Dark mode</Button> -->
