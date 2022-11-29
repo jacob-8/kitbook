@@ -9,7 +9,7 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "kitbook": "kitbook dev",
+    "kitbook": "vite dev --config kitbook.vite.config.js",
     "kitbook:build": "kitbook build",
     "kitbook:preview": "kitbook preview",
     "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",

@@ -1,4 +1,8 @@
 import viteConfig from './vite.config';
+import { bold, cyan } from 'kleur/colors';
+
+process.env.KITBOOK = true;
+console.log(`Starting ${bold(cyan('Kitbook'))} dev server`);
 
 // Can learn from others who add settings to a default Vite.config file and do this in a better fashion to allow users to customize settings here
 
