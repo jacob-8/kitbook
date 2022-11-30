@@ -10,8 +10,7 @@ While a lot of great tools exist, they are buggy and/or do not work well for bui
 
 - **[Vitebook](https://vitebook.dev/)** was visually appealing but was missing many important prototyping features and is now discontinued.
 
-All of the above tools, especially Svench, have served as a source of inspiration and ideas for Kitbook.
+All of the above tools, especially Svench, have served as a source of inspiration and ideas for Kitbook. Additionally, the following could also be helpful sources of inspiration in the future:
 
-The following could also be helpful sources of inspiration in the future:
-- https://kit-docs.svelteness.dev/
-- svelte-knobby
+- [KitDocs](https://kit-docs.svelteness.dev/) 
+- [svelte-knobby](https://github.com/Rich-Harris/svelte-knobby)

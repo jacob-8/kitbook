@@ -3,11 +3,9 @@
   export let data: PageData;
 </script>
 
-<div class="not-prose">
-  {#if data?.svx}
-    <svelte:component this={data.svx} />
-  {/if}
-</div>
+{#if data?.svx}
+  <svelte:component this={data.svx} />
+{/if}
 
 <!-- <iframe width="300" height="200" title="" src="/sandbox/hello?isolate" /> -->
 
@@ -18,17 +16,32 @@
 
 {#if data?.component || data?.page}
   {#if data?.variants}
+    <div class="mt-10 text-2xl">
+      Variants
+    </div>
     {#each data.variants as variant}
-      <div>
-        {variant.name}:<br />
+      <div class="not-prose border rounded mt-3">
+        <div class="bg-gray-200 p-3 mb-2">
+          <span class="font-semibold">
+            {variant.name}
+          </span>
+          {#if variant.description}
+            <div class="text-sm">
+              {variant.description}
+            </div>
+          {/if}
+        </div>
         <svelte:component this={data.component || data.page} {...variant.props} />
       </div>
     {/each}
-    <pre>{data.variantsRaw}</pre>
+    <!-- <pre>{data.variantsRaw}</pre> -->
   {:else}
-    If no variants are provided, then place sandboxed component here with default props based off
-    component types
-    <svelte:component this={data.component || data.page} />
+    <!-- <hr />
+    No variants provided, place sandboxed component here with default props based off component
+    types
+    <div class="not-prose p-2 border rounded">
+      <svelte:component this={data.component || data.page} />
+    </div> -->
   {/if}
   <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
 {/if}
