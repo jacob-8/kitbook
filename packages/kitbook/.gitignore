@@ -1,4 +1,2 @@
-/.svelte-kit
+/.svelte-kit*
 /package
-
-/.svelte-kit-kitbook

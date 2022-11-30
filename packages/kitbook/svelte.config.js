@@ -36,7 +36,7 @@ if (process.env.KITBOOK) {
   config.kit.files = {
     routes: 'src/lib/kitbook-routes'
   }
-  config.kit.outDir = '.svelte-kit-kitbook'
+  // config.kit.outDir = '.svelte-kit-kitbook' // turn on if running both normal dev and kitbook dev at same time (just for developing kitbook)
 }
 
 export default config;

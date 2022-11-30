@@ -38,7 +38,7 @@ export function parsePath(path: string) {
 export function parseModules(modules: Modules): Page[] {
   const paths = Object.keys(modules)
     .filter(p => {
-      return !p.includes(`/src/routes/kitbook`) &&
+      return !p.includes(`/src/kitbook`) &&
         !p.includes('+layout.svelte')
     });
 
