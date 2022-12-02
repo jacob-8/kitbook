@@ -4,16 +4,14 @@
 
 # Title should not be showing in sandbox.
 
-<Story id="showMe">
-  This story should show.
+<Story id="showMe" knobs={{ age: 20 }} let:props={{ age }}>
+  This story should show. 
+  Sample age prop: {age}
   <div>This line also should show</div>
 </Story>
 
-<Story id="doNotShowMe">
-  This story should not show.
-</Story>
+<Story id="doNotShowMe">This story should not show.</Story>
 
 <span>This line should not show</span>
 
 I'm a **story**, but this line (and all documentation) should not show in the sandbox.
-

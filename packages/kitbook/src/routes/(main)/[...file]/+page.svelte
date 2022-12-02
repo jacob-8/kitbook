@@ -14,7 +14,7 @@
 {#if data?.component || data?.page}
   {#if data?.variants}
     <div class="mt-10 text-2xl">
-      Variants
+      {data?.component ? 'Component' : 'Page' } Variants
     </div>
     {#each data.variants as variant}
       <div class="not-prose border rounded mt-3">
@@ -28,7 +28,7 @@
             </div>
           {/if}
         </div>
-        <svelte:component this={data.component || data.page} {...variant.props} />
+        <svelte:component this={data.component || data.page} {...variant.props || {}} />
       </div>
     {/each}
     <!-- <pre>{data.variantsRaw}</pre> -->

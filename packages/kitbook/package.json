@@ -20,6 +20,7 @@
     "test": "vitest -u"
   },
   "dependencies": {
+    "lz-string": "^1.4.4",
     "magic-string": "^0.26.7",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.8.1",

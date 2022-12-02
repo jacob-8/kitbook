@@ -37,6 +37,7 @@ importers:
       '@unocss/preset-icons': ^0.47.1
       cac: ^6.7.14
       kleur: ^4.1.5
+      lz-string: ^1.4.4
       magic-string: ^0.26.7
       mdsvex: ^0.10.6
       prettier: ^2.8.0
@@ -57,11 +58,13 @@ importers:
       vite: ^3.2.4
       vitest: ^0.25.3
     dependencies:
+      lz-string: 1.4.4
       magic-string: 0.26.7
       prettier: 2.8.0
       prettier-plugin-svelte: 2.8.1_3ndnxlh52lolrqe4kgjgbxb3xa
       prism-svelte: 0.5.0
       prismjs: 1.29.0
+      svelte: 3.53.1
       svelte-pieces: link:../svelte-pieces
       unist-util-visit: 4.1.1
     devDependencies:
@@ -74,7 +77,6 @@ importers:
       kleur: 4.1.5
       mdsvex: 0.10.6_svelte@3.53.1
       replace-in-file: 6.3.5
-      svelte: 3.53.1
       svelte-check: 2.9.2_svelte@3.53.1
       svelte-preprocess: 4.10.7_7dvewpees4iyn2tkw2qzal77a4
       svelte2tsx: 0.5.20_7dvewpees4iyn2tkw2qzal77a4
@@ -2736,6 +2738,11 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lz-string/1.4.4:
+    resolution: {integrity: sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==}
+    hasBin: true
+    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}

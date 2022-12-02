@@ -1,18 +1,31 @@
 <script lang="ts">
+  import { setContext } from 'svelte';
   import type { PageData } from './$types';
+
   export let data: PageData;
 
-  import { setContext } from 'svelte';
-  // Use the `storyId` query param to pass this context value to `Story` components when displaying a stories file, `.svx/.md`, inside the Sandbox page to identify which individual `Story` component to show. This has no effect on showing variants of components, enumerated in a `*.variants.ts` file.
-  setContext<string>('sandboxId', data.storyId);
+  const isStory = !!data.storyId;
+  const isVariant = !data.storyId;
+
+  if (isStory) {
+    // `Story` components check the `sandboxId` context to know whether to show when in the sandbox - this is passed to the sandbox originally using the `storyId` query param in iframe url
+    setContext<string>('sandboxId', data.storyId);
+    setContext<Record<string, any>>('sandboxProps', data.props || {});
+  }
 </script>
 
-<div id="sandbox" class="border p-3">
-  <svelte:component this={data.component} {...data.props || {}} />
-</div>
+{#if isStory}
+  <div id="sandbox" class="border p-3 bg-red-100">
+    <svelte:component this={data.component} />
+  </div>
+{:else if isVariant}
+  <div class="border p-3 bg-green-100">
+    <svelte:component this={data.component} {...data.props || {}} />
+  </div>
+{/if}
 
 <style>
-  :global(#sandbox > :not(.show-in-sandbox)) {
+  #sandbox > :global(:not(.show-in-sandbox)) {
     display: none;
   }
 </style>

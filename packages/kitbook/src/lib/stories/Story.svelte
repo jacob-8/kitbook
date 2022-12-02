@@ -1,6 +1,8 @@
 <script lang="ts">
   import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
+  import { page } from '$app/stores';
+  import { compressToEncodedURIComponent as encode } from 'lz-string';
 
   export let name = 'default';
   /**
@@ -14,6 +16,7 @@
   export let showCode = false;
 
   export let useSandbox = true;
+  const propsFromSandbox = getContext<T>('sandboxProps');
   const idFromSandbox = getContext<string>('sandboxId');
   const targetedSandboxStory = id === idFromSandbox;
 
@@ -32,7 +35,7 @@
 
 {#if targetedSandboxStory}
   <div class="show-in-sandbox">
-    <slot props={$knobs} {set} />
+    <slot props={propsFromSandbox} />
   </div>
 {:else if !idFromSandbox}
   <div class="h-4" />
@@ -95,7 +98,7 @@
             <iframe
               class="w-full h-full"
               title=""
-              src="/sandbox/foo/Bar.svelte?prop=foo&storyId={id}"
+              src="/sandbox/{$page.url.pathname}?props={encode(JSON.stringify($knobs))}&storyId={id}"
             />
           {:else}
             <slot props={$knobs} {set} />

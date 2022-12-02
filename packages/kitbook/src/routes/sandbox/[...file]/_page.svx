@@ -8,6 +8,8 @@ This is a page which does not inherit the (main) group layout so it can display 
 
 To let the following story be shown, we must now begin matching properly in `+page.ts` (next commit)
 
-<Story>
-  Let's use a real story now!!
+<Story knobs={{hello: 'world'}} let:props={{hello}}>
+  Let's use a real story now!! {hello}
 </Story>
+
+Then props must be passed.
