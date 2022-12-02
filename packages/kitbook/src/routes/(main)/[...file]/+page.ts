@@ -1,7 +1,6 @@
+import type { SvelteComponent } from 'svelte';
 import type { Variants } from 'kitbook';
 import type { PageLoad } from './$types';
-
-// type Module = () => Promise<{ [key: string]: any }>
 
 export const load: PageLoad = async ({ params, parent }) => {
     const data = await parent();
@@ -15,26 +14,25 @@ export const load: PageLoad = async ({ params, parent }) => {
 
     if (_page) {
         const svxModulePath = _page.svxModulePath
-        const svx = (await modules[svxModulePath]?.() as any)?.default as any
+        const svx = (await modules[svxModulePath]?.() as any)?.default as typeof SvelteComponent
         const svxRaw = await modulesRaw[svxModulePath]?.()
 
         const componentModulePath = _page.componentModulePath
-        const component = (await modules[componentModulePath]?.() as any)?.default as any
+        // const component = (await modules[componentModulePath]?.() as any)?.default as typeof SvelteComponent
         const componentRaw = await modulesRaw[componentModulePath]?.()
 
         const pageModulePath = _page.pageModulePath
-        const page = (await modules[pageModulePath]?.() as any)?.default as any
+        const page = (await modules[pageModulePath]?.() as any)?.default as typeof SvelteComponent
         const pageRaw = await modulesRaw[pageModulePath]?.()
 
         const variantsModulePath = _page.variantsModulePath
         const variants = (await modules[variantsModulePath]?.() as any)?.variants as Variants<any>
         const variantsRaw = await modulesRaw[variantsModulePath]?.()
 
-        // if ()
         return {
             svx,
             svxRaw,
-            component,
+            // component,
             componentRaw,
             page,
             pageRaw,
@@ -44,20 +42,20 @@ export const load: PageLoad = async ({ params, parent }) => {
     }
 
     if (modules['/src/docs/index.md']) {
-        const svx = (await modules['/src/docs/index.md']() as any)?.default as any
+        const svx = (await modules['/src/docs/index.md']() as any)?.default as typeof SvelteComponent
         const svxRaw = await modulesRaw['/src/docs/index.md']()
         return { svx, svxRaw };
     }
 
     if (modules['/src/docs/index.svx']) {
-        const svx = (await modules['/src/docs/index.svx']() as any)?.default as any
+        const svx = (await modules['/src/docs/index.svx']() as any)?.default as typeof SvelteComponent
         const svxRaw = await modulesRaw['/src/docs/index.svx']()
         return { svx, svxRaw };
     }
 
     try {
         // possible if you allow Vite server to access one level up
-        const svx = (await modules['/README.md']() as any)?.default as any
+        const svx = (await modules['/README.md']() as any)?.default as typeof SvelteComponent
         const svxRaw = await modulesRaw['/README.md']()
         return { svx, svxRaw };
     } catch (e) {

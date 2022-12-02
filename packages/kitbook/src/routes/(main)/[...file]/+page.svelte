@@ -1,9 +1,11 @@
 <script lang="ts">
   import type { PageData } from './$types';
   export let data: PageData;
+  import { page } from '$app/stores';
+  import { compressToEncodedURIComponent as encode } from 'lz-string';
 </script>
 
-{#if data?.svx}
+{#if data.svx}
   <svelte:component this={data.svx} />
 {/if}
 
@@ -11,37 +13,43 @@
   <pre>{data.svxRaw}</pre>
 {/if} -->
 
-{#if data?.component || data?.page}
-  {#if data?.variants}
-    <div class="mt-10 text-2xl">
-      {data?.component ? 'Component' : 'Page' } Variants
-    </div>
-    {#each data.variants as variant}
-      <div class="not-prose border rounded mt-3">
-        <div class="bg-gray-200 p-3 mb-2">
-          <span class="font-semibold">
-            {variant.name}
-          </span>
-          {#if variant.description}
-            <div class="text-sm">
-              {variant.description}
-            </div>
-          {/if}
-        </div>
-        <svelte:component this={data.component || data.page} {...variant.props || {}} />
+{#if data.variants}
+  <div class="mt-10 text-2xl">
+    {data.componentRaw ? 'Component' : 'Page'} Variants
+  </div>
+  {#each data.variants as variant}
+    <div class="not-prose border rounded mt-3">
+      <div class="bg-gray-200 p-3 mb-2">
+        <span class="font-semibold">
+          {variant.name}
+        </span>
+        {#if variant.description}
+          <div class="text-sm">
+            {variant.description}
+          </div>
+        {/if}
       </div>
-    {/each}
-    <!-- <pre>{data.variantsRaw}</pre> -->
-  {:else}
-    <!-- <hr />
+      {#if $page.url.pathname.startsWith('/routes/sandbox')}
+        <svelte:component this={data.page} {...variant.props || {}} />
+      {:else}
+        <iframe
+          class="w-full h-full"
+          title=""
+          src="/sandbox/{$page.url.pathname}?props={encode(JSON.stringify(variant.props || {}))}"
+        />
+      {/if}
+    </div>
+  {/each}
+  <!-- <pre>{data.variantsRaw}</pre> -->
+{:else}
+  <!-- <hr />
     No variants provided, place sandboxed component here with default props based off component
     types
     <div class="not-prose p-2 border rounded">
       <svelte:component this={data.component || data.page} />
     </div> -->
-  {/if}
-  <!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
 {/if}
+<!-- <pre>{data.componentRaw || data.pageRaw}</pre> -->
 
 <!-- {#if githubURL}
   <a
