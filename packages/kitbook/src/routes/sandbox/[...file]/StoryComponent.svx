@@ -1,0 +1,19 @@
+<script lang="ts">
+  import { Story } from '$lib';
+</script>
+
+# Title should not be showing in sandbox.
+
+<Story id="showMe">
+  This story should show.
+  <div>This line also should show</div>
+</Story>
+
+<Story id="doNotShowMe">
+  This story should not show.
+</Story>
+
+<span>This line should not show</span>
+
+I'm a **story**, but this line (and all documentation) should not show in the sandbox.
+

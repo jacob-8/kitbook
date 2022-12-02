@@ -7,11 +7,8 @@
   <svelte:component this={data.svx} />
 {/if}
 
-<!-- <iframe width="300" height="200" title="" src="/sandbox/hello?isolate" /> -->
-
 <!-- {#if data?.svxRaw}
   <pre>{data.svxRaw}</pre>
-  <hr />
 {/if} -->
 
 {#if data?.component || data?.page}

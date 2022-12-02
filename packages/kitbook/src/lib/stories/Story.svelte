@@ -1,12 +1,21 @@
 <script lang="ts">
+  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  export let name = 'default'; // must be unique for queryParams interaction with knobs to not share state
+  export let name = 'default';
+  /**
+   * Used by knobs to save state in URL, and to pass props to sandboxed stories; need a plugin to give these sequentially or need to pass in manually
+   */
+  export let id = name.replace(/ /g, '_');
   export let width: number = undefined;
   export let height: number = undefined;
   export let persist: 'localStorage' | 'sessionStorage' = undefined;
   export let code: string = undefined;
   export let showCode = false;
+
+  export let useSandbox = true;
+  const idFromSandbox = getContext<string>('sandboxId');
+  const targetedSandboxStory = id === idFromSandbox;
 
   // knobs
   import parseInput from './knobs';
@@ -21,71 +30,87 @@
   }
 </script>
 
-<div class="h-4" />
-<div class="{$$props.class} not-prose border-gray-200 border shadow overflow-hidden">
-  <div class="bg-gray-200 p-2">
-    <div class="font-semibold text-sm flex">
-      {name}
-      <div class="ml-auto" />
+{#if targetedSandboxStory}
+  <div class="show-in-sandbox">
+    <slot props={$knobs} {set} />
+  </div>
+{:else if !idFromSandbox}
+  <div class="h-4" />
+  <div class="{$$props.class} not-prose border-gray-200 border shadow overflow-hidden">
+    <div class="bg-gray-200 p-2">
+      <div class="font-semibold text-sm flex">
+        {name}
+        <div class="ml-auto" />
 
-      {#if code}
+        {#if code}
+          <button
+            title="Code Preview"
+            class:text-blue-600={showCode}
+            class:opacity-90={showCode}
+            class="p-1 opacity-50 hover:opacity-100"
+            on:click={() => (showCode = !showCode)}><span class="i-tabler-code" /></button
+          >
+        {/if}
         <button
-          title="Code Preview"
-          class:text-blue-600={showCode}
-          class:opacity-90={showCode}
+          title="toggle width"
           class="p-1 opacity-50 hover:opacity-100"
-          on:click={() => (showCode = !showCode)}><span class="i-tabler-code" /></button
+          on:click={() => (width ? (width = undefined) : (width = 300))}
+          ><span class="i-ant-design-column-width-outlined" /></button
         >
+        <button
+          title="toggle height"
+          class="p-1 opacity-50 hover:opacity-100"
+          on:click={() => (height ? (height = undefined) : (height = 200))}
+          ><span class="i-ant-design-column-height-outlined" /></button
+        >
+      </div>
+
+      {#if width || height}
+        <div class="text-sm mt-2">
+          {#if width}
+            <label>
+              Width:
+              <input type="number" bind:value={width} class="w-15" />
+            </label>
+          {/if}
+          {#if height}
+            <label>
+              Height:
+              <input type="number" bind:value={height} class="w-15" />
+            </label>
+          {/if}
+        </div>
       {/if}
-      <button
-        title="toggle width"
-        class="p-1 opacity-50 hover:opacity-100"
-        on:click={() => (width ? (width = undefined) : (width = 300))}
-        ><span class="i-ant-design-column-width-outlined" /></button
-      >
-      <button
-        title="toggle height"
-        class="p-1 opacity-50 hover:opacity-100"
-        on:click={() => (height ? (height = undefined) : (height = 200))}
-        ><span class="i-ant-design-column-height-outlined" /></button
-      >
+      {#if knobs}
+        <Knobs {persist} {id} {knobs} />
+      {/if}
     </div>
 
-    {#if width || height}
-      <div class="text-sm mt-2">
-        {#if width}
-          <label>
-            Width:
-            <input type="number" bind:value={width} class="w-15" />
-          </label>
-        {/if}
-        {#if height}
-          <label>
-            Height:
-            <input type="number" bind:value={height} class="w-15" />
-          </label>
-        {/if}
-      </div>
-    {/if}
-    {#if knobs}
-      <Knobs {persist} id={name.replace(' ', '_')} {knobs} />
-    {/if}
-  </div>
-
-  <div style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}">
-    <div class="p-2 hover:bg-gray-100 h-full">
-      <div class="bg-white h-full">
-        <slot props={$knobs} {set} />
+    <div
+      style="height: {height ? `${height}px` : 'unset'}; width: {width ? `${width}px` : 'unset'}"
+    >
+      <div class="p-2 hover:bg-gray-100 h-full">
+        <div class="bg-white h-full">
+          {#if useSandbox}
+            <iframe
+              class="w-full h-full"
+              title=""
+              src="/sandbox/foo/Bar.svelte?prop=foo&storyId={id}"
+            />
+          {:else}
+            <slot props={$knobs} {set} />
+          {/if}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-{#if showCode && code}
-  <pre class="mt-2" transition:slide|local>{@html code}</pre>
+  {#if showCode && code}
+    <pre class="mt-2" transition:slide|local>{@html code}</pre>
+  {/if}
+
+  <div class="h-4" />
 {/if}
-
-<div class="h-4" />
 
 <!--
  @component
