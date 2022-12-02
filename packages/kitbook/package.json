@@ -17,7 +17,8 @@
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-    "test": "vitest -u"
+    "test": "vitest",
+    "test:update": "vitest -u"
   },
   "dependencies": {
     "lz-string": "^1.4.4",

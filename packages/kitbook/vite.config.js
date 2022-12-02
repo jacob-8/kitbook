@@ -1,6 +1,8 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import path from 'path';
 
+const DEFAULT_VITEST_EXCLUDE = ['node_modules', 'dist', '.idea', '.git', '.cache'];
+
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [sveltekit()],
@@ -18,6 +20,7 @@ const config = {
 	test: {
 		globals: true,
 		includeSource: ['src/**/*.ts'],
+		exclude: [...DEFAULT_VITEST_EXCLUDE, 'package'],
 	},
 };
 

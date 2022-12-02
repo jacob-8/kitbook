@@ -26,9 +26,6 @@ export const variants: Variants<typeof Page> = [
         props: { name: 'James' },
         component: IndividualComponent,
         storyId: null,
-        // modules: {
-        //   '/src/lib/Dummy.svelte': () => import('./Dummy.svelte')
-        // },
         modules: null,
         modulesRaw: null,
         pages: null,

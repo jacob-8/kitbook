@@ -20,7 +20,8 @@ export type Page = {
 
 export type PageMap = Record<string, Page>;
 
-export type Modules = Record<string, () => Promise<{ [key: string]: any }>>;
+type Module = () => Promise<{ [key: string]: any }>;
+export type Modules = Record<string, Module>;
 
 function removeInitialDigitAndHyphens(string: string) {
   return string.replace(/^\d+/, '').replace(/-/g, ' ').trim();
