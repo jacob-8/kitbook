@@ -56,3 +56,5 @@
     <span class="i-iconoir-page-edit text-lg mr-1" />Edit page on GitHub</a
   >
 {/if} -->
+
+<!-- By default Kitbook will try to display your project's README.md file as it's home page if no src/docs/index.md (.svx) file exists.<br /><br /> -->

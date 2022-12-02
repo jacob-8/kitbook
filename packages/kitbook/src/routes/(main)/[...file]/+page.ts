@@ -1,10 +1,9 @@
 import type { Variants } from 'kitbook';
-import GetStartedSvelte from './GetStarted.svelte';
 import type { PageLoad } from './$types';
 
 // type Module = () => Promise<{ [key: string]: any }>
 
-export const mainPageLoad: PageLoad = async ({ params, parent }) => {
+export const load: PageLoad = async ({ params, parent }) => {
     const data = await parent();
 
     if (!data?.modules) throw new Error('No modules found, did you import layoutLoad into your Kitbook layout.ts file and do you have any page, svelte, md, or svx files in your project?')
@@ -65,7 +64,7 @@ export const mainPageLoad: PageLoad = async ({ params, parent }) => {
         console.log(e)
     }
 
-    return { svx: GetStartedSvelte as any };
+    return {};
 };
 
-export { mainPageLoad as load };
+// export { mainPageLoad as load };

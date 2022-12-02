@@ -1,4 +1,4 @@
-import type { Variants } from '$lib';
+import type { Variants } from 'kitbook';
 import type Page from './+page.svelte';
 
 export const variants: Variants<typeof Page> = [
