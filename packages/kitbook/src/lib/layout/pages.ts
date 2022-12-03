@@ -5,6 +5,10 @@ type PageMap = Record<string, Page>;
 function removeInitialDigitAndHyphens(string: string) {
   return string.replace(/^\d+/, '').replace(/-/g, ' ').trim();
 }
+/** allow _page/_layout to be merged with +page/+layout */
+function convertUnderscorePrefixToPlus(s: string): string {
+  return s.replace('_page', '+page').replace('_layout', '+layout')
+}
 
 export function parsePath(path: string) {
   if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
@@ -41,15 +45,15 @@ export function combineModulesIntoPages(uncombined: Page[]): PageMap {
   const combined: PageMap = {};
 
   for (const page of uncombined) {
-    const url = page.url.replace('_page', '+page'); // allow _page to be merged with +page
+    const url = convertUnderscorePrefixToPlus(page.url);
     if (!combined[url])
       combined[url] = { name: page.name, url: page.url }
 
     // Will skip files not matching expected extensions, e.g. /src/A/Bar.foo.svelte
     if (['md', 'svx'].includes(page.ext)) {
       combined[url].svxModulePath = page.path
-    } else if (page.name === '+page') {
-      combined[url].pageModulePath = page.path
+    } else if (page.name === '+page' || page.name === '+layout') {
+      combined[url].pageModulePath = page.path // layouts are just pages with slot inheritance super-powers
     } else if (page.ext === 'svelte') {
       combined[url].componentModulePath = page.path
     } else if (page.ext === 'variants.ts') {
