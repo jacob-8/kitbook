@@ -1,4 +1,4 @@
-export { combineModulesIntoPages, parseModules } from './layout/pages';
+export { combineModulesIntoPages, parseModules } from './pages/pages';
 
 export type { Folder, Module, Modules, Page, Variants} from './kitbook-types';
 

@@ -2,7 +2,7 @@
   import Sidebar from '$lib/sidebar/Sidebar.svelte';
   import { Story } from '$lib';
   import { page } from '$app/stores';
-  import { parseModules, combineModulesIntoPages, putPagesIntoFolders } from '$lib/layout/pages';
+  import { parseModules, combineModulesIntoPages, putPagesIntoFolders } from '$lib/pages/pages';
 
   const modules = {
     '/src/docs/9-privacy-policy/hello.md': () => Promise.resolve({}),
