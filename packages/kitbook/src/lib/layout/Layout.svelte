@@ -5,7 +5,7 @@
   import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from '../sidebar/Sidebar.svelte';
-  import { putPagesIntoFolders } from '../pages/pages';
+  import { putPagesIntoFolders } from '../pages/putPagesIntoFolders';
 
   export let title = 'Kitbook';
   export let githubURL: string = undefined;

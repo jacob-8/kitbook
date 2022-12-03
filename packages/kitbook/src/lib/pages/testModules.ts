@@ -1,4 +1,4 @@
-export const modules = {
+export const testModules = {
   '/README.md': () => Promise.resolve({}),
 
   // markdown docs
@@ -45,7 +45,7 @@ export const modules = {
   '/src/lib/A.foo.svelte': () => Promise.resolve({}),
 }
 
-export const newModules = {
+export const newTestModules = {
   '/README.md': () => Promise.resolve({}),
 
   // markdown docs

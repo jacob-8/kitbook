@@ -30,6 +30,7 @@ export type Page = {
   pageModulePath?: string;
   variantsModulePath?: string;
 };
+export type PageMap = Record<string, Page>;
 
 type Module = () => Promise<{ [key: string]: any }>;
 export type Modules = Record<string, Module>;

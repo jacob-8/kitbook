@@ -1,4 +1,4 @@
-import { combineModulesIntoPages, parseModules } from "kitbook";
+import { groupColocatedModulesIntoPages } from "kitbook";
 import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async () => {
@@ -12,7 +12,7 @@ export const load: LayoutLoad = async () => {
   return {
     modules,
     modulesRaw,
-    pages: combineModulesIntoPages(parseModules(modules))
+    pages: groupColocatedModulesIntoPages(modules),
   };
 }
 

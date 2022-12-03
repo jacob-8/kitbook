@@ -1,6 +1,6 @@
-export { combineModulesIntoPages, parseModules } from './pages/pages';
+export { groupColocatedModulesIntoPages } from './pages/groupColocatedModulesIntoPages';
 
-export type { Folder, Module, Modules, Page, Variants} from './kitbook-types';
+export type { Folder, Module, Modules, Page, PageMap, Variants } from './kitbook-types';
 
 export { default as Layout } from './layout/Layout.svelte';
 export { default as Story } from './stories/Story.svelte';
