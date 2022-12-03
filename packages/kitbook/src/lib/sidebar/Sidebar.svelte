@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ResponsiveSlideover } from 'svelte-pieces';
   import Folder from './Folder.svelte';
-  import type { Folder as FolderType } from '../layout/pages';
+  import type { Folder as FolderType } from 'kitbook';
   export let folder: FolderType;
   export let activeURL: string;
   export let showSidebar = false;

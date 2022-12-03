@@ -1,5 +1,6 @@
-export { combineModulesIntoPages, parseModules, type Modules } from './layout/pages';
-export type { Variants } from './kitbook';
+export { combineModulesIntoPages, parseModules } from './layout/pages';
+
+export type { Folder, Module, Modules, Page, Variants} from './kitbook-types';
 
 export { default as Layout } from './layout/Layout.svelte';
 export { default as Story } from './stories/Story.svelte';

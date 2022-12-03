@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Folder } from '../layout/pages';
+  import type { Folder } from 'kitbook';
   import Page from './Page.svelte';
 
   export let folder: Folder;

@@ -15,11 +15,11 @@
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="border p-3 bg-red-100">
+  <div id="sandbox" class="border">
     <svelte:component this={data.component} />
   </div>
 {:else if isVariant}
-  <div class="border p-3 bg-green-100">
+  <div class="border">
     <svelte:component this={data.component} {...data.props || {}} />
   </div>
 {/if}

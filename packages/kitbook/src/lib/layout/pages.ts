@@ -1,27 +1,6 @@
-export type Folder = {
-  name: string;
-  url: string;
-  depth: number;
-  folders?: Folder[];
-  pages?: Page[];
-};
+import type { Folder, Page, Modules } from "kitbook";
 
-export type Page = {
-  name: string;
-  url: string;
-  ext?: string;
-  path?: string;
-  // organize sibling modules into 1 page, show stories/docs first, then default component view, then variants
-  svxModulePath?: string;
-  componentModulePath?: string;
-  pageModulePath?: string;
-  variantsModulePath?: string;
-};
-
-export type PageMap = Record<string, Page>;
-
-type Module = () => Promise<{ [key: string]: any }>;
-export type Modules = Record<string, Module>;
+type PageMap = Record<string, Page>;
 
 function removeInitialDigitAndHyphens(string: string) {
   return string.replace(/^\d+/, '').replace(/-/g, ' ').trim();
