@@ -18,7 +18,7 @@ export function combineModulesIntoPages(uncombined: Page[]): PageMap {
     // Will skip files not matching expected extensions, e.g. /src/A/Bar.foo.svelte
     if (['md', 'svx'].includes(page.ext)) {
       combined[url].svxModulePath = page.path
-    } else if (page.name === '+page' || page.name === '+layout') {
+    } else if ((page.name === '+page') || (page.name === '+layout')) {
       combined[url].pageModulePath = page.path // layouts are just pages with slot inheritance super-powers
     } else if (page.ext === 'svelte') {
       combined[url].componentModulePath = page.path
@@ -93,6 +93,11 @@ if (import.meta.vitest) {
           "svxModulePath": "/src/lib/a/D.svx",
           "url": "/lib/a/D",
           "variantsModulePath": "/src/lib/a/D.variants.ts",
+        },
+        "/routes/+layout": {
+          "name": "+layout",
+          "pageModulePath": "/src/routes/+layout.svelte",
+          "url": "/routes/+layout",
         },
         "/routes/+page": {
           "name": "+page",

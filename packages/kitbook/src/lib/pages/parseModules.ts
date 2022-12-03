@@ -6,8 +6,7 @@ import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphe
 export function parseModules(modules: Modules): Page[] {
   const paths = Object.keys(modules)
     .filter(p => {
-      return !p.includes(`/src/kitbook`) &&
-        !p.includes('+layout.svelte')
+      return !p.includes(`/src/kitbook`)
     });
 
   if (!paths.length) return []
@@ -166,6 +165,12 @@ if (import.meta.vitest) {
           "name": "_page",
           "path": "/src/routes/c/_page.variants.ts",
           "url": "/routes/c/_page",
+        },
+        {
+          "ext": "svelte",
+          "name": "+layout",
+          "path": "/src/routes/+layout.svelte",
+          "url": "/routes/+layout",
         },
         {
           "ext": "foo.svelte",
