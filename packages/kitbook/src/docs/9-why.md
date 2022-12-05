@@ -14,3 +14,4 @@ All of the above tools, especially Svench, have served as a source of inspiratio
 
 - [KitDocs](https://kit-docs.svelteness.dev/) 
 - [svelte-knobby](https://github.com/Rich-Harris/svelte-knobby)
+- svelte-headlessui

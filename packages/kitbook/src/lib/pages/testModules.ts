@@ -1,108 +1,112 @@
 export const testModules = {
-  '/README.md': () => Promise.resolve({}),
+  '/README.md': () => Promise.resolve(null),
 
   // markdown docs
-  '/src/docs/0-why-kitbook.md': () => Promise.resolve({}),
-  '/src/docs/1-get-started.md': () => Promise.resolve({}),
-  '/src/docs/index.md': () => Promise.resolve({}),
-  '/src/docs/my-notes/0-unocss.md': () => Promise.resolve({}),
-  '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
+  '/src/docs/0-why-kitbook.md': () => Promise.resolve(null),
+  '/src/docs/1-get-started.md': () => Promise.resolve(null),
+  '/src/docs/index.md': () => Promise.resolve(null),
+  '/src/docs/my-notes/0-unocss.md': () => Promise.resolve(null),
+  '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve(null),
 
   // components
-  '/src/lib/A.svelte': () => Promise.resolve({}), // by itself
+  '/src/lib/A.svelte': () => Promise.resolve(null), // component only
 
-  '/src/lib/B.svelte': () => Promise.resolve({}), // with svx
-  '/src/lib/B.svx': () => Promise.resolve({}),
+  '/src/lib/B.svelte': () => Promise.resolve(null), // with svx
+  '/src/lib/B.svx': () => Promise.resolve(null),
 
-  '/src/lib/a/C.svelte': () => Promise.resolve({}), // with variants
-  '/src/lib/a/C.variants.ts': () => Promise.resolve({}),
+  '/src/lib/a/C.svelte': () => Promise.resolve(null), // with variants
+  '/src/lib/a/C.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/a/D.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/lib/a/D.svx': () => Promise.resolve({}),
-  '/src/lib/a/D.variants.ts': () => Promise.resolve({}),
+  '/src/lib/a/D.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/lib/a/D.svx': () => Promise.resolve(null),
+  '/src/lib/a/D.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/E.svx': () => Promise.resolve({}), // svx by itself (e.g. display combinations of components)
+  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself (e.g. display combinations of components)
 
   // pages
-  '/src/routes/+page.svelte': () => Promise.resolve({}), // by itself
+  '/src/routes/+page.svelte': () => Promise.resolve(null), // page only
 
-  '/src/routes/a/+page.svelte': () => Promise.resolve({}), // with svx
-  '/src/routes/a/_page.svx': () => Promise.resolve({}),
+  '/src/routes/a/+page.svelte': () => Promise.resolve(null), // with svx
+  '/src/routes/a/_page.svx': () => Promise.resolve(null),
 
-  '/src/routes/b/+page.svelte': () => Promise.resolve({}), // with variants
-  '/src/routes/b/_page.variants.ts': () => Promise.resolve({}),
+  '/src/routes/b/+page.svelte': () => Promise.resolve(null), // with variants
+  '/src/routes/b/_page.variants.ts': () => Promise.resolve(null),
 
-  '/src/routes/c/+page.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/routes/c/_page.svx': () => Promise.resolve({}),
-  '/src/routes/c/_page.variants.ts': () => Promise.resolve({}),
+  // probably won't happen but the order of these is intentionally reversed to cover that situation in case Vite ever updates the order in which modules are returned from import.meta.glob
+  '/src/routes/c/_page.svx': () => Promise.resolve(null), // with svx and variants
+  '/src/routes/c/_page.variants.ts': () => Promise.resolve(null),
+  '/src/routes/c/+page.svelte': () => Promise.resolve(null), 
 
-  // ignore layout files and kitbook route files
-  '/src/routes/+layout.svelte': () => Promise.resolve({}),
-  '/src/kitbook/[...file]/+page.svelte': () => Promise.resolve({}),
-  '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve({}),
+  // layouts
+  '/src/routes/+layout.svelte': () => Promise.resolve(null),
+  
+  // ignore kitbook route files
+  '/src/kitbook/[...file]/+page.svelte': () => Promise.resolve(null),
+  '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
   // unrecognized extensions will be ignored in combineModulesIntoPages()
-  '/src/lib/A.foo.svelte': () => Promise.resolve({}),
+  '/src/lib/A.foo.svelte': () => Promise.resolve(null),
+  '/src/lib/Apple.foo.svelte': () => Promise.resolve(null),
 }
 
 export const newTestModules = {
-  '/README.md': () => Promise.resolve({}),
+  '/README.md': () => Promise.resolve(null),
 
   // markdown docs
-  '/src/docs/0-why-kitbook.md': () => Promise.resolve({}),
-  '/src/docs/1-get-started.md': () => Promise.resolve({}),
-  '/src/docs/index.md': () => Promise.resolve({}),
-  '/src/docs/my-notes/0-unocss.md': () => Promise.resolve({}),
-  '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve({}),
+  '/src/docs/0-why-kitbook.md': () => Promise.resolve(null),
+  '/src/docs/1-get-started.md': () => Promise.resolve(null),
+  '/src/docs/index.md': () => Promise.resolve(null),
+  '/src/docs/my-notes/0-unocss.md': () => Promise.resolve(null),
+  '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve(null),
 
   // standalone components
-  '/src/lib/A.svelte': () => Promise.resolve({}), // by itself
+  '/src/lib/A.svelte': () => Promise.resolve(null), // by itself
 
-  '/src/lib/B.svelte': () => Promise.resolve({}), // with svx
-  '/src/lib/B.svx': () => Promise.resolve({}),
+  '/src/lib/B.svelte': () => Promise.resolve(null), // with svx
+  '/src/lib/B.svx': () => Promise.resolve(null),
 
-  '/src/lib/a/C.svelte': () => Promise.resolve({}), // with variants
-  '/src/lib/a/C.variants.ts': () => Promise.resolve({}),
+  '/src/lib/a/C.svelte': () => Promise.resolve(null), // with variants
+  '/src/lib/a/C.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/a/D.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/lib/a/D.svx': () => Promise.resolve({}),
-  '/src/lib/a/D.variants.ts': () => Promise.resolve({}),
+  '/src/lib/a/D.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/lib/a/D.svx': () => Promise.resolve(null),
+  '/src/lib/a/D.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/E.svx': () => Promise.resolve({}), // svx by itself (e.g. display combinations of components w/o one particular component being primary)
+  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself (e.g. display combinations of components w/o one particular component being primary)
 
   // pages
-  '/src/routes/+page.svelte': () => Promise.resolve({}), // by itself
+  '/src/routes/+page.svelte': () => Promise.resolve(null), // by itself
 
-  '/src/routes/a/+page.svelte': () => Promise.resolve({}), // with svx
-  '/src/routes/a/_page.svx': () => Promise.resolve({}),
+  '/src/routes/a/+page.svelte': () => Promise.resolve(null), // with svx
+  '/src/routes/a/_page.svx': () => Promise.resolve(null),
 
-  '/src/routes/b/+page.svelte': () => Promise.resolve({}), // with variants
-  '/src/routes/b/_page.variants.ts': () => Promise.resolve({}),
+  '/src/routes/b/+page.svelte': () => Promise.resolve(null), // with variants
+  '/src/routes/b/_page.variants.ts': () => Promise.resolve(null),
 
-  '/src/routes/c/+page.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/routes/c/_page.svx': () => Promise.resolve({}),
-  '/src/routes/c/_page.variants.ts': () => Promise.resolve({}),
+  '/src/routes/c/+page.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/routes/c/_page.svx': () => Promise.resolve(null),
+  '/src/routes/c/_page.variants.ts': () => Promise.resolve(null),
 
   // layouts
-  '/src/routes/+layout.svelte': () => Promise.resolve({}), // by itself
+  '/src/routes/+layout.svelte': () => Promise.resolve(null), // by itself
   
-  '/src/routes/a/+layout.svelte': () => Promise.resolve({}), // with svx
-  '/src/routes/a/_layout.svx': () => Promise.resolve({}),
+  '/src/routes/a/+layout.svelte': () => Promise.resolve(null), // with svx
+  '/src/routes/a/_layout.svx': () => Promise.resolve(null),
 
-  '/src/routes/b/+layout.svelte': () => Promise.resolve({}), // with variants
-  '/src/routes/b/_layout.variants.ts': () => Promise.resolve({}),
+  '/src/routes/b/+layout.svelte': () => Promise.resolve(null), // with variants
+  '/src/routes/b/_layout.variants.ts': () => Promise.resolve(null),
 
-  '/src/routes/c/+layout.svelte': () => Promise.resolve({}), // with svx and variants
-  '/src/routes/c/_layout.svx': () => Promise.resolve({}),
-  '/src/routes/c/_layout.variants.ts': () => Promise.resolve({}),
+  '/src/routes/c/+layout.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/routes/c/_layout.svx': () => Promise.resolve(null),
+  '/src/routes/c/_layout.variants.ts': () => Promise.resolve(null),
 
   // ignore kitbook route files
-  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve({}),
-  '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve({}),
-  '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve({}),
+  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve(null),
+  '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve(null),
+  '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
   // unrecognized extensions will be ignored in combineModulesIntoPages()
-  '/src/lib/Baz.foo.svelte': () => Promise.resolve({}),
-  '/src/lib/Typescript.ts': () => Promise.resolve({}),
-  '/src/lib/Vue.vue': () => Promise.resolve({}),
+  '/src/lib/Baz.foo.svelte': () => Promise.resolve(null),
+  '/src/lib/Typescript.ts': () => Promise.resolve(null),
+  '/src/lib/Vue.vue': () => Promise.resolve(null),
 }

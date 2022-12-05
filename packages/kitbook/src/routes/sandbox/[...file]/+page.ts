@@ -1,11 +1,13 @@
 import type { SvelteComponent } from 'svelte';
 import LZString from 'lz-string';
 const { decompressFromEncodedURIComponent: decode } = LZString;
-import { convertUrlToModulePath } from '$lib/pages/convertUrlToPath';
 
 import type { PageLoad } from './$types';
 export const load: PageLoad = async ({ params, parent, url }) => {
     const data = await parent();
+    const { pages } = data;
+    const page = pages[params.file]; // note this doesn't have a leading slash like the (main) page param requires
+
     let component: typeof SvelteComponent;
 
     const storyId = url.searchParams.get('storyId');
@@ -13,23 +15,11 @@ export const load: PageLoad = async ({ params, parent, url }) => {
     const isVariant = !storyId;
 
     if (isStory) {
-        const mdModulePath = convertUrlToModulePath(params.file, 'md')
-        const mdModule = data.modules[mdModulePath];
-        if (mdModule) {
-            component = (await mdModule() as any).default as typeof SvelteComponent;
-        } else {
-            const svxModulePath = convertUrlToModulePath(params.file, 'svx')
-            const svxModule = data.modules[svxModulePath];
-            component = (await svxModule() as any).default as typeof SvelteComponent;
-        }
+        component = (await page.loadSvx.loadModule() as any).default as typeof SvelteComponent;
     }
     if (isVariant) {
-        const svelteModulePath = convertUrlToModulePath(params.file, 'svelte')
-        const svelteModule = data.modules[svelteModulePath];
-        component = (await svelteModule() as any).default as typeof SvelteComponent;
+        component = (await page.loadComponent.loadModule() as any).default as typeof SvelteComponent;
     }
-
-    console.log({ file: params.file })
 
     const props: Record<string, any> = JSON.parse(decode(url.searchParams.get('props')) || null);
     return { component, storyId, props };

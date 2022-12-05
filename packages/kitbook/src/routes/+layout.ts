@@ -10,9 +10,7 @@ export const load: LayoutLoad = async () => {
   const modulesRaw = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md'], { as: 'raw' });
 
   return {
-    modules,
-    modulesRaw,
-    pages: groupColocatedModulesIntoPages(modules),
+    pages: groupColocatedModulesIntoPages(modules, modulesRaw),
   };
 }
 

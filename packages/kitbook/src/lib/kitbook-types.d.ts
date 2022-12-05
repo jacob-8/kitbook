@@ -16,21 +16,36 @@ export type Folder = {
   url: string;
   depth: number;
   folders?: Folder[];
-  pages?: Page[];
+  pages?: GroupedPage[];
 };
 
-export type Page = {
+export type UngroupedPage = PageMetadata & {
+  ext: string;
+  load: ModuleLoadFunctions;
+}
+
+export type GroupedPage = PageMetadata & {
+  extensions: string[];
+  loadSvx?: ModuleLoadFunctions;
+  loadComponent?: ModuleLoadFunctions;
+  loadPage?: ModuleLoadFunctions;
+  loadVariants?: ModuleLoadFunctions;
+}
+export type GroupedPageMap = Record<string, GroupedPage>;
+
+type PageMetadata = {
+  path: string; // allows easy link to Github
+  url: string; // used as the key in GroupedPageMap
   name: string;
-  url: string;
-  ext?: string;
-  path?: string;
-  // organize sibling modules into 1 page, show stories/docs first, then default component view, then variants
-  svxModulePath?: string;
-  componentModulePath?: string;
-  pageModulePath?: string;
-  variantsModulePath?: string;
-};
-export type PageMap = Record<string, Page>;
+}
+
+type ModuleLoadFunctions = {
+  loadModule: Module;
+  loadRaw: RawModule;
+}
 
 type Module = () => Promise<{ [key: string]: any }>;
+type RawModule = () => Promise<string>;
+
 export type Modules = Record<string, Module>;
+export type RawModules = Record<string, RawModule>;

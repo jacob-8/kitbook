@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Page } from 'kitbook';
-  export let page: Page;
+  import type { GroupedPage } from '$lib/kitbook-types';
+  export let page: GroupedPage;
   export let activeURL: string;
   export let depth: number;
   $: active = activeURL === page.url;
@@ -22,9 +22,9 @@
   <span class="py-1">
     {page.name}
     <span class="opacity-30">
-      {#if ['svelte', 'svx'].includes(page.ext)}
+      {#if page.extensions.includes('svelte') || page.extensions.includes('svx')}
         <span class="i-simple-icons-svelte" />
-      {:else if page.ext === 'md'}
+      {:else if page.extensions.includes('md')}
         <span class="i-simple-icons-markdown" />
       {/if}
     </span>

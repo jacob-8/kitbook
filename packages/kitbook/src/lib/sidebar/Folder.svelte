@@ -30,7 +30,7 @@
 
 {#if isRootFolder || actualExpandedState}
   {#each folder.pages as page}
-    {#if page.svxModulePath !== '/README.md' && page.svxModulePath !== '/src/docs/index.md' && page.svxModulePath !== '/src/docs/index.svx'}
+    {#if page.url !== '/README' && page.url !== '/docs/index'}
       <Page {page} {activeURL} depth={folder.depth} />
     {/if}
   {/each}

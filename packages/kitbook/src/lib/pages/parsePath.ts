@@ -2,7 +2,7 @@ export function parsePath(path: string) {
   if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
 
   const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
-  if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure your Kitbook Layout Load import meta glob starts with '/src/**'`);
+  if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure the Kitbook Layout Load import.meta.glob starts with '/src/**'`);
   const [, dir, name, ext] = match;
   return { dir, name, ext };
 }
@@ -42,6 +42,14 @@ if (import.meta.vitest) {
         "dir": "routes/a/",
         "ext": "variants.ts",
         "name": "_page",
+      }
+    `);
+    // Currently this sort of file will be filtered out downstream
+    expect(parsePath('/src/routes/a/Apple.foo.svelte')).toMatchInlineSnapshot(`
+      {
+        "dir": "routes/a/",
+        "ext": "foo.svelte",
+        "name": "Apple",
       }
     `);
   });

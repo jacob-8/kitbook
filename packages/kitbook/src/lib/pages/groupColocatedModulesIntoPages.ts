@@ -1,99 +1,248 @@
-import type { Modules, PageMap } from "$lib/kitbook-types";
-import { combineModulesIntoPages } from "./combineModulesIntoPages";
-import { parseModules } from "./parseModules";
+import type { Modules, RawModules, GroupedPageMap } from "$lib/kitbook-types";
+import { groupColocatedPages } from "./combineModulesIntoPages";
+import { parseModulesIntoUngroupedPages } from "./parseModules";
 import { testModules } from "./testModules";
 
-export function groupColocatedModulesIntoPages(modules: Modules): PageMap {
-  const parsedModules = parseModules(modules);
-  return combineModulesIntoPages(parsedModules);
+export function groupColocatedModulesIntoPages(modules: Modules, modulesRaw: RawModules): GroupedPageMap {
+  const ungroupedPages = parseModulesIntoUngroupedPages(modules, modulesRaw);
+  return groupColocatedPages(ungroupedPages);
 }
 
 if (import.meta.vitest) {
   test('groupColocatedModulesIntoPages', () => {
-    expect(groupColocatedModulesIntoPages(testModules)).toMatchInlineSnapshot(`
+    expect(groupColocatedModulesIntoPages(testModules, testModules)).toMatchInlineSnapshot(`
       {
         "/README": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "README",
-          "svxModulePath": "/README.md",
+          "path": "/README.md",
           "url": "/README",
         },
         "/docs/0-why-kitbook": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "why kitbook",
-          "svxModulePath": "/src/docs/0-why-kitbook.md",
+          "path": "/src/docs/0-why-kitbook.md",
           "url": "/docs/0-why-kitbook",
         },
         "/docs/1-get-started": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "get started",
-          "svxModulePath": "/src/docs/1-get-started.md",
+          "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
         "/docs/index": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "index",
-          "svxModulePath": "/src/docs/index.md",
+          "path": "/src/docs/index.md",
           "url": "/docs/index",
         },
         "/docs/my-notes/0-unocss": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "unocss",
-          "svxModulePath": "/src/docs/my-notes/0-unocss.md",
+          "path": "/src/docs/my-notes/0-unocss.md",
           "url": "/docs/my-notes/0-unocss",
         },
         "/docs/my-notes/1-deploy-to-vercel": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "deploy to vercel",
-          "svxModulePath": "/src/docs/my-notes/1-deploy-to-vercel.md",
+          "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
           "url": "/docs/my-notes/1-deploy-to-vercel",
         },
         "/lib/A": {
-          "componentModulePath": "/src/lib/A.svelte",
+          "extensions": [
+            "svelte",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "A",
+          "path": "/src/lib/A.svelte",
           "url": "/lib/A",
         },
         "/lib/B": {
-          "componentModulePath": "/src/lib/B.svelte",
+          "extensions": [
+            "svelte",
+            "svx",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "B",
-          "svxModulePath": "/src/lib/B.svx",
+          "path": "/src/lib/B.svelte",
           "url": "/lib/B",
         },
         "/lib/E": {
+          "extensions": [
+            "svx",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "E",
-          "svxModulePath": "/src/lib/E.svx",
+          "path": "/src/lib/E.svx",
           "url": "/lib/E",
         },
         "/lib/a/C": {
-          "componentModulePath": "/src/lib/a/C.svelte",
+          "extensions": [
+            "svelte",
+            "variants.ts",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "C",
+          "path": "/src/lib/a/C.svelte",
           "url": "/lib/a/C",
-          "variantsModulePath": "/src/lib/a/C.variants.ts",
         },
         "/lib/a/D": {
-          "componentModulePath": "/src/lib/a/D.svelte",
+          "extensions": [
+            "svelte",
+            "svx",
+            "variants.ts",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "D",
-          "svxModulePath": "/src/lib/a/D.svx",
+          "path": "/src/lib/a/D.svelte",
           "url": "/lib/a/D",
-          "variantsModulePath": "/src/lib/a/D.variants.ts",
+        },
+        "/routes/+layout": {
+          "extensions": [
+            "svelte",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/+layout.svelte",
+          "url": "/routes/+layout",
         },
         "/routes/+page": {
+          "extensions": [
+            "svelte",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "+page",
-          "pageModulePath": "/src/routes/+page.svelte",
+          "path": "/src/routes/+page.svelte",
           "url": "/routes/+page",
         },
         "/routes/a/+page": {
+          "extensions": [
+            "svelte",
+            "svx",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "+page",
-          "pageModulePath": "/src/routes/a/+page.svelte",
-          "svxModulePath": "/src/routes/a/_page.svx",
+          "path": "/src/routes/a/+page.svelte",
           "url": "/routes/a/+page",
         },
         "/routes/b/+page": {
+          "extensions": [
+            "svelte",
+            "variants.ts",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "+page",
-          "pageModulePath": "/src/routes/b/+page.svelte",
+          "path": "/src/routes/b/+page.svelte",
           "url": "/routes/b/+page",
-          "variantsModulePath": "/src/routes/b/_page.variants.ts",
         },
         "/routes/c/+page": {
+          "extensions": [
+            "svelte",
+            "svx",
+            "variants.ts",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "+page",
-          "pageModulePath": "/src/routes/c/+page.svelte",
-          "svxModulePath": "/src/routes/c/_page.svx",
+          "path": "/src/routes/c/+page.svelte",
           "url": "/routes/c/+page",
-          "variantsModulePath": "/src/routes/c/_page.variants.ts",
         },
       }
     `);
