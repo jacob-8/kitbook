@@ -3,9 +3,7 @@ import type { Variants } from 'kitbook';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, parent }) => {
-    const data = await parent();
-    if (!data?.pages) throw new Error('No pages found, did you import layoutLoad into your Kitbook layout.ts file and do you have any +page, +layout, svelte, md, or svx files in your project?')
-    const { pages } = data;
+    const { pages } = await parent();
     const page = pages['/' + params.file];
     const loadedModules: {
         svx: typeof SvelteComponent;

@@ -9,6 +9,9 @@ export const load: LayoutLoad = async () => {
   const modules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']);
   const modulesRaw = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md'], { as: 'raw' });
 
+  const pages = groupColocatedModulesIntoPages(modules, modulesRaw);
+  if (!Object.keys(pages).length) throw new Error('No pages found. Did you import layoutLoad into your Kitbook layout.ts file and you have at least a README.md or one +page.svelte, +layout.svelte, *.svelte, *.md, or *.svx file in your project?')
+
   return {
     pages: groupColocatedModulesIntoPages(modules, modulesRaw),
   };
