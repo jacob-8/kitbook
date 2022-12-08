@@ -4,7 +4,9 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, parent }) => {
     const data = await parent();
-
+    if (!data?.pages) throw new Error('No pages found, did you import layoutLoad into your Kitbook layout.ts file and do you have any +page, +layout, svelte, md, or svx files in your project?')
+    const { pages } = data;
+    const page = pages['/' + params.file];
     const loadedModules: {
         svx: typeof SvelteComponent;
         svxRaw: string;
@@ -24,13 +26,6 @@ export const load: PageLoad = async ({ params, parent }) => {
         variants: null,
         variantsRaw: null,
     }
-
-    if (!data?.pages) throw new Error('No pages found, did you import layoutLoad into your Kitbook layout.ts file and do you have any +page, +layout, svelte, md, or svx files in your project?')
-
-    const { pages } = data;
-    console.log({ file: params.file })
-
-    const page = pages['/' + params.file];
 
     if (page) {
         if (page.loadSvx) {
@@ -52,16 +47,16 @@ export const load: PageLoad = async ({ params, parent }) => {
         return loadedModules;
     }
 
-    if (pages['/docs/index.md']) {
+    if (pages['/docs/index']) {
         loadedModules.svx = (await pages['/docs/index'].loadSvx.loadModule() as any)?.default as typeof SvelteComponent
         loadedModules.svxRaw = await pages['/docs/index'].loadSvx.loadRaw()
         return loadedModules;
     }
 
     try {
-        // possible if you allow Vite server to access one level up
-        loadedModules.svx = (await pages['/README.md'].loadSvx.loadModule() as any)?.default as typeof SvelteComponent
-        loadedModules.svxRaw = await pages['/README.md'].loadSvx.loadRaw()
+        // requires allowing Vite server to access one level up from project root (/src)
+        loadedModules.svx = (await pages['/README'].loadSvx.loadModule() as any)?.default as typeof SvelteComponent
+        loadedModules.svxRaw = await pages['/README'].loadSvx.loadRaw()
         return loadedModules;
     } catch (e) {
         console.log(e)

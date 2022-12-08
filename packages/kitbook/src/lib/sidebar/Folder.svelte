@@ -12,7 +12,7 @@
 </script>
 
 {#if !isRootFolder}
-  <div
+  <button type="button"
     class="hover:text-blue-700 capitalize pr-3 font-semibold cursor-pointer flex"
     class:text-blue-800={active}
     style="padding-left: calc(0.75rem * {folder.depth - 1}"
@@ -25,7 +25,7 @@
     <span class="py-1">
       {folder.name}
     </span>
-  </div>
+  </button>
 {/if}
 
 {#if isRootFolder || actualExpandedState}
