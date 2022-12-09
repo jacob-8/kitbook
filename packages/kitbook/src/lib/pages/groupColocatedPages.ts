@@ -308,70 +308,66 @@ function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[]): UngroupedP
   return pages.sort((a, b) => {
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
-    if (!(nameA.startsWith('+page') || nameB.startsWith('+page') || nameA.startsWith('+layout') || nameB.startsWith('+layout'))) return 0;
+    const namesToSort = ['+page', '_page', '+layout', '_layout']
+    if (!(namesToSort.includes(nameA) && namesToSort.includes(nameB))) return 0;
     return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
   });
 }
 
 if (import.meta.vitest) {
-  test('sortPageAndLayoutPagesWithPlusFirst', () => {
-    const pages = [{
-      "ext": "variants.ts",
-      "load": null,
-      "name": "_page",
-      "path": "/src/routes/c/_page.variants.ts",
-      "url": "/routes/c/_page",
-    },
-    {
-      "ext": "svelte",
-      "load": null,
-      "name": "+page",
-      "path": "/src/routes/c/+page.svelte",
-      "url": "/routes/c/+page",
-    },
-    {
-      "ext": "svelte",
-      "load": null,
-      "name": "_layout",
-      "path": "/src/routes/c/_layout.variants.ts",
-      "url": "/routes/c/_layout",
-    },
-    {
-      "ext": "svelte",
-      "load": null,
-      "name": "+layout",
-      "path": "/src/routes/c/+layout.svelte",
-      "url": "/routes/c/+layout",
-    },]
+  test('sortPageAndLayoutPagesWithPlusFirst moves + ahead of _ without affecting other components', () => {
+    const pages = ["MyComponent", "_page", "+page", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
+      return {
+        name: p,
+        ext: null,
+        load: null,
+        path: null,
+        url: null,
+      }
+    })
     expect(sortPageAndLayoutPagesWithPlusFirst(pages)).toMatchInlineSnapshot(`
       [
         {
-          "ext": "svelte",
+          "ext": null,
+          "load": null,
+          "name": "MyComponent",
+          "path": null,
+          "url": null,
+        },
+        {
+          "ext": null,
           "load": null,
           "name": "+layout",
-          "path": "/src/routes/c/+layout.svelte",
-          "url": "/routes/c/+layout",
+          "path": null,
+          "url": null,
         },
         {
-          "ext": "svelte",
+          "ext": null,
           "load": null,
           "name": "+page",
-          "path": "/src/routes/c/+page.svelte",
-          "url": "/routes/c/+page",
+          "path": null,
+          "url": null,
         },
         {
-          "ext": "variants.ts",
-          "load": null,
-          "name": "_page",
-          "path": "/src/routes/c/_page.variants.ts",
-          "url": "/routes/c/_page",
-        },
-        {
-          "ext": "svelte",
+          "ext": null,
           "load": null,
           "name": "_layout",
-          "path": "/src/routes/c/_layout.variants.ts",
-          "url": "/routes/c/_layout",
+          "path": null,
+          "url": null,
+        },
+        {
+          "ext": null,
+          "load": null,
+          "name": "_page",
+          "path": null,
+          "url": null,
+        },
+        {
+          "ext": null,
+          "load": null,
+          "name": "AnotherRegularComponent",
+          "path": null,
+          "url": null,
         },
       ]
     `);
