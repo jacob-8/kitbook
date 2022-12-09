@@ -2,14 +2,16 @@
   import '../styles/prism-vsc-dark-plus.css';
   import '../styles/tw-prose.css';
 
+  import { setContext } from 'svelte';
   import { page } from '$app/stores';
   import Header from './Header.svelte';
   import Sidebar from '../sidebar/Sidebar.svelte';
   import { putPagesIntoFolders } from '../pages/putPagesIntoFolders';
 
   export let title = 'Kitbook';
-  export let githubURL: string = undefined;
   export let expanded = false;
+  export let githubURL = '';
+  setContext<string>('githubUrl', githubURL);
 
   $: folder = putPagesIntoFolders($page.data.pages);
   $: activeURL = $page.url.pathname;

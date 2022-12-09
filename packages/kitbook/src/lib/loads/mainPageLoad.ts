@@ -20,7 +20,7 @@ export const mainPageLoad = async ({ params, parent }) => {
             loadedModules.pageRaw = await page.loadPage.loadRaw()
         }
         if (page.loadVariants) {
-            loadedModules.variants = (await page.loadVariants.loadModule())?.default as Variants<any>;
+            loadedModules.variants = (await page.loadVariants.loadModule())?.variants as Variants<any>;
             loadedModules.variantsRaw = await page.loadVariants.loadRaw()
         }
         return { page, loadedModules };

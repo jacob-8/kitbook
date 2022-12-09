@@ -3,22 +3,18 @@
 ## Important before considering this a publicly shareable project
 *(you have been warned, early-adopters)*
 
-- debug why root is not being passed down
-- debug why Folder, Page, and Sidebar are not working
-- rename page routes using folder name
-- Add component docs with sveld
-- iframe
 - Easily adjust screen size use full-screen view
-- Next and Previous pages (see Docusaurus/Vitebook)
-  - requires ordering pages and finding active page index
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
-- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)
-- Easy markdown bookmark hyperlinks
-  - FoamBubble like linking, backlinks, and connections graph
 - Bake prism css into Layout w/ optional flag (currently in app.html)
+- update to SvelteKit 1.0
+- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
+- update docs
 
 ## Nice to Have
-- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
+- Next and Previous pages (see Docusaurus/Vitebook)
+- Easy markdown bookmark hyperlinks
+  - FoamBubble like linking, backlinks, and connections graph
+- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)
 - solve over-applied global scrollbar css
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
 - pass in component's code to view in a story
