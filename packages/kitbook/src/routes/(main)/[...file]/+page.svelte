@@ -3,7 +3,7 @@
   export let data: PageData;
   import { page } from '$app/stores';
   import { compressToEncodedURIComponent as encode } from 'lz-string';
-  import EditInGithub from '$lib/components/EditInGithub.svelte';
+  import EditInGithub from 'kitbook/components/EditInGithub.svelte';
 
   $: pathWouldRecurseInfinitelyIfInSandbox = $page.url.pathname.startsWith('/routes/sandbox');
 </script>

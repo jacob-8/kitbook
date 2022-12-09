@@ -1,4 +1,4 @@
-import type { Modules, RawModules, GroupedPageMap } from "$lib/kitbook-types";
+import type { Modules, RawModules, GroupedPageMap } from "../kitbook-types";
 import { groupColocatedPages } from "./groupColocatedPages";
 import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 import { testModules } from "./testModules";

@@ -1,4 +1,4 @@
-import type { Modules, RawModules, UngroupedPage } from "$lib/kitbook-types";
+import type { Modules, RawModules, UngroupedPage } from "../kitbook-types";
 import { parsePath } from "./parsePath";
 import { testModules } from "./testModules";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
