@@ -13,7 +13,7 @@
     setContext<Record<string, any>>('sandboxProps', data.props || {});
   }
 
-  for (const { key, context } of data.contexts) {
+  for (const { key, context } of data.contexts || []) {
     setContext(key, context);
   }
 </script>

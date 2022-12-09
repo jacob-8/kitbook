@@ -7,9 +7,9 @@ export const sandboxPageLoad = async ({ params, parent, url }) => {
     const { pages } = await parent();
     const page: GroupedPage = pages[params.file]; // note this doesn't have a leading slash like the (main) page param requires
 
-    const storyId = url.searchParams.get('storyId');
+    const storyId = url.searchParams.get('storyId') as string;
     const variantIdx = url.searchParams.get('variantIdx');
-    
+
     let component: typeof SvelteComponent;
     let contexts: MockedContext[];
 
@@ -18,7 +18,7 @@ export const sandboxPageLoad = async ({ params, parent, url }) => {
     }
     if (variantIdx) {
         component = (await page.loadComponent.loadModule() as any).default as typeof SvelteComponent;
-        contexts = (await page.loadVariants.loadModule())?.variants?.[variantIdx].contexts as MockedContext[] || [];
+        contexts = (await page.loadVariants.loadModule()).variants[variantIdx]?.contexts || [];
     }
 
     const props: Record<string, any> = JSON.parse(decode(url.searchParams.get('props')) || null);
