@@ -26,18 +26,20 @@ export const mainPageLoad = async ({ params, parent }) => {
         return { page, loadedModules };
     }
 
-    if (pages['/docs/index']) {
-        loadedModules.svx = (await pages['/docs/index'].loadSvx.loadModule() as any)?.default as typeof SvelteComponent
-        loadedModules.svxRaw = await pages['/docs/index'].loadSvx.loadRaw()
-        return { page, loadedModules };
+    const indexPage = pages['/docs/index'] as GroupedPage;
+    if (indexPage) {
+        loadedModules.svx = (await indexPage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
+        loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
+        return { page: indexPage, loadedModules };
     }
 
-    try {
-        // requires allowing Vite server to access one level up from project root (/src)
-        loadedModules.svx = (await pages['/README'].loadSvx.loadModule() as any)?.default as typeof SvelteComponent
-        loadedModules.svxRaw = await pages['/README'].loadSvx.loadRaw()
-        return { page, loadedModules };
-    } catch (e) {
-        console.log(e)
+    const readmePage = pages['/README'] as GroupedPage;
+    // requires allowing Vite server to access one level up from project root (/src)
+    if (readmePage) {
+        loadedModules.svx = (await readmePage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
+        loadedModules.svxRaw = await readmePage.loadSvx.loadRaw()
+        return { page: readmePage, loadedModules };
     }
+
+    return { page: { path: 'unknown' } as GroupedPage, loadedModules };
 };
