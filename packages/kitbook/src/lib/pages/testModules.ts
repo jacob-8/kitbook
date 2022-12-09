@@ -8,7 +8,7 @@ export const testModules = {
   '/src/docs/my-notes/0-unocss.md': () => Promise.resolve(null),
   '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve(null),
 
-  // components
+  // standalone components
   '/src/lib/A.svelte': () => Promise.resolve(null), // component only
 
   '/src/lib/B.svelte': () => Promise.resolve(null), // with svx
@@ -21,7 +21,7 @@ export const testModules = {
   '/src/lib/a/D.svx': () => Promise.resolve(null),
   '/src/lib/a/D.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself (e.g. display combinations of components)
+  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself (e.g. display combinations of components w/o one particular component being primary)
 
   // pages
   '/src/routes/+page.svelte': () => Promise.resolve(null), // page only
@@ -32,21 +32,34 @@ export const testModules = {
   '/src/routes/b/+page.svelte': () => Promise.resolve(null), // with variants
   '/src/routes/b/_page.variants.ts': () => Promise.resolve(null),
 
-  // probably won't happen but the order of these is intentionally reversed to cover that situation in case Vite ever updates the order in which modules are returned from import.meta.glob
-  '/src/routes/c/_page.svx': () => Promise.resolve(null), // with svx and variants
+  '/src/routes/c/_page.svx': () => Promise.resolve(null),
   '/src/routes/c/_page.variants.ts': () => Promise.resolve(null),
-  '/src/routes/c/+page.svelte': () => Promise.resolve(null), 
+  '/src/routes/c/+page.svelte': () => Promise.resolve(null), // with svx and variants
+  // probably won't happen but the order of the above is intentionally reversed to cover that situation in case Vite ever updates the order in which modules are returned from import.meta.glob
 
   // layouts
-  '/src/routes/+layout.svelte': () => Promise.resolve(null),
-  
+  '/src/routes/+layout.svelte': () => Promise.resolve(null), // layout only
+
+  '/src/routes/a/+layout.svelte': () => Promise.resolve(null), // with svx
+  '/src/routes/a/_layout.svx': () => Promise.resolve(null),
+
+  '/src/routes/b/+layout.svelte': () => Promise.resolve(null), // with variants
+  '/src/routes/b/_layout.variants.ts': () => Promise.resolve(null),
+
+  '/src/routes/c/+layout.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/routes/c/_layout.svx': () => Promise.resolve(null),
+  '/src/routes/c/_layout.variants.ts': () => Promise.resolve(null),
+
   // ignore kitbook route files
-  '/src/kitbook/[...file]/+page.svelte': () => Promise.resolve(null),
+  '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve(null),
+  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve(null),
   '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
   // unrecognized extensions will be ignored in groupColocatedPages()
   '/src/lib/A.foo.svelte': () => Promise.resolve(null),
-  '/src/lib/Apple.foo.svelte': () => Promise.resolve(null),
+  '/src/lib/Baz.foo.svelte': () => Promise.resolve(null),
+  '/src/lib/Typescript.ts': () => Promise.resolve(null),
+  '/src/lib/Vue.vue': () => Promise.resolve(null),
 }
 
 export const newTestModules = {

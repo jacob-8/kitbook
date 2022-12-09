@@ -270,6 +270,76 @@ if (import.meta.vitest) {
           "url": "/routes/+layout",
         },
         {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/a/+layout.svelte",
+          "url": "/routes/a/+layout",
+        },
+        {
+          "ext": "svx",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "_layout",
+          "path": "/src/routes/a/_layout.svx",
+          "url": "/routes/a/_layout",
+        },
+        {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/b/+layout.svelte",
+          "url": "/routes/b/+layout",
+        },
+        {
+          "ext": "variants.ts",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "_layout",
+          "path": "/src/routes/b/_layout.variants.ts",
+          "url": "/routes/b/_layout",
+        },
+        {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/c/+layout.svelte",
+          "url": "/routes/c/+layout",
+        },
+        {
+          "ext": "svx",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "_layout",
+          "path": "/src/routes/c/_layout.svx",
+          "url": "/routes/c/_layout",
+        },
+        {
+          "ext": "variants.ts",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "_layout",
+          "path": "/src/routes/c/_layout.variants.ts",
+          "url": "/routes/c/_layout",
+        },
+        {
           "ext": "foo.svelte",
           "load": {
             "loadModule": [Function],
@@ -285,9 +355,29 @@ if (import.meta.vitest) {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
-          "name": "Apple",
-          "path": "/src/lib/Apple.foo.svelte",
-          "url": "/lib/Apple",
+          "name": "Baz",
+          "path": "/src/lib/Baz.foo.svelte",
+          "url": "/lib/Baz",
+        },
+        {
+          "ext": "ts",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "Typescript",
+          "path": "/src/lib/Typescript.ts",
+          "url": "/lib/Typescript",
+        },
+        {
+          "ext": "vue",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "Vue",
+          "path": "/src/lib/Vue.vue",
+          "url": "/lib/Vue",
         },
       ]
     `);

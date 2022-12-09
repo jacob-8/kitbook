@@ -33,9 +33,9 @@ export function groupColocatedPages(ungrouped: UngroupedPage[], extensions = { s
 }
 
 if (import.meta.vitest) {
-  test('groupColocatedPages properly groups Uncombined Pages', () => {
-    const pages = parseModulesIntoUngroupedPages(testModules, testModules);
-    expect(groupColocatedPages(pages)).toMatchInlineSnapshot(`
+  test('groupColocatedPages properly groups ungrouped pages', () => {
+    const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules);
+    expect(groupColocatedPages(ungroupedPages)).toMatchInlineSnapshot(`
       {
         "/README": {
           "extensions": [
@@ -213,6 +213,23 @@ if (import.meta.vitest) {
           "path": "/src/routes/+page.svelte",
           "url": "/routes/+page",
         },
+        "/routes/a/+layout": {
+          "extensions": [
+            "svelte",
+            "svx",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/a/+layout.svelte",
+          "url": "/routes/a/+layout",
+        },
         "/routes/a/+page": {
           "extensions": [
             "svelte",
@@ -230,6 +247,23 @@ if (import.meta.vitest) {
           "path": "/src/routes/a/+page.svelte",
           "url": "/routes/a/+page",
         },
+        "/routes/b/+layout": {
+          "extensions": [
+            "svelte",
+            "variants.ts",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/b/+layout.svelte",
+          "url": "/routes/b/+layout",
+        },
         "/routes/b/+page": {
           "extensions": [
             "svelte",
@@ -246,6 +280,28 @@ if (import.meta.vitest) {
           "name": "+page",
           "path": "/src/routes/b/+page.svelte",
           "url": "/routes/b/+page",
+        },
+        "/routes/c/+layout": {
+          "extensions": [
+            "svelte",
+            "svx",
+            "variants.ts",
+          ],
+          "loadPage": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "loadVariants": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/routes/c/+layout.svelte",
+          "url": "/routes/c/+layout",
         },
         "/routes/c/+page": {
           "extensions": [
