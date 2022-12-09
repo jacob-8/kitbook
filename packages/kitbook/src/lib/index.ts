@@ -1,6 +1,8 @@
 export type { Folder, Module, Modules, RawModules, Variants, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage } from './kitbook-types';
 
 export { groupColocatedModulesIntoPages } from './pages/groupColocatedModulesIntoPages';
+export { parseModulesIntoUngroupedPages } from './pages/parseModulesIntoUngroupedPages';
+export { groupColocatedPages } from './pages/groupColocatedPages';
 
 export { layoutLoad } from './loads/layoutLoad'
 export { mainPageLoad } from './loads/mainPageLoad'

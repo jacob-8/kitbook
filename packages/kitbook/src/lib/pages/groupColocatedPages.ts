@@ -2,20 +2,15 @@ import type { GroupedPageMap, UngroupedPage } from "$lib/kitbook-types";
 import { testModules } from "./testModules";
 import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 
-const ALLOWED_EXTENSIONS = ['md', 'svx', 'svelte', 'variants.ts'];
 
-/** Group _page/_layout Kitbook modules with +page/+layout modules */
-function convertUnderscorePrefixToPlus(s: string): string {
-  return s.replace('_page', '+page').replace('_layout', '+layout')
-}
-
-export function groupColocatedPages(ungrouped: UngroupedPage[]): GroupedPageMap {
+export function groupColocatedPages(ungrouped: UngroupedPage[], extensions = { svx: ['md', 'svx'], variants: 'variants.ts' }): GroupedPageMap {
+  const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte'];
   const grouped: GroupedPageMap = {};
 
   for (const page of sortPageAndLayoutPagesWithPlusFirst(ungrouped)) {
     const url = convertUnderscorePrefixToPlus(page.url);
 
-    if (!ALLOWED_EXTENSIONS.includes(page.ext)) continue;
+    if (!allowedExtensions.includes(page.ext)) continue;
 
     if (!grouped[url]) {
       grouped[url] = { name: page.name, url, path: page.path, extensions: [page.ext] }
@@ -23,13 +18,13 @@ export function groupColocatedPages(ungrouped: UngroupedPage[]): GroupedPageMap 
       grouped[url].extensions.push(page.ext)
     }
 
-    if (['md', 'svx'].includes(page.ext)) {
+    if (extensions.svx.includes(page.ext)) {
       grouped[url].loadSvx = loadModuleObject(page);
     } else if (isPageOrLayout(page.name)) {
       grouped[url].loadPage = loadModuleObject(page);
     } else if (page.ext === 'svelte') {
       grouped[url].loadComponent = loadModuleObject(page);
-    } else if (page.ext === 'variants.ts') {
+    } else if (page.ext === extensions.variants) {
       grouped[url].loadVariants = loadModuleObject(page);
     }
   }
@@ -279,6 +274,11 @@ if (import.meta.vitest) {
   });
 }
 
+/** Groups _page/_layout Kitbook modules with +page/+layout modules */
+function convertUnderscorePrefixToPlus(s: string): string {
+  return s.replace('_page', '+page').replace('_layout', '+layout')
+}
+
 function loadModuleObject(page: UngroupedPage) {
   return {
     loadModule: page.load.loadModule,
@@ -286,10 +286,9 @@ function loadModuleObject(page: UngroupedPage) {
   };
 }
 
-// layouts are just pages, but with slot inheritance super-powers
 function isPageOrLayout(name: string): boolean {
   if (name.startsWith('+page')) return true;
-  if (name.startsWith('+layout')) return true;
+  if (name.startsWith('+layout')) return true; // layouts are just pages, but with slot inheritance super-powers
   return false;
 }
 
