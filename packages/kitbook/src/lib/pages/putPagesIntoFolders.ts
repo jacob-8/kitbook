@@ -62,119 +62,6 @@ if (import.meta.vitest) {
               {
                 "depth": 2,
                 "folders": [],
-                "name": "a",
-                "pages": [
-                  {
-                    "extensions": [
-                      "svelte",
-                      "svx",
-                    ],
-                    "loadPage": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "loadSvx": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "name": "+page",
-                    "path": "/src/routes/a/+page.svelte",
-                    "url": "/routes/a/+page",
-                  },
-                ],
-                "url": "/routes/a",
-              },
-              {
-                "depth": 2,
-                "folders": [],
-                "name": "b",
-                "pages": [
-                  {
-                    "extensions": [
-                      "svelte",
-                      "variants.ts",
-                    ],
-                    "loadPage": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "loadVariants": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "name": "+page",
-                    "path": "/src/routes/b/+page.svelte",
-                    "url": "/routes/b/+page",
-                  },
-                ],
-                "url": "/routes/b",
-              },
-              {
-                "depth": 2,
-                "folders": [],
-                "name": "c",
-                "pages": [
-                  {
-                    "extensions": [
-                      "svelte",
-                      "svx",
-                      "variants.ts",
-                    ],
-                    "loadPage": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "loadSvx": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "loadVariants": {
-                      "loadModule": [Function],
-                      "loadRaw": [Function],
-                    },
-                    "name": "+page",
-                    "path": "/src/routes/c/+page.svelte",
-                    "url": "/routes/c/+page",
-                  },
-                ],
-                "url": "/routes/c",
-              },
-            ],
-            "name": "routes",
-            "pages": [
-              {
-                "extensions": [
-                  "svelte",
-                ],
-                "loadPage": {
-                  "loadModule": [Function],
-                  "loadRaw": [Function],
-                },
-                "name": "+layout",
-                "path": "/src/routes/+layout.svelte",
-                "url": "/routes/+layout",
-              },
-              {
-                "extensions": [
-                  "svelte",
-                ],
-                "loadPage": {
-                  "loadModule": [Function],
-                  "loadRaw": [Function],
-                },
-                "name": "+page",
-                "path": "/src/routes/+page.svelte",
-                "url": "/routes/+page",
-              },
-            ],
-            "url": "/routes",
-          },
-          {
-            "depth": 1,
-            "folders": [
-              {
-                "depth": 2,
-                "folders": [],
                 "name": "my notes",
                 "pages": [
                   {
@@ -342,6 +229,119 @@ if (import.meta.vitest) {
               },
             ],
             "url": "/lib",
+          },
+          {
+            "depth": 1,
+            "folders": [
+              {
+                "depth": 2,
+                "folders": [],
+                "name": "a",
+                "pages": [
+                  {
+                    "extensions": [
+                      "svelte",
+                      "svx",
+                    ],
+                    "loadPage": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "loadSvx": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "name": "+page",
+                    "path": "/src/routes/a/+page.svelte",
+                    "url": "/routes/a/+page",
+                  },
+                ],
+                "url": "/routes/a",
+              },
+              {
+                "depth": 2,
+                "folders": [],
+                "name": "b",
+                "pages": [
+                  {
+                    "extensions": [
+                      "svelte",
+                      "variants.ts",
+                    ],
+                    "loadPage": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "loadVariants": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "name": "+page",
+                    "path": "/src/routes/b/+page.svelte",
+                    "url": "/routes/b/+page",
+                  },
+                ],
+                "url": "/routes/b",
+              },
+              {
+                "depth": 2,
+                "folders": [],
+                "name": "c",
+                "pages": [
+                  {
+                    "extensions": [
+                      "svelte",
+                      "svx",
+                      "variants.ts",
+                    ],
+                    "loadPage": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "loadSvx": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "loadVariants": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "name": "+page",
+                    "path": "/src/routes/c/+page.svelte",
+                    "url": "/routes/c/+page",
+                  },
+                ],
+                "url": "/routes/c",
+              },
+            ],
+            "name": "routes",
+            "pages": [
+              {
+                "extensions": [
+                  "svelte",
+                ],
+                "loadPage": {
+                  "loadModule": [Function],
+                  "loadRaw": [Function],
+                },
+                "name": "+layout",
+                "path": "/src/routes/+layout.svelte",
+                "url": "/routes/+layout",
+              },
+              {
+                "extensions": [
+                  "svelte",
+                ],
+                "loadPage": {
+                  "loadModule": [Function],
+                  "loadRaw": [Function],
+                },
+                "name": "+page",
+                "path": "/src/routes/+page.svelte",
+                "url": "/routes/+page",
+              },
+            ],
+            "url": "/routes",
           },
         ],
         "name": ".",
