@@ -1,27 +1,30 @@
 # To-Do List
 
-## Important before considering this a publicly shareable project
+## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- make pages composed of insertable components so they are simple to copy into a new Kitbook
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
+- hide pages from sidebar w/o any stories or variants until component props are automatically detected
 - Easily adjust screen size
-- layout variants in a way that makes sense
+- lay out variants in a way that makes sense
 - Add full-screen view for sandbox
-- use in some packages
-- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
+- use in ld package
 - use in rest of my packages and update docs 
 - update to SvelteKit 1.0
 - publish
 
-## Nice to Have
-- Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
+## Important before encouraging others to use
+- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
 - Bake prism css into Layout w/ optional flag (currently in app.html)
 - Next and Previous pages (see Docusaurus/Vitebook)
-- Easy markdown bookmark hyperlinks, using FoamBubble like linking, backlinks, and connections graph
+- automatically analyze component for props
+
+## Nice to Have
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
 - pass in component's code to view in a story
+- Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
+- Easy markdown bookmark hyperlinks, using FoamBubble like linking, backlinks, and connections graph
 - add optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - dynamic slots: https://github.com/sveltejs/svelte/issues/2588 && https://github.com/sveltejs/svelte/pull/4296
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity)

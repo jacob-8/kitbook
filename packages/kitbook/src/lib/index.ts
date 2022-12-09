@@ -10,6 +10,6 @@ export { sandboxPageLoad } from './loads/sandboxPageLoad'
 
 export { default as Layout } from './layout/Layout.svelte';
 export { default as MainPage } from './pages/MainPage.svelte';
-// export { default as SandboxPage } from './pages/SandboxPage.svelte';
+export { default as SandboxPage } from './pages/SandboxPage.svelte';
 
 export { default as Story } from './stories/Story.svelte';
