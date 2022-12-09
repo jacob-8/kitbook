@@ -19,11 +19,6 @@ export type Folder = {
   pages?: GroupedPage[];
 };
 
-export type UngroupedPage = PageMetadata & {
-  ext: string;
-  load: ModuleLoadFunctions;
-}
-
 export type GroupedPage = PageMetadata & {
   extensions: string[];
   loadSvx?: ModuleLoadFunctions;
@@ -32,6 +27,11 @@ export type GroupedPage = PageMetadata & {
   loadVariants?: ModuleLoadFunctions;
 }
 export type GroupedPageMap = Record<string, GroupedPage>;
+
+export type UngroupedPage = PageMetadata & {
+  ext: string;
+  load: ModuleLoadFunctions;
+}
 
 type PageMetadata = {
   path: string; // allows easy link to Github
@@ -44,8 +44,18 @@ type ModuleLoadFunctions = {
   loadRaw: RawModule;
 }
 
+export type Modules = Record<string, Module>;
+export type RawModules = Record<string, RawModule>;
 type Module = () => Promise<{ [key: string]: any }>;
 type RawModule = () => Promise<string>;
 
-export type Modules = Record<string, Module>;
-export type RawModules = Record<string, RawModule>;
+export type LoadedModules = {
+  svx?: typeof SvelteComponent;
+  svxRaw?: string;
+  component?: typeof SvelteComponent;
+  componentRaw?: string;
+  page?: typeof SvelteComponent;
+  pageRaw?: string;
+  variants?: Variants<any>;
+  variantsRaw?: string;
+}
