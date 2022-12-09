@@ -1,6 +1,6 @@
 import type { Folder, GroupedPageMap } from "$lib/kitbook-types";
-import { groupColocatedPages } from "./combineModulesIntoPages";
-import { parseModulesIntoUngroupedPages } from "./parseModules";
+import { groupColocatedPages } from "./groupColocatedPages";
+import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 import { testModules } from "./testModules";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 

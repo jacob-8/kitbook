@@ -26,7 +26,7 @@ export function parseModulesIntoUngroupedPages(modules: Modules, modulesRaw: Raw
 }
 
 if (import.meta.vitest) {
-  test('parseModules properly returns array of Pages', () => {
+  test('parseModulesIntoUngroupedPages properly returns array of Pages', () => {
     expect(parseModulesIntoUngroupedPages(testModules, testModules)).toMatchInlineSnapshot(`
       [
         {

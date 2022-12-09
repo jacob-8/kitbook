@@ -1,6 +1,6 @@
 import type { Modules, RawModules, GroupedPageMap } from "$lib/kitbook-types";
-import { groupColocatedPages } from "./combineModulesIntoPages";
-import { parseModulesIntoUngroupedPages } from "./parseModules";
+import { groupColocatedPages } from "./groupColocatedPages";
+import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 import { testModules } from "./testModules";
 
 export function groupColocatedModulesIntoPages(modules: Modules, modulesRaw: RawModules): GroupedPageMap {

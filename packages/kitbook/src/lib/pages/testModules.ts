@@ -44,7 +44,7 @@ export const testModules = {
   '/src/kitbook/[...file]/+page.svelte': () => Promise.resolve(null),
   '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
-  // unrecognized extensions will be ignored in combineModulesIntoPages()
+  // unrecognized extensions will be ignored in groupColocatedPages()
   '/src/lib/A.foo.svelte': () => Promise.resolve(null),
   '/src/lib/Apple.foo.svelte': () => Promise.resolve(null),
 }
@@ -105,7 +105,7 @@ export const newTestModules = {
   '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve(null),
   '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
-  // unrecognized extensions will be ignored in combineModulesIntoPages()
+  // unrecognized extensions will be ignored in groupColocatedPages()
   '/src/lib/Baz.foo.svelte': () => Promise.resolve(null),
   '/src/lib/Typescript.ts': () => Promise.resolve(null),
   '/src/lib/Vue.vue': () => Promise.resolve(null),

@@ -1,6 +1,6 @@
 import type { GroupedPageMap, UngroupedPage } from "$lib/kitbook-types";
 import { testModules } from "./testModules";
-import { parseModulesIntoUngroupedPages } from "./parseModules";
+import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 
 const ALLOWED_EXTENSIONS = ['md', 'svx', 'svelte', 'variants.ts'];
 

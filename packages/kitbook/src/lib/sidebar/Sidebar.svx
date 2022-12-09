@@ -2,8 +2,8 @@
   import Sidebar from '$lib/sidebar/Sidebar.svelte';
   import { Story } from '$lib';
   import { page } from '$app/stores';
-  // import { parseModules } from '$lib/pages/parseModules';
-  // import { combineModulesIntoPages } from '$lib/pages/combineModulesIntoPages';
+  // import { parseModulesIntoUngroupedPages } from '$lib/pages/parseModulesIntoUngroupedPages';
+  // import { groupColocatedPages } from '$lib/pages/groupColocatedPages';
   // import { putPagesIntoFolders } from '$lib/pages/putPagesIntoFolders';
 
   const modules = {
@@ -24,7 +24,7 @@
   <div class="flex h-[300px] overflow-auto">
     <!-- <Sidebar
       root="/kitbook"
-      folder={putPagesIntoFolders(combineModulesIntoPages(parseModules(modules, '/kitbook')))}
+      folder={putPagesIntoFolders(groupColocatedPages(parseModulesIntoUngroupedPages(modules, '/kitbook')))}
       activeURL={$page.url.pathname}
     >
       <svelte:fragment slot="header"><slot name="header" /></svelte:fragment>
