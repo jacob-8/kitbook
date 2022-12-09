@@ -303,19 +303,21 @@ if (import.meta.vitest) {
   });
 }
 
+const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
+
 function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[]): UngroupedPage[] {
-  return pages.sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
-    const namesToSort = ['+page', '_page', '+layout', '_layout']
-    if (!(namesToSort.includes(nameA) && namesToSort.includes(nameB))) return 0;
-    return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+  return pages.sort(({ name: nameA }, { name: nameB }) => {
+    if (nameA.match(STARTS_WITH_PAGE_OR_LAYOUT) && nameB.match(STARTS_WITH_PAGE_OR_LAYOUT)) {
+      if (nameA.startsWith('+') && nameB.startsWith('_')) return -1;
+      if (nameA.startsWith('_') && nameB.startsWith('+')) return 1;
+    }
+    return 0;
   });
 }
 
 if (import.meta.vitest) {
   test('sortPageAndLayoutPagesWithPlusFirst moves + ahead of _ without affecting other components', () => {
-    const pages = ["MyComponent", "_page", "+page", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
+    const pages = ["MyComponent", "_page@", "+page@", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
       return {
         name: p,
         ext: null,
@@ -336,6 +338,13 @@ if (import.meta.vitest) {
         {
           "ext": null,
           "load": null,
+          "name": "+page@",
+          "path": null,
+          "url": null,
+        },
+        {
+          "ext": null,
+          "load": null,
           "name": "+layout",
           "path": null,
           "url": null,
@@ -343,7 +352,7 @@ if (import.meta.vitest) {
         {
           "ext": null,
           "load": null,
-          "name": "+page",
+          "name": "_page@",
           "path": null,
           "url": null,
         },
@@ -351,13 +360,6 @@ if (import.meta.vitest) {
           "ext": null,
           "load": null,
           "name": "_layout",
-          "path": null,
-          "url": null,
-        },
-        {
-          "ext": null,
-          "load": null,
-          "name": "_page",
           "path": null,
           "url": null,
         },

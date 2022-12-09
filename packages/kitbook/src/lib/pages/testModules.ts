@@ -101,8 +101,8 @@ export const newTestModules = {
   '/src/routes/c/_layout.variants.ts': () => Promise.resolve(null),
 
   // ignore kitbook route files
-  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve(null),
   '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve(null),
+  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve(null),
   '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
 
   // unrecognized extensions will be ignored in groupColocatedPages()
