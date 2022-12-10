@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../styles/main.css';
   import { ResponsiveSlideover } from 'svelte-pieces';
   import Folder from './Folder.svelte';
   import type { Folder as FolderType } from 'kitbook';
@@ -53,25 +54,3 @@ focus:text-gray-500 transition ease-in-out duration-150"
     </a>
   </div>
 </ResponsiveSlideover>
-
-<style global>
-  @media only screen and (min-width: 768px) {
-    ::-webkit-scrollbar {
-      width: 1rem;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: 0 0;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: hsl(240, 26%, 91%);
-      border-radius: 1rem;
-      border: 0.25rem solid #ffffff;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: hsl(240, 9%, 71%);
-    }
-  }
-</style>

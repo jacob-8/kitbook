@@ -1,13 +1,14 @@
+import adapter from '@sveltejs/adapter-auto';
+import { vitePreprocess } from '@sveltejs/kit/vite';
+
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
-import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
-  preprocess: [preprocess()],
+	preprocess: vitePreprocess(),
 
   kit: {
     adapter: adapter(),
@@ -24,7 +25,7 @@ const config = {
 
 if (process.env.KITBOOK) {
   config.extensions = ['.svelte', ...mdsvexConfig.extensions];
-  config.preprocess = [preprocess(), mdsvex(mdsvexConfig)];
+  config.preprocess = [vitePreprocess(), mdsvex(mdsvexConfig)];
   config.kit.files = {
     routes: 'src/kitbook'
   }

@@ -1,11 +1,11 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import type { UserConfig } from 'vite';
 
 // keeps using localhost https://github.com/vitejs/vite/issues/9195
 import dns from 'dns';
 dns.setDefaultResultOrder('verbatim');
 
-const config: UserConfig = {
+/** @type {import('vite').UserConfig} */
+const config = {
   plugins: [
     sveltekit(),
   ],

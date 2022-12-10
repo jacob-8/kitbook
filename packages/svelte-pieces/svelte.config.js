@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
+// import { vitePreprocess } from '@sveltejs/kit/vite'; // use after removing global style attribute needed by UnoCSS svelte-scoped
 
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
@@ -11,6 +12,7 @@ const config = {
   extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
     preprocess(),
+    // vitePreprocess(),
     mdsvex(mdsvexConfig),
     UnoCSS({ options: { classPrefix: 'sp-' } }),
   ],

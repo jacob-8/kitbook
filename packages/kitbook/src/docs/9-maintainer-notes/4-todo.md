@@ -3,12 +3,13 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- use in svelte-pieces
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
 - hide pages from sidebar w/o any stories or variants until component props are automatically detected
 - Easily adjust screen size
-- lay out variants in a way that makes sense
 - Add full-screen view for sandbox
+- lay out variants better
 - use in ld package
 - use in rest of my packages and update docs 
 - update to SvelteKit 1.0

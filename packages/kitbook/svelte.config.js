@@ -1,5 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
+import { vitePreprocess } from '@sveltejs/kit/vite';
 
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
@@ -10,7 +10,7 @@ import UnoCSS from 'temp-s-p-u';
 const config = {
   extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
-    preprocess(),
+    vitePreprocess(),
     mdsvex(mdsvexConfig),
     UnoCSS({ options: { classPrefix: 'kb-' } }),
   ],
