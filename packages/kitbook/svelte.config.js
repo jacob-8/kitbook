@@ -19,6 +19,10 @@ const config = {
     adapter: adapter(),
   },
 
+  package: {
+    files: (filename) => !(filename.endsWith('.svx') || filename.endsWith('.md'))
+  },
+
   vitePlugin: {
     experimental: {
       inspector: {

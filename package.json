@@ -4,8 +4,10 @@
 	"scripts": {
 		"dev": "pnpm kb",
 		"build": "pnpm kb:build",
+		"package": "pnpm kb:package",
 		"kb": "pnpm --filter=kitbook dev",
 		"kb:build": "pnpm --filter=kitbook build",
+		"kb:package": "pnpm --filter=kitbook package",
 		"kb:test": "pnpm --filter=kitbook test",
 		"pieces": "pnpm --filter=svelte-pieces dev",
 		"pieces:build": "pnpm --filter=svelte-pieces build",

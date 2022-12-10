@@ -1,3 +1,5 @@
+import type { SvelteComponent } from "svelte";
+
 export type Variants<T> = {
   name?: string,
   description?: string,
@@ -12,7 +14,7 @@ type SvelteComponentProps<T> = T extends abstract new (
   ? Svelte2TsxComponentConstructorParameters<P>["props"]
   : never;
 
-type MockedContext = {
+export type MockedContext = {
   key: any,
   context: any
 }
