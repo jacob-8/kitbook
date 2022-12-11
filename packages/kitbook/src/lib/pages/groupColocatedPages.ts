@@ -20,8 +20,6 @@ export function groupColocatedPages(ungrouped: UngroupedPage[], extensions = { s
 
     if (extensions.svx.includes(page.ext)) {
       grouped[url].loadSvx = loadModuleObject(page);
-    } else if (isPageOrLayout(page.name)) {
-      grouped[url].loadPage = loadModuleObject(page);
     } else if (page.ext === 'svelte') {
       grouped[url].loadComponent = loadModuleObject(page);
     } else if (page.ext === extensions.variants) {
@@ -193,7 +191,7 @@ if (import.meta.vitest) {
           "extensions": [
             "svelte",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -205,7 +203,7 @@ if (import.meta.vitest) {
           "extensions": [
             "svelte",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -218,7 +216,7 @@ if (import.meta.vitest) {
             "svelte",
             "svx",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -235,7 +233,7 @@ if (import.meta.vitest) {
             "svelte",
             "svx",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -252,7 +250,7 @@ if (import.meta.vitest) {
             "svelte",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -269,7 +267,7 @@ if (import.meta.vitest) {
             "svelte",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -287,7 +285,7 @@ if (import.meta.vitest) {
             "svx",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -309,7 +307,7 @@ if (import.meta.vitest) {
             "svx",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -373,7 +371,7 @@ function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[]): UngroupedP
 
 if (import.meta.vitest) {
   test('sortPageAndLayoutPagesWithPlusFirst moves + ahead of _ without affecting other components', () => {
-    const pages = ["MyComponent", "_page@", "+page@", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
+    const pages = ["_MyComponent", "_page@", "+page@", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
       return {
         name: p,
         ext: null,
@@ -387,7 +385,7 @@ if (import.meta.vitest) {
         {
           "ext": null,
           "load": null,
-          "name": "MyComponent",
+          "name": "_MyComponent",
           "path": null,
           "url": null,
         },

@@ -31,7 +31,6 @@ export type GroupedPage = PageMetadata & {
   extensions: string[];
   loadSvx?: ModuleLoadFunctions;
   loadComponent?: ModuleLoadFunctions;
-  loadPage?: ModuleLoadFunctions;
   loadVariants?: ModuleLoadFunctions;
 }
 export type GroupedPageMap = Record<string, GroupedPage>;
@@ -62,8 +61,6 @@ export type LoadedModules = {
   svxRaw?: string;
   component?: typeof SvelteComponent;
   componentRaw?: string;
-  page?: typeof SvelteComponent;
-  pageRaw?: string;
   variants?: Variants<any>;
   variantsRaw?: string;
 }

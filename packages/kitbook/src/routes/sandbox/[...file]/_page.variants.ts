@@ -10,8 +10,11 @@ export const variants: Variants<typeof Page> = [
     props: {
       data: {
         props: { age: 42 },
-        component: StoryComponent,
+        loadedModules: {
+          svx: StoryComponent,
+        },
         storyId: 'showMe',
+        page: null,
         pages: null,
         contexts: [],
       },
@@ -23,8 +26,11 @@ export const variants: Variants<typeof Page> = [
     props: {
       data: {
         props: { name: 'James' },
-        component: IndividualComponent,
+        loadedModules: {
+          component: IndividualComponent,
+        },
         storyId: null,
+        page: null,
         pages: null,
         contexts: [],
       },
@@ -36,10 +42,13 @@ export const variants: Variants<typeof Page> = [
     props: {
       data: {
         props: null,
-        component: IndividualComponent,
+        loadedModules: {
+          component: IndividualComponent,
+        },
         storyId: null,
+        page: null,
         pages: null,
-        // contexts: [], // test that this is optional
+        contexts: null, // test that this is optional
       },
     },
   },

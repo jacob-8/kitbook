@@ -169,7 +169,7 @@ if (import.meta.vitest) {
           "extensions": [
             "svelte",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -181,7 +181,7 @@ if (import.meta.vitest) {
           "extensions": [
             "svelte",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -194,7 +194,7 @@ if (import.meta.vitest) {
             "svelte",
             "svx",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -211,7 +211,7 @@ if (import.meta.vitest) {
             "svelte",
             "svx",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -228,7 +228,7 @@ if (import.meta.vitest) {
             "svelte",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -245,7 +245,7 @@ if (import.meta.vitest) {
             "svelte",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -263,7 +263,7 @@ if (import.meta.vitest) {
             "svx",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -285,7 +285,7 @@ if (import.meta.vitest) {
             "svx",
             "variants.ts",
           ],
-          "loadPage": {
+          "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },

@@ -4,9 +4,11 @@
   export let activeURL: string;
   export let depth: number;
   $: active = activeURL === page.url;
+  $: doesNotHaveSvxOrVariants = !(page.loadSvx || page.loadVariants);
 </script>
 
 <a
+  class:opacity-60={doesNotHaveSvxOrVariants}
   class:font-semibold={active}
   class:text-blue-600={active}
   class:capitalize={!page.name.startsWith('+page') && !page.name.startsWith('+layout')}
@@ -20,14 +22,14 @@
     class:border-l-2={active}
     class:border-blue-700={active}
   />
-  <span class="py-0.5">
+  <span class="py-0.5" style="overflow-wrap: anywhere;">
     {page.name}
-    <span class="opacity-30">
+    <!-- <span class="opacity-30">
       {#if page.extensions.includes('svelte') || page.extensions.includes('svx')}
         <span class="i-simple-icons-svelte" />
       {:else if page.extensions.includes('md')}
         <span class="i-simple-icons-markdown" />
       {/if}
-    </span>
+    </span> -->
   </span>
 </a>
