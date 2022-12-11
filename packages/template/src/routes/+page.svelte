@@ -4,8 +4,10 @@
   export let data: PageData;
 </script>
 
-<h1>Welcome to My App, {data?.name}</h1>
-
-<p>You built something amazing here. Try ____ to open the Kitbook for this demo app.</p>
-
-<Button route="/kitbook" />
+<div style="padding: 10px;">
+  <h1>Welcome, <b>{data?.name}</b>!</h1>
+  
+  <p style="padding-bottom: 20px;">You could build something amazing here.</p>
+  
+  <Button href="https://kitbook.vercel.app">Open Kitbook Docs</Button>
+</div>
