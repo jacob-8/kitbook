@@ -5,8 +5,8 @@
 
 # Button
 
-<Story knobs={{route: '/kitbook'}} let:props={{route}}>
-  <Button {route}>Kitbook Home</Button>
+<Story knobs={{ href: 'https://kitbook.vercel.app', text: 'Kitbook Home' }} let:props={{ href }}>
+  <Button {href}>Kitbook Home</Button>
 </Story>
 
-Try changing the knob to `/kitbook/0-file-ordering` and click it to navigate to that page. Yes, the button is a bit *ugly*, but it's just for demo purposes...
+Try changing the knob to `/` and click it to navigate to that page (inside the iframe).
