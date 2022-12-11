@@ -20,6 +20,7 @@
 - Bake prism css into Layout w/ optional flag (currently in app.html)
 - Next and Previous pages (see Docusaurus/Vitebook)
 - automatically analyze component for props
+- catch when a variants file exists by itself and inform how to use variants
 
 ## Nice to Have
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls

@@ -30,6 +30,7 @@ importers:
 
   packages/kitbook:
     specifiers:
+      '@crownframework/svelte-error-boundary': ^1.0.3
       '@iconify/json': ^2.1.150
       '@sveltejs/adapter-auto': 1.0.0-next.90
       '@sveltejs/kit': 1.0.0-next.581
@@ -57,6 +58,7 @@ importers:
       vite: ^4.0.0
       vitest: ^0.25.6
     dependencies:
+      '@crownframework/svelte-error-boundary': 1.0.3
       lz-string: 1.4.4
       magic-string: 0.26.7
       prettier: 2.8.1
@@ -139,11 +141,10 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': 1.0.0-next.90
       '@sveltejs/kit': 1.0.0-next.581
-      kitbook: 0.0.25
+      kitbook: 1.0.0
       mdsvex: ^0.10.6
       svelte: ^3.54.0
       svelte-check: ^2.10.2
-      svelte-preprocess: ^4.10.7
       tslib: ^2.4.1
       typescript: ~4.9.4
       vite: ^4.0.0
@@ -154,7 +155,6 @@ importers:
       mdsvex: 0.10.6_svelte@3.54.0
       svelte: 3.54.0
       svelte-check: 2.10.2_svelte@3.54.0
-      svelte-preprocess: 4.10.7_vjccw6zkwqrmxudvmy4reaayx4
       tslib: 2.4.1
       typescript: 4.9.4
       vite: 4.0.0
@@ -401,6 +401,10 @@ packages:
       human-id: 1.0.2
       prettier: 2.8.1
     dev: true
+
+  /@crownframework/svelte-error-boundary/1.0.3:
+    resolution: {integrity: sha512-ZtfYF9if48Ok8BTx/fn7bERJFKHKO6Ih5d/fkY6/pC3DQEnJq4vy6JOBFcisnpKYcZbjG5F/D4r06kqX7JKyqw==}
+    dev: false
 
   /@esbuild/android-arm/0.15.18:
     resolution: {integrity: sha512-5GT+kcs2WVGjVs7+boataCkO5Fg0y4kCjzkB5bAip7H4jfnOS3dA6KPiww9W1OEKTKeAcUVhdZGvgI65OXmUnw==}

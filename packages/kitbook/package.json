@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "0.0.25",
+  "version": "1.0.0",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -21,6 +21,7 @@
     "test:update": "vitest -u"
   },
   "dependencies": {
+    "@crownframework/svelte-error-boundary": "^1.0.3",
     "lz-string": "^1.4.4",
     "magic-string": "^0.26.7",
     "prettier": "^2.8.1",
