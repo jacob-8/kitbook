@@ -1,18 +1,66 @@
-import type { Plugin, ResolvedConfig } from 'vite'
+// Learn from https://vitejs.dev/guide/api-plugin.html#simple-examples
+import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import fs from 'fs';
-// https://vitejs.dev/guide/api-plugin.html#simple-examples
+
+const viteConfigModications: UserConfig = {
+  server: {
+    port: 4321,
+    fs: {
+      allow: ['..'], // one level up from the project root for displaying README.md
+    }
+  }
+}
 
 export function kitbook(): Plugin {
-  let config: ResolvedConfig;
+  initKitbook();
+  // let config: ResolvedConfig;
 
-  process.env.KITBOOK = '1';
+  return {
+    name: 'vite-plugin-svelte-kitbook',
+    enforce: 'pre',
 
-  console.log('hello from kitbook plugin');
-  if (!fs.existsSync('src/kitbook')) {
-    console.log('kitbook folder does not exist so copy folder from node_modules/kitbook/routes to src/routes');
+    config: (config, { mode }) => {
+      if (mode === 'kitbook') return viteConfigModications
+    },
+
+    // configResolved(resolvedConfig) {
+    //   config = resolvedConfig
+    // },
+
+    // transform(src, id) {
+    //   if (config.mode === 'kitbook') {
+    //     if (id.includes('+page'))
+    //       console.log(id)
+    //     return {
+    //       code: src,
+    //     }
+    //   }
+    // }
   }
+}
 
-  const svelteConfigPath = 'svelte.config.js';
+function initKitbook() {
+  process.env.KITBOOK = '1';
+  ensureKitbookRoutesExist();
+  addSvelteConfigAugmentFunctionIfNeeded();
+}
+
+function ensureKitbookRoutesExist() {
+  if (!fs.existsSync('src/kitbook')) {
+    try {
+      fs.mkdirSync('src/kitbook');
+      const src = 'node_modules/kitbook/routes';
+      const destination = 'src/kitbook';
+      fs.cpSync(src, destination, { recursive: true });
+      console.log('Copied Kitbook routes directory to src/kitbook to setup your Kitbook. The Kitbook plugin will automatically update to your svelte.config.js to use this as the routes directory when running vite in "kitbook" mode.')
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+function addSvelteConfigAugmentFunctionIfNeeded() {
+  const svelteConfigPath = 'svelte.config.js'; // TODO: detect other extensions (.mjs, .cjs, .ts)
 
   if (fs.existsSync(svelteConfigPath)) {
     const svelteConfigText = fs.readFileSync(svelteConfigPath, 'utf8');
@@ -22,46 +70,6 @@ export function kitbook(): Plugin {
       const augmentFunction = `\nimport { augmentSvelteConfigForKitbook } from 'kitbook'; 
 if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`
       fs.writeFileSync(svelteConfigPath, svelteConfigText + augmentFunction);
-    }
-    
-    const fakedAugment = svelteConfigText.includes('kleur');
-    if (!fakedAugment) {
-      console.log('writing in color')
-      const augmentFunction = `\nimport { bold, cyan } from 'kleur/colors';
-console.log(\`Starting $\{bold(cyan('Kitbook'))} dev server\`);\n`
-      fs.writeFileSync(svelteConfigPath, svelteConfigText + augmentFunction);
-    }
-  }
-
-  return {
-    name: 'vite-plugin-svelte-kitbook',
-    enforce: 'pre',
-
-    config: (config, { mode }) => {
-      if (mode === 'kitbook') {
-        return {
-          server: {
-            port: 4321,
-            fs: {
-              allow: ['..'], // allow serving files from one level up to the project root for displaying README.md
-            }
-          }
-        }
-      }
-    },
-
-    configResolved(resolvedConfig) {
-      config = resolvedConfig
-    },
-
-    transform(src, id) {
-      if (config.mode === 'kitbook') {
-        if (id.includes('+page'))
-          console.log(id)
-        return {
-          code: src,
-        }
-      }
     }
   }
 }
