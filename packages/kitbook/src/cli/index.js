@@ -11,20 +11,20 @@ import { startKitbookDevServer } from './dev.js';
 import { previewKitbook } from './preview.js';
 
 import { cac } from 'cac';
-const program = cac('kitbook');
-program.help();
+const cli = cac('kitbook');
 
-program
+cli
   .command('dev [root]', 'Run Vite dev server using an adjusted config for Kitbook')
   // .option('--base <baseUrl>', '[string] Set public base path (default: /)')
   .action((root, options) => startKitbookDevServer(root, options))
 
-program
+cli
   .command('build [root]', 'Build Kitbook use Vite build')
   .action((root, options) => buildKitbook(root, options))
 
-program
+cli
   .command('preview [root]', 'Preview Built Kitbook using Vite')
   .action((root, options) => previewKitbook(root, options))
 
-program.parse(process.argv);
+cli.help();
+cli.parse(process.argv);
