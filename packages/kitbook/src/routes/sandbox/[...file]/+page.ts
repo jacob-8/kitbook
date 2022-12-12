@@ -1,2 +1,1 @@
-import { sandboxPageLoad } from 'kitbook';
-export { sandboxPageLoad as load };
+export { sandboxPageLoad as load } from 'kitbook';

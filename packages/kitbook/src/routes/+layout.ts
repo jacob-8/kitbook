@@ -1,2 +1,1 @@
-import { layoutLoad } from 'kitbook';
-export { layoutLoad as load };
+export { layoutLoad as load } from 'kitbook';

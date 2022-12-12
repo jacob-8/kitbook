@@ -1,2 +1,1 @@
-import { mainPageLoad } from 'kitbook';
-export { mainPageLoad as load };
+export { mainPageLoad as load } from 'kitbook';
