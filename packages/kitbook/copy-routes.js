@@ -25,7 +25,7 @@ function onlyRouteFiles(src, dest) {
   return copyIt;
 }
 
-// Add to package.json exports if wanting people to be able to point directly instead of copying in - doesn't work because of Vite cache
+// Add to package.json exports if wanting people to be able to point directly instead of copying in - doesn't presently work w/o turning off cache in browser devtools because of how Vite caches
 // "./routes/(main)/+layout.svelte": "./routes/(main)/+layout.svelte",
 // "./routes/(main)/[...file]/+page.svelte": "./routes/(main)/[...file]/+page.svelte",
 // "./routes/(main)/[...file]/+page": "./routes/(main)/[...file]/+page.js",

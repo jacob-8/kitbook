@@ -1,11 +1,15 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { kitbook } from './src/lib/plugins/vite-plugin-svelte-kitbook/vite-plugin-svelte-kitbook';
 import path from 'path';
 
 const DEFAULT_VITEST_EXCLUDE = ['node_modules', 'dist', '.idea', '.git', '.cache'];
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit()],
+	plugins: [
+		kitbook(),
+		sveltekit(),
+	],
 	define: {
 		'import.meta.vitest': false,
 	},
@@ -25,19 +29,3 @@ const config = {
 };
 
 export default config;
-
-// How a custom Kitbook plugin can be created - see https://vitejs.dev/guide/api-plugin.html#simple-examples
-// viteConfig.plugins.push(kitbook());
-
-// function kitbook() {
-//   return {
-//     name: 'kitbook',
-
-//     transform(src, id) {
-//       // console.log(id)
-//       return {
-//         code: src,
-//       }
-//     }
-//   }
-// }

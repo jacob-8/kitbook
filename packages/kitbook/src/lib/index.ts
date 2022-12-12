@@ -13,3 +13,6 @@ export { default as MainPage } from './pages/MainPage.svelte';
 export { default as SandboxPage } from './pages/SandboxPage.svelte';
 
 export { default as Story } from './stories/Story.svelte';
+
+export { kitbook } from './plugins/vite-plugin-svelte-kitbook/vite-plugin-svelte-kitbook'
+export { augmentSvelteConfigForKitbook } from './plugins/vite-plugin-svelte-kitbook/augmentSvelteConfigForKitbook'
