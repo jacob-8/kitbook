@@ -41,8 +41,8 @@ export function kitbook(): Plugin {
 
 function initKitbook() {
   process.env.KITBOOK = '1';
-  ensureKitbookRoutesExist();
-  addSvelteConfigAugmentFunctionIfNeeded();
+  // ensureKitbookRoutesExist();
+  // addSvelteConfigAugmentFunctionIfNeeded();
 }
 
 function ensureKitbookRoutesExist() {

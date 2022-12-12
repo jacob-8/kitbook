@@ -1,5 +1,5 @@
 import { defineMDSveXConfig as defineConfig } from 'mdsvex';
-import { codePreview } from 'kitbook/plugins/code-preview-remark';
+import { codePreview } from 'kitbook/plugins/code-preview-remark/code-preview-remark';
 
 const config = defineConfig({
   extensions: ['.md', '.svx'],
