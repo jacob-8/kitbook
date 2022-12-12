@@ -39,7 +39,6 @@
     "@sveltejs/package": "1.0.0-next.6",
     "@unocss/preset-icons": "^0.47.5",
     "cac": "^6.7.14",
-    "fs-extra": "^11.1.0",
     "kleur": "^4.1.5",
     "mdsvex": "^0.10.6",
     "replace-in-file": "^6.3.5",

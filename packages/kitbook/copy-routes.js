@@ -1,13 +1,15 @@
 // @ts-check
-import fs from 'fs-extra';
+import fs from 'fs';
 
 (() => {
-  const src = 'src/routes';
-  const dest = 'package/routes';
-  fs.copy(src, dest, { filter: onlyRouteFiles }, err => {
-    if (err) return console.error(err)
+  try {
+    const src = 'src/routes';
+    const destination = 'package/routes';
+    fs.cpSync(src, destination, { filter: onlyRouteFiles, recursive: true });
     console.log('success!')
-  });
+  } catch (e) {
+    console.error(e);
+  }
 })();
 
 /**
@@ -19,7 +21,7 @@ function onlyRouteFiles(src, dest) {
   const isFolder = !src.match(/[a-z]\.[a-z]/);
   const isARouteFile = src.includes('+page') || src.includes('+layout');
   const copyIt = isFolder || isARouteFile;
-  if (copyIt) console.log({src, isFolder, isARouteFile})
+  if (copyIt) console.log({ src, isFolder, isARouteFile })
   return copyIt;
 }
 
