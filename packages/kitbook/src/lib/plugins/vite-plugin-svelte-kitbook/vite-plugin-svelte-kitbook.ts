@@ -46,13 +46,14 @@ function initKitbook() {
 }
 
 function ensureKitbookRoutesExist() {
-  if (!fs.existsSync('src/kitbook')) {
+  const kitbookRoutesPath = 'src/kitbook';
+  if (!fs.existsSync(kitbookRoutesPath)) {
     try {
-      fs.mkdirSync('src/kitbook');
+      fs.mkdirSync(kitbookRoutesPath);
       const src = 'node_modules/kitbook/routes';
-      const destination = 'src/kitbook';
+      const destination = kitbookRoutesPath;
       fs.cpSync(src, destination, { recursive: true });
-      console.log('Copied Kitbook routes directory to src/kitbook to setup your Kitbook. The Kitbook plugin will automatically update to your svelte.config.js to use this as the routes directory when running vite in "kitbook" mode.')
+      console.log(`Copied Kitbook routes directory to ${kitbookRoutesPath} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.`)
     } catch (e) {
       console.error(e);
     }
@@ -60,9 +61,15 @@ function ensureKitbookRoutesExist() {
 }
 
 function addSvelteConfigAugmentFunctionIfNeeded() {
-  const svelteConfigPath = 'svelte.config.js'; // TODO: detect other extensions (.mjs, .cjs, .ts)
+  let svelteConfigPath: string;
 
-  if (fs.existsSync(svelteConfigPath)) {
+  const possibleExtensions = ['js', 'mjs', 'cjs', 'ts'];
+  for (const extension of possibleExtensions) {
+    if (fs.existsSync(svelteConfigPath))
+      svelteConfigPath = `svelte.config.${extension}`;
+  }
+
+  if (svelteConfigPath) {
     const svelteConfigText = fs.readFileSync(svelteConfigPath, 'utf8');
     const isAugmented = svelteConfigText.includes('augmentSvelteConfigForKitbook');
     if (!isAugmented) {
@@ -71,5 +78,10 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
 if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`
       fs.writeFileSync(svelteConfigPath, svelteConfigText + augmentFunction);
     }
+  } else {
+    console.log(`No svelte.config.js file found. Make sure you have added the following to it to enable Kitbook:
+import { augmentSvelteConfigForKitbook } from 'kitbook'; 
+if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }
+    `);
   }
 }
