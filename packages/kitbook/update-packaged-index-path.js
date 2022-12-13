@@ -1,3 +1,4 @@
+// @ts-check
 import replace from 'replace-in-file';
 
 try {
