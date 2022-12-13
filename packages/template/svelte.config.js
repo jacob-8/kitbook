@@ -21,6 +21,3 @@ const config = {
 };
 
 export default config;
-
-import { augmentSvelteConfigForKitbook } from 'kitbook'; 
-if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }

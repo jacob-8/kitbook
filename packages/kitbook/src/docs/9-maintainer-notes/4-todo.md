@@ -3,10 +3,12 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- use kitbook() plugin in template
 - use in svelte-pieces
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
 - hide pages from sidebar w/o any stories or variants until component props are automatically detected
+- consolidate story around style imports (reset, prism, prose, etc...)
 - Easily adjust screen size
 - Add full-screen view for sandbox
 - lay out variants better
