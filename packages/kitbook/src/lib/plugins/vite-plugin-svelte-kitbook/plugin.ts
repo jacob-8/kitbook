@@ -1,6 +1,6 @@
 // Learn from https://vitejs.dev/guide/api-plugin.html#simple-examples
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
-import { initKitbook } from './initKitbook';
+import { initKitbook } from './initKitbook.js';
 
 const viteConfigModications: UserConfig = {
   server: {

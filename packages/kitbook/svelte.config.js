@@ -14,7 +14,11 @@ const config = {
   },
 
   package: {
-    files: (filename) => !(filename.endsWith('.svx') || filename.endsWith('.md'))
+    files: (filename) => {
+      const isSvx = filename.endsWith('.svx') || filename.endsWith('.md');
+      if (isSvx) return false;
+      return true;
+    }
   },
 
   vitePlugin: {

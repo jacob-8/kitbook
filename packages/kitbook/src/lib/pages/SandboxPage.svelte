@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext } from 'svelte';
   import type { GroupedPage, GroupedPageMap, LoadedModules, MockedContext } from '../kitbook-types';
-  import ErrorBoundary from '../components/ErrorBoundary';
+  import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js';
 
   export let data: {
     pages: GroupedPageMap;
