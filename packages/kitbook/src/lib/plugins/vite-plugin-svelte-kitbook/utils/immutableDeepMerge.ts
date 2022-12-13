@@ -50,8 +50,6 @@ if (import.meta.vitest) {
           },
           "d": [
             1,
-            1,
-            2,
             2,
             3,
           ],

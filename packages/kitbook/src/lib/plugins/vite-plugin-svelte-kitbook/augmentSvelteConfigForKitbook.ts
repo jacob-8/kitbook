@@ -4,8 +4,10 @@ import { immutableDeepMerge } from './utils/immutableDeepMerge.js';
 import type { Config } from '@sveltejs/kit';
 
 export function augmentSvelteConfigForKitbook(config: Config) {
+  if (!process.env.KITBOOK) return config;
+
   const kitbookOptions: Config = {
-    extensions: mdsvexConfig.extensions,
+    extensions: ['.svelte', ...mdsvexConfig.extensions],
     kit: {
       files: {
         routes: 'src/kitbook'
@@ -15,6 +17,7 @@ export function augmentSvelteConfigForKitbook(config: Config) {
   }
   config = immutableDeepMerge(config, kitbookOptions);
   config.preprocess = appendMdsvexPreprocessor(config.preprocess);
+  return config;
 }
 
 function appendMdsvexPreprocessor(preprocessors: any) {
