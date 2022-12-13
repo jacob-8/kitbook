@@ -11,7 +11,7 @@ const viteConfigModications: UserConfig = {
   }
 }
 
-export function kitbook(): Plugin {
+export function kitbookPlugin(): Plugin {
   initKitbook();
   // let config: ResolvedConfig;
 
@@ -53,7 +53,7 @@ function ensureKitbookRoutesExist() {
       const src = 'node_modules/kitbook/routes';
       const destination = kitbookRoutesPath;
       fs.cpSync(src, destination, { recursive: true });
-      console.log(`Copied Kitbook routes directory to ${kitbookRoutesPath} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.`)
+      console.log(`Copied Kitbook routes directory to ${kitbookRoutesPath} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.\n`)
     } catch (e) {
       console.error(e);
     }
@@ -74,7 +74,7 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
     const svelteConfigText = fs.readFileSync(svelteConfigPath, 'utf8');
     const isAugmented = svelteConfigText.includes('augmentSvelteConfigForKitbook');
     if (!isAugmented) {
-      console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will automatically add MDSvex support and update your routes folder to src/kitbook when running vite in "kitbook" mode.');
+      console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will automatically add MDSvex support and update your routes folder to src/kitbook when running vite in "kitbook" mode.\n');
       const augmentFunction = `\nimport { augmentSvelteConfigForKitbook } from 'kitbook'; 
 if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`
       fs.writeFileSync(svelteConfigPath, svelteConfigText + augmentFunction);
@@ -82,7 +82,6 @@ if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`
   } else {
     console.log(`No svelte.config.js file found. Make sure you have added the following to it to enable Kitbook:
 import { augmentSvelteConfigForKitbook } from 'kitbook'; 
-if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }
-    `);
+if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`);
   }
 }
