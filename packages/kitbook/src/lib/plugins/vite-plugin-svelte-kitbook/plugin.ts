@@ -75,7 +75,7 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
     const isAugmented = svelteConfigText.includes('augmentSvelteConfigForKitbook');
     if (!isAugmented) {
       console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will automatically add MDSvex support and update your routes folder to src/kitbook when running vite in "kitbook" mode.\n');
-      const augmentFunction = `\nimport { augmentSvelteConfigForKitbook } from 'kitbook'; 
+      const augmentFunction = `\nimport { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook'; 
 if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }\n`
       fs.writeFileSync(svelteConfigPath, svelteConfigText + augmentFunction);
     }

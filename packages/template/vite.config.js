@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { kitbook } from 'kitbook';
+import { kitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook';
 
 /** @type {import('vite').UserConfig} */
 const config = {
