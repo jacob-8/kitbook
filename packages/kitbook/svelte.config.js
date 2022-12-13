@@ -1,17 +1,11 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-
-import { mdsvex } from 'mdsvex';
-import mdsvexConfig from './mdsvex.config.js';
-
 import UnoCSS from 'temp-s-p-u';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...mdsvexConfig.extensions],
   preprocess: [
     vitePreprocess(),
-    mdsvex(mdsvexConfig),
     UnoCSS({ options: { classPrefix: 'kb-' } }),
   ],
 
@@ -34,14 +28,14 @@ const config = {
 
 export default config;
 
+
 // import { augmentSvelteConfigForKitbook } from 'kitbook'; 
 if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }
 
+// placed a simplified version of augmentSvelteConfigForKitbook only in this Kitbook package and not anywhere else that uses Kitbook because svelte.config.js does not allow importing from a non-package, and this package only has a Kitbook and not a regular app.
+import { mdsvex } from 'mdsvex';
+import mdsvexConfig from './src/lib/plugins/vite-plugin-svelte-kitbook/mdsvex.config.js';
 function augmentSvelteConfigForKitbook(config) {
   config.extensions = ['.svelte', ...mdsvexConfig.extensions];
-  config.preprocess = [vitePreprocess(), mdsvex(mdsvexConfig)];
-  config.kit.files = {
-    routes: 'src/kitbook'
-  }
-  config.kit.outDir = '.svelte-kit-kitbook'
+  config.preprocess.unshift(mdsvex(mdsvexConfig));
 }

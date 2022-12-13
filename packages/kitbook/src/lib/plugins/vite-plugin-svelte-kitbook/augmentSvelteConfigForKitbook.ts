@@ -1,12 +1,69 @@
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './mdsvex.config.js';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { immutableDeepMerge } from './utils/immutableDeepMerge.js';
+import type { Config } from '@sveltejs/kit';
 
-export function augmentSvelteConfigForKitbook(config) {
-  config.extensions = ['.svelte', ...mdsvexConfig.extensions];
-  config.preprocess = [vitePreprocess(), mdsvex(mdsvexConfig)];
-  config.kit.files = {
-    routes: 'src/kitbook'
+export function augmentSvelteConfigForKitbook(config: Config) {
+  const kitbookOptions: Config = {
+    extensions: mdsvexConfig.extensions,
+    kit: {
+      files: {
+        routes: 'src/kitbook'
+      },
+      outDir: '.svelte-kit-kitbook'
+    }
   }
-  config.kit.outDir = '.svelte-kit-kitbook'
+  config = immutableDeepMerge(config, kitbookOptions);
+  config.preprocess = appendMdsvexPreprocessor(config.preprocess);
 }
+
+function appendMdsvexPreprocessor(preprocessors: any) {
+  if (!preprocessors) {
+    return [mdsvex(mdsvexConfig)];
+  } else if (Array.isArray(preprocessors)) {
+    return [mdsvex(mdsvexConfig), ...preprocessors];
+  } else {
+    return [mdsvex(mdsvexConfig), preprocessors];
+  }
+}
+
+if (import.meta.vitest) {
+  test('appendMdsvexPreprocessor handles no prior existing preprocessors', () => {
+    expect(appendMdsvexPreprocessor(undefined)).toMatchInlineSnapshot(`
+      [
+        {
+          "markup": [Function],
+        },
+      ]
+    `);
+  });
+
+  const otherPreprocessor = () => { return { script: () => {} } };
+
+  test('appendMdsvexPreprocessor handles a prior array of preprocessors', () => {
+    expect(appendMdsvexPreprocessor([otherPreprocessor()])).toMatchInlineSnapshot(`
+      [
+        {
+          "markup": [Function],
+        },
+        {
+          "script": [Function],
+        },
+      ]
+    `);
+  });
+
+  test('appendMdsvexPreprocessor handles a single preprocessor', () => {
+    expect(appendMdsvexPreprocessor(otherPreprocessor())).toMatchInlineSnapshot(`
+      [
+        {
+          "markup": [Function],
+        },
+        {
+          "script": [Function],
+        },
+      ]
+    `);
+  });
+}
+

@@ -9,9 +9,9 @@ export function immutableDeepMerge(...objects: Record<string, any>[]) {
       const currentValue = currentObj[key];
 
       if (Array.isArray(previousValue) && Array.isArray(currentValue)) {
-        previousObj[key] = [...previousValue, ...currentValue]
-        // if you want to remove duplicates, use this instead
-        // previousObj[key] = [...new Set([...previousValue, ...currentValue])]
+        previousObj[key] = [...new Set([...previousValue, ...currentValue])]
+        // if you don't want to remove duplicates, use this instead
+        // previousObj[key] = [...previousValue, ...currentValue]
       } else if (isObject(previousValue) && isObject(currentValue)) {
         previousObj[key] = immutableDeepMerge(previousValue, currentValue);
       } else {

@@ -41,8 +41,8 @@ export function kitbook(): Plugin {
 
 function initKitbook() {
   process.env.KITBOOK = '1';
-  // ensureKitbookRoutesExist();
-  // addSvelteConfigAugmentFunctionIfNeeded();
+  ensureKitbookRoutesExist();
+  addSvelteConfigAugmentFunctionIfNeeded();
 }
 
 function ensureKitbookRoutesExist() {
@@ -65,8 +65,9 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
 
   const possibleExtensions = ['js', 'mjs', 'cjs', 'ts'];
   for (const extension of possibleExtensions) {
-    if (fs.existsSync(svelteConfigPath))
-      svelteConfigPath = `svelte.config.${extension}`;
+    const path = `svelte.config.${extension}`;
+    if (fs.existsSync(path))
+      svelteConfigPath = path;
   }
 
   if (svelteConfigPath) {
