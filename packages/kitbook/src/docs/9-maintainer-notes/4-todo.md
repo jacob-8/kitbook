@@ -3,17 +3,17 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- use kitbook() plugin in template
 - use in svelte-pieces
+- allow passing config to plugin to let main routes folder be the folder if KITBOOK_ROUTE = "src/routes"
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
 - hide pages from sidebar w/o any stories or variants until component props are automatically detected
-- consolidate story around style imports (reset, prism, prose, etc...)
+- consolidate story around style imports (tw-reset.css imported in app.html so it comes first, prism and tw-prose are in Layout.svelte, also look at kitbook global styles - where to put?)
 - Easily adjust screen size
 - Add full-screen view for sandbox
 - lay out variants better
 - use in ld package
-- use in rest of my packages and update docs 
+- use in rest of my packages and update docs as I go
 - update to SvelteKit 1.0
 - publish
 

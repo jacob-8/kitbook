@@ -1,33 +1,42 @@
 # Get Started: How to Create a KitBook
 
 - Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
+- Add the `kitbook()` plugin before your `sveltekit()` plugin like this:
+```diff
+import { sveltekit } from '@sveltejs/kit/vite';
++import { kitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook';
 
-## Copy Kitbook routes folder
-Copy the ____ folder in the `kitbook` package into `src/kitbook`. This contains:
+const config = {
+	plugins: [
++		kitbook(),
+		sveltekit(),
+	],
+};
 
-- root `+layout.ts` to get list of app files via glob import
-- sandboxed iframe route that only shows 1 particular story in an isolated context, ready to be imported into story pages
-- `+layout.svelte` wrapper for the main view, separated from the sandboxed page via a `(main)` group
-- a main page that accepts a file param to know which story page to show
+export default config;
+```
+- Add an asterisk to the `/.svelte-kit` line in your `.gitignore` to make it `/.svelte-kit*`
+- Add a styles reset to your `app.html` file before `%sveltekit.head%`
+- Add the following scripts to your `package.json`:
+```json
+"kitbook": "vite dev --mode kitbook",
+"kitbook:build": "vite build --mode kitbook",
+"kitbook:preview": "vite preview --mode kitbook",
+```
 
-## Add [MDSvex](https://mdsvex.pngwn.io/) 
-- Run `npx svelte-add@latest mdsvex` or refer to the [MDSvex docs](https://mdsvex.pngwn.io/docs) to add in the manner you desire.
-- Set your extensions in `mdsvex.config.js` to `['.md', '.svx']` to allow for a powerful combination:
+That's all you need to do to get started. Upon running the `kitbook` script the first time, it will automatically copy the needed Kitbook routes folder into your `src/kitbook` directory.
+
+## Customize
+- After first running `pnpm kitbook`, then you can add a title and githubURL in `src/kitbook/(main)/+layout.svelte`
+- for a library, update your package.files entry to skip .svx, .md, and .variants.ts files.
+
+## Kitbook utilizes [MDSvex](https://mdsvex.pngwn.io/) 
+- Extensions in `mdsvex.config.js` are set to `['.md', '.svx']` to allow for a powerful combination:
   - Use the `.md` extension when you want markdown intellisense and highlighting
     - I recommend using the [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) extension to allow for easy pasting of links into markdown and such.
   - Use the `.svx` extension when you want svelte intellisense and highlighting. *Using `.svx`* for Svelte files you want MDSvex to process is a nice way to keep MDSvex from having to process your regular Svelte components (and helps avoid potential bugs)
   <!-- - Notice the icons in the sidebar tell you which files are `.md` files (<span class="i-simple-icons-markdown" />) and which are `.svx` files (<span class="i-simple-icons-svelte" />). -->
-- If using extensions such as `.svx` you should add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
-
-## Add Environment variables
-
-Add the following optional variables to your `.env` file:
-
-```toml
-PUBLIC_KITBOOK_TITLE=Fantastic App Kitbook
-PUBLIC_GITHUB_URL=https://github.com/jacob-8/kitbook/tree/main/packages/kitbook
-```
-- If you pass in your githubURL, an icon to your repo will be placed in the Kitbook header
+- When using extensions such as `.svx` you should add `"files.associations": { "*.svx": "svelte" }` to your VSCode `settings.json` file for proper intellisense and highlighting.
 
 ## Add Prism styles
 This is baked in, but need to make changeable to [prism](https://prismjs.com/) theme css to `app.html`. `<link href="https://unpkg.com/prismjs@1.27.0/themes/prism-tomorrow.css" rel="stylesheet" />` for example.
@@ -37,8 +46,12 @@ This is baked in, but need to make changeable to [prism](https://prismjs.com/) t
 - This could be as simple as importing a css file in your `__layout.svelte` file depending on how you do styles.
 - Kitbook's components use [UnoCSS](https://github.com/unocss/unocss) but the classes have already been compiled into hashed names. You can use whatever styles framework you like.
 
-## .gitignore
-Add `/.svelte-kit-kitbook` to your .gitignore
+## Further notes to update and organize
+
+- root `+layout.ts` to get list of app files via glob import
+- sandboxed iframe route that only shows 1 particular story in an isolated context, ready to be imported into story pages
+- `+layout.svelte` wrapper for the main view, separated from the sandboxed page via a `(main)` group
+- a main page that accepts a file param to know which story page to show
 
 ## Add your first page
 
