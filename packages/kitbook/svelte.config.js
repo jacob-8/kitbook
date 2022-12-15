@@ -37,7 +37,7 @@ export default augmentSvelteConfigForKitbook(config);;
 import { mdsvex } from 'mdsvex';
 import mdsvexConfig from './src/lib/plugins/vite/mdsvex.config.js';
 function augmentSvelteConfigForKitbook(config) {
-  if (process.env.KITBOOK) {
+  if (process.env.KITBOOK_ROUTES) {
     config.extensions = ['.svelte', ...mdsvexConfig.extensions];
     config.preprocess.unshift(mdsvex(mdsvexConfig));
   }

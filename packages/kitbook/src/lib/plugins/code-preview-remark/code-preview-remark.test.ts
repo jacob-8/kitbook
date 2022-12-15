@@ -60,7 +60,7 @@ test('placeContentIntoCodeAttribute handles', async () => {
 
 import fs from 'fs';
 test('placeContentIntoCodeAttribute handles backticks and ${', async () => {
-const inputFile = fs.readFileSync('./src/lib/plugins/input/Backticks.svelte', 'utf-8');
+const inputFile = fs.readFileSync('./src/lib/plugins/code-preview-remark/input/Backticks.svelte', 'utf-8');
 const result = placeContentIntoCodeAttribute(inputFile);
-fs.writeFileSync('./src/lib/plugins/output/Backticks.svelte', result, 'utf-8');
+fs.writeFileSync('./src/lib/plugins/code-preview-remark/output/Backticks.svelte', result, 'utf-8');
 });

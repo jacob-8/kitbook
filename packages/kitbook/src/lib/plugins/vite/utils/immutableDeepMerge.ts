@@ -4,6 +4,8 @@ export function immutableDeepMerge(...objects: Record<string, any>[]) {
   const isObject = (item: any) => item && typeof item === 'object';
 
   return objects.reduce((previousObj, currentObj) => {
+    if (currentObj === undefined) return previousObj;
+
     Object.keys(currentObj).forEach(key => {
       const previousValue = previousObj[key];
       const currentValue = currentObj[key];
@@ -134,6 +136,15 @@ if (import.meta.vitest) {
           "a": 1,
         }
       `);
+    });
+
+    test('gracefully handles being passed undefined instead of an object', () => {
+      expect(immutableDeepMerge({ a: 1 }, undefined)).toMatchInlineSnapshot(`
+        {
+          "a": 1,
+        }
+      `);
+      expect(immutableDeepMerge(undefined)).toMatchInlineSnapshot('{}');
     });
 
     test('merges vite config with additional Kitbook options', () => {

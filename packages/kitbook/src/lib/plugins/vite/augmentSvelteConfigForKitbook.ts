@@ -22,7 +22,7 @@ export function augmentSvelteConfigForKitbook(config: Config, {
   kitbookOptions?: Config;
   mdsvexConfig?: MdsvexOptions;
 } = {}) {
-  if (process.env.KITBOOK) {
+  if (process.env.KITBOOK_ROUTES) {
     const adjustedOptions = immutableDeepMerge(DEFAULT_KITBOOK_OPTIONS, kitbookOptions);
     config = immutableDeepMerge(config, adjustedOptions);
     config.preprocess = appendMdsvexPreprocessor(config.preprocess, mdsvexConfig || defaultKitbookMdsvexConfig);
@@ -32,6 +32,46 @@ export function augmentSvelteConfigForKitbook(config: Config, {
 
 if (import.meta.vitest) {
   test('augmentSvelteConfigForKitbook takes options first from user, then from kitbook, then from base svelte.config.js', () => {
-    expect(augmentSvelteConfigForKitbook({})).toMatchInlineSnapshot();
+    process.env.KITBOOK_ROUTES = 'test';
+
+    const svelteConfig: Config = {
+      kit: {
+        files: {
+          routes: 'src/bananas',
+        },
+        inlineStyleThreshold: 0,
+      },
+    };
+
+    const kitbookOptions: Config = {
+      kit: {
+        files: {
+          routes: 'src/shazambook',
+        },
+      },
+    };
+
+    expect(augmentSvelteConfigForKitbook(svelteConfig, { kitbookOptions })).toMatchInlineSnapshot(`
+      {
+        "extensions": [
+          ".svelte",
+          ".md",
+          ".svx",
+        ],
+        "kit": {
+          "files": {
+            "appTemplate": "node_modules/kitbook/kitbook-app.html",
+            "routes": "src/shazambook",
+          },
+          "inlineStyleThreshold": 0,
+          "outDir": ".svelte-kit-kitbook",
+        },
+        "preprocess": [
+          {
+            "markup": [Function],
+          },
+        ],
+      }
+    `);
   });
 }

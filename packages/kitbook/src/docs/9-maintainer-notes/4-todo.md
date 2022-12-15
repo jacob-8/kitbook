@@ -23,6 +23,7 @@
 - Next and Previous pages (see Docusaurus/Vitebook)
 - automatically analyze component for props
 - catch when a variants file exists by itself and inform how to use variants
+- Enable customizing the kitbook routes directory such that filterOutUnwantedKitbookPaths can filter it out
 
 ## Nice to Have
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls

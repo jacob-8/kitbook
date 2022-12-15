@@ -7,7 +7,7 @@ const DEFAULT_VITEST_EXCLUDE = ['node_modules', 'dist', '.idea', '.git', '.cache
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [
-		kitbook(),
+		kitbook({ routes: 'src/routes' }),
 		sveltekit(),
 	],
 	define: {

@@ -3,11 +3,6 @@
 
 // not in use, but left here as a starter example for when setting up the create-kitbook cli command
 
-process.env.KITBOOK = alreadySetKITBOOKprocessValueOrTrue();
-function alreadySetKITBOOKprocessValueOrTrue() {
-  return process.env.KITBOOK == null ? '1' : process.env.KITBOOK
-}
-
 import { startKitbookDevServer } from './dev.js';
 
 import { cac } from 'cac';

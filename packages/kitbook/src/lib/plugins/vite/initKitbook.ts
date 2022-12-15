@@ -1,20 +1,19 @@
 import fs from 'fs';
 
-export function initKitbook() {
-  process.env.KITBOOK = '1';
-  ensureKitbookRoutesExist();
+export function initKitbook(routes: string) {
+  process.env.KITBOOK_ROUTES = routes;
+  ensureKitbookRoutesExist(routes);
   addSvelteConfigAugmentFunctionIfNeeded();
 }
 
-function ensureKitbookRoutesExist() {
-  const kitbookRoutesPath = 'src/kitbook';
-  if (!fs.existsSync(kitbookRoutesPath)) {
+function ensureKitbookRoutesExist(routes: string) {
+  if (!fs.existsSync(routes)) {
     try {
-      fs.mkdirSync(kitbookRoutesPath);
+      fs.mkdirSync(routes);
       const src = 'node_modules/kitbook/routes';
-      const destination = kitbookRoutesPath;
+      const destination = routes;
       fs.cpSync(src, destination, { recursive: true });
-      console.log(`Copied Kitbook routes directory to ${kitbookRoutesPath} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.\n`);
+      console.log(`Copied Kitbook routes directory to ${routes} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.\n`);
     } catch (e) {
       console.error(e);
     }
@@ -46,7 +45,7 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
 }
 
 function wrapExportedConfigWithAugmentFunction(svelteConfigText: string): string {
-  console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will add MDSvex support and server routes from the `src/kitbook` folder when running vite in "kitbook" mode.\n');
+  console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will add MDSvex support and server routes from the kitbook routes folder (`src/kitbook` is the default) when running vite in "kitbook" mode.\n');
   return svelteConfigText.replace('export default config', AUGMENT_FUNCTION_TEXT);
 }
 

@@ -2,25 +2,16 @@
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import { initKitbook } from './initKitbook.js';
 
-const viteConfigModications: UserConfig = {
-  server: {
-    port: 4321,
-    fs: {
-      allow: ['..'], // one level up from the project root for displaying README.md
-    }
-  }
-}
-
-export function kitbookPlugin(): Plugin {
-  initKitbook();
+export function kitbookPlugin({ routes = 'src/kitbook' }): Plugin {
+  initKitbook(routes);
   // let config: ResolvedConfig;
-
+  
   return {
     name: 'vite-plugin-svelte-kitbook',
     enforce: 'pre',
-
+    
     config: (config, { mode }) => {
-      if (mode === 'kitbook') return viteConfigModications
+      if (mode === 'kitbook') return kitbookModifications(config)
     },
 
     // configResolved(resolvedConfig) {
@@ -36,5 +27,16 @@ export function kitbookPlugin(): Plugin {
     //     }
     //   }
     // }
+  }
+}
+
+function kitbookModifications(config: UserConfig): UserConfig {
+  return {
+    server: {
+      port: config?.server?.port || 4321,
+      fs: {
+        allow: ['..'], // one level up from the project root for displaying README.md
+      }
+    }
   }
 }
