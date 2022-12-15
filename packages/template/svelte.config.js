@@ -20,5 +20,5 @@ const config = {
   },
 };
 
-import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook'; 
+import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
 export default augmentSvelteConfigForKitbook(config);

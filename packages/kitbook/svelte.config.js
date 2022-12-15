@@ -30,16 +30,16 @@ const config = {
   },
 };
 
-export default config;
+// import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
+export default augmentSvelteConfigForKitbook(config);;
 
-
-// import { augmentSvelteConfigForKitbook } from 'kitbook'; 
-if (process.env.KITBOOK) { augmentSvelteConfigForKitbook(config); }
-
-// placed a simplified version of augmentSvelteConfigForKitbook only in this Kitbook package and not anywhere else that uses Kitbook because svelte.config.js does not allow importing from a non-package, and this package only has a Kitbook and not a regular app.
+// placed a simplified version of augmentSvelteConfigForKitbook only in this Kitbook package and not anywhere else that uses Kitbook because svelte.config.js is not allowing importing from a non-package. As well this package only has a Kitbook and not a regular app.
 import { mdsvex } from 'mdsvex';
-import mdsvexConfig from './src/lib/plugins/vite-plugin-svelte-kitbook/mdsvex.config.js';
+import mdsvexConfig from './src/lib/plugins/vite/mdsvex.config.js';
 function augmentSvelteConfigForKitbook(config) {
-  config.extensions = ['.svelte', ...mdsvexConfig.extensions];
-  config.preprocess.unshift(mdsvex(mdsvexConfig));
+  if (process.env.KITBOOK) {
+    config.extensions = ['.svelte', ...mdsvexConfig.extensions];
+    config.preprocess.unshift(mdsvex(mdsvexConfig));
+  }
+  return config;
 }

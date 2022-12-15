@@ -1,5 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite';
-import { kitbook } from './src/lib/plugins/vite-plugin-svelte-kitbook';
+import { kitbook } from './src/lib/plugins/vite';
 import path from 'path';
 
 const DEFAULT_VITEST_EXCLUDE = ['node_modules', 'dist', '.idea', '.git', '.cache'];

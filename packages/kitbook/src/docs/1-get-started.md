@@ -1,10 +1,11 @@
 # Get Started: How to Create a KitBook
 
-- Install [Kitbook](https://www.npmjs.com/package/kitbook), `npm i -D kitbook` or `pnpm add -D kitbook`
-- Add the `kitbook()` plugin before your `sveltekit()` plugin like this:
+- Install the `kitbook` package: `npm i -D kitbook` or `pnpm add -D kitbook`
+
+- Add the `kitbook()` plugin before your `sveltekit()` plugin in `vite.config.js`:
 ```diff
 import { sveltekit } from '@sveltejs/kit/vite';
-+import { kitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook';
++import { kitbook } from 'kitbook/plugins/vite';
 
 const config = {
 	plugins: [
@@ -15,8 +16,9 @@ const config = {
 
 export default config;
 ```
-- Add an asterisk to the `/.svelte-kit` line in your `.gitignore` to make it `/.svelte-kit*`
-- Add a styles reset to your `app.html` file before `%sveltekit.head%`
+
+<!-- Only a library option: - The default usage of a Kitbook is to run a secondary Svelte-Kit powered Kitbook app beside your primary Svelte-Kit app. However, if you are building a component library and only need a Kitbook app in which to build and test the pieces, then you can pass `src/routes` as your desired routes location to the `kitbook` plugin using `kitbook({routes: 'src/routes'})` to let the plugin know it is the package's primary app and not a secondary one. If not, then you'll need to add an asterisk to the `/.svelte-kit` line in your `.gitignore` to make it `/.svelte-kit*` as your Kitbook will use `/.svelte-kit-kitbook` as it's output directory. -->
+
 - Add the following scripts to your `package.json`:
 ```json
 "kitbook": "vite dev --mode kitbook",
@@ -24,11 +26,11 @@ export default config;
 "kitbook:preview": "vite preview --mode kitbook",
 ```
 
-That's all you need to do to get started. Upon running the `kitbook` script the first time, it will automatically copy the needed Kitbook routes folder into your `src/kitbook` directory.
+- Run `npm kitbook` or `pnpm kitbook` to get going! 
+ 
+*Since this will be your first time running the `kitbook` plugin in your package, it will automatically copy a needed Kitbook routes folder into your `src/kitbook` directory, as well as a function to adjust your `svelte.config.js` file when in `kitbook` mode. We will explain how to customize your kitbook by modifying those items later.*
 
-## Customize
-- After first running `pnpm kitbook`, then you can add a title and githubURL in `src/kitbook/(main)/+layout.svelte`
-- for a library, update your package.files entry to skip .svx, .md, and .variants.ts files.
+
 
 ## Kitbook utilizes [MDSvex](https://mdsvex.pngwn.io/) 
 - Extensions in `mdsvex.config.js` are set to `['.md', '.svx']` to allow for a powerful combination:

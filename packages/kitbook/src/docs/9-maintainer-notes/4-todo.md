@@ -14,10 +14,10 @@
 - lay out variants better
 - use in ld package
 - use in rest of my packages and update docs as I go
-- update to SvelteKit 1.0
 - publish
 
 ## Important before encouraging others to use
+- custom meta-tags
 - add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
 - Bake prism css into Layout w/ optional flag (currently in app.html)
 - Next and Previous pages (see Docusaurus/Vitebook)

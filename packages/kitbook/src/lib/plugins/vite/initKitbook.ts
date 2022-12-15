@@ -21,7 +21,7 @@ function ensureKitbookRoutesExist() {
   }
 }
 
-const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook'; 
+const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
 export default augmentSvelteConfigForKitbook(config);`;
 
 function addSvelteConfigAugmentFunctionIfNeeded() {
@@ -57,7 +57,7 @@ if (import.meta.vitest) {
 
       const config = {}
 
-      import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite-plugin-svelte-kitbook'; 
+      import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
       export default augmentSvelteConfigForKitbook(config);"
     `);
   });
