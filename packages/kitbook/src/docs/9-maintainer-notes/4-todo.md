@@ -1,13 +1,14 @@
-# To-Do List
+# To-Do Lists
 
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- Add links component
+- consolidate story around style imports (tw-reset.css imported in app.html so it comes first, prism and tw-prose are in Layout.svelte, also look at kitbook global styles - where to put?)
+- publish beta version to npm to get css up
 - use in svelte-pieces
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
-- consolidate story around style imports (tw-reset.css imported in app.html so it comes first, prism and tw-prose are in Layout.svelte, also look at kitbook global styles - where to put?)
-- publish beta version to npm to get css up
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
 - Easily adjust screen size
 - Add full-screen view for sandbox
@@ -27,6 +28,7 @@
 - search (from kit site)
 
 ## Nice to Have
+- add changesets
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls
 - pass in component's code to view in a story
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)

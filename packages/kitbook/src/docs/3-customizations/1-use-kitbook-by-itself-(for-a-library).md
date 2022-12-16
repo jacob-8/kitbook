@@ -29,7 +29,7 @@ const options = {
   kitbookOptions: { 
     kit: { 
       files: { 
-        routes: 'src/routes';
+        routes: 'src/routes',
       },
       outDir: '.svelte-kit',
     }
@@ -38,5 +38,5 @@ const options = {
 export default augmentSvelteConfigForKitbook(config, options);
 ```
 
-You may be asking why not just leave `svelte.config.js` alone and remove `augmentSvelteConfigForKitbook` altogether? That function is needed to add other important items such as the default `app.html` for your Kitbook, as well as `MDSvex`.
+You may be asking why not just leave `svelte.config.js` alone and remove `augmentSvelteConfigForKitbook` altogether? That function is needed to add other important items such as the default `app.html` for your Kitbook, as well as default file extensions.
 

@@ -10,5 +10,11 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.lint.unknownAtRules": "ignore",
-  "vitest.enable": true
+  "vitest.enable": true,
+  "foam.edit.linkReferenceDefinitions": "withoutExtensions",
+  "foam.files.ignore": [
+      "**/node_modules/**/*",
+      "**/package/**/*",
+  ],
+  "foam.completion.label": "title"
 }
