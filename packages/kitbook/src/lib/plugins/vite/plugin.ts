@@ -2,14 +2,14 @@
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import { initKitbook } from './initKitbook.js';
 
-export function kitbookPlugin({ routes = 'src/kitbook' }): Plugin {
+export function kitbookPlugin({ routes } = { routes: 'src/kitbook' }): Plugin {
   initKitbook(routes);
   // let config: ResolvedConfig;
-  
+
   return {
     name: 'vite-plugin-svelte-kitbook',
     enforce: 'pre',
-    
+
     config: (config, { mode }) => {
       if (mode === 'kitbook') return kitbookModifications(config)
     },

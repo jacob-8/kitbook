@@ -1,13 +1,17 @@
 # KitBook 
 
-Documentation and Prototyping Workbench Tool for SvelteKit apps built with SvelteKit that lets you create components using **Documentation Driven Development**.
+Documentation and Prototyping Workbench Tool for Svelte built with SvelteKit that lets you rapidly build, document, and test components. Most similar to Svench, but also with goodies inspired by [others](/docs/9-why.md).
 
 ## Features
 - File-based sidebar tree structure
+  - Optional prefixed numbers adjust ordering of markdown docs
+- Stories load via SSR first and then are hydrated on Client
+- Iframe isolation for easy media query testing
 - MDSvex (Markdown + Svelte Components) to enable easy documenation as you build
-- Easy knobs allow for adjusting a component's view state (special thanks @rixo's Svench and Rich Harris' svelte-knobby!)
-- Quickly compare a single componenet across numerous different states 
+- Easy knobs allow for adjusting a component's state (special thanks to [@rixo](https://github.com/rixo)'s [Svench](https://svench-docs.vercel.app/))
+- Quickly create and compare numerous variants of a component via an array of auto-typed prop objects in a colocated typescript file that can also be used for testing.
+- No need for SvelteKit shims as it is a SvelteKit app - all special SvelteKit imports are automatically avaiable
 
-## Start Building Components
+## Start Documenting and Prototyping Components
 
-[Get Started](/1-get-started) or view some [examples](/3-examples) (note that you're looking at one right now as Kitbook is built using Kitbook!)
+[Get Started](/1-get-started) or view some [examples](/8-examples) (spoiler alert: you're looking at one already)

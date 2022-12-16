@@ -4,11 +4,11 @@
 *(you have been warned, early-adopters)*
 
 - use in svelte-pieces
-- allow passing config to plugin to let main routes folder be the folder if KITBOOK_ROUTE = "src/routes"
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
-- hide pages from sidebar w/o any stories or variants until component props are automatically detected
 - consolidate story around style imports (tw-reset.css imported in app.html so it comes first, prism and tw-prose are in Layout.svelte, also look at kitbook global styles - where to put?)
+- publish beta version to npm to get css up
+- improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
 - Easily adjust screen size
 - Add full-screen view for sandbox
 - lay out variants better
@@ -24,6 +24,7 @@
 - automatically analyze component for props
 - catch when a variants file exists by itself and inform how to use variants
 - Enable customizing the kitbook routes directory such that filterOutUnwantedKitbookPaths can filter it out
+- search (from kit site)
 
 ## Nice to Have
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls

@@ -1,0 +1,59 @@
+# Stories
+
+Still needs documented, but the [Svelte-Pieces directory](https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces/src/routes) has some good examples for the moment.
+
+## Display a Story's Code
+To make it easy to learn and copy from a `Story`, add the following to your `mdsvex.config.js`:
+
+```diff
+import { defineMDSveXConfig as defineConfig } from 'mdsvex';
++import { codePreview } from 'kitbook/plugins/code-preview-remark';
+
+const config = defineConfig({
+  extensions: ['.md', '.svx'],
++  remarkPlugins: [codePreview],
+  rehypePlugins: [],
+});
+
+export default config;
+```
+
+Add the `showCode` prop to the `Story` component to already start showing code.
+
+
+## Add your first Story
+
+- Create a `Foo.svx` file to start documenting and prototyping your first component. 
+
+
+## A note about extensions
+  - Consider using `.md` extensions when doing more writing and wanting VSCode's formatting and intellisense to help you with Markdown, then use `.svx` when doing more coding as Svelte's intellisense and formatting will then kick in allowing for import completion, type checking and such. Because MDSVex allows you to write Markdown in Svelte components and vice versa, the extension really doesn't matter and you can switch it back and forth depending on your needs. Do know that you may need to add `<!--prettier-ignore>` above sections of markdown `.svx` files if you use prettier and want to avoid the code from being collapsed into a single paragraph.
+
+
+- Document what you are about to build (it's a good habit to start right from the beginning), create the component, and then import it:
+```svelte
+<script lang="ts">
+  import Button from '$lib/Button.svelte';
+</script>
+
+Here's a basic button:
+
+<Button>Hello Kitbook</Button>
+
+TODO: Add props
+```
+  - Note how you don't even need the `Story` component wrapper to document your component library. You can start with just documentation and simple imports. *But that's not why you're here, so let's get to the good stuff.*
+
+- Add the `Story` component to access the prototyping features:
+```svelte
+<script lang="ts">
+  import { Story } from 'kitbook';
+</script>
+
+<Story name="Fancy Button" knobs={{ name: 'John'}} let:props={{ name }}>
+  <Button>Hello {name}</Button>
+</Story>
+```
+
+- Now try editing the name knob
+- Continue to document your component and [add stories](/2-add-stories) for each situation as seen in this repo and the other [examples](/3-examples).
