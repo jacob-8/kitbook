@@ -44,8 +44,9 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
   }
 }
 
+import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 function wrapExportedConfigWithAugmentFunction(svelteConfigText: string): string {
-  console.log('Augmenting your svelte.config.js file for Kitbook use. This `augmentSvelteConfigForKitbook` function will add MDSvex support and server routes from the kitbook routes folder (`src/kitbook` is the default) when running vite in "kitbook" mode.\n');
+  console.log(`Augmenting your svelte.config.js file for Kitbook use. This 'augmentSvelteConfigForKitbook' function will add MDSvex support and server routes from the kitbook routes folder ('${DEFAULT_KITBOOK_ROUTES}' is the default) when running vite in "kitbook" mode.\n`);
   return svelteConfigText.replace('export default config', AUGMENT_FUNCTION_TEXT);
 }
 

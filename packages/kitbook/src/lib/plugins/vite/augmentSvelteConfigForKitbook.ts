@@ -1,4 +1,5 @@
 import type { Config } from '@sveltejs/kit';
+import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 import defaultKitbookMdsvexConfig from './mdsvex.config.js';
 import { immutableDeepMerge } from './utils/immutableDeepMerge.js';
 
@@ -6,7 +7,7 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   extensions: ['.svelte', ...defaultKitbookMdsvexConfig.extensions],
   kit: {
     files: {
-      routes: 'src/kitbook',
+      routes: DEFAULT_KITBOOK_ROUTES,
       appTemplate: 'node_modules/kitbook/kitbook-app.html',
     },
     outDir: '.svelte-kit-kitbook',

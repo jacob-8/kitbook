@@ -4,12 +4,13 @@ import { initKitbook } from './initKitbook.js';
 
 import { mdsvex, type MdsvexOptions } from 'mdsvex';
 import defaultKitbookMdsvexConfig from './mdsvex.config.js';
+import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 
 export function kitbookPlugin({ routes, mdsvexConfig }: {
   routes?: string;
   mdsvexConfig?: MdsvexOptions;
 } = {}): Plugin {
-  initKitbook(routes || 'src/kitbook');
+  initKitbook(routes || DEFAULT_KITBOOK_ROUTES);
   // let config: ResolvedConfig;
 
   return {

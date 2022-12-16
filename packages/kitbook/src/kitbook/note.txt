@@ -1,1 +1,0 @@
-This is where Kitbook routes would exist in a project with a Kitbook. Since this project only has a Kitbook and no main app, the Kitbook is in the regular src/routes folder.

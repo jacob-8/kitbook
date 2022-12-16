@@ -6,6 +6,7 @@
 - Add links component
 - consolidate story around style imports (tw-reset.css imported in app.html so it comes first, prism and tw-prose are in Layout.svelte, also look at kitbook global styles - where to put?)
 - publish beta version to npm to get css up
+- filterOutUnwantedKitbookPaths in layout based on what it sees is it's own directory unless if turned off by a flag (for Kitbook's usage itself or if anyone modifies their Kitbook routes and wants to do such in their own Kitbook)
 - use in svelte-pieces
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings

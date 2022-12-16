@@ -4,8 +4,8 @@ import { testModules } from "./testModules";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
 export function parseModulesIntoUngroupedPages(modules: Modules, modulesRaw: RawModules): UngroupedPage[] {
-  const allPaths = Object.keys(modules);
-  const paths = filterOutUnwantedKitbookPaths(allPaths);
+  const paths = Object.keys(modules);
+  // const paths = filterOutUnwantedKitbookPaths(allPaths);
   if (!paths.length) return []
 
   return paths.map((path) => {
@@ -384,14 +384,14 @@ if (import.meta.vitest) {
   });
 }
 
-function filterOutUnwantedKitbookPaths(paths: string[]): string[] {
-  return paths.filter(path => {
-      return !path.includes(`/src/kitbook`);
-    });
-}
+// function filterOutUnwantedKitbookPaths(paths: string[]): string[] {
+//   return paths.filter(path => {
+//       return !path.includes(`/src/kitbook`);
+//     });
+// }
 
-if (import.meta.vitest) {
-  test('removeKitbookPaths', () => {
-    expect(filterOutUnwantedKitbookPaths(['/src/kitbook/+page.svelte'])).toMatchInlineSnapshot('[]');
-  });
-}
+// if (import.meta.vitest) {
+//   test('removeKitbookPaths', () => {
+//     expect(filterOutUnwantedKitbookPaths(['/src/kitbook/+page.svelte'])).toMatchInlineSnapshot('[]');
+//   });
+// }
