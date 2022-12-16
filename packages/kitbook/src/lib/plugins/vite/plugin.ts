@@ -3,7 +3,7 @@ import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import { initKitbook } from './initKitbook.js';
 
 import { mdsvex, type MdsvexOptions } from 'mdsvex';
-import defaultKitbookMdsvexConfig from './mdsvex.config.js';
+import defaultKitbookMdsvexConfig from './mdsvex/mdsvex.config.js';
 import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 
 export function kitbookPlugin({ routes, mdsvexConfig }: {

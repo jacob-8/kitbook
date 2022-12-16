@@ -1,6 +1,6 @@
 import type { Config } from '@sveltejs/kit';
 import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
-import defaultKitbookMdsvexConfig from './mdsvex.config.js';
+import defaultKitbookMdsvexConfig from './mdsvex/mdsvex.config.js';
 import { immutableDeepMerge } from './utils/immutableDeepMerge.js';
 
 const DEFAULT_KITBOOK_OPTIONS: Config = {

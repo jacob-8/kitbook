@@ -2,7 +2,7 @@ import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import UnoCSS from 'temp-s-p-u';
 
-import mdsvexConfig from './src/lib/plugins/vite/mdsvex.config.js';
+import mdsvexConfig from './src/lib/plugins/vite/mdsvex/mdsvex.config.js';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   extensions: ['.svelte', ...mdsvexConfig.extensions],
