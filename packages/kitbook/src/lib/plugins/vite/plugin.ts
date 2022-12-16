@@ -2,8 +2,14 @@
 import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import { initKitbook } from './initKitbook.js';
 
-export function kitbookPlugin({ routes } = { routes: 'src/kitbook' }): Plugin {
-  initKitbook(routes);
+import { mdsvex, type MdsvexOptions } from 'mdsvex';
+import defaultKitbookMdsvexConfig from './mdsvex.config.js';
+
+export function kitbookPlugin({ routes, mdsvexConfig }: {
+  routes?: string;
+  mdsvexConfig?: MdsvexOptions;
+} = {}): Plugin {
+  initKitbook(routes || 'src/kitbook');
   // let config: ResolvedConfig;
 
   return {
@@ -12,6 +18,10 @@ export function kitbookPlugin({ routes } = { routes: 'src/kitbook' }): Plugin {
 
     config: (config, { mode }) => {
       if (mode === 'kitbook') return kitbookModifications(config)
+    },
+
+    api: {
+      sveltePreprocess: mdsvex(mdsvexConfig || defaultKitbookMdsvexConfig),
     },
 
     // configResolved(resolvedConfig) {

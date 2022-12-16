@@ -25,18 +25,17 @@ Then add some custom Kitbook-only Svelte config options in your svelte config:
 
 ```js
 // svelte.config.js
-const options = { 
-  kitbookOptions: { 
-    kit: { 
-      files: { 
-        routes: 'src/routes',
-      },
-      outDir: '.svelte-kit',
-    }
+/** @type {import('@sveltejs/kit').Config} */
+const kitbookOptions = { 
+  kit: { 
+    files: { 
+      routes: 'src/routes',
+    },
+    outDir: '.svelte-kit',
   }
 }
-export default augmentSvelteConfigForKitbook(config, options);
+export default augmentSvelteConfigForKitbook(config, { kitbookOptions });
 ```
 
-You may be asking why not just leave `svelte.config.js` alone and remove `augmentSvelteConfigForKitbook` altogether? That function is needed to add other important items such as the default `app.html` for your Kitbook, as well as default file extensions.
+You may be asking why not just leave `svelte.config.js` alone and remove `augmentSvelteConfigForKitbook` altogether? That function is still needed to add other important items such as the default `app.html` for your Kitbook, as well as default file extensions.
 
