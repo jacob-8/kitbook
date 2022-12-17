@@ -1,11 +1,19 @@
 import type { SvelteComponent } from "svelte";
 
-export type Variants<T> = {
+export type Variants<T> = Variant<T>[]
+
+export type Variant<T> = {
   name?: string,
   description?: string,
   props?: SvelteComponentProps<T>,
   contexts?: MockedContext[],
-}[]
+  slots?: Slot[]
+}
+
+type Slot = {
+  // name?: string; // leave blank for default slot - dynamic slots not supported yet
+  content: string | typeof SvelteComponent;
+}
 
 // From https://gist.github.com/chanced/bfc4f4bfdd60077f30d0e0b043c5f81f - can remove "props" property to get all options
 type SvelteComponentProps<T> = T extends abstract new (

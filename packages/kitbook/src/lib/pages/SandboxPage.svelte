@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
-  import type { GroupedPage, GroupedPageMap, LoadedModules, MockedContext } from '../kitbook-types';
+  import { setContext, type SvelteComponent } from 'svelte';
+  import type { GroupedPage, GroupedPageMap, LoadedModules, Variant } from '../kitbook-types';
   import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js';
 
   export let data: {
@@ -8,13 +8,13 @@
     page: GroupedPage;
     loadedModules: LoadedModules;
     storyId: string;
-    props: Record<string, any>;
-    contexts: MockedContext[];
+    variant?: Variant<typeof SvelteComponent>;
+    editedProps?: Record<string, any>;
     // error?: string;
   };
 
   const isStory = !!data.storyId;
-  const props = data.props || {};
+  const props = data.editedProps || data.variant?.props || {};
 
   if (isStory) {
     // `Story` components check the `sandboxId` context to know whether to show when in the sandbox - this is passed to the sandbox originally using the `storyId` query param in iframe url
@@ -22,7 +22,7 @@
     setContext<Record<string, any>>('sandboxProps', props);
   }
 
-  for (const { key, context } of data.contexts || []) {
+  for (const { key, context } of data.variant?.contexts || []) {
     setContext(key, context);
   }
 </script>
@@ -41,7 +41,16 @@
           automatically supply default props, but until then they must be supplied manually.
         {/if}
       </div>
-      <svelte:component this={data.loadedModules.component} {...props} />
+      <svelte:component this={data.loadedModules.component} {...props}>
+        {#if data.variant?.slots}
+          {@const content = data.variant.slots[0].content}
+          {#if typeof content === 'string'}
+            {@html content}
+          {:else}
+            <svelte:component this={content} />
+          {/if}
+        {/if}
+      </svelte:component>
     </ErrorBoundary>
   </div>
 {/if}
