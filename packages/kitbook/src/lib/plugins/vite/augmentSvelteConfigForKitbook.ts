@@ -7,8 +7,9 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   extensions: ['.svelte', ...defaultKitbookMdsvexConfig.extensions],
   kit: {
     files: {
-      routes: DEFAULT_KITBOOK_ROUTES,
       appTemplate: 'node_modules/kitbook/app.html',
+      routes: DEFAULT_KITBOOK_ROUTES,
+      assets: 'node_modules/kitbook/assets',
     },
     outDir: '.svelte-kit-kitbook',
   }

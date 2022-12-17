@@ -8,6 +8,8 @@
   import { putPagesIntoFolders } from '../pages/putPagesIntoFolders';
 
   export let title = 'Kitbook';
+  export let description =
+    'Svelte Component Documentation and Prototyping Workbench built using SvelteKit';
   export let expanded = false;
   export let githubURL = '';
   setContext<string>('githubUrl', githubURL);
@@ -33,3 +35,9 @@
     </div>
   </div>
 </div>
+
+<svelte:head>
+  <!-- TODO: Update based on title + current page -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</svelte:head>

@@ -16,6 +16,7 @@ const config = {
     files: {
       appTemplate: 'src/lib/app.html',
       routes: 'src/lib/routes',
+      assets: 'src/lib/assets',
     }
   },
 
@@ -33,7 +34,7 @@ const config = {
 };
 
 export default config;
-// not using augmentSvelteConfigForKitbook only in this Kitbook package because svelte.config.js does not support importing typescript files and this config would be referencing the not-yet compiled version. As well this package only has a Kitbook and not a regular app.
+// cancel: augmentSvelteConfigForKitbook - not using in the Kitbook package itself because svelte.config.js does not support importing typescript files. As well this package only has a Kitbook and not a regular app.
 
 /**
  * @param {string} filename 
