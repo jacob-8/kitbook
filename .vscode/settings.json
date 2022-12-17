@@ -13,8 +13,8 @@
   "vitest.enable": true,
   "foam.edit.linkReferenceDefinitions": "withoutExtensions",
   "foam.files.ignore": [
-      "**/node_modules/**/*",
-      "**/package/**/*",
+    "**/node_modules/**/*",
+    "**/package/**/*",
   ],
   "foam.completion.label": "title"
 }
