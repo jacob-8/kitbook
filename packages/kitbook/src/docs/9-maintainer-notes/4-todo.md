@@ -3,7 +3,7 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- publish beta version to npm to get css up and then delete css from assets folder
+- delete css from assets folder
 
 - filterOutUnwantedKitbookPaths in layout based on what it sees is it's own directory unless if turned off by a flag (for Kitbook's usage itself or if anyone modifies their Kitbook routes and wants to do such in their own Kitbook)
 - use in svelte-pieces
