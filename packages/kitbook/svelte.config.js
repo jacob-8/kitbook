@@ -13,6 +13,9 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    files: {
+      appTemplate: 'src/lib/app.html'
+    }
   },
 
   package: {

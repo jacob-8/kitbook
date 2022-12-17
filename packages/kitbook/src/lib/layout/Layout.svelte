@@ -1,6 +1,5 @@
 <script lang="ts">
-  import '../styles/prism-vsc-dark-plus.css';
-  import '../styles/tw-prose.css';
+  import '../styles/main.css';
 
   import { setContext } from 'svelte';
   import { page } from '$app/stores';
@@ -29,29 +28,8 @@
       <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
     </Sidebar>
 
-    <div class="tw-prose !max-w-full w-[90ch] p-3 pb-16">
+    <div class="tw-prose max-w-full w-[90ch] p-3 pb-16">
       <slot />
     </div>
   </div>
 </div>
-
-{#each $$slots as item}
-   <!-- content here -->
-{/each}
-
-<style>
-  :global(pre) {
-    /* ! not working in transformer directives yet */
-    /* --at-apply: !-mx-3 !md:mx-0 !rounded-none !md:rounded-md */
-    margin-left: -0.75rem !important;
-    margin-right: -0.75rem !important;
-    border-radius: 0rem !important;
-  }
-  @media (min-width: 768px) {
-    :global(pre) {
-      margin-left: 0rem !important;
-      margin-right: 0rem !important;
-      border-radius: 0.375rem !important;
-    }
-  }
-</style>

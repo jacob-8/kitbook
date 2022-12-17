@@ -1,5 +1,4 @@
 <script lang="ts">
-  import '../styles/main.css';
   import { ResponsiveSlideover } from 'svelte-pieces';
   import Folder from './Folder.svelte';
   import type { Folder as FolderType } from 'kitbook';
