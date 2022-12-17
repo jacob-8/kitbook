@@ -34,7 +34,7 @@
 
   {#if isRootFolder || actualExpandedState}
     {#each folder.pages as page}
-      {#if page.url !== '/README' && page.url !== '/docs/index'}
+      {#if page.url !== '/README' && page.url !== '/index'}
         <Page {page} {activeURL} depth={folder.depth} />
       {/if}
     {/each}

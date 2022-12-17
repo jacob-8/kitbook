@@ -118,18 +118,6 @@ if (import.meta.vitest) {
                 "path": "/src/docs/1-get-started.md",
                 "url": "/docs/1-get-started",
               },
-              {
-                "extensions": [
-                  "md",
-                ],
-                "loadSvx": {
-                  "loadModule": [Function],
-                  "loadRaw": [Function],
-                },
-                "name": "index",
-                "path": "/src/docs/index.md",
-                "url": "/docs/index",
-              },
             ],
             "url": "/docs",
           },
@@ -399,6 +387,83 @@ if (import.meta.vitest) {
             ],
             "url": "/routes",
           },
+          {
+            "depth": 1,
+            "folders": [
+              {
+                "depth": 2,
+                "folders": [
+                  {
+                    "depth": 3,
+                    "folders": [],
+                    "name": "[...file]",
+                    "pages": [
+                      {
+                        "extensions": [
+                          "svelte",
+                        ],
+                        "loadComponent": {
+                          "loadModule": [Function],
+                          "loadRaw": [Function],
+                        },
+                        "name": "+page",
+                        "path": "/src/kitbook/(main)/[...file]/+page.svelte",
+                        "url": "/kitbook/(main)/[...file]/+page",
+                      },
+                    ],
+                    "url": "/kitbook/(main)/[...file]",
+                  },
+                ],
+                "name": "(main)",
+                "pages": [
+                  {
+                    "extensions": [
+                      "svelte",
+                    ],
+                    "loadComponent": {
+                      "loadModule": [Function],
+                      "loadRaw": [Function],
+                    },
+                    "name": "+layout",
+                    "path": "/src/kitbook/(main)/+layout.svelte",
+                    "url": "/kitbook/(main)/+layout",
+                  },
+                ],
+                "url": "/kitbook/(main)",
+              },
+              {
+                "depth": 2,
+                "folders": [
+                  {
+                    "depth": 3,
+                    "folders": [],
+                    "name": "[...file]",
+                    "pages": [
+                      {
+                        "extensions": [
+                          "svelte",
+                        ],
+                        "loadComponent": {
+                          "loadModule": [Function],
+                          "loadRaw": [Function],
+                        },
+                        "name": "+page",
+                        "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
+                        "url": "/kitbook/sandbox/[...file]/+page",
+                      },
+                    ],
+                    "url": "/kitbook/sandbox/[...file]",
+                  },
+                ],
+                "name": "sandbox",
+                "pages": [],
+                "url": "/kitbook/sandbox",
+              },
+            ],
+            "name": "kitbook",
+            "pages": [],
+            "url": "/kitbook",
+          },
         ],
         "name": ".",
         "pages": [
@@ -413,6 +478,18 @@ if (import.meta.vitest) {
             "name": "README",
             "path": "/README.md",
             "url": "/README",
+          },
+          {
+            "extensions": [
+              "md",
+            ],
+            "loadSvx": {
+              "loadModule": [Function],
+              "loadRaw": [Function],
+            },
+            "name": "index",
+            "path": "/src/index.md",
+            "url": "/index",
           },
         ],
         "url": "/",

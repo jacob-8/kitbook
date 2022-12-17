@@ -71,18 +71,6 @@ if (import.meta.vitest) {
           "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
-        "/docs/index": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "index",
-          "path": "/src/docs/index.md",
-          "url": "/docs/index",
-        },
         "/docs/my-notes/0-unocss": {
           "extensions": [
             "md",
@@ -106,6 +94,54 @@ if (import.meta.vitest) {
           "name": "deploy to vercel",
           "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
           "url": "/docs/my-notes/1-deploy-to-vercel",
+        },
+        "/index": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "index",
+          "path": "/src/index.md",
+          "url": "/index",
+        },
+        "/kitbook/(main)/+layout": {
+          "extensions": [
+            "svelte",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/kitbook/(main)/+layout.svelte",
+          "url": "/kitbook/(main)/+layout",
+        },
+        "/kitbook/(main)/[...file]/+page": {
+          "extensions": [
+            "svelte",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+page",
+          "path": "/src/kitbook/(main)/[...file]/+page.svelte",
+          "url": "/kitbook/(main)/[...file]/+page",
+        },
+        "/kitbook/sandbox/[...file]/+page": {
+          "extensions": [
+            "svelte",
+          ],
+          "loadComponent": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+page",
+          "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
+          "url": "/kitbook/sandbox/[...file]/+page",
         },
         "/lib/A": {
           "extensions": [

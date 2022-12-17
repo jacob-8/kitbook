@@ -45,6 +45,16 @@ if (import.meta.vitest) {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
+          "name": "index",
+          "path": "/src/index.md",
+          "url": "/index",
+        },
+        {
+          "ext": "md",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "why kitbook",
           "path": "/src/docs/0-why-kitbook.md",
           "url": "/docs/0-why-kitbook",
@@ -58,16 +68,6 @@ if (import.meta.vitest) {
           "name": "get started",
           "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
-        },
-        {
-          "ext": "md",
-          "load": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "index",
-          "path": "/src/docs/index.md",
-          "url": "/docs/index",
         },
         {
           "ext": "md",
@@ -338,6 +338,36 @@ if (import.meta.vitest) {
           "name": "_layout",
           "path": "/src/routes/c/_layout.variants.ts",
           "url": "/routes/c/_layout",
+        },
+        {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+layout",
+          "path": "/src/kitbook/(main)/+layout.svelte",
+          "url": "/kitbook/(main)/+layout",
+        },
+        {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+page",
+          "path": "/src/kitbook/(main)/[...file]/+page.svelte",
+          "url": "/kitbook/(main)/[...file]/+page",
+        },
+        {
+          "ext": "svelte",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "+page",
+          "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
+          "url": "/kitbook/sandbox/[...file]/+page",
         },
         {
           "ext": "foo.svelte",

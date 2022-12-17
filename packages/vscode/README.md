@@ -4,6 +4,12 @@ Learning from https://code.visualstudio.com/api and https://github.com/rebornix/
 
 Add the keybinding (adjust as you desire) to your keyboard shortcuts: Open Command Palette > `Preferences: Open Keyboard Shortcuts (JSON)`:
 
+## Backlinking
+`\[\[(.+?)\]\]` will detect wikilinks
+- https://github.com/hikerpig/foam-template-gatsby-kb
+- https://github.com/hikerpig/gatsby-project-kb
+- https://github.com/mathieudutour/foam-gatsby-template
+
 ```json
 {
   "key": "alt+x",

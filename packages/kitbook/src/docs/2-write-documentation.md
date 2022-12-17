@@ -4,7 +4,7 @@ You can create a folder with any name under your `/src` folder and begin writing
 
 ## Kitbook Index
 
-By default Kitbook will display your project's README.md file as it's home/index page, but you can override this by using a `src/docs/index.{md|svx}` file.
+By default Kitbook will display your project's README.md file as it's home/index page, but you can override this by using a `src/index.{md|svx}` file.
 
 ## Naming Conventions
 

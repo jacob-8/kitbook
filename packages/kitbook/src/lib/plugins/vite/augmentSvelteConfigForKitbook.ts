@@ -62,11 +62,6 @@ if (import.meta.vitest) {
           "inlineStyleThreshold": 0,
           "outDir": ".svelte-kit-kitbook",
         },
-        "preprocess": [
-          {
-            "markup": [Function],
-          },
-        ],
       }
     `);
   });

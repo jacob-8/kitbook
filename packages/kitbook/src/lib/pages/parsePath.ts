@@ -1,5 +1,6 @@
 export function parsePath(path: string) {
   if (path === '/README.md') return { ext: 'md', name: 'README', dir: '/' }
+  if (path === '/src/index.md') return { ext: 'md', name: 'index', dir: '/' }
 
   const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/);
   if (!match) throw new Error(`${path} is not a module path that Kitbook can handle. Make sure the Kitbook Layout Load import.meta.glob starts with '/src/**'`);
@@ -16,9 +17,9 @@ if (import.meta.vitest) {
         "name": "0-why-kitbook",
       }
     `);
-    expect(parsePath('/src/docs/index.md')).toMatchInlineSnapshot(`
+    expect(parsePath('/src/index.md')).toMatchInlineSnapshot(`
       {
-        "dir": "docs/",
+        "dir": "/",
         "ext": "md",
         "name": "index",
       }

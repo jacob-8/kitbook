@@ -2,9 +2,9 @@ export const testModules = {
   '/README.md': () => Promise.resolve(null),
 
   // markdown docs
+  '/src/index.md': () => Promise.resolve(null),
   '/src/docs/0-why-kitbook.md': () => Promise.resolve(null),
   '/src/docs/1-get-started.md': () => Promise.resolve(null),
-  '/src/docs/index.md': () => Promise.resolve(null),
   '/src/docs/my-notes/0-unocss.md': () => Promise.resolve(null),
   '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve(null),
 

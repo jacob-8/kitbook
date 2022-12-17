@@ -22,7 +22,7 @@ export const mainPageLoad = async ({ params, parent }) => {
         return { page, loadedModules };
     }
 
-    const indexPage = pages['/docs/index'] as GroupedPage;
+    const indexPage = pages['/index'] as GroupedPage;
     if (indexPage) {
         loadedModules.svx = (await indexPage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
         loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
@@ -43,5 +43,5 @@ export const mainPageLoad = async ({ params, parent }) => {
         }
     }
 
-    return { error: 'No modules found that match your glob imports. By default Kitbook will try to display your project README.md file as the home page if no src/docs/index.md/svx file exists.' };
+    return { error: 'No modules found that match your glob imports. By default Kitbook will try to display your project README.md file as the home page if no src/index.md file exists.' };
 };
