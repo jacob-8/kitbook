@@ -1,6 +1,6 @@
 # Get Started: How to Create a KitBook
 
-- Install the `kitbook` package: `npm i -D kitbook` or `pnpm add -D kitbook`
+- Install the `kitbook` package: `npm i -D kitbook@alpha` or `pnpm add -D kitbook@alpha` (warning: it's alpha = not ready)
 
 - Add the `kitbook()` plugin before your `sveltekit()` plugin in `vite.config.js`:
 ```diff
