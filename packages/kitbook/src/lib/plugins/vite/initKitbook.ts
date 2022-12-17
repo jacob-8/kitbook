@@ -18,6 +18,7 @@ function ensureKitbookRoutesExist(routes: string) {
       console.error(e);
     }
   }
+  // If svelte.config.js was pointed directly to node_modules/kitbook/routes the routes wouldn't need copied into their repo. Unfortunately though client HRML then wouldn't work w/o turning off cache in browser devtools because of how Vite caches files in node_modules.
 }
 
 const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 

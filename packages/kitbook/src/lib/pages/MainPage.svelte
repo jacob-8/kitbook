@@ -12,7 +12,7 @@
   } = { loadedModules: {} };
 
   $: pathWouldRecurseInfinitelyIfInSandbox = $page.url.pathname.startsWith(
-    '/routes/sandbox/[...file]/+'
+    '/lib/routes/sandbox/[...file]/+'
   );
   $: doesNotHaveSvxOrVariants = !(data.loadedModules.svx || data.loadedModules.variants);
 </script>

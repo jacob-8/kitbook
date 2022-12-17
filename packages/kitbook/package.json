@@ -12,7 +12,7 @@
     "kitbook": "vite dev --mode kitbook",
     "kitbook:build": "vite build --mode kitbook",
     "kitbook:preview": "vite preview --mode kitbook",
-    "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js && node copy-routes.js",
+    "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
