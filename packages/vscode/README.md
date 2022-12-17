@@ -1,6 +1,15 @@
 # Kitbook VSCode Extension
 
-Learning from https://code.visualstudio.com/api and https://github.com/rebornix/vscode-toggle, https://github.com/unocss/unocss/blob/main/packages/vscode/README.md
+Learning from https://code.visualstudio.com/api and https://github.com/rebornix/vscode-toggle, https://medium.com/hack-visual-studio-code/toggle-any-setting-in-vs-code-using-keyboard-shortcut-arguments-cdb5ddc56955, https://github.com/unocss/unocss/blob/main/packages/vscode/README.md, https://github.com/sebsojeda/vscode-svx, https://github.com/Microsoft/vscode-sublime-keybindings
+
+Add the keybinding (adjust as you desire) to your keyboard shortcuts: Open Command Palette > `Preferences: Open Keyboard Shortcuts (JSON)`:
+
+```json
+{
+  "key": "alt+x",
+  "command": "kitbook.toggleMdFileAssociation"
+}
+```
 
 ## Features
 

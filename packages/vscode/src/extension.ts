@@ -1,13 +1,27 @@
 import * as vscode from 'vscode';
+const UPDATE_WORKSPACE_SETTINGS = false;
 
 export function activate(context: vscode.ExtensionContext) {
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	console.log('Congratulations, your extension "kitbook" is now active!');
-
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('kitbook.toggleMdFileAssociation', () => {
-		vscode.window.showInformationMessage('Hello World from Kitbook!');
+	const disposable = vscode.commands.registerCommand('kitbook.toggleMdFileAssociation', () => {
+		const workspaceConfiguration = vscode.workspace.getConfiguration();
+		const fileAssociations = workspaceConfiguration.get("files.associations") as Record<string, string>;
+		const toggled = toggleMdAsSvelteAssociation(fileAssociations);
+		workspaceConfiguration.update('files.associations', toggled, UPDATE_WORKSPACE_SETTINGS);
+		// vscode.window.showInformationMessage('Toggled Markdown File Association (svelte <-> markdown)');
 	});
 
 	context.subscriptions.push(disposable);
+}
+
+function toggleMdAsSvelteAssociation(current: Record<string, string>) {
+	let updated = Object.assign({}, current);
+	
+	const mdAssociatedWithSvelte = updated["*.md"] === "svelte";
+	if (mdAssociatedWithSvelte) {
+		delete updated["*.md"];
+	} else {
+		updated["*.md"] = "svelte";
+	}
+	
+	return updated;
 }
