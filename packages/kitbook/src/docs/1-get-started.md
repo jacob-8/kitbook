@@ -17,7 +17,7 @@ const config = {
 export default config;
 ```
 
-- Add the following scripts to your `package.json`:
+- Add these scripts to your `package.json`:
 ```json
 "kitbook": "vite dev --mode kitbook",
 "kitbook:build": "vite build --mode kitbook",

@@ -8,7 +8,7 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   kit: {
     files: {
       routes: DEFAULT_KITBOOK_ROUTES,
-      appTemplate: 'node_modules/kitbook/kitbook-app.html',
+      appTemplate: 'node_modules/kitbook/app.html',
     },
     outDir: '.svelte-kit-kitbook',
   }

@@ -3,9 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- move routes into lib folder to avoid copying on publish, then package files filter needs adjusted 
+- use in svelte-pieces and update docs
 - filterOutUnwantedKitbookPaths in layout based on what it sees is it's own directory unless if turned off by a flag (for Kitbook's usage itself or if anyone modifies their Kitbook routes and wants to do such in their own Kitbook)
-- use in svelte-pieces
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
 - set iframe height
@@ -15,7 +14,7 @@
 - Add full-screen view for sandbox
 - lay out variants better
 - use in rest of my packages and update docs as I go
-- publish
+- `npm publish --tag alpha`
 
 ## Important before encouraging others to use
 - custom meta-tags

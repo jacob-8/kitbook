@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",

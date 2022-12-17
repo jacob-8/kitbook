@@ -1,17 +1,12 @@
 # kitbook
 
-## Unreleased
+## 1.0.0-alpha.2 - 2022-12-17
 
 ### Major Changes
 
 - Update to using SvelteKit 1.0
 - [breaking] Move away from using routes for every story file so that stories can be colocated by the applicable Svelte component.
-- Add Vite plugin to simplify the set-up process. No longer do you need to install MDSvex nor add styles. See the [Kitbook docs](https://kitbook.vercel.app/) for new setup instructions to know how to remove unneeded items.
-
-## 1.0.0-alpha.1 - 2022-12-17
-
-- This version is **not** ready for use, but is being published to surface styles for CDN usage via [unpkg](https://unpkg.com/).
-
+- Add Vite plugin to simplify the set-up process. No longer do you need to install MDSvex nor add styles. See packages/kitbook/src/docs for new setup instructions to know how to remove unneeded items. But you really shouldn't be using the alpha yet - I'm just trying to distribute amongst my projects at the moment to iron out all the changes.
 
 ## 0.0.24
 

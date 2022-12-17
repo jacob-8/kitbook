@@ -41,7 +41,7 @@ export default config;
  */
 function removeStoriesAndVariants(filename) {
   if (filename.startsWith('routes')) {
-    const isARouteFile = src.includes('+page') || src.includes('+layout');
+    const isARouteFile = filename.includes('+page') || filename.includes('+layout');
     return isARouteFile;
   }
 
