@@ -1,6 +1,6 @@
 <script>
   import { Story } from 'kitbook';
-  import { longpress } from '$lib/actions/longpress';
+  import { longpress } from './longpress';
 </script>
 
 <Story showCode knobs={{ duration: '200-2000;1000' }} let:props={{ duration }}>

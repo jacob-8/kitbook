@@ -1,7 +1,7 @@
 <script>
   import { Story } from 'kitbook';
-  import BadgeArrayEmit from '$lib/data/BadgeArrayEmit.svelte';
-  import ReactiveSet from '$lib/functions/ReactiveSet.svelte';
+  import BadgeArrayEmit from './BadgeArrayEmit.svelte';
+  import ReactiveSet from '../functions/ReactiveSet.svelte';
 
   let books = ['Lord of the Rings', 'www.books.com'];
 </script>

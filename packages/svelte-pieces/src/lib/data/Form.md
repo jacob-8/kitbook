@@ -1,6 +1,7 @@
 <script>
   import { Story } from 'kitbook';
-  import { Button, Form } from '$lib';
+  import Form from './Form.svelte';
+  import Button from '../ui/Button.svelte';
 </script>
 
 <!-- prettier-ignore -->

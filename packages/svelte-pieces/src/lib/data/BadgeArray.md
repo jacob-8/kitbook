@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Story } from 'kitbook';
-  import BadgeArray from '$lib/data/BadgeArray.svelte';
+  import BadgeArray from './BadgeArray.svelte';
 
   const books = ['Lord of the Rings', 'www.books.com'];
 </script>

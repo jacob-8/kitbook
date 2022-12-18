@@ -16,6 +16,7 @@
 - lay out variants better
 - use in rest of my packages and update docs as I go
 - `npm publish --tag alpha`
+- send alpha test question to discord query person
 
 ## Important before encouraging others to use
 - automatically analyze component for props

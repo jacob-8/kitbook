@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Story } from 'kitbook';
-  import { clickoutside } from '$lib/actions/clickoutside';
+  import { clickoutside } from './clickoutside';
 </script>
 
 <Story showCode>

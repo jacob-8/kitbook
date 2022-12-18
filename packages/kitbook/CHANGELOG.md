@@ -5,8 +5,8 @@
 ### Major Changes
 
 - Update to using SvelteKit 1.0
-- [breaking] Move away from using routes for every story file so that stories can be colocated by the applicable Svelte component.
-- Add Vite plugin to simplify the set-up process. No longer do you need to install MDSvex nor add styles. See packages/kitbook/src/docs for new setup instructions to know how to remove unneeded items. But you really shouldn't be using the alpha yet - I'm just trying to distribute amongst my projects at the moment to iron out all the changes.
+- [breaking] Move away from using routes for every story file so that stories can be colocated by the applicable Svelte component. To migrate you'll need to change your stories files that were pages (`foo/+page.svx`) into colocated story files next to your component (`Foo.md`)
+- Add Vite plugin to simplify the set-up process. No longer do you need to install MDSvex nor add styles. See `packages/kitbook/src/docs` for new setup instructions to know how to remove unneeded items. But you really shouldn't be using the alpha yet - I'm just trying to distribute amongst my projects at the moment to iron out all the changes.
 
 ## 0.0.24
 
