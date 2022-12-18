@@ -3,11 +3,11 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- don't copy .d.ts files when copying routes
 - diagnose why typescript isn't working in autofocus
 - use in svelte-pieces and update docs
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings
+- have a Story name with a `+` breaks it, e.g. `Store + input Event`
 - set iframe height
 - use in ld package
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
@@ -26,6 +26,7 @@
 - add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
 - update meta-tags based on current page
 - make prism css theme configurable
+- shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
 
 ## Nice to Have
 - Vite server middleware to update/add variants from browser

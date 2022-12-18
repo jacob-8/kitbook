@@ -1,12 +1,12 @@
 <script>
 	import { Story } from 'kitbook';
-	import Store from '$lib/functions/Store.svelte';
+	import Store from './Store.svelte';
 	let value = 'world';
 </script>
 
 # Store
 
-<Story name="Store + input Event" showCode>
+<Story name="Store and input Event" showCode>
 	<Store startWith="hello" let:set let:store={text}>
 		<input
 			type="text"

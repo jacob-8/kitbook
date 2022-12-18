@@ -1,5 +1,9 @@
-title="Svelte Pieces"
-githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces"
+<script>import { Layout } from "kitbook";
+</script>
+
+<Layout expanded title="Svelte Pieces" githubURL="https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces">
+  <slot />
+</Layout>
 
 <style uno:preflights global>
   [type='text'],

@@ -12,7 +12,7 @@ function ensureKitbookRoutesExist(routes: string) {
       fs.mkdirSync(routes);
       const src = 'node_modules/kitbook/routes';
       const destination = routes;
-      fs.cpSync(src, destination, { recursive: true });
+      fs.cpSync(src, destination, { recursive: true, filter: (src, dest) => !src.includes('.d.ts') });
       console.log(`Copied Kitbook routes directory to ${routes} to setup your Kitbook. The Kitbook plugin will automatically update to your Svelte config file to use this as the routes directory when running vite in "kitbook" mode.\n`);
     } catch (e) {
       console.error(e);
