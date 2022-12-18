@@ -9,15 +9,15 @@ export const mainPageLoad = async ({ params, parent }) => {
     if (page) {
         if (page.loadSvx) {
             loadedModules.svx = (await page.loadSvx.loadModule())?.default as typeof SvelteComponent;
-            loadedModules.svxRaw = await page.loadSvx.loadRaw()
+            // loadedModules.svxRaw = await page.loadSvx.loadRaw()
         }
         if (page.loadComponent) {
             loadedModules.component = (await page.loadComponent.loadModule())?.default as typeof SvelteComponent;
-            loadedModules.componentRaw = await page.loadComponent.loadRaw()
+            // loadedModules.componentRaw = await page.loadComponent.loadRaw()
         }
         if (page.loadVariants) {
             loadedModules.variants = (await page.loadVariants.loadModule())?.variants as Variants<any>;
-            loadedModules.variantsRaw = await page.loadVariants.loadRaw()
+            // loadedModules.variantsRaw = await page.loadVariants.loadRaw()
         }
         return { page, loadedModules };
     }
@@ -25,7 +25,7 @@ export const mainPageLoad = async ({ params, parent }) => {
     const indexPage = pages['/index'] as GroupedPage;
     if (indexPage) {
         loadedModules.svx = (await indexPage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
-        loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
+        // loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
         return { page: indexPage, loadedModules };
     }
 
@@ -34,7 +34,7 @@ export const mainPageLoad = async ({ params, parent }) => {
     if (readmePage) {
         try {
             loadedModules.svx = (await readmePage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
-            loadedModules.svxRaw = await readmePage.loadSvx.loadRaw()
+            // loadedModules.svxRaw = await readmePage.loadSvx.loadRaw()
             return { page: readmePage, loadedModules };
         } catch (e) {
             return {

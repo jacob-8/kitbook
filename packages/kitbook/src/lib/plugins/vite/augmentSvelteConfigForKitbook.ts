@@ -57,7 +57,8 @@ if (import.meta.vitest) {
         ],
         "kit": {
           "files": {
-            "appTemplate": "node_modules/kitbook/kitbook-app.html",
+            "appTemplate": "node_modules/kitbook/app.html",
+            "assets": "node_modules/kitbook/assets",
             "routes": "src/shazambook",
           },
           "inlineStyleThreshold": 0,
