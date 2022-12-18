@@ -1,15 +1,12 @@
 import type { Folder, GroupedPageMap } from "../kitbook-types";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
-export function putPagesIntoFolders(groupedPages: GroupedPageMap, { hideKitbookRoutes } = { hideKitbookRoutes: true }): Folder {
+export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
   let pagesToOrganize = Object.values(groupedPages)
 
-  // __KitbookRoutes__
-  // const routes = 'src/lib/routes';
-  const routes = 'src/kitbook';
-
-  if (hideKitbookRoutes) {
-    pagesToOrganize = pagesToOrganize.filter(page => filterKitbookPath(page.path, routes))
+  const isNotKitbookItself = __KitbookRoutes__ !== 'src/lib/routes';
+  if (isNotKitbookItself) {
+    pagesToOrganize = pagesToOrganize.filter(page => filterKitbookRoutes(page.path, __KitbookRoutes__))
   }
 
   const rootFolder: Folder = {
@@ -55,18 +52,18 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap, { hideKitbookR
   return rootFolder;
 }
 
-function filterKitbookPath(path: string, kitbookRoutes: string): boolean {
+function filterKitbookRoutes(path: string, kitbookRoutes: string): boolean {
   return !path.includes(kitbookRoutes);
 }
 
 if (import.meta.vitest) {
-  test('filterKitbookPath', () => {
+  test('filterKitbookRoutes', () => {
     const defaultKitbookRoutes = 'src/kitbook';
     const standardSvelteKitRoutes = 'src/routes';
 
-    expect(filterKitbookPath('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false');
-    expect(filterKitbookPath('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true');
+    expect(filterKitbookRoutes('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false');
+    expect(filterKitbookRoutes('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true');
 
-    expect(filterKitbookPath('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false');
+    expect(filterKitbookRoutes('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false');
   });
 }
