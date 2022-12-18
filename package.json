@@ -18,7 +18,7 @@
 		"@changesets/cli": "^2.25.2",
 		"@typescript-eslint/eslint-plugin": "^5.46.1",
 		"@typescript-eslint/parser": "^5.46.1",
-		"eslint": "^8.29.0",
+		"eslint": "^8.30.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.8.1",
