@@ -1,5 +1,4 @@
 import type { Config } from '@sveltejs/kit';
-import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 import defaultKitbookMdsvexConfig from './mdsvex/mdsvex.config.js';
 import { immutableDeepMerge } from './utils/immutableDeepMerge.js';
 
@@ -8,10 +7,8 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   kit: {
     files: {
       appTemplate: 'node_modules/kitbook/app.html',
-      routes: DEFAULT_KITBOOK_ROUTES,
       assets: 'node_modules/kitbook/assets',
     },
-    outDir: '.svelte-kit-kitbook',
   }
 }
 
@@ -21,16 +18,40 @@ export function augmentSvelteConfigForKitbook(config: Config, {
   kitbookOptions?: Config;
 } = {}) {
   if (process.env.KITBOOK_ROUTES) {
-    const adjustedOptions = immutableDeepMerge(DEFAULT_KITBOOK_OPTIONS, kitbookOptions);
-    config = immutableDeepMerge(config, adjustedOptions);
+    const routesFromPlugin: Config = {
+      kit: {
+        files: {
+          routes: process.env.KITBOOK_ROUTES,
+        },
+      }
+    }
+    const isNotDefaultRoutesFolder = process.env.KITBOOK_ROUTES !== 'src/routes';
+    if (isNotDefaultRoutesFolder) {
+      routesFromPlugin.kit.outDir = '.svelte-kit-kitbook';
+    }
+
+    config = immutableDeepMerge(config, DEFAULT_KITBOOK_OPTIONS, kitbookOptions, routesFromPlugin);
   }
   return config;
 }
 
 if (import.meta.vitest) {
-  test('augmentSvelteConfigForKitbook takes options first from user, then from kitbook, then from base svelte.config.js', () => {
-    process.env.KITBOOK_ROUTES = 'test';
+  test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, then options from user, then from kitbook defaults, then from the current svelte.config.js', () => {
+    process.env.KITBOOK_ROUTES = 'src/set-in-vite-plugin';
 
+    // from user
+    const kitbookOptions: Config = {
+      kit: {
+        files: {
+          routes: 'src/shazambook',
+        },
+        version: null,
+      },
+    };
+
+    // kitbook defaults hardcoded into function
+
+    // current svelte config (mock)
     const svelteConfig: Config = {
       kit: {
         files: {
@@ -40,10 +61,42 @@ if (import.meta.vitest) {
       },
     };
 
+    expect(augmentSvelteConfigForKitbook(svelteConfig, { kitbookOptions })).toMatchInlineSnapshot(`
+      {
+        "extensions": [
+          ".svelte",
+          ".md",
+          ".svx",
+        ],
+        "kit": {
+          "files": {
+            "appTemplate": "node_modules/kitbook/app.html",
+            "assets": "node_modules/kitbook/assets",
+            "routes": "src/set-in-vite-plugin",
+          },
+          "inlineStyleThreshold": 0,
+          "outDir": ".svelte-kit-kitbook",
+          "version": null,
+        },
+      }
+    `);
+  });
+  
+  test('when routes are reset in Vite plugin to src/routes, that remains regardless of what is inadvertently passed into augmentSvelteConfigForKitbook; also outDir is not changed from the kit default', () => {
+    process.env.KITBOOK_ROUTES = 'src/routes';
+
     const kitbookOptions: Config = {
       kit: {
         files: {
           routes: 'src/shazambook',
+        },
+      },
+    };
+
+    const svelteConfig: Config = {
+      kit: {
+        files: {
+          routes: 'src/bananas',
         },
       },
     };
@@ -59,10 +112,8 @@ if (import.meta.vitest) {
           "files": {
             "appTemplate": "node_modules/kitbook/app.html",
             "assets": "node_modules/kitbook/assets",
-            "routes": "src/shazambook",
+            "routes": "src/routes",
           },
-          "inlineStyleThreshold": 0,
-          "outDir": ".svelte-kit-kitbook",
         },
       }
     `);

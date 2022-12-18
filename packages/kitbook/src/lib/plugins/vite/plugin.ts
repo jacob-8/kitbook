@@ -10,7 +10,8 @@ export function kitbookPlugin({ routes, mdsvexConfig }: {
   routes?: string;
   mdsvexConfig?: MdsvexOptions;
 } = {}): Plugin {
-  initKitbook(routes || DEFAULT_KITBOOK_ROUTES);
+  const routesDirectory = routes || DEFAULT_KITBOOK_ROUTES;
+  initKitbook(routesDirectory);
   // let config: ResolvedConfig;
 
   return {
@@ -18,7 +19,7 @@ export function kitbookPlugin({ routes, mdsvexConfig }: {
     enforce: 'pre',
 
     config: (config, { mode }) => {
-      if (mode === 'kitbook') return kitbookModifications(config)
+      if (mode === 'kitbook') return kitbookModifications(config, routesDirectory)
     },
 
     api: {
@@ -26,7 +27,7 @@ export function kitbookPlugin({ routes, mdsvexConfig }: {
     },
 
     // configResolved(resolvedConfig) {
-    //   config = resolvedConfig
+      // config = resolvedConfig
     // },
 
     // transform(src, id) {
@@ -41,13 +42,16 @@ export function kitbookPlugin({ routes, mdsvexConfig }: {
   }
 }
 
-function kitbookModifications(config: UserConfig): UserConfig {
+function kitbookModifications(config: UserConfig, routesDirectory: string): UserConfig {
   return {
     server: {
       port: config?.server?.port || 4321,
       fs: {
         allow: ['..'], // one level up from the project root for displaying README.md
       }
+    },
+    define: {
+      __KitbookRoutes__: JSON.stringify(routesDirectory),
     }
   }
 }

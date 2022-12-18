@@ -32,7 +32,7 @@ export function groupColocatedPages(ungrouped: UngroupedPage[], extensions = { s
 
 if (import.meta.vitest) {
   test('groupColocatedPages properly groups ungrouped pages', () => {
-    const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules);
+    const ungroupedPages = parseModulesIntoUngroupedPages(testModules);
     expect(groupColocatedPages(ungroupedPages)).toMatchInlineSnapshot(`
       {
         "/README": {

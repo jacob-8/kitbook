@@ -4,7 +4,15 @@ import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages
 import { testModules } from "./testModules";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
-export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
+export function putPagesIntoFolders(groupedPages: GroupedPageMap, { hideKitbookRoutes } = { hideKitbookRoutes: true }): Folder {
+  let pagesToOrganize = Object.values(groupedPages)
+
+  const routes = 'src/kitbook';
+
+  if (hideKitbookRoutes) {
+    pagesToOrganize = pagesToOrganize.filter(page => filterKitbookPath(page.path, routes))
+  }
+
   const rootFolder: Folder = {
     name: '.',
     url: '/',
@@ -13,7 +21,6 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
     pages: [],
   };
 
-  const pagesToOrganize = Object.values(groupedPages)
   if (!pagesToOrganize?.length) return rootFolder;
 
   pagesToOrganize.forEach((page) => {
@@ -50,8 +57,9 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
 }
 
 if (import.meta.vitest) {
+  
   test('putPagesIntoFolders organizes Pages into proper folders', () => {
-    const pages = parseModulesIntoUngroupedPages(testModules, testModules);
+    const pages = parseModulesIntoUngroupedPages(testModules);
     expect(putPagesIntoFolders(groupColocatedPages(pages))).toMatchInlineSnapshot(`
       {
         "depth": 0,
@@ -358,80 +366,6 @@ if (import.meta.vitest) {
             ],
             "url": "/routes",
           },
-          {
-            "depth": 1,
-            "folders": [
-              {
-                "depth": 2,
-                "folders": [
-                  {
-                    "depth": 3,
-                    "folders": [],
-                    "name": "[...file]",
-                    "pages": [
-                      {
-                        "extensions": [
-                          "svelte",
-                        ],
-                        "loadComponent": {
-                          "loadModule": [Function],
-                        },
-                        "name": "+page",
-                        "path": "/src/kitbook/(main)/[...file]/+page.svelte",
-                        "url": "/kitbook/(main)/[...file]/+page",
-                      },
-                    ],
-                    "url": "/kitbook/(main)/[...file]",
-                  },
-                ],
-                "name": "(main)",
-                "pages": [
-                  {
-                    "extensions": [
-                      "svelte",
-                    ],
-                    "loadComponent": {
-                      "loadModule": [Function],
-                    },
-                    "name": "+layout",
-                    "path": "/src/kitbook/(main)/+layout.svelte",
-                    "url": "/kitbook/(main)/+layout",
-                  },
-                ],
-                "url": "/kitbook/(main)",
-              },
-              {
-                "depth": 2,
-                "folders": [
-                  {
-                    "depth": 3,
-                    "folders": [],
-                    "name": "[...file]",
-                    "pages": [
-                      {
-                        "extensions": [
-                          "svelte",
-                        ],
-                        "loadComponent": {
-                          "loadModule": [Function],
-                        },
-                        "name": "+page",
-                        "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
-                        "url": "/kitbook/sandbox/[...file]/+page",
-                      },
-                    ],
-                    "url": "/kitbook/sandbox/[...file]",
-                  },
-                ],
-                "name": "sandbox",
-                "pages": [],
-                "url": "/kitbook/sandbox",
-              },
-            ],
-            "name": "kitbook",
-            "pages": [],
-            "url": "/kitbook",
-          },
         ],
         "name": ".",
         "pages": [
@@ -461,5 +395,21 @@ if (import.meta.vitest) {
         "url": "/",
       }
     `);
+  });
+}
+
+function filterKitbookPath(path: string, kitbookRoutes: string): boolean {
+  return !path.includes(kitbookRoutes);
+}
+
+if (import.meta.vitest) {
+  test('filterKitbookPath', () => {
+    const defaultKitbookRoutes = 'src/kitbook';
+    const standardSvelteKitRoutes = 'src/routes';
+
+    expect(filterKitbookPath('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false');
+    expect(filterKitbookPath('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true');
+
+    expect(filterKitbookPath('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false');
   });
 }
