@@ -4,9 +4,11 @@ import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphe
 export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
   let pagesToOrganize = Object.values(groupedPages)
 
-  const isNotKitbookItself = __KitbookRoutes__ !== 'src/lib/routes';
-  if (isNotKitbookItself) {
-    pagesToOrganize = pagesToOrganize.filter(page => filterKitbookRoutes(page.path, __KitbookRoutes__))
+  if (typeof __KitbookRoutes__ !== 'undefined') {
+    const isNotKitbookItself = __KitbookRoutes__ !== 'src/lib/routes';
+    if (isNotKitbookItself) {
+      pagesToOrganize = pagesToOrganize.filter(page => filterKitbookRoutes(page.path, __KitbookRoutes__))
+    }
   }
 
   const rootFolder: Folder = {

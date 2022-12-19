@@ -6,7 +6,7 @@ export const variants: Variants<typeof Page> = [
     name: 'First',
     props: {
       data: {
-        name: 'Jim'
+        name: 'Jimmy'
       },
     },
   },

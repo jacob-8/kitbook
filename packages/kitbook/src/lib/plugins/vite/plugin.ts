@@ -10,20 +10,25 @@ export function kitbookPlugin({ routes, mdsvexConfig }: {
   routes?: string;
   mdsvexConfig?: MdsvexOptions;
 } = {}): Plugin {
-  const routesDirectory = routes || DEFAULT_KITBOOK_ROUTES;
-  initKitbook(routesDirectory);
   // let config: ResolvedConfig;
+  const routesDirectory = routes || DEFAULT_KITBOOK_ROUTES;
+  const isKitbookMode = process.env.npm_lifecycle_script?.includes('--mode kitbook');
+  if (isKitbookMode) initKitbook(routesDirectory);
 
   return {
     name: 'vite-plugin-svelte-kitbook',
     enforce: 'pre',
+
+    // apply(config, { mode }) {
+    //   return mode === 'kitbook';
+    // },
 
     config: (config, { mode }) => {
       if (mode === 'kitbook') return kitbookModifications(config, routesDirectory)
     },
 
     api: {
-      sveltePreprocess: mdsvex(mdsvexConfig || defaultKitbookMdsvexConfig),
+      sveltePreprocess: isKitbookMode && mdsvex(mdsvexConfig || defaultKitbookMdsvexConfig),
     },
 
     // configResolved(resolvedConfig) {

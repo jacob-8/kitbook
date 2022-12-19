@@ -1,6 +1,9 @@
 <script lang="ts">
   import { Story } from 'kitbook';
   import Button from './Button.svelte';
+  function foo(node: string) {
+    return 'hello';
+  }
 </script>
 
 # Button

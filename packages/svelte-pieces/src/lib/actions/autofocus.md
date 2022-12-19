@@ -1,8 +1,7 @@
 <script lang="ts">
   import { Story } from 'kitbook';
 
-  // function autofocus(node: HTMLInputElement) {
-  function autofocus(node) {
+  function autofocus(node: HTMLInputElement) {
     setTimeout(() => node.focus(), 15);
   }
 </script>
