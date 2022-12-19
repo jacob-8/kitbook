@@ -1,0 +1,42 @@
+{
+  "name": "@kitbook/rehype-display-link-titles",
+  "version": "0.0.0",
+  "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases for Foam auto-generated links",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/rehype-display-link-titles"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "homepage": "https://kitbook.vercel.app",
+  "license": "MIT",
+  "author": "Jacob Bowdoin",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "test": "vitest",
+    "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
+  },
+  "devDependencies": {
+    "standard-version": "^9.5.0",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2",
+    "vitest": "^0.25.8"
+  }
+}

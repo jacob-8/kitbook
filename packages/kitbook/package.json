@@ -55,7 +55,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jacob-8/kitbook.git"
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/kitbook"
   },
   "keywords": [
     "Kitbook",
@@ -74,5 +75,5 @@
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
-  "homepage": "https://github.com/jacob-8/kitbook/tree/main/packages/kitbook"
+  "homepage": "https://kitbook.vercel.app"
 }
