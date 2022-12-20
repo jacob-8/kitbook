@@ -3,7 +3,6 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- diagnose why typescript isn't working in autofocus
 - use in svelte-pieces and update docs
 - fix side menu backdrop
 - fix svelte-pieces a11y warnings

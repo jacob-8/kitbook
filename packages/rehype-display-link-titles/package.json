@@ -1,6 +1,6 @@
 {
   "name": "@kitbook/rehype-display-link-titles",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases for Foam auto-generated links",
   "repository": {
     "type": "git",

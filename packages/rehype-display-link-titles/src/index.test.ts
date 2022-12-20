@@ -6,9 +6,16 @@ describe('rehypeStringify', () => {
     .data('settings', { fragment: true })
     .use(rehypeDisplayLinkTitles)
     
-  test('basic', async () => {
-    const input = `<a href="https://example.com" title="Wouldn't it be nice to use the Title">Example</a>`
-    expect((await processor.process(input)).value).toMatchInlineSnapshot('"<a href=\\"https://example.com\\" title=\\"Example\\">Wouldn\'t it be nice to use the Title</a>"');
+  test('swaps link content and title (normal case)', async () => {
+    const input = `<a href="docs/9-why" title="Why not use an already existing alternative?">9-why</a>`
+
+    expect((await processor.process(input)).value).toMatchInlineSnapshot('"<a href=\\"docs/9-why\\" title=\\"9-why\\">Why not use an already existing alternative?</a>"');
+  });
+
+  test('use alias after pipe instead of title if alias exists', async () => {
+    const input = `<a href="docs/9-why" title="Why not use an already existing alternative?">9-why|others</a>`
+
+    expect((await processor.process(input)).value).toMatchInlineSnapshot('"<a href=\\"docs/9-why\\" title=\\"Why not use an already existing alternative? (9-why)\\">others</a>"');
   });
 
   test('No title', async () => {
