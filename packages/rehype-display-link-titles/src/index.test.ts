@@ -35,3 +35,7 @@ describe('rehypeStringify', () => {
     expect((await processor.process(input)).value).eq(input);
   });
 })
+
+// TODO: handle links to sections that will look like this:
+// [2-write-documentation.md#Kitbook Index]: 2-write-documentation "Write Documentation"
+// Learn from https://github.com/rehypejs/rehype-slug and https://github.com/Flet/github-slugger as we will use rehype-slug to generate heading ids

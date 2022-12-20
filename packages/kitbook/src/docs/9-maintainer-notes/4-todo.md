@@ -5,14 +5,14 @@
 
 - builds & deploys
 - set iframe height
-- Easily adjust iframe width
-- Add full-screen view for sandbox
+- Easily adjust iframe width and height
 - lay out variants better
-- `npm publish --tag alpha`
+- merge and `npm publish --tag alpha`
 - use in rest of my packages and update docs as I go
 - send alpha test question to discord query person
 
 ## Important before encouraging others to use
+- shiki-twoslash code blocks https://rodneylab.com/sveltekit-shiki-syntax-highlighting/ https://github.com/shikijs/twoslash https://github.com/pngwn/MDsveX/issues/139#issuecomment-877842887
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
 - having a Story name with a `+` breaks it, e.g. `Store + input Event`
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
@@ -20,11 +20,10 @@
 - Next and Previous pages (see Docusaurus/Vitebook)
 - catch when a variants file exists by itself and inform how to use variants
 - search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
-- add a `create-kitbook` option using `prompt` npm package and learning from `create-svelte`
 - update meta-tags based on current page
-- make prism css theme configurable
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
 - use split-pane for resizable sidebar
+- Add full-screen view for sandbox
 
 ## Nice to Have
 - Vite server middleware to update/add variants from browser

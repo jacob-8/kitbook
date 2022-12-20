@@ -4,6 +4,22 @@ pre {
   border-radius: 0rem !important;
 }
 
+.heading-anchor {
+  display: block;
+  padding-top: 70px;
+  margin-top: -70px;
+  text-decoration: unset !important;
+}
+
+/* .heading-anchor:hover {
+  opacity: .9;
+} */
+
+.heading-anchor:hover::after {
+  content: ' #';
+  opacity: .6;
+}
+
 @media (min-width: 768px) {
   pre {
     margin-left: 0rem !important;
