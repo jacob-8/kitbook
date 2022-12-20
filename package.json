@@ -12,10 +12,11 @@
 		"template": "pnpm --filter=template dev",
 		"template:build": "pnpm --filter=template build",
 		"release": "pnpm publish --tag=next --filter=\"@sveed/*\"",
-		"check-packages": "pnpm update --interactive --recursive --latest"
+		"check-packages": "pnpm update --interactive --recursive --latest",
+		"stub": "pnpm -r --filter=./packages/* --parallel run stub"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.25.2",
+		"@changesets/cli": "^2.26.0",
 		"@typescript-eslint/eslint-plugin": "^5.46.1",
 		"@typescript-eslint/parser": "^5.46.1",
 		"eslint": "^8.30.0",
@@ -25,7 +26,7 @@
 		"prettier-plugin-svelte": "^2.9.0",
 		"svelte": "^3.55.0",
 		"typescript": "~4.9.4",
-		"vite": "^4.0.1"
+		"vite": "^4.0.2"
 	},
 	"type": "module"
 }

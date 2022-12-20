@@ -1,1 +1,0 @@
-module.exports = require("C:/dev/kitbook/node_modules/.pnpm/jiti@1.16.0/node_modules/jiti/lib/index.js")(null, { interopDefault: true, esmResolve: true })("C:/dev/kitbook/packages/rehype-display-link-titles/src/index.ts")
