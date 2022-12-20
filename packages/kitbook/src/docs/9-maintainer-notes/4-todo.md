@@ -3,21 +3,19 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- use in svelte-pieces and update docs
-- fix side menu backdrop
-- fix svelte-pieces a11y warnings
-- have a Story name with a `+` breaks it, e.g. `Store + input Event`
+- builds & deploys
 - set iframe height
-- use in ld package
-- improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
-- Easily adjust screen size
+- Easily adjust iframe width
 - Add full-screen view for sandbox
 - lay out variants better
-- use in rest of my packages and update docs as I go
 - `npm publish --tag alpha`
+- use in rest of my packages and update docs as I go
 - send alpha test question to discord query person
 
 ## Important before encouraging others to use
+- improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
+- having a Story name with a `+` breaks it, e.g. `Store + input Event`
+- Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
 - catch when a variants file exists by itself and inform how to use variants
@@ -26,6 +24,7 @@
 - update meta-tags based on current page
 - make prism css theme configurable
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
+- use split-pane for resizable sidebar
 
 ## Nice to Have
 - Vite server middleware to update/add variants from browser

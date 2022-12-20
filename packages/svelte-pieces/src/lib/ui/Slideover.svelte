@@ -56,13 +56,13 @@
   style="z-index: {zIndex};"
 >
   <div class="fixed inset-0 transition-opacity" transition:fade={{ duration }}>
-    <div class="absolute inset-0 bg-black opacity-25" on:click={close} />
+    <button type="button" class="absolute inset-0 bg-black opacity-25" on:click={close} />
   </div>
 
   <div
     transition:fly={{ x: side === 'right' ? 200 : -200, duration }}
     class="bg-white overflow-hidden shadow-xl transform
-    transition-all w-64 h-full flex flex-col"
+    transition-all w-64 h-full flex flex-col z-1"
     style="width: {widthRem}rem; max-width: {maxWidthPercentage}vw;"
     role="dialog"
     aria-modal="true"

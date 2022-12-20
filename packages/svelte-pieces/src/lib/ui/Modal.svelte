@@ -53,7 +53,7 @@
 
 <div use:portal class="fixed inset-0 p-4 flex items-center justify-center" style="z-index: 60;">
   <div class="fixed inset-0 transition-opacity" transition:fade={{ duration: 200 }}>
-    <div class="absolute inset-0 bg-black opacity-50" on:click={close} />
+    <button type="button" class="absolute inset-0 bg-black opacity-50" on:click={close} />
   </div>
 
   <div

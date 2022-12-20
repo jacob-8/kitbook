@@ -5,13 +5,15 @@
   import { Story } from 'kitbook';
 </script>
 
-<Story name="title slot"
+<Story
+  name="title slot"
+  height={350}
   knobs={{ duration: 200, zIndex: 50, rightSide: true }}
   let:props={{ duration, zIndex, rightSide }}
 >
-  <ShowHide let:show let:toggle>
+  <ShowHide let:show={hide} let:toggle>
     <Button onclick={toggle}>Show</Button>
-    {#if show}
+    {#if !hide}
       <Slideover {duration} {zIndex} side={rightSide ? 'right' : 'left'} on:close={toggle}>
         <div slot="title">Hello</div>
         <div class="p-3">Foo</div>
@@ -45,21 +47,21 @@
   </ShowHide>
 </Story>
 
-<Story name="heading slot"
-  knobs={{ duration: 200, zIndex: 50, rightSide: true }}
+<Story
+  height={350}
+  name="heading slot"
+  knobs={{ duration: 200, zIndex: 50, rightSide: false }}
   let:props={{ duration, zIndex, rightSide }}
 >
-  <ShowHide let:show let:toggle>
+  <ShowHide let:show={hide} let:toggle>
     <Button onclick={toggle}>Show</Button>
-    {#if show}
+    {#if !hide}
       <Slideover {duration} {zIndex} side={rightSide ? 'right' : 'left'} on:close={toggle}>
         <!-- <div class="text-lg font-medium text-gray-900 p-3 border-b border-gray-300" slot="heading">
           Hello
         </div> -->
         <div slot="heading" class="flex items-start justify-between border-b border-gray-300">
-          <h3 class="text-lg font-medium text-gray-900 p-3" id="modal-headline">
-            Hello
-          </h3>
+          <h3 class="text-lg font-medium text-gray-900 p-3" id="modal-headline">Hello</h3>
           <button
             on:click={toggle}
             type="button"

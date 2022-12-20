@@ -38,5 +38,3 @@
 		</Switcher>
 	</div>
 </Story>
-
-*Requires focus to see scroll action b/c of duplicate ids in story view*
