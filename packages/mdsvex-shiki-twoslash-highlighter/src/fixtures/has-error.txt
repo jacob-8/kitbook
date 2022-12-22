@@ -1,0 +1,7 @@
+ts twoslash
+const welcome = "Tudo bem gente?"
+const words = welcome.contains(" ")
+
+// @errors: 2339 2588
+const a = "123"
+a = 132

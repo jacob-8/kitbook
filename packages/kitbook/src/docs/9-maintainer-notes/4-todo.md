@@ -3,6 +3,7 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- shiki-twoslash code blocks https://rodneylab.com/sveltekit-shiki-syntax-highlighting/ https://github.com/shikijs/twoslash https://github.com/pngwn/MDsveX/issues/139#issuecomment-877842887
 - builds & deploys
 - set iframe height
 - Easily adjust iframe width and height
@@ -12,18 +13,17 @@
 - send alpha test question to discord query person
 
 ## Important before encouraging others to use
-- shiki-twoslash code blocks https://rodneylab.com/sveltekit-shiki-syntax-highlighting/ https://github.com/shikijs/twoslash https://github.com/pngwn/MDsveX/issues/139#issuecomment-877842887
+- automatically analyze component for props
+- Next and Previous pages (see Docusaurus/Vitebook)
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
 - having a Story name with a `+` breaks it, e.g. `Store + input Event`
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
-- automatically analyze component for props
-- Next and Previous pages (see Docusaurus/Vitebook)
-- catch when a variants file exists by itself and inform how to use variants
 - search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - update meta-tags based on current page
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
 - use split-pane for resizable sidebar
 - Add full-screen view for sandbox
+- catch when a variants file exists by itself and inform how to use variants
 
 ## Nice to Have
 - Vite server middleware to update/add variants from browser

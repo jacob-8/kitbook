@@ -1,0 +1,12 @@
+ts twoslash {3}
+type Post = {
+  title: string;
+  description: string;
+};
+
+
+function getPosts(): Array<Post>{
+  return []
+}
+// --- cut ---
+const posts = getPosts();

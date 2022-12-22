@@ -4,6 +4,7 @@ import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeUrls from 'rehype-urls';
+import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash-highlighter';
 
 const config = defineConfig({
   extensions: ['.md', '.svx'],
@@ -19,6 +20,7 @@ const config = defineConfig({
       },
     }],
   ],
+  highlight: shikiTwoslashHighlighter,
 });
 
 export default config;

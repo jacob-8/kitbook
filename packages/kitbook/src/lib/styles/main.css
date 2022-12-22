@@ -1,3 +1,5 @@
+@import url('./shiki-twoslash.css');
+
 pre {
   margin-left: -0.75rem !important;
   margin-right: -0.75rem !important;

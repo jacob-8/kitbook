@@ -27,13 +27,3 @@ test('processToFileBeside', async () => {
 test('processToFileBeside', async () => {
   expect(await processToFileBeside('./src/personal-unified-learning/link.md')).toMatchInlineSnapshot('undefined');
 });
-
-// const tests = [
-//   { input: 'foo', output: 'Hello foo' },
-//   { input: 'bar', output: 'Hello bar' }
-// ]
-// for (const { input, output } of tests) {
-//   test(input, () => {
-//     expect(rehypeDisplayLinkTitles(input)).eq(output)
-//   })
-// }

@@ -1,0 +1,4 @@
+ts twoslash
+const level: string = "Danger"
+// ---cut---
+console.log(level)
