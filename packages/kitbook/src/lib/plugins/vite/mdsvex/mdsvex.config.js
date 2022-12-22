@@ -4,7 +4,7 @@ import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeUrls from 'rehype-urls';
-import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash-highlighter';
+import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash';
 
 const config = defineConfig({
   extensions: ['.md', '.svx'],

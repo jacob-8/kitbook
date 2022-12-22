@@ -1,11 +1,11 @@
 {
-  "name": "@kitbook/mdsvex-shiki-twoslash-highlighter",
+  "name": "@kitbook/mdsvex-shiki-twoslash",
   "version": "0.0.1",
   "description": "A plugin for mdsvex that highlights code blocks with shiki and twoslash",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
-    "directory": "packages/mdsvex-shiki-twoslash-highlighter"
+    "directory": "packages/mdsvex-shiki-twoslash"
   },
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"

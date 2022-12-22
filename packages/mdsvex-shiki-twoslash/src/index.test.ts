@@ -23,7 +23,7 @@ const htmlShell = `<!DOCTYPE html>
 <body>${REPLACE_BODY}</body>
 </html>`
 
-describe("mdsvex-shiki-twoslash-highlighter", () => {
+describe("mdsvex-shiki-twoslash", () => {
   fs.readdirSync('./src/fixtures').forEach((file) => {
     if (!file.endsWith('.txt')) {
       return;
