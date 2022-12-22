@@ -108,6 +108,7 @@ importers:
       fenceparser: ^2.2.0
       mdsvex: ^0.10.6
       prettier: ^2.8.1
+      shiki: 0.10.1
       shiki-twoslash: ^3.1.0
       typescript: ^4.9.4
       unbuild: ^1.0.2
@@ -120,6 +121,7 @@ importers:
     devDependencies:
       '@vitest/ui': 0.26.2
       prettier: 2.8.1
+      shiki: 0.10.1
       typescript: 4.9.4
       unbuild: 1.0.2
       vite: 4.0.2
@@ -5681,7 +5683,6 @@ packages:
       jsonc-parser: 3.2.0
       vscode-oniguruma: 1.7.0
       vscode-textmate: 5.2.0
-    dev: false
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -6789,11 +6790,9 @@ packages:
 
   /vscode-oniguruma/1.7.0:
     resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
-    dev: false
 
   /vscode-textmate/5.2.0:
     resolution: {integrity: sha512-Uw5ooOQxRASHgu6C7GVvUxisKXfSgW4oFlO+aa+PAkgmH89O3CXxEEzNRNtHSqtXFTl0nAC1uYj0GMSH27uwtQ==}
-    dev: false
 
   /wcwidth/1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}

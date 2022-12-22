@@ -4,9 +4,8 @@ type Post = {
   description: string;
 };
 
-
 function getPosts(): Array<Post>{
   return []
 }
-// --- cut ---
+// ---cut---
 const posts = getPosts();

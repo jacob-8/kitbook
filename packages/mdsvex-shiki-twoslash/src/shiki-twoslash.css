@@ -2,49 +2,55 @@
 
 <pre class='shiki lsp twoslash [theme-name]'>
   <div class='language-id'>[lang-id]</div>
-    <div class='code-container'>
-      <code>[the code as a series of spans]</code>
-      <a href='playground...'>Try</a> (optional)
-    </div>
-  </pre> 
+  <div class='code-container'>
+    <code>[the code as a series of spans]</code>
+    <a href='playground...'>Try</a> (optional)
+  </div>
+</pre>
+
+Styles based from https://github.com/shikijs/twoslash/blob/main/packages/shiki-twoslash/style.css
 */
 
-pre {
-  /* In theory shiki will overwrite these, but this is to make sure there are defaults regardless */
-  background-color: white;
-  color: black;
-
-  /* Give it some space to breathe */
-  padding: 1.2rem;
-
-  /* All code samples get a grey border, twoslash ones get a different color */
-  /* border-left: 1px solid #999;
-	 border-bottom: 1px solid #999; */
-
-  margin-bottom: 1rem;
-
-  /* Important to allow the code to move horizontally; */
-  overflow-x: auto;
-  position: relative;
+:root {
+  --shiki-padding: 1.2rem;
 }
 
 pre.shiki {
+  /* padding: 1.2rem; */
+  margin-bottom: 1rem;
+  position: relative;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+pre.shiki > .code-container {
+  padding: var(--shiki-padding) 0;
+}
+
+pre.shiki div.line,
+pre.shiki div.meta-line {
+  padding-left: var(--shiki-padding);
+  padding-right: var(--shiki-padding);
+}
+
+pre.shiki.with-title {
+  padding-top: var(--shiki-padding);
+}
+
+pre.shiki div.dim {
+  opacity: 0.7;
+  /* filter: grayscale(1); */
+  transition: opacity 200ms ease-in-out;
 }
 
 pre.shiki:hover .dim {
   opacity: 1;
 }
 
-pre.shiki div.dim {
-  opacity: 0.7;
-}
-
 pre.shiki div.dim,
 pre.shiki div.highlight {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
 }
 
 pre.shiki div.highlight {
@@ -57,12 +63,17 @@ pre.shiki div.line {
 
 pre .language-id {
   position: absolute;
-  top: 6px;
+  user-select: none;
+  top: 10px;
   right: 12px;
   opacity: .5;
 }
 
 pre .code-title {
+  position: absolute;
+  user-select: none;
+  top: 10px;
+  left: var(--shiki-padding);
   opacity: .5;
   font-style: italic;
 }
@@ -72,7 +83,7 @@ pre .code-container {
 }
 
 /* The try button */
-pre .code-container>a {
+pre .code-container > a {
   position: absolute;
   right: 8px;
   bottom: 8px;
@@ -88,12 +99,12 @@ pre .code-container>a {
 
 /* Respect no animations */
 @media (prefers-reduced-motion: reduce) {
-  pre .code-container>a {
+  pre .code-container > a {
     transition: none;
   }
 }
 
-pre .code-container>a:hover {
+pre .code-container > a:hover {
   color: white;
   background-color: #719af4;
 }
@@ -134,12 +145,12 @@ pre .query {
 
 pre .error,
 pre .error-behind {
-  margin-left: -12px;
+  /* margin-left: -1.2rem; */
   margin-top: 8px;
   margin-bottom: 4px;
   padding: 6px;
-  padding-left: 12px;
-  width: calc(100% - 20px);
+  padding-left: calc(var(--shiki-padding) - 4px);
+  width: 100%;
   white-space: pre-wrap;
   display: block;
 }
@@ -147,7 +158,8 @@ pre .error-behind {
 pre .error {
   position: absolute;
   background-color: #fee;
-  border-left: 2px solid #bf1818;
+  border-left: 4px solid #bf1818;
+  border-right: 2px solid #bf1818;
   /* Give the space to the error code */
   display: flex;
   align-items: center;
@@ -169,7 +181,7 @@ pre .arrow {
   /* Transparent background */
   background-color: #eee;
   position: relative;
-  top: -7px;
+  top: -6px;
   margin-left: 0.1rem;
   /* Edges */
   border-left: 1px solid #eee;
@@ -233,12 +245,6 @@ pre .inline-completions ul.dropdown li span.result {
   display: inline-block;
 }
 
-.dark-theme .markdown pre {
-  background-color: #d8d8d8;
-  border-color: #ddd;
-  filter: invert(98%) hue-rotate(180deg);
-}
-
 data-lsp {
   /* Ensures there's no 1px jump when the hover happens */
   border-bottom: 1px dotted hsla(0, 0%, 45%, 60%);
@@ -254,10 +260,9 @@ data-lsp {
   }
 }
 
-/* Visually differentiates twoslash code samples  */
-/* pre.twoslash {
-	 border-color: #719af4;
-} */
+data-err data-lsp {
+  border: none;
+}
 
 /** When you mouse over the pre, show the underlines */
 pre.twoslash:hover data-lsp {
