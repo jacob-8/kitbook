@@ -5,14 +5,13 @@
 - Install the `kitbook` package: `npm i -D kitbook@alpha` or `pnpm add -D kitbook@alpha`
 
 - Add the `kitbook()` Vite plugin *before* your `sveltekit()` plugin:
-```diff
-// vite.config.js
+```js title="vite.config.js" {2,6}
 import { sveltekit } from '@sveltejs/kit/vite';
-+import { kitbook } from 'kitbook/plugins/vite';
+import { kitbook } from 'kitbook/plugins/vite';
 
 const config = {
 	plugins: [
-+		kitbook(),
+		kitbook(),
 		sveltekit(),
 	],
 };

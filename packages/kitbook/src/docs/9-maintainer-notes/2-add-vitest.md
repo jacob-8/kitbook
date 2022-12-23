@@ -4,7 +4,8 @@
 
 - `pnpm --filter=kitbook add -D vitest`
 - turn on `globals` option and [In-source testing](https://vitest.dev/guide/features.html#in-source-testing) by creating a `vitest.config.ts` file:
-```ts
+
+```ts title="vitest.config.ts"
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -14,10 +15,9 @@ export default defineConfig({
   },
 });
 ```
-- strip out in-source tests on build by adding `define: { 'import.meta.vitest': false, }` to `config.kit.vite` in `svelte.config.js`.
 
 - Acquaint Typescript:
-```json
+```json title="tsconfig.json"
 "compilerOptions": {
   "types": [
     "vitest/globals",

@@ -4,11 +4,11 @@ export default defineBuildConfig({
   entries: [
     'src/index',
   ],
-  // clean: true,
+  clean: true,
   declaration: true,
-  // externals: [
-  //   'unified',
-  // ],
+  externals: [
+    'shiki',
+  ],
   rollup: {
     emitCJS: true,
   },

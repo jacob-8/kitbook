@@ -25,7 +25,7 @@ const htmlShell = `<!DOCTYPE html>
 
 describe("mdsvex-shiki-twoslash", () => {
   fs.readdirSync('./src/fixtures').forEach((file) => {
-    if (!file.endsWith('.txt')) {
+    if (!file.includes('txt')) {
       return;
     }
     const name = file.replace('.txt', '');

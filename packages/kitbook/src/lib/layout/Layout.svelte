@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css';
   import '../styles/main.css';
 
   import { setContext } from 'svelte';

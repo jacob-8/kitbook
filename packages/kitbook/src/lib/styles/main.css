@@ -1,25 +1,6 @@
-@import url('./shiki-twoslash.css');
-
 pre {
   margin-left: -0.75rem !important;
   margin-right: -0.75rem !important;
-  border-radius: 0rem !important;
-}
-
-.heading-anchor {
-  display: block;
-  padding-top: 70px;
-  margin-top: -70px;
-  text-decoration: unset !important;
-}
-
-/* .heading-anchor:hover {
-  opacity: .9;
-} */
-
-.heading-anchor:hover::after {
-  content: ' #';
-  opacity: .6;
 }
 
 @media (min-width: 768px) {
@@ -29,6 +10,19 @@ pre {
     border-radius: 0.375rem !important;
   }
 }
+
+.heading-anchor {
+  display: block;
+  padding-top: 70px;
+  margin-top: -70px;
+  text-decoration: unset !important;
+}
+
+.heading-anchor:hover::after {
+  content: ' #';
+  opacity: .6;
+}
+
 
 @media only screen and (min-width: 768px) {
   ::-webkit-scrollbar {

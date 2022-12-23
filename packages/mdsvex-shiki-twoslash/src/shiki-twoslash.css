@@ -16,8 +16,7 @@ Styles based from https://github.com/shikijs/twoslash/blob/main/packages/shiki-t
 }
 
 pre.shiki {
-  /* padding: 1.2rem; */
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
@@ -61,20 +60,20 @@ pre.shiki div.line {
   min-height: 1rem;
 }
 
-pre .language-id {
+pre .language-id, pre .code-title {
   position: absolute;
   user-select: none;
   top: 10px;
-  right: 12px;
   opacity: .5;
+  font-size: 87%;
+}
+
+pre .language-id {
+  right: var(--shiki-padding);
 }
 
 pre .code-title {
-  position: absolute;
-  user-select: none;
-  top: 10px;
   left: var(--shiki-padding);
-  opacity: .5;
   font-style: italic;
 }
 

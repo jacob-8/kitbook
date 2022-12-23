@@ -2,8 +2,7 @@
 
 The routes location will be inherited from what was passed to your Kitbook Vite plugin (as demonstrated in [[1-use-kitbook-by-itself-(for-a-library)]]), but you may still want to customize other related settings, such as whether you need to have a secondary output directory or not:
 
-```js
-// svelte.config.js
+```js title="svelte.config.js"
 /** @type {import('@sveltejs/kit').Config} */
 const kitbookOptions = { 
   kit: { 

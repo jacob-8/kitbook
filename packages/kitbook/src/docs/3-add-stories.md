@@ -3,26 +3,10 @@
 Still needs documented, but the [Svelte-Pieces directory](https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces/src/routes) has some good examples for the moment.
 
 ## Display a Story's Code
-To make it easy to learn and copy from a `Story`, add the following to your `mdsvex.config.js`:
-
-```diff
-import { defineMDSveXConfig as defineConfig } from 'mdsvex';
-+import { codePreview } from 'kitbook/plugins/code-preview-remark';
-
-const config = defineConfig({
-  extensions: ['.md', '.svx'],
-+  remarkPlugins: [codePreview],
-  rehypePlugins: [],
-});
-
-export default config;
-```
-
 Add the `showCode` prop to the `Story` component to already start showing code.
 
 
 ## Add your first Story
-
 - Create a `Foo.svx` file to start documenting and prototyping your first component. 
 
 
@@ -31,6 +15,7 @@ Add the `showCode` prop to the `Story` component to already start showing code.
 
 
 - Document what you are about to build (it's a good habit to start right from the beginning), create the component, and then import it:
+
 ```svelte
 <script lang="ts">
   import Button from '$lib/Button.svelte';
@@ -42,9 +27,11 @@ Here's a basic button:
 
 TODO: Add props
 ```
-  - Note how you don't even need the `Story` component wrapper to document your component library. You can start with just documentation and simple imports. *But that's not why you're here, so let's get to the good stuff.*
+
+- Note how you don't even need the `Story` component wrapper to document your component library. You can start with just documentation and simple imports. *But that's not why you're here, so let's get to the good stuff.*
 
 - Add the `Story` component to access the prototyping features:
+
 ```svelte
 <script lang="ts">
   import { Story } from 'kitbook';

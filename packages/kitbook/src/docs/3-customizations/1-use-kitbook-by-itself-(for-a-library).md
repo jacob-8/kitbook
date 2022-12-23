@@ -12,14 +12,13 @@ If you look in [Kitbook's source code](https://github.com/jacob-8/kitbook/tree/m
 
 When you are only building a library and not an app, then there is no main app to run Kitbook alongside and your Kitbook becomes your main app. You could just delete the `src/routes` folder and leave Kitbook alone in it's default `src/kitbook` folder. However, if for clarity you'd like to tell Kitbook to have its route come from `src/routes` you can pass the path to the Kitbook plugin:
 
-```diff
-// vite.config.js
+```js title="vite.config.js" {6}
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from 'kitbook/plugins/vite';
 
 const config = {
 	plugins: [
-+		kitbook({routes: 'src/routes'}),
+		kitbook({ routes: 'src/routes' }),
 		sveltekit(),
 	],
 };

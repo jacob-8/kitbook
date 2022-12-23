@@ -20,7 +20,7 @@ const config = defineConfig({
       },
     }],
   ],
-  highlight: shikiTwoslashHighlighter,
+  highlight: shikiTwoslashHighlighter({ themes: ['dark-plus'] }),
 });
 
 export default config;
