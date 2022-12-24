@@ -18,7 +18,7 @@
   </DetectUrl>
 </Story>
 
-<Story name="http://google.com" showCode>
+<Story name="http://google.com">
   <DetectUrl string="http://google.com" let:display let:href>
     <Badge {href} target="_blank">{display}</Badge>
   </DetectUrl>

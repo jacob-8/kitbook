@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import { slide } from 'svelte/transition';
   import { page } from '$app/stores';
   import { compressToEncodedURIComponent as encode } from 'lz-string';
 
@@ -12,8 +11,6 @@
   export let width: number = undefined;
   export let height: number = undefined;
   export let persist: 'localStorage' | 'sessionStorage' = undefined;
-  export let code: string = undefined;
-  export let showCode = false;
 
   export let useSandbox = true;
   const propsFromSandbox = getContext<T>('sandboxProps');
@@ -45,7 +42,7 @@
         {name}
         <div class="ml-auto" />
 
-        {#if code}
+        <!-- {#if code}
           <button
             title="Code Preview"
             class:text-blue-600={showCode}
@@ -53,7 +50,7 @@
             class="p-1 opacity-50 hover:opacity-100"
             on:click={() => (showCode = !showCode)}><span class="i-tabler-code" /></button
           >
-        {/if}
+        {/if} -->
         <button
           title="toggle width"
           class="p-1 opacity-50 hover:opacity-100"
@@ -107,10 +104,6 @@
       </div>
     </div>
   </div>
-
-  {#if showCode && code}
-    <pre class="mt-2" transition:slide|local>{@html code}</pre>
-  {/if}
 
   <div class="h-4" />
 {/if}

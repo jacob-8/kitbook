@@ -7,7 +7,7 @@
 <!-- prettier-ignore -->
 # Copy
 
-<Story name="Input message" showCode>
+<Story name="Input message">
   <input bind:value={text} />
   <Button
     onclick={async () => {

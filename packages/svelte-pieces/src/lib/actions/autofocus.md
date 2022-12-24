@@ -10,6 +10,6 @@
 
 Too simple to need a component - just included to easily show how to do this.
 
-<Story showCode>
+<Story>
   <input class="m-2 p-2" type="text" use:autofocus placeholder="Just start typing..." />
 </Story>

@@ -6,7 +6,7 @@
 
 # Store
 
-<Story name="Store and input Event" showCode>
+<Story name="Store and input Event">
 	<Store startWith="hello" let:set let:store={text}>
 		<input
 			type="text"

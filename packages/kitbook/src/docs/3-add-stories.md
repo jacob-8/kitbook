@@ -2,10 +2,6 @@
 
 Still needs documented, but the [Svelte-Pieces directory](https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces/src/routes) has some good examples for the moment.
 
-## Display a Story's Code
-Add the `showCode` prop to the `Story` component to already start showing code.
-
-
 ## Add your first Story
 - Create a `Foo.svx` file to start documenting and prototyping your first component. 
 

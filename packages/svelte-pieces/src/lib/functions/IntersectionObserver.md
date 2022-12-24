@@ -15,7 +15,7 @@
 IntersectionObserverShared (below) is used when you want to watch many items. Sometimes, though you don't want the IntersectionObserverShared component to add it's own block div element to
 the DOM (like when it breaks up a flex flow for example). In this case place your content inside the `noElement` slot using `svelte:fragment` as seen in the 2nd block below.
 
-<Story name="shared use" showCode>
+<Story name="shared use">
   <IntersectionObserverShared let:intersecting>
     <div class:intersecting style="height: 500px;">
       {intersecting}
