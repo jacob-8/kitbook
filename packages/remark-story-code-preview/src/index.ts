@@ -6,18 +6,15 @@ import MagicString from 'magic-string';
 import { parse, walk } from 'svelte/compiler';
 import type { Element } from 'svelte/types/compiler/interfaces';
 import { escapeSvelte } from "mdsvex";
-
-// import prettier from 'prettier/esm/standalone.mjs';
-// const { format } = prettier;
-// console.log({prettier})
-// import { format } from 'prettier';
-
-// import typescriptPlugin from 'prettier/esm/parser-typescript.mjs';
-// import sveltePlugin from 'prettier-plugin-svelte';
 import { highlight } from './highlight';
 
+import prettier from 'prettier/esm/standalone.mjs';
+import typescriptPlugin from 'prettier/esm/parser-typescript.mjs';
+import sveltePlugin from 'prettier-plugin-svelte';
+const { format } = prettier;
+
 /** @type {import('unified').Plugin<[Options?]|void[], Root>} */
-export function remarkCodePreview({componentName} = { componentName: 'Story'}): (tree: any) => void {
+export function remarkCodePreview({ componentName } = { componentName: 'Story' }): (tree: any) => void {
   return (tree: Root) => {
     visit(tree, 'html', visitor())
   }
@@ -42,16 +39,15 @@ export function placeContentIntoCodeAttribute(html: string, componentName: strin
         const contentEnd = node.children[node.children.length - 1].end;
         const code = s.slice(contentStart, contentEnd);
 
-        // const formattedCode = format(code, {
-        //   parser: 'svelte',
-        //   plugins: [typescriptPlugin, sveltePlugin],
-        //   bracketSameLine: true,
-        // });
-        const highlightedCode = highlight(code);
+        const formattedCode = format(code, {
+          parser: 'svelte',
+          plugins: [typescriptPlugin, sveltePlugin],
+          bracketSameLine: true,
+        });
+        const highlightedCode = highlight(formattedCode);
 
         const injectStart = node.start + '<'.length + componentName.length;
-        // s.appendLeft(injectStart, ` code={\`${escapeSvelte(highlightedCode).trim()}`);
-        s.appendLeft(injectStart, ` code={\`${highlightedCode.replace(/`/g, '\\`').replace(/\$\{/g, '\\${').trim()}\`} `);
+        s.appendLeft(injectStart, ` code={\`${escapeSvelte(highlightedCode).trim()}\`}`);
       }
     }
   })
