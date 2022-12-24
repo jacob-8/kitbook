@@ -24,12 +24,5 @@
   />
   <span class="py-0.5" style="overflow-wrap: anywhere;">
     {page.name}
-    <!-- <span class="opacity-30">
-      {#if page.extensions.includes('svelte') || page.extensions.includes('svx')}
-        <span class="i-simple-icons-svelte" />
-      {:else if page.extensions.includes('md')}
-        <span class="i-simple-icons-markdown" />
-      {/if}
-    </span> -->
   </span>
 </a>

@@ -1,6 +1,7 @@
 <script>import { page } from "$app/stores";
-import { compressToEncodedURIComponent as encode } from "lz-string";
 import EditInGithub from "../components/EditInGithub.svelte";
+import LZString from "lz-string";
+const { compressToEncodedURIComponent: encode } = LZString;
 export let data = { loadedModules: {} };
 $:
   pathWouldRecurseInfinitelyIfInSandbox = $page.url.pathname.startsWith(

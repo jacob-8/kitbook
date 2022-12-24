@@ -1,7 +1,8 @@
 <script lang="ts">
   import { getContext } from 'svelte';
   import { page } from '$app/stores';
-  import { compressToEncodedURIComponent as encode } from 'lz-string';
+  import LZString from 'lz-string';
+  const { compressToEncodedURIComponent: encode } = LZString;
 
   export let name = 'default';
   /**

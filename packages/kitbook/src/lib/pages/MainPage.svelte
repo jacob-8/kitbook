@@ -1,8 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { compressToEncodedURIComponent as encode } from 'lz-string';
   import type { GroupedPage, GroupedPageMap, LoadedModules } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
+  import LZString from 'lz-string';
+  const { compressToEncodedURIComponent: encode } = LZString;
 
   export let data: {
     pages?: GroupedPageMap;
