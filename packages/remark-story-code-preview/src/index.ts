@@ -6,11 +6,12 @@ import MagicString from 'magic-string';
 import { parse, walk } from 'svelte/compiler';
 import type { Element } from 'svelte/types/compiler/interfaces';
 import { escapeSvelte } from "mdsvex";
-import { highlight } from './highlight';
 
 import prettier from 'prettier/esm/standalone.mjs';
 import typescriptPlugin from 'prettier/esm/parser-typescript.mjs';
 import sveltePlugin from 'prettier-plugin-svelte';
+import Prism from 'prismjs';
+import 'prism-svelte';
 const { format } = prettier;
 
 /** @type {import('unified').Plugin<[Options?]|void[], Root>} */
@@ -31,7 +32,7 @@ export function remarkCodePreview({ componentName } = { componentName: 'Story' }
 export function placeContentIntoCodeAttribute(html: string, componentName: string) {
   const s = new MagicString(html);
   const ast = parse(html);
-
+  
   walk(ast.html, {
     enter(node: Element) {
       if (node.type === 'InlineComponent' && node.name === componentName && node.children) {
@@ -44,7 +45,7 @@ export function placeContentIntoCodeAttribute(html: string, componentName: strin
           plugins: [typescriptPlugin, sveltePlugin],
           bracketSameLine: true,
         });
-        const highlightedCode = highlight(formattedCode);
+        const highlightedCode = Prism.highlight(formattedCode, Prism.languages.svelte, 'svelte');
 
         const injectStart = node.start + '<'.length + componentName.length;
         s.appendLeft(injectStart, ` code={\`${escapeSvelte(highlightedCode).trim()}\`}`);

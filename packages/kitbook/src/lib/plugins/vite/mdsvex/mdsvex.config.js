@@ -1,5 +1,4 @@
 import { defineMDSveXConfig as defineConfig } from 'mdsvex';
-import { codePreview } from '../../code-preview-remark/code-preview-remark.js';
 import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -8,7 +7,7 @@ import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash';
 
 const config = defineConfig({
   extensions: ['.md', '.svx'],
-  remarkPlugins: [codePreview],
+  remarkPlugins: [],
   rehypePlugins: [
     rehypeDisplayLinkTitles, // place first to save needless tests of heading links about to be created by following plugins
     [rehypeUrls, openExternalInNewTab],

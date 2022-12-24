@@ -39,11 +39,14 @@
     "mdsvex": "^0.10.6",
     "prettier": "^2.8.1",
     "prettier-plugin-svelte": "^2.9.0",
+    "prism-svelte": "^0.5.0",
+    "prismjs": "^1.29.0",
     "svelte": "^3.55.0",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
     "@types/mdast": "^3.0.10",
+    "@vitest/ui": "^0.26.2",
     "kitbook": "1.0.0-alpha.2",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",

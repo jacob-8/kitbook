@@ -7,7 +7,7 @@ describe('placeContentIntoCodeAttribute', () => {
       placeContentIntoCodeAttribute(
         `<Story name="With Knobs" knobs={{ value: true }} let:props={{ value }}>{value}</Story>`, 'Story'
       )
-    ).toMatchInlineSnapshot('"<Story code={`&#123;value&#125;`} name=\\"With Knobs\\" knobs={{ value: true }} let:props={{ value }}>{value}</Story>"');
+    ).toMatchInlineSnapshot('"<Story code={`<span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">&#123;</span>value<span class=\\"token punctuation\\">&#125;</span></span>`} name=\\"With Knobs\\" knobs={{ value: true }} let:props={{ value }}>{value}</Story>"');
   });
 
   test('handles Story inside a Story', async () => {
@@ -16,7 +16,7 @@ describe('placeContentIntoCodeAttribute', () => {
         `<Story>\n  <Story>Hello Worlds from inside a Story</Story>\n</Story>`, 'Story'
       )
     ).toMatchInlineSnapshot(`
-      "<Story code={\`<Story>Hello Worlds from inside a Story</Story>\`}>
+      "<Story code={\`<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>Story</span><span class=\\"token punctuation\\">></span></span>Hello Worlds from inside a Story<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;/</span>Story</span><span class=\\"token punctuation\\">></span></span>\`}>
         <Story code={\`Hello Worlds from inside a Story\`}>Hello Worlds from inside a Story</Story>
       </Story>"
     `);
@@ -30,7 +30,7 @@ describe('placeContentIntoCodeAttribute', () => {
       </Story>`, 'Story'
       )
     ).toMatchInlineSnapshot(`
-      "<Story code={\`<div style=\\"width: 100%; height: 100%; background: red;\\" />\`} name=\\"Adjust height and width\\" height={200} width={200}>
+      "<Story code={\`<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>div</span> <span class=\\"token attr-name\\">style</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>width: 100%; height: 100%; background: red;<span class=\\"token punctuation\\">\\"</span></span> <span class=\\"token punctuation\\">/></span></span>\`} name=\\"Adjust height and width\\" height={200} width={200}>
               <div style=\\"width: 100%; height: 100%; background: red;\\" />
             </Story>"
     `);
@@ -46,9 +46,9 @@ describe('placeContentIntoCodeAttribute', () => {
         '  <Knobs id="rKnobChild" knobs={parseInput({ [fieldName]: `${min}-${max};${defaultValue}` })} />\n' +
         '</Story>', 'Story')
     ).toMatchInlineSnapshot(`
-      "<Story code={\`<Knobs
-        id=\\"rKnobChild\\"
-        knobs=&#123;parseInput(&#123; [fieldName]: &#96;$&#123;min&#125;-$&#123;max&#125;;$&#123;defaultValue&#125;&#96; &#125;)&#125; />\`}
+      "<Story code={\`<span class=\\"token tag\\"><span class=\\"token tag\\"><span class=\\"token punctuation\\">&lt;</span>Knobs</span>
+        <span class=\\"token attr-name\\">id</span><span class=\\"token attr-value\\"><span class=\\"token punctuation\\">=</span><span class=\\"token punctuation\\">\\"</span>rKnobChild<span class=\\"token punctuation\\">\\"</span></span>
+        <span class=\\"token attr-name\\">knobs=</span><span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">&#123;</span><span class=\\"token function\\">parseInput</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">&#123;</span> <span class=\\"token punctuation\\">[</span>fieldName<span class=\\"token punctuation\\">]</span><span class=\\"token operator\\">:</span> <span class=\\"token template-string\\"><span class=\\"token template-punctuation string\\">&#96;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>min<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token string\\">-</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>max<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token string\\">;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>defaultValue<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token template-punctuation string\\">&#96;</span></span> <span class=\\"token punctuation\\">&#125;</span><span class=\\"token punctuation\\">)</span><span class=\\"token punctuation\\">&#125;</span></span> <span class=\\"token punctuation\\">/></span></span>\`}
         name=\\"range knob\\"
         knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
         let:props={{ fieldName, min, max, defaultValue }}
