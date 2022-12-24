@@ -1,7 +1,7 @@
 {
   "name": "@kitbook/mdsvex-shiki-twoslash",
-  "version": "0.0.1",
-  "description": "A plugin for mdsvex that highlights code blocks with shiki and twoslash",
+  "version": "0.0.2",
+  "description": "A plugin for MDSvex that highlights code blocks using shiki-twoslash",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
@@ -10,6 +10,16 @@
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
+  "keywords": [
+    "mdsvex",
+    "svelte",
+    "svelte-kit",
+    "shiki",
+    "twoslash",
+    "shiki-twoslash",
+    "highlight",
+    "code highlighting"
+  ],
   "homepage": "https://kitbook.vercel.app",
   "license": "MIT",
   "author": "Jacob Bowdoin",

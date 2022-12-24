@@ -3,29 +3,30 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- builds & deploys
 - set iframe height
 - Easily adjust iframe width and height
 - lay out variants better
-- merge and `npm publish --tag alpha`
+- merge to main and `npm publish --tag alpha`
 - use in rest of my packages and update docs as I go
 - send alpha test question to discord query person
+- share mdsvex-shiki-twoslash w/ orta
 
 ## Important before encouraging others to use
+- use split-pane for resizable sidebar
 - show Story and Variant code in sidebar
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
-- having a Story name with a `+` breaks it, e.g. `Store + input Event`
+- having a Story name with a `+` breaks it, e.g. `Store + input Event` - maybe use the plugin to automatically give IDs to stories
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
 - search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
+- Add full-screen view for sandbox
 - update meta-tags based on current page
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
-- use split-pane for resizable sidebar
-- Add full-screen view for sandbox
 - catch when a variants file exists by itself and inform how to use variants
 
 ## Nice to Have
+- Vite server middleware to update/add stories from browser
 - Vite server middleware to update/add variants from browser
 - add changesets
 - use svelte-knobby to beef up knobs, show to the right side and change to show knobs for all visible stories as user scrolls

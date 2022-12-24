@@ -10,6 +10,16 @@
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
+  "keywords": [
+    "rehype",
+    "rehype-plugin",
+    "rehype-display-link-titles",
+    "kitbook",
+    "foam",
+    "markdown",
+    "wiki",
+    "knowledge-management"
+  ],
   "homepage": "https://kitbook.vercel.app",
   "license": "MIT",
   "author": "Jacob Bowdoin",
