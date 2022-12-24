@@ -57,7 +57,7 @@ importers:
       replace-in-file: ^6.3.5
       svelte: ^3.55.0
       svelte-check: ^3.0.1
-      svelte-pieces: ^1.0.44
+      svelte-pieces: ^1.0.54
       svelte2tsx: ^0.6.0
       temp-s-p-u: ^0.0.7
       tslib: ^2.4.1
@@ -103,19 +103,21 @@ importers:
       prettier: ^2.8.1
       shiki: 0.10.1
       shiki-twoslash: ^3.1.0
+      svelte: ^3.55.0
       typescript: ^4.9.4
       unbuild: ^1.0.2
       vite: ^4.0.3
       vitest: ^0.26.2
     dependencies:
       fenceparser: 2.2.0
-      mdsvex: 0.10.6
+      mdsvex: 0.10.6_svelte@3.55.0
       shiki: 0.10.1
       shiki-twoslash: 3.1.0
     devDependencies:
       '@typescript/twoslash': 3.2.1
       '@vitest/ui': 0.26.2
       prettier: 2.8.1
+      svelte: 3.55.0
       typescript: 4.9.4
       unbuild: 1.0.2
       vite: 4.0.3
@@ -4448,17 +4450,6 @@ packages:
   /mdn-data/2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
     dev: true
-
-  /mdsvex/0.10.6:
-    resolution: {integrity: sha512-aGRDY0r5jx9+OOgFdyB9Xm3EBr9OUmcrTDPWLB7a7g8VPRxzPy4MOBmcVYgz7ErhAJ7bZ/coUoj6aHio3x/2mA==}
-    peerDependencies:
-      svelte: 3.x
-    dependencies:
-      '@types/unist': 2.0.6
-      prism-svelte: 0.4.7
-      prismjs: 1.28.0
-      vfile-message: 2.0.4
-    dev: false
 
   /mdsvex/0.10.6_svelte@3.55.0:
     resolution: {integrity: sha512-aGRDY0r5jx9+OOgFdyB9Xm3EBr9OUmcrTDPWLB7a7g8VPRxzPy4MOBmcVYgz7ErhAJ7bZ/coUoj6aHio3x/2mA==}

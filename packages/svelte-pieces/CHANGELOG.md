@@ -1,6 +1,6 @@
 # svelte-pieces
 
-Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum.
+Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum. 2.0 on will follow semver.
 
 ## 1.0.54
 

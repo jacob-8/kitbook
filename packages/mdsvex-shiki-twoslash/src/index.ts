@@ -72,9 +72,7 @@ function renderHTML({ code, lang, meta, settings, highlighters, twoslash }:
     highlighters: Highlighter[],
     twoslash: TwoSlashReturn | undefined,
   }) {
-  console.log({ meta })
   const metaWithLineNumbersBasedOn1 = twoslash ? meta : setLineNumberBaseTo1(meta);
-  console.log({ metaWithLineNumbersBasedOn1, meta, twoslash })
   return highlighters.map(
     (highlighter) => {
       // allows for a string (name of already supported theme), a filepath, or a JSON theme object

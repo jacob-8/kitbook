@@ -66,9 +66,7 @@ function setupHighlightersDefinedInSettings(settings) {
   );
 }
 function renderHTML({ code, lang, meta, settings, highlighters, twoslash }) {
-  console.log({ meta });
   const metaWithLineNumbersBasedOn1 = twoslash ? meta : setLineNumberBaseTo1(meta);
-  console.log({ metaWithLineNumbersBasedOn1, meta, twoslash });
   return highlighters.map(
     (highlighter) => {
       const themeName = highlighter.getTheme().name.split("/").pop().replace(".json", "");
