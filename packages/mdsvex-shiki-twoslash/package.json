@@ -1,6 +1,6 @@
 {
   "name": "@kitbook/mdsvex-shiki-twoslash",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A plugin for MDSvex that highlights code blocks using shiki-twoslash",
   "repository": {
     "type": "git",
@@ -36,7 +36,8 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src/shiki-twoslash.css"
   ],
   "scripts": {
     "build": "unbuild",
