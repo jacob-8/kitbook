@@ -3,7 +3,6 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- shiki-twoslash code blocks https://rodneylab.com/sveltekit-shiki-syntax-highlighting/ https://github.com/shikijs/twoslash https://github.com/pngwn/MDsveX/issues/139#issuecomment-877842887
 - builds & deploys
 - set iframe height
 - Easily adjust iframe width and height
@@ -13,6 +12,7 @@
 - send alpha test question to discord query person
 
 ## Important before encouraging others to use
+- show Story and Variant code in sidebar
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected

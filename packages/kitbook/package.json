@@ -28,7 +28,6 @@
     "@iconify/json": "^2.1.156",
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.1",
     "@kitbook/rehype-display-link-titles": "^0.0.1",
-    "@kitbook/remark-story-code-preview": "^0.0.1",
     "@sveltejs/adapter-auto": "1.0.0",
     "@sveltejs/kit": "1.0.1",
     "@sveltejs/package": "1.0.1",
