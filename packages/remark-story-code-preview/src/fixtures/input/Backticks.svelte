@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Story } from '$lib';
+  import { Story } from 'kitbook';
   const id = 'foo';
 </script>
 

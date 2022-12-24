@@ -1,11 +1,11 @@
 {
-  "name": "@kitbook/rehype-display-link-titles",
+  "name": "@kitbook/remark-story-code-preview",
   "version": "0.0.1",
-  "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases for Foam auto-generated links",
+  "description": "Place a Story component's code inside a code prop",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
-    "directory": "packages/rehype-display-link-titles"
+    "directory": "packages/remark-story-code-preview"
   },
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
@@ -35,20 +35,18 @@
     "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
   },
   "dependencies": {
+    "magic-string": "^0.26.7",
+    "mdsvex": "^0.10.6",
+    "prettier": "^2.8.1",
+    "prettier-plugin-svelte": "^2.9.0",
+    "svelte": "^3.55.0",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.4",
-    "rehype": "^12.0.1",
-    "rehype-document": "^6.1.0",
-    "rehype-format": "^4.0.1",
-    "rehype-stringify": "^9.0.3",
+    "@types/mdast": "^3.0.10",
+    "kitbook": "1.0.0-alpha.2",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "remark-slug": "^7.0.1",
-    "remark-toc": "^8.0.1",
-    "standard-version": "^9.5.0",
-    "to-vfile": "^7.2.3",
     "typescript": "^4.9.4",
     "unbuild": "^1.0.2",
     "unified": "^10.1.2",
