@@ -18,7 +18,7 @@ const config = defineConfig({
 export default config;
 ```
 
-- Add the css to your project: `import "@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css";` > I recommend you read through the entire CSS and adjust to your liking. It's been optimized for dark-plus, but as you'll see from the light-plus version, there's no border around the code. So it's a good starting point but you really should look it over and make it fit your needs.
+- Add the css to your project: `import "@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css";` (or import from https://www.unpkg.com/@kitbook/mdsvex-shiki-twoslash@0.0.3/src/shiki-twoslash.css) > I recommend you read through the entire CSS and adjust to your liking. It's been optimized for dark-plus, but as you'll see from the light-plus version, there's no border around the code. So it's a good starting point but you really should look it over and make it fit your needs.
 
 ## Themes
 

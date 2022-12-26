@@ -12,7 +12,7 @@ export const sandboxPageLoad = async ({ params, parent, url }) => {
     const storyId = url.searchParams.get('storyId') as string;
     const variantIdx = url.searchParams.get('variantIdx');
     
-    
+    console.log({file: params.file, storyId, variantIdx, page, pages})
     if (storyId) {
         loadedModules.svx = (await page.loadSvx.loadModule() as any).default as typeof SvelteComponent;
     } else {

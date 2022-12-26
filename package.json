@@ -4,10 +4,12 @@
 	"scripts": {
 		"dev": "pnpm --filter=kitbook dev",
 		"build": "pnpm --filter=kitbook build",
+		"preview": "pnpm --filter=kitbook preview",
 		"package": "pnpm --filter=kitbook package",
 		"test": "pnpm --filter=kitbook test",
 		"pieces": "pnpm --filter=svelte-pieces dev",
 		"pieces:build": "pnpm --filter=svelte-pieces build",
+		"pieces:preview": "pnpm --filter=svelte-pieces preview",
 		"pieces:test": "pnpm --filter=svelte-pieces test",
 		"template": "pnpm --filter=template dev",
 		"template:build": "pnpm --filter=template build",
