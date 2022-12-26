@@ -87,7 +87,9 @@ function set(field, value) {
             <iframe
               class="kb-9ez911"
               title=""
-              src="/sandbox/{$page.url.pathname}?props={encode(JSON.stringify($knobs))}&storyId={id}"
+              src="/sandbox{$page.url.pathname}?props={encode(
+                JSON.stringify($knobs)
+              )}&storyId={id}"
             />
           {:else}
             <slot props={$knobs} {set} />

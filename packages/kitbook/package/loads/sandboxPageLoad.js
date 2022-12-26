@@ -2,7 +2,7 @@ import LZString from 'lz-string';
 const { decompressFromEncodedURIComponent: decode } = LZString;
 export const sandboxPageLoad = async ({ params, parent, url }) => {
     const { pages } = await parent();
-    const page = pages[params.file]; // note this doesn't have a leading slash like the (main) page param requires
+    const page = pages['/' + params.file];
     const loadedModules = {};
     const storyId = url.searchParams.get('storyId');
     const variantIdx = url.searchParams.get('variantIdx');

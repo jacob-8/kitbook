@@ -43,24 +43,13 @@ $:
             <iframe
               class="kb-1q1hln"
               title=""
-              src="/sandbox/{$page.url.pathname}?props={encode(
+              src="/sandbox{$page.url.pathname}?props={encode(
                 JSON.stringify(variant.props || {})
               )}&variantIdx={index}"
             />
           {/if}
         </div>
       {/each}
-      <!-- {:else if !pathWouldRecurseInfinitelyIfInSandbox}
-      <div class="kb-8zkdx0 not-prose">
-        <div class="kb-p4pms6">
-          <span class="kb-mjdsqx"> Default </span>
-        </div>
-        <iframe
-          class="kb-1q1hln"
-          title=""
-          src="/sandbox/{$page.url.pathname}?props={encode(JSON.stringify({}))}"
-        />
-      </div> -->
     {/if}
   {/if}
 
