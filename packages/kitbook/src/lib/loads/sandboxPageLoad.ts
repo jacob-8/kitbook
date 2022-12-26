@@ -5,7 +5,8 @@ import type { GroupedPage, LoadedModules, Variant } from '../kitbook-types';
 
 export const sandboxPageLoad = async ({ params, parent, url }) => {
     const { pages } = await parent();
-    const page: GroupedPage = pages[params.file]; // note this doesn't have a leading slash like the (main) page param requires
+    // https://kitbook-git-v2-jiayou.vercel.app/sandbox/lib/layout/Header?props=&storyId=default doesn't work
+    const page: GroupedPage = pages['/' + params.file];
     const loadedModules: LoadedModules = {}
     
     
