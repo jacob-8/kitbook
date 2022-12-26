@@ -5,7 +5,6 @@ import type { GroupedPage, LoadedModules, Variant } from '../kitbook-types';
 
 export const sandboxPageLoad = async ({ params, parent, url }) => {
     const { pages } = await parent();
-    // https://kitbook-git-v2-jiayou.vercel.app/sandbox/lib/layout/Header?props=&storyId=default doesn't work
     const page: GroupedPage = pages['/' + params.file];
     const loadedModules: LoadedModules = {}
     
@@ -13,7 +12,6 @@ export const sandboxPageLoad = async ({ params, parent, url }) => {
     const storyId = url.searchParams.get('storyId') as string;
     const variantIdx = url.searchParams.get('variantIdx');
     
-    console.log({file: params.file, storyId, variantIdx, page})
     if (storyId) {
         loadedModules.svx = (await page.loadSvx.loadModule() as any).default as typeof SvelteComponent;
     } else {

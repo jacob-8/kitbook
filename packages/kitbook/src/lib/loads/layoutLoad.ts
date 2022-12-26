@@ -11,7 +11,6 @@ export const layoutLoad = async () => {
   const pages = groupColocatedModulesIntoPages(modules);
   if (!Object.keys(pages).length) throw new Error('No pages found. Did you import layoutLoad into your Kitbook layout.ts file and you have at least a README.md or one +page.svelte, +layout.svelte, *.svelte, *.md, or *.svx file in your project?')
 
-  // console.log({ modules, pages })
   return {
     pages: groupColocatedModulesIntoPages(modules),
   };

@@ -3,7 +3,6 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- fix Vercel deployed internal error
 - set iframe height
 - Easily adjust iframe width and height
 - lay out variants better

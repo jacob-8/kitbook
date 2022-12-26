@@ -93,16 +93,10 @@
       <div class="p-2 hover:bg-gray-100 h-full">
         <div class="bg-white h-full">
           {#if useSandbox}
-            <div>
-              src="/sandbox/{$page.url.pathname}?props={encode(
-                JSON.stringify($knobs)
-              )}&storyId={id}"
-            </div>
-            <div>pathname: {$page.url.pathname}</div>
             <iframe
               class="w-full h-full"
               title=""
-              src="/sandbox/{$page.url.pathname}?props={encode(
+              src="/sandbox{$page.url.pathname}?props={encode(
                 JSON.stringify($knobs)
               )}&storyId={id}"
             />

@@ -50,24 +50,13 @@
             <iframe
               class="w-full h-full"
               title=""
-              src="/sandbox/{$page.url.pathname}?props={encode(
+              src="/sandbox{$page.url.pathname}?props={encode(
                 JSON.stringify(variant.props || {})
               )}&variantIdx={index}"
             />
           {/if}
         </div>
       {/each}
-      <!-- {:else if !pathWouldRecurseInfinitelyIfInSandbox}
-      <div class="not-prose border rounded mt-3">
-        <div class="bg-gray-200 p-3 mb-2">
-          <span class="font-semibold"> Default </span>
-        </div>
-        <iframe
-          class="w-full h-full"
-          title=""
-          src="/sandbox/{$page.url.pathname}?props={encode(JSON.stringify({}))}"
-        />
-      </div> -->
     {/if}
   {/if}
 
