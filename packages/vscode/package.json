@@ -33,10 +33,10 @@
   "devDependencies": {
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
+    "@types/node": "~18.11.18",
     "@types/vscode": "^1.74.0",
-    "@typescript-eslint/eslint-plugin": "^5.47.0",
-    "@typescript-eslint/parser": "^5.47.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "@vscode/test-electron": "^2.2.0",
     "eslint": "^8.30.0",
     "glob": "^8.0.3",

@@ -13,11 +13,11 @@ for (const { key, context } of data.variant?.contexts || []) {
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="kb-pai8o2">
+  <div id="sandbox" class="kb-232g6v">
     <svelte:component this={data.loadedModules.svx} />
   </div>
 {:else}
-  <div class="kb-pai8o2">
+  <div class="kb-232g6v">
     <ErrorBoundary onError={console.error}>
       <div slot="before">
         {#if Object.keys(props).length == 0}
@@ -26,21 +26,23 @@ for (const { key, context } of data.variant?.contexts || []) {
           automatically supply default props, but until then they must be supplied manually.
         {/if}
       </div>
-      <svelte:component this={data.loadedModules.component} {...props}>
-        {#if data.variant?.slots}
-          {@const content = data.variant.slots[0].content}
+      {#if data.variant?.slots}
+        {@const content = data.variant.slots[0].content}
+        <svelte:component this={data.loadedModules.component} {...props}>
           {#if typeof content === 'string'}
             {@html content}
           {:else}
             <svelte:component this={content} />
           {/if}
-        {/if}
-      </svelte:component>
+        </svelte:component>
+      {:else}
+        <svelte:component this={data.loadedModules.component} {...props} />
+      {/if}
     </ErrorBoundary>
   </div>
 {/if}
 
-<style>:global(.kb-pai8o2){border-width:1px;}
+<style>:global(.kb-232g6v){--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}
   #sandbox > :global(:not(.show-in-sandbox)) {
     display: none;
   }

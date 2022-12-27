@@ -1,9 +1,12 @@
 import { SvelteComponentTyped } from "svelte";
 declare class __sveltets_Render<T> {
     props(): {
-        [x: string]: any;
-        name?: string;
-        id?: string;
+        /**
+           * Until IDs are provided by the Kitbook plugin, each story in a story file must have a unique name to work
+           */ name?: string;
+        /**
+           * Used by knobs to save state in URL, and to pass props to sandboxed stories; need a plugin to give these sequentially or need to pass in manually
+           */ id?: string;
         width?: number;
         height?: number;
         persist?: "localStorage" | "sessionStorage";

@@ -1,4 +1,3 @@
-// TODO: Use props array to automatically create variant stories for a particular Svelte file
 export const variants = [
     {
         name: 'First',

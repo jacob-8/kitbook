@@ -1,3 +1,3 @@
 import type { Variants } from '..';
-import type Layout from './Layout.svelte';
-export declare const variants: Variants<typeof Layout>;
+import type Component from './Layout.svelte';
+export declare const variants: Variants<typeof Component>;
