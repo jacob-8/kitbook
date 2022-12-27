@@ -1,7 +1,7 @@
 import type { Variants } from '$lib';
-import type EditInGithub from './EditInGithub.svelte';
+import type Component from './EditInGithub.svelte';
 
-export const variants: Variants<typeof EditInGithub> = [
+export const variants: Variants<typeof Component> = [
   {
     name: 'With githubUrl context',
     props: {

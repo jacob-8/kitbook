@@ -28,11 +28,11 @@
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="border">
+  <div id="sandbox" class="bg-white">
     <svelte:component this={data.loadedModules.svx} />
   </div>
 {:else}
-  <div class="border">
+  <div class="bg-white">
     <ErrorBoundary onError={console.error}>
       <div slot="before">
         {#if Object.keys(props).length == 0}
@@ -41,16 +41,18 @@
           automatically supply default props, but until then they must be supplied manually.
         {/if}
       </div>
-      <svelte:component this={data.loadedModules.component} {...props}>
-        {#if data.variant?.slots}
-          {@const content = data.variant.slots[0].content}
+      {#if data.variant?.slots}
+        {@const content = data.variant.slots[0].content}
+        <svelte:component this={data.loadedModules.component} {...props}>
           {#if typeof content === 'string'}
             {@html content}
           {:else}
             <svelte:component this={content} />
           {/if}
-        {/if}
-      </svelte:component>
+        </svelte:component>
+      {:else}
+        <svelte:component this={data.loadedModules.component} {...props} />
+      {/if}
     </ErrorBoundary>
   </div>
 {/if}

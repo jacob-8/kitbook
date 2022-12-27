@@ -1,8 +1,7 @@
 import type { Variants } from '$lib';
-import type Folder from './Folder.svelte';
+import type Component from './Folder.svelte';
 
-// TODO: Use props array to automatically create variant stories for a particular Svelte file
-export const variants: Variants<typeof Folder> = [
+export const variants: Variants<typeof Component> = [
   {
     name: 'First',
     props: {

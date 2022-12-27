@@ -7,8 +7,30 @@
 
 The Story component is the basic building block of Kitbook. 
 
-<Story>
-  <Story>Hello World from inside a Story</Story>
+<Story>Hello World</Story>
+
+And this one will have a lot of content to be able to test scrolling:
+
+<Story name="tall story">
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+  Hello World<br />
+</Story>
+
+<Story name="I have a Story Inside" useSandbox={false}>
+  <Story name="Nested Story">Hello World from inside a Story</Story>
 </Story>
 
 <Story name="With Knobs" knobs={{ value: true }} let:props={{ value }}>{value}</Story>

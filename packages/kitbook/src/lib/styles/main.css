@@ -36,7 +36,7 @@ pre {
   ::-webkit-scrollbar-thumb {
     background: hsl(240, 26%, 91%);
     border-radius: 1rem;
-    border: 0.25rem solid #ffffff;
+    border: 0.25rem solid #f3f4f6;
   }
 
   ::-webkit-scrollbar-thumb:hover {

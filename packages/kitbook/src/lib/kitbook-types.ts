@@ -5,6 +5,8 @@ export type Variants<T> = Variant<T>[]
 export type Variant<T> = {
   name?: string,
   description?: string,
+  width?: number,
+  height?: number,
   props?: SvelteComponentProps<T>,
   contexts?: MockedContext[],
   slots?: Slot[]

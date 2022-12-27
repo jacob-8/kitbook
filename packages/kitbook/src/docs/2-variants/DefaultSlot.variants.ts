@@ -1,5 +1,6 @@
 import type { Variants } from 'kitbook';
 import type Component from './DefaultSlot.svelte';
+
 import PassIntoDefaultSlot from './PassIntoDefaultSlot.svelte';
 
 export const variants: Variants<typeof Component> = [

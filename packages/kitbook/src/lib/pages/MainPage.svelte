@@ -4,6 +4,8 @@
   import EditInGithub from '../components/EditInGithub.svelte';
   import LZString from 'lz-string';
   const { compressToEncodedURIComponent: encode } = LZString;
+  import FrameBody from '../frame/FrameBody.svelte';
+  import FrameHeader from '../frame/FrameHeader.svelte';
 
   export let data: {
     pages?: GroupedPageMap;
@@ -29,32 +31,33 @@
 
   {#if data.loadedModules.component}
     {#if data.loadedModules.variants}
-      <div class="text-2xl">
+      <div class="text-2xl mb-4">
         {data.page.name.startsWith('+') ? 'Page' : 'Component'} Variants
       </div>
       {#each data.loadedModules.variants as variant, index}
-        <div class="not-prose border rounded mt-3">
-          <div class="bg-gray-200 p-3 mb-2">
-            <span class="font-semibold">
-              {variant.name}
-            </span>
-            {#if variant.description}
-              <div class="text-sm">
-                {variant.description}
-              </div>
-            {/if}
-          </div>
-          {#if pathWouldRecurseInfinitelyIfInSandbox}
-            <svelte:component this={data.loadedModules.component} {...variant.props || {}} />
-          {:else}
-            <iframe
-              class="w-full h-full"
-              title=""
-              src="/sandbox{$page.url.pathname}?props={encode(
-                JSON.stringify(variant.props || {})
-              )}&variantIdx={index}"
-            />
-          {/if}
+        <div class="not-prose mb-4">
+          <FrameHeader
+            title={variant.name}
+            description={variant.description}
+            width={variant.width}
+            height={variant.height}
+            let:adjustedHeight
+            let:adjustedWidth
+          >
+            <FrameBody height={adjustedHeight} width={adjustedWidth}>
+              {#if pathWouldRecurseInfinitelyIfInSandbox}
+                <svelte:component this={data.loadedModules.component} {...variant.props || {}} />
+              {:else}
+                <iframe
+                  class="w-full h-full"
+                  title=""
+                  src="/sandbox{$page.url.pathname}?props={encode(
+                    JSON.stringify(variant.props || {})
+                  )}&variantIdx={index}"
+                />
+              {/if}
+            </FrameBody>
+          </FrameHeader>
         </div>
       {/each}
     {/if}
@@ -62,8 +65,8 @@
 
   {#if doesNotHaveSvxOrVariants}
     <div class="mb-3 p-3 bg-gray-200 rounded">
-      <b>Kitbook tip</b>: You have not created a Stories file ({data.page?.name}.svx/.md) nor a Variants file ({data
-        .page?.name}.variants.ts) file. In the future Kitbook will try to
+      <b>Kitbook tip</b>: You have not created a Stories file ({data.page?.name}.svx/.md) nor a
+      Variants file ({data.page?.name}.variants.ts) file. In the future Kitbook will try to
       automatically supply default props, but until then you must manually scaffold a page for this
       component by creating either a Stories or Variants file.
     </div>

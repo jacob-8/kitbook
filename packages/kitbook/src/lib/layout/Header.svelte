@@ -3,10 +3,10 @@
   export let showSidebar = false;
   export let githubURL: string = undefined;
   export let activeURL: string;
-  let root = "/";
+  let root = '/';
 </script>
 
-<header class="top-0 z-10 sticky flex p-1 bg-white border-b border-gray-300">
+<header class="top-0 z-10 sticky flex p-1">
   <button
     class="p-2 text-2xl font-semibold flex items-center md:hidden"
     on:click={() => (showSidebar = !showSidebar)}
@@ -25,7 +25,7 @@
 
   {#if githubURL}
     <a
-      class="hover:bg-gray-100 p-2 text-lg font-semibold flex items-center rounded"
+      class="hover:bg-gray-200 p-2 text-lg font-semibold flex items-center rounded"
       href={githubURL}
       target="_blank"
       rel="noopener noreferrer"
@@ -35,3 +35,21 @@
     </a>
   {/if}
 </header>
+
+<style>
+  @supports not (
+    (backdrop-filter: saturate(50%) blur(8px)) or (-webkit-backdrop-filter: saturate(50%) blur(8px))
+  ) {
+    header {
+      --at-apply: bg-gray-100;
+    }
+  }
+  @supports (
+    (backdrop-filter: saturate(50%) blur(8px)) or (-webkit-backdrop-filter: saturate(50%) blur(8px))
+  ) {
+    header {
+      -webkit-backdrop-filter: saturate(50%) blur(8px);
+      backdrop-filter: saturate(50%) blur(8px);
+    }
+  }
+</style>

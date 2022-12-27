@@ -21,7 +21,7 @@
   let showSidebar = false;
 </script>
 
-<div class="min-h-[100vh]">
+<div class="min-h-[100vh] bg-gray-100">
   <Header bind:showSidebar {githubURL} {activeURL}>
     <slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot>
   </Header>
