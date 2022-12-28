@@ -1,6 +1,6 @@
 # KitBook 
 
-Documentation and Prototyping Workbench Tool for Svelte built with SvelteKit that lets you rapidly build, document, and test components. Most similar to Svench, but also with goodies inspired by [[9-why|others]].
+Documentation and Prototyping Workbench Tool for Svelte built with SvelteKit that lets you rapidly build, document, and test components. Most similar to [Svench](https://svench-docs.vercel.app/), but also with goodies inspired by [[9-why|others]].
 
 ## Features
 - File-based sidebar tree structure, with optional prefixed numbers to adjust ordering of your docs
@@ -11,7 +11,7 @@ Documentation and Prototyping Workbench Tool for Svelte built with SvelteKit tha
 - Quickly create and compare numerous variants of a component via an array of auto-typed prop objects in a colocated typescript file that can also be used for testing.
 - All SvelteKit-only imports are automatically avaiable because it's a SvelteKit app. 
 - Build components using the same initialization hooks as your main unless you turn them off i18n
-- [Foam](https://foambubble.github.io/foam/) based automatic updating wiki-link functionality for documentation links within your Kitbook.
+- [Foam](https://foambubble.github.io/foam/) based automatic updating wiki-links for easy linking within your Kitbook.
 
 ## Start Documenting and Prototyping Components
 

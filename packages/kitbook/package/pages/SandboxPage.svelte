@@ -13,7 +13,7 @@ for (const { key, context } of data.variant?.contexts || []) {
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="kb-232g6v">
+  <div id="sandbox" class="kb-ms4j0i">
     <svelte:component this={data.loadedModules.svx} />
   </div>
 {:else}
@@ -42,7 +42,7 @@ for (const { key, context } of data.variant?.contexts || []) {
   </div>
 {/if}
 
-<style>:global(.kb-232g6v){--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}
+<style>:global(.kb-ms4j0i){height:100%;}:global(.kb-232g6v){--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}
   #sandbox > :global(:not(.show-in-sandbox)) {
     display: none;
   }

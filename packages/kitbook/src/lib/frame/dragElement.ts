@@ -1,6 +1,5 @@
 export function dragElement(node: HTMLElement) {
   const onmousemove = (event: MouseEvent) => {
-    console.log(event)
     node.dispatchEvent(new CustomEvent<number>("movementx", { detail: event.movementX }));
     node.dispatchEvent(new CustomEvent<number>("movementy", { detail: event.movementY }));
   }

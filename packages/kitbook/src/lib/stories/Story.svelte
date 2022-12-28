@@ -7,6 +7,7 @@
   import FrameHeader from '../frame/FrameHeader.svelte';
   import parseInput from './knobs';
   import Knobs from './Knobs.svelte';
+  import { portal, IntersectionObserver } from 'svelte-pieces';
 
   const DEFAULT_PIXEL_HEIGHT = 220;
 
@@ -38,13 +39,20 @@
 </script>
 
 {#if isCurrentSandboxStory}
-  <div class="show-in-sandbox">
+  <div class="show-in-sandbox" style="display: contents;">
     <slot props={propsFromSandbox} />
   </div>
 {:else if !idFromSandbox}
   <div class="not-prose mb-4">
     {#if knobs}
-      <Knobs {persist} {id} {knobs} />
+      <IntersectionObserver let:intersecting>
+        <div class="border mb-4" use:portal={'#instrument-panel'}>
+          {#if intersecting}
+            <div class="text-sm font-semibold">{name}</div>
+            <Knobs {persist} {id} {knobs} />
+          {/if}
+        </div>
+      </IntersectionObserver>
     {/if}
 
     <FrameHeader title={name} {height} {width} let:adjustedHeight let:adjustedWidth>
@@ -63,7 +71,6 @@
   </div>
 {/if}
 
-
 <!--
  @component
  Pass knobs properties (boolean, string, number, or range) to the `knobs` prop, then access values from `let:props`. Typescript provides autocompletion for the props on the way out. I prefer to use the shortcut notation as documented in the [Svench docs](https://svench-docs.vercel.app/_/Usage/knobs#knobs-passed-as-plain-objects-shortcut-notation) with the type of the knob being inferred from it.
@@ -76,8 +83,4 @@ TODO: accept negative values for range initialValue
 
 TODO: Though full object notation works as seen in the Svench docs, the type interface will be incorrect. If someone has a compelling use case for full object notation, they can help me know how to improve the use of Generics and types through the `knobs.ts` file to achieve such.
 -->
-<style>
-  .checkerboard {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA4SURBVHgB7dOxDQBACAJA/b1Y54dyHRZzBQoLY6Am1xCS5A8hAErpvRiOQYMbwFSL6qM8isGTYAOhNQbW5Q4iGwAAAABJRU5ErkJggg==');
-  }
-</style>
+

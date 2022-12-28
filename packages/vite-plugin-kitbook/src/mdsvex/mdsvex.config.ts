@@ -4,9 +4,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeUrls from 'rehype-urls';
 import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash';
+import { MDSVEX_EXTENSIONS } from '../constants';
 
 const config = defineConfig({
-  extensions: ['.md', '.svx'],
+  extensions: MDSVEX_EXTENSIONS,
   remarkPlugins: [],
   rehypePlugins: [
     rehypeDisplayLinkTitles, // place first to save needless tests of heading links about to be created by following plugins

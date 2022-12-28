@@ -1,6 +1,6 @@
 # kitbook
 
-## 1.0.0-alpha.2 - 2022-12-17
+## 1.0.0-alpha.2 - 2022-12-28
 
 ### Major Changes
 

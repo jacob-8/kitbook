@@ -1,5 +1,5 @@
 <script>
-  import Sidebar from '$lib/sidebar/Sidebar.svelte';
+  import Sidebar from './Sidebar.svelte';
   import { Story } from '$lib';
   import { page } from '$app/stores';
   // import { parseModulesIntoUngroupedPages } from '$lib/pages/parseModulesIntoUngroupedPages';

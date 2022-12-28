@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 pre {
   margin-left: -0.75rem !important;
   margin-right: -0.75rem !important;
@@ -26,7 +30,8 @@ pre {
 
 @media only screen and (min-width: 768px) {
   ::-webkit-scrollbar {
-    width: 1rem;
+    width: .5rem;
+    height: .5rem;
   }
 
   ::-webkit-scrollbar-track {
@@ -36,7 +41,7 @@ pre {
   ::-webkit-scrollbar-thumb {
     background: hsl(240, 26%, 91%);
     border-radius: 1rem;
-    border: 0.25rem solid #f3f4f6;
+    /* border: 0.25rem solid transparent; */
   }
 
   ::-webkit-scrollbar-thumb:hover {

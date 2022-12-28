@@ -23,7 +23,7 @@
     style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
       ? `${widthToDisplay}px`
       : 'unset'}"
-    class="bg-white hover:bg-gray-100 overflow-hidden p-3 relative"
+    class="checkerboard overflow-hidden p-3 relative"
   >
     <div
       use:dragElement
@@ -66,3 +66,12 @@
     </div>
   </div>
 </div>
+
+<style>
+  .checkerboard {
+    background: white;
+  }
+  .checkerboard:hover {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA4SURBVHgB7dOxDQBACAJA/b1Y54dyHRZzBQoLY6Am1xCS5A8hAErpvRiOQYMbwFSL6qM8isGTYAOhNQbW5Q4iGwAAAABJRU5ErkJggg==');
+  }
+</style>

@@ -8,7 +8,7 @@
   export let title = 'Kitbook';
   export let expanded = false;
 
-  let root = '/'
+  let root = '/';
 
   import { afterNavigate } from '$app/navigation';
   afterNavigate(() => {
@@ -39,17 +39,24 @@ focus:text-gray-500 transition ease-in-out duration-150"
     >
   </div>
 
-  <div class="md:sticky flex flex-col md:h-[calc(100vh-53px)] md:top-53px md:w-50 overflow-x-auto">
-    <Folder {folder} {activeURL} {expanded} />
-    <slot name="footer" />
+  <div class="pr-2">
+    <div class="md:h-[calc(100vh-53px)] overflow-hidden hover:overflow-y-auto">
+      <Folder {folder} {activeURL} {expanded} />
+      <slot name="footer" />
 
-    <a href="https://github.com/jacob-8/kitbook" target="_blank" rel="noopener noreferrer" class="ml-3 my-4 block">
-      <span class="text-sm text-gray-400 block mb-1"> Created with </span>
-      <img
-        alt="Kitbook"
-        src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg"
-        style="height: 20px;"
-      />
-    </a>
+      <a
+        href="https://github.com/jacob-8/kitbook"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ml-3 my-4 block"
+      >
+        <span class="text-sm text-gray-400 block mb-1"> Created with </span>
+        <img
+          alt="Kitbook"
+          src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg"
+          style="height: 20px;"
+        />
+      </a>
+    </div>
   </div>
 </ResponsiveSlideover>

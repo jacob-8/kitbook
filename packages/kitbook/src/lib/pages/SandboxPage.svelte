@@ -28,7 +28,7 @@
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="bg-white">
+  <div id="sandbox" class="h-full">
     <svelte:component this={data.loadedModules.svx} />
   </div>
 {:else}
