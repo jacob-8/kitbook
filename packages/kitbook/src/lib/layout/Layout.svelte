@@ -25,7 +25,7 @@
 
 <div class="h-full">
   <SplitPane min={0} pos={15}>
-    <div class="relative h-full" slot="a">
+    <div class="h-full bg-gray-100" slot="a">
       <Header bind:showSidebar {githubURL} {activeURL}>
         <slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot>
       </Header>
@@ -37,10 +37,10 @@
 
     <svelte:fragment slot="b">
       <SplitPane pos={75} min={20} max={100}>
-        <section class="h-full bg-gray-100" slot="a">
+        <section class="h-full" slot="a">
           <slot />
         </section>
-        <section class="h-full" slot="b">
+        <section class="h-full bg-gray-100" slot="b">
           <InstrumentPanel />
         </section>
       </SplitPane>

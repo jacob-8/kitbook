@@ -3,8 +3,9 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- merge to main and `npm publish --tag alpha`
+- `npm publish --tag alpha`
 - use in rest of my packages and update docs as I go
+- merge to main 
 - send alpha test question to discord query person
 - share mdsvex-shiki-twoslash w/ orta
 
