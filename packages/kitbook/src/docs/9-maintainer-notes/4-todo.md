@@ -3,17 +3,18 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- `npm publish --tag alpha`
 - use in rest of my packages and update docs as I go
 - merge to main 
 - send alpha test question to discord query person
 - share mdsvex-shiki-twoslash w/ orta
+- `npm publish --tag beta`
 
 ## Important before encouraging others to use
 - improve adjustment for iframe width and height (and clarify where borders are)
 - DRY things out
 - show Story and Variant code in sidebar
   - fetch raw code strings via store
+- make main section scrollable so jumping pages doesn't leave you partway down
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
@@ -21,11 +22,13 @@
 - search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - Add full-screen view for sandbox
 - update meta-tags based on current page
-- shouldn't crash upon finding oddly placed file like `/src/+layout.svelte`
+- shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - catch when a variants file exists by itself and inform how to use variants
 - keep sidebar active page in view
 
 ## Nice to Have
+- add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)
+- add button to iframe to open separately in new window
 - consider scaling down iframe when it's larger than the viewport
 - Vite server middleware to update/add stories from browser
 - Vite server middleware to update/add variants from browser
