@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -21,7 +21,7 @@
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.3",
-    "@kitbook/vite-plugin-kitbook": "^0.0.1",
+    "@kitbook/vite-plugin-kitbook": "^0.0.2",
     "lz-string": "^1.4.4",
     "svelte": "^3.55.0",
     "svelte-pieces": "^1.0.55"

@@ -5,8 +5,11 @@ declare const __propDef: {
         description?: string;
         height?: number;
         width?: number;
+        useIframe: boolean;
     };
     events: {
+        refresh: CustomEvent<boolean>;
+    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {
@@ -16,9 +19,9 @@ declare const __propDef: {
         };
     };
 };
-export type FrameHeaderProps = typeof __propDef.props;
-export type FrameHeaderEvents = typeof __propDef.events;
-export type FrameHeaderSlots = typeof __propDef.slots;
-export default class FrameHeader extends SvelteComponentTyped<FrameHeaderProps, FrameHeaderEvents, FrameHeaderSlots> {
+export type ViewHeaderProps = typeof __propDef.props;
+export type ViewHeaderEvents = typeof __propDef.events;
+export type ViewHeaderSlots = typeof __propDef.slots;
+export default class ViewHeader extends SvelteComponentTyped<ViewHeaderProps, ViewHeaderEvents, ViewHeaderSlots> {
 }
 export {};

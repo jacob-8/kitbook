@@ -12,12 +12,12 @@ for (const { key, context } of data.variant?.contexts || []) {
 }
 </script>
 
-{#if isStory}
-  <div id="sandbox" class="kb-ms4j0i">
-    <svelte:component this={data.loadedModules.svx} />
-  </div>
-{:else}
-  <div class="kb-232g6v">
+<div class="kb-e6mrpv">
+  {#if isStory}
+    <div id="sandbox" style="display: contents;">
+      <svelte:component this={data.loadedModules.svx} />
+    </div>
+  {:else}
     <ErrorBoundary onError={console.error}>
       <div slot="before">
         {#if Object.keys(props).length == 0}
@@ -39,10 +39,10 @@ for (const { key, context } of data.variant?.contexts || []) {
         <svelte:component this={data.loadedModules.component} {...props} />
       {/if}
     </ErrorBoundary>
-  </div>
-{/if}
+  {/if}
+</div>
 
-<style>:global(.kb-ms4j0i){height:100%;}:global(.kb-232g6v){--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}
+<style>:global(.kb-e6mrpv){position:absolute;inset:0rem;overflow:auto;}
   #sandbox > :global(:not(.show-in-sandbox)) {
     display: none;
   }

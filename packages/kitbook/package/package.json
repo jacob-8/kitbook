@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "index.js",
@@ -8,7 +8,7 @@
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.3",
-    "@kitbook/vite-plugin-kitbook": "^0.0.1",
+    "@kitbook/vite-plugin-kitbook": "^0.0.2",
     "lz-string": "^1.4.4",
     "svelte": "^3.55.0",
     "svelte-pieces": "^1.0.55"
@@ -72,9 +72,6 @@
     "./components/EditInGithub.variants": "./components/EditInGithub.variants.js",
     "./components/errorBoundary/CustomErrorBoundary.svelte": "./components/errorBoundary/CustomErrorBoundary.svelte",
     "./components/errorBoundary/ErrorBoundary": "./components/errorBoundary/ErrorBoundary.js",
-    "./frame/dragElement": "./frame/dragElement.js",
-    "./frame/FrameBody.svelte": "./frame/FrameBody.svelte",
-    "./frame/FrameHeader.svelte": "./frame/FrameHeader.svelte",
     ".": "./index.js",
     "./instrument-panel/InstrumentPanel.svelte": "./instrument-panel/InstrumentPanel.svelte",
     "./kitbook-types": "./kitbook-types.js",
@@ -110,6 +107,11 @@
     "./stories/knobs": "./stories/knobs.js",
     "./stories/randomId": "./stories/randomId.js",
     "./stories/Story.svelte": "./stories/Story.svelte",
-    "./styles/main.css": "./styles/main.css"
+    "./styles/main.css": "./styles/main.css",
+    "./view/dragElement": "./view/dragElement.js",
+    "./view/Iframe.svelte": "./view/Iframe.svelte",
+    "./view/View.svelte": "./view/View.svelte",
+    "./view/ViewBody.svelte": "./view/ViewBody.svelte",
+    "./view/ViewHeader.svelte": "./view/ViewHeader.svelte"
   }
 }

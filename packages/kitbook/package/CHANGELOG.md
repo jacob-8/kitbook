@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.4 - 2022-12-31
+
+- Improvements to View: resizing and refreshable when using iframe
+
 ## 1.0.0-alpha.2 - 2022-12-28
 
 ### Major Changes
