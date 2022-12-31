@@ -16,9 +16,9 @@ pre {
 }
 
 .heading-anchor {
-  display: block;
+  /* display: block;
   padding-top: 70px;
-  margin-top: -70px;
+  margin-top: -70px; */
   text-decoration: unset !important;
 }
 
