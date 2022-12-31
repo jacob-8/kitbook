@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import type { GroupedPage, GroupedPageMap, LoadedModules } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
-  import View from '../frame/View.svelte';
+  import View from '../view/View.svelte';
 
   export let data: {
     pages?: GroupedPageMap;

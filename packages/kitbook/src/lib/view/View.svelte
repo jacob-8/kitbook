@@ -1,7 +1,7 @@
 <script lang="ts">
-  import FrameBody from './FrameBody.svelte';
-  import Iframe from '../iframe/Iframe.svelte';
-  import FrameHeader from './FrameHeader.svelte';
+  import FrameHeader from './ViewHeader.svelte';
+  import FrameBody from './ViewBody.svelte';
+  import Iframe from './Iframe.svelte';
   const DEFAULT_PIXEL_HEIGHT = 220;
 
   export let title: string;

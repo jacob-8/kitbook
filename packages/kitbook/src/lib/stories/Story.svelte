@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import View from '../frame/View.svelte';
+  import View from '../view/View.svelte';
   import parseInput from './knobs';
   import Knobs from './Knobs.svelte';
   import { portal, IntersectionObserver } from 'svelte-pieces';
