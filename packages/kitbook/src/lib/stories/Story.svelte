@@ -1,13 +1,11 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import { page } from '$app/stores';
-  import LZString from 'lz-string';
-  const { compressToEncodedURIComponent: encode } = LZString;
   import FrameBody from '../frame/FrameBody.svelte';
   import FrameHeader from '../frame/FrameHeader.svelte';
   import parseInput from './knobs';
   import Knobs from './Knobs.svelte';
   import { portal, IntersectionObserver } from 'svelte-pieces';
+  import Iframe from '$lib/iframe/Iframe.svelte';
 
   const DEFAULT_PIXEL_HEIGHT = 220;
 
@@ -44,30 +42,26 @@
   </div>
 {:else if !idFromSandbox}
   <div class="not-prose mb-4">
-    {#if knobs}
-      <IntersectionObserver let:intersecting>
+    <IntersectionObserver let:intersecting>
+      {#if knobs}
         <div class="border mb-4" use:portal={'#instrument-panel'}>
           {#if intersecting}
             <div class="text-sm font-semibold">{name}</div>
             <Knobs {persist} {id} {knobs} />
           {/if}
         </div>
-      </IntersectionObserver>
-    {/if}
+      {/if}
 
-    <FrameHeader title={name} {height} {width} let:adjustedHeight let:adjustedWidth>
-      <FrameBody height={adjustedHeight} width={adjustedWidth}>
-        {#if useSandbox}
-          <iframe
-            class="w-full h-full"
-            title=""
-            src="/sandbox{$page.url.pathname}?props={encode(JSON.stringify($knobs))}&storyId={id}"
-          />
-        {:else}
-          <slot props={$knobs} {set} />
-        {/if}
-      </FrameBody>
-    </FrameHeader>
+      <FrameHeader title={name} {height} {width} let:adjustedHeight let:adjustedWidth>
+        <FrameBody height={adjustedHeight} width={adjustedWidth}>
+          {#if useSandbox}
+            <Iframe props={$knobs} queryParams="storyId={id}" />
+          {:else}
+            <slot props={$knobs} {set} />
+          {/if}
+        </FrameBody>
+      </FrameHeader>
+    </IntersectionObserver>
   </div>
 {/if}
 
@@ -83,4 +77,3 @@ TODO: accept negative values for range initialValue
 
 TODO: Though full object notation works as seen in the Svench docs, the type interface will be incorrect. If someone has a compelling use case for full object notation, they can help me know how to improve the use of Generics and types through the `knobs.ts` file to achieve such.
 -->
-

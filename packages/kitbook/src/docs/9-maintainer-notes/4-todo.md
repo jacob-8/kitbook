@@ -3,6 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- reload iframe button
+- check build and publish updated plugin
 - use in rest of my packages and update docs as I go
 - merge to main 
 - send alpha test question to discord query person
@@ -10,7 +12,6 @@
 - `npm publish --tag beta`
 
 ## Important before encouraging others to use
-- improve adjustment for iframe width and height (and clarify where borders are)
 - DRY things out
 - show Story and Variant code in sidebar
   - fetch raw code strings via store
@@ -29,6 +30,7 @@
 ## Nice to Have
 - add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)
 - add button to iframe to open separately in new window
+- add a simple Story that doesn't use an iframe but still allows for easy introspection code implementation
 - consider scaling down iframe when it's larger than the viewport
 - Vite server middleware to update/add stories from browser
 - Vite server middleware to update/add variants from browser

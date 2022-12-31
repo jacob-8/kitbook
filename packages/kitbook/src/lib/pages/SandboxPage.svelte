@@ -28,11 +28,11 @@
 </script>
 
 {#if isStory}
-  <div id="sandbox" class="h-full">
+  <div id="sandbox" class="h-full inset-0 fixed">
     <svelte:component this={data.loadedModules.svx} />
   </div>
 {:else}
-  <div class="bg-white">
+  <div class="inset-0 fixed overflow-auto">
     <ErrorBoundary onError={console.error}>
       <div slot="before">
         {#if Object.keys(props).length == 0}

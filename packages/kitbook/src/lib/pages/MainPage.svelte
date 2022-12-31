@@ -2,10 +2,9 @@
   import { page } from '$app/stores';
   import type { GroupedPage, GroupedPageMap, LoadedModules } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
-  import LZString from 'lz-string';
-  const { compressToEncodedURIComponent: encode } = LZString;
   import FrameBody from '../frame/FrameBody.svelte';
   import FrameHeader from '../frame/FrameHeader.svelte';
+  import Iframe from '$lib/iframe/Iframe.svelte';
 
   export let data: {
     pages?: GroupedPageMap;
@@ -53,13 +52,7 @@
                       {...variant.props || {}}
                     />
                   {:else}
-                    <iframe
-                      class="w-full h-full"
-                      title=""
-                      src="/sandbox{$page.url.pathname}?props={encode(
-                        JSON.stringify(variant.props || {})
-                      )}&variantIdx={index}"
-                    />
+                    <Iframe props={variant.props || {}} queryParams="variantIdx={index}" />
                   {/if}
                 </FrameBody>
               </FrameHeader>

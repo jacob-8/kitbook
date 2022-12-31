@@ -5,17 +5,16 @@
   export let width: number = undefined;
 </script>
 
-<div class="bg-gray-50 border rounded overflow-hidden">
-  <div class="flex items-center px-2">
-    {#if title}
-      <div class="font-semibold text-sm py-1">
-        {title}
-      </div>
-    {/if}
-    <div class="ml-auto" />
+<div class="flex items-center">
+  {#if title}
+    <div class="font-semibold text-sm py-1">
+      {title}
+    </div>
+  {/if}
+  <div class="ml-auto" />
 
-    <!-- i-tabler-code"-->
-    <!-- <button
+  <!-- i-tabler-code"-->
+  <!-- <button
       title="toggle width"
       class="p-1 opacity-50 hover:opacity-100"
       on:click={() => (width ? (width = undefined) : (width = 300))}
@@ -27,13 +26,10 @@
       on:click={() => (height ? (height = undefined) : (height = 200))}
       ><span class="i-ant-design-column-height-outlined" /></button
     > -->
-  </div>
-
-  {#if description}
-    <div class="text-sm px-2 py-1">{description}</div>
-  {/if}
-
-  <div class="border-b" />
-
-  <slot adjustedHeight={height} adjustedWidth={width} />
 </div>
+
+{#if description}
+  <div class="text-sm py-1">{description}</div>
+{/if}
+
+<slot adjustedHeight={height} adjustedWidth={width} />
