@@ -3,7 +3,6 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- reload iframe button
 - check build and publish updated plugin
 - use in rest of my packages and update docs as I go
 - merge to main 

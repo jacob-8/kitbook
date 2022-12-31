@@ -1,13 +1,9 @@
 <script lang="ts">
   import { getContext } from 'svelte';
-  import FrameBody from '../frame/FrameBody.svelte';
-  import FrameHeader from '../frame/FrameHeader.svelte';
+  import View from '../frame/View.svelte';
   import parseInput from './knobs';
   import Knobs from './Knobs.svelte';
   import { portal, IntersectionObserver } from 'svelte-pieces';
-  import Iframe from '$lib/iframe/Iframe.svelte';
-
-  const DEFAULT_PIXEL_HEIGHT = 220;
 
   /**
    * Until IDs are provided by the Kitbook plugin, each story in a story file must have a unique name to work
@@ -18,7 +14,7 @@
    */
   export let id = name.replace(/[^A-Za-z0-9]/g, '_');
   export let width: number = undefined;
-  export let height: number = DEFAULT_PIXEL_HEIGHT;
+  export let height: number = undefined;
   export let persist: 'localStorage' | 'sessionStorage' = undefined;
 
   export let useSandbox = true;
@@ -41,28 +37,28 @@
     <slot props={propsFromSandbox} />
   </div>
 {:else if !idFromSandbox}
-  <div class="not-prose mb-4">
-    <IntersectionObserver let:intersecting>
-      {#if knobs}
-        <div class="border mb-4" use:portal={'#instrument-panel'}>
-          {#if intersecting}
-            <div class="text-sm font-semibold">{name}</div>
-            <Knobs {persist} {id} {knobs} />
-          {/if}
-        </div>
+  <IntersectionObserver let:intersecting>
+    {#if knobs}
+      <div class="border mb-4" use:portal={'#instrument-panel'}>
+        {#if intersecting}
+          <div class="text-sm font-semibold">{name}</div>
+          <Knobs {persist} {id} {knobs} />
+        {/if}
+      </div>
+    {/if}
+    <View
+      title={name}
+      {width}
+      {height}
+      props={$knobs}
+      queryParams="storyId={id}"
+      useIframe={useSandbox}
+    >
+      {#if !useSandbox}
+        <slot props={$knobs} {set} />
       {/if}
-
-      <FrameHeader title={name} {height} {width} let:adjustedHeight let:adjustedWidth>
-        <FrameBody height={adjustedHeight} width={adjustedWidth}>
-          {#if useSandbox}
-            <Iframe props={$knobs} queryParams="storyId={id}" />
-          {:else}
-            <slot props={$knobs} {set} />
-          {/if}
-        </FrameBody>
-      </FrameHeader>
-    </IntersectionObserver>
-  </div>
+    </View>
+  </IntersectionObserver>
 {/if}
 
 <!--

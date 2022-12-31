@@ -1,8 +1,13 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+
   export let title: string;
   export let description: string = undefined;
   export let height: number = undefined;
   export let width: number = undefined;
+  export let useIframe: boolean;
+
+  const dispatch = createEventDispatcher<{ refresh: boolean }>();
 </script>
 
 <div class="flex items-center">
@@ -26,6 +31,14 @@
       on:click={() => (height ? (height = undefined) : (height = 200))}
       ><span class="i-ant-design-column-height-outlined" /></button
     > -->
+
+  {#if useIframe}
+    <button
+      title="Refresh Iframe"
+      class="p-1 opacity-50 hover:opacity-100"
+      on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh" /></button
+    >
+  {/if}
 </div>
 
 {#if description}

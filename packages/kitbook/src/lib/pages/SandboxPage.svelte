@@ -27,12 +27,12 @@
   }
 </script>
 
-{#if isStory}
-  <div id="sandbox" class="h-full inset-0 fixed">
-    <svelte:component this={data.loadedModules.svx} />
-  </div>
-{:else}
-  <div class="inset-0 fixed overflow-auto">
+<div class="absolute inset-0 overflow-auto">
+  {#if isStory}
+    <div id="sandbox" style="display: contents;">
+      <svelte:component this={data.loadedModules.svx} />
+    </div>
+  {:else}
     <ErrorBoundary onError={console.error}>
       <div slot="before">
         {#if Object.keys(props).length == 0}
@@ -54,8 +54,8 @@
         <svelte:component this={data.loadedModules.component} {...props} />
       {/if}
     </ErrorBoundary>
-  </div>
-{/if}
+  {/if}
+</div>
 
 <style>
   #sandbox > :global(:not(.show-in-sandbox)) {

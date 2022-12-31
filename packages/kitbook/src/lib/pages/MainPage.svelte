@@ -2,9 +2,7 @@
   import { page } from '$app/stores';
   import type { GroupedPage, GroupedPageMap, LoadedModules } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
-  import FrameBody from '../frame/FrameBody.svelte';
-  import FrameHeader from '../frame/FrameHeader.svelte';
-  import Iframe from '$lib/iframe/Iframe.svelte';
+  import View from '../frame/View.svelte';
 
   export let data: {
     pages?: GroupedPageMap;
@@ -13,7 +11,7 @@
     error?: string;
   } = { loadedModules: {} };
 
-  $: pathWouldRecurseInfinitelyIfInSandbox = $page.url.pathname.startsWith(
+  $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
     '/lib/routes/sandbox/[...file]/+'
   );
   $: doesNotHaveSvxOrVariants = !(data.loadedModules.svx || data.loadedModules.variants);
@@ -36,27 +34,19 @@
             {data.page.name.startsWith('+') ? 'Page' : 'Component'} Variants
           </div>
           {#each data.loadedModules.variants as variant, index}
-            <div class="not-prose mb-4">
-              <FrameHeader
-                title={variant.name}
-                description={variant.description}
-                width={variant.width}
-                height={variant.height}
-                let:adjustedHeight
-                let:adjustedWidth
-              >
-                <FrameBody height={adjustedHeight} width={adjustedWidth}>
-                  {#if pathWouldRecurseInfinitelyIfInSandbox}
-                    <svelte:component
-                      this={data.loadedModules.component}
-                      {...variant.props || {}}
-                    />
-                  {:else}
-                    <Iframe props={variant.props || {}} queryParams="variantIdx={index}" />
-                  {/if}
-                </FrameBody>
-              </FrameHeader>
-            </div>
+            <View
+              title={variant.name}
+              description={variant.description}
+              width={variant.width}
+              height={variant.height}
+              props={variant.props || {}}
+              queryParams="variantIdx={index}"
+              useIframe={!wouldRecurseInfinitelyInSandbox}
+            >
+              {#if wouldRecurseInfinitelyInSandbox}
+                <svelte:component this={data.loadedModules.component} {...variant.props || {}} />
+              {/if}
+            </View>
           {/each}
         {/if}
       {/if}
