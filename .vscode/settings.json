@@ -5,9 +5,7 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "files.associations": {
-    "*.svx": "svelte"
-  },
+  "files.associations": {},
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.lint.unknownAtRules": "ignore",
   "vitest.enable": true,
