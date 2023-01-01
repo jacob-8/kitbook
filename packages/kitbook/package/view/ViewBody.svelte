@@ -1,6 +1,7 @@
 <script>import { dragElement } from "./dragElement";
 export let width = void 0;
 export let height = void 0;
+export let hovered = false;
 let frameWidth;
 let frameHeight;
 let userAdjustedWidth;
@@ -18,8 +19,9 @@ let dragging = false;
   <div
     style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
       ? `${widthToDisplay}px`
-      : 'unset'}"
-    class="kb-cns9to checkerboard"
+      : 'unset'}; transition: all 300ms"
+    class:kb-12j8sv={hovered}
+    class="kb-tn5nzz checkerboard"
   >
     <div
       use:dragElement
@@ -55,7 +57,7 @@ let dragging = false;
   </div>
 </div>
 
-<style>:global(.kb-cns9to){position:relative;overflow:hidden;border-width:1px;border-radius:0.25rem;padding:0.75rem;}:global(.kb-q59zl7){position:absolute;inset:0rem;}:global(.kb-seh91f){position:absolute;bottom:0rem;left:0rem;right:0rem;height:0.75rem;cursor:ns-resize;text-align:center;}:global(.kb-sxs717){position:relative;height:100%;--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}:global(.kb-xoquy3){position:absolute;bottom:0rem;right:0rem;top:0rem;width:0.75rem;display:flex;cursor:ew-resize;align-items:center;}:global(.kb-2as389){overflow-x:auto;}:global(.kb-seh91f:hover,.kb-xoquy3:hover){--un-bg-opacity:1;background-color:rgba(191,219,254,var(--un-bg-opacity));--un-bg-opacity:0.75;}
+<style>:global(.kb-q59zl7){position:absolute;inset:0rem;}:global(.kb-seh91f){position:absolute;bottom:0rem;left:0rem;right:0rem;height:0.75rem;cursor:ns-resize;text-align:center;}:global(.kb-sxs717){position:relative;height:100%;--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));}:global(.kb-tn5nzz){position:relative;overflow:hidden;border-width:1px;--un-border-opacity:0.5 !important;border-radius:0.25rem;padding:0.75rem;}:global(.kb-xoquy3){position:absolute;bottom:0rem;right:0rem;top:0rem;width:0.75rem;display:flex;cursor:ew-resize;align-items:center;}:global(.kb-2as389){overflow-x:auto;}:global(.kb-12j8sv){--un-border-opacity:1;border-color:rgba(30,58,138,var(--un-border-opacity));}:global(.kb-seh91f:hover,.kb-xoquy3:hover){--un-bg-opacity:1;background-color:rgba(191,219,254,var(--un-bg-opacity));--un-bg-opacity:0.75;}
   .checkerboard {
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAA4SURBVHgB7dOxDQBACAJA/b1Y54dyHRZzBQoLY6Am1xCS5A8hAErpvRiOQYMbwFSL6qM8isGTYAOhNQbW5Q4iGwAAAABJRU5ErkJggg==');
   }

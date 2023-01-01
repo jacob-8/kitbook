@@ -1,6 +1,6 @@
 <script lang="ts">
-  import FrameHeader from './ViewHeader.svelte';
-  import FrameBody from './ViewBody.svelte';
+  import ViewHeader from './ViewHeader.svelte';
+  import ViewBody from './ViewBody.svelte';
   import Iframe from './Iframe.svelte';
   const DEFAULT_PIXEL_HEIGHT = 220;
 
@@ -9,6 +9,7 @@
   export let width: number;
   export let height = DEFAULT_PIXEL_HEIGHT;
   export let useIframe = true;
+  export let hovered = false;
 
   export let props: any;
   export let queryParams: string;
@@ -17,7 +18,7 @@
 </script>
 
 <div class="not-prose mb-4">
-  <FrameHeader
+  <ViewHeader
     {title}
     {description}
     {width}
@@ -29,12 +30,12 @@
       iframe.reload();
     }}
   >
-    <FrameBody height={adjustedHeight} width={adjustedWidth}>
+    <ViewBody {hovered} height={adjustedHeight} width={adjustedWidth}>
       {#if useIframe}
         <Iframe bind:this={iframe} {props} {queryParams} />
       {:else}
         <slot />
       {/if}
-    </FrameBody>
-  </FrameHeader>
+    </ViewBody>
+  </ViewHeader>
 </div>

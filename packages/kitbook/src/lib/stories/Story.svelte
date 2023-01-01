@@ -30,34 +30,51 @@
   function set(field: string, value: any) {
     $knobs[field] = value;
   }
+
+  let hovered = false;
 </script>
 
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 {#if isCurrentSandboxStory}
   <div class="show-in-sandbox" style="display: contents;">
     <slot props={propsFromSandbox} />
   </div>
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
-    {#if knobs}
-      <div class="border mb-4" use:portal={'#instrument-panel'}>
-        {#if intersecting}
-          <div class="text-sm font-semibold">{name}</div>
-          <Knobs {persist} {id} {knobs} />
-        {/if}
-      </div>
-    {/if}
-    <View
-      title={name}
-      {width}
-      {height}
-      props={$knobs}
-      queryParams="storyId={id}"
-      useIframe={useSandbox}
-    >
-      {#if !useSandbox}
-        <slot props={$knobs} {set} />
+    <div on:mouseover={() => (hovered = true)} on:mouseout={() => (hovered = false)}>
+      {#if knobs}
+        <div
+          on:mouseover={() => (hovered = true)}
+          on:mouseout={() => (hovered = false)}
+          use:portal={'#instrument-panel'}
+        >
+          {#if intersecting}
+            <div
+              style="transition: all 300ms;"
+              class="mb-4 p-1 rounded opacity-60 border border-transparent !border-opacity-50"
+              class:border-blue-900={hovered}
+              class:opacity-100={hovered}
+            >
+              <div class="text-sm font-semibold">{name}</div>
+              <Knobs {persist} {id} {knobs} />
+            </div>
+          {/if}
+        </div>
       {/if}
-    </View>
+      <View
+        title={name}
+        {width}
+        {height}
+        {hovered}
+        props={$knobs}
+        queryParams="storyId={id}"
+        useIframe={useSandbox}
+      >
+        {#if !useSandbox}
+          <slot props={$knobs} {set} />
+        {/if}
+      </View>
+    </div>
   </IntersectionObserver>
 {/if}
 

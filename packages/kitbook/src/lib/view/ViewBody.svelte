@@ -3,6 +3,7 @@
 
   export let width: number = undefined;
   export let height: number = undefined;
+  export let hovered = false;
 
   let frameWidth: number;
   let frameHeight: number;
@@ -22,8 +23,9 @@
   <div
     style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
       ? `${widthToDisplay}px`
-      : 'unset'}"
-    class="checkerboard overflow-hidden p-3 relative border rounded"
+      : 'unset'}; transition: all 300ms"
+    class:border-blue-900={hovered}
+    class="checkerboard overflow-hidden p-3 relative rounded border !border-opacity-50"
   >
     <div
       use:dragElement

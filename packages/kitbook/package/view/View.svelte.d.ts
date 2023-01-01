@@ -6,6 +6,7 @@ declare const __propDef: {
         width: number;
         height?: number;
         useIframe?: boolean;
+        hovered?: boolean;
         props: any;
         queryParams: string;
     };

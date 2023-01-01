@@ -3,6 +3,7 @@ declare const __propDef: {
     props: {
         width?: number;
         height?: number;
+        hovered?: boolean;
     };
     events: {
         [evt: string]: CustomEvent<any>;

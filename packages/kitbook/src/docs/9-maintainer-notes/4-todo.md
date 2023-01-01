@@ -3,20 +3,20 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- check build
-- improve knobs
-- comb back through SvelteFireTS after improving knobs and wikilinks sections
 - use in living-dictionaries and update docs as I go
+- comb back through SvelteFireTS after improving knobs and wikilinks sections
+- make sure all docs are up-to-date, even if not fully written
 - merge to main 
-- send alpha test question to discord query person
-- share mdsvex-shiki-twoslash w/ orta
-- `npm publish --tag beta`
-
-## Important before encouraging others to use
+- improve knob sub-components
 - don't show grayed out empty stories for components with details on build
 - DRY things out
 - show Story and Variant code in sidebar
   - fetch raw code strings via store
+
+## Important before encouraging others to use
+- `npm publish --tag beta`
+- share mdsvex-shiki-twoslash w/ orta
+- send alpha test question to discord query person
 - make main section scrollable so jumping pages doesn't leave you partway down
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
