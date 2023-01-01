@@ -2,7 +2,7 @@ import type { Variants } from 'kitbook';
 import type Component from './+page.svelte';
 
 import IndividualComponent from './mockComponents/IndividualComponent.svelte';
-import StoryComponent from './mockComponents/StoryComponent.svx';
+import StoryComponent from './mockComponents/StoryComponent.md';
 
 export const variants: Variants<typeof Component> = [
   {
