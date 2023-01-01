@@ -28,6 +28,7 @@
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - catch when a variants file exists by itself and inform how to use variants
 - keep sidebar active page in view
+- menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
 
 ## Nice to Have
 - add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)

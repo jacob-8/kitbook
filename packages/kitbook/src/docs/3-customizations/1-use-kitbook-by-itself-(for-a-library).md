@@ -10,7 +10,7 @@ You'll also notice that since you're now running a 2nd SvelteKit app inside the 
 
 If you look in [Kitbook's source code](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook) you'll see the `routes` folder living inside of the `lib` directory (so it will be packaged up) or in [Svelte Pieces' source code](https://github.com/jacob-8/kitbook/tree/main/packages/svelte-pieces) you'll see a `src/routes` folder and no `src/kitbook` folder.
 
-When you are only building a library and not an app, then there is no main app to run Kitbook alongside and your Kitbook becomes your main app. You could just delete the `src/routes` folder and leave Kitbook alone in it's default `src/kitbook` folder. However, if for clarity you'd like to tell Kitbook to have its route come from `src/routes` you can pass the path to the Kitbook plugin:
+When you are only building a library and not an app, then there is no main app to run Kitbook alongside and your Kitbook becomes your main app. You could just delete the `src/routes` folder and leave Kitbook alone in it's default `src/kitbook` folder. However, if for clarity across projects you'd like to tell Kitbook to have its routes come from `src/routes` you can pass the path to the Kitbook plugin:
 
 ```js title="vite.config.js" {6}
 import { sveltekit } from '@sveltejs/kit/vite';
