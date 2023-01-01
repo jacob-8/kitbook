@@ -1,7 +1,7 @@
 {
   "name": "@kitbook/rehype-display-link-titles",
-  "version": "0.0.1",
-  "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases for Foam auto-generated links",
+  "version": "0.0.2",
+  "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases or sections from Foam auto-generated links",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
@@ -45,6 +45,7 @@
     "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
   },
   "dependencies": {
+    "github-slugger": "^2.0.0",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {

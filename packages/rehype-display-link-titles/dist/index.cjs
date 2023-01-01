@@ -1,6 +1,7 @@
 'use strict';
 
 const unistUtilVisit = require('unist-util-visit');
+const githubSlugger = require('github-slugger');
 
 function rehypeDisplayLinkTitles(options = {}) {
   return (tree) => {
@@ -17,6 +18,14 @@ function rehypeDisplayLinkTitles(options = {}) {
           const [filename, alias] = text.split("|");
           node.children = [{ type: "text", value: alias }];
           node.properties.title = `${title} (${filename})`;
+          return;
+        }
+        const hasSectionHash = text?.includes("#");
+        if (hasSectionHash) {
+          const [filename, hash] = text.split("#");
+          node.children = [{ type: "text", value: hash }];
+          node.properties.title = `${title} (${filename})`;
+          node.properties.href += `#${githubSlugger.slug(hash)}`;
           return;
         }
         if (title && text) {

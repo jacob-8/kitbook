@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.3",
-    "@kitbook/rehype-display-link-titles": "^0.0.1",
+    "@kitbook/rehype-display-link-titles": "^0.0.2",
     "mdsvex": "^0.10.6",
     "rehype-slug": "^5.1.0",
     "rehype-autolink-headings": "^6.1.1",

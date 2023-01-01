@@ -1,11 +1,14 @@
 import { rehype } from 'rehype'
 import { rehypeDisplayLinkTitles } from '.'
 
-describe('rehypeStringify', () => {
+// template: [Text placed inside link by default]: href "Title"
+// actual:   [2-write-documentation.md#Kitbook Index]: 2-write-documentation "Write Documentation"
+
+describe('rehypeDisplayLinkTitles', () => {
   const processor = rehype()
     .data('settings', { fragment: true })
     .use(rehypeDisplayLinkTitles)
-    
+
   test('swaps link content and title (normal case)', async () => {
     const input = `<a href="docs/9-why" title="Why not use an already existing alternative?">9-why</a>`
 
@@ -16,6 +19,13 @@ describe('rehypeStringify', () => {
     const input = `<a href="docs/9-why" title="Why not use an already existing alternative?">9-why|others</a>`
 
     expect((await processor.process(input)).value).toMatchInlineSnapshot('"<a href=\\"docs/9-why\\" title=\\"Why not use an already existing alternative? (9-why)\\">others</a>"');
+  });
+
+  test('handle links to sections and does not enumerate slug if found again because these are just links to already existing slugs', async () => {
+    // [5-easy-wikilinks#Linking to a sub-heading]: 5-easy-wikilinks "Easy Wikilinks"
+    const input = `<a href="5-easy-wikilinks" title="Easy Wikilinks">5-easy-wikilinks#Linking to a sub-heading</a>`
+
+    expect((await processor.process(input+input)).value).toMatchInlineSnapshot('"<a href=\\"5-easy-wikilinks#linking-to-a-sub-heading\\" title=\\"Easy Wikilinks (5-easy-wikilinks)\\">Linking to a sub-heading</a><a href=\\"5-easy-wikilinks#linking-to-a-sub-heading\\" title=\\"Easy Wikilinks (5-easy-wikilinks)\\">Linking to a sub-heading</a>"');
   });
 
   test('No title', async () => {
@@ -36,6 +46,4 @@ describe('rehypeStringify', () => {
   });
 })
 
-// TODO: handle links to sections that will look like this:
-// [2-write-documentation.md#Kitbook Index]: 2-write-documentation "Write Documentation"
-// Learn from https://github.com/rehypejs/rehype-slug and https://github.com/Flet/github-slugger as we will use rehype-slug to generate heading ids
+// TODO:  that will look like this:

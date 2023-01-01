@@ -3,11 +3,10 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- wikilinks to sections using #
-- use in living-dictionaries and update docs as I go
 - check build
 - improve knobs
-- comb back through SvelteFireTS usage after improving knobs and wikilinks sections
+- comb back through SvelteFireTS after improving knobs and wikilinks sections
+- use in living-dictionaries and update docs as I go
 - merge to main 
 - send alpha test question to discord query person
 - share mdsvex-shiki-twoslash w/ orta
