@@ -8,7 +8,7 @@
 
 # ReactiveSet
 
-<Story knobs={{ firstItem: 'bar' }} let:props={{ firstItem }}>
+<Story knobs={{ firstItem: 'bar' }} let:knobs={{ firstItem }}>
   <ReactiveSet input={[firstItem, ...books]} let:update let:value let:remove let:add let:size>
     <pre>{JSON.stringify(value, null, 1)}</pre>
     <div>

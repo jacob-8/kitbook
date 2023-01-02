@@ -10,7 +10,7 @@
 - Use SVG so works both server and client side
 - QRCode generator from https://www.nayuki.io/page/qr-code-generator-library because it's written in Typescript and includes great comments
 
-<Story knobs={{ value: 'kitbook.vercel.app', pixelsPerModule: 4 }} let:props={{ value, pixelsPerModule }}>
+<Story knobs={{ value: 'kitbook.vercel.app', pixelsPerModule: 4 }} let:knobs={{ value, pixelsPerModule }}>
   <QrCode {value} {pixelsPerModule} errorCorrection="high" />
 </Story>
 

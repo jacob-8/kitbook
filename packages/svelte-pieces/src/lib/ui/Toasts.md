@@ -4,7 +4,7 @@
 	import { toast } from '$lib/ui/Toasts.svelte';
 </script>
 
-<Story name="With Knobs" knobs={{message: 'Hello world', duration: 3000}} let:props={{message, duration}}>
+<Story name="With Knobs" knobs={{message: 'Hello world', duration: 3000}} let:knobs={{message, duration}}>
 	<Button onclick={() => toast(message, duration)}>Toast</Button>
 	{#await import('$lib/ui/Toasts.svelte') then { default: Toasts }}
 		<Toasts />

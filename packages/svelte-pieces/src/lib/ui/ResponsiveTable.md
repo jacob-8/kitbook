@@ -11,7 +11,7 @@
 <Story
   height={400}
   knobs={{ stickyHeading: true, stickyColumn: true, width: '20-100;60' }}
-  let:props={{ stickyHeading, stickyColumn, width }}
+  let:knobs={{ stickyHeading, stickyColumn, width }}
 >
   <div style="width: {width}%;">
     <ResponsiveTable {stickyHeading} {stickyColumn}>

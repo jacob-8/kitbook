@@ -15,7 +15,7 @@
 <Story
   name="Vertical and Brown Hover"
   knobs={{ vertical: true, pos: '10-90;50' }}
-  let:props={{ vertical, pos }}
+  let:knobs={{ vertical, pos }}
   height={400}
 >
   <SplitPane

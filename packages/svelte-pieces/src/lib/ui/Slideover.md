@@ -9,7 +9,7 @@
   name="title slot"
   height={350}
   knobs={{ duration: 200, zIndex: 50, rightSide: true }}
-  let:props={{ duration, zIndex, rightSide }}
+  let:knobs={{ duration, zIndex, rightSide }}
 >
   <ShowHide let:show={hide} let:toggle>
     <Button onclick={toggle}>Show</Button>
@@ -51,7 +51,7 @@
   height={350}
   name="heading slot"
   knobs={{ duration: 200, zIndex: 50, rightSide: false }}
-  let:props={{ duration, zIndex, rightSide }}
+  let:knobs={{ duration, zIndex, rightSide }}
 >
   <ShowHide let:show={hide} let:toggle>
     <Button onclick={toggle}>Show</Button>

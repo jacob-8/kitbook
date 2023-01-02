@@ -4,7 +4,7 @@
 *(you have been warned, early-adopters)*
 
 - use in living-dictionaries and update docs as I go
-- change from let:props to let:knobs to open way for automatic props in future
+- make deprecation notice for let:props and use let:knobs to open way for automatic props in future
 - don't show Kitbook tip to pass in props if it's a variant for a component without props
 - comb back through SvelteFireTS after improving knobs and wikilinks sections and denest {kitbookOptions}
 - make sure all docs are up-to-date, even if not fully written

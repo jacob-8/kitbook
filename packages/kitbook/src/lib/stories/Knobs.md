@@ -6,14 +6,14 @@
 
 # Knobs
 
-<Story persist="localStorage" name="boolean knob" knobs={{ fieldName: 'toggle_me' }} let:props={{ fieldName }}>
+<Story persist="localStorage" name="boolean knob" knobs={{ fieldName: 'toggle_me' }} let:knobs={{ fieldName }}>
   <Knobs id="bknobChild" knobs={parseInput({ [fieldName]: true })} />
 </Story>
 
 <Story
   name="string knob"
   knobs={{ fieldName: 'stringFieldName', startingValue: 'my string value' }}
-  let:props={{ fieldName, startingValue }}
+  let:knobs={{ fieldName, startingValue }}
 >
   <Knobs id="sKnobChild" knobs={parseInput({ [fieldName]: startingValue })} />
 </Story>
@@ -21,7 +21,7 @@
 <Story
   name="number knob"
   knobs={{ fieldName: 'numberFieldName', startingValue: 2 }}
-  let:props={{ fieldName, startingValue }}
+  let:knobs={{ fieldName, startingValue }}
 >
   <Knobs id="nKnobChild" knobs={parseInput({ [fieldName]: startingValue })} />
 </Story>
@@ -29,7 +29,7 @@
 <Story
   name="range knob"
   knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
-  let:props={{ fieldName, min, max, defaultValue }}
+  let:knobs={{ fieldName, min, max, defaultValue }}
 >
   <Knobs id="rKnobChild" knobs={parseInput({ [fieldName]: {min} + '-' + {max} +';' + {defaultValue} })} />
 </Story>
@@ -39,7 +39,7 @@
 <Story
   name="color knob"
   knobs={{ fieldName: 'background_color', defaultValue: '#a23123' }}
-  let:props={{ fieldName, defaultValue }}
+  let:knobs={{ fieldName, defaultValue }}
 >
   <Knobs id="cKnobChild" knobs={parseInput({ [fieldName]: defaultValue })} />
 </Story>

@@ -9,7 +9,7 @@
 
 A simple component that contains a form element and receives a function to fire on submit. If the function is asynchronous then you can use the loading slot value to display a spinner, block activity, or otherwise indicate that the form is processing.
 
-<Story knobs={{ seconds: 1 }} let:props={{ seconds }}>
+<Story knobs={{ seconds: 1 }} let:knobs={{ seconds }}>
   <Form
     let:loading
     onsubmit={async () => {

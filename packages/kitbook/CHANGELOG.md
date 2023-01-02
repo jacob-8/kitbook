@@ -1,5 +1,10 @@
 # kitbook
 
+## 1.0.0-alpha.7 - 2023-1-3
+
+- - Bug fixes
+  - [deprecated] change `let:props` to `let:knobs` in the `<Story>` component to open way for automatic component props in future
+
 ## 1.0.0-alpha.4 - 2022-12-31
 
 - Improvements to View: resizing and refreshable when using iframe

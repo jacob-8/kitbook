@@ -59,7 +59,7 @@ let hovered = false;
         useIframe={useSandbox}
       >
         {#if !useSandbox}
-          <slot props={$knobs} {set} />
+          <slot props={$knobs} knobs={$knobs} {set} />
         {/if}
       </View>
     </div>
@@ -68,11 +68,11 @@ let hovered = false;
 
 <!--
  @component
- Pass knobs properties (boolean, string, number, or range) to the `knobs` prop, then access values from `let:props`. Typescript provides autocompletion for the props on the way out. I prefer to use the shortcut notation as documented in the [Svench docs](https://svench-docs.vercel.app/_/Usage/knobs#knobs-passed-as-plain-objects-shortcut-notation) with the type of the knob being inferred from it.
+ Pass knobs properties (boolean, string, number, or range) to the `knobs` prop, then access values from `let:knobs`. Typescript provides autocompletion for the props on the way out. I prefer to use the shortcut notation as documented in the [Svench docs](https://svench-docs.vercel.app/_/Usage/knobs#knobs-passed-as-plain-objects-shortcut-notation) with the type of the knob being inferred from it.
 
 Range knobs can be declared using a default value matching the format ${minValue}${maxValue};${initialValue} (e.g., -10-10;5).
 
-Example usage: `<Story knobs={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }} let:props={{myBool, myNum, myStr, myRange}}>`
+Example usage: `<Story knobs={{ myBool: false, myNum: 10, myStr: 'hello', myRange: '-10-10;5' }} let:knobs={{myBool, myNum, myStr, myRange}}>`
 
 TODO: accept negative values for range initialValue
 

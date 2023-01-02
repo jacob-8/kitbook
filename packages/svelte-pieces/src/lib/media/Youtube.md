@@ -14,7 +14,7 @@
   };
 </script>
 
-<Story name="Responsive" knobs={{ width: '200-1000;640' }} let:props={{ width }}>
+<Story name="Responsive" knobs={{ width: '200-1000;640' }} let:knobs={{ width }}>
   <div style="width: {width}px;">
     <Youtube videoId="48gHuY4w0hY" let:player on:ready={onPlayerReady} let:state let:playbackRate>
       {#if state === PlayerState['PLAYING'] || state === PlayerState['BUFFERING']}

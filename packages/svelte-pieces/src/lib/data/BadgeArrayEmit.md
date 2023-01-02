@@ -9,7 +9,7 @@
 <Story
   name="Edit array via Set component"
   knobs={{ canEdit: true, minimum: 0 }}
-  let:props={{ canEdit, minimum }}>
+  let:knobs={{ canEdit, minimum }}>
   <ReactiveSet
     input={['A Tale of Four Cities', 'www.google.com']}
     let:value={editedBooks}

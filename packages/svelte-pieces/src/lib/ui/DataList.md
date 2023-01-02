@@ -14,7 +14,7 @@
   ];
 </script>
 
-<Story knobs={{ allowAny: false, resetOnSelect: false }} let:props={{ allowAny, resetOnSelect }}>
+<Story knobs={{ allowAny: false, resetOnSelect: false }} let:knobs={{ allowAny, resetOnSelect }}>
   <ReactiveSet input={['6: Some Custom Browser']} let:value={editedBooks} let:add let:remove>
     <BadgeArrayEmit
       strings={editedBooks}

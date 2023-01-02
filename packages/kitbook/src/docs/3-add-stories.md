@@ -33,7 +33,7 @@ TODO: Add props
   import { Story } from 'kitbook';
 </script>
 
-<Story name="Fancy Button" knobs={{ name: 'John'}} let:props={{ name }}>
+<Story name="Fancy Button" knobs={{ name: 'John'}} let:knobs={{ name }}>
   <Button>Hello {name}</Button>
 </Story>
 ```

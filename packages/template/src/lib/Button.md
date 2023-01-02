@@ -7,7 +7,7 @@
 
 <Story
   knobs={{ href: 'https://kitbook.vercel.app', text: 'Kitbook Home' }}
-  let:props={{ href, text }}
+  let:knobs={{ href, text }}
 >
   <Button {href}>{text}</Button>
 </Story>

@@ -5,9 +5,9 @@ describe('placeContentIntoCodeAttribute', () => {
   test('basic', async () => {
     expect(
       placeContentIntoCodeAttribute(
-        `<Story name="With Knobs" knobs={{ value: true }} let:props={{ value }}>{value}</Story>`, 'Story'
+        `<Story name="With Knobs" knobs={{ value: true }} let:knobs={{ value }}>{value}</Story>`, 'Story'
       )
-    ).toMatchInlineSnapshot('"<Story code={`<span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">&#123;</span>value<span class=\\"token punctuation\\">&#125;</span></span>`} name=\\"With Knobs\\" knobs={{ value: true }} let:props={{ value }}>{value}</Story>"');
+    ).toMatchInlineSnapshot('"<Story code={`<span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">&#123;</span>value<span class=\\"token punctuation\\">&#125;</span></span>`} name=\\"With Knobs\\" knobs={{ value: true }} let:knobs={{ value }}>{value}</Story>"');
   });
 
   test('handles Story inside a Story', async () => {
@@ -41,7 +41,7 @@ describe('placeContentIntoCodeAttribute', () => {
       placeContentIntoCodeAttribute('<Story\n' +
         '  name="range knob"\n' +
         "  knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}\n" +
-        '  let:props={{ fieldName, min, max, defaultValue }}\n' +
+        '  let:knobs={{ fieldName, min, max, defaultValue }}\n' +
         '>\n' +
         '  <Knobs id="rKnobChild" knobs={parseInput({ [fieldName]: `${min}-${max};${defaultValue}` })} />\n' +
         '</Story>', 'Story')
@@ -51,7 +51,7 @@ describe('placeContentIntoCodeAttribute', () => {
         <span class=\\"token attr-name\\">knobs=</span><span class=\\"token language-javascript\\"><span class=\\"token punctuation\\">&#123;</span><span class=\\"token function\\">parseInput</span><span class=\\"token punctuation\\">(</span><span class=\\"token punctuation\\">&#123;</span> <span class=\\"token punctuation\\">[</span>fieldName<span class=\\"token punctuation\\">]</span><span class=\\"token operator\\">:</span> <span class=\\"token template-string\\"><span class=\\"token template-punctuation string\\">&#96;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>min<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token string\\">-</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>max<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token string\\">;</span><span class=\\"token interpolation\\"><span class=\\"token interpolation-punctuation punctuation\\">$&#123;</span>defaultValue<span class=\\"token interpolation-punctuation punctuation\\">&#125;</span></span><span class=\\"token template-punctuation string\\">&#96;</span></span> <span class=\\"token punctuation\\">&#125;</span><span class=\\"token punctuation\\">)</span><span class=\\"token punctuation\\">&#125;</span></span> <span class=\\"token punctuation\\">/></span></span>\`}
         name=\\"range knob\\"
         knobs={{ fieldName: 'change_range_name', min: 0, max: 100, defaultValue: 50 }}
-        let:props={{ fieldName, min, max, defaultValue }}
+        let:knobs={{ fieldName, min, max, defaultValue }}
       >
         <Knobs id=\\"rKnobChild\\" knobs={parseInput({ [fieldName]: \`\${min}-\${max};\${defaultValue}\` })} />
       </Story>"

@@ -33,7 +33,7 @@ And this one will have a lot of content to be able to test scrolling:
   <Story name="Nested Story">Hello World from inside a Story</Story>
 </Story>
 
-<Story name="With Knobs" knobs={{ value: true }} let:props={{ value }}>{value}</Story>
+<Story name="With Knobs" knobs={{ value: true }} let:knobs={{ value }}>{value}</Story>
 
 If a width and height are defined, you can adjust them. If not, you can define them by turning them
 on.

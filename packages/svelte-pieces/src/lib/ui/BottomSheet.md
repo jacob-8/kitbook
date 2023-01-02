@@ -13,7 +13,7 @@
 
 <Story
   knobs={{ max: 10, start: 40, contentHeight: 500, duration: 150 }}
-  let:props={{ max, start, contentHeight, duration }}
+  let:knobs={{ max, start, contentHeight, duration }}
   let:set
 >
   <ShowHide let:show let:toggle>

@@ -6,7 +6,7 @@
 
 None of the text here should show when viewed inside the +Page sandbox
 
-<Story id="showMe" knobs={{ age: 20 }} let:props={{ age }}>
+<Story id="showMe" knobs={{ age: 20 }} let:knobs={{ age }}>
   This story should show in the +page sandbox
   Sample age prop: {age}
   <div>This line also should show</div>

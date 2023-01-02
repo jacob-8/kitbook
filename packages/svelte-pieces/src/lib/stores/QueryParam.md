@@ -15,7 +15,7 @@
     log: false,
     persist,
   }}
-  let:props
+  let:knobs
 >
   <QueryParam {...props} let:value let:set let:remove on:value={(e) => console.log(e.detail)}>
     <pre class="pl-3">{JSON.stringify(value, null, 2)}</pre>
