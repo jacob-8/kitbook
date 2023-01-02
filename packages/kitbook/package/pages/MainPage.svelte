@@ -7,7 +7,7 @@ $:
     "/lib/routes/sandbox/[...file]/+"
   );
 $:
-  doesNotHaveSvxOrVariants = !(data.loadedModules.svx || data.loadedModules.variants);
+  doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>
 
 <div class="kb-2ax1r3">

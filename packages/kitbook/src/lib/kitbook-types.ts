@@ -58,7 +58,6 @@ type PageMetadata = {
 
 type ModuleLoadFunctions = {
   loadModule: Module;
-  // loadRaw: RawModule;
 }
 
 export type Modules = Record<string, Module>;

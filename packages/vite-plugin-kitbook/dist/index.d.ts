@@ -7,9 +7,7 @@ declare function kitbookPlugin({ routes, mdsvexConfig }?: {
     mdsvexConfig?: MdsvexOptions;
 }): Plugin;
 
-declare function augmentSvelteConfigForKitbook(config: Config, { kitbookOptions }?: {
-    kitbookOptions?: Config;
-}): Config;
+declare function augmentSvelteConfigForKitbook(config: Config, kitbookOptions?: Config): Config;
 
 declare const MDSVEX_EXTENSIONS: string[];
 

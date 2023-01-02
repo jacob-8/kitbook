@@ -12,11 +12,7 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   }
 }
 
-export function augmentSvelteConfigForKitbook(config: Config, {
-  kitbookOptions
-}: {
-  kitbookOptions?: Config;
-} = {}) {
+export function augmentSvelteConfigForKitbook(config: Config, kitbookOptions: Config = {}) {
   if (process.env.KITBOOK_ROUTES) {
     const routesFromPlugin: Config = {
       kit: {

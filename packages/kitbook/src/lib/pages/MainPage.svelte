@@ -14,7 +14,7 @@
   $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
     '/lib/routes/sandbox/[...file]/+'
   );
-  $: doesNotHaveSvxOrVariants = !(data.loadedModules.svx || data.loadedModules.variants);
+  $: doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>
 
 <div class="pr-2 h-full">

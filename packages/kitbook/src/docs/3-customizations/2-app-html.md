@@ -37,7 +37,7 @@ const kitbookOptions = {
   }
 }
 
-export default augmentSvelteConfigForKitbook(config, { kitbookOptions });
+export default augmentSvelteConfigForKitbook(config, kitbookOptions);
 
 ```
 

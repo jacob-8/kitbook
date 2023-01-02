@@ -26,7 +26,7 @@ test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, 
     },
   };
 
-  expect(augmentSvelteConfigForKitbook(svelteConfig, { kitbookOptions })).toMatchInlineSnapshot(`
+  expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptions)).toMatchInlineSnapshot(`
       {
         "extensions": [
           ".svelte",
@@ -66,7 +66,7 @@ test('when routes are reset in Vite plugin to src/routes, that remains regardles
     },
   };
 
-  expect(augmentSvelteConfigForKitbook(svelteConfig, { kitbookOptions })).toMatchInlineSnapshot(`
+  expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptions)).toMatchInlineSnapshot(`
       {
         "extensions": [
           ".svelte",

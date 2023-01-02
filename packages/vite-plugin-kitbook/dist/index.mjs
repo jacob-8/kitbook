@@ -29,7 +29,7 @@ function ensureKitbookRoutesExist(routes) {
   }
 }
 const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
-export default augmentSvelteConfigForKitbook(config);`;
+export default augmentSvelteConfigForKitbook(config)`;
 function addSvelteConfigAugmentFunctionIfNeeded(routes) {
   let svelteConfigPath;
   const possibleExtensions = ["js", "mjs", "cjs", "ts", "mts", "cts"];
@@ -60,7 +60,7 @@ if (import.meta.vitest) {
 
 const config = {}
 
-export default config`, DEFAULT_KITBOOK_ROUTES)).toMatchInlineSnapshot(`
+export default config;`, DEFAULT_KITBOOK_ROUTES)).toMatchInlineSnapshot(`
       "import {foo} from 'somewhere';
 
       const config = {}
@@ -156,9 +156,7 @@ const DEFAULT_KITBOOK_OPTIONS = {
     }
   }
 };
-function augmentSvelteConfigForKitbook(config, {
-  kitbookOptions
-} = {}) {
+function augmentSvelteConfigForKitbook(config, kitbookOptions = {}) {
   if (process.env.KITBOOK_ROUTES) {
     const routesFromPlugin = {
       kit: {

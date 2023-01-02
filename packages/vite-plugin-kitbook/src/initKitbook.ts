@@ -22,7 +22,7 @@ function ensureKitbookRoutesExist(routes: string) {
 }
 
 const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
-export default augmentSvelteConfigForKitbook(config);`;
+export default augmentSvelteConfigForKitbook(config)`;
 
 function addSvelteConfigAugmentFunctionIfNeeded(routes: string) {
   let svelteConfigPath: string;
@@ -53,7 +53,7 @@ function wrapExportedConfigWithAugmentFunction(svelteConfigText: string, routes:
 import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
 if (import.meta.vitest) {
   test('wrapExportedConfigWithAugmentFunction', () => {
-    expect(wrapExportedConfigWithAugmentFunction(`import {foo} from 'somewhere';\n\nconst config = {}\n\nexport default config`, DEFAULT_KITBOOK_ROUTES)).toMatchInlineSnapshot(`
+    expect(wrapExportedConfigWithAugmentFunction(`import {foo} from 'somewhere';\n\nconst config = {}\n\nexport default config;`, DEFAULT_KITBOOK_ROUTES)).toMatchInlineSnapshot(`
       "import {foo} from 'somewhere';
 
       const config = {}
