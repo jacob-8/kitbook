@@ -3,16 +3,14 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- use in living-dictionaries and update docs as I go
-- make deprecation notice for let:props and use let:knobs to open way for automatic props in future
+- use in living-dictionaries and update docs as I go (fix modal issue in Edit Gloss Languages)
+- incorporate error-boundary
+- understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
 - don't show Kitbook tip to pass in props if it's a variant for a component without props
-- comb back through SvelteFireTS after improving knobs and wikilinks sections and denest {kitbookOptions}
 - make sure all docs are up-to-date, even if not fully written
 - merge to main 
-- improve knob sub-components
 - don't show grayed out empty stories for components with details on build
 - DRY things out
-  - esbuild minify and don't place things into one folder (unbuild)
 - show Story and Variant code in sidebar
   - fetch raw code strings via store
 
@@ -20,12 +18,15 @@
 - solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
 - `npm publish --tag beta`
 - share mdsvex-shiki-twoslash w/ orta
+- improve knob sub-components
 - send alpha test question to discord query person
 - search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
-- move css package to this repo and update with latest settings
 - make main section scrollable so jumping pages doesn't leave you partway down
+- move css package to this repo and update with latest settings
+- esbuild minify and don't place things into one folder (unbuild)
 - automatically analyze component for props
 - Next and Previous pages (see Docusaurus/Vitebook)
+- be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
 - Add full-screen view for sandbox

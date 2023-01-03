@@ -1,38 +1,54 @@
-export function dragElement(node: HTMLElement) {
-  const onmousemove = (event: MouseEvent) => {
-    node.dispatchEvent(new CustomEvent<number>("movementx", { detail: event.movementX }));
-    node.dispatchEvent(new CustomEvent<number>("movementy", { detail: event.movementY }));
-  }
-
-  const onmousedown = (event: MouseEvent) => {
-    event.preventDefault();
-
-    const onmouseup = () => {
-      window.removeEventListener('mousemove', onmousemove, false);
-      window.removeEventListener('mouseup', onmouseup, false);
-    };
-
-    window.addEventListener('mousemove', onmousemove, false);
-    window.addEventListener('mouseup', onmouseup, false);
-  };
-
-  const ontouchmove = (event: TouchEvent) => {
-    node.dispatchEvent(new CustomEvent<number>("touchx", { detail: event.touches[0].clientX }));
-    node.dispatchEvent(new CustomEvent<number>("touchy", { detail: event.touches[0].clientY }));
-  }
-  const ontouchstart = (event: TouchEvent) => {
-    if (event.targetTouches.length > 1) return;
-    event.preventDefault();
-    const ontouchend = () => {
-      window.removeEventListener('touchmove', ontouchmove, false);
-      window.removeEventListener('touchend', ontouchend, false);
-    };
-    window.addEventListener('touchmove', ontouchmove, false);
-    window.addEventListener('touchend', ontouchend, false);
-  };
+export function dragElement(node: HTMLElement, container: HTMLDivElement) {
+  let top: number;
+  let left: number;
 
   node.addEventListener('mousedown', onmousedown, false);
   node.addEventListener('touchstart', ontouchstart, false);
+
+  function onmousedown(event: MouseEvent) {
+    event.preventDefault();
+    ({ top, left } = container.getBoundingClientRect());
+
+    window.addEventListener('mousemove', onmousemove, false);
+    window.addEventListener('mouseup', onmouseup, false);
+
+    function onmouseup() {
+      window.removeEventListener('mousemove', onmousemove, false);
+      window.removeEventListener('mouseup', onmouseup, false);
+    };
+  };
+
+  function onmousemove(event: MouseEvent) {
+    updateWidth(event.clientX - left)
+    updateHeight(event.clientY - top);
+  }
+
+  function ontouchstart(event: TouchEvent) {
+    if (event.targetTouches.length > 1) return;
+    event.preventDefault();
+    ({ top, left } = container.getBoundingClientRect());
+
+    window.addEventListener('touchmove', ontouchmove, false);
+    window.addEventListener('touchend', ontouchend, false);
+
+    function ontouchend() {
+      window.removeEventListener('touchmove', ontouchmove, false);
+      window.removeEventListener('touchend', ontouchend, false);
+    };
+  };
+
+  function ontouchmove(event: TouchEvent) {
+    updateWidth(event.touches[0].clientX - left)
+    updateHeight(event.touches[0].clientY - top);
+  }
+
+  function updateWidth(width: number) {
+    node.dispatchEvent(new CustomEvent<number>("updatewidth", { detail: width }));
+  }
+  function updateHeight(height: number) {
+    node.dispatchEvent(new CustomEvent<number>("updateheight", { detail: height }));
+  }
+
   return {
     destroy() {
       node.removeEventListener('mousedown', onmousedown, false);

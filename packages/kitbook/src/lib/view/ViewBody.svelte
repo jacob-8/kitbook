@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { dragElement } from './dragElement';
+  import { dragElement as resizeElement } from './dragElement';
+
+  export let hovered = false;
 
   export let width: number = undefined;
   export let height: number = undefined;
-  export let hovered = false;
-
-  let frameWidth: number;
-  let frameHeight: number;
 
   let userAdjustedWidth: number;
   let userAdjustedHeight: number;
@@ -14,52 +12,77 @@
   $: widthToDisplay = userAdjustedWidth || width;
   $: heightToDisplay = userAdjustedHeight || height;
 
-  let dragging = false;
+  let container: HTMLDivElement;
+  let dragging: 'width' | 'height' | 'both';
+
+  const PADDING_TWICE = 24;
 </script>
 
-<svelte:window on:mouseup={() => (dragging = false)} />
+{#if dragging}
+  <div class="absolute inset-0" />
+{/if}
 
-<div bind:clientWidth={frameWidth} bind:clientHeight={frameHeight} class="overflow-x-auto">
+<div bind:this={container} class="overflow-x-auto">
   <div
     style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
       ? `${widthToDisplay}px`
-      : 'unset'}; transition: all 300ms"
+      : 'unset'};"
     class:border-blue-900={hovered}
-    class="checkerboard overflow-hidden p-3 relative rounded border !border-opacity-50"
+    class:checkerboard={hovered}
+    class="overflow-hidden p-3 relative rounded border !border-opacity-50"
   >
-    <div
-      use:dragElement
-      on:movementx={({ detail: movementX }) => {
-        if (!userAdjustedWidth) {
-          userAdjustedWidth = frameWidth;
-        }
-        userAdjustedWidth += movementX;
-      }}
-      on:mousedown={() => (dragging = true)}
-      on:dblclick={() => (userAdjustedWidth = null)}
-      class="absolute right-0 top-0 bottom-0 w-3 cursor-ew-resize hover:bg-blue-200 hover:bg-opacity-75 flex flex-column items-center"
-    />
-    <div
-      use:dragElement
-      on:movementy={({ detail: movementY }) => {
-        if (!userAdjustedWidth) {
-          userAdjustedHeight = frameHeight;
-        }
-        userAdjustedHeight += movementY;
-      }}
-      on:mousedown={() => (dragging = true)}
-      on:dblclick={() => (userAdjustedHeight = null)}
-      class="absolute right-0 left-0 bottom-0 h-3 cursor-ns-resize hover:bg-blue-200 hover:bg-opacity-75 text-center"
-      style="line-height: 0;"
-    />
+    {#if container}
+      <div
+        use:resizeElement={container}
+        on:updatewidth={({ detail: updatedWidth }) => {
+          userAdjustedWidth = updatedWidth;
+        }}
+        on:mousedown={() => (dragging = 'width')}
+        on:dblclick={() => (userAdjustedWidth = null)}
+        class="absolute right-0 top-0 bottom-0 w-3 cursor-ew-resize hover:bg-blue-200 hover:bg-opacity-75"
+        class:bg-blue-200={dragging === 'width'}
+      />
+      <div
+        use:resizeElement={container}
+        on:updateheight={({ detail: updatedHeight }) => {
+          userAdjustedHeight = updatedHeight;
+        }}
+        on:mousedown={() => (dragging = 'height')}
+        on:dblclick={() => (userAdjustedHeight = null)}
+        class="absolute right-0 left-0 bottom-0 h-3 cursor-ns-resize hover:bg-blue-200 hover:bg-opacity-75"
+        class:bg-blue-200={dragging === 'height'}
+      />
+      <div
+        use:resizeElement={container}
+        on:updatewidth={({ detail: updatedWidth }) => {
+          userAdjustedWidth = updatedWidth;
+        }}
+        on:updateheight={({ detail: updatedHeight }) => {
+          userAdjustedHeight = updatedHeight;
+        }}
+        on:mousedown={() => (dragging = 'both')}
+        on:dblclick={() => {
+          userAdjustedWidth = null;
+          userAdjustedHeight = null;
+        }}
+        class="absolute right-0 bottom-0 w-3 h-3 cursor-nwse-resize hover:bg-blue-200 hover:bg-opacity-75"
+        class:bg-blue-200={dragging === 'both'}
+      />
+    {/if}
+    {#if dragging}
+      <div class="bg-white px-1 absolute bottom-3 right-3 z-1 shadow-lg border rounded">
+        {((widthToDisplay || container.clientWidth) - PADDING_TWICE).toFixed()} x {(
+          (heightToDisplay || container.clientHeight) - PADDING_TWICE
+        ).toFixed()}
+      </div>
+    {/if}
     <div class="bg-white h-full relative">
       <slot />
-      {#if dragging}
-        <div class="absolute inset-0" />
-      {/if}
     </div>
   </div>
 </div>
+
+<svelte:window on:mouseup={() => (dragging = null)} />
 
 <style>
   .checkerboard {
