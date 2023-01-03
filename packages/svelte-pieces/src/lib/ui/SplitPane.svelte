@@ -5,7 +5,7 @@
 
   export let type: 'vertical' | 'horizontal' = 'horizontal';
   export let fixed = false;
-  export let dividerHoverColor = "hsl(195, 53%, 70%)";
+  export let dividerHoverColor = 'hsl(195, 53%, 70%)';
   export let pos = 50;
   export let min = 10;
   export let max: number = undefined;
@@ -33,7 +33,7 @@
     dispatch('change');
   }
 
-  function drag(node: HTMLElement, callback) {
+  function drag(node: HTMLElement, callback: (event: MouseEvent) => void) {
     const onmousedown = (event: MouseEvent) => {
       event.preventDefault();
       dragging = true;
@@ -52,7 +52,7 @@
       },
     };
   }
-  function touchDrag(node: HTMLElement, callback) {
+  function touchDrag(node: HTMLElement, callback: (event: TouchEvent) => void) {
     const ontouchstart = (event: TouchEvent) => {
       if (event.targetTouches.length > 1) return;
       event.preventDefault();
