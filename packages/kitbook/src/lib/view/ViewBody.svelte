@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { dragElement as resizeElement } from './dragElement';
+  import { resizeElement } from './resizeElement';
 
   export let hovered = false;
 

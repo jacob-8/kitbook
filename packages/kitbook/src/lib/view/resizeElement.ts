@@ -1,4 +1,4 @@
-export function dragElement(node: HTMLElement, container: HTMLDivElement) {
+export function resizeElement(node: HTMLElement, container: HTMLDivElement) {
   let top: number;
   let left: number;
 
