@@ -2,11 +2,11 @@
 import "../styles/main.css";
 import { setContext } from "svelte";
 import { page } from "$app/stores";
-import Header from "./Header.svelte";
-import Sidebar from "../sidebar/Sidebar.svelte";
-import { putPagesIntoFolders } from "../pages/putPagesIntoFolders";
+import Header from "./sidebar/Header.svelte";
+import Sidebar from "./sidebar/Sidebar.svelte";
+import { putPagesIntoFolders } from "./parseModules/putPagesIntoFolders";
 import { SplitPane } from "svelte-pieces";
-import InstrumentPanel from "../instrument-panel/InstrumentPanel.svelte";
+import InstrumentPanel from "./instrument-panel/InstrumentPanel.svelte";
 export let title = "Kitbook";
 export let description = "Svelte Component Documentation and Prototyping Workbench built using SvelteKit";
 export let expanded = false;

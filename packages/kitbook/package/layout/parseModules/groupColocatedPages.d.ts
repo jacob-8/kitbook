@@ -1,4 +1,4 @@
-import type { GroupedPageMap, UngroupedPage } from "../kitbook-types";
+import type { GroupedPageMap, UngroupedPage } from "../../kitbook-types";
 export declare function groupColocatedPages(ungrouped: UngroupedPage[], extensions?: {
     svx: string[];
     variants: string;

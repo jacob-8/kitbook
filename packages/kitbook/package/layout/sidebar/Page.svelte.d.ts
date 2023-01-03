@@ -1,5 +1,5 @@
 import { SvelteComponentTyped } from "svelte";
-import type { GroupedPage } from '../kitbook-types';
+import type { GroupedPage } from '../../kitbook-types';
 declare const __propDef: {
     props: {
         page: GroupedPage;

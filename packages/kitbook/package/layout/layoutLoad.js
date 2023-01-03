@@ -1,4 +1,4 @@
-import { groupColocatedModulesIntoPages } from "../pages/groupColocatedModulesIntoPages";
+import { groupColocatedModulesIntoPages } from "./parseModules/groupColocatedModulesIntoPages";
 /**
  * `initFunction` is an optional async function that will be called before the layout is loaded. This is useful for things like setting up i18n before loading your Kitbook.
  *
