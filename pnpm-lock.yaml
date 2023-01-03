@@ -40,7 +40,6 @@ importers:
 
   packages/kitbook:
     specifiers:
-      '@crownframework/svelte-error-boundary': ^1.0.3
       '@iconify/json': ^2.1.156
       '@kitbook/mdsvex-shiki-twoslash': ^0.0.3
       '@kitbook/vite-plugin-kitbook': ^0.0.3
@@ -62,7 +61,6 @@ importers:
       vite: ^4.0.3
       vitest: ^0.26.3
     dependencies:
-      '@crownframework/svelte-error-boundary': 1.0.3
       '@kitbook/mdsvex-shiki-twoslash': link:../mdsvex-shiki-twoslash
       '@kitbook/vite-plugin-kitbook': link:../vite-plugin-kitbook
       lz-string: 1.4.4
@@ -742,6 +740,7 @@ packages:
 
   /@crownframework/svelte-error-boundary/1.0.3:
     resolution: {integrity: sha512-ZtfYF9if48Ok8BTx/fn7bERJFKHKO6Ih5d/fkY6/pC3DQEnJq4vy6JOBFcisnpKYcZbjG5F/D4r06kqX7JKyqw==}
+    dev: true
 
   /@esbuild/android-arm/0.15.18:
     resolution: {integrity: sha512-5GT+kcs2WVGjVs7+boataCkO5Fg0y4kCjzkB5bAip7H4jfnOS3dA6KPiww9W1OEKTKeAcUVhdZGvgI65OXmUnw==}

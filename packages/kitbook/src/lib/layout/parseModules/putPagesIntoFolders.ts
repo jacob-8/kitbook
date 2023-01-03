@@ -1,4 +1,4 @@
-import type { Folder, GroupedPageMap } from "../kitbook-types";
+import type { Folder, GroupedPageMap } from "../../kitbook-types";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
 export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {

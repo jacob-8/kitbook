@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { GroupedPage } from '../kitbook-types';
+  import type { GroupedPage } from '../../kitbook-types';
   export let page: GroupedPage;
   export let activeURL: string;
   export let depth: number;

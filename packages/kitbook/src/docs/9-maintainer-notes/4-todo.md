@@ -3,10 +3,11 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- use in living-dictionaries and update docs as I go (fix modal issue in Edit Gloss Languages)
-- incorporate error-boundary
+- part 1 (just titles) of search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
+- use in living-dictionaries and update docs as I go 
+  - (fix modal issue in Edit Gloss Languages)
+  - don't show Kitbook tip to pass in props if it's a variant for a component without props
 - understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
-- don't show Kitbook tip to pass in props if it's a variant for a component without props
 - make sure all docs are up-to-date, even if not fully written
 - merge to main 
 - don't show grayed out empty stories for components with details on build
@@ -20,7 +21,6 @@
 - share mdsvex-shiki-twoslash w/ orta
 - improve knob sub-components
 - send alpha test question to discord query person
-- search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - make main section scrollable so jumping pages doesn't leave you partway down
 - move css package to this repo and update with latest settings
 - esbuild minify and don't place things into one folder (unbuild)

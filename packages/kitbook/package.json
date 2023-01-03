@@ -19,7 +19,6 @@
     "test:update": "vitest -u"
   },
   "dependencies": {
-    "@crownframework/svelte-error-boundary": "^1.0.3",
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.3",
     "@kitbook/vite-plugin-kitbook": "^0.0.3",
     "lz-string": "^1.4.4",
