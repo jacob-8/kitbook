@@ -38,6 +38,7 @@
 - be able to automatically change any props for a component inside a Story by using the plugin to rewrite things a bit. Also, also setting start value directly on the component
 
 ## Nice to Have
+- add quick QRCode for easy opening of an iframed example on phone
 - add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)
 - add button to iframe to open separately in new window
 - add a simple Story that doesn't use an iframe but still allows for easy introspection code implementation

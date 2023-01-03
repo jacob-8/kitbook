@@ -1,8 +1,11 @@
 <script lang="ts">
-  // import { Button } from 'svelte-pieces';
+  import { Button } from 'svelte-pieces';
+  import LaunchSearch from './search/LaunchSearch.svelte';
+
   export let showSidebar = false;
   export let githubURL: string = undefined;
   export let activeURL: string;
+
   let root = '/';
 </script>
 
@@ -21,18 +24,20 @@
     <slot>Kitbook</slot>
   </a>
   <div class="flex-1" />
-  <!-- <Button form="menu">Dark mode</Button> -->
+
+  <LaunchSearch />
 
   {#if githubURL}
-    <a
-      class="hover:bg-gray-200 p-2 text-lg font-semibold flex items-center rounded"
+    <Button
+      form="menu"
+      size="sm"
       href={githubURL}
       target="_blank"
-      rel="noopener noreferrer"
       title="View GitHub Repo"
+      class="flex items-center"
     >
-      <span class="i-mdi-github" />
-    </a>
+      <span class="i-mdi-github text-lg" />
+    </Button>
   {/if}
 </header>
 
