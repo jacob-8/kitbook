@@ -1,9 +1,9 @@
 import { SvelteComponentTyped } from "svelte";
 declare const __propDef: {
     props: {
+        hovered?: boolean;
         width?: number;
         height?: number;
-        hovered?: boolean;
     };
     events: {
         [evt: string]: CustomEvent<any>;

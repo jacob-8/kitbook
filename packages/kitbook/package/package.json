@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-alpha.7",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "index.js",
@@ -108,8 +108,8 @@
     "./stories/randomId": "./stories/randomId.js",
     "./stories/Story.svelte": "./stories/Story.svelte",
     "./styles/main.css": "./styles/main.css",
-    "./view/dragElement": "./view/dragElement.js",
     "./view/Iframe.svelte": "./view/Iframe.svelte",
+    "./view/resizeElement": "./view/resizeElement.js",
     "./view/View.svelte": "./view/View.svelte",
     "./view/ViewBody.svelte": "./view/ViewBody.svelte",
     "./view/ViewHeader.svelte": "./view/ViewHeader.svelte"
