@@ -11,7 +11,9 @@
     form: 'outline' | 'filled' | 'simple' | 'link' | 'menu' | 'text' = 'outline',
     color: 'red' | 'orange' | 'green' | 'black' | 'white' | 'primary' = 'primary',
     disabled = false,
-    active = false;
+    active = false,
+    showExternalLinkIcon = false,
+    title: string = undefined;
 
   $: disable = disabled || loading;
   $: fill = form === 'outline' ? 'outlined' : form;
@@ -32,34 +34,26 @@
 </script>
 
 {#if href}
-  {#if target === '_blank'}
-    <a
-      {href}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="{$$props.class} {fill} {size} {color} text-center inline-block"
-    >
-      <slot />
-      {#if form !== 'text' && form !== 'link'}
-        <span class="i-tabler-external-link" style="vertical-align: -2px;" />
-      {/if}
-    </a>
-  {:else}
-    <a
-      {href}
-      data-sveltekit-prefetch
-      class:active
-      class="{$$props.class} {fill} {size} {color} text-center inline-block"
-    >
-      <slot />
-    </a>
-  {/if}
+  <a
+    {href}
+    {title}
+    {target}
+    rel={target === '_blank' ? 'noopener noreferrer' : ''}
+    class:active
+    class="{$$props.class} {fill} {size} {color} text-center inline-block"
+  >
+    <slot />
+    {#if showExternalLinkIcon}
+      <span class="i-tabler-external-link" style="vertical-align: -2px;" />
+    {/if}
+  </a>
 {:else}
   <button
     class:active
     class:disabled={disable}
     class="{$$props.class} {fill} {size} {color} text-center inline-block"
     {type}
+    {title}
     on:click={runWithSpinner}
     disabled={disable}
   >
