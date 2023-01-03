@@ -1,65 +1,51 @@
 <script lang="ts">
-  import { portal } from '../actions/portal';
-
-  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { fade } from 'svelte/transition';
+  import { portal } from '../actions/portal';
+  import { trapFocus } from './trapFocus';
+
+  export let noscroll = false;
+  export let zIndex = 60;
+  export let duration = 200;
 
   const dispatch = createEventDispatcher<{ close: boolean }>();
   const close = () => dispatch('close');
 
-  export let noscroll = false;
+  let modal: HTMLElement;
+
   onMount(() => {
+    const previouslyFocused = typeof document !== 'undefined' && (document.activeElement as HTMLElement);
     noscroll && (document.body.style.overflow = 'hidden');
+
+    return () => {
+      if (previouslyFocused) {
+        previouslyFocused.focus();
+        document.body.style.overflow = 'auto';
+      }
+    };
   });
-
-  let modal: HTMLDivElement;
-
-  const handleKeydown = (e) => {
-    if (e.key === 'Escape') {
-      close();
-      return;
-    }
-
-    if (e.key === 'Tab') {
-      // trap focus
-      const nodes = modal.querySelectorAll('*');
-      //@ts-ignore
-      const tabbable = Array.from(nodes).filter((n) => n.tabIndex >= 0);
-
-      let index = tabbable.indexOf(document.activeElement);
-      if (index === -1 && e.shiftKey) index = 0;
-
-      index += tabbable.length + (e.shiftKey ? -1 : 1);
-      index %= tabbable.length;
-
-      //@ts-ignore
-      tabbable[index].focus();
-      e.preventDefault();
-    }
-  };
-
-  const previously_focused = typeof document !== 'undefined' && document.activeElement;
-
-  if (previously_focused) {
-    onDestroy(() => {
-      //@ts-ignore
-      previously_focused.focus();
-      document.body.style.overflow = 'auto';
-    });
-  }
 </script>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window
+  on:keydown={(e) => {
+    if (e.key === 'Escape') return close();
+    if (e.key === 'Tab') trapFocus(e, modal);
+  }}
+/>
 
-<div use:portal class="fixed inset-0 p-4 flex items-center justify-center" style="z-index: 60;">
-  <div class="fixed inset-0 transition-opacity" transition:fade={{ duration: 200 }}>
+<div
+  use:portal
+  class="fixed inset-0 p-4 flex items-center justify-center"
+  style="z-index: {zIndex};"
+>
+  <div class="fixed inset-0 transition-opacity" transition:fade={{ duration }}>
     <button type="button" class="absolute inset-0 bg-black opacity-50" on:click={close} />
   </div>
 
   <div
     transition:fade={{ duration: 200 }}
     class="{$$props.class} bg-white rounded-lg overflow-hidden shadow-xl transform
-    transition-all sm:max-w-lg w-full max-h-full flex flex-col"
+    transition-all sm:max-w-lg w-full max-h-full flex flex-col z-1"
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-headline"

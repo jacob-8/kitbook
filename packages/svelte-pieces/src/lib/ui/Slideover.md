@@ -54,7 +54,7 @@
   let:knobs={{ duration, zIndex, rightSide }}
 >
   <ShowHide let:show={hide} let:toggle>
-    <Button onclick={toggle}>Show</Button>
+    <Button onclick={toggle}>Show {rightSide ? 'right' : 'left'}</Button>
     {#if !hide}
       <Slideover {duration} {zIndex} side={rightSide ? 'right' : 'left'} on:close={toggle}>
         <!-- <div class="text-lg font-medium text-gray-900 p-3 border-b border-gray-300" slot="heading">

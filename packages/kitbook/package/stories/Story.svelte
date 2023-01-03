@@ -25,7 +25,7 @@ let hovered = false;
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
 {#if isCurrentSandboxStory}
   <div class="show-in-sandbox" style="display: contents;">
-    <slot props={propsFromSandbox} />
+    <slot props={propsFromSandbox} knobs={propsFromSandbox} />
   </div>
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
