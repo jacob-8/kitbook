@@ -3,41 +3,36 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- part 1 (just titles) of search from https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - use in living-dictionaries and update docs as I go 
-  - (fix modal issue in Edit Gloss Languages)
   - don't show Kitbook tip to pass in props if it's a variant for a component without props
-- understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
-- make sure all docs are up-to-date, even if not fully written
-- merge to main 
-- don't show grayed out empty stories for components with details on build
-- DRY things out
-- show Story and Variant code in sidebar
-  - fetch raw code strings via store
-
-## Important before encouraging others to use
-- solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
-- `npm publish --tag beta`
-- share mdsvex-shiki-twoslash w/ orta
-- improve knob sub-components
-- send alpha test question to discord query person
 - make main section scrollable so jumping pages doesn't leave you partway down
-- move css package to this repo and update with latest settings
-- esbuild minify and don't place things into one folder (unbuild)
+- show Story and Variant code in instrument panel
+  - fetch raw code strings via store
 - automatically analyze component for props
-- Next and Previous pages (see Docusaurus/Vitebook)
-- be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
+  - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
 - improve message for pages in sidebar w/o any stories or variants until component props are automatically detected
-- Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
-- Add full-screen view for sandbox
+- understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
 - update meta-tags based on current page
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - catch when a variants file exists by itself and inform how to use variants
+- improve knob sub-components
+- solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
+- make sure all docs are accurate, even if not complete
+- merge to main and `npm publish --tag beta`
+- share mdsvex-shiki-twoslash w/ orta
+- send test question to discord query person
+
+## After sharing
+- don't show grayed out empty stories for components with details on build
+- Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
+- Add full-screen view for sandbox
 - keep sidebar active page in view
 - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
+- Next and Previous pages (see Docusaurus/Vitebook)
+- esbuild minify and don't place things into one folder (unbuild)
+- move css package to this repo and update with latest settings
 - be able to automatically change any props for a component inside a Story by using the plugin to rewrite things a bit. Also, also setting start value directly on the component
-
-## Nice to Have
+- expand search to include raw string content https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - add quick QRCode for easy opening of an iframed example on phone
 - add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)
 - add button to iframe to open separately in new window

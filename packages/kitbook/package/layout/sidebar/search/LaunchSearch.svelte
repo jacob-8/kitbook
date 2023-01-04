@@ -2,7 +2,7 @@
 import { Button } from "svelte-pieces";
 import SearchModal from "./SearchModal.svelte";
 const isMac = typeof navigator !== "undefined" && navigator.platform === "MacIntel";
-let searching = true;
+let searching = false;
 afterNavigate(() => {
   searching = false;
 });
@@ -14,7 +14,6 @@ afterNavigate(() => {
     if (e.key === 'k' && (isMac ? e.metaKey : e.ctrlKey)) {
       e.preventDefault();
       searching = !searching;
-      // $query = '';
     }
   }}
 />

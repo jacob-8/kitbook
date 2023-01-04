@@ -1,22 +1,84 @@
 <script lang="ts">
-  import { Modal, Button } from 'svelte-pieces';
+  import { createEventDispatcher } from 'svelte';
+  import { fade } from 'svelte/transition';
+  import { portal } from 'svelte-pieces';
   import { page } from '$app/stores';
-  import type { GroupedPageMap } from '../../../kitbook-types';
-  // import { createEventDispatcher } from 'svelte';
-  // const dispatch = createEventDispatcher<{ close: boolean }>();
+  import { goto } from '$app/navigation';
+  import SearchResult from './SearchResult.svelte';
+  import { filterPages } from './filterPages';
 
-  $: pages = $page.data?.pages && Object.values($page.data.pages as GroupedPageMap) || [];
+  const dispatch = createEventDispatcher<{ close: boolean }>();
+  function close() {
+    dispatch('close');
+  }
+
+  function autofocus(node: HTMLInputElement) {
+    setTimeout(() => node.focus(), 15);
+  }
+
+  let modal: HTMLElement;
+  let query = '';
+
+  $: filteredPages = filterPages($page.data?.pages, query);
+  $: activeIndex = filteredPages?.length ? 0 : null;
+
+  function selectPrevious() {
+    if (activeIndex > 0) activeIndex -= 1;
+  }
+  function selectNext() {
+    if (activeIndex < filteredPages.length - 1) activeIndex += 1;
+  }
 </script>
 
-<Modal on:close>
-  <div slot="heading">Search</div>
-  {#if pages}
-    {#each pages as page}
-      <Button href={page.url} title={JSON.stringify(page, null, 2)}>{page.name}</Button>
-    {/each}
-  {/if}
-  <!-- <div class="modal-footer">
-      <Button form="simple" onclick={toggle}>Close</Button>
-      <Button form="filled" type="submit">Save</Button>
-    </div> -->
-</Modal>
+<svelte:window
+  on:keydown={(e) => {
+    if (e.key === 'Escape') return close();
+
+    if (['ArrowDown', 'ArrowUp', 'Tab'].includes(e.key)) e.preventDefault();
+
+    if (e.key === 'ArrowDown') selectNext();
+    if (e.key === 'Tab' && !e.shiftKey) selectNext();
+
+    if (e.key === 'ArrowUp') selectPrevious();
+    if (e.key === 'Tab' && e.shiftKey) selectPrevious();
+  }}
+/>
+
+<div
+  use:portal
+  class="fixed inset-0 p-4 md-pt-10 flex items-start justify-center"
+  style="z-index: 60;"
+>
+  <div class="fixed inset-0 transition-opacity" transition:fade={{ duration: 200 }}>
+    <button type="button" class="absolute inset-0 bg-black opacity-50" on:click={close} />
+  </div>
+
+  <div
+    transition:fade={{ duration: 200 }}
+    class="bg-white rounded-lg overflow-hidden shadow-xl transform
+    transition-all sm:max-w-lg w-full max-h-full flex flex-col z-1"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-headline"
+    bind:this={modal}
+  >
+    <input
+      class="p-3"
+      use:autofocus
+      on:keydown={(e) => {
+        if (e.key === 'Enter' && activeIndex !== null) {
+          goto(filteredPages[activeIndex].url);
+        }
+      }}
+      bind:value={query}
+      placeholder="Search"
+      aria-label="Search"
+      spellcheck="false"
+    />
+    <div class="overflow-y-auto flex-1">
+      {#each filteredPages as page, index}
+        <SearchResult active={index === activeIndex} {page} />
+      {/each}
+    </div>
+  </div>
+</div>

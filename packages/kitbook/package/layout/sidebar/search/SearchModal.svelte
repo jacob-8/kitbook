@@ -1,18 +1,83 @@
-<script>import { Modal, Button } from "svelte-pieces";
+<script>import { createEventDispatcher } from "svelte";
+import { fade } from "svelte/transition";
+import { portal } from "svelte-pieces";
 import { page } from "$app/stores";
+import { goto } from "$app/navigation";
+import SearchResult from "./SearchResult.svelte";
+import { filterPages } from "./filterPages";
+const dispatch = createEventDispatcher();
+function close() {
+  dispatch("close");
+}
+function autofocus(node) {
+  setTimeout(() => node.focus(), 15);
+}
+let modal;
+let query = "";
 $:
-  pages = $page.data?.pages && Object.values($page.data.pages) || [];
+  filteredPages = filterPages($page.data?.pages, query);
+$:
+  activeIndex = filteredPages?.length ? 0 : null;
+function selectPrevious() {
+  if (activeIndex > 0)
+    activeIndex -= 1;
+}
+function selectNext() {
+  if (activeIndex < filteredPages.length - 1)
+    activeIndex += 1;
+}
 </script>
 
-<Modal on:close>
-  <div slot="heading">Search</div>
-  {#if pages}
-    {#each pages as page}
-      <Button href={page.url} title={JSON.stringify(page, null, 2)}>{page.name}</Button>
-    {/each}
-  {/if}
-  <!-- <div class="modal-footer">
-      <Button form="simple" onclick={toggle}>Close</Button>
-      <Button form="filled" type="submit">Save</Button>
-    </div> -->
-</Modal>
+<svelte:window
+  on:keydown={(e) => {
+    if (e.key === 'Escape') return close();
+
+    if (['ArrowDown', 'ArrowUp', 'Tab'].includes(e.key)) e.preventDefault();
+
+    if (e.key === 'ArrowDown') selectNext();
+    if (e.key === 'Tab' && !e.shiftKey) selectNext();
+
+    if (e.key === 'ArrowUp') selectPrevious();
+    if (e.key === 'Tab' && e.shiftKey) selectPrevious();
+  }}
+/>
+
+<div
+  use:portal
+  class="kb-ybjazw"
+  style="z-index: 60;"
+>
+  <div class="kb-cn4kow" transition:fade={{ duration: 200 }}>
+    <button type="button" class="kb-qn007q" on:click={close} />
+  </div>
+
+  <div
+    transition:fade={{ duration: 200 }}
+    class="kb-i6w7cz"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-headline"
+    bind:this={modal}
+  >
+    <input
+      class="kb-vnfkrj"
+      use:autofocus
+      on:keydown={(e) => {
+        if (e.key === 'Enter' && activeIndex !== null) {
+          goto(filteredPages[activeIndex].url);
+        }
+      }}
+      bind:value={query}
+      placeholder="Search"
+      aria-label="Search"
+      spellcheck="false"
+    />
+    <div class="kb-w52wtg">
+      {#each filteredPages as page, index}
+        <SearchResult active={index === activeIndex} {page} />
+      {/each}
+    </div>
+  </div>
+</div>
+
+<style>:global(.kb-cn4kow){position:fixed;inset:0rem;transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}:global(.kb-qn007q){position:absolute;inset:0rem;--un-bg-opacity:1;background-color:rgba(0,0,0,var(--un-bg-opacity));opacity:0.5;}:global(.kb-ybjazw){position:fixed;inset:0rem;display:flex;align-items:flex-start;justify-content:center;padding:1rem;}:global(.kb-i6w7cz){z-index:1;max-height:100%;width:100%;display:flex;flex-direction:column;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z));overflow:hidden;border-radius:0.5rem;--un-bg-opacity:1;background-color:rgba(255,255,255,var(--un-bg-opacity));--un-shadow:var(--un-shadow-inset) 0 20px 25px -5px var(--un-shadow-color, rgba(0,0,0,0.1)),var(--un-shadow-inset) 0 8px 10px -6px var(--un-shadow-color, rgba(0,0,0,0.1));box-shadow:var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow);transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}:global(.kb-w52wtg){flex:1 1 0%;overflow-y:auto;}:global(.kb-vnfkrj){padding:0.75rem;}@media (min-width: 640px){:global(.kb-i6w7cz){max-width:32rem;}}@media (min-width: 768px){:global(.kb-ybjazw){padding-top:2.5rem;}}</style>
