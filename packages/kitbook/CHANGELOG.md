@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.10 - 2023-1-5
+
+- - Load View once visible (intersecting viewport)
+
 ## 1.0.0-alpha.7 - 2023-1-3
 
 - - Bug fixes

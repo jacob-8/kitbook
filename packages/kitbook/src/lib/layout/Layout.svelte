@@ -25,14 +25,16 @@
 
 <div class="h-full">
   <SplitPane min={0} pos={15}>
-    <div class="h-full bg-gray-100" slot="a">
+    <div class="h-full bg-gray-100 flex flex-col pr-2" slot="a">
       <Header bind:showSidebar {githubURL} {activeURL}>
-        <slot name="title"><span class="i-ic-round-home text-2xl mr-2px" />{title}</slot>
+        <slot name="title">{title}</slot>
       </Header>
 
-      <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
-        <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
-      </Sidebar>
+      <div class="grow-1 overflow-y-auto">
+        <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
+          <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
+        </Sidebar>
+      </div>
     </div>
 
     <svelte:fragment slot="b">

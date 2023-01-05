@@ -8,10 +8,15 @@ $:
   );
 $:
   doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
+let scrollingDiv;
+import { afterNavigate } from "$app/navigation";
+afterNavigate(() => {
+  scrollingDiv && (scrollingDiv.scrollTop = 0);
+});
 </script>
 
 <div class="kb-2ax1r3">
-  <div class="kb-klwpws tw-prose">
+  <div bind:this={scrollingDiv} class="kb-klwpws tw-prose">
     {#if data.error}
       {data.error}
     {:else}

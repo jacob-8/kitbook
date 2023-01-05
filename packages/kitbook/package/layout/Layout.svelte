@@ -21,14 +21,16 @@ let showSidebar = false;
 
 <div class="kb-cjzbcu">
   <SplitPane min={0} pos={15}>
-    <div class="kb-1l52p7" slot="a">
+    <div class="kb-la70d7" slot="a">
       <Header bind:showSidebar {githubURL} {activeURL}>
-        <slot name="title"><span class="kb-vmkumz" />{title}</slot>
+        <slot name="title">{title}</slot>
       </Header>
 
-      <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
-        <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
-      </Sidebar>
+      <div class="kb-q2eyi1">
+        <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
+          <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
+        </Sidebar>
+      </div>
     </div>
 
     <svelte:fragment slot="b">
@@ -50,4 +52,4 @@ let showSidebar = false;
   <meta name="description" content={description} />
 </svelte:head>
 
-<style>:global(.kb-vmkumz){--un-icon:url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 24 24' display='inline-block' vertical-align='middle' width='1em' height='1em' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath fill='currentColor' d='M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z'/%3E%3C/svg%3E");mask:var(--un-icon) no-repeat;mask-size:100% 100%;-webkit-mask:var(--un-icon) no-repeat;-webkit-mask-size:100% 100%;background-color:currentColor;color:inherit;display:inline-block;vertical-align:middle;width:1em;height:1em;margin-right:2px;font-size:1.5rem;line-height:2rem;}:global(.kb-1l52p7){height:100%;--un-bg-opacity:1;background-color:rgba(243,244,246,var(--un-bg-opacity));}:global(.kb-cjzbcu){height:100%;}</style>
+<style>:global(.kb-1l52p7){height:100%;--un-bg-opacity:1;background-color:rgba(243,244,246,var(--un-bg-opacity));}:global(.kb-cjzbcu){height:100%;}:global(.kb-la70d7){height:100%;display:flex;flex-direction:column;--un-bg-opacity:1;background-color:rgba(243,244,246,var(--un-bg-opacity));padding-right:0.5rem;}:global(.kb-q2eyi1){flex-grow:1;overflow-y:auto;}</style>

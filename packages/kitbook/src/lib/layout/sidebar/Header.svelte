@@ -9,7 +9,7 @@
   let root = '/';
 </script>
 
-<header class="top-0 z-10 sticky flex p-1">
+<header class="flex flex-wrap py-1 pl-1 w-full">
   <button
     class="p-2 text-2xl font-semibold flex items-center md:hidden"
     on:click={() => (showSidebar = !showSidebar)}
@@ -19,7 +19,7 @@
   <a
     href={root}
     class:text-blue-600={activeURL === root}
-    class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800"
+    class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden"
   >
     <slot>Kitbook</slot>
   </a>
@@ -34,7 +34,7 @@
       href={githubURL}
       target="_blank"
       title="View GitHub Repo"
-      class="flex items-center"
+      class="!flex items-center"
     >
       <span class="i-mdi-github text-lg" />
     </Button>

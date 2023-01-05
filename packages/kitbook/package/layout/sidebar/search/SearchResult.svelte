@@ -3,7 +3,7 @@ export let page;
 export let active = false;
 </script>
 
-<Button form="menu" class="kb-sxblpr" href={page.url} {active} title={JSON.stringify(page, null, 2)}>
+<Button form="menu" class="kb-sxblpr" href={page.url} {active}>
   <div class="kb-iz47nk">
     <div class="kb-v77nb5">
       {page.name}
