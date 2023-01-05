@@ -5,7 +5,7 @@
   export let active = false;
 </script>
 
-<Button form="menu" class="w-full !rounded-0" href={page.url} {active} title={JSON.stringify(page, null, 2)}>
+<Button form="menu" class="w-full !rounded-0" href={page.url} {active}>
   <div class="text-left">
     <div class="capitalize">
       {page.name}
