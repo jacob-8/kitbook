@@ -42,16 +42,15 @@ export default config;
 // cancel: augmentSvelteConfigForKitbook - not using in the Kitbook package itself because svelte.config.js does not support importing typescript files. As well this package only has a Kitbook and not a regular app.
 
 /**
- * @param {string} filename 
+ * @param {string} filepath 
  * @returns boolean
  */
-function removeStoriesAndVariants(filename) {
-  if (filename.startsWith('routes')) {
-    const isARouteFile = filename.includes('+page') || filename.includes('+layout');
+function removeStoriesAndVariants(filepath) {
+  if (filepath.startsWith('routes')) {
+    const isARouteFile = filepath.includes('+page') || filepath.includes('+layout');
     return isARouteFile;
   }
 
-  const isSvx = filename.endsWith('.svx') || filename.endsWith('.md');
-  if (isSvx) return false;
-  return true;
+  const isStoriesOrVariants = filepath.endsWith('.variants.ts') || filepath.endsWith('.md') || filepath.endsWith('.svx');
+  return !isStoriesOrVariants;
 }

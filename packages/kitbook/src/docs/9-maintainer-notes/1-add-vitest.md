@@ -1,11 +1,11 @@
 # Add Vitest
 
-**Here's how we added Vitest to Kitbook. This is only for maintenance reference, but you can also implement in your repo if desired.**
+Here's how we added Vitest to Kitbook written here for maintenance reference.
 
-- `pnpm --filter=kitbook add -D vitest`
+- `pnpm -F kitbook add -D vitest`
 - turn on `globals` option and [In-source testing](https://vitest.dev/guide/features.html#in-source-testing) by creating a `vitest.config.ts` file:
 
-```ts title="vitest.config.ts"
+```ts twoslash title="vitest.config.ts"
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -17,7 +17,8 @@ export default defineConfig({
 ```
 
 - Acquaint Typescript:
-```json title="tsconfig.json"
+
+```json title="tsconfig.json" {3-4}
 "compilerOptions": {
   "types": [
     "vitest/globals",
@@ -29,10 +30,10 @@ export default defineConfig({
 - Add an inline test
 ```ts
 if (import.meta.vitest) {
-  test('foo(bar) returns...', () => {
-    expect(foo(bar)).toMatchInlineSnapshot();
+  test('capitalize turns bar into Bar', () => {
+    expect(capitalize('bar')).toMatchInlineSnapshot(`"Bar"`);
   })
 }
 ```
 
-- Turn on VSCode autosave and run Vitest in update mode with the `-u` flag to have the inline snapshot update as you type.
+- For a REPL like experience turn on VSCode autosave and run Vitest in update mode with the `-u` flag to have the inline snapshot update as you type.

@@ -8,11 +8,6 @@ While a lot of great tools exist, they are buggy and/or do not work well for bui
 
 - **[Bookit](https://bookit.leveluptutorials.com/)** is going the right direction and is the only one listed here allowing SvelteKit imports and features, but it is very feature incomplete and is more of a prototyping tool than a documentation one.
 
-- **[Vitebook](https://vitebook.dev/)** was visually appealing but was missing many important prototyping features and is now discontinued.
+- **[Vitebook](https://vitebook.dev/)** was visually appealing but was missing many important prototyping features and was discontinued.
 
-All of the above tools, especially Svench, have served as a source of inspiration and ideas for Kitbook. Additionally, the following could also be helpful sources of inspiration in the future:
-
-- [KitDocs](https://kit-docs.svelteness.dev/) 
-- [svelte-knobby](https://github.com/Rich-Harris/svelte-knobby)
-- svelte-headlessui
-- https://github.com/importantimport/urara
+All of the above tools, especially Svench, have served as a source of inspiration and ideas for Kitbook.

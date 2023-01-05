@@ -1,9 +1,9 @@
 export function filterPages(pageMap, query) {
-    const _query = query?.replace(/ /g, '');
     const pages = [];
-    if (!pageMap || !_query)
+    if (!pageMap)
         return pages;
     const pagesToFilterAndSort = Object.values(pageMap);
+    const _query = query?.replace(/ /g, '');
     const startsWithName = pagesToFilterAndSort.filter(({ name }) => startsWithQuery(name, _query));
     const nameIncluded = pagesToFilterAndSort.filter(({ name }) => includesQuery(name, _query));
     const urlIncluded = pagesToFilterAndSort.filter(({ url }) => includesQuery(url, _query));

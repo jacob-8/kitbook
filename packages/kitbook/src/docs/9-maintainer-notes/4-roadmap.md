@@ -1,21 +1,26 @@
-# To-Do Lists
+# Roadmap
 
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- comb through living-dictionaries and merge to main 
-  - update docs and merge to main
 - show Story and Variant code in instrument panel
   - fetch raw code strings via store
+ 
 - automatically analyze component for props
   - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
+  - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
 
 - understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
+
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - catch when a variants file exists by itself and inform how to use variants
+
 - improve knob sub-components, maybe use svelte-knobby to help 
+
 - solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
-- make sure all docs are accurate, even if not complete
+
+- publish Kitbook extension
+
 - `npm publish --tag beta`
 - share mdsvex-shiki-twoslash w/ orta
 - send test question to discord query person
@@ -44,9 +49,10 @@
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
 - use plugin to automatically give IDs to stories
 - Investigate [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) or [Viteshot](https://viteshot.com/) for visual regression screenshot testing
-- Dark mode (both for Kitbook and for individual sandboxes - or be able to show light and dark side by side)
+- Dark mode (both for Kitbook and for individual sandboxes - or be able to show light and dark side by side) learn from https://github.com/dansvel/sveltekit-windi
 - backlinks
 - esbuild minify and don't place things into one folder (unbuild)
+- support `variants.js`
 
 ## Post 1.0
 - add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')
@@ -63,3 +69,14 @@
   "linkDirectory": true
 },
 ```
+
+ Additionally, the following could also be helpful sources of inspiration in the future:
+
+- [KitDocs](https://kit-docs.svelteness.dev/) 
+- [svelte-knobby](https://github.com/Rich-Harris/svelte-knobby)
+- svelte-headlessui
+- https://github.com/importantimport/urara
+
+
+## dynamic slots scratch notes
+

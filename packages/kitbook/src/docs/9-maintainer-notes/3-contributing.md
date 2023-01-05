@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are welcome! After cloning down the monorepo, with pnpm installed on your machine, run `pnpm i` and `pnpm dev` to get started.
+Contributions are welcome! After cloning the monorepo, with pnpm installed on your machine, run `pnpm i` and `pnpm dev` to get started.
 
 ## Customization
 

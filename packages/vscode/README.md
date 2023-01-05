@@ -1,14 +1,14 @@
 # Kitbook VSCode Extension
 
-Learning from https://code.visualstudio.com/api and https://github.com/rebornix/vscode-toggle, https://medium.com/hack-visual-studio-code/toggle-any-setting-in-vs-code-using-keyboard-shortcut-arguments-cdb5ddc56955, https://github.com/unocss/unocss/blob/main/packages/vscode/README.md, https://github.com/sebsojeda/vscode-svx, https://github.com/Microsoft/vscode-sublime-keybindings
+At present this extension serves to easily allow you to toggling on/off the treatment of markdown files as `svelte` files to enable you to go back and forth between markdown and svelte language services in the same `.md` file. 
 
-Add the keybinding (adjust as you desire) to your keyboard shortcuts: Open Command Palette > `Preferences: Open Keyboard Shortcuts (JSON)`:
+```json
+"files.associations": {
+  "*.md": "svelte" // toggles this line on/off
+},
+```
 
-## Backlinking
-`\[\[(.+?)\]\]` will detect wikilinks
-- https://github.com/hikerpig/foam-template-gatsby-kb
-- https://github.com/hikerpig/gatsby-project-kb
-- https://github.com/mathieudutour/foam-gatsby-template
+After installing the extension (manually install from the `vsix` file in this package until extension is placed into the store), add the following keybinding (adjust as you desire) to your keyboard shortcuts by opening the Command Palette (Ctrl+p on Windows) and select `Preferences: Open Keyboard Shortcuts (JSON)`. Add the following:
 
 ```json
 {
@@ -17,38 +17,35 @@ Add the keybinding (adjust as you desire) to your keyboard shortcuts: Open Comma
 }
 ```
 
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Then any time you press that keybinding, the association will be flipped.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+For use with [Kitbook](https://kitbook.vercel.app/)
+## TODO: Backlinking
+`\[\[(.+?)\]\]` will detect wikilinks
+- https://github.com/hikerpig/foam-template-gatsby-kb
+- https://github.com/hikerpig/gatsby-project-kb
+- https://github.com/mathieudutour/foam-gatsby-template
 
-## Extension Settings
+<!-- ## Extension Settings -->
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+<!-- Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
 For example:
 
 This extension contributes the following settings:
 
 * `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `myExtension.thing`: Set to `blah` to do something. -->
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+<!-- ## Known Issues -->
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Not yet published but you can install it manually from the `.vsix` file in this package.
+
+<!-- Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
@@ -60,27 +57,11 @@ Fixed issue #.
 
 ### 1.1.0
 
-Added features X, Y, and Z.
+Added features X, Y, and Z. -->
 
----
+<!-- * [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines) -->
 
-## Following extension guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+## Misc
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Learning from https://code.visualstudio.com/api and https://github.com/rebornix/vscode-toggle, https://medium.com/hack-visual-studio-code/toggle-any-setting-in-vs-code-using-keyboard-shortcut-arguments-cdb5ddc56955, https://github.com/unocss/unocss/blob/main/packages/vscode/README.md, https://github.com/sebsojeda/vscode-svx, https://github.com/Microsoft/vscode-sublime-keybindings

@@ -61,7 +61,7 @@ export const variants: Variants<typeof Component> = [
       page: {
         "extensions": [
           "svelte",
-          "svx",
+          "md",
           "variants.ts",
         ],
         "loadComponent": {

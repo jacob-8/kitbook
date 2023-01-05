@@ -46,3 +46,5 @@
 ## Todo: 
 - Add top level icons
 - Add optional width prop
+
+There is an optional `footer` slots in the sidebar which is placed beneath the navigation tree and above the "Created with Kitbook" link.
