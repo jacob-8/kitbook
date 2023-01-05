@@ -63,7 +63,7 @@
     bind:this={modal}
   >
     <input
-      class="p-3"
+      class="p-3 outline-none"
       use:autofocus
       on:keydown={(e) => {
         if (e.key === 'Enter' && activeIndex !== null) {
@@ -71,13 +71,16 @@
         }
       }}
       bind:value={query}
+      type="search"
       placeholder="Search"
       aria-label="Search"
       spellcheck="false"
     />
-    <div class="overflow-y-auto flex-1">
+    <div class="overflow-y-auto flex-1 border-t border-gray-300">
       {#each filteredPages as page, index}
         <SearchResult active={index === activeIndex} {page} />
+      {:else}
+        <div class="opacity-50 p-3">No results found</div>
       {/each}
     </div>
   </div>

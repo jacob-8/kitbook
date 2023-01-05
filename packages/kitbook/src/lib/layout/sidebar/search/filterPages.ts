@@ -1,11 +1,11 @@
 import type { GroupedPage, GroupedPageMap } from "../../../kitbook-types";
 
 export function filterPages(pageMap: GroupedPageMap, query: string) {
-  const _query = query?.replace(/ /g, '');
   const pages: GroupedPage[] = [];
-  if (!pageMap || !_query) return pages;
-
+  if (!pageMap) return pages;
+  
   const pagesToFilterAndSort = Object.values(pageMap);
+  const _query = query?.replace(/ /g, '');
 
   const startsWithName = pagesToFilterAndSort.filter(({ name }) => startsWithQuery(name, _query));
   const nameIncluded = pagesToFilterAndSort.filter(({ name }) => includesQuery(name, _query));

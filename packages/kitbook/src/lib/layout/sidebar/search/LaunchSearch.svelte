@@ -15,7 +15,7 @@
 <svelte:window
   on:keydown={(e) => {
     if (e.code === 'Escape') searching = false;
-    if (e.key === 'k' && (isMac ? e.metaKey : e.ctrlKey)) {
+    if (['k', 'p'].includes(e.key) && (isMac ? e.metaKey : e.ctrlKey)) {
       e.preventDefault();
       searching = !searching;
     }
