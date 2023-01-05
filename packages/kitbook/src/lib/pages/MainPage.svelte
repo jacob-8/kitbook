@@ -15,10 +15,16 @@
     '/lib/routes/sandbox/[...file]/+'
   );
   $: doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
+
+  let scrollingDiv: HTMLDivElement;
+  import { afterNavigate } from '$app/navigation';
+  afterNavigate(() => {
+    scrollingDiv && (scrollingDiv.scrollTop = 0);
+  });
 </script>
 
 <div class="pr-2 h-full">
-  <div class="h-full overflow-y-auto tw-prose max-w-full p-4 pr-2">
+  <div bind:this={scrollingDiv} class="h-full overflow-y-auto tw-prose max-w-full p-4 pr-2">
     {#if data.error}
       {data.error}
     {:else}
