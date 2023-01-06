@@ -52,7 +52,7 @@ importers:
       replace-in-file: ^6.3.5
       svelte: ^3.55.0
       svelte-check: ^3.0.1
-      svelte-pieces: ^1.0.56
+      svelte-pieces: ^1.0.57
       svelte2tsx: ^0.6.0
       temp-s-p-u: ^0.0.7
       tslib: ^2.4.1
