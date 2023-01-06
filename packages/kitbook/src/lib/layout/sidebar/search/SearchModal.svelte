@@ -71,7 +71,6 @@
         }
       }}
       bind:value={query}
-      type="search"
       placeholder="Search"
       aria-label="Search"
       spellcheck="false"

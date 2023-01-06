@@ -14,6 +14,7 @@
 
   let container: HTMLDivElement;
   let dragging: 'width' | 'height' | 'both';
+  // may need to also listen for touchdown to give a touchcatcher like in the Layout
 
   const PADDING_TWICE = 24;
 </script>

@@ -5,18 +5,19 @@
 
 - show Story and Variant code in instrument panel
   - fetch raw code strings via store
+- Add full-screen focus view for sandbox
+  - make instrument panel show on mobile
  
 - automatically analyze component for props
   - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
   - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
 
-- understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
-
-- shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
-- catch when a variants file exists by itself and inform how to use variants
-
 - improve knob sub-components, maybe use svelte-knobby to help 
 
+- revisit items in iframe with top padding causing iframe scroll (edit in Github button)
+- shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
+- catch when a variants file exists by itself and inform how to use variants
+- understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
 - solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
 
 - publish Kitbook extension
@@ -30,7 +31,6 @@
 - don't show grayed out empty stories for components with details on build
 - figure out easier way to reference types inside of Kitbook
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
-- Add full-screen view for sandbox
 - keep sidebar active page in view
 - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
 - Next and Previous pages (see Docusaurus/Vitebook)

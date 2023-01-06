@@ -7,7 +7,7 @@
   import Header from './sidebar/Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders';
-  import { SplitPane } from 'svelte-pieces';
+  import LayoutPanes from './LayoutPanes.svelte';
   import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
   export let title = 'Kitbook';
@@ -23,32 +23,23 @@
   let showSidebar = false;
 </script>
 
-<div class="h-full">
-  <SplitPane min={0} pos={15}>
-    <div class="h-full bg-gray-100 flex flex-col pr-2" slot="a">
-      <Header bind:showSidebar {githubURL} {activeURL}>
-        <slot name="title">{title}</slot>
-      </Header>
+<LayoutPanes>
+  <svelte:fragment slot="leftside">
+    <Header bind:showSidebar {githubURL} {activeURL}>
+      <slot name="title">{title}</slot>
+    </Header>
+    <nav class="hidden md:block overflow-y-auto grow-1">
+      <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
+        <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
+      </Sidebar>
+    </nav>
+  </svelte:fragment>
 
-      <div class="grow-1 overflow-y-auto">
-        <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
-          <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
-        </Sidebar>
-      </div>
-    </div>
-
-    <svelte:fragment slot="b">
-      <SplitPane pos={75} min={20} max={100}>
-        <section class="h-full" slot="a">
-          <slot />
-        </section>
-        <section class="h-full bg-gray-100" slot="b">
-          <InstrumentPanel />
-        </section>
-      </SplitPane>
-    </svelte:fragment>
-  </SplitPane>
-</div>
+  <svelte:fragment slot="instruments">
+    <InstrumentPanel />
+  </svelte:fragment>
+  <slot />
+</LayoutPanes>
 
 <svelte:head>
   <!-- TODO: Update based on title + current page -->

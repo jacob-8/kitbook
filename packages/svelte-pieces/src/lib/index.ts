@@ -3,6 +3,8 @@ export { longpress } from './actions/longpress';
 export { portal } from './actions/portal';
 export { srcObject } from './actions/srcObject';
 
+export { clamp } from './utils/clamp';
+
 export { default as BadgeArray } from './data/BadgeArray.svelte';
 export { default as BadgeArrayEmit } from './data/BadgeArrayEmit.svelte';
 export { default as JSON } from './data/JSON.svelte';

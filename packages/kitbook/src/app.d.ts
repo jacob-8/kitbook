@@ -15,5 +15,7 @@ declare namespace svelteHTML {
 	interface HTMLAttributes<T> {
 		'on:updatewidth'?: (event: { detail: number }) => any;
 		'on:updateheight'?: (event: { detail: number }) => any;
+		"on:stopdragging"?: (event: boolean) => any;
+		"on:startdragging"?: (event: boolean) => any;
 	}
 }

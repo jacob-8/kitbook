@@ -1,17 +1,17 @@
-html, body {
+/* html, body {
   height: 100%;
-}
+} */
 
 pre {
-  margin-left: -0.75rem !important;
-  margin-right: -0.75rem !important;
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 
 @media (min-width: 768px) {
   pre {
-    margin-left: 0rem !important;
-    margin-right: 0rem !important;
-    border-radius: 0.375rem !important;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    border-radius: 0.375rem;
   }
 }
 
