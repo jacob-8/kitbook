@@ -56,7 +56,7 @@
   <div
     transition:fade={{ duration: 200 }}
     class="bg-white rounded-lg overflow-hidden shadow-xl transform
-    transition-all sm:max-w-lg w-full max-h-full flex flex-col z-1"
+    transition-all sm:max-w-lg w-full max-h-full flex flex-col z-1 relative"
     role="dialog"
     aria-modal="true"
     aria-labelledby="modal-headline"
@@ -76,6 +76,11 @@
       aria-label="Search"
       spellcheck="false"
     />
+    <button
+      type="button"
+      class="absolute top-1 right-1 p-3 hover-bg-gray-200 rounded opacity-25 hover:opacity-100 flex items-center"
+      on:click={close}><span class="i-fa-solid-times" /></button
+    >
     <div class="overflow-y-auto flex-1 border-t border-gray-300">
       {#each filteredPages as page, index}
         <SearchResult active={index === activeIndex} {page} />
