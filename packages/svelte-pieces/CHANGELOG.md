@@ -1,6 +1,15 @@
 # svelte-pieces
 
-Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum.
+Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum. 2.0 on will follow semver.
+
+## 1.0.56
+
+- - portal `<Slideover>` to `body` element the same as `<Modal>` to allow for easier use in deeply nested elements that may have z-index complications.
+  - [breaking] add `showExternalIcon` prop to `<Button>` to allow for more control over when that icon shows (used to always show when `target="_blank"`). 
+
+## 1.0.55
+
+- - [breaking] remove buffer pixels option for `<SplitPane>` as it overrode `min` setting making that redundant and unusable. Instead of passing `--divider-hover: color` css variable as a style directive, now we set it through a prop that has a default.
 
 ## 1.0.54
 

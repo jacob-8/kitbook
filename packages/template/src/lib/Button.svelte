@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let route: string;
+  export let href: string;
 </script>
 
-<a href={route} style="background: pink; padding: 5px; border-radius: 4px;">Navigate to Kitbook</a>
+<a {href} style="background: pink; padding: 5px; border-radius: 4px;">
+  <slot>Open Kitbook Docs</slot>
+</a>

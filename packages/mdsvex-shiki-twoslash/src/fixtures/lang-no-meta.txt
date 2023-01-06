@@ -1,0 +1,2 @@
+js
+const foo = 2

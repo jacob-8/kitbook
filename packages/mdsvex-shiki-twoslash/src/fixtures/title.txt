@@ -1,0 +1,5 @@
+ts twoslash {3} title="some-file.ts"
+type Post = {
+  title: string;
+  description: string;
+};

@@ -7,7 +7,7 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 <p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/kitbook"><img src="https://img.shields.io/npm/v/kitbook?color=729B1B&label="></a>
+  <a href="https://www.npmjs.com/package/kitbook"><img alt="version" src="https://img.shields.io/npm/v/kitbook?color=729B1B&label="></a>
 <p>
 
 <p align="center">
@@ -16,7 +16,7 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 
 ## Kitbook Monorepo
 Contains Kitbook and Svelte-Pieces
-- Read the [Kitbook README](./packages/kitbook/README.md) for features, examples, and more
+- Read the [Kitbook README](packages/kitbook/README.mds) for features, examples, and more
 - Or jump to the [Svelte Pieces README](./packages/svelte-pieces/README.md) for that package's documentation
 
 

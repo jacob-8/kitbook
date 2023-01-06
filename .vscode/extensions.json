@@ -13,10 +13,13 @@
     "eamodio.gitlens",
     "github.vscode-pull-request-github",
     // "cschleiden.vscode-github-actions",
+    // Kitbook
+    "yzhang.markdown-all-in-one",
+    "foam.foam-vscode",
+    "jacob-8.kitbook-vscode",
     // ---- You should definitely install the ones above, the ones below are recommended
     // Efficiency
-    "usernamehw.errorlens",
-    "yzhang.markdown-all-in-one"
+    "usernamehw.errorlens"
     // Jacob's Recommendations
     // "aaron-bond.better-comments",
     // "vscode-icons-team.vscode-icons",

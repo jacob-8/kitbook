@@ -1,40 +1,40 @@
 <script lang="ts">
-  // from https://github.com/sveltejs/svelte-repl/blob/master/src/Repl.svelte
+  import { clamp } from '../utils/clamp';
   import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher<{ change: boolean }>();
+
   export let type: 'vertical' | 'horizontal' = 'horizontal';
-  export let pos = 50;
   export let fixed = false;
-  export let buffer = 42;
-  export let min: number = undefined;
+  export let dividerHoverColor = 'hsl(195, 53%, 70%)';
+  export let pos = 50;
+  export let min = 10;
   export let max: number = undefined;
-  let w: number;
-  let h: number;
-  $: size = type === 'vertical' ? h : w;
-  $: min = 100 * (buffer / size);
-  $: max = 100 - min;
-  function clamp(num: number, min: number, max: number) {
-    return num < min ? min : num > max ? max : num;
-  }
+  $: max = max || 100 - min;
   $: pos = clamp(pos, min, max);
-  const refs: any = {};
+
   let dragging = false;
-  function setPos(event) {
-    const { top, left } = refs.container.getBoundingClientRect();
+  let container: HTMLDivElement;
+  let containerWidth: number;
+  let containerHeight: number;
+  $: size = type === 'vertical' ? containerHeight : containerWidth;
+
+  function setPos(event: MouseEvent) {
+    const { top, left } = container.getBoundingClientRect();
     const px = type === 'vertical' ? event.clientY - top : event.clientX - left;
     pos = (100 * px) / size;
     dispatch('change');
   }
-  function setTouchPos(event) {
-    const { top, left } = refs.container.getBoundingClientRect();
+
+  function setTouchPos(event: TouchEvent) {
+    const { top, left } = container.getBoundingClientRect();
     const px =
       type === 'vertical' ? event.touches[0].clientY - top : event.touches[0].clientX - left;
     pos = (100 * px) / size;
     dispatch('change');
   }
-  function drag(node, callback) {
-    const mousedown = (event) => {
-      if (event.which !== 1) return;
+
+  function drag(node: HTMLElement, callback: (event: MouseEvent) => void) {
+    const onmousedown = (event: MouseEvent) => {
       event.preventDefault();
       dragging = true;
       const onmouseup = () => {
@@ -45,15 +45,15 @@
       window.addEventListener('mousemove', callback, false);
       window.addEventListener('mouseup', onmouseup, false);
     };
-    node.addEventListener('mousedown', mousedown, false);
+    node.addEventListener('mousedown', onmousedown, false);
     return {
       destroy() {
-        node.removeEventListener('mousedown', mousedown, false);
+        node.removeEventListener('mousedown', onmousedown, false);
       },
     };
   }
-  function touchDrag(node, callback) {
-    const touchdown = (event) => {
+  function touchDrag(node: HTMLElement, callback: (event: TouchEvent) => void) {
+    const ontouchstart = (event: TouchEvent) => {
       if (event.targetTouches.length > 1) return;
       event.preventDefault();
       dragging = true;
@@ -65,30 +65,37 @@
       window.addEventListener('touchmove', callback, false);
       window.addEventListener('touchend', ontouchend, false);
     };
-    node.addEventListener('touchstart', touchdown, false);
+    node.addEventListener('touchstart', ontouchstart, false);
     return {
       destroy() {
-        node.removeEventListener('touchstart', touchdown, false);
+        node.removeEventListener('touchstart', ontouchstart, false);
       },
     };
   }
-  $: side = type === 'horizontal' ? 'left' : 'top';
-  $: dimension = type === 'horizontal' ? 'width' : 'height';
 </script>
 
-<div class="panes-container" bind:this={refs.container} bind:clientWidth={w} bind:clientHeight={h}>
-  <div class="pane" style="{dimension}: {pos}%;">
+<div
+  class:flex-col={type === 'vertical'}
+  class="relative h-full w-full flex items-stretch"
+  style="--dividerHoverColor: {dividerHoverColor}"
+  bind:this={container}
+  bind:clientWidth={containerWidth}
+  bind:clientHeight={containerHeight}
+>
+  <div class="pane" style="flex-basis: {pos}%;">
     <slot name="a" />
   </div>
 
-  <div class="pane" style="{dimension}: {100 - pos}%;">
+  <div class="pane" style="flex-basis: {100 - pos}%;">
     <slot name="b" />
   </div>
 
   {#if !fixed}
     <div
-      class="{type} divider"
-      style="{side}: calc({pos}% - 8px)"
+      class:horizontal={type === 'horizontal'}
+      class:vertical={type === 'vertical'}
+      class="divider"
+      style="{type === 'horizontal' ? 'left' : 'top'}: calc({pos}% - 8px)"
       use:drag={setPos}
       use:touchDrag={setTouchPos}
     />
@@ -100,34 +107,22 @@
 {/if}
 
 <style>
-  .panes-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
   .pane {
     position: relative;
-    float: left;
-    width: 100%;
-    height: 100%;
     overflow: auto;
   }
   .mousecatcher {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.01);
+    --at-apply: absolute inset-0;
   }
   .divider {
     position: absolute;
     z-index: 10;
-    display: none;
+    display: block;
   }
   .divider:hover::after {
-    background-color: var(--divider-hover);
+    background-color: var(--dividerHoverColor);
     opacity: 0.5;
+    transition: background-color 1s;
   }
   .divider::after {
     content: '';
@@ -152,30 +147,9 @@
     cursor: ns-resize;
   }
   .vertical::after {
-    top: 8px;
+    top: 4px;
     left: 0;
     width: 100%;
-    height: 1px;
-  }
-  .left,
-  .right,
-  .divider {
-    display: block;
-  }
-  .left,
-  .right {
-    height: 100%;
-    float: left;
-  }
-  .top,
-  .bottom {
-    position: absolute;
-    width: 100%;
-  }
-  .top {
-    top: 0;
-  }
-  .bottom {
-    bottom: 0;
+    height: 8px;
   }
 </style>

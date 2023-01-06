@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
   import { fly, fade } from 'svelte/transition';
+  import { portal } from '../actions/portal';
+  import { trapFocus } from './trapFocus';
 
   export let zIndex = 60;
   export let duration = 200;
@@ -11,67 +13,51 @@
   const dispatch = createEventDispatcher<{ close: boolean }>();
   const close = () => dispatch('close');
 
-  let modal: HTMLElement;
+  let slideover: HTMLElement;
 
-  const handle_keydown = (e) => {
-    if (e.key === 'Escape') {
-      close();
-      return;
-    }
+  onMount(() => {
+    const previouslyFocused =
+      typeof document !== 'undefined' && (document.activeElement as HTMLElement);
 
-    if (e.key === 'Tab') {
-      // trap focus
-      const nodes = modal.querySelectorAll('*');
-      //@ts-ignore
-      const tabbable = Array.from(nodes).filter((n) => n.tabIndex >= 0);
-
-      let index = tabbable.indexOf(document.activeElement);
-      if (index === -1 && e.shiftKey) index = 0;
-
-      index += tabbable.length + (e.shiftKey ? -1 : 1);
-      index %= tabbable.length;
-
-      //@ts-ignore
-      tabbable[index].focus();
-      e.preventDefault();
-    }
-  };
-
-  const previously_focused = typeof document !== 'undefined' && document.activeElement;
-
-  if (previously_focused) {
-    onDestroy(() => {
-      //@ts-ignore
-      previously_focused.focus();
-    });
-  }
+    return () => {
+      if (previouslyFocused) {
+        previouslyFocused.focus();
+      }
+    };
+  });
 </script>
 
-<svelte:window on:keydown={handle_keydown} />
+<svelte:window
+  on:keydown={(e) => {
+    if (e.key === 'Escape') return close();
+    if (e.key === 'Tab') trapFocus(e, slideover);
+  }}
+/>
 
 <div
+  use:portal
   class:right-0={side === 'right'}
   class:left-0={side === 'left'}
   class="fixed inset-y-0 flex"
   style="z-index: {zIndex};"
 >
   <div class="fixed inset-0 transition-opacity" transition:fade={{ duration }}>
-    <div class="absolute inset-0 bg-black opacity-25" on:click={close} />
+    <button type="button" class="absolute inset-0 bg-black opacity-25" on:click={close} />
   </div>
 
   <div
     transition:fly={{ x: side === 'right' ? 200 : -200, duration }}
     class="bg-white overflow-hidden shadow-xl transform
-    transition-all w-64 h-full flex flex-col"
+    transition-all w-64 h-full flex flex-col z-1"
     style="width: {widthRem}rem; max-width: {maxWidthPercentage}vw;"
     role="dialog"
     aria-modal="true"
-    aria-labelledby="modal-headline"
-    bind:this={modal}
+    aria-labelledby="slideover-headline"
+    bind:this={slideover}
   >
     {#if $$slots.title}
       <div class="flex items-start justify-between border-b border-gray-300">
-        <h3 class="text-lg font-medium text-gray-900 p-3" id="modal-headline">
+        <h3 class="text-lg font-medium text-gray-900 p-3" id="slideover-headline">
           <slot name="title" />
         </h3>
         <button

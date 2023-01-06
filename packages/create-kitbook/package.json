@@ -1,0 +1,35 @@
+{
+  "name": "create-kitbook",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:update": "vitest -u"
+  },
+  "devDependencies": {
+    "cac": "^6.7.14",
+    "kleur": "^4.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git"
+  },
+  "keywords": [
+    "Kitbook",
+    "Svelte",
+    "SvelteKit",
+    "Typescript",
+    "UI",
+    "Component library",
+    "Documentation",
+    "Prototyping",
+    "Workbench",
+    "Stories"
+  ],
+  "author": "Jacob Bowdoin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "homepage": "https://github.com/jacob-8/kitbook/tree/main/packages/kitbook"
+}

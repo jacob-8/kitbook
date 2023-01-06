@@ -1,6 +1,0 @@
-- Svench
-- Histoire
-- Vitebook
-- Bookit
-- https://kit-docs.svelteness.dev/
-- svelte-knobby

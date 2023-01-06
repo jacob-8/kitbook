@@ -1,0 +1,69 @@
+{
+  "name": "@kitbook/rehype-display-link-titles",
+  "version": "0.0.2",
+  "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases or sections from Foam auto-generated links",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/rehype-display-link-titles"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "keywords": [
+    "rehype",
+    "rehype-plugin",
+    "rehype-display-link-titles",
+    "kitbook",
+    "foam",
+    "markdown",
+    "wiki",
+    "knowledge-management"
+  ],
+  "homepage": "https://kitbook.vercel.app",
+  "license": "MIT",
+  "author": "Jacob Bowdoin",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
+  },
+  "dependencies": {
+    "github-slugger": "^2.0.0",
+    "unist-util-visit": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/hast": "^2.3.4",
+    "rehype": "^12.0.1",
+    "rehype-document": "^6.1.0",
+    "rehype-format": "^4.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "remark-slug": "^7.0.1",
+    "remark-toc": "^8.0.1",
+    "standard-version": "^9.5.0",
+    "to-vfile": "^7.2.3",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2",
+    "unified": "^10.1.2",
+    "vite": "^4.0.3",
+    "vitest": "^0.26.3"
+  }
+}

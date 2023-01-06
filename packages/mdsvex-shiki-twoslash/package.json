@@ -1,0 +1,65 @@
+{
+  "name": "@kitbook/mdsvex-shiki-twoslash",
+  "version": "0.0.3",
+  "description": "A plugin for MDSvex that highlights code blocks using shiki-twoslash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/mdsvex-shiki-twoslash"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "keywords": [
+    "mdsvex",
+    "svelte",
+    "svelte-kit",
+    "shiki",
+    "twoslash",
+    "shiki-twoslash",
+    "highlight",
+    "code highlighting"
+  ],
+  "homepage": "https://kitbook.vercel.app",
+  "license": "MIT",
+  "author": "Jacob Bowdoin",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./shiki-twoslash.css": "./src/shiki-twoslash.css"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/shiki-twoslash.css"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
+  },
+  "dependencies": {
+    "fenceparser": "^2.2.0",
+    "mdsvex": "^0.10.6",
+    "shiki": "0.10.1",
+    "shiki-twoslash": "^3.1.0"
+  },
+  "devDependencies": {
+    "@typescript/twoslash": "^3.2.1",
+    "@vitest/ui": "^0.26.3",
+    "prettier": "^2.8.1",
+    "svelte": "^3.55.0",
+    "typescript": "^4.9.4",
+    "unbuild": "^1.0.2",
+    "vite": "^4.0.3",
+    "vitest": "^0.26.3"
+  }
+}
