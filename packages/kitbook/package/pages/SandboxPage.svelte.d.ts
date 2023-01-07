@@ -6,9 +6,11 @@ declare const __propDef: {
         data: {
             pages: GroupedPageMap;
             page: GroupedPage;
+            pageKey: string;
             loadedModules: LoadedModules;
             storyId: string;
             variant?: Variant<typeof SvelteComponent>;
+            variantIdx?: string;
             editedProps?: Record<string, any>;
         };
     };

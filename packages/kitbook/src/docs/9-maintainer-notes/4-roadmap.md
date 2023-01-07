@@ -3,11 +3,12 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- show Story and Variant code in instrument panel
-  - fetch raw code strings via store
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
  
+- show Story and Variant code in instrument panel using code editor: {data.loadedModules.svxRaw}
+  - <!-- i-tabler-code"-->
+
 - automatically analyze component for props
   - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
   - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
@@ -53,6 +54,7 @@
 - backlinks
 - esbuild minify and don't place things into one folder (unbuild)
 - support `variants.js`
+- accept whichever w/h dimension is given last either via resize or by prompt
 
 ## Post 1.0
 - snap side panels to 0 if within x pixels.

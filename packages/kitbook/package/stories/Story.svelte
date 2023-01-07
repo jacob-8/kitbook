@@ -29,40 +29,38 @@ let hovered = false;
   </div>
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
-    <div on:mouseover={() => (hovered = true)} on:mouseout={() => (hovered = false)}>
-      {#if knobs}
-        <div
-          on:mouseover={() => (hovered = true)}
-          on:mouseout={() => (hovered = false)}
-          use:portal={'#instrument-panel'}
-        >
-          {#if intersecting}
-            <div
-              style="transition: all 300ms;"
-              class="kb-b238s9"
-              class:kb-1yt9l1={hovered}
-              class:kb-oncpul={hovered}
-            >
-              <div class="kb-4sd29d">{name}</div>
-              <Knobs {persist} {id} {knobs} />
-            </div>
-          {/if}
-        </div>
-      {/if}
-      <View
-        title={name}
-        {width}
-        {height}
-        {hovered}
-        props={$knobs}
-        queryParams="storyId={id}"
-        useIframe={useSandbox}
+    {#if knobs}
+      <div
+        on:mouseover={() => (hovered = true)}
+        on:mouseout={() => (hovered = false)}
+        use:portal={'#instrument-panel'}
       >
-        {#if !useSandbox}
-          <slot props={$knobs} knobs={$knobs} {set} />
+        {#if intersecting}
+          <div
+            style="transition: all 300ms;"
+            class="kb-b238s9"
+            class:kb-1yt9l1={hovered}
+            class:kb-oncpul={hovered}
+          >
+            <div class="kb-4sd29d">{name}</div>
+            <Knobs {persist} {id} {knobs} />
+          </div>
         {/if}
-      </View>
-    </div>
+      </div>
+    {/if}
+    <View
+      title={name}
+      {width}
+      {height}
+      bind:hovered
+      props={$knobs}
+      queryParams="storyId={id}"
+      useIframe={useSandbox}
+    >
+      {#if !useSandbox}
+        <slot props={$knobs} knobs={$knobs} {set} />
+      {/if}
+    </View>
   </IntersectionObserver>
 {/if}
 

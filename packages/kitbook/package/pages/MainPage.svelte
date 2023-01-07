@@ -1,13 +1,23 @@
 <script>import { page } from "$app/stores";
 import EditInGithub from "../components/EditInGithub.svelte";
 import View from "../view/View.svelte";
+import { pagesStore } from "../modules/hmrUpdatedModules";
 export let data = { loadedModules: {} };
+let updatedVariants;
+$:
+  if ($pagesStore?.[data.pageKey]) {
+    (async () => {
+      updatedVariants = (await $pagesStore[data.pageKey]?.loadVariants?.loadModule())?.variants;
+    })();
+  }
+$:
+  variants = updatedVariants || data.loadedModules?.variants;
 $:
   wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
     "/lib/routes/sandbox/[...file]/+"
   );
 $:
-  doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
+  doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>
 
 <div class="kb-gty76k tw-prose">
@@ -25,13 +35,12 @@ $:
         <div class="kb-ezm9ao">
           {data.page.name.startsWith('+') ? 'Page' : 'Component'} Variants
         </div>
-        {#each data.loadedModules.variants as variant, index}
+        {#each variants as variant, index (index)}
           <View
             title={variant.name}
             description={variant.description}
             width={variant.width}
             height={variant.height}
-            props={variant.props || {}}
             queryParams="variantIdx={index}"
             useIframe={!wouldRecurseInfinitelyInSandbox}
           >
@@ -43,7 +52,7 @@ $:
       {/if}
     {/if}
 
-    {#if doesNotHaveSvxOrVariants}
+    {#if doesNotHaveStoriesOrVariants}
       <div class="kb-5q2dnw">
         <b>Kitbook tip</b>: You have not created a Stories file ({data.page?.name}.svx/.md) nor a
         Variants file ({data.page?.name}.variants.ts) file. In the future Kitbook will try to

@@ -8,12 +8,9 @@
  * `{md,svx}` = Kitbook Story Files
  *
  * `{svelte,variants.ts}` = Automatically create a default Story for each component w/ variants automatically being populated by colocated files `*.variants.ts` files (Foo.svelte and Foo.variants.ts; +page.svelte and _page.variants.ts)
- *
- * Presently Kitbook supported extensions are customizable but it wouldn't be too hard to support custom extensions if a strong case can be made for why it's needed. If that happens then you can run that `import.meta.glob` function seen above with your custom glob import and pass it into the `modules` parameter of this function. In that case you can see https://vitejs.dev/guide/features.html#glob-import for help writing glob imports if needed.
  */
-export declare function layoutLoad({ initFunction, modules }?: {
+export declare function layoutLoad({ initFunction }?: {
     initFunction?: () => Promise<void>;
-    modules?: Record<string, () => Promise<unknown>>;
 }): () => Promise<{
     pages: import("..").GroupedPageMap;
 }>;

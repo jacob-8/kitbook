@@ -4,10 +4,12 @@ export declare const mainPageLoad: ({ params, parent }: {
     parent: any;
 }) => Promise<{
     page: GroupedPage;
+    pageKey: string;
     loadedModules: LoadedModules;
     error?: undefined;
 } | {
     error: string;
     page?: undefined;
+    pageKey?: undefined;
     loadedModules?: undefined;
 }>;

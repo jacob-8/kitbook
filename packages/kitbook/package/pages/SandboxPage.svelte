@@ -1,11 +1,20 @@
 <script>import { setContext } from "svelte";
 import ErrorBoundary from "../components/errorBoundary/ErrorBoundary.js";
+import { pagesStore } from "../modules/hmrUpdatedModules";
 export let data;
+let updatedVariant;
+$:
+  if ($pagesStore?.[data.pageKey] && data.variantIdx) {
+    (async () => {
+      updatedVariant = (await $pagesStore[data.pageKey].loadVariants.loadModule())?.variants[data.variantIdx] || {};
+    })();
+  }
 const isStory = !!data.storyId;
-const props = data.editedProps || data.variant?.props || {};
+$:
+  variantProps = updatedVariant?.props || data.variant?.props || {};
 if (isStory) {
   setContext("sandboxId", data.storyId);
-  setContext("sandboxProps", props);
+  setContext("sandboxProps", data.editedProps || {});
 }
 for (const { key, context } of data.variant?.contexts || []) {
   setContext(key, context);
@@ -20,7 +29,7 @@ for (const { key, context } of data.variant?.contexts || []) {
   {:else}
     <ErrorBoundary onError={console.error}>
       <div slot="before">
-        {#if Object.keys(props).length == 0}
+        {#if Object.keys(variantProps).length == 0}
           <b>Kitbook tip</b>: Your component may need props passed in. Create a "{data.page
             ?.name}.variants.ts" file with at least variant. In the future Kitbook will try to
           automatically supply default props, but until then they must be supplied manually.
@@ -28,7 +37,7 @@ for (const { key, context } of data.variant?.contexts || []) {
       </div>
       {#if data.variant?.slots}
         {@const content = data.variant.slots[0].content}
-        <svelte:component this={data.loadedModules.component} {...props}>
+        <svelte:component this={data.loadedModules.component} {...variantProps}>
           {#if typeof content === 'string'}
             {@html content}
           {:else}
@@ -36,7 +45,7 @@ for (const { key, context } of data.variant?.contexts || []) {
           {/if}
         </svelte:component>
       {:else}
-        <svelte:component this={data.loadedModules.component} {...props} />
+        <svelte:component this={data.loadedModules.component} {...variantProps} />
       {/if}
     </ErrorBoundary>
   {/if}

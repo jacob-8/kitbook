@@ -3,7 +3,7 @@ import { parseModulesIntoUngroupedPages } from "../../parseModules/parseModulesI
 import { testModules } from "../../parseModules/testModules";
 import { filterPages } from "./filterPages";
 describe('filterPages from testModules', () => {
-    const ungroupedPages = parseModulesIntoUngroupedPages(testModules);
+    const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules);
     const pages = groupColocatedPages(ungroupedPages);
     test('readme', () => {
         const result = filterPages(pages, 'readme');

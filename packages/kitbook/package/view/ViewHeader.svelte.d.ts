@@ -6,6 +6,7 @@ declare const __propDef: {
         height?: number;
         width?: number;
         useIframe: boolean;
+        src: string;
     };
     events: {
         refresh: CustomEvent<boolean>;

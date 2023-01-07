@@ -6,6 +6,7 @@ declare const __propDef: {
         data?: {
             pages?: GroupedPageMap;
             page?: GroupedPage;
+            pageKey?: string;
             loadedModules?: LoadedModules;
             error?: string;
         };

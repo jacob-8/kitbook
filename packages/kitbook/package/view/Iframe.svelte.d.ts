@@ -1,8 +1,7 @@
 import { SvelteComponentTyped } from "svelte";
 declare const __propDef: {
     props: {
-        props: any;
-        queryParams: string;
+        src: string;
         reload?: () => void;
     };
     events: {

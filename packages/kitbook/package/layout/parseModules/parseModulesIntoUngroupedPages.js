@@ -1,7 +1,7 @@
 import { parsePath } from "./parsePath";
 import { testModules } from "./testModules";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
-export function parseModulesIntoUngroupedPages(modules) {
+export function parseModulesIntoUngroupedPages(modules, rawModules) {
     const paths = Object.keys(modules);
     if (!paths.length)
         return [];
@@ -15,19 +15,20 @@ export function parseModulesIntoUngroupedPages(modules) {
             url,
             load: {
                 loadModule: modules[path],
-                // loadRaw: modulesRaw[path],
+                loadRaw: rawModules[path],
             }
         };
     });
 }
 if (import.meta.vitest) {
     test('parseModulesIntoUngroupedPages properly returns array of Pages', () => {
-        expect(parseModulesIntoUngroupedPages(testModules)).toMatchInlineSnapshot(`
+        expect(parseModulesIntoUngroupedPages(testModules, testModules)).toMatchInlineSnapshot(`
       [
         {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "README",
           "path": "/README.md",
@@ -37,6 +38,7 @@ if (import.meta.vitest) {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "index",
           "path": "/src/index.md",
@@ -46,6 +48,7 @@ if (import.meta.vitest) {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "why kitbook",
           "path": "/src/docs/0-why-kitbook.md",
@@ -55,6 +58,7 @@ if (import.meta.vitest) {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "get started",
           "path": "/src/docs/1-get-started.md",
@@ -64,6 +68,7 @@ if (import.meta.vitest) {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "unocss",
           "path": "/src/docs/my-notes/0-unocss.md",
@@ -73,6 +78,7 @@ if (import.meta.vitest) {
           "ext": "md",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "deploy to vercel",
           "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
@@ -82,6 +88,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "A",
           "path": "/src/lib/A.svelte",
@@ -91,6 +98,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "B",
           "path": "/src/lib/B.svelte",
@@ -100,6 +108,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "B",
           "path": "/src/lib/B.svx",
@@ -109,6 +118,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "C",
           "path": "/src/lib/a/C.svelte",
@@ -118,6 +128,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "C",
           "path": "/src/lib/a/C.variants.ts",
@@ -127,6 +138,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "D",
           "path": "/src/lib/a/D.svelte",
@@ -136,6 +148,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "D",
           "path": "/src/lib/a/D.svx",
@@ -145,6 +158,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "D",
           "path": "/src/lib/a/D.variants.ts",
@@ -154,6 +168,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "E",
           "path": "/src/lib/E.svx",
@@ -163,6 +178,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/routes/+page.svelte",
@@ -172,6 +188,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/routes/a/+page.svelte",
@@ -181,6 +198,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_page",
           "path": "/src/routes/a/_page.svx",
@@ -190,6 +208,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/routes/b/+page.svelte",
@@ -199,6 +218,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_page",
           "path": "/src/routes/b/_page.variants.ts",
@@ -208,6 +228,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_page",
           "path": "/src/routes/c/_page.svx",
@@ -217,6 +238,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_page",
           "path": "/src/routes/c/_page.variants.ts",
@@ -226,6 +248,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/routes/c/+page.svelte",
@@ -235,6 +258,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+layout",
           "path": "/src/routes/+layout.svelte",
@@ -244,6 +268,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+layout",
           "path": "/src/routes/a/+layout.svelte",
@@ -253,6 +278,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_layout",
           "path": "/src/routes/a/_layout.svx",
@@ -262,6 +288,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+layout",
           "path": "/src/routes/b/+layout.svelte",
@@ -271,6 +298,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_layout",
           "path": "/src/routes/b/_layout.variants.ts",
@@ -280,6 +308,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+layout",
           "path": "/src/routes/c/+layout.svelte",
@@ -289,6 +318,7 @@ if (import.meta.vitest) {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_layout",
           "path": "/src/routes/c/_layout.svx",
@@ -298,6 +328,7 @@ if (import.meta.vitest) {
           "ext": "variants.ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "_layout",
           "path": "/src/routes/c/_layout.variants.ts",
@@ -307,6 +338,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+layout",
           "path": "/src/kitbook/(main)/+layout.svelte",
@@ -316,6 +348,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/kitbook/(main)/[...file]/+page.svelte",
@@ -325,6 +358,7 @@ if (import.meta.vitest) {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "+page",
           "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
@@ -334,6 +368,7 @@ if (import.meta.vitest) {
           "ext": "foo.svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "A",
           "path": "/src/lib/A.foo.svelte",
@@ -343,6 +378,7 @@ if (import.meta.vitest) {
           "ext": "foo.svelte",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "Baz",
           "path": "/src/lib/Baz.foo.svelte",
@@ -352,6 +388,7 @@ if (import.meta.vitest) {
           "ext": "ts",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "Typescript",
           "path": "/src/lib/Typescript.ts",
@@ -361,6 +398,7 @@ if (import.meta.vitest) {
           "ext": "vue",
           "load": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "Vue",
           "path": "/src/lib/Vue.vue",

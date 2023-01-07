@@ -5,7 +5,7 @@ import { testModules } from "./testModules";
 test('putPagesIntoFolders organizes Pages into proper folders', () => {
     // @ts-ignore
     globalThis.__KitbookRoutes__ = 'src/kitbook';
-    const pages = parseModulesIntoUngroupedPages(testModules);
+    const pages = parseModulesIntoUngroupedPages(testModules, testModules);
     expect(putPagesIntoFolders(groupColocatedPages(pages))).toMatchInlineSnapshot(`
     {
       "depth": 0,
@@ -24,6 +24,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "unocss",
                   "path": "/src/docs/my-notes/0-unocss.md",
@@ -35,6 +36,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "deploy to vercel",
                   "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
@@ -52,6 +54,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadSvx": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "why kitbook",
               "path": "/src/docs/0-why-kitbook.md",
@@ -63,6 +66,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadSvx": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "get started",
               "path": "/src/docs/1-get-started.md",
@@ -86,9 +90,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "C",
                   "path": "/src/lib/a/C.svelte",
@@ -102,12 +108,15 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "D",
                   "path": "/src/lib/a/D.svelte",
@@ -125,6 +134,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadComponent": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "A",
               "path": "/src/lib/A.svelte",
@@ -137,9 +147,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadComponent": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "loadSvx": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "B",
               "path": "/src/lib/B.svelte",
@@ -151,6 +163,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadSvx": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "E",
               "path": "/src/lib/E.svx",
@@ -174,9 +187,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+page",
                   "path": "/src/routes/a/+page.svelte",
@@ -189,9 +204,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+layout",
                   "path": "/src/routes/a/+layout.svelte",
@@ -212,9 +229,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+page",
                   "path": "/src/routes/b/+page.svelte",
@@ -227,9 +246,11 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+layout",
                   "path": "/src/routes/b/+layout.svelte",
@@ -251,12 +272,15 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+page",
                   "path": "/src/routes/c/+page.svelte",
@@ -270,12 +294,15 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
                   ],
                   "loadComponent": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadSvx": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "loadVariants": {
                     "loadModule": [Function],
+                    "loadRaw": [Function],
                   },
                   "name": "+layout",
                   "path": "/src/routes/c/+layout.svelte",
@@ -293,6 +320,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadComponent": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "+page",
               "path": "/src/routes/+page.svelte",
@@ -304,6 +332,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
               ],
               "loadComponent": {
                 "loadModule": [Function],
+                "loadRaw": [Function],
               },
               "name": "+layout",
               "path": "/src/routes/+layout.svelte",
@@ -321,6 +350,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
           ],
           "loadSvx": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "README",
           "path": "/README.md",
@@ -332,6 +362,7 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
           ],
           "loadSvx": {
             "loadModule": [Function],
+            "loadRaw": [Function],
           },
           "name": "index",
           "path": "/src/index.md",

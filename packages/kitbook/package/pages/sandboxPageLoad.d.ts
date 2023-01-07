@@ -6,8 +6,10 @@ export declare const sandboxPageLoad: ({ params, parent, url }: {
     url: any;
 }) => Promise<{
     page: GroupedPage;
+    pageKey: string;
     loadedModules: LoadedModules;
     storyId: string;
     variant: Variant<typeof SvelteComponent>;
+    variantIdx: any;
     editedProps: Record<string, any>;
 }>;

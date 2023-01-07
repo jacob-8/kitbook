@@ -1,2 +1,2 @@
-import type { Modules, GroupedPageMap } from "../../kitbook-types";
-export declare function groupColocatedModulesIntoPages(modules: Modules): GroupedPageMap;
+import type { Modules, GroupedPageMap, RawModules } from "../../kitbook-types";
+export declare function groupColocatedModulesIntoPages(modules: Modules, rawModules: RawModules): GroupedPageMap;

@@ -7,7 +7,7 @@ declare const __propDef: {
         height?: number;
         useIframe?: boolean;
         hovered?: boolean;
-        props: any;
+        props?: Record<string, any>;
         queryParams: string;
     };
     events: {

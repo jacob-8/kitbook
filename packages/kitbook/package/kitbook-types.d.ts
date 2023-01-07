@@ -42,11 +42,14 @@ type PageMetadata = {
 };
 type ModuleLoadFunctions = {
     loadModule: Module;
+    loadRaw: RawModule;
 };
 export type Modules = Record<string, Module>;
+export type RawModules = Record<string, RawModule>;
 type Module = () => Promise<{
     [key: string]: any;
 }>;
+type RawModule = () => Promise<string>;
 export type LoadedModules = {
     svx?: typeof SvelteComponent;
     svxRaw?: string;

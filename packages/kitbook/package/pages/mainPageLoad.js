@@ -1,29 +1,35 @@
 export const mainPageLoad = async ({ params, parent }) => {
     const { pages } = await parent();
-    const page = pages['/' + params.file];
+    const pageKey = '/' + params.file;
+    const page = pages[pageKey];
     const loadedModules = {};
     if (page) {
         if (page.loadSvx) {
             loadedModules.svx = (await page.loadSvx.loadModule())?.default;
+            loadedModules.svxRaw = await page.loadSvx.loadRaw();
         }
         if (page.loadComponent) {
             loadedModules.component = (await page.loadComponent.loadModule())?.default;
+            loadedModules.componentRaw = await page.loadComponent.loadRaw();
         }
         if (page.loadVariants) {
             loadedModules.variants = (await page.loadVariants.loadModule())?.variants;
+            loadedModules.variantsRaw = await page.loadVariants.loadRaw();
         }
-        return { page, loadedModules };
+        return { page, pageKey, loadedModules };
     }
     const indexPage = pages['/index'];
     if (indexPage) {
         loadedModules.svx = (await indexPage.loadSvx.loadModule())?.default;
-        return { page: indexPage, loadedModules };
+        loadedModules.svxRaw = await indexPage.loadSvx.loadRaw();
+        return { page: indexPage, pageKey: '/index', loadedModules };
     }
     const readmePage = pages['/README'];
     if (readmePage) {
         try {
             loadedModules.svx = (await readmePage.loadSvx.loadModule())?.default;
-            return { page: readmePage, loadedModules };
+            loadedModules.svxRaw = await readmePage.loadSvx.loadRaw();
+            return { page: readmePage, pageKey: '/README', loadedModules };
         }
         catch (e) {
             return {
