@@ -17,16 +17,16 @@ function catchHMR(): Plugin {
 		name: 'catch-hmr',
 		enforce: 'pre',
 
-		handleHotUpdate({ server, file, modules }) {
-			console.log({ file, modules })
-			server.ws.send({
-				type: 'custom',
-				event: 'special-update',
-				data: {
-					foo: 'hello'
-				}
-			})
-			return []
-		}
+		// handleHotUpdate({ server, file, modules }) {
+			// console.log(modules[0])
+			// server.ws.send({
+			// 	type: 'custom',
+			// 	event: 'special-update',
+			// 	data: {
+			// 		foo: 'hello'
+			// 	}
+			// })
+			// return []
+		// }
 	}
 }

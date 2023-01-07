@@ -1,39 +1,22 @@
 <script>
   import { browser } from '$app/environment';
-  import { modules } from './modules';
-  console.log({ modules });
+  import { updatedModules } from './hmrUpdatedModules';
 
   export let data;
-  console.log({ data: data.fooModule.foo });
+  let foo;
 
-  // if (import.meta.hot) {
-  //   import.meta.hot.accept((newModule) => {
-  //     if (newModule) {
-  //       console.log({ newModule });
-  //     }
-  //   });
-  // }
-  if (import.meta.hot) {
-    import.meta.hot.on('special-update', (greeting) => {
-      console.log({ greeting})
-    });
+  $: if ($updatedModules) applyUpdates();
+  async function applyUpdates() {
+    const module = await $updatedModules['/src/routes/foo.variants.ts']();
+    console.log({ updatedfoo: module.foo });
+    foo = module.foo;
   }
 </script>
 
-<!-- {#if browser}
-  <div style="height: 200px; background: red;" />
-{/if} -->
+SSR: {data.fooModule.foo}<br />
+ISO: {foo || data.fooModule.foo}<br />
+CSR: {foo}
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-
-
-<!-- {#await modules['/src/routes/foo.variants.ts']()}
-  Loading
-{:then value}
-  {value.foo}
-{/await} -->
-
-<!-- {modules['/src/routes/foo.variants.ts'].foo} -->
-
-{data.fooModule.foo}
+{#if browser}
+  <div style="height: 200px; background: red;" on:click={applyUpdates} />
+{/if}

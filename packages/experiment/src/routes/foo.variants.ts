@@ -1,1 +1,1 @@
-export const foo = `I'm from foo and this is a`;
+export const foo = `And this is the file that updates.`;
