@@ -41,40 +41,38 @@
   </div>
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
-    <div on:mouseover={() => (hovered = true)} on:mouseout={() => (hovered = false)}>
-      {#if knobs}
-        <div
-          on:mouseover={() => (hovered = true)}
-          on:mouseout={() => (hovered = false)}
-          use:portal={'#instrument-panel'}
-        >
-          {#if intersecting}
-            <div
-              style="transition: all 300ms;"
-              class="mb-4 p-1 rounded opacity-60 border border-transparent !border-opacity-50"
-              class:border-blue-900={hovered}
-              class:opacity-100={hovered}
-            >
-              <div class="text-sm font-semibold">{name}</div>
-              <Knobs {persist} {id} {knobs} />
-            </div>
-          {/if}
-        </div>
-      {/if}
-      <View
-        title={name}
-        {width}
-        {height}
-        {hovered}
-        props={$knobs}
-        queryParams="storyId={id}"
-        useIframe={useSandbox}
+    {#if knobs}
+      <div
+        on:mouseover={() => (hovered = true)}
+        on:mouseout={() => (hovered = false)}
+        use:portal={'#instrument-panel'}
       >
-        {#if !useSandbox}
-          <slot props={$knobs} knobs={$knobs} {set} />
+        {#if intersecting}
+          <div
+            style="transition: all 300ms;"
+            class="mb-4 p-1 rounded opacity-60 border border-transparent !border-opacity-50"
+            class:border-blue-900={hovered}
+            class:opacity-100={hovered}
+          >
+            <div class="text-sm font-semibold">{name}</div>
+            <Knobs {persist} {id} {knobs} />
+          </div>
         {/if}
-      </View>
-    </div>
+      </div>
+    {/if}
+    <View
+      title={name}
+      {width}
+      {height}
+      bind:hovered
+      props={$knobs}
+      queryParams="storyId={id}"
+      useIframe={useSandbox}
+    >
+      {#if !useSandbox}
+        <slot props={$knobs} knobs={$knobs} {set} />
+      {/if}
+    </View>
   </IntersectionObserver>
 {/if}
 

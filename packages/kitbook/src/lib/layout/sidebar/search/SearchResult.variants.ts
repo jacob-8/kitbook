@@ -9,9 +9,6 @@ export const variants: Variants<typeof Component> = [
         "extensions": [
           "md",
         ],
-        "loadSvx": {
-          "loadModule": null,
-        },
         "name": "README",
         "path": "/README.md",
         "url": "/README",
@@ -26,9 +23,6 @@ export const variants: Variants<typeof Component> = [
         "extensions": [
           "md",
         ],
-        "loadSvx": {
-          "loadModule": null,
-        },
         "name": "README",
         "path": "/README.md",
         "url": "/README",
@@ -44,9 +38,6 @@ export const variants: Variants<typeof Component> = [
         "extensions": [
           "md",
         ],
-        "loadSvx": {
-          "loadModule": null,
-        },
         "name": "why kitbook",
         "path": "/src/docs/0-why-kitbook.md",
         "url": "/docs/0-why-kitbook",
@@ -64,15 +55,6 @@ export const variants: Variants<typeof Component> = [
           "md",
           "variants.ts",
         ],
-        "loadComponent": {
-          "loadModule": null,
-        },
-        "loadSvx": {
-          "loadModule": null,
-        },
-        "loadVariants": {
-          "loadModule": null,
-        },
         "name": "Button",
         "path": "/src/lib/a/Button.svelte",
         "url": "/lib/a/Button",

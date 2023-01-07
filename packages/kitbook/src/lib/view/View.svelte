@@ -20,10 +20,16 @@
 
   let iframe: Iframe;
   $: encodedProps = props ? `props=${encode(JSON.stringify(props))}&` : '';
-  $: src = `/sandbox${$page.url.pathname}?${encodedProps}${queryParams}`;</script>
+  $: src = `/sandbox${$page.url.pathname}?${encodedProps}${queryParams}`;
+</script>
 
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <IntersectionObserver let:intersecting once>
-  <div class="not-prose mb-4">
+  <div
+    class="not-prose mb-4"
+    on:mouseover={() => (hovered = true)}
+    on:mouseout={() => (hovered = false)}
+  >
     <ViewHeader
       {title}
       {description}
