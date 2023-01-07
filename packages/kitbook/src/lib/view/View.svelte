@@ -3,6 +3,10 @@
   import ViewBody from './ViewBody.svelte';
   import Iframe from './Iframe.svelte';
   import { IntersectionObserver } from 'svelte-pieces';
+  import { page } from '$app/stores';
+  import LZString from 'lz-string';
+  const { compressToEncodedURIComponent: encode } = LZString;
+
   const DEFAULT_PIXEL_HEIGHT = 220;
 
   export let title: string;
@@ -11,11 +15,12 @@
   export let height = DEFAULT_PIXEL_HEIGHT;
   export let useIframe = true;
   export let hovered = false;
-  export let props: any;
+  export let props: Record<string, any> = undefined;
   export let queryParams: string;
 
   let iframe: Iframe;
-</script>
+  $: encodedProps = props ? `props=${encode(JSON.stringify(props))}&` : '';
+  $: src = `/sandbox${$page.url.pathname}?${encodedProps}${queryParams}`;</script>
 
 <IntersectionObserver let:intersecting once>
   <div class="not-prose mb-4">
@@ -24,6 +29,7 @@
       {description}
       {width}
       {height}
+      {src}
       {useIframe}
       let:adjustedHeight
       let:adjustedWidth
@@ -32,12 +38,12 @@
       }}
     >
       <ViewBody {hovered} height={adjustedHeight} width={adjustedWidth}>
-        {#if intersecting}
-          {#if useIframe}
-            <Iframe bind:this={iframe} {props} {queryParams} />
-          {:else}
-            <slot />
+        {#if useIframe}
+          {#if intersecting}
+            <Iframe bind:this={iframe} {src} />
           {/if}
+        {:else}
+          <slot />
         {/if}
       </ViewBody>
     </ViewHeader>

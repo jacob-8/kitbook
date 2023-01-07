@@ -6,8 +6,14 @@
   export let height: number = undefined;
   export let width: number = undefined;
   export let useIframe: boolean;
+  export let src: string;
 
   const dispatch = createEventDispatcher<{ refresh: boolean }>();
+
+  function askPixels(dimension: 'width' | 'height'): number {
+    const pixels = prompt(`Specify ${dimension} in pixels:`);
+    if (pixels) return +pixels;
+  }
 </script>
 
 <div class="flex items-center">
@@ -18,19 +24,22 @@
   {/if}
   <div class="ml-auto" />
 
-  <!-- i-tabler-code"-->
-  <!-- <button
-      title="toggle width"
-      class="p-1 opacity-50 hover:opacity-100"
-      on:click={() => (width ? (width = undefined) : (width = 300))}
-      ><span class="i-ant-design-column-width-outlined" /></button
-    >
-    <button
-      title="toggle height"
-      class="p-1 opacity-50 hover:opacity-100"
-      on:click={() => (height ? (height = undefined) : (height = 200))}
-      ><span class="i-ant-design-column-height-outlined" /></button
-    > -->
+  <button
+    title="Specify Width"
+    class="p-1 opacity-50 hover:opacity-100"
+    on:click={() => (width = askPixels('width'))}
+    ><span class="i-ant-design-column-width-outlined" /></button
+  >
+  <button
+    title="Specify Height"
+    class="p-1 opacity-50 hover:opacity-100"
+    on:click={() => (height = askPixels('height'))}
+    ><span class="i-ant-design-column-height-outlined" /></button
+  >
+
+  <a href={src} title="Open Story by Itself" class="p-1 opacity-50 hover:opacity-100"
+    ><span class="i-tabler-external-link" /></a
+  >
 
   {#if useIframe}
     <button
