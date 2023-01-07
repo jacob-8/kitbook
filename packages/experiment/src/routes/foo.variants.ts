@@ -1,0 +1,1 @@
+export const foo = `I'm from foo and this is a`;
