@@ -1,1 +1,1 @@
-export const foo = `And this is the file that updates.`;
+export const foo = `This is to mock an updating variants file.`;

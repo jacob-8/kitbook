@@ -1,8 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig, Plugin } from 'vite';
+import { writeFileSync } from 'fs';
 
 const config: UserConfig = {
-	plugins: [catchHMR(), sveltekit()],
+	plugins: [extractStories(), sveltekit()],
 	server: {
 		fs: {
 			allow: ['..'], // one level up from the project root for displaying README.md
@@ -12,21 +13,44 @@ const config: UserConfig = {
 
 export default config;
 
-function catchHMR(): Plugin {
+
+function extractStories(): Plugin {
+	let prevStoriesPagesValues = 0; // needs to be a map of file to value
+
 	return {
-		name: 'catch-hmr',
+		name: 'extract-stories',
 		enforce: 'pre',
 
-		// handleHotUpdate({ server, file, modules }) {
-			// console.log(modules[0])
-			// server.ws.send({
-			// 	type: 'custom',
-			// 	event: 'special-update',
-			// 	data: {
-			// 		foo: 'hello'
-			// 	}
-			// })
-			// return []
-		// }
+		// transform stories pages to index stories
+		transform(src, id) {
+			// if stories page
+			// if includes <Story
+			// empty the Story body and return the replaced code (create source map with magicstring)
+			// return {
+			// 	code: src.replace(/<footer>.*?<\/footer>/g, ''),
+			// }
+		},
+
+		async handleHotUpdate({ file, read, modules }) {
+			// read updated file with stories and if the story interiors have changed (checking prevStoriesPagesValues) but not the file, then update just the story files (writeFileSync) and return [] to avoid updating the stories page which would cause a reload of the iframes containing stories
+
+			prevStoriesPagesValues++;
+			console.log({ prevStoriesPagesValues });
+			console.log({ file })
+			
+			if (file.includes('+page.svelte')) {
+				const randomNumber = Math.random();
+				writeFileSync('src/.kitbook/Hello.svelte', `<script>
+				import { browser } from '$app/environment';
+			</script>
+			
+			Hello: ${randomNumber}
+			
+			{#if browser}
+				<div style="height: 200px; background: blue;" />
+			{/if} `)
+				return []
+			}
+		}
 	}
 }
