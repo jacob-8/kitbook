@@ -5,10 +5,13 @@
 
 - variant grid
 
+- move routes into node_modules, using virtual module for HMR imports, set init function via an optional file
+  - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
+
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
  
-- extract stories so we can do real HMR and have more control over props for each component in a Story
+- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
 
 - show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->

@@ -1,6 +1,6 @@
 # kitbook
 
-## 1.0.0-alpha.16 - 2023-1-9
+## 1.0.0-alpha.17 - 2023-1-10
 
 - - Keep `variants.ts` file updates from causing full page reload by improving HMR via using a self accepting HMR store.
 

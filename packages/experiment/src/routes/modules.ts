@@ -16,6 +16,8 @@ if (import.meta.hot) {
 
       // updatedStories.set(module.storyModules)
       // since Svelte self-accepts HMR updates, this won't ever be called but it's nice to make imports uniform.
+
+      // update: actually if the set is run at the base level, then this can just be an empty accept handler
     }
   })
 }

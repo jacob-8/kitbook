@@ -46,10 +46,7 @@ export default config;
  * @returns boolean
  */
 function removeStoriesAndVariants(filepath) {
-  if (filepath.startsWith('routes')) {
-    const isARouteFile = filepath.includes('+page') || filepath.includes('+layout');
-    return isARouteFile;
-  }
+  if (filepath.includes('mockComponents')) return false;
 
   const isStoriesOrVariants = filepath.endsWith('.variants.ts') || filepath.endsWith('.md') || filepath.endsWith('.svx');
   return !isStoriesOrVariants;

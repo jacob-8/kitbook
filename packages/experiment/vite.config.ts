@@ -4,7 +4,12 @@ import { writeFileSync } from 'fs';
 import Inspect from 'vite-plugin-inspect'
 
 const config: UserConfig = {
-	plugins: [Inspect(), extractStories(), sveltekit()],
+	plugins: [
+		Inspect(),
+		extractStories(),
+		kitbookModuleImports(),
+		sveltekit(),
+	],
 	server: {
 		fs: {
 			allow: ['..'], // one level up from the project root for displaying README.md
@@ -13,6 +18,38 @@ const config: UserConfig = {
 };
 
 export default config;
+
+function kitbookModuleImports(): Plugin {
+	const virtualModuleId = 'virtual:my-modules';
+	const resolvedVirtualModuleId = '\0' + virtualModuleId;
+
+	// save this in a file and use fs.readFileSync
+	const virtualModuleContent = `
+	export const modules = import.meta.glob(['/src/**/*.{svelte,variants.ts}']);
+  const storyModules = import.meta.glob(['/.kitbook/stories/**/*.{svelte,variants.ts}'], { eager: true, as: 'raw' });
+  console.log({ storyModules });
+
+	if (import.meta.hot) {
+		import.meta.hot.accept((updatedModuleImport) => {
+		console.log({ updatedModuleImport })
+		})
+	}
+	`
+
+	return {
+		name: 'kitbook-module-imports',
+		resolveId(id) {
+			if (id === virtualModuleId) {
+				return resolvedVirtualModuleId
+			}
+		},
+		load(id) {
+			if (id === resolvedVirtualModuleId) {
+				return virtualModuleContent;
+			}
+		},
+	}
+}
 
 
 function extractStories(): Plugin {
