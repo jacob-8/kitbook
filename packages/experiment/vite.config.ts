@@ -32,7 +32,9 @@ function extractStories(): Plugin {
 		},
 
 		async handleHotUpdate({ file, read, modules }) {
-			// read updated file with stories and if the story interiors have changed (checking prevStoriesPagesValues) but not the file, then update just the story files (writeFileSync) and return [] to avoid updating the stories page which would cause a reload of the iframes containing stories
+			// read updated file with stories and if the story interiors have changed (checking prevStoriesPagesValues) but not the file, then update just the story files in kitbook/stories/svelte, (update to using kitbook/routes and later we will use kitbook/) (writeFileSync and update the import paths) and return [] to avoid updating the stories page which would cause a reload of the iframes containing stories
+
+			// will need to either preload main and sandbox pages to get stories extracted on build or will need to write a script to extract stories on build
 
 			prevStoriesPagesValues++;
 			console.log({ prevStoriesPagesValues });
