@@ -6,8 +6,6 @@ const rawModules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/
 
 export const pages = groupColocatedModulesIntoPages(modules, rawModules);
 
-// pagesStore.set(pages); // optional to switch right from SSR to Client loaded modules
-
 if (import.meta.hot) {
   import.meta.hot.accept((updatedModuleImport) => {
     if (updatedModuleImport?.pages) {
