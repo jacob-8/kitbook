@@ -1,9 +1,10 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import type { UserConfig, Plugin } from 'vite';
 import { writeFileSync } from 'fs';
+import Inspect from 'vite-plugin-inspect'
 
 const config: UserConfig = {
-	plugins: [extractStories(), sveltekit()],
+	plugins: [Inspect(), extractStories(), sveltekit()],
 	server: {
 		fs: {
 			allow: ['..'], // one level up from the project root for displaying README.md
@@ -39,7 +40,7 @@ function extractStories(): Plugin {
 			prevStoriesPagesValues++;
 			console.log({ prevStoriesPagesValues });
 			console.log({ file })
-			
+
 			if (file.includes('+page.svelte')) {
 				const randomNumber = Math.random();
 				writeFileSync('src/.kitbook/Hello.svelte', `<script>
