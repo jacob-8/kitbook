@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.16 - 2023-1-9
+
+- - Keep `variants.ts` file updates from causing full page reload by improving HMR via using a self accepting HMR store.
+
 ## 1.0.0-alpha.10 - 2023-1-5
 
 - - Load View once visible (intersecting viewport)

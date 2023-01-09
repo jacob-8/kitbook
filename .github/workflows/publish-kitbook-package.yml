@@ -24,3 +24,4 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           package: './packages/kitbook/package/package.json'
           access: 'public'
+          tag: 'alpha'
