@@ -10,7 +10,7 @@
  
 - extract stories so we can do real HMR and have more control over props for each component in a Story
 
-- show Story and Variant code in instrument panel using code editor: {data.loadedModules.svxRaw}
+- show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->
 
 - automatically analyze component for props
