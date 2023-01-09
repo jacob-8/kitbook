@@ -1,3 +1,4 @@
 import type { LayoutLoad } from './$types';
 import { layoutLoad } from 'kitbook';
-export const load = layoutLoad() satisfies LayoutLoad;
+import { pages } from './moduleImports';
+export const load = layoutLoad({ pages }) satisfies LayoutLoad;

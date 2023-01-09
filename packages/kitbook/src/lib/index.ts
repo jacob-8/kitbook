@@ -6,6 +6,8 @@ export { groupColocatedModulesIntoPages } from './layout/parseModules/groupColoc
 export { parseModulesIntoUngroupedPages } from './layout/parseModules/parseModulesIntoUngroupedPages';
 export { groupColocatedPages } from './layout/parseModules/groupColocatedPages';
 
+export { pagesStore } from './modules/hmrUpdatedModules';
+
 export { default as MainPage } from './pages/MainPage.svelte';
 export { mainPageLoad } from './pages/mainPageLoad'
 export { default as SandboxPage } from './pages/SandboxPage.svelte';

@@ -61,6 +61,10 @@ if (import.meta.hot) {
 
 So we now have hot reloading for Svelte files (like normal), for variants arrays provided by Typescript files (and incidentally raw strings of modules imported using `as: raw` also do not self-accept), but we haven't yet solved the problem of when a stories file is saved it has to reload all of it's children stories since they are iframes placed in children components. We add a function that takes the code of a stories file and saves an individual story file to `src/kitbook/stories`. On a stories file's first load this function is called by Vite's transform hook as the story is loaded, the value of that file without the stories is then saved to a map inside the plugin. The function is also called inside handleHotUpdate for that stories file where it will compare to check if something outside of a story has changed. If nothing the hook will return an empty array to negate hot reloading the stories file. It will have taken the internal changes to a particular story and update the corresponding file which will kick in HMR just for that story.
 
+## A Gotcha
+
+You can't add `import.meta.hot` to a file in a library that will be run from inside of node_modules. Vite caches those files and so hot updates will be useless.
+
 ## Quiz question
 
 In an ordinary SvelteKit app would updating a Typescript file only imported in a Svelte file bubble up to a full page reload? No, *but it does cause that specific Svelte file to hot update itself which will cause children components to remount.*

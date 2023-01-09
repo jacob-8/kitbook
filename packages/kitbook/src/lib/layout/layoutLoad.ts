@@ -1,4 +1,4 @@
-import { pages } from "../modules/moduleGlobImport";
+import type { GroupedPageMap } from "kitbook";
 
 /**
  * `initFunction` is an optional async function that will be called before the layout is loaded. This is useful for things like setting up i18n before loading your Kitbook.
@@ -11,11 +11,11 @@ import { pages } from "../modules/moduleGlobImport";
  * 
  * `{svelte,variants.ts}` = Automatically create a default Story for each component w/ variants automatically being populated by colocated files `*.variants.ts` files (Foo.svelte and Foo.variants.ts; +page.svelte and _page.variants.ts)
  */
-export function layoutLoad({ initFunction }:
+export function layoutLoad({ pages, initFunction }:
   {
+    pages: GroupedPageMap,
     initFunction?: () => Promise<void>,
-    // modules?: Record<string, () => Promise<unknown>>
-  } = {}) {
+  }) {
   return async () => {
     initFunction && await initFunction();
 

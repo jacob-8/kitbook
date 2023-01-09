@@ -62,6 +62,7 @@
 
 ## Post 1.0
 - fix shiki-twoslash highlight not scrolling on small screens by learning from https://histoire.dev/guide/svelte3/controls.html
+- distinguish between Index and README in search if both exist
 - snap side panels to 0 if within x pixels.
 - add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')
 - add optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
