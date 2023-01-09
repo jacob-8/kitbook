@@ -1,20 +1,32 @@
 <script lang="ts">
+  import type { SvelteComponent } from 'svelte';
   import { page } from '$app/stores';
-  import type { GroupedPage, GroupedPageMap, LoadedModules } from '../kitbook-types';
+  import type { GroupedPage, GroupedPageMap, LoadedModules, Variants } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
   import View from '../view/View.svelte';
+  import { pagesStore } from '../modules/hmrUpdatedModules';
 
   export let data: {
     pages?: GroupedPageMap;
     page?: GroupedPage;
+    pageKey?: string;
     loadedModules?: LoadedModules;
     error?: string;
   } = { loadedModules: {} };
 
+  let updatedVariants: Variants<typeof SvelteComponent>;
+  $: if ($pagesStore?.[data.pageKey]) {
+    (async () => {
+      updatedVariants = (await $pagesStore[data.pageKey]?.loadVariants?.loadModule())
+        ?.variants as Variants<typeof SvelteComponent>;
+    })();
+  }
+  $: variants = updatedVariants || data.loadedModules?.variants;
+
   $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
     '/lib/routes/sandbox/[...file]/+'
   );
-  $: doesNotHaveSvxOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
+  $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>
 
 <div class="tw-prose max-w-full">
@@ -32,13 +44,12 @@
         <div class="text-2xl mb-4">
           {data.page.name.startsWith('+') ? 'Page' : 'Component'} Variants
         </div>
-        {#each data.loadedModules.variants as variant, index}
+        {#each variants as variant, index (index)}
           <View
             title={variant.name}
             description={variant.description}
             width={variant.width}
             height={variant.height}
-            props={variant.props || {}}
             queryParams="variantIdx={index}"
             useIframe={!wouldRecurseInfinitelyInSandbox}
           >
@@ -50,7 +61,7 @@
       {/if}
     {/if}
 
-    {#if doesNotHaveSvxOrVariants}
+    {#if doesNotHaveStoriesOrVariants}
       <div class="mb-3 p-3 bg-gray-200 rounded">
         <b>Kitbook tip</b>: You have not created a Stories file ({data.page?.name}.svx/.md) nor a
         Variants file ({data.page?.name}.variants.ts) file. In the future Kitbook will try to

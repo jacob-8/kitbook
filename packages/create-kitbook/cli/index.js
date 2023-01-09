@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 // when developing locally run `npm link` in packages/kitbook to be able to then run these cli commands - https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e
 
 // not in use, but left here as a starter example for when setting up the create-kitbook cli command

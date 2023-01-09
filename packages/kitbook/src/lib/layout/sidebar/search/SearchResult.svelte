@@ -5,13 +5,15 @@
   export let active = false;
 </script>
 
-<Button form="menu" class="w-full !rounded-0" href={page.url} {active}>
-  <div class="text-left">
-    <div class="capitalize">
-      {page.name}
+{#if page}
+  <Button form="menu" class="w-full !rounded-0" href={page.url} {active}>
+    <div class="text-left">
+      <div class="capitalize">
+        {page.name}
+      </div>
+      <div class="text-xs font-normal">
+        {page.url} ({page.extensions})
+      </div>
     </div>
-    <div class="text-xs font-normal">
-      {page.url} ({page.extensions})
-    </div>
-  </div>
-</Button>
+  </Button>
+{/if}

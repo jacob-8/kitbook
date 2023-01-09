@@ -3,22 +3,27 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- show Story and Variant code in instrument panel
-  - fetch raw code strings via store
+- variant grid
+
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
  
+- extract stories so we can do real HMR and have more control over props for each component in a Story
+
+- show Story and Variant code in instrument panel using code editor: {data.loadedModules.svxRaw}
+  - <!-- i-tabler-code"-->
+
 - automatically analyze component for props
   - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
   - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
 
 - improve knob sub-components, maybe use svelte-knobby to help 
 
-- revisit items in iframe with top padding causing iframe scroll (edit in Github button)
+- revisit split-pane story height
+- solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - catch when a variants file exists by itself and inform how to use variants
 - understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
-- solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
 
 - publish Kitbook extension
 
@@ -48,13 +53,15 @@
 - dynamic slots: https://github.com/sveltejs/svelte/issues/2588 && https://github.com/sveltejs/svelte/pull/4296
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
 - use plugin to automatically give IDs to stories
-- Investigate [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) or [Viteshot](https://viteshot.com/) for visual regression screenshot testing
+- screenshots: VitestPreview, [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) and [Viteshot](https://viteshot.com/) for tips
 - Dark mode (both for Kitbook and for individual sandboxes - or be able to show light and dark side by side) learn from https://github.com/dansvel/sveltekit-windi
 - backlinks
 - esbuild minify and don't place things into one folder (unbuild)
 - support `variants.js`
+- accept whichever w/h dimension is given last either via resize or by prompt
 
 ## Post 1.0
+- snap side panels to 0 if within x pixels.
 - add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')
 - add optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - connections graph
