@@ -1,8 +1,9 @@
 # kitbook
 
-## 1.0.0-alpha.17 - 2023-1-10
+## 1.0.0-alpha.18 - 2023-1-10
 
 - - Keep `variants.ts` file updates from causing full page reload by improving HMR via using a self accepting HMR store.
+  - Fix: Use `.vite-kitbook` as the default `cacheDir` to allow Kitbook to run at the same time as a normal app without conflict.
 
 ## 1.0.0-alpha.10 - 2023-1-5
 

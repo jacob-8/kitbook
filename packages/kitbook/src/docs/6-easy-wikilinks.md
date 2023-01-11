@@ -1,6 +1,6 @@
 # Easy Wikilinks
 
-Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add [wikilinks](https://foambubble.github.io/foam/user/features/wikilinks) between your various documentation pages in a manner that ensures they always stay up-to-date.
+Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add [wikilinks](https://foambubble.github.io/foam/user/features/wikilinks) between your various documentation pages in a manner that ensures they always stay up-to-date. *As an added bonus they also work in Github.*
 
 ## Setup Foam
 
