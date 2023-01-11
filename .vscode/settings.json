@@ -9,7 +9,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "css.lint.unknownAtRules": "ignore",
   "vitest.enable": true,
-  "foam.edit.linkReferenceDefinitions": "withoutExtensions",
+  "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
     "**/node_modules/**/*",
     "**/package/**/*",

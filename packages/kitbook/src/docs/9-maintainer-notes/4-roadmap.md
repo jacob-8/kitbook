@@ -3,10 +3,12 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- variant grid
+- default cacheDir to .vite-kitbook and allow setting of different vite config options
 
 - move routes into node_modules, using virtual module for HMR imports, set init function via an optional file
   - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
+
+- variant grid
 
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
@@ -64,7 +66,9 @@
 - accept whichever w/h dimension is given last either via resize or by prompt
 
 ## Post 1.0
+- [admonitions](https://docusaurus.io/docs/markdown-features/admonitions)
 - fix shiki-twoslash highlight not scrolling on small screens by learning from https://histoire.dev/guide/svelte3/controls.html
+- quickly display meta tags of iframe when rendering +page.svelte components
 - distinguish between Index and README in search if both exist
 - snap side panels to 0 if within x pixels.
 - add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')

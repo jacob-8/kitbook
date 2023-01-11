@@ -10,6 +10,7 @@ function rehypeDisplayLinkTitles(options = {}) {
   function visitor() {
     return (node) => {
       if (node.tagName === "a" && node.properties) {
+        removeMarkdownExtensionFromHref(node);
         const title = node.properties.title;
         node.children;
         const text = node.children?.[0]?.value;
@@ -34,6 +35,11 @@ function rehypeDisplayLinkTitles(options = {}) {
         }
       }
     };
+  }
+}
+function removeMarkdownExtensionFromHref(node) {
+  if (node.properties.href) {
+    node.properties.href = node.properties.href.replace(/\.md$/, "");
   }
 }
 

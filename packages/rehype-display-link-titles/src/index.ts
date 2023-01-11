@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit'
 import type { BuildVisitor } from 'unist-util-visit/complex-types'
-import type { Root } from 'hast';
+import type { Root, Element as HAST_Element } from 'hast';
 import { slug } from 'github-slugger'; // https://github.com/rehypejs/rehype-slug uses this to generate heading ids this function must match it
 
 /** @type {import('unified').Plugin<[Options?]|void[], Root>} */
@@ -12,6 +12,9 @@ export function rehypeDisplayLinkTitles(options = {}): (tree: any, file: any) =>
   function visitor(): BuildVisitor<Root, "element"> {
     return (node) => {
       if (node.tagName === 'a' && node.properties) {
+
+        removeMarkdownExtensionFromHref(node as AnchorElement);
+
         const title = node.properties.title as string;
         node.children;
         // @ts-ignore
@@ -43,8 +46,7 @@ export function rehypeDisplayLinkTitles(options = {}): (tree: any, file: any) =>
   }
 }
 
-type Element = {
-  type: 'element',
+interface AnchorElement extends HAST_Element {
   tagName: 'a',
   properties: { href: string, title?: string },
   children: { type: 'text', value: string }[]
@@ -54,3 +56,10 @@ type Element = {
 type Options = {
   // [key: string]: any
 }
+
+function removeMarkdownExtensionFromHref(node: AnchorElement) {
+  if (node.properties.href) {
+    node.properties.href = node.properties.href.replace(/\.md$/, '');
+  }
+}
+
