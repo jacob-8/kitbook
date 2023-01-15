@@ -1,5 +1,12 @@
 import type { SvelteComponent } from "svelte";
 
+export interface KitbookSettings {
+  title: string;
+  description: string;
+  expandTree?: boolean;
+  githubURL?: string;
+}
+
 export type Variants<T> = Variant<T>[]
 
 export type Variant<T> = {

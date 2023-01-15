@@ -2,14 +2,7 @@ import type { Folder, GroupedPageMap } from "../../kitbook-types";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
 export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
-  let pagesToOrganize = Object.values(groupedPages)
-
-  if (typeof __KitbookRoutes__ !== 'undefined') {
-    const isNotKitbookItself = __KitbookRoutes__ !== 'src/lib/routes';
-    if (isNotKitbookItself) {
-      pagesToOrganize = pagesToOrganize.filter(page => filterKitbookRoutes(page.path, __KitbookRoutes__))
-    }
-  }
+  const pagesToOrganize = Object.values(groupedPages)
 
   const rootFolder: Folder = {
     name: '.',

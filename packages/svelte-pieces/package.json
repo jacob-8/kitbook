@@ -34,7 +34,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
     "@unocss/preset-icons": "^0.48.0",
-    "kitbook": "1.0.0-alpha.13",
+    "kitbook": "1.0.0-alpha.19",
     "replace-in-file": "^6.3.5",
     "svelte": "^3.55.0",
     "svelte-check": "^3.0.1",

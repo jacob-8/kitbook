@@ -4,7 +4,7 @@ import { kitbook } from 'kitbook/plugins/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
   plugins: [
-    kitbook({ routes: 'src/routes' }),
+    kitbook(),
     sveltekit(),
   ],
   define: {

@@ -1,1 +1,1 @@
-export { sandboxPageLoad as load } from 'kitbook';
+export { sandboxPageLoad as load } from '../../../pages/sandboxPageLoad';

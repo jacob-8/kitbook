@@ -1,4 +1,5 @@
 import type { LayoutLoad } from './$types';
-import { layoutLoad } from 'kitbook';
-import { pages } from './moduleImports';
-export const load = layoutLoad({ pages }) satisfies LayoutLoad;
+import { layoutLoad } from '../layout/layoutLoad';
+// @ts-expect-error virtual module
+import { pages, initFunction } from 'virtual:kitbook-modules';
+export const load = layoutLoad({ pages, initFunction }) satisfies LayoutLoad;

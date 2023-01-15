@@ -1,30 +1,29 @@
 import fs from 'fs';
+import { wrapExportedConfigWithAugmentFunction } from './augmentSvelteConfigForKitbook';
+import { AUGMENT_FUNCTION_TEXT } from './constants';
 
-export function initKitbook(routes: string) {
-  process.env.KITBOOK_ROUTES = routes;
-  ensureKitbookRoutesExist(routes);
-  addSvelteConfigAugmentFunctionIfNeeded(routes);
+export function initKitbook() {
+  process.env.KITBOOK = 'yes';
+  addKitbookDirectoryIfNeeded();
+  addSvelteConfigAugmentFunctionIfNeeded();
 }
 
-function ensureKitbookRoutesExist(routes: string) {
-  if (!fs.existsSync(routes)) {
+function addKitbookDirectoryIfNeeded() {
+  const KITBOOK_DIRECTORY = 'src/.kitbook';
+  if (!fs.existsSync(KITBOOK_DIRECTORY)) {
     try {
-      fs.mkdirSync(routes);
-      const src = 'node_modules/kitbook/routes';
-      const destination = routes;
+      fs.mkdirSync(KITBOOK_DIRECTORY);
+      const src = 'node_modules/kitbook/.kitbook';
+      const destination = KITBOOK_DIRECTORY;
       fs.cpSync(src, destination, { recursive: true, filter: (src, dest) => !src.includes('.d.ts') });
-      console.log(`Copied Kitbook routes directory to ${routes} to setup your Kitbook. The Kitbook plugin will automatically update your Svelte config file to use ${routes} as the routes directory when running vite in "kitbook" mode.\n`);
+      console.log(`Added Kitbook files to ${KITBOOK_DIRECTORY} which includes customization files for your Kitbook.\n`);
     } catch (e) {
       console.error(e);
     }
   }
-  // If svelte.config.js was pointed directly to node_modules/kitbook/routes the routes wouldn't need copied into their repo. Unfortunately client HRML then wouldn't work w/o turning off cache in browser devtools because of how Vite caches files in node_modules.
 }
 
-const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
-export default augmentSvelteConfigForKitbook(config)`;
-
-function addSvelteConfigAugmentFunctionIfNeeded(routes: string) {
+function addSvelteConfigAugmentFunctionIfNeeded() {
   let svelteConfigPath: string;
 
   const possibleExtensions = ['js', 'mjs', 'cjs', 'ts', 'mts', 'cts'];
@@ -38,28 +37,10 @@ function addSvelteConfigAugmentFunctionIfNeeded(routes: string) {
     const svelteConfigText = fs.readFileSync(svelteConfigPath, 'utf8');
     const isAugmented = svelteConfigText.includes('augmentSvelteConfigForKitbook');
     if (!isAugmented) {
-      fs.writeFileSync(svelteConfigPath, wrapExportedConfigWithAugmentFunction(svelteConfigText, routes));
+      fs.writeFileSync(svelteConfigPath, wrapExportedConfigWithAugmentFunction(svelteConfigText));
     }
   } else {
     console.log(`No svelte.config.{js|ts|mts|mjs|cts|cjs} file found. Make sure you have added the following to it to enable Kitbook: ${AUGMENT_FUNCTION_TEXT} \n`);
   }
 }
 
-function wrapExportedConfigWithAugmentFunction(svelteConfigText: string, routes: string): string {
-  console.log(`Augmented your svelte.config.js file for Kitbook use. The 'augmentSvelteConfigForKitbook' function will add MDSvex support and serve routes from ${routes} when running vite in "kitbook" mode.\n`);
-  return svelteConfigText.replace('export default config', AUGMENT_FUNCTION_TEXT);
-}
-
-import { DEFAULT_KITBOOK_ROUTES } from './constants.js';
-if (import.meta.vitest) {
-  test('wrapExportedConfigWithAugmentFunction', () => {
-    expect(wrapExportedConfigWithAugmentFunction(`import {foo} from 'somewhere';\n\nconst config = {}\n\nexport default config;`, DEFAULT_KITBOOK_ROUTES)).toMatchInlineSnapshot(`
-      "import {foo} from 'somewhere';
-
-      const config = {}
-
-      import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
-      export default augmentSvelteConfigForKitbook(config);"
-    `);
-  });
-}

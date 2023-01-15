@@ -1,5 +1,11 @@
 # kitbook
 
+## 1.0.0-alpha.19 - 2023-1-15
+
+- [breaking] load routes from `node_modules/kitbook` and use virtual module to achieve HMR. A Kitbook routes folder is no longer needed in consuming projects.
+- Added a `.kitbook/init.ts` file to give an async initialization option for Kitbook's that need it (e.g. i18n)
+- Added a `.kitbook/WrapRootLayout.svelte` to contain a settings context option to pass settings to your Kitbook like the title. Other needed global context items could also be added to this file.
+
 ## 1.0.0-alpha.18 - 2023-1-10
 
 - - Keep `variants.ts` file updates from causing full page reload by improving HMR via using a self accepting HMR store.

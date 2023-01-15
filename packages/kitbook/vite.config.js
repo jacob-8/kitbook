@@ -6,7 +6,7 @@ import { configDefaults } from 'vitest/config'
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [
-		kitbook({ routes: 'src/lib/routes' }),
+		kitbook(),
 		sveltekit(),
 	],
 	define: {

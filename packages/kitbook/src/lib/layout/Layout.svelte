@@ -2,7 +2,8 @@
   import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css';
   import '../styles/main.css';
 
-  import { setContext } from 'svelte';
+  import type { KitbookSettings } from 'kitbook';
+  import { getContext } from 'svelte';
   import { page } from '$app/stores';
   import Header from './sidebar/Header.svelte';
   import Sidebar from './sidebar/Sidebar.svelte';
@@ -10,12 +11,8 @@
   import LayoutPanes from './LayoutPanes.svelte';
   import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
-  export let title = 'Kitbook';
-  export let description =
-    'Svelte Component Documentation and Prototyping Workbench built using SvelteKit';
-  export let expanded = false;
-  export let githubURL = '';
-  setContext<string>('githubUrl', githubURL);
+  const settings = getContext<KitbookSettings>('kitbook-settings');
+  const { title, description, expandTree, githubURL } = settings;
 
   $: folder = putPagesIntoFolders($page.data.pages);
   $: activeURL = $page.url.pathname;
@@ -29,7 +26,7 @@
       <slot name="title">{title}</slot>
     </Header>
     <nav class="hidden md:block overflow-y-auto grow-1">
-      <Sidebar bind:showSidebar {folder} {activeURL} {expanded}>
+      <Sidebar bind:showSidebar {folder} {activeURL} expanded={expandTree}>
         <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
       </Sidebar>
     </nav>

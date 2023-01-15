@@ -1,12 +1,13 @@
 <script lang="ts">
+  import type { KitbookSettings } from 'kitbook';
   import { getContext } from 'svelte';
   export let path: string;
-  const githubURL = getContext<string>('githubUrl');
+  const settings = getContext<KitbookSettings>('kitbook-settings');
 </script>
 
-{#if githubURL && path}
+{#if settings?.githubURL && path}
   <a
-    href={githubURL + path}
+    href={settings.githubURL + path}
     class="text-blue-500 hover:text-blue-600 flex items-center my-5"
     target="_blank"
     rel="noopener noreferrer"
