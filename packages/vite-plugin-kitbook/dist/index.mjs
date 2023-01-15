@@ -1,14 +1,40 @@
-import fs from 'fs';
 import { defineMDSveXConfig, mdsvex } from 'mdsvex';
 import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeUrls from 'rehype-urls';
 import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash';
+import fs from 'fs';
 
 const MDSVEX_EXTENSIONS = [".md", ".svx"];
 const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
 export default augmentSvelteConfigForKitbook(config)`;
+const VIRTUAL_MODULES_IMPORT_ID = "virtual:kitbook-modules";
+const RESOLVED_VIRTUAL_MODULES_IMPORT_ID = "\0" + VIRTUAL_MODULES_IMPORT_ID;
+
+const config = defineMDSveXConfig({
+  extensions: MDSVEX_EXTENSIONS,
+  remarkPlugins: [],
+  rehypePlugins: [
+    rehypeDisplayLinkTitles,
+    [rehypeUrls, openExternalInNewTab],
+    rehypeSlug,
+    [rehypeAutolinkHeadings, {
+      behavior: "wrap",
+      properties: {
+        class: "heading-anchor"
+      }
+    }]
+  ],
+  highlight: shikiTwoslashHighlighter({ themes: ["dark-plus"] })
+});
+function openExternalInNewTab(url, node) {
+  if (url.protocol?.startsWith("http")) {
+    node.properties.target = "_blank";
+    node.properties.rel = "noopener";
+    node.properties.rel = "noreferrer";
+  }
+}
 
 function immutableDeepMerge(...objects) {
   const initialObject = {};
@@ -93,6 +119,19 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
   }
 }
 
+function modifyViteConfigForKitbook(userSpecifiedViteConfigAdjustments) {
+  const kitbookDefaultViteAdjustments = {
+    cacheDir: "node_modules/.vite-kitbook",
+    server: {
+      port: 4321,
+      fs: {
+        allow: [".."]
+      }
+    }
+  };
+  return immutableDeepMerge(kitbookDefaultViteAdjustments, userSpecifiedViteConfigAdjustments);
+}
+
 const virtualImportModulesContent = `import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
 const modules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"]);
 const rawModules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"], { as: "raw" });
@@ -109,46 +148,7 @@ if (import.meta.hot) {
   });
 }`;
 
-const config = defineMDSveXConfig({
-  extensions: MDSVEX_EXTENSIONS,
-  remarkPlugins: [],
-  rehypePlugins: [
-    rehypeDisplayLinkTitles,
-    [rehypeUrls, openExternalInNewTab],
-    rehypeSlug,
-    [rehypeAutolinkHeadings, {
-      behavior: "wrap",
-      properties: {
-        class: "heading-anchor"
-      }
-    }]
-  ],
-  highlight: shikiTwoslashHighlighter({ themes: ["dark-plus"] })
-});
-function openExternalInNewTab(url, node) {
-  if (url.protocol?.startsWith("http")) {
-    node.properties.target = "_blank";
-    node.properties.rel = "noopener";
-    node.properties.rel = "noreferrer";
-  }
-}
-
-function modifyViteConfigForKitbook(userSpecifiedViteConfigAdjustments) {
-  const kitbookDefaultViteAdjustments = {
-    cacheDir: "node_modules/.vite-kitbook",
-    server: {
-      port: 4321,
-      fs: {
-        allow: [".."]
-      }
-    }
-  };
-  return immutableDeepMerge(kitbookDefaultViteAdjustments, userSpecifiedViteConfigAdjustments);
-}
-
 function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig } = {}) {
-  const virtualImportModulesId = "virtual:kitbook-modules";
-  const resolvedVirtualImportModulesId = "\0" + virtualImportModulesId;
   const isKitbookMode = process.env.npm_lifecycle_script?.includes("--mode kitbook");
   if (isKitbookMode)
     initKitbook();
@@ -166,14 +166,17 @@ function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig } = {}
       sveltePreprocess: isKitbookMode && mdsvex(mdsvexConfig || config)
     },
     resolveId(id) {
-      if (id === virtualImportModulesId) {
-        return resolvedVirtualImportModulesId;
+      if (id === VIRTUAL_MODULES_IMPORT_ID) {
+        return RESOLVED_VIRTUAL_MODULES_IMPORT_ID;
       }
     },
     load(id) {
-      if (id === resolvedVirtualImportModulesId) {
+      if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
         return virtualImportModulesContent;
       }
+    },
+    transform(src, id) {
+      console.log(id);
     }
   };
 }

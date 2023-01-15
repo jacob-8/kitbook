@@ -9,8 +9,9 @@
 
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
- 
+
 - extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
+- cleanup page files and loads now that routes are not copied into projects
 
 - show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->

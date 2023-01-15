@@ -1,29 +1,17 @@
-import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
-import { initKitbook } from './initKitbook';
-import virtualImportModulesContent from './virtual/importModulesStringified';
-
-// import { readFileSync } from 'fs';
-// import { dirname, resolve } from 'path'
-// import { fileURLToPath } from 'url'
-// const _dirname = typeof __dirname !== 'undefined'
-//   ? __dirname
-//   : dirname(fileURLToPath(import.meta.url))
+import type { Plugin, UserConfig } from 'vite';
 
 import { mdsvex, type MdsvexOptions } from 'mdsvex';
 import defaultKitbookMdsvexConfig from './mdsvex/mdsvex.config';
+
+import { initKitbook } from './initKitbook';
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook';
+import virtualImportModulesContent from './virtual/importModulesStringified';
+import { RESOLVED_VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID } from './constants';
 
 export function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig }: {
   userSpecifiedViteConfigAdjustments?: UserConfig;
   mdsvexConfig?: MdsvexOptions;
 } = {}): Plugin {
-  const virtualImportModulesId = 'virtual:kitbook-modules';
-  const resolvedVirtualImportModulesId = '\0' + virtualImportModulesId;
-  // const virtualImportModulesContentPath = resolve(_dirname, './importModules.mjs');
-  // const virtualModuleContent = readFileSync(virtualImportModulesContentPath, 'utf-8');
-
-  // let config: ResolvedConfig;
-
   const isKitbookMode = process.env.npm_lifecycle_script?.includes('--mode kitbook');
   if (isKitbookMode) initKitbook();
 
@@ -44,27 +32,20 @@ export function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig
     },
 
     resolveId(id) {
-      if (id === virtualImportModulesId) {
-        return resolvedVirtualImportModulesId
+      if (id === VIRTUAL_MODULES_IMPORT_ID) {
+        return RESOLVED_VIRTUAL_MODULES_IMPORT_ID
       }
     },
     load(id) {
-      if (id === resolvedVirtualImportModulesId) {
+      if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
         return virtualImportModulesContent;
       }
     },
 
-    // configResolved(resolvedConfig) {
-    // config = resolvedConfig
-    // },
-
     // transform(src, id) {
-    //   if (config.mode === 'kitbook') {
-    //     if (id.includes('+page'))
-    //       console.log(id)
-    //     return {
-    //       code: src,
-    //     }
+    //   console.log(id)
+    //   return {
+    //     code: src,
     //   }
     // }
   }
