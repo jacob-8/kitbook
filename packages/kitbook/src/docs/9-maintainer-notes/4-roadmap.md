@@ -3,17 +3,15 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- default cacheDir to .vite-kitbook and allow setting of different vite config options
-
-- move routes into node_modules, using virtual module for HMR imports, set init function via an optional file
-  - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
+- test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
 
 - variant grid
 
 - Add full-screen focus view for sandbox
   - make instrument panel show on mobile
- 
+
 - extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
+- cleanup page files and loads now that routes are not copied into projects
 
 - show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->
@@ -38,6 +36,7 @@
 
 ## Beta
 - update meta-tags based on current page
+- add shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page
 - don't show grayed out empty stories for components with details on build
 - figure out easier way to reference types inside of Kitbook
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar

@@ -1,11 +1,20 @@
 import type { Config } from '@sveltejs/kit';
-import { augmentSvelteConfigForKitbook } from './augmentSvelteConfigForKitbook';
+import { augmentSvelteConfigForKitbook, wrapExportedConfigWithAugmentFunction } from './augmentSvelteConfigForKitbook';
 
-test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, then options from user, then from kitbook defaults, then from the current svelte.config.js', () => {
-  process.env.KITBOOK_ROUTES = 'src/set-in-vite-plugin';
+// current svelte.config.js
+const svelteConfig: Config = {
+  kit: {
+    files: {
+      routes: 'src/bananas',
+    },
+    inlineStyleThreshold: 0,
+  },
+};
 
-  // from user
-  const kitbookOptions: Config = {
+test('augmentSvelteConfigForKitbook first takes options from user, then from kitbook defaults, then from the current svelte.config.js', () => {
+  process.env.KITBOOK = 'yes';
+
+  const kitbookOptionsFromUser: Config = {
     kit: {
       files: {
         routes: 'src/shazambook',
@@ -14,19 +23,8 @@ test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, 
     },
   };
 
-  // kitbook defaults hardcoded into function
 
-  // current svelte config (mock)
-  const svelteConfig: Config = {
-    kit: {
-      files: {
-        routes: 'src/bananas',
-      },
-      inlineStyleThreshold: 0,
-    },
-  };
-
-  expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptions)).toMatchInlineSnapshot(`
+  expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptionsFromUser)).toMatchInlineSnapshot(`
       {
         "extensions": [
           ".svelte",
@@ -37,7 +35,7 @@ test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, 
           "files": {
             "appTemplate": "node_modules/kitbook/app.html",
             "assets": "node_modules/kitbook/assets",
-            "routes": "src/set-in-vite-plugin",
+            "routes": "src/shazambook",
           },
           "inlineStyleThreshold": 0,
           "outDir": ".svelte-kit-kitbook",
@@ -47,39 +45,34 @@ test('augmentSvelteConfigForKitbook first takes routes folder from Vite plugin, 
     `);
 });
 
-test('when routes are reset in Vite plugin to src/routes, that remains regardless of what is inadvertently passed into augmentSvelteConfigForKitbook; also outDir is not changed from the kit default', () => {
-  process.env.KITBOOK_ROUTES = 'src/routes';
-
-  const kitbookOptions: Config = {
-    kit: {
-      files: {
-        routes: 'src/shazambook',
-      },
-    },
-  };
-
-  const svelteConfig: Config = {
-    kit: {
-      files: {
-        routes: 'src/bananas',
-      },
-    },
-  };
-
-  expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptions)).toMatchInlineSnapshot(`
-      {
-        "extensions": [
-          ".svelte",
-          ".md",
-          ".svx",
-        ],
-        "kit": {
-          "files": {
-            "appTemplate": "node_modules/kitbook/app.html",
-            "assets": "node_modules/kitbook/assets",
-            "routes": "src/routes",
-          },
+test('augmentSvelteConfigForKitbook updates extensions and files locations', () => {
+  expect(augmentSvelteConfigForKitbook(svelteConfig)).toMatchInlineSnapshot(`
+    {
+      "extensions": [
+        ".svelte",
+        ".md",
+        ".svx",
+      ],
+      "kit": {
+        "files": {
+          "appTemplate": "node_modules/kitbook/app.html",
+          "assets": "node_modules/kitbook/assets",
+          "routes": "node_modules/kitbook/routes",
         },
-      }
+        "inlineStyleThreshold": 0,
+        "outDir": ".svelte-kit-kitbook",
+      },
+    }
+  `);
+});
+
+test('wrapExportedConfigWithAugmentFunction', () => {
+  expect(wrapExportedConfigWithAugmentFunction(`import {foo} from 'somewhere';\n\nconst config = {}\n\nexport default config;`)).toMatchInlineSnapshot(`
+      "import {foo} from 'somewhere';
+
+      const config = {}
+
+      import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
+      export default augmentSvelteConfigForKitbook(config);"
     `);
 });

@@ -1,1 +1,1 @@
-export { mainPageLoad as load } from 'kitbook';
+export { mainPageLoad as load } from '../../../pages/mainPageLoad';

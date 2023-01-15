@@ -8,8 +8,6 @@ declare namespace App {
 	// interface Platform {}
 }
 
-declare const __KitbookRoutes__: string
-
 declare namespace svelteHTML {
 	// https://github.com/sveltejs/language-tools >> docs/preprocessors/typescript.md
 	interface HTMLAttributes<T> {

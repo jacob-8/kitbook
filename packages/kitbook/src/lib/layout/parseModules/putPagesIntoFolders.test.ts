@@ -4,9 +4,6 @@ import { putPagesIntoFolders } from "./putPagesIntoFolders";
 import { testModules } from "./testModules";
 
 test('putPagesIntoFolders organizes Pages into proper folders', () => {
-  // @ts-ignore
-  globalThis.__KitbookRoutes__ = 'src/kitbook';
-
   const pages = parseModulesIntoUngroupedPages(testModules, testModules);
   expect(putPagesIntoFolders(groupColocatedPages(pages))).toMatchInlineSnapshot(`
     {
@@ -374,7 +371,4 @@ test('putPagesIntoFolders organizes Pages into proper folders', () => {
       "url": "/",
     }
   `);
-
-  // @ts-ignore
-  globalThis.__KitbookRoutes__ = null;
 });

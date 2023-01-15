@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     // "strict": true,
     "types": [
+      "node",
       "vitest/globals",
       "vitest/importMeta"
     ]
