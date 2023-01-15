@@ -6,7 +6,7 @@
 		"build": "pnpm --filter=kitbook build",
 		"preview": "pnpm --filter=kitbook preview",
 		"package": "pnpm --filter=kitbook package",
-		"test": "pnpm --filter=kitbook test",
+		"test": "pnpm -r -F kitbook -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F svelte-pieces -F vite-plugin-kitbook --parallel run test",
 		"pieces": "pnpm --filter=svelte-pieces dev",
 		"pieces:build": "pnpm --filter=svelte-pieces build",
 		"pieces:preview": "pnpm --filter=svelte-pieces preview",

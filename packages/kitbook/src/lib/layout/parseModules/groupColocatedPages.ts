@@ -107,42 +107,6 @@ if (import.meta.vitest) {
           "path": "/src/index.md",
           "url": "/index",
         },
-        "/kitbook/(main)/+layout": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/kitbook/(main)/+layout.svelte",
-          "url": "/kitbook/(main)/+layout",
-        },
-        "/kitbook/(main)/[...file]/+page": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/kitbook/(main)/[...file]/+page.svelte",
-          "url": "/kitbook/(main)/[...file]/+page",
-        },
-        "/kitbook/sandbox/[...file]/+page": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
-          "url": "/kitbook/sandbox/[...file]/+page",
-        },
         "/lib/A": {
           "extensions": [
             "svelte",

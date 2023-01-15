@@ -50,11 +50,6 @@ export const testModules = {
   '/src/routes/c/_layout.svx': () => Promise.resolve(null),
   '/src/routes/c/_layout.variants.ts': () => Promise.resolve(null),
 
-  // ignore kitbook route files
-  '/src/kitbook/(main)/+layout.svelte': () => Promise.resolve(null),
-  '/src/kitbook/(main)/[...file]/+page.svelte': () => Promise.resolve(null),
-  '/src/kitbook/sandbox/[...file]/+page.svelte': () => Promise.resolve(null),
-
   // unrecognized extensions will be ignored in groupColocatedPages()
   '/src/lib/A.foo.svelte': () => Promise.resolve(null),
   '/src/lib/Baz.foo.svelte': () => Promise.resolve(null),

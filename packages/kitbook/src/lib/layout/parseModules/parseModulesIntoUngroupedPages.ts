@@ -339,36 +339,6 @@ if (import.meta.vitest) {
           "url": "/routes/c/_layout",
         },
         {
-          "ext": "svelte",
-          "load": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/kitbook/(main)/+layout.svelte",
-          "url": "/kitbook/(main)/+layout",
-        },
-        {
-          "ext": "svelte",
-          "load": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/kitbook/(main)/[...file]/+page.svelte",
-          "url": "/kitbook/(main)/[...file]/+page",
-        },
-        {
-          "ext": "svelte",
-          "load": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/kitbook/sandbox/[...file]/+page.svelte",
-          "url": "/kitbook/sandbox/[...file]/+page",
-        },
-        {
           "ext": "foo.svelte",
           "load": {
             "loadModule": [Function],
