@@ -6,7 +6,6 @@
   "svelte": "src/lib/index.ts",
   "main": "src/lib/index.ts",
   "scripts": {
-    "postinstall": "svelte-kit sync",
     "dev": "pnpm kitbook",
     "build": "pnpm kitbook:build",
     "preview": "pnpm kitbook:preview",
