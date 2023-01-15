@@ -8,7 +8,7 @@
 - variant grid
 
 - Add full-screen focus view for sandbox
-  - make instrument panel show on mobile
+  - make instrument panel show in focus view on mobile
 
 - extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
 - cleanup page files and loads now that routes are not copied into projects

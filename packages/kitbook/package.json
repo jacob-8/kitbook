@@ -6,7 +6,6 @@
   "svelte": "src/lib/index.ts",
   "main": "src/lib/index.ts",
   "scripts": {
-    "sync": "svelte-kit sync",
     "dev": "vite dev --mode kitbook",
     "build": "vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
