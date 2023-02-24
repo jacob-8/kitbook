@@ -71,7 +71,7 @@ function extractStories(): Plugin {
 
 		async handleHotUpdate({ file, read, modules }) {
 			// if is a stories file (.md/.svx) 
-				// read updated file with stories and if the story interiors have changed (checking prevStoriesPagesValues) but not the file
+				// read (see unocss-sveltekit-scoped plugin) updated file with stories and if the story interiors have changed (checking prevStoriesPagesValues) but not the file
 					// then update the appropriate story file(s) in .kitbook/stories/svelte using writeFileSync and also update that story's import paths as needed
 					// then return [] to avoid updating the stories page which would cause a reload of the iframes containing the stories
 

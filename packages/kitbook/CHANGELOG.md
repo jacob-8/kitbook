@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.21 - 2023-2-24
+
+- Use internal esm port of lz-string to avoid cjs import challenges.
+
 ## 1.0.0-alpha.19 - 2023-1-15
 
 - [breaking] load routes from `node_modules/kitbook` and use virtual module to achieve HMR. A Kitbook routes folder is no longer needed in consuming projects.

@@ -1,6 +1,5 @@
 import type { SvelteComponent } from 'svelte';
-import LZString from 'lz-string';
-const { decompressFromEncodedURIComponent: decode } = LZString;
+import { decompressFromEncodedURIComponent as decode } from '../lz/lz-string';
 import type { GroupedPage, LoadedModules, Variant } from '../kitbook-types';
 
 export const sandboxPageLoad = async ({ params, parent, url }) => {

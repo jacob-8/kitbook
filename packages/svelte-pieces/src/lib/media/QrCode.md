@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Story } from 'kitbook';
-  import QrCode from '$lib/media/QrCode.svelte';
+  import QrCode from './QrCode.svelte';
   //https://livingdictionaries.app/akateko/entry/f8sRcwKS4nGeFjARVOW7
 </script>
 

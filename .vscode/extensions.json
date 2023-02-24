@@ -5,7 +5,7 @@
     "fivethree.vscode-svelte-snippets",
     // Styles
     "antfu.iconify",
-    "voorjaar.windicss-intellisense",
+    "antfu.unocss",
     // Code quality
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",

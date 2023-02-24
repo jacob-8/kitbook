@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.20",
+  "version": "1.0.0-alpha.21",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "type": "module",
   "svelte": "src/lib/index.ts",
@@ -16,12 +16,11 @@
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
     "test": "vitest",
-    "test:update": "vitest -u"
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "latest",
     "@kitbook/vite-plugin-kitbook": "latest",
-    "lz-string": "^1.4.4",
     "svelte": "^3.55.0",
     "svelte-pieces": "^1.0.57"
   },

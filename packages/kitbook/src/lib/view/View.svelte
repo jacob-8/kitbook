@@ -4,8 +4,7 @@
   import Iframe from './Iframe.svelte';
   import { IntersectionObserver } from 'svelte-pieces';
   import { page } from '$app/stores';
-  import LZString from 'lz-string';
-  const { compressToEncodedURIComponent: encode } = LZString;
+  import { compressToEncodedURIComponent as encode } from '../lz/lz-string';
 
   const DEFAULT_PIXEL_HEIGHT = 220;
 

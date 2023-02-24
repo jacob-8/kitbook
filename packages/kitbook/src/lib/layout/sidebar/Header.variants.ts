@@ -27,4 +27,9 @@ export const variants: Variants<typeof Component> = [
       }
     ]
   },
-]
+].map(variant => {
+  return {
+    width: 600,
+    ...variant,
+  }
+})
