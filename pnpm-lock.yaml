@@ -1110,8 +1110,8 @@ packages:
       unist-util-visit: 4.1.1
     dev: true
 
-  /@kitbook/vite-plugin-kitbook/0.0.5_svelte@3.55.0:
-    resolution: {integrity: sha512-QqpuH8fEvy3Weum1hCDcJQRpn+6J6IAQ3EJWYNbaCw7ZP/KV+dBOQ9nBxkrgQHc841Z8XVWT3GL2OOpcrI84Qg==}
+  /@kitbook/vite-plugin-kitbook/0.0.6_svelte@3.55.0:
+    resolution: {integrity: sha512-ijtlfbUKsJ0PKL9CYR3KKwITiKQQYtY/gXOrFCsrGmOaV++vtUPowvL8FZ1ESnwwAMel+b3SRq7SAH8jyLEs9w==}
     dependencies:
       '@kitbook/mdsvex-shiki-twoslash': 0.0.3_svelte@3.55.0
       '@kitbook/rehype-display-link-titles': 0.0.3
@@ -4292,7 +4292,7 @@ packages:
     resolution: {integrity: sha512-XryJinVuM9ARdV8HUpo11FYhgsf9YTmxRXQybuYs3yehzjjcRt9HHI8wuieAEx+XV/lVDYb8M/F2FA9wWltx4w==}
     dependencies:
       '@kitbook/mdsvex-shiki-twoslash': 0.0.3_svelte@3.55.0
-      '@kitbook/vite-plugin-kitbook': 0.0.5_svelte@3.55.0
+      '@kitbook/vite-plugin-kitbook': 0.0.6_svelte@3.55.0
       lz-string: 1.4.4
       svelte: 3.55.0
       svelte-pieces: 1.0.57_svelte@3.55.0
