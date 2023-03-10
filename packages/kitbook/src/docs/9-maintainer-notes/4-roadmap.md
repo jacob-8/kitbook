@@ -35,6 +35,7 @@
 - send test question to discord query person
 
 ## Beta
+- don't break if no export from init.ts
 - update meta-tags based on current page
 - add shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page
 - don't show grayed out empty stories for components with details on build
