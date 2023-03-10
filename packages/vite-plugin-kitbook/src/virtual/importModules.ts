@@ -1,9 +1,13 @@
+// @ts-ignore - this file is going to become a virtual module in an environment where kitbook is available
 import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
 import type { SvelteComponent } from "svelte";
 
 // Vite reference: https://vitejs.dev/guide/features.html#glob-import
-const modules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']);
-const rawModules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md'], { as: 'raw' });
+const modules = import.meta.glob(['REPLACE_WITH_MODULE_GLOBS']);
+const rawModules = import.meta.glob(['REPLACE_WITH_MODULE_GLOBS'], { as: 'raw' });
+// testing prebundling loading optimization
+// const makeSureAllDependenciesAreOptimizedAtOnceToAvoidPageReloads = import.meta.glob(['/src/**/*.svelte'], { eager: true });
+// console.log({makeSureAllDependenciesAreOptimizedAtOnceToAvoidPageReloads})
 
 export const pages = groupColocatedModulesIntoPages(modules, rawModules);
 

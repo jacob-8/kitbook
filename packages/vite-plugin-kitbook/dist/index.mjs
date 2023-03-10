@@ -11,6 +11,7 @@ const AUGMENT_FUNCTION_TEXT = `import { augmentSvelteConfigForKitbook } from 'ki
 export default augmentSvelteConfigForKitbook(config)`;
 const VIRTUAL_MODULES_IMPORT_ID = "virtual:kitbook-modules";
 const RESOLVED_VIRTUAL_MODULES_IMPORT_ID = "\0" + VIRTUAL_MODULES_IMPORT_ID;
+const DEFAULT_IMPORT_MODULE_GLOBS = ["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"];
 
 const config = defineMDSveXConfig({
   extensions: MDSVEX_EXTENSIONS,
@@ -133,8 +134,8 @@ function modifyViteConfigForKitbook(userSpecifiedViteConfigAdjustments) {
 }
 
 const virtualImportModulesContent = `import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
-const modules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"]);
-const rawModules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"], { as: "raw" });
+const modules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"]);
+const rawModules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"], { as: "raw" });
 export const pages = groupColocatedModulesIntoPages(modules, rawModules);
 const WrapRootLayoutMap = import.meta.glob(["/src/.kitbook/WrapRootLayout.svelte"], { eager: true, import: "default" });
 export const WrapRootLayout = WrapRootLayoutMap["/src/.kitbook/WrapRootLayout.svelte"];
@@ -148,7 +149,18 @@ if (import.meta.hot) {
   });
 }`;
 
-function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig } = {}) {
+function writeModuleGlobsIntoVirtualModuleCode(code, importModuleGlobs) {
+  const stringified_globs = JSON.stringify(importModuleGlobs);
+  const remove_brackets_and_outer_quotes = stringified_globs.substring(2, stringified_globs.length - 2);
+  const STRING_TO_REPLACE = "REPLACE_WITH_MODULE_GLOBS";
+  return code.replaceAll(STRING_TO_REPLACE, remove_brackets_and_outer_quotes);
+}
+
+function kitbookPlugin({
+  fileGlobs: importModuleGlobs,
+  viteConfigAdjustments,
+  mdsvexConfig
+} = {}) {
   const isKitbookMode = process.env.npm_lifecycle_script?.includes("--mode kitbook");
   if (isKitbookMode)
     initKitbook();
@@ -160,7 +172,7 @@ function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig } = {}
     },
     config: (config, { mode }) => {
       if (mode === "kitbook")
-        return modifyViteConfigForKitbook(userSpecifiedViteConfigAdjustments);
+        return modifyViteConfigForKitbook(viteConfigAdjustments);
     },
     api: {
       sveltePreprocess: isKitbookMode && mdsvex(mdsvexConfig || config)
@@ -172,11 +184,8 @@ function kitbookPlugin({ userSpecifiedViteConfigAdjustments, mdsvexConfig } = {}
     },
     load(id) {
       if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
-        return virtualImportModulesContent;
+        return writeModuleGlobsIntoVirtualModuleCode(virtualImportModulesContent, importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS);
       }
-    },
-    transform(src, id) {
-      console.log(id);
     }
   };
 }

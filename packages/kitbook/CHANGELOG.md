@@ -1,5 +1,10 @@
 # kitbook
 
+## 1.0.0-alpha.22 - 2023-3-10
+
+- add ability to pass in custom module globs to scan for Kitbook files using the `fileGlobs` array property passed to the `kitbook` plugin. This is useful for incremental adoption of Kitbook.
+- [breaking] rename `userSpecifiedViteConfigAdjustments` property passed to `kitbook` plugin to `viteConfigAdjustments`
+
 ## 1.0.0-alpha.21 - 2023-2-24
 
 - Use internal esm port of lz-string to avoid cjs import challenges.

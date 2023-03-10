@@ -1,8 +1,8 @@
-// after build, copy virtual/output/importModules.js to here - you can ignore the annoyance of this file then being also output.
+// after build, copy virtual/output/importModules.js to here and build again - then ignore the annoyance of this file also being output.
 
 export default `import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
-const modules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"]);
-const rawModules = import.meta.glob(["/src/**/*.{md,svx,svelte,variants.ts}", "/README.md"], { as: "raw" });
+const modules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"]);
+const rawModules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"], { as: "raw" });
 export const pages = groupColocatedModulesIntoPages(modules, rawModules);
 const WrapRootLayoutMap = import.meta.glob(["/src/.kitbook/WrapRootLayout.svelte"], { eager: true, import: "default" });
 export const WrapRootLayout = WrapRootLayoutMap["/src/.kitbook/WrapRootLayout.svelte"];

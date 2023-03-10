@@ -6,7 +6,9 @@ import { configDefaults } from 'vitest/config'
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [
-		kitbook(),
+		kitbook({
+			fileGlobs: ['/src/docs/**/*.md', '/README.md']
+		}),
 		sveltekit(),
 	],
 	define: {
