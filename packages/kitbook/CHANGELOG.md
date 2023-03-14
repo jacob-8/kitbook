@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.24 - 2023-3-14
+
+- [breaking] pass pagesStore via context in the WrapRootLayout.svelte file to turn HMR on. See the default Kitbook WrapRootLayout.svelte to update.
+
 ## 1.0.0-alpha.23 - 2023-3-10
 
 - add ability to pass in custom module globs to scan for Kitbook files using the `fileGlobs` array property passed to the `kitbook` plugin. This is useful for incremental adoption of Kitbook.

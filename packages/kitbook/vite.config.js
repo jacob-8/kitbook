@@ -7,7 +7,7 @@ import { configDefaults } from 'vitest/config'
 const config = {
 	plugins: [
 		kitbook({
-			fileGlobs: ['/src/docs/**/*.md', '/README.md']
+			// fileGlobs: ['/src/docs/**/*.md', '/README.md']
 		}),
 		sveltekit(),
 	],

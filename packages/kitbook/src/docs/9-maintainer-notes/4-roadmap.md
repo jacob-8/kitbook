@@ -3,15 +3,15 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
+- cleanup page files and loads now that routes are not copied into projects
+- 
 - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
 
 - variant grid
 
 - Add full-screen focus view for sandbox
   - make instrument panel show in focus view on mobile
-
-- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
-- cleanup page files and loads now that routes are not copied into projects
 
 - show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->

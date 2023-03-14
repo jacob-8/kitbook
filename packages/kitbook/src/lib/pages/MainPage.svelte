@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { SvelteComponent } from 'svelte';
+  import { getContext, type SvelteComponent } from 'svelte';
+  import type { Writable } from 'svelte/store';
   import { page } from '$app/stores';
   import type { GroupedPage, GroupedPageMap, LoadedModules, Variants } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
   import View from '../view/View.svelte';
-  import { pagesStore } from '../modules/hmrUpdatedModules';
 
   export let data: {
     pages?: GroupedPageMap;
@@ -13,6 +13,8 @@
     loadedModules?: LoadedModules;
     error?: string;
   } = { loadedModules: {} };
+
+  const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
 
   let updatedVariants: Variants<typeof SvelteComponent>;
   $: if ($pagesStore?.[data.pageKey]) {

@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { setContext, type SvelteComponent } from 'svelte';
+  import { setContext, getContext, type SvelteComponent } from 'svelte';
+  import type { Writable } from 'svelte/store';
   import type { GroupedPage, GroupedPageMap, LoadedModules, Variant } from '../kitbook-types';
   import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js';
-  import { pagesStore } from '../modules/hmrUpdatedModules';
 
   export let data: {
     pages: GroupedPageMap;
@@ -15,6 +15,8 @@
     editedProps?: Record<string, any>;
     // error?: string;
   };
+
+  const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
 
   let updatedVariant: Variant<typeof SvelteComponent>;
   $: if ($pagesStore?.[data.pageKey] && data.variantIdx) {

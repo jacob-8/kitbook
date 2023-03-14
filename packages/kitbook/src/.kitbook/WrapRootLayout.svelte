@@ -1,5 +1,8 @@
 <script>
+  // This is the real one for developing Kitbook, whereas the one inside the lib folder is the template that gets published to npm
+  import { pagesStore } from 'kitbook';
   import { setContext } from 'svelte';
+  setContext('pages-store', pagesStore);
 
   /** @type {import('kitbook').KitbookSettings} */
   const kitbookSettings = {
