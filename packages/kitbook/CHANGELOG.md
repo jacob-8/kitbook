@@ -2,7 +2,7 @@
 
 ## 1.0.0-alpha.25 - 2023-3-21
 
-- update to using svelte-package 2.0
+- update to using svelte-package 2.0.0
 
 ## 1.0.0-alpha.24 - 2023-3-14
 
