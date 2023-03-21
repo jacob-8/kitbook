@@ -11,16 +11,16 @@
 		// "strict": true,
 		"paths": {
 			"$lib": [
-				"src/lib"
+				"./src/lib"
 			],
 			"$lib/*": [
-				"src/lib/*"
+				"./src/lib/*"
 			],
 			"kitbook": [
-				"src/lib"
+				"./src/lib"
 			],
 			"kitbook/*": [
-				"src/lib/*"
+				"./src/lib/*"
 			]
 		},
 		"types": [

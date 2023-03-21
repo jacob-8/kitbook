@@ -3,9 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
-- cleanup page files and loads now that routes are not copied into projects
-- 
+- automatically analyze component for props
+- solve build error: cleanup page files and loads now that routes are not copied into projects
 - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
 
 - variant grid
@@ -16,11 +15,11 @@
 - show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
   - <!-- i-tabler-code"-->
 
-- automatically analyze component for props
-  - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
-  - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
+- be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
+- `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
 
 - improve knob sub-components, maybe use svelte-knobby to help 
+- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
 
 - revisit split-pane story height
 - solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
