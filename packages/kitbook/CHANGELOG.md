@@ -1,5 +1,9 @@
 # kitbook
 
+## 1.0.0-alpha.25 - 2023-3-21
+
+- update to using svelte-package 2.0
+
 ## 1.0.0-alpha.24 - 2023-3-14
 
 - [breaking] pass pagesStore via context in the WrapRootLayout.svelte file to turn HMR on. To update add these lines to `.kitbook/WrapRootLayout.svelte`:

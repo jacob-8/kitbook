@@ -22,10 +22,6 @@ const config = {
     }
   },
 
-  package: {
-    files: removeStoriesAndVariants
-  },
-
   vitePlugin: {
     experimental: {
       inspector: {
@@ -42,14 +38,3 @@ const config = {
 
 export default config;
 // cancel: augmentSvelteConfigForKitbook - not using in the Kitbook package itself because svelte.config.js does not support importing typescript files. As well this package only has a Kitbook and not a regular app.
-
-/**
- * @param {string} filepath 
- * @returns boolean
- */
-function removeStoriesAndVariants(filepath) {
-  if (filepath.includes('mockComponents')) return false;
-
-  const isStoriesOrVariants = filepath.endsWith('.variants.ts') || filepath.endsWith('.md') || filepath.endsWith('.svx');
-  return !isStoriesOrVariants;
-}

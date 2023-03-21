@@ -1,16 +1,14 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.24",
+  "version": "1.0.0-alpha.25",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
-  "type": "module",
-  "svelte": "src/lib/index.ts",
-  "main": "src/lib/index.ts",
   "scripts": {
     "sync:sveltepieces": "cd ../svelte-pieces && svelte-kit sync && cd ../kitbook",
     "dev": "vite dev --mode kitbook",
     "build": "pnpm sync:sveltepieces && vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
-    "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
+    "package": "svelte-kit sync && svelte-package && publint",
+    "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
@@ -18,9 +16,28 @@
     "test": "vitest",
     "test:ui": "vitest --ui"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./plugins/vite": {
+      "types": "./dist/plugins/vite.d.ts",
+      "svelte": "./dist/plugins/vite.js",
+      "default": "./dist/plugins/vite.js"
+    }
+  },
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "latest",
     "@kitbook/vite-plugin-kitbook": "latest",
+    "@sveltejs/kit": "1.12.0",
     "svelte": "^3.57.0",
     "svelte-pieces": "^1.0.57",
     "svelte2tsx": "^0.6.10",
@@ -29,8 +46,8 @@
   "devDependencies": {
     "@iconify/json": "^2.2.36",
     "@sveltejs/adapter-auto": "2.0.0",
-    "@sveltejs/kit": "1.12.0",
-    "@sveltejs/package": "1.0.1",
+    "@sveltejs/package": "^2.0.0",
+    "publint": "^0.1.9",
     "prettier": "^2.8.4",
     "replace-in-file": "^6.3.5",
     "svelte-check": "^3.1.4",
@@ -38,10 +55,6 @@
     "tslib": "^2.4.1",
     "vite": "^4.2.0",
     "vitest": "^0.29.3"
-  },
-  "publishConfig": {
-    "directory": "package",
-    "linkDirectory": true
   },
   "repository": {
     "type": "git",
@@ -61,7 +74,7 @@
     "Stories"
   ],
   "author": "Jacob Bowdoin",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
