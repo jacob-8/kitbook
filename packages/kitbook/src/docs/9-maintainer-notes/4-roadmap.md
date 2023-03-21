@@ -3,6 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- handle global styles for demo apps (see svelte-pieces WrapRootLayout.svelte)
+
 - automatically analyze component for props
 - solve build error: cleanup page files and loads now that routes are not copied into projects
 - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`

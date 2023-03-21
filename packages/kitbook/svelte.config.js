@@ -22,17 +22,18 @@ const config = {
     }
   },
 
+  // https://github.com/sveltejs/language-tools/issues/650#issuecomment-1337317336
+  onwarn: (warning, handler) => {
+    if (warning.code.startsWith('a11y-')) return
+    handler(warning)
+  },
+
   vitePlugin: {
     experimental: {
       inspector: {
         holdMode: true,
       }
     }
-  },
-
-  onwarn: (warning, handler) => {
-    if (warning.code.startsWith('a11y-')) return
-    handler(warning)
   },
 };
 

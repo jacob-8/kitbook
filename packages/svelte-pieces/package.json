@@ -1,10 +1,7 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "description": "Useful Svelte UI pieces for building web apps",
-  "type": "module",
-  "svelte": "src/lib/index.ts",
-  "main": "src/lib/index.ts",
   "scripts": {
     "dev": "pnpm kitbook",
     "build": "pnpm kitbook:build",
@@ -12,46 +9,50 @@
     "kitbook": "vite dev --mode kitbook",
     "kitbook:build": "vite build --mode kitbook",
     "kitbook:preview": "vite preview --mode kitbook",
-    "package": "svelte-kit sync && svelte-package && node update-packaged-index-path.js",
+    "package": "svelte-kit sync && svelte-package && publint",
+    "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-    "release": "npm run package && cd package && npm publish",
-    "postversion": "git push && git push --tags && npm run release",
-    "test": "vitest -u"
+    "test": "vitest"
   },
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "fast-xml-parser": "^3.19.0",
     "he": "^1.2.0"
   },
+  "peerDependencies": {
+    "@sveltejs/kit": "1.13.0",
+    "svelte": "^3.55.0"
+  },
   "devDependencies": {
-    "@iconify/json": "^2.2.36",
+    "@iconify/json": "^2.2.37",
     "@sveltejs/adapter-auto": "2.0.0",
-    "@sveltejs/kit": "1.12.0",
-    "@sveltejs/package": "1.0.1",
+    "@sveltejs/kit": "1.13.0",
+    "@sveltejs/package": "2.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
-    "@unocss/preset-icons": "^0.50.6",
     "kitbook": "1.0.0-alpha.26",
-    "replace-in-file": "^6.3.5",
+    "publint": "^0.1.9",
     "svelte": "^3.57.0",
     "svelte-check": "^3.1.4",
-    "svelte-preprocess": "^5.0.2",
+    "svelte-preprocess-unocss": "^0.0.1",
     "svelte2tsx": "^0.6.10",
-    "temp-s-p-u": "^0.0.7",
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
-    "unocss": "^0.50.6",
     "vite": "^4.2.1",
     "vitest": "^0.29.7"
   },
-  "peerDependencies": {
-    "svelte": "^3.46.4"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jacob-8/kitbook.git"
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/svelte-pieces"
   },
   "keywords": [
     "Svelte",
@@ -62,9 +63,17 @@
     "Kitbook"
   ],
   "author": "Jacob Bowdoin",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
-  "homepage": "https://github.com/jacob-8/kitbook#readme"
+  "homepage": "https://svelte-pieces.vercel.app",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./*": "./dist/*"
+  }
 }

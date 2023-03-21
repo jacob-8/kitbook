@@ -14,7 +14,7 @@
 
 <slot />
 
-<style uno:preflights global>
+<style>
   [type='text'],
   [type='email'],
   [type='url'],

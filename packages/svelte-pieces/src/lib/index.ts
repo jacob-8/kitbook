@@ -1,9 +1,9 @@
-export { clickoutside } from './actions/clickoutside';
-export { longpress } from './actions/longpress';
-export { portal } from './actions/portal';
-export { srcObject } from './actions/srcObject';
+export { clickoutside } from './actions/clickoutside.js';
+export { longpress } from './actions/longpress.js';
+export { portal } from './actions/portal.js';
+export { srcObject } from './actions/srcObject.js';
 
-export { clamp } from './utils/clamp';
+export { clamp } from './utils/clamp.js';
 
 export { default as BadgeArray } from './data/BadgeArray.svelte';
 export { default as BadgeArrayEmit } from './data/BadgeArrayEmit.svelte';
@@ -31,7 +31,7 @@ export { default as Badge } from './ui/Badge.svelte';
 export { default as Button } from './ui/Button.svelte';
 export { default as Modal } from './ui/Modal.svelte';
 export { default as Slideover } from './ui/Slideover.svelte';
-export { trapFocus } from './ui/trapFocus';
+export { trapFocus } from './ui/trapFocus.js';
 export { default as SplitPane } from './ui/SplitPane.svelte';
 export { default as Switcher } from './ui/Switcher.svelte';
 export { default as Toasts } from './ui/Toasts.svelte';
@@ -41,5 +41,5 @@ export { default as ResponsiveSlots } from './ui/ResponsiveSlots.svelte';
 export { default as BottomSheet } from './ui/BottomSheet.svelte';
 
 export { default as QueryParam } from './stores/QueryParam.svelte';
-export { createPersistedStore } from './stores/persisted';
-export { createQueryParamStore, type QueryParamStore } from './stores/queryParam';
+export { createPersistedStore } from './stores/persisted.js';
+export { createQueryParamStore, type QueryParamStore } from './stores/queryParam.js';
