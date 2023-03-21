@@ -68,17 +68,15 @@ importers:
       '@sveltejs/adapter-auto': 2.0.0
       '@sveltejs/kit': 1.12.0
       '@sveltejs/package': 1.0.1
-      '@unocss/preset-icons': ^0.50.6
       prettier: ^2.8.4
       replace-in-file: ^6.3.5
       svelte: ^3.57.0
       svelte-check: ^3.1.4
       svelte-pieces: ^1.0.57
+      svelte-preprocess-unocss: ^0.0.1
       svelte2tsx: ^0.6.10
-      temp-s-p-u: ^0.0.7
       tslib: ^2.4.1
       typescript: ~4.9.4
-      unocss: ^0.50.6
       vite: ^4.2.0
       vitest: ^0.29.3
     dependencies:
@@ -93,13 +91,11 @@ importers:
       '@sveltejs/adapter-auto': 2.0.0_@sveltejs+kit@1.12.0
       '@sveltejs/kit': 1.12.0_svelte@3.57.0+vite@4.2.0
       '@sveltejs/package': 1.0.1_44zspxpepvug6mo2qrfwkj3taq
-      '@unocss/preset-icons': 0.50.6
       prettier: 2.8.4
       replace-in-file: 6.3.5
       svelte-check: 3.1.4_svelte@3.57.0
-      temp-s-p-u: 0.0.7_vite@4.2.0
+      svelte-preprocess-unocss: 0.0.1_vite@4.2.0
       tslib: 2.4.1
-      unocss: 0.50.6_vite@4.2.0
       vite: 4.2.0
       vitest: 0.29.3
     publishDirectory: package
@@ -4575,7 +4571,7 @@ packages:
     dependencies:
       '@types/mdast': 3.0.10
       '@types/unist': 2.0.6
-      unist-util-visit: 4.1.1
+      unist-util-visit: 4.1.2
     dev: true
 
   /mdast-util-from-markdown/1.2.0:
@@ -4608,7 +4604,7 @@ packages:
       unist-builder: 3.0.0
       unist-util-generated: 2.0.0
       unist-util-position: 4.0.3
-      unist-util-visit: 4.1.1
+      unist-util-visit: 4.1.2
     dev: true
 
   /mdast-util-to-string/3.1.0:
@@ -6293,6 +6289,20 @@ packages:
       svelte: 3.57.0
     dev: true
 
+  /svelte-preprocess-unocss/0.0.1_vite@4.2.0:
+    resolution: {integrity: sha512-yQBXu+xEBkNKfVlcylC2nUlbn08YwsyqDUyZ4uBzuThlxfqwY0c3KspBctv5dlWnrpemgzBR0v5hgo/Ivdm99g==}
+    dependencies:
+      '@unocss/config': 0.50.6
+      '@unocss/transformer-directives': 0.50.6
+      magic-string: 0.26.7
+      svelte-scoped-uno: 0.0.1_vite@4.2.0
+    transitivePeerDependencies:
+      - '@unocss/webpack'
+      - rollup
+      - supports-color
+      - vite
+    dev: true
+
   /svelte-preprocess/5.0.2_44zspxpepvug6mo2qrfwkj3taq:
     resolution: {integrity: sha512-iXpIoa43VdF7fPkBdoodztZd4H+3EP/GYA66tbuLVtQnM3sWCpsOtc7HjfA7BDR+6VTpqlEnpDmPoXk0dgUa0g==}
     engines: {node: '>= 14.10.0'}
@@ -6385,6 +6395,21 @@ packages:
       strip-indent: 3.0.0
       svelte: 3.57.0
       typescript: 4.9.5
+    dev: true
+
+  /svelte-scoped-uno/0.0.1_vite@4.2.0:
+    resolution: {integrity: sha512-j9nGzx2FIx2U6Dsw+QuGd5ZOmexWKFAlDwSTsX38vpQ84xnIxUv7Xg6uTxS82m11MgEsvn55lUQYU2Egv8rAKA==}
+    dependencies:
+      '@rollup/pluginutils': 5.0.2
+      '@unocss/config': 0.50.6
+      '@unocss/transformer-directives': 0.50.6
+      magic-string: 0.26.7
+      unocss: 0.50.6_vite@4.2.0
+    transitivePeerDependencies:
+      - '@unocss/webpack'
+      - rollup
+      - supports-color
+      - vite
     dev: true
 
   /svelte/3.57.0:
@@ -6753,7 +6778,7 @@ packages:
     resolution: {integrity: sha512-1xAFJXAKpnnJl8G7K5KgU7FY55y3GcLIXqkzUj5QF/QVP7biUm0K0O2oqVkYsdjzJKifYeWn9+o6piAK2hGSHw==}
     dependencies:
       '@types/unist': 2.0.6
-      unist-util-is: 5.1.1
+      unist-util-is: 5.2.1
     dev: true
 
   /unist-util-visit-parents/5.1.1:
@@ -6778,7 +6803,7 @@ packages:
     resolution: {integrity: sha512-Szoh+R/Ll68QWAyQyZZpQzZQm2UPbxibDvaY8Xc9SUtYgPsDzx5AWSk++UUt2hJuow8mvwR+rG+LQLw+KsuAKA==}
     dependencies:
       '@types/unist': 2.0.6
-      unist-util-is: 5.1.1
+      unist-util-is: 5.2.1
       unist-util-visit-parents: 4.1.1
     dev: true
 

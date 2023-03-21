@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import UnoCSS from 'temp-s-p-u';
+import ScopedUno from 'svelte-preprocess-unocss';
 
 import { MDSVEX_EXTENSIONS } from '@kitbook/vite-plugin-kitbook';
 /** @type {import('@sveltejs/kit').Config} */
@@ -8,7 +8,9 @@ const config = {
   extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
   preprocess: [
     vitePreprocess(),
-    UnoCSS({ options: { classPrefix: 'kb-' } }),
+    ScopedUno({
+      classPrefix: 'kb-',
+    }),
   ],
 
   kit: {
