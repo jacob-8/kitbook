@@ -1,6 +1,6 @@
 {
   "name": "@kitbook/vite-plugin-kitbook",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Vite plugin to turn a SvelteKit app into a Kitbook",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
     "stub": "unbuild --stub",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish"
+    "prepublishOnly": "vitest run && pnpm build"
   },
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "^0.0.3",

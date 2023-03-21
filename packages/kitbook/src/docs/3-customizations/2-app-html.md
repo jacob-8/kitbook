@@ -1,6 +1,6 @@
 # Customizing app.html
 
-By default, when your run your Kitbook (`vite dev --mode kitbook`) the `augmentSvelteConfigForKitbook` will update your `svelte.config.js` to point to an `app.html` file and as assets folder contained in the kitbook package (in your node_modules folder), like this: 
+By default, when your run your Kitbook (`vite dev --mode kitbook`) the `augmentSvelteConfigForKitbook` will update your `svelte.config.js` to point to an `app.html` file and assets folder contained in the kitbook package (in your node_modules folder), like this: 
 
 ```ts twoslash {5-6}
 import type { Config } from '@sveltejs/kit';
@@ -11,8 +11,8 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
   kit: {
     files: {
-      appTemplate: 'node_modules/kitbook/app.html',
-      assets: 'node_modules/kitbook/assets',
+      appTemplate: 'node_modules/kitbook/dist/app.html',
+      assets: 'node_modules/kitbook/dist/assets',
     },
   }
 }

@@ -13,7 +13,7 @@ function addKitbookDirectoryIfNeeded() {
   if (!fs.existsSync(KITBOOK_DIRECTORY)) {
     try {
       fs.mkdirSync(KITBOOK_DIRECTORY);
-      const src = 'node_modules/kitbook/.kitbook';
+      const src = 'node_modules/kitbook/dist/.kitbook';
       const destination = KITBOOK_DIRECTORY;
       fs.cpSync(src, destination, { recursive: true, filter: (src, dest) => !src.includes('.d.ts') });
       console.log(`Added Kitbook files to ${KITBOOK_DIRECTORY} which includes customization files for your Kitbook.\n`);

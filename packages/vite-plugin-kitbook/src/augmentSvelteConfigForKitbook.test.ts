@@ -33,8 +33,8 @@ test('augmentSvelteConfigForKitbook first takes options from user, then from kit
         ],
         "kit": {
           "files": {
-            "appTemplate": "node_modules/kitbook/app.html",
-            "assets": "node_modules/kitbook/assets",
+            "appTemplate": "node_modules/kitbook/dist/app.html",
+            "assets": "node_modules/kitbook/dist/assets",
             "routes": "src/shazambook",
           },
           "inlineStyleThreshold": 0,
@@ -55,9 +55,9 @@ test('augmentSvelteConfigForKitbook updates extensions and files locations', () 
       ],
       "kit": {
         "files": {
-          "appTemplate": "node_modules/kitbook/app.html",
-          "assets": "node_modules/kitbook/assets",
-          "routes": "node_modules/kitbook/routes",
+          "appTemplate": "node_modules/kitbook/dist/app.html",
+          "assets": "node_modules/kitbook/dist/assets",
+          "routes": "node_modules/kitbook/dist/routes",
         },
         "inlineStyleThreshold": 0,
         "outDir": ".svelte-kit-kitbook",
