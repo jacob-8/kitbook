@@ -62,9 +62,9 @@ const DEFAULT_KITBOOK_OPTIONS = {
   extensions: [".svelte", ...MDSVEX_EXTENSIONS],
   kit: {
     files: {
-      appTemplate: "node_modules/kitbook/app.html",
-      assets: "node_modules/kitbook/assets",
-      routes: "node_modules/kitbook/routes"
+      appTemplate: "node_modules/kitbook/dist/app.html",
+      assets: "node_modules/kitbook/dist/assets",
+      routes: "node_modules/kitbook/dist/routes"
     },
     outDir: ".svelte-kit-kitbook"
   }
@@ -90,7 +90,7 @@ function addKitbookDirectoryIfNeeded() {
   if (!fs.existsSync(KITBOOK_DIRECTORY)) {
     try {
       fs.mkdirSync(KITBOOK_DIRECTORY);
-      const src = "node_modules/kitbook/.kitbook";
+      const src = "node_modules/kitbook/dist/.kitbook";
       const destination = KITBOOK_DIRECTORY;
       fs.cpSync(src, destination, { recursive: true, filter: (src2, dest) => !src2.includes(".d.ts") });
       console.log(`Added Kitbook files to ${KITBOOK_DIRECTORY} which includes customization files for your Kitbook.

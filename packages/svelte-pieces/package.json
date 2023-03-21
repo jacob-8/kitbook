@@ -33,7 +33,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
     "@unocss/preset-icons": "^0.50.6",
-    "kitbook": "1.0.0-alpha.25",
+    "kitbook": "1.0.0-alpha.26",
     "replace-in-file": "^6.3.5",
     "svelte": "^3.57.0",
     "svelte-check": "^3.1.4",
@@ -43,8 +43,8 @@
     "tslib": "^2.4.1",
     "typescript": "^4.9.4",
     "unocss": "^0.50.6",
-    "vite": "^4.2.0",
-    "vitest": "^0.29.3"
+    "vite": "^4.2.1",
+    "vitest": "^0.29.7"
   },
   "peerDependencies": {
     "svelte": "^3.46.4"
