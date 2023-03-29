@@ -3,6 +3,11 @@ import { wrapExportedConfigWithAugmentFunction } from './augmentSvelteConfigForK
 import { AUGMENT_FUNCTION_TEXT } from './constants';
 
 export function initKitbook() {
+  const green = '\x1b[32m';
+  const bold = '\x1b[1m';
+  const reset = '\x1b[0m';
+  console.log(`${bold}${green}You can ignore the following tsconfig.json warning. SvelteKit doesn't know we have a second Kitbook app.${reset}`);
+
   process.env.KITBOOK = 'yes';
   addKitbookDirectoryIfNeeded();
   addSvelteConfigAugmentFunctionIfNeeded();

@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "kitbook": "1.0.0-alpha.27",
+    "create-kitbook": "0.0.0",
+    "experiment": "0.0.0",
+    "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
+    "@kitbook/rehype-display-link-titles": "0.0.3",
+    "@kitbook/remark-story-code-preview": "0.0.1",
+    "svelte-pieces": "1.0.58",
+    "template": "0.0.0",
+    "@kitbook/vite-plugin-kitbook": "0.0.8",
+    "kitbook-vscode": "0.0.1"
+  },
+  "changesets": [
+    "gentle-pants-decide"
+  ]
+}

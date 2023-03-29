@@ -1,6 +1,8 @@
 <script>
   import './forms.css';
+  import { pagesStore } from 'kitbook';
   import { setContext } from 'svelte';
+  setContext('pages-store', pagesStore);
 
   /** @type {import('kitbook').KitbookSettings} */
   const kitbookSettings = {

@@ -6,3 +6,10 @@ find the full documentation for it [in our repository](https://github.com/change
 
 We have a quick list of common questions to get you started engaging with this project in
 [our documentation](https://github.com/changesets/changesets/blob/main/docs/common-questions.md)
+
+## Manual release
+
+- `pnpm changeset`
+OPTIONAL: `pnpm changeset pre enter alpha` (run `pnpm changeset pre exit` to leave)
+- `pnpm changeset version`
+- `pnpm changeset publish` (run this using pnpm release to build and test beforehand)

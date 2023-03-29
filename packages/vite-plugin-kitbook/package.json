@@ -1,6 +1,6 @@
 {
   "name": "@kitbook/vite-plugin-kitbook",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vite plugin to turn a SvelteKit app into a Kitbook",
   "repository": {
     "type": "git",

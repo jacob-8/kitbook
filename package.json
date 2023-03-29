@@ -2,11 +2,13 @@
 	"name": "kitbook-monorepo",
 	"version": "0.0.1",
 	"scripts": {
+		"stub": "pnpm -r --filter=./packages/* --parallel run stub",
+		"build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F vite-plugin-kitbook --parallel run build",
 		"dev": "pnpm --filter=kitbook dev",
 		"build": "pnpm --filter=kitbook build",
 		"preview": "pnpm --filter=kitbook preview",
 		"package": "pnpm --filter=kitbook package",
-		"test": "pnpm -r -F kitbook -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F svelte-pieces -F vite-plugin-kitbook --parallel run test",
+		"test": "pnpm --recursive --stream --filter=!kitbook-vscode test -- --run",
 		"pieces": "pnpm --filter=svelte-pieces dev",
 		"pieces:build": "pnpm --filter=svelte-pieces build",
 		"pieces:package": "pnpm --filter=svelte-pieces package",
@@ -15,9 +17,8 @@
 		"template": "pnpm --filter=template dev",
 		"template:kitbook": "pnpm --filter=template kitbook",
 		"template:build": "pnpm --filter=template build",
-		"release": "pnpm publish --tag=next --filter=\"@sveed/*\"",
-		"check-packages": "pnpm update --interactive --recursive --latest",
-		"stub": "pnpm -r --filter=./packages/* --parallel run stub"
+    "release": "pnpm build:deps && pnpm test && changeset publish",
+		"check-packages": "pnpm update --interactive --recursive --latest"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.26.0",

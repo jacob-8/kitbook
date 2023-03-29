@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.26",
+  "version": "1.0.0-alpha.28",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "sync:sveltepieces": "cd ../svelte-pieces && svelte-kit sync && cd ../kitbook",
@@ -34,15 +34,22 @@
       "default": "./dist/plugins/vite.js"
     }
   },
+  "typesVersions": {
+    ">4.0": {
+      "*": [
+        "./dist/*.d.ts"
+      ]
+    }
+  },
   "dependencies": {
-    "@kitbook/mdsvex-shiki-twoslash": "latest",
-    "@kitbook/vite-plugin-kitbook": "latest",
-    "svelte-pieces": "1.0.58"
+    "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
+    "@kitbook/vite-plugin-kitbook": "0.0.8",
+    "svelte-pieces": "1.0.58",
+    "svelte2tsx": "^0.6.10"
   },
   "peerDependencies": {
     "@sveltejs/kit": "^1.13.0",
-    "svelte": "^3.55.0",
-    "svelte2tsx": "^0.6.10"
+    "svelte": "^3.55.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.37",

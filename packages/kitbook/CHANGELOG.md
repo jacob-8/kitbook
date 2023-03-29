@@ -1,5 +1,19 @@
 # kitbook
 
+## 1.0.0-alpha.28 - 2023-3-29
+
+### Patch Changes
+
+- update package.json type exports so kitbook plugin types are available again
+
+## 1.0.0-alpha.27 - 2023-3-29
+
+### Patch Changes
+
+- Add notice that there's no need to adjust the tsconfig extend target
+- Updated dependencies
+  - @kitbook/vite-plugin-kitbook@0.0.8
+
 ## 1.0.0-alpha.26 - 2023-3-29
 
 - update to using svelte-package 2.0.0
@@ -7,6 +21,7 @@
 ## 1.0.0-alpha.24 - 2023-3-14
 
 - [breaking] pass pagesStore via context in the WrapRootLayout.svelte file to turn HMR on. To update add these lines to `.kitbook/WrapRootLayout.svelte`:
+
 ```ts
 import { pagesStore } from 'kitbook';
 setContext('pages-store', pagesStore);
@@ -60,11 +75,11 @@ setContext('pages-store', pagesStore);
 ## 0.0.23
 
 - - Improve remark code preview plugin to allow backticks inside a `Story` block
- 
+
 ## 0.0.21
 
 - - Add `expanded` prop to `<Layout>` if desiring to start with folder tree already expanded.
-  - Add ability to start off with code preview showing by adding `showCode` prop to `Story` 
+  - Add ability to start off with code preview showing by adding `showCode` prop to `Story`
 
 ## 0.0.20
 
@@ -85,7 +100,6 @@ setContext('pages-store', pagesStore);
 ## 0.0.15
 
 - - Using `<ResponsiveSlideover>` for sidebar menu and improved header styling
-
 
 ---
 
