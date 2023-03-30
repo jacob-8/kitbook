@@ -72,7 +72,7 @@ importers:
       publint: ^0.1.9
       svelte: ^3.57.0
       svelte-check: ^3.1.4
-      svelte-pieces: 1.0.58
+      svelte-pieces: 1.0.56
       svelte-preprocess-unocss: ^0.0.3
       svelte2tsx: ^0.6.10
       tslib: ^2.5.0
@@ -82,7 +82,7 @@ importers:
     dependencies:
       '@kitbook/mdsvex-shiki-twoslash': link:../mdsvex-shiki-twoslash
       '@kitbook/vite-plugin-kitbook': link:../vite-plugin-kitbook
-      svelte-pieces: link:../svelte-pieces
+      svelte-pieces: 1.0.56_svelte@3.57.0
       svelte2tsx: 0.6.10_44zspxpepvug6mo2qrfwkj3taq
     devDependencies:
       '@iconify/json': 2.2.41
@@ -6255,6 +6255,16 @@ packages:
     dependencies:
       svelte: 3.57.0
     dev: true
+
+  /svelte-pieces/1.0.56_svelte@3.57.0:
+    resolution: {integrity: sha512-u0l7N8hF21lNhYMLmOEbDQI4A6neVjfQi/zagyOO7qyAgfADSGGzXynwkH7FQCoxanG+jmVU7MrfMr/zIAZYMQ==}
+    peerDependencies:
+      svelte: ^3.46.4
+    dependencies:
+      fast-xml-parser: 3.21.1
+      he: 1.2.0
+      svelte: 3.57.0
+    dev: false
 
   /svelte-preprocess-unocss/0.0.3_vite@4.2.1:
     resolution: {integrity: sha512-gUMLnI8hwIckNODDtLik1SEWJUDEg/0CVKvLilERuJKSMQfPTjiGJMX+ZrJFl8hDIV6r5xpWUSK31D+QUOMnJg==}
