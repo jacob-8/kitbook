@@ -43,7 +43,7 @@
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
     "@kitbook/vite-plugin-kitbook": "0.0.9",
-    "svelte-pieces": "1.0.56",
+    "svelte-pieces": "1.0.58",
     "svelte2tsx": "^0.6.10"
   },
   "peerDependencies": {
