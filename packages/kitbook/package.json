@@ -4,7 +4,8 @@
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev --mode kitbook",
-    "build": "vite build --mode kitbook",
+    "build:deps": "cd ../.. && pnpm build:deps && cd packages/kitbook",
+    "build": "pnpm build:deps && vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
     "prepublishOnly": "vitest run && npm run package",
