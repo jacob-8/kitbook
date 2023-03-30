@@ -1,5 +1,13 @@
 # kitbook
 
+## 1.0.0-alpha.29 - 2023-3-30
+
+### Patch Changes
+
+- fix: icons not working
+- Updated dependencies
+  - @kitbook/vite-plugin-kitbook@0.0.9
+
 ## 1.0.0-alpha.28 - 2023-3-29
 
 ### Patch Changes

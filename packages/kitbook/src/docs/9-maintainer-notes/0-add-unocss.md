@@ -19,7 +19,7 @@ const config = {
 
 We then add a `uno.config.ts` file:
 
-```ts twoslash title="uno.config.ts"
+```ts title="uno.config.ts"
 import { defineConfig, presetUno, presetIcons } from 'svelte-preprocess-unocss'
 
 export default defineConfig({

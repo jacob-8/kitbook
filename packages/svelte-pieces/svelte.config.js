@@ -1,12 +1,12 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import ScopedUno from 'svelte-preprocess-unocss';
+import { PreprocessUnocss } from 'svelte-preprocess-unocss';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
     vitePreprocess(),
-    ScopedUno({
+    PreprocessUnocss({
       classPrefix: 'sp-',
     }),
   ],
