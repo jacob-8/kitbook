@@ -1,6 +1,6 @@
 # kitbook
 
-## 1.0.0-alpha.29 - 2023-3-30
+## 1.0.0-alpha.30 - 2023-3-30
 
 ### Patch Changes
 
