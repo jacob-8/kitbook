@@ -5,8 +5,8 @@ export default defineBuildConfig({
     'src/index',
     {
       builder: 'mkdist',
-      input: './src/virtual',
-      outDir: './src/virtual/output',
+      input: './src/virtual/toStringify',
+      outDir: './src/virtual/stringified',
       format: 'esm',
       ext: 'js',
       declaration: false,

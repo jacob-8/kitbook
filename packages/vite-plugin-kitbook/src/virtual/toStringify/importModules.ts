@@ -1,3 +1,5 @@
+// TODO: After build, copy virtual/stringified/importModules.js to importModulesStringified and build again - this needs converted into a script run after building so building doesn't need done twice
+
 // @ts-ignore - this file is going to become a virtual module in an environment where kitbook is available
 import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
 import type { SvelteComponent } from "svelte";

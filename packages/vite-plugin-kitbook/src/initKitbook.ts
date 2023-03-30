@@ -6,7 +6,7 @@ export function initKitbook() {
   const green = '\x1b[32m';
   const bold = '\x1b[1m';
   const reset = '\x1b[0m';
-  console.log(`${bold}${green}You can ignore the following tsconfig.json warning. SvelteKit doesn't know we have a second Kitbook app.${reset}`);
+  console.log(`${bold}${green}You can ignore any SvelteKit warning about needing to properly extend .svelte-kit-kitbook/tsconfig.json. SvelteKit doesn't know we have Kitbook as a second app.${reset}`);
 
   process.env.KITBOOK = 'yes';
   addKitbookDirectoryIfNeeded();

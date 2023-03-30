@@ -1,5 +1,3 @@
-// after build, copy virtual/output/importModules.js to here and build again - then ignore the annoyance of this file also being output.
-
 export default `import { groupColocatedModulesIntoPages, pagesStore } from "kitbook";
 const modules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"]);
 const rawModules = import.meta.glob(["REPLACE_WITH_MODULE_GLOBS"], { as: "raw" });

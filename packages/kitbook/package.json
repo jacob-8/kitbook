@@ -52,20 +52,20 @@
     "svelte": "^3.55.0"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.37",
+    "@iconify/json": "^2.2.41",
     "@sveltejs/adapter-auto": "2.0.0",
-    "@sveltejs/kit": "^1.13.0",
+    "@sveltejs/kit": "^1.14.0",
     "@sveltejs/package": "^2.0.2",
-    "prettier": "^2.8.5",
+    "prettier": "^2.8.7",
     "publint": "^0.1.9",
     "svelte": "^3.57.0",
     "svelte-check": "^3.1.4",
-    "svelte-preprocess-unocss": "^0.0.1",
+    "svelte-preprocess-unocss": "^0.0.3",
     "svelte2tsx": "^0.6.10",
-    "tslib": "^2.4.1",
+    "tslib": "^2.5.0",
     "typescript": "~4.9.4",
     "vite": "^4.2.1",
-    "vitest": "^0.29.7"
+    "vitest": "^0.29.8"
   },
   "repository": {
     "type": "git",
