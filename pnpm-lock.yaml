@@ -64,7 +64,7 @@ importers:
     specifiers:
       '@iconify/json': ^2.2.41
       '@kitbook/mdsvex-shiki-twoslash': 0.0.3
-      '@kitbook/vite-plugin-kitbook': 0.0.8
+      '@kitbook/vite-plugin-kitbook': 0.0.9
       '@sveltejs/adapter-auto': 2.0.0
       '@sveltejs/kit': ^1.14.0
       '@sveltejs/package': ^2.0.2
@@ -218,7 +218,7 @@ importers:
       '@types/youtube': ^0.0.47
       fast-xml-parser: ^3.19.0
       he: ^1.2.0
-      kitbook: 1.0.0-alpha.28
+      kitbook: 1.0.0-alpha.30
       publint: ^0.1.9
       svelte: ^3.57.0
       svelte-check: ^3.1.4
@@ -253,7 +253,7 @@ importers:
     specifiers:
       '@sveltejs/adapter-auto': 2.0.0
       '@sveltejs/kit': 1.14.0
-      kitbook: 1.0.0-alpha.28
+      kitbook: 1.0.0-alpha.30
       svelte: ^3.57.0
       svelte-check: ^3.1.4
       tslib: ^2.5.0

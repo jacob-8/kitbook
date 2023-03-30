@@ -16,7 +16,7 @@
   "devDependencies": {
     "@sveltejs/adapter-auto": "2.0.0",
     "@sveltejs/kit": "1.14.0",
-    "kitbook": "1.0.0-alpha.29",
+    "kitbook": "1.0.0-alpha.30",
     "svelte": "^3.57.0",
     "svelte-check": "^3.1.4",
     "tslib": "^2.5.0",
