@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types';
   export let data: PageData;
-  import SandboxPage from '../../../pages/SandboxPage.svelte';
+  import { SandboxPage } from 'kitbook';
 </script>
 
 <SandboxPage {data} />

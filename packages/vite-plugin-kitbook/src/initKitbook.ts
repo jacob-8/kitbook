@@ -26,6 +26,14 @@ function addKitbookDirectoryIfNeeded() {
       console.error(e);
     }
   }
+  const src = 'node_modules/kitbook/dist/routes';
+  fs.cpSync(src, 'src/.kitbook/routes', {
+    recursive: true, filter: (src, dest) => {
+      const skip_files = ['.d.ts', '_page.svelte', '_layout.svelte', 'mock', 'variants.js'];
+      const skip = skip_files.some(file => src.includes(file));
+      return !skip;
+    }
+  });
 }
 
 function addSvelteConfigAugmentFunctionIfNeeded() {

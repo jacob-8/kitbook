@@ -8,6 +8,7 @@
     "build": "pnpm build:deps && vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
+    "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
