@@ -35,7 +35,7 @@ export function createQueryParamStore<T>(
       history.replaceState({}, '', url);
       setStoreValue(value);
     } else {
-      goto(url.toString(), { noscroll: true }); // breaks input focus
+      goto(url.toString(), { noScroll: true }); // breaks input focus
     }
 
     log && console.log(`user action changed: ${key} to ${value}`);
@@ -49,7 +49,7 @@ export function createQueryParamStore<T>(
       history.replaceState({}, '', url);
       setStoreValue(null);
     } else {
-      goto(url.toString(), { noscroll: true }); // breaks input focus
+      goto(url.toString(), { noScroll: true }); // breaks input focus
     }
 
     log && console.log(`user action removed: ${key}`);

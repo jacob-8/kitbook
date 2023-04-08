@@ -5,7 +5,7 @@
 		"stub": "pnpm -r --filter=./packages/* --parallel run stub",
 		"build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F vite-plugin-kitbook --parallel run build",
 		"dev": "pnpm --filter=kitbook dev",
-		"build": "pnpm build:deps && pnpm --filter=kitbook build",
+		"build": "pnpm --filter=kitbook build",
 		"preview": "pnpm --filter=kitbook preview",
 		"package": "pnpm --filter=kitbook package",
 		"test": "pnpm --recursive --stream --filter=!kitbook-vscode test -- --run",
@@ -29,7 +29,7 @@
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.8.7",
 		"prettier-plugin-svelte": "^2.10.0",
-		"svelte": "^3.57.0",
+		"svelte": "^3.58.0",
 		"typescript": "~4.9.4",
 		"vite": "^4.2.1",
 		"vitest": "^0.29.8"
