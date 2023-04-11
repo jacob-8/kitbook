@@ -15,8 +15,11 @@ const tsResult = ts.transpileModule(inputFileContent, {
 const commentRegex = /\/\/.*|\/\*[^]*?\*\//g;
 const withoutComments = tsResult.outputText.replace(commentRegex, "");
 
+const singleQuoteRegex = /'/g;
+const withDoubleQuotes = withoutComments.replace(singleQuoteRegex, '"');
+
 const whitespaceRegex = /(?:\r?\n|\r){2,}/g;
-const withoutExcessiveWhitespace = withoutComments.replace(whitespaceRegex, "\n");
+const withoutExcessiveWhitespace = withDoubleQuotes.replace(whitespaceRegex, "\n");
 
 const outputFilePath = "./src/virtual/importModulesStringified.ts";
 const outputFileContent = `export default \`${withoutExcessiveWhitespace.trim()}\``;

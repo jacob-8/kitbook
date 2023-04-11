@@ -57,7 +57,7 @@ test('augmentSvelteConfigForKitbook updates extensions and files locations', () 
         "files": {
           "appTemplate": "node_modules/kitbook/dist/app.html",
           "assets": "node_modules/kitbook/dist/assets",
-          "routes": "node_modules/kitbook/dist/routes",
+          "routes": "src/.kitbook/routes",
         },
         "inlineStyleThreshold": 0,
         "outDir": ".svelte-kit-kitbook",
