@@ -12,7 +12,10 @@
   import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
   const settings = getContext<KitbookSettings>('kitbook-settings');
-  const { title, description, expandTree, githubURL } = settings;
+  if (!settings) {
+    console.warn('No settings context found. Did you remove the kitbook-settings context from your .kitbook/WrapRootLayout.svelte file?')
+  };
+  const { title, description, expandTree, githubURL } = settings || {};
 
   $: folder = putPagesIntoFolders($page.data.pages);
   $: activeURL = $page.url.pathname;

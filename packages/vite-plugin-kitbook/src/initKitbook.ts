@@ -15,16 +15,25 @@ export function initKitbook() {
 
 function addKitbookDirectoryIfNeeded() {
   const KITBOOK_DIRECTORY = 'src/.kitbook';
-  if (!fs.existsSync(KITBOOK_DIRECTORY)) {
-    try {
+  try {
+    if (!fs.existsSync(KITBOOK_DIRECTORY)) {
       fs.mkdirSync(KITBOOK_DIRECTORY);
       const src = 'node_modules/kitbook/dist/.kitbook';
       const destination = KITBOOK_DIRECTORY;
       fs.cpSync(src, destination, { recursive: true, filter: (src, dest) => !src.includes('.d.ts') });
       console.log(`Added Kitbook files to ${KITBOOK_DIRECTORY} which includes customization files for your Kitbook.\n`);
-    } catch (e) {
-      console.error(e);
     }
+    const src = 'node_modules/kitbook/dist/routes';
+    const destination = KITBOOK_DIRECTORY + '/routes';
+    fs.cpSync(src, destination, {
+      recursive: true, filter: (src, dest) => {
+        const skip_files = ['.d.ts', '_page.svelte', '_layout.svelte', 'mock', 'variants.js'];
+        const skip = skip_files.some(file => src.includes(file));
+        return !skip;
+      }
+    });
+  } catch (e) {
+    console.error(e);
   }
 }
 

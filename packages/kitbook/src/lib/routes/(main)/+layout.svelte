@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Layout from '../../layout/Layout.svelte';
+  import { Layout } from 'kitbook';
 </script>
 
 <Layout>

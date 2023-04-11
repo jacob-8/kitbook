@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.30",
+  "version": "1.0.0-alpha.31",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev --mode kitbook",
@@ -8,6 +8,7 @@
     "build": "pnpm build:deps && vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
+    "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
@@ -43,23 +44,23 @@
   },
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
-    "@kitbook/vite-plugin-kitbook": "0.0.9",
+    "@kitbook/vite-plugin-kitbook": "0.0.10",
     "svelte-pieces": "1.0.58",
-    "svelte2tsx": "^0.6.10"
+    "svelte2tsx": "^0.6.11"
   },
   "peerDependencies": {
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.41",
+    "@iconify/json": "^2.2.46",
     "@sveltejs/adapter-auto": "2.0.0",
-    "@sveltejs/kit": "^1.14.0",
+    "@sveltejs/kit": "^1.15.2",
     "@sveltejs/package": "^2.0.2",
     "prettier": "^2.8.7",
     "publint": "^0.1.9",
-    "svelte": "^3.57.0",
-    "svelte-check": "^3.1.4",
+    "svelte": "^3.58.0",
+    "svelte-check": "^3.2.0",
     "svelte-preprocess-unocss": "^0.0.3",
     "svelte2tsx": "^0.6.10",
     "tslib": "^2.5.0",

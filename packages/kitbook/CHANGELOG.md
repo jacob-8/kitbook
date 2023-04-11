@@ -1,5 +1,10 @@
 # kitbook
 
+## 1.0.0-alpha.31 - 2023-4-11
+
+### Patch Changes
+- fix: builds weren't working with routes being in a node_modules folder so they are now being copied to .kitbook/routes - they don't need checked into source control. Future Kitbook setups will automatically receive a .gitignore entry for this folder inside .kitbook. For those upgrading they can manually add this folder to their gitignore
+
 ## 1.0.0-alpha.30 - 2023-3-30
 
 ### Patch Changes

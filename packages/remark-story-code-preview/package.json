@@ -41,7 +41,7 @@
     "prettier-plugin-svelte": "^2.10.0",
     "prism-svelte": "^0.5.0",
     "prismjs": "^1.29.0",
-    "svelte": "^3.57.0",
+    "svelte": "^3.58.0",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
