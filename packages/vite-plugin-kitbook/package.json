@@ -28,8 +28,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub",
+    "build": "node stringify_import_virtual_modules.js && unbuild",
+    "stub": "node stringify_import_virtual_modules.js && unbuild --stub",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "prepublishOnly": "vitest run && pnpm build"
