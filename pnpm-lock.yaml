@@ -64,7 +64,7 @@ importers:
     specifiers:
       '@iconify/json': ^2.2.46
       '@kitbook/mdsvex-shiki-twoslash': 0.0.3
-      '@kitbook/vite-plugin-kitbook': 0.0.9
+      '@kitbook/vite-plugin-kitbook': 0.0.10
       '@sveltejs/adapter-auto': 2.0.0
       '@sveltejs/kit': ^1.15.2
       '@sveltejs/package': ^2.0.2
