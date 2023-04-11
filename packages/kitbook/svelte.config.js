@@ -38,4 +38,3 @@ const config = {
 };
 
 export default config;
-// cancel: augmentSvelteConfigForKitbook - not using in the Kitbook package itself because svelte.config.js does not support importing typescript files. As well this package only has a Kitbook and not a regular app.

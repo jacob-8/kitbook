@@ -14,16 +14,18 @@ import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVir
  * @param {string[]} [options.fileGlobs] - An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to ['/src/**_/*.{md,svx,svelte,variants.ts}', '/README.md']. Adjust this to be able to incrementally adopt Kitbook into your project. << ignore the underscore in the glob pattern, it's just there to make the JSDoc comment work.
  * @param {UserConfig} [options.viteConfigAdjustments] - Adjust the Vite Config when running Kitbook. Useful for changing settings like the port that you don't want changed in your regular app.
  * @param {MdsvexOptions} [options.mdsvexConfig] - Override the default Kitbook MdsvexConfig with your own.
+ * @param {boolean} [options.isKitbookItself] - Don't Use - It's for the original Kitbook package
 */
 export function kitbookPlugin({
-  fileGlobs: importModuleGlobs, viteConfigAdjustments, mdsvexConfig
+  fileGlobs: importModuleGlobs, viteConfigAdjustments, mdsvexConfig, isKitbookItself
 }: {
   fileGlobs?: string[];
   viteConfigAdjustments?: UserConfig;
   mdsvexConfig?: MdsvexOptions;
+  isKitbookItself?: boolean;
 } = {}): Plugin {
   const isKitbookMode = process.env.npm_lifecycle_script?.includes('--mode kitbook');
-  if (isKitbookMode) initKitbook();
+  if (isKitbookMode && !isKitbookItself) initKitbook();
 
   return {
     name: 'vite-plugin-svelte-kitbook',
