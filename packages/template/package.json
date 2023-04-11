@@ -8,6 +8,7 @@
     "preview": "vite preview",
     "kitbook": "vite dev --mode kitbook",
     "kitbook:build": "svelte-kit sync && vite build --mode kitbook",
+    "kitbook:build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../template && pnpm kitbook:build",
     "kitbook:preview": "vite preview --mode kitbook",
     "package": "svelte-kit package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
