@@ -2,6 +2,11 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum. 2.0 on will follow semver.
 
+## 1.0.60
+
+- - [breaking] `captions.ts` functions, `Youtube.svelte`, and `YoutubeCaptions.svelte` must be imported using specific paths now to avoid `he` and `fast-xml-parser` needlessly being optimized by Vite in every situation using `svelte-pieces`.
+  - fix: types for deep imports restored (broken in 1.0.58 by update to svelte-package 2.0.0)
+
 ## 1.0.59
 
 - update to using `noScroll` instead of SvelteKit deprecated `noscroll` in `queryParam.ts`

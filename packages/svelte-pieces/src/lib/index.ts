@@ -19,8 +19,6 @@ export { default as ReactiveSet } from './functions/ReactiveSet.svelte';
 export { default as IntersectionObserver } from './functions/IntersectionObserver.svelte';
 export { default as IntersectionObserverShared } from './functions/IntersectionObserverShared.svelte';
 
-export { default as Youtube } from './media/Youtube.svelte';
-export { default as YoutubeCaptions } from './media/YoutubeCaptions.svelte';
 export { default as QrCode } from './media/QrCode.svelte';
 
 export { default as Avatar } from './shell/Avatar.svelte';

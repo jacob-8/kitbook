@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.59",
+  "version": "1.0.60",
   "description": "Useful Svelte UI pieces for building web apps",
   "scripts": {
     "dev": "pnpm kitbook",
@@ -76,5 +76,13 @@
       "default": "./dist/index.js"
     },
     "./*": "./dist/*"
+  },
+  "typesVersions": {
+    ">4.0": {
+      "index": [
+        "./dist/index.d.ts"
+      ],
+      "*": ["./dist/*"]
+    }
   }
 }
