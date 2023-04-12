@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.31",
+  "version": "1.0.0-alpha.32",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev --mode kitbook",
@@ -45,7 +45,7 @@
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
     "@kitbook/vite-plugin-kitbook": "0.0.10",
-    "svelte-pieces": "1.0.58",
+    "svelte-pieces": "1.0.60",
     "svelte2tsx": "^0.6.11"
   },
   "peerDependencies": {

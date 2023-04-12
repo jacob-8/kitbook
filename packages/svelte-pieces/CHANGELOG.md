@@ -2,6 +2,10 @@
 
 Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum. 2.0 on will follow semver.
 
+## 1.0.61
+
+- fix: export `DataList.svelte` from `index.ts`
+
 ## 1.0.60
 
 - - [breaking] `captions.ts` functions, `Youtube.svelte`, and `YoutubeCaptions.svelte` must be imported using specific paths now to avoid `he` and `fast-xml-parser` needlessly being optimized by Vite in every situation using `svelte-pieces`.
