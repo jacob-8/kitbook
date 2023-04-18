@@ -46,7 +46,7 @@
   bind:this={backdrop}
   class="fixed inset-0 bg-black backdrop"
   data-smooth={!startX}
-  {open}
+  data-open={open}
   on:click={() => (open = false)}
 />
 
@@ -97,7 +97,7 @@
   .backdrop[data-smooth='true'] {
     transition: opacity calc(var(--f, 1) * var(--s, 0s)) ease-in-out;
   }
-  .backdrop[open='true'] {
+  .backdrop[data-open='true'] {
     pointer-events: all;
   }
 </style>
