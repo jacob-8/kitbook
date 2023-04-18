@@ -6,7 +6,7 @@
 ## Usage
 
 - Install: `npm i -D svelte-pieces` or `pnpm add -D svelte-pieces`
-- Import desired component, e.g. `import Button from 'svelte-pieces/ui/Button.svelte';`
+- Import desired component, e.g. `import { Button } from 'svelte-pieces';` or `import Button from 'svelte-pieces/ui/Button.svelte';`
 
 ## Contributing
 - Start by running `pnpm i`, then `pnpm dev` - feel free to submit a pull request, though I advise creating an issue first to discuss your addition.
