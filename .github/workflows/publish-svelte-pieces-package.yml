@@ -15,12 +15,10 @@ jobs:
           version: 7.9.3
 
       - run: pnpm install
-      # - run: pnpm -F svelte-pieces test
-      # - run: pnpm -F svelte-pieces package
 
       - id: publish
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: './packages/svelte-pieces/package/package.json'
+          package: './packages/svelte-pieces/package.json'
           access: 'public'
