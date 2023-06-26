@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "1.0.62",
+  "version": "2.0.0-next.1",
   "description": "Useful Svelte UI pieces for building web apps",
   "scripts": {
     "dev": "pnpm kitbook",
@@ -11,6 +11,7 @@
     "kitbook:build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../svelte-pieces && pnpm kitbook:build",
     "kitbook:preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
+    "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
@@ -29,26 +30,26 @@
     "he": "^1.2.0"
   },
   "peerDependencies": {
-    "@sveltejs/kit": "^1.13.0",
-    "svelte": "^3.55.0"
+    "svelte": "^3.55.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.46",
-    "@sveltejs/adapter-auto": "2.0.0",
-    "@sveltejs/kit": "1.15.2",
-    "@sveltejs/package": "2.0.2",
+    "@iconify/json": "^2.2.83",
+    "@sveltejs/adapter-auto": "2.1.0",
+    "@sveltejs/kit": "1.20.5",
+    "@sveltejs/package": "2.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
+    "@unocss/svelte-scoped": "^0.52.7",
     "kitbook": "1.0.0-alpha.31",
-    "publint": "^0.1.9",
-    "svelte": "^3.58.0",
-    "svelte-check": "^3.2.0",
-    "svelte-preprocess-unocss": "^0.0.3",
-    "svelte2tsx": "^0.6.11",
-    "tslib": "^2.5.0",
-    "typescript": "^4.9.4",
-    "vite": "^4.2.1",
-    "vitest": "^0.29.8"
+    "publint": "^0.1.12",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.4.4",
+    "svelte2tsx": "^0.6.16",
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3",
+    "unocss": "^0.52.7",
+    "vite": "^4.3.9",
+    "vitest": "^0.32.2"
   },
   "repository": {
     "type": "git",
@@ -82,7 +83,9 @@
       "index": [
         "./dist/index.d.ts"
       ],
-      "*": ["./dist/*"]
+      "*": [
+        "./dist/*"
+      ]
     }
   }
 }

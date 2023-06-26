@@ -1,6 +1,11 @@
 # svelte-pieces
 
-Warning: `svelte-pieces` does not follow semver as I inadvertently made it version 1.0 too soon. Breaking changes will be noted here in the changelog and will be kept to a minimum. 2.0 on will follow semver.
+## 2.0.0-next.1
+
+### Major Changes
+
+- Svelte 4 support turned on and being tested.
+- [breaking]  `<IntersectionObserverShared>` and `<IntersectionObserver>` now automatically observe the first child element's visibility to avoid annoying DOM flow challenges present with adding an observed element (e.g. inside tables).
 
 ## 1.0.62
 

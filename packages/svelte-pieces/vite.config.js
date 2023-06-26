@@ -13,10 +13,6 @@ const config = {
   build: {
     target: 'es2015', //es6
   },
-  test: {
-    globals: true,
-    includeSource: ['src/**/*.ts'],
-  },
 };
 
 export default config;
