@@ -1,6 +1,14 @@
 import type { Config } from '@sveltejs/kit';
 import { AUGMENT_FUNCTION_TEXT, MDSVEX_EXTENSIONS } from './constants';
 import { immutableDeepMerge } from './utils/immutableDeepMerge';
+import { mdsvex } from 'mdsvex';
+import DEFAULT_KITBOOK_MDSVEX_CONFIG from './mdsvex/mdsvex.config';
+
+const MDSVEX_PREPROCESSOR: Config = {
+  preprocess: [
+    mdsvex(DEFAULT_KITBOOK_MDSVEX_CONFIG)
+  ],
+}
 
 const DEFAULT_KITBOOK_OPTIONS: Config = {
   extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
@@ -16,7 +24,7 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
 
 export function augmentSvelteConfigForKitbook(config: Config, kitbookOptions: Config = {}) {
   if (process.env.KITBOOK)
-    return immutableDeepMerge(config, DEFAULT_KITBOOK_OPTIONS, kitbookOptions);
+    return immutableDeepMerge(MDSVEX_PREPROCESSOR, config, DEFAULT_KITBOOK_OPTIONS, kitbookOptions);
 
   return config;
 }

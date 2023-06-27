@@ -1,7 +1,7 @@
 import { processHere, processToFileBeside } from "./process";
 
 test('processHere', async () => {
-  expect(await processHere('./src/personal-unified-learning/example.md')).toMatchInlineSnapshot(`
+  expect(await processHere('packages/rehype-display-link-titles/src/personal-unified-learning/example.md')).toMatchInlineSnapshot(`
     "
     <h1 id=\\"hello-world\\">Hello World</h1>
     <h2 id=\\"table-of-content\\">Table of Content</h2>
@@ -21,9 +21,9 @@ test('processHere', async () => {
 });
 
 test('processToFileBeside', async () => {
-  expect(await processToFileBeside('./src/personal-unified-learning/example.md')).toMatchInlineSnapshot('undefined');
+  expect(await processToFileBeside('packages/rehype-display-link-titles/src/personal-unified-learning/example.md')).toMatchInlineSnapshot('undefined');
 });
 
 test('processToFileBeside', async () => {
-  expect(await processToFileBeside('./src/personal-unified-learning/link.md')).toMatchInlineSnapshot('undefined');
+  expect(await processToFileBeside('packages/rehype-display-link-titles/src/personal-unified-learning/link.md')).toMatchInlineSnapshot('undefined');
 });

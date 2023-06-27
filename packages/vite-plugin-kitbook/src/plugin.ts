@@ -1,7 +1,6 @@
 import type { Plugin, UserConfig } from 'vite';
 
-import { mdsvex, type MdsvexOptions } from 'mdsvex';
-import DEFAULT_KITBOOK_MDSVEX_CONFIG from './mdsvex/mdsvex.config';
+import { type MdsvexOptions } from 'mdsvex';
 
 import { initKitbook } from './initKitbook';
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook';
@@ -25,7 +24,7 @@ export function kitbookPlugin({
   isKitbookItself?: boolean;
 } = {}): Plugin {
   const isKitbookMode = process.env.npm_lifecycle_script?.includes('--mode kitbook');
-  if (isKitbookMode && !isKitbookItself) initKitbook();
+  if (isKitbookMode) initKitbook();
 
   return {
     name: 'vite-plugin-svelte-kitbook',
@@ -39,9 +38,9 @@ export function kitbookPlugin({
       if (mode === 'kitbook') return modifyViteConfigForKitbook(viteConfigAdjustments)
     },
 
-    api: {
-      sveltePreprocess: isKitbookMode && mdsvex(mdsvexConfig || DEFAULT_KITBOOK_MDSVEX_CONFIG),
-    },
+    // api: {
+    //   sveltePreprocess: isKitbookMode && mdsvex(mdsvexConfig || DEFAULT_KITBOOK_MDSVEX_CONFIG),
+    // },
 
     resolveId(id) {
       if (id === VIRTUAL_MODULES_IMPORT_ID) {

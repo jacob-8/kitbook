@@ -24,20 +24,21 @@ const htmlShell = `<!DOCTYPE html>
 </html>`
 
 describe("mdsvex-shiki-twoslash", () => {
-  fs.readdirSync('./src/fixtures').forEach((file) => {
+  const fixturesDirectory = 'packages/mdsvex-shiki-twoslash/src/fixtures';
+  fs.readdirSync(fixturesDirectory).forEach((file) => {
     if (!file.includes('txt')) {
       return;
     }
     const name = file.replace('.txt', '');
     test(name, async () => {
-      const file = fs.readFileSync(`./src/fixtures/${name}.txt`, 'utf8');
+      const file = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8');
       const SPLIT = '__SPLIT__'
       const [firstLine, code] = file.replace('\r\n', SPLIT).split(SPLIT);
       const [lang, meta] = firstLine.replace(' ', SPLIT).split(SPLIT);
 
       const highlightedCode = await highlight(code, lang, meta);
       const htmlDocument = htmlShell.replace(REPLACE_BODY, highlightedCode).replace(REPLACE_TITLE, name);
-      fs.writeFileSync(`./src/fixtures/${name}.html`, htmlDocument, 'utf8');
+      fs.writeFileSync(`${fixturesDirectory}/${name}.html`, htmlDocument, 'utf8');
     });
   });
 });

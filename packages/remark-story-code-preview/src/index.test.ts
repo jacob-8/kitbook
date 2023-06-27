@@ -59,8 +59,8 @@ describe('placeContentIntoCodeAttribute', () => {
   });
 
   test('backticks and ${', async () => {
-    const inputFile = fs.readFileSync('./src/fixtures/input/Backticks.svelte', 'utf-8');
+    const inputFile = fs.readFileSync('packages/remark-story-code-preview/src/fixtures/input/Backticks.svelte', 'utf-8');
     const result = placeContentIntoCodeAttribute(inputFile, 'Story');
-    fs.writeFileSync('./src/fixtures/output/Backticks.svelte', result, 'utf-8');
+    fs.writeFileSync('packages/remark-story-code-preview/src/fixtures/output/Backticks.svelte', result, 'utf-8');
   });
 });

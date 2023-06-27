@@ -1,4 +1,5 @@
 import { immutableDeepMerge } from './immutableDeepMerge';
+import type { PreprocessorGroup } from 'svelte/types/compiler/preprocess';
 
 describe('immutableDeepMerge', () => {
   test('basic', () => {
@@ -37,12 +38,12 @@ describe('immutableDeepMerge', () => {
   test('plugins', () => {
     const plugIn = () => {
       return {
-        process: 'plugIn'
+        name: 'plugIn'
       }
     };
     const fooIn = () => {
       return {
-        process: 'fooIn'
+        name: 'fooIn'
       }
     };
 
@@ -54,17 +55,17 @@ describe('immutableDeepMerge', () => {
     }
 
     expect(immutableDeepMerge(obj1, obj2)).toMatchInlineSnapshot(`
-        {
-          "process": [
-            {
-              "process": "plugIn",
-            },
-            {
-              "process": "fooIn",
-            },
-          ],
-        }
-      `);
+      {
+        "process": [
+          {
+            "name": "plugIn",
+          },
+          {
+            "name": "fooIn",
+          },
+        ],
+      }
+    `);
   });
 
   test('works with different types', () => {
@@ -176,5 +177,25 @@ describe('immutableDeepMerge', () => {
           },
         }
       `);
+  });
+
+  test('if given a string or object and an array, incorporates the non-iterable as the first element of the array', () => {
+    const configWithOneObject: { preprocess: PreprocessorGroup } = {
+      preprocess: { name: 'first' },
+    }
+    const configWithArrayOfObjects = {
+      preprocess: [{ name: 'second' }, { name: 'third' }],
+    }
+    const anotherConfigWithOneObject = {
+      preprocess: { name: 'fourth' },
+    }
+    expect(immutableDeepMerge(configWithOneObject, configWithArrayOfObjects, anotherConfigWithOneObject)).toEqual({
+      preprocess: [
+        { name: 'first' },
+        { name: 'second' },
+        { name: 'third' },
+        { name: 'fourth' },
+      ]
+    });
   });
 });
