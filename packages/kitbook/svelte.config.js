@@ -1,13 +1,13 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import { PreprocessUnocss } from 'svelte-preprocess-unocss';
-
+import UnoCSS from '@unocss/svelte-scoped/preprocess';
 import { MDSVEX_EXTENSIONS } from '@kitbook/vite-plugin-kitbook';
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
   preprocess: [
-    PreprocessUnocss({
+    UnoCSS({
       classPrefix: 'kb-',
     }),
     vitePreprocess(),
@@ -29,10 +29,8 @@ const config = {
   },
 
   vitePlugin: {
-    experimental: {
-      inspector: {
-        holdMode: true,
-      }
+    inspector: {
+      holdMode: true,
     }
   },
 };

@@ -1,11 +1,13 @@
 /**
  * Add to app.d.ts file:
- * ```declare namespace svelte.JSX {
+ * ```
+ * declare namespace svelteHTML {
       interface HTMLAttributes<T> {
-        onlongpress?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
-        onshortpress?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
+        'on:longpress'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
+        'on:shortpress'?: (event: CustomEvent<any> & { target: EventTarget & T }) => any;
       }
-    }```
+    }
+    ```
  */
 export function longpress(node: Node, duration = 400) {
   let start: number; // for shortpress

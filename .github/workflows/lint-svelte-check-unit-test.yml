@@ -1,0 +1,63 @@
+name: Lint, Svelte Check, & Unit Test Push
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  # lint:
+  #   name: Lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - uses: pnpm/action-setup@v2
+  #       with:
+  #         version: 8.6.0
+
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+  #         cache: pnpm
+
+  #     - run: pnpm install
+
+  #     - name: Lint
+  #       run: pnpm lint
+
+  unit_test:
+    name: Svelte Check & Unit Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - run: pnpm install
+
+      # - run: pnpm -F kitbook sync
+      # - run: pnpm -F svelte-pieces sync
+      
+      # - run: pnpm -F kitbook check
+      - run: pnpm -F svelte-pieces check
+      
+      - name: Run Vitest Unit Tests
+        run: pnpm test
+
+      # - name: Slack E2E Results Notification
+      #   uses: 8398a7/action-slack@v3 # https://action-slack.netlify.app/
+      #   if: failure()
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #   with:
+      #     status: ${{ job.status }}
+      #     fields: workflow,repo,message,commit,author,action,ref # selectable (default: repo,message)
