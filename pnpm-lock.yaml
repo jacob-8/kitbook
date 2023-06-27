@@ -175,9 +175,6 @@ importers:
       unbuild:
         specifier: ^1.0.2
         version: 1.0.2
-      vite:
-        specifier: ^4.3.9
-        version: 4.3.9(@types/node@18.15.3)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)
@@ -233,9 +230,6 @@ importers:
       unified:
         specifier: ^10.1.2
         version: 10.1.2
-      vite:
-        specifier: ^4.3.9
-        version: 4.3.9(@types/node@18.15.3)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)
@@ -288,9 +282,6 @@ importers:
       unified:
         specifier: ^10.1.2
         version: 10.1.2
-      vite:
-        specifier: ^4.3.9
-        version: 4.3.9(@types/node@18.15.3)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(@vitest/ui@0.32.2)
