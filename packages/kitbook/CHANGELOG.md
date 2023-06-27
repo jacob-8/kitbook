@@ -1,5 +1,10 @@
 # kitbook
 
+## 1.0.0-alpha.33 - 2023-6-27
+
+- [breaking] Update to support Svelte 4 required adding MdSvex in `augmentSvelteConfigForKitbook` instead of the Kitbook Vite plugin because it now must come before `vitePreprocess` to work properly. If you were previously customizing the MdSvex config, that is now passed in to the `augmentSvelteConfigForKitbook`, which now takes a second argument that is an object of various config options.
+- Svelte 3 should still work but is no longer actively being tested.
+
 ## 1.0.0-alpha.31 - 2023-4-11
 
 ### Patch Changes
