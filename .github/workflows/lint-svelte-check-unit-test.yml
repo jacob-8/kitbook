@@ -44,6 +44,8 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm build:deps
+
       # - run: pnpm -F kitbook sync
       # - run: pnpm -F svelte-pieces sync
       
