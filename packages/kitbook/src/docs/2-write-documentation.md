@@ -8,11 +8,11 @@ By default Kitbook will display your project's README.md file as its home page, 
 
 ## Naming Conventions
 
-Name files and folders according to how you want them shown in the sidebar. Alphabetically `Get Started` comes after `Button` but you use an initial digit followed by a hyphen to update the sort order, flipped in this example:
-- `1-get-started.md` will be displayed as `Get Started`
-- `2-button.svelte` which will be displayed as `Button`
+Name files and folders according to how you want them shown in the sidebar. Alphabetically `Get Started` comes after `Button` but you can use an initial number followed by a hyphen to update the sort order as seen here:
+- `1-get-started.md`, displayed first as `Get Started`
+- `2-button.svelte`, displayed second as `Button`
   
-Folder naming follows the same conventions. `0-components/` will show up as `Components` and be place before `1-about/` (displayed as `About`).
+Folder naming follows the same conventions. `0-components/` will show up as `Components` and be placed before `1-about/` (displayed as `About`).
 
 ## Convenient links
 
