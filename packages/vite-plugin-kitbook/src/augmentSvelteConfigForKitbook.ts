@@ -3,12 +3,7 @@ import { AUGMENT_FUNCTION_TEXT, MDSVEX_EXTENSIONS } from './constants';
 import { immutableDeepMerge } from './utils/immutableDeepMerge';
 import { mdsvex } from 'mdsvex';
 import DEFAULT_KITBOOK_MDSVEX_CONFIG from './mdsvex/mdsvex.config';
-
-const MDSVEX_PREPROCESSOR: Config = {
-  preprocess: [
-    mdsvex(DEFAULT_KITBOOK_MDSVEX_CONFIG)
-  ],
-}
+import { type MdsvexOptions } from 'mdsvex';
 
 const DEFAULT_KITBOOK_OPTIONS: Config = {
   extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
@@ -22,11 +17,26 @@ const DEFAULT_KITBOOK_OPTIONS: Config = {
   }
 }
 
-export function augmentSvelteConfigForKitbook(config: Config, kitbookOptions: Config = {}) {
-  if (process.env.KITBOOK)
-    return immutableDeepMerge(MDSVEX_PREPROCESSOR, config, DEFAULT_KITBOOK_OPTIONS, kitbookOptions);
+/**
+ * Takes your SvelteKit config and augments it with Kitbook-specific settings when running Kitbook, as well as exposing options to override the default Kitbook-specific settings.
+ * @param {Config} [svelteConfig] - Passes your Svelte Config settings in so they can be merged with Kitbook's needed adjustments.
+ * @param {Config} [options.svelteConfigAdjustments] - Adjust the Svelte Config even further beyond Kitbook's default adjustments when running Kitbook.
+ * @param {MdsvexOptions} [options.mdsvexConfig] - Override the default Kitbook MdsvexConfig with your own.
+*/
+export function augmentSvelteConfigForKitbook(svelteConfig: Config, { svelteConfigAdjustments, mdsvexConfig }: { 
+  svelteConfigAdjustments?: Config;
+  mdsvexConfig?: MdsvexOptions;
+} = {}) {
+  if (process.env.KITBOOK) {
+    const MDSVEX_PREPROCESSOR: Config = {
+      preprocess: [
+        mdsvex(mdsvexConfig || DEFAULT_KITBOOK_MDSVEX_CONFIG)
+      ],
+    }
+    return immutableDeepMerge(MDSVEX_PREPROCESSOR, svelteConfig, DEFAULT_KITBOOK_OPTIONS, svelteConfigAdjustments);
+  }
 
-  return config;
+  return svelteConfig;
 }
 
 export function wrapExportedConfigWithAugmentFunction(svelteConfigText: string): string {

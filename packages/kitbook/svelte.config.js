@@ -29,7 +29,7 @@ const config = {
   },
 };
 
-export default augmentSvelteConfigForKitbook(config, {
+export default augmentSvelteConfigForKitbook(config, { svelteConfigAdjustments: {
   kit: {
     files: {
       appTemplate: 'src/lib/app.html',
@@ -38,4 +38,4 @@ export default augmentSvelteConfigForKitbook(config, {
     },
     outDir: '.svelte-kit',
   },
-});
+}});
