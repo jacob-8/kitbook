@@ -4,8 +4,7 @@
   "description": "Useful Svelte UI pieces for building web apps",
   "scripts": {
     "dev": "vite dev --mode kitbook",
-    "build": "svelte-kit sync && vite build --mode kitbook",
-    "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../svelte-pieces && pnpm build",
+    "build": "vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
@@ -35,7 +34,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
     "@unocss/svelte-scoped": "^0.53.3",
-    "kitbook": "1.0.0-alpha.33",
+    "kitbook": "npm:kitbook@1.0.0-alpha.33",
     "publint": "^0.1.12",
     "svelte": "^4.0.0",
     "svelte-check": "^3.4.4",

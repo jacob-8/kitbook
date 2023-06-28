@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev --mode kitbook",
     "build": "vite build --mode kitbook",
-    "build:ci": "cd ../.. && pnpm build:deps && pnpm package && pnpm pieces:package && cd packages/kitbook && pnpm build",
+    "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
@@ -42,7 +42,7 @@
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "0.0.3",
     "@kitbook/vite-plugin-kitbook": "0.0.11",
-    "svelte-pieces": "2.0.0-next.1",
+    "svelte-pieces": "npm:svelte-pieces@2.0.0-next.1",
     "svelte2tsx": "^0.6.16"
   },
   "peerDependencies": {
