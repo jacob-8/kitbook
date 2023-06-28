@@ -1,14 +1,14 @@
 <script>
-  // import './global.css'; // you can import need global styles here or via style tag demoed below
+  // import './global.css'; // you can import needed global styles here
   import { pagesStore } from 'kitbook';
   import { setContext } from 'svelte';
   setContext('pages-store', pagesStore);
-
+  
   /** @type {import('kitbook').KitbookSettings} */
   const kitbookSettings = {
-    title: 'Kitbook Templates',
+    title: 'Kitbook',
     description: 'Svelte Component Documentation and Prototyping Workbench built using SvelteKit',
-    githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/template',
+    githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
     expandTree: true,
   };
 
@@ -16,9 +16,3 @@
 </script>
 
 <slot />
-
-<!-- <style global>
-  :root {
-    --foo: red;
-  }
-</style> -->

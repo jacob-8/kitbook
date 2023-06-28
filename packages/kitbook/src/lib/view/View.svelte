@@ -22,8 +22,9 @@
   $: src = `/sandbox${$page.url.pathname}?${encodedProps}${queryParams}`;
 </script>
 
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <IntersectionObserver let:intersecting once>
+  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="not-prose mb-4"
     on:mouseover={() => (hovered = true)}
