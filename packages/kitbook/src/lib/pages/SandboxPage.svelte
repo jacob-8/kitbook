@@ -10,7 +10,7 @@
     pageKey: string;
     loadedModules: LoadedModules;
     storyId: string;
-    variant?: Variant<typeof SvelteComponent>;
+    variant?: Variant<SvelteComponent>;
     variantIdx?: string; // string is better because it works as an index also and doesn't give false negative on '0'
     editedProps?: Record<string, any>;
     // error?: string;
@@ -18,13 +18,13 @@
 
   const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
 
-  let updatedVariant: Variant<typeof SvelteComponent>;
+  let updatedVariant: Variant<SvelteComponent>;
   $: if ($pagesStore?.[data.pageKey] && data.variantIdx) {
     (async () => {
       updatedVariant =
         ((await $pagesStore[data.pageKey].loadVariants.loadModule())?.variants[
           data.variantIdx
-        ] as Variant<typeof SvelteComponent>) || {};
+        ] as Variant<SvelteComponent>) || {};
     })();
   }
 

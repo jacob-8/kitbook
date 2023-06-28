@@ -1,4 +1,4 @@
-import type { SvelteComponent } from "svelte";
+import type { ComponentProps, SvelteComponent } from "svelte";
 
 export interface KitbookSettings {
   title: string;
@@ -7,14 +7,14 @@ export interface KitbookSettings {
   githubURL?: string;
 }
 
-export type Variants<T> = Variant<T>[]
+export type Variants<T extends SvelteComponent> = Variant<T>[]
 
-export type Variant<T> = {
+export type Variant<T extends SvelteComponent> = {
   name?: string,
   description?: string,
   width?: number,
   height?: number,
-  props?: SvelteComponentProps<T>,
+  props?: ComponentProps<T>,
   contexts?: MockedContext[],
   slots?: Slot[]
 }
@@ -23,13 +23,6 @@ type Slot = {
   // name?: string; // leave blank for default slot - dynamic slots not supported yet
   content: string | typeof SvelteComponent;
 }
-
-// From https://gist.github.com/chanced/bfc4f4bfdd60077f30d0e0b043c5f81f - can remove "props" property to get all options
-type SvelteComponentProps<T> = T extends abstract new (
-  opts: Svelte2TsxComponentConstructorParameters<infer P>,
-) => any
-  ? Svelte2TsxComponentConstructorParameters<P>["props"]
-  : never;
 
 export type MockedContext = {
   key: any,

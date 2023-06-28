@@ -1,6 +1,6 @@
 import type { Variants } from 'kitbook';
 import type Component from './SearchResult.svelte';
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'README',
     height: 100,

@@ -1,7 +1,7 @@
 import type { Variants } from '$lib';
 import type Component from './Layout.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'Not Expanded',
     description: 'Only the active route will be expanded (since this is a Kitbook inside the Kitbook, it will be pulling the page to show from the parent Kitbook URL which renders a blank page if you click to other pages, it will break out of that variant and show a clone of the parent Kitbook)',

@@ -4,7 +4,7 @@ import type Component from './+page.svelte';
 import IndividualComponent from './mockComponents/IndividualComponent.svelte';
 import StoryComponent from './mockComponents/StoryComponent.md';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'Individual Story',
     description: 'If there is a params.id (story ID), find the corresponding module matching params.file from data.modules, pass props being pulled from the query params, and hide all other content outside that Story using CSS',

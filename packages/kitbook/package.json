@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.34",
+  "version": "1.0.0-alpha.35",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev --mode kitbook",
@@ -55,14 +55,14 @@
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "^1.20.5",
     "@sveltejs/package": "^2.1.0",
-    "@unocss/svelte-scoped": "^0.53.3",
+    "@unocss/svelte-scoped": "^0.53.4",
     "prettier": "^2.8.8",
     "publint": "^0.1.12",
     "svelte": "^4.0.0",
     "svelte-check": "^3.4.4",
     "tslib": "^2.5.3",
-    "typescript": "~5.1.3",
-    "unocss": "^0.53.3",
+    "typescript": "~5.1.5",
+    "unocss": "^0.53.4",
     "vite": "^4.3.9",
     "vitest": "^0.32.2"
   },

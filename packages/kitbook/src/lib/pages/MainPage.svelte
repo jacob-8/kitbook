@@ -16,11 +16,11 @@
 
   const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
 
-  let updatedVariants: Variants<typeof SvelteComponent>;
+  let updatedVariants: Variants<SvelteComponent>;
   $: if ($pagesStore?.[data.pageKey]) {
     (async () => {
       updatedVariants = (await $pagesStore[data.pageKey]?.loadVariants?.loadModule())
-        ?.variants as Variants<typeof SvelteComponent>;
+        ?.variants as Variants<SvelteComponent>;
     })();
   }
   $: variants = updatedVariants || data.loadedModules?.variants;

@@ -3,7 +3,7 @@ import type Component from './DefaultSlot.svelte';
 
 import PassIntoDefaultSlot from './PassIntoDefaultSlot.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'Text',
     slots: [

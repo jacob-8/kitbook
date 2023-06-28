@@ -17,7 +17,7 @@ export const sandboxPageLoad = async ({ params, parent, url }) => {
     loadedModules.component = (await page.loadComponent.loadModule() as any).default as typeof SvelteComponent;
   }
 
-  let variant: Variant<typeof SvelteComponent>;
+  let variant: Variant<SvelteComponent>;
   if (variantIdx) {
     variant = (await page.loadVariants.loadModule()).variants[variantIdx] || {};
   }

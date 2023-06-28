@@ -8,7 +8,7 @@ Here is an example of a `Header.svelte` component's variants file:
 import type { Variants } from 'kitbook';
 import type Component from './Header.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'Desktop',
     description: 'Write something about this example if desired.',
@@ -33,7 +33,7 @@ export const variants: Variants<typeof Component> = [
 import type { Variants } from 'kitbook';
 import type Component from './+page.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'First',
     description: 'Foo',
