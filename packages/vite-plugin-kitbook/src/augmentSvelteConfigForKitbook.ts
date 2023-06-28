@@ -40,6 +40,6 @@ export function augmentSvelteConfigForKitbook(svelteConfig: Config, { svelteConf
 }
 
 export function wrapExportedConfigWithAugmentFunction(svelteConfigText: string): string {
-  console.log(`Augmented your svelte.config.js file for Kitbook use. The 'augmentSvelteConfigForKitbook' function will add MDSvex support and use Kitbook's route files when running vite in "kitbook" mode.\n`);
+  console.log(`[Kitbook] Augmented your svelte.config.js file for Kitbook use. The 'augmentSvelteConfigForKitbook' function will add MDSvex support and use Kitbook's route files when running vite in "kitbook" mode.\n`);
   return svelteConfigText.replace('export default config', AUGMENT_FUNCTION_TEXT);
 }

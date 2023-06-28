@@ -4,7 +4,7 @@ export default defineProject({
   test: {
     name: 'vite-plugin-kitbook:unit',
     globals: true,
-    // includeSource: ['src/**/*.ts'],
+    includeSource: ['src/**/*.ts'],
   },
 })
 

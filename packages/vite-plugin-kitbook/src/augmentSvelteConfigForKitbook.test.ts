@@ -34,7 +34,7 @@ describe('augmentSvelteConfigForKitbook', () => {
       },
     };
 
-    expect(augmentSvelteConfigForKitbook(svelteConfig, kitbookOptionsFromUser)).toMatchInlineSnapshot(`
+    expect(augmentSvelteConfigForKitbook(svelteConfig, { svelteConfigAdjustments: kitbookOptionsFromUser})).toMatchInlineSnapshot(`
       {
         "extensions": [
           ".svelte",

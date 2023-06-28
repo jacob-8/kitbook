@@ -14,15 +14,14 @@ export function initKitbook(isKitbookItself: boolean) {
 }
 
 const TYPINGS_EXT = '.d.ts';
-const PAGE_MARKDOWN = '_page.svelte'; // from _page.md
-const LAYOUT_MARKDOWN = '_layout.svelte'; // from _layout.md
+const PAGE_MARKDOWN = '_page.md';
+const LAYOUT_MARKDOWN = '_layout.md';
 const VARIANTS = 'variants.js';
-const PAGE_VARIANTS = '_page.variants.js'
 
 function addKitbookDirectoryIfNeeded() {
   try {
     const KITBOOK_DIRECTORY = 'src/.kitbook';
-    
+
     const alreadyHasKitbookDirectory = fs.existsSync(KITBOOK_DIRECTORY);
     if (!alreadyHasKitbookDirectory) {
       fs.mkdirSync(KITBOOK_DIRECTORY);
@@ -34,16 +33,29 @@ function addKitbookDirectoryIfNeeded() {
 
     const src = 'node_modules/kitbook/dist/routes';
     const destination = KITBOOK_DIRECTORY + '/routes';
-    fs.cpSync(src, destination, {
-      recursive: true, filter: (src, dest) => {
-        const partsOfFilesUsedJustForDevelopingKitbook = ['mock', TYPINGS_EXT, PAGE_MARKDOWN, LAYOUT_MARKDOWN, VARIANTS, PAGE_VARIANTS];
-        const skip = partsOfFilesUsedJustForDevelopingKitbook.some(file => src.includes(file));
-        return !skip;
-      }
-    });
+    fs.cpSync(src, destination, { recursive: true, filter: dontIncludeDocFiles });
   } catch (e) {
     console.error(e);
   }
+}
+
+function dontIncludeDocFiles(src: string) {
+  const partsOfFilesUsedJustForDevelopingKitbook = ['mock', TYPINGS_EXT, PAGE_MARKDOWN, LAYOUT_MARKDOWN, VARIANTS];
+  const skip = partsOfFilesUsedJustForDevelopingKitbook.some(file => src.includes(file));
+  return !skip;
+}
+
+if (import.meta.vitest) {
+  it(dontIncludeDocFiles, () => {
+    expect(dontIncludeDocFiles('+page.svelte')).toBeTruthy()
+    expect(dontIncludeDocFiles('+page.js')).toBeTruthy()
+    
+    expect(dontIncludeDocFiles('_page.md')).toBeFalsy()
+    expect(dontIncludeDocFiles('_layout.md')).toBeFalsy()
+    expect(dontIncludeDocFiles('_page.variants.js')).toBeFalsy()
+    expect(dontIncludeDocFiles('+page.d.ts')).toBeFalsy()
+    expect(dontIncludeDocFiles('sandbox/mockComponents/+page.svelte')).toBeFalsy()
+  })
 }
 
 function addSvelteConfigAugmentFunctionIfNeeded() {
@@ -63,7 +75,7 @@ function addSvelteConfigAugmentFunctionIfNeeded() {
       fs.writeFileSync(svelteConfigPath, wrapExportedConfigWithAugmentFunction(svelteConfigText));
     }
   } else {
-    console.log(`No svelte.config.{js|ts|mts|mjs|cts|cjs} file found. Make sure you have added the following to it to enable Kitbook: ${AUGMENT_FUNCTION_TEXT} \n`);
+    console.log(`[Kitbook] No svelte.config.{js|ts|mts|mjs|cts|cjs} file found. Make sure you have added the following to it to enable Kitbook: ${AUGMENT_FUNCTION_TEXT} \n`);
   }
 }
 
