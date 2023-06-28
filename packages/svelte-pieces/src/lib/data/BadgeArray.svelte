@@ -3,10 +3,10 @@
   import Badge from '../ui/Badge.svelte';
   import DetectUrl from '../functions/DetectUrl.svelte';
 
-  export let strings: string[] = [],
-    canEdit = false,
-    promptMessage: string,
-    addMessage: string;
+  export let strings: string[] = [];
+  export let canEdit = false;
+  export let promptMessage: string;
+  export let addMessage: string;
 
   $: if (typeof strings === 'string') {
     strings = [strings];

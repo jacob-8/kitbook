@@ -6,6 +6,7 @@
     "dev": "vite dev --mode kitbook",
     "build": "svelte-kit sync && vite build --mode kitbook",
     "preview": "vite preview --mode kitbook",
+    "sync": "svelte-kit sync",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "vitest run && npm run package",

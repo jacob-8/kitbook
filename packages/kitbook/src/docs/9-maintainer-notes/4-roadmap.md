@@ -3,7 +3,6 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- cleanup page files and loads now that routes are not copied into projects
 - automatically analyze component for props
 - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
 

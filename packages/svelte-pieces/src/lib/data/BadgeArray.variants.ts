@@ -26,7 +26,9 @@ export const variants: Variants<Component> = [
   {
     name: "handles strings",
     props: {
-      strings: "How about this?"
+      strings: "How about this?" as any as Array<string>,
+      promptMessage: "Let's see how this works... Add something",
+      addMessage: "Add Something"
     }
   }
 ]
