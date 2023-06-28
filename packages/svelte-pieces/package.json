@@ -34,7 +34,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@types/youtube": "^0.0.47",
     "@unocss/svelte-scoped": "^0.53.3",
-    "kitbook": "npm:kitbook@1.0.0-alpha.33",
+    "kitbook": "1.0.0-alpha.34",
     "publint": "^0.1.12",
     "svelte": "^4.0.0",
     "svelte-check": "^3.4.4",
