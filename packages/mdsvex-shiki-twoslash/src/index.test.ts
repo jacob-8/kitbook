@@ -2,6 +2,8 @@ import { shikiTwoslashHighlighter } from ".";
 import { format as prettier } from 'prettier';
 import parserHTML from 'prettier/parser-html'
 import fs from 'node:fs';
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const REPLACE_BODY = 'REPLACE_BODY';
 const REPLACE_TITLE = 'REPLACE_TITLE';
@@ -23,13 +25,16 @@ const htmlShell = `<!DOCTYPE html>
 <body>${REPLACE_BODY}</body>
 </html>`
 
+const _dirname = typeof __dirname !== 'undefined'
+  ? __dirname
+  : dirname(fileURLToPath(import.meta.url))
+
 describe("mdsvex-shiki-twoslash", () => {
-  const fixturesDirectory = './packages/mdsvex-shiki-twoslash/src/fixtures';
-  fs.readdirSync(fixturesDirectory).forEach((file) => {
-    if (!file.includes('txt')) {
-      return;
-    }
-    const name = file.replace('.txt', '');
+  const fixturesDirectory = resolve(_dirname, './fixtures');
+  fs.readdirSync(fixturesDirectory).forEach((filename) => {
+    if (!filename.includes('txt')) return;
+
+    const name = filename.replace('.txt', '');
     test(name, async () => {
       const file = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8');
       const SPLIT = '__SPLIT__'
