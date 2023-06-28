@@ -317,8 +317,8 @@ importers:
         specifier: ^0.53.4
         version: 0.53.4
       kitbook:
-        specifier: 1.0.0-alpha.35
-        version: 1.0.0-alpha.35(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5)
+        specifier: 1.0.0-alpha.36
+        version: 1.0.0-alpha.36(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5)
       publint:
         specifier: ^0.1.12
         version: 0.1.12
@@ -356,8 +356,8 @@ importers:
         specifier: 1.20.5
         version: 1.20.5(svelte@4.0.0)(vite@4.3.9)
       kitbook:
-        specifier: 1.0.0-alpha.35
-        version: 1.0.0-alpha.35(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5)
+        specifier: 1.0.0-alpha.36
+        version: 1.0.0-alpha.36(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5)
       svelte:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1227,19 +1227,6 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
-  /@kitbook/mdsvex-shiki-twoslash@0.0.3(svelte@4.0.0)(typescript@5.1.5):
-    resolution: {integrity: sha512-CGA+cFQaSg+KDsqCs2a1QMs/+MwdMEDoKH792GLAWJ24kT9PMg/Uo6pmSZ11ufMhY8ictSq0CzuRH+0ZMza/+w==}
-    dependencies:
-      fenceparser: 2.2.0
-      mdsvex: 0.10.6(svelte@4.0.0)
-      shiki: 0.10.1
-      shiki-twoslash: 3.1.2(typescript@5.1.5)
-    transitivePeerDependencies:
-      - supports-color
-      - svelte
-      - typescript
-    dev: true
-
   /@kitbook/mdsvex-shiki-twoslash@0.0.4(svelte@4.0.0)(typescript@5.1.5):
     resolution: {integrity: sha512-2Y8Mkmxs/AXiylu24CroC+fK/XmsuThm0qavU5G7TNelvt6EuLfqqEwPN8sWs/7g9+vdDjnRFSawPrvGC7F+Pg==}
     dependencies:
@@ -1258,21 +1245,6 @@ packages:
       github-slugger: 2.0.0
       unist-util-visit: 4.1.2
 
-  /@kitbook/vite-plugin-kitbook@0.0.11(svelte@4.0.0)(typescript@5.1.5):
-    resolution: {integrity: sha512-MlyQB9ZkdiWXTqnnNCAyQ5LSU71byLZIPuwLDVeC1q74VOnH3OznZ1XVTSdJM7Smj7vmLjrwgpqAyMiSXfOs8Q==}
-    dependencies:
-      '@kitbook/mdsvex-shiki-twoslash': 0.0.3(svelte@4.0.0)(typescript@5.1.5)
-      '@kitbook/rehype-display-link-titles': 0.0.3
-      mdsvex: 0.11.0(svelte@4.0.0)
-      rehype-autolink-headings: 6.1.1
-      rehype-slug: 5.1.0
-      rehype-urls: 1.1.1
-    transitivePeerDependencies:
-      - supports-color
-      - svelte
-      - typescript
-    dev: true
-
   /@kitbook/vite-plugin-kitbook@0.0.12(svelte@4.0.0)(typescript@5.1.5):
     resolution: {integrity: sha512-es4WferPVwHYRwO7MaI0YoJXqhwk8MSfXjzQv+X15aDRM1Yj/qyUGvoTdLbm6qTaalV0MuTP4Zk4HTINmSi7EQ==}
     dependencies:
@@ -1286,7 +1258,6 @@ packages:
       - supports-color
       - svelte
       - typescript
-    dev: false
 
   /@manypkg/find-root@1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -4704,14 +4675,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kitbook@1.0.0-alpha.35(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5):
-    resolution: {integrity: sha512-VTXIE8T6BExasKJH8/ZmIxaBhy9vb5Oj+vYnsnFYcT13RP/9WIzP6Do2o32dr5CEAn6FFuPDcGXlBqv4g7lHAQ==}
+  /kitbook@1.0.0-alpha.36(@sveltejs/kit@1.20.5)(svelte@4.0.0)(typescript@5.1.5):
+    resolution: {integrity: sha512-nuRnNADJW/sEQgY0cLyYOlLvG3UgSobedDsOzJFq67XtHzxPvVIExR44nP8m6xHHMGLDsrXyFurlYVQ6N9DV9w==}
     peerDependencies:
       '@sveltejs/kit': ^1.13.0
       svelte: ^3.55.0 || ^4.0.0
     dependencies:
       '@kitbook/mdsvex-shiki-twoslash': 0.0.4(svelte@4.0.0)(typescript@5.1.5)
-      '@kitbook/vite-plugin-kitbook': 0.0.11(svelte@4.0.0)(typescript@5.1.5)
+      '@kitbook/vite-plugin-kitbook': 0.0.12(svelte@4.0.0)(typescript@5.1.5)
       '@sveltejs/kit': 1.20.5(svelte@4.0.0)(vite@4.3.9)
       svelte: 4.0.0
       svelte-pieces: 2.0.0-next.1(svelte@4.0.0)
@@ -4962,18 +4933,6 @@ packages:
 
   /mdn-data@2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}
-
-  /mdsvex@0.10.6(svelte@4.0.0):
-    resolution: {integrity: sha512-aGRDY0r5jx9+OOgFdyB9Xm3EBr9OUmcrTDPWLB7a7g8VPRxzPy4MOBmcVYgz7ErhAJ7bZ/coUoj6aHio3x/2mA==}
-    peerDependencies:
-      svelte: 3.x
-    dependencies:
-      '@types/unist': 2.0.6
-      prism-svelte: 0.4.7
-      prismjs: 1.29.0
-      svelte: 4.0.0
-      vfile-message: 2.0.4
-    dev: true
 
   /mdsvex@0.11.0(svelte@4.0.0):
     resolution: {integrity: sha512-gJF1s0N2nCmdxcKn8HDn0LKrN8poStqAicp6bBcsKFd/zkUBGLP5e7vnxu+g0pjBbDFOscUyI1mtHz+YK2TCDw==}
