@@ -4,18 +4,15 @@
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev --mode kitbook",
-    "build:deps": "cd ../.. && pnpm build:deps && pnpm pieces:package && cd packages/kitbook",
-    "build": "pnpm build:deps && vite build --mode kitbook",
+    "build": "vite build --mode kitbook",
+    "build:ci": "cd ../.. && pnpm build:deps && pnpm package && pnpm pieces:package && cd packages/kitbook && pnpm build",
     "preview": "vite preview --mode kitbook",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
-    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
-    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-    "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test": "vitest"
   },
   "type": "module",
   "svelte": "./dist/index.js",
