@@ -36,14 +36,18 @@ describe("mdsvex-shiki-twoslash", () => {
 
     const name = filename.replace('.txt', '');
     test(name, async () => {
-      const file = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8');
+      const fileContents = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8');
+      const normalizedContents = fileContents.replace(/\r\n/g, '\n'); // Replace CRLF with LF
       const SPLIT = '__SPLIT__'
-      const [firstLine, code] = file.replace('\r\n', SPLIT).split(SPLIT);
+      const [firstLine, code] = normalizedContents.replace('\n', SPLIT).split(SPLIT);
       const [lang, meta] = firstLine.replace(' ', SPLIT).split(SPLIT);
+      // cleaner but doesn't work
+      // const [firstLine, code] = normalizedContents.split('\n');
+      // const [lang, meta] = firstLine.split(' ');
 
       const highlightedCode = await highlight(code, lang, meta);
       const htmlDocument = htmlShell.replace(REPLACE_BODY, highlightedCode).replace(REPLACE_TITLE, name);
-      fs.writeFileSync(`${fixturesDirectory}/${name}.html`, htmlDocument, 'utf8');
+      expect(htmlDocument).toMatchFileSnapshot(`${fixturesDirectory}/${name}.html`);
     });
   });
 });
