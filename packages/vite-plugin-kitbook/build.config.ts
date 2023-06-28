@@ -12,7 +12,7 @@ export default defineBuildConfig({
   rollup: {
     emitCJS: true,
   },
-  replace: {
-    'import.meta.vitest': 'undefined',
-  },
+  // replace: {
+  //   'import.meta.vitest': 'undefined', // doesn't have any effect on stub, just on build
+  // },
 })

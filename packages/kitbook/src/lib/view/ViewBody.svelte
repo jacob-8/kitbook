@@ -34,6 +34,8 @@
   >
     {#if container}
       <div
+        role="button"
+        tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: updatedWidth }) => {
           userAdjustedWidth = updatedWidth;
@@ -44,6 +46,8 @@
         class:bg-blue-200={dragging === 'width'}
       />
       <div
+        role="button"
+        tabindex="0"
         use:resizeElement={container}
         on:updateheight={({ detail: updatedHeight }) => {
           userAdjustedHeight = updatedHeight;
@@ -54,6 +58,8 @@
         class:bg-blue-200={dragging === 'height'}
       />
       <div
+        role="button"
+        tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: updatedWidth }) => {
           userAdjustedWidth = updatedWidth;

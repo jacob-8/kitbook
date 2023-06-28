@@ -39,23 +39,10 @@ function addKitbookDirectoryIfNeeded() {
   }
 }
 
-function dontIncludeDocFiles(src: string) {
+export function dontIncludeDocFiles(src: string) {
   const partsOfFilesUsedJustForDevelopingKitbook = ['mock', TYPINGS_EXT, PAGE_MARKDOWN, LAYOUT_MARKDOWN, VARIANTS];
   const skip = partsOfFilesUsedJustForDevelopingKitbook.some(file => src.includes(file));
   return !skip;
-}
-
-if (import.meta.vitest) {
-  it(dontIncludeDocFiles, () => {
-    expect(dontIncludeDocFiles('+page.svelte')).toBeTruthy()
-    expect(dontIncludeDocFiles('+page.js')).toBeTruthy()
-    
-    expect(dontIncludeDocFiles('_page.md')).toBeFalsy()
-    expect(dontIncludeDocFiles('_layout.md')).toBeFalsy()
-    expect(dontIncludeDocFiles('_page.variants.js')).toBeFalsy()
-    expect(dontIncludeDocFiles('+page.d.ts')).toBeFalsy()
-    expect(dontIncludeDocFiles('sandbox/mockComponents/+page.svelte')).toBeFalsy()
-  })
 }
 
 function addSvelteConfigAugmentFunctionIfNeeded() {
