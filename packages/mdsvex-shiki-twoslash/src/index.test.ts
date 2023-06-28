@@ -1,7 +1,7 @@
 import { shikiTwoslashHighlighter } from ".";
 import { format as prettier } from 'prettier';
 import parserHTML from 'prettier/parser-html'
-import fs from 'fs';
+import fs from 'node:fs';
 
 const REPLACE_BODY = 'REPLACE_BODY';
 const REPLACE_TITLE = 'REPLACE_TITLE';
@@ -24,7 +24,7 @@ const htmlShell = `<!DOCTYPE html>
 </html>`
 
 describe("mdsvex-shiki-twoslash", () => {
-  const fixturesDirectory = 'packages/mdsvex-shiki-twoslash/src/fixtures';
+  const fixturesDirectory = './packages/mdsvex-shiki-twoslash/src/fixtures';
   fs.readdirSync(fixturesDirectory).forEach((file) => {
     if (!file.includes('txt')) {
       return;
