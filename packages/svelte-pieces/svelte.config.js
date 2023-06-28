@@ -1,12 +1,12 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import { PreprocessUnocss } from 'svelte-preprocess-unocss';
+import UnoCSS from '@unocss/svelte-scoped/preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   preprocess: [
     vitePreprocess(),
-    PreprocessUnocss({
+    UnoCSS({
       classPrefix: 'sp-',
     }),
   ],
@@ -22,13 +22,11 @@ const config = {
   },
 
   vitePlugin: {
-    experimental: {
-      inspector: {
-        holdMode: true,
-      }
+    inspector: {
+      holdMode: true,
     }
   },
 };
 
-import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite'; 
+import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite';
 export default augmentSvelteConfigForKitbook(config);

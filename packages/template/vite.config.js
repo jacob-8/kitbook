@@ -1,12 +1,10 @@
+import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from 'kitbook/plugins/vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	plugins: [
 		kitbook(),
 		sveltekit(),
 	],
-};
-
-export default config;
+});

@@ -1,10 +1,9 @@
+import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from './src/lib/plugins/vite';
 import path from 'path';
-import { configDefaults } from 'vitest/config'
 
-/** @type {import('vite').UserConfig} */
-const config = {
+export default defineConfig({
 	plugins: [
 		kitbook({
 			isKitbookItself: true,
@@ -23,11 +22,4 @@ const config = {
 	build: {
 		target: 'es2015' //es6
 	},
-	test: {
-		globals: true,
-		includeSource: ['src/**/*.ts'],
-		exclude: [...configDefaults.exclude, 'package'],
-	},
-};
-
-export default config;
+});

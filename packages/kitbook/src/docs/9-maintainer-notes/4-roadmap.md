@@ -3,7 +3,7 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- solve build error: cleanup page files and loads now that routes are not copied into projects
+- cleanup page files and loads now that routes are not copied into projects
 - automatically analyze component for props
 - test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
 
@@ -12,8 +12,7 @@
 - Add full-screen focus view for sandbox
   - make instrument panel show in focus view on mobile
 
-- show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw`
-  - <!-- i-tabler-code"-->
+- show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw` <!-- i-tabler-code"-->
 
 - be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
 - `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
@@ -91,7 +90,3 @@
 - [svelte-knobby](https://github.com/Rich-Harris/svelte-knobby)
 - svelte-headlessui
 - https://github.com/importantimport/urara
-
-
-## dynamic slots scratch notes
-

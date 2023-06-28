@@ -1,5 +1,5 @@
-import { groupColocatedPages } from "$lib/layout/parseModules/groupColocatedPages";
-import { parseModulesIntoUngroupedPages } from "$lib/layout/parseModules/parseModulesIntoUngroupedPages";
+import { groupColocatedPages } from "../../parseModules/groupColocatedPages";
+import { parseModulesIntoUngroupedPages } from "../../parseModules/parseModulesIntoUngroupedPages";
 import { testModules } from "../../parseModules/testModules";
 import { filterPages } from "./filterPages";
 

@@ -1,7 +1,7 @@
 import type { Variants } from 'kitbook';
 import type Component from './Avatar.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'image',
     props: {

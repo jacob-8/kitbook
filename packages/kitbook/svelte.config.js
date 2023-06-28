@@ -1,13 +1,12 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import { PreprocessUnocss } from 'svelte-preprocess-unocss';
+import UnoCSS from '@unocss/svelte-scoped/preprocess';
+import { augmentSvelteConfigForKitbook } from '@kitbook/vite-plugin-kitbook';
 
-import { MDSVEX_EXTENSIONS } from '@kitbook/vite-plugin-kitbook';
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
   preprocess: [
-    PreprocessUnocss({
+    UnoCSS({
       classPrefix: 'kb-',
     }),
     vitePreprocess(),
@@ -15,11 +14,6 @@ const config = {
 
   kit: {
     adapter: adapter(),
-    files: {
-      appTemplate: 'src/lib/app.html',
-      routes: 'src/lib/routes',
-      assets: 'src/lib/assets',
-    }
   },
 
   // https://github.com/sveltejs/language-tools/issues/650#issuecomment-1337317336
@@ -29,12 +23,19 @@ const config = {
   },
 
   vitePlugin: {
-    experimental: {
-      inspector: {
-        holdMode: true,
-      }
+    inspector: {
+      holdMode: true,
     }
   },
 };
 
-export default config;
+export default augmentSvelteConfigForKitbook(config, { svelteConfigAdjustments: {
+  kit: {
+    files: {
+      appTemplate: 'src/lib/app.html',
+      routes: 'src/lib/routes',
+      assets: 'src/lib/assets',
+    },
+    outDir: '.svelte-kit',
+  },
+}});

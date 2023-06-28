@@ -1,7 +1,7 @@
 // import type { Variants } from '$lib';
 // import type Component from './Folder.svelte';
 
-// export const variants: Variants<typeof Component> = [
+// export const variants: Variants<Component> = [
 //   {
 //     name: 'First',
 //     props: {

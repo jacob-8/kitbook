@@ -34,7 +34,6 @@
   let hovered = false;
 </script>
 
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 {#if isCurrentSandboxStory}
   <div class="show-in-sandbox" style="display: contents;">
     <slot props={propsFromSandbox} knobs={propsFromSandbox} />
@@ -42,6 +41,8 @@
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
     {#if knobs}
+      <!-- svelte-ignore a11y-mouse-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         on:mouseover={() => (hovered = true)}
         on:mouseout={() => (hovered = false)}

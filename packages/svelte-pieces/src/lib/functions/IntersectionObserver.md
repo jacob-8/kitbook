@@ -1,38 +1,31 @@
 <script lang="ts">
-  import IntersectionObserver from '$lib/functions/IntersectionObserver.svelte';
-  import IntersectionObserverShared from '$lib/functions/IntersectionObserverShared.svelte';
+  import IntersectionObserver from './IntersectionObserver.svelte';
+  import IntersectionObserverShared from './IntersectionObserverShared.svelte';
   import { Story } from 'kitbook';
 </script>
 
 # Intersection Observer
 
+Observes the first child element placed inside.
+
 <Story name="single Use">
   <IntersectionObserver let:intersecting>
-    {intersecting}
+    <div>
+      {intersecting}
+    </div>
   </IntersectionObserver>
 </Story>
 
-IntersectionObserverShared (below) is used when you want to watch many items. Sometimes, though you don't want the IntersectionObserverShared component to add it's own block div element to
-the DOM (like when it breaks up a flex flow for example). In this case place your content inside the `noElement` slot using `svelte:fragment` as seen in the 2nd block below.
+Can be used to watch many items, efficiently. Note that the first element to init's `top`, `right`, `bottom`, `left` and `threshold` values will be used. We use -150 on the bottom here so you can see the observer working without needing dev tools.
 
 <Story name="shared use">
-  <IntersectionObserverShared let:intersecting>
-    <div class:intersecting style="height: 500px;">
-      {intersecting}
-    </div>
-  </IntersectionObserverShared>
-  <IntersectionObserverShared let:intersecting width="0px">
-    <svelte:fragment slot="noElement">
+  {#each Array(3) as _}
+    <IntersectionObserverShared let:intersecting bottom={-150}>
       <div class:intersecting style="height: 500px;">
         {intersecting}
       </div>
-    </svelte:fragment>
-  </IntersectionObserverShared>
-  <IntersectionObserverShared let:intersecting>
-    <div class:intersecting style="height: 500px;">
-      {intersecting}
-    </div>
-  </IntersectionObserverShared>
+    </IntersectionObserverShared>
+  {/each}
 </Story>
 
 <style>

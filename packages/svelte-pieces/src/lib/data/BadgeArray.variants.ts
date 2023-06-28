@@ -3,7 +3,7 @@ import type Component from './BadgeArray.svelte';
 
 const books = ['Lord of the Rings', 'www.books.com'];
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     name: 'Basic display',
     props: {

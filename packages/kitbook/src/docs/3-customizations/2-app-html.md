@@ -28,7 +28,7 @@ let config = {};
 // ---cut---
 //...
 /** @type {import('@sveltejs/kit').Config} */
-const kitbookOptions = {
+const svelteConfigAdjustments = {
   kit: {
     files: {
       appTemplate: 'src/app.html',
@@ -37,9 +37,8 @@ const kitbookOptions = {
   }
 }
 
-export default augmentSvelteConfigForKitbook(config, kitbookOptions);
+export default augmentSvelteConfigForKitbook(config, { svelteConfigAdjustments });
 
 ```
 
-
-If you do this, ensure you have a styles reset loaded in your `app.html` file above `%sveltekit.head%`. Tailwind and many other CSS frameworks include this. If you don't have one yet, you can copy the `kitbook/styles/tw-reset.css` file into your static directory and link to it in your `app.html`: `<link rel="stylesheet" href="%sveltekit.assets%/tw-reset.css">`.
+If you do this, ensure you have a styles reset loaded in your `app.html` file above `%sveltekit.head%`. Tailwind and many other CSS frameworks include this. If you don't have one yet, place your desired reset file into your static directory and link to it in your `app.html`: `<link rel="stylesheet" href="%sveltekit.assets%/tw-reset.css">`.

@@ -1,7 +1,7 @@
 import type { Variants } from '$lib';
 import type Component from './Header.svelte';
 
-export const variants: Variants<typeof Component> = [
+export const variants: Variants<Component> = [
   {
     // name: 'Not Expanded',
     props: {

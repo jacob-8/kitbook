@@ -49,8 +49,9 @@
     return { ...opts, startWith: currentValue };
   };
 
-  const handleUpdate = (value: T) => {
+  function handleUpdate(value: T) {
     currentValue = value;
+    // @ts-ignore
     dispatch('value', value);
   };
 

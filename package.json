@@ -8,7 +8,8 @@
 		"build": "pnpm --filter=kitbook build",
 		"preview": "pnpm --filter=kitbook preview",
 		"package": "pnpm --filter=kitbook package",
-		"test": "pnpm --recursive --stream --filter=!kitbook-vscode test -- --run",
+		"test": "vitest",
+		"test:all": "pnpm --recursive --stream --filter=!kitbook-vscode test -- --run",
 		"pieces": "pnpm --filter=svelte-pieces dev",
 		"pieces:build": "pnpm --filter=svelte-pieces build",
 		"pieces:package": "pnpm --filter=svelte-pieces package",
@@ -22,17 +23,17 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.26.1",
-		"@typescript-eslint/eslint-plugin": "^5.57.0",
-		"@typescript-eslint/parser": "^5.57.0",
-		"eslint": "^8.37.0",
+		"@typescript-eslint/eslint-plugin": "^5.60.0",
+		"@typescript-eslint/parser": "^5.60.0",
+		"eslint": "^8.43.0",
 		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"prettier": "^2.8.7",
-		"prettier-plugin-svelte": "^2.10.0",
-		"svelte": "^3.58.0",
-		"typescript": "~4.9.4",
-		"vite": "^4.2.1",
-		"vitest": "^0.29.8"
+		"eslint-plugin-svelte": "^2.31.1",
+		"prettier": "^2.8.8",
+		"prettier-plugin-svelte": "^2.10.1",
+		"svelte": "^4.0.0",
+		"typescript": "~5.1.5",
+		"vite": "^4.3.9",
+		"vitest": "^0.32.2"
 	},
 	"type": "module"
 }
