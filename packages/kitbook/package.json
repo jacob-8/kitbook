@@ -10,7 +10,7 @@
     "sync": "svelte-kit sync",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
-    "prepublishOnly": "vitest run && npm run package",
+    "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "test": "vitest"
