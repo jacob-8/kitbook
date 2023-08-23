@@ -2,6 +2,7 @@
   import Button from '../ui/Button.svelte';
   import Badge from '../ui/Badge.svelte';
   import DetectUrl from '../functions/DetectUrl.svelte';
+  import { createEventDispatcher } from 'svelte';
 
   export let strings: string[] = [];
   export let canEdit = false;
@@ -12,8 +13,14 @@
     strings = [strings];
   }
 
-  import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher<{ valueupdated: string[] }>();
+
+  function add() {
+    const string = prompt(promptMessage);
+    if (!string) return; 
+    strings = [...(strings || []), string.trim()];
+    dispatch('valueupdated', strings);
+  }
 </script>
 
 <div class="{$$props.class} flex flex-wrap">
@@ -38,25 +45,17 @@
         </DetectUrl>
       {/each}
     {/if}
-    <Button
-      class="mb-1"
-      onclick={() => {
-        const string = prompt(promptMessage);
-        if (string) {
-          if (strings) {
-            strings = [...strings, string.trim()];
-          } else {
-            strings = [string.trim()];
-          }
-          dispatch('valueupdated', strings);
-        }
-      }}
-      color="orange"
-      size="sm"
-    >
-      <span class="i-fa-solid-plus" />
-      {addMessage}
-    </Button>
+    <slot name="add" {add}>
+      <Button
+        class="mb-1"
+        onclick={add}
+        color="orange"
+        size="sm"
+      >
+        <span class="i-fa-solid-plus" />
+        {addMessage}
+      </Button>
+    </slot>
   {:else if strings}
     {#each strings as string}
       <DetectUrl {string} let:display let:href>

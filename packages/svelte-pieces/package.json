@@ -1,6 +1,6 @@
 {
   "name": "svelte-pieces",
-  "version": "2.0.0-next.1",
+  "version": "2.0.0-next.2",
   "description": "Useful Svelte UI pieces for building web apps",
   "scripts": {
     "dev": "vite dev --mode kitbook",
