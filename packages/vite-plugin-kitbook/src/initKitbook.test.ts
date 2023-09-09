@@ -1,13 +1,13 @@
-import { dontIncludeDocFiles } from './initKitbook'
+import { excludeDocFiles } from './initKitbook'
 
-test(dontIncludeDocFiles, () => {
-  expect(dontIncludeDocFiles('+page.svelte')).toBeTruthy()
-  expect(dontIncludeDocFiles('+page.js')).toBeTruthy()
+test(excludeDocFiles, () => {
+  expect(excludeDocFiles('+page.svelte')).toBeTruthy()
+  expect(excludeDocFiles('+page.js')).toBeTruthy()
 
-  expect(dontIncludeDocFiles('_page.md')).toBeFalsy()
-  expect(dontIncludeDocFiles('_layout.md')).toBeFalsy()
-  expect(dontIncludeDocFiles('_page.variants.js')).toBeFalsy()
-  expect(dontIncludeDocFiles('+page.d.ts')).toBeFalsy()
-  expect(dontIncludeDocFiles('sandbox/mockComponents/+page.svelte')).toBeFalsy()
+  expect(excludeDocFiles('_page.md')).toBeFalsy()
+  expect(excludeDocFiles('_layout.md')).toBeFalsy()
+  expect(excludeDocFiles('_page.variants.js')).toBeFalsy()
+  expect(excludeDocFiles('+page.d.ts')).toBeFalsy()
+  expect(excludeDocFiles('sandbox/mockComponents/+page.svelte')).toBeFalsy()
 })
 

@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import UnoCSS from '@unocss/svelte-scoped/preprocess';
-import { augmentSvelteConfigForKitbook } from '@kitbook/vite-plugin-kitbook';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -29,13 +28,4 @@ const config = {
   },
 };
 
-export default augmentSvelteConfigForKitbook(config, { svelteConfigAdjustments: {
-  kit: {
-    files: {
-      appTemplate: 'src/lib/app.html',
-      routes: 'src/lib/routes',
-      assets: 'src/lib/assets',
-    },
-    outDir: '.svelte-kit',
-  },
-}});
+export default config;
