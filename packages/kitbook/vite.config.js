@@ -7,7 +7,7 @@ export default defineConfig({
 	plugins: [
 		kitbook({
 			isKitbookItself: true,
-			// fileGlobs: ['/src/docs/**/*.md', '/README.md']
+			// importModuleGlobs: ['/src/docs/**/*.md', '/README.md']
 		}),
 		sveltekit(),
 	],

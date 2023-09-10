@@ -3,7 +3,7 @@
   import { Button } from 'svelte-pieces';
   import SearchModal from './SearchModal.svelte';
 
-  const isMac = typeof navigator !== 'undefined' && navigator.platform === 'MacIntel';
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
 
   let searching = false;
 
@@ -13,10 +13,9 @@
 </script>
 
 <svelte:window
-  on:keydown={(e) => {
+  on:keydown|preventDefault={(e) => {
     if (e.code === 'Escape') searching = false;
     if (['k', 'p'].includes(e.key) && (isMac ? e.metaKey : e.ctrlKey)) {
-      e.preventDefault();
       searching = !searching;
     }
   }}

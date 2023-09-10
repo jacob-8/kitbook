@@ -3,10 +3,10 @@
   "version": "1.0.0-alpha.37",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
-    "dev": "vite dev --mode kitbook",
-    "build": "vite build --mode kitbook",
+    "dev": "vite dev",
+    "build": "vite build",
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
-    "preview": "vite preview --mode kitbook",
+    "preview": "vite preview",
     "sync": "svelte-kit sync",
     "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
@@ -43,29 +43,30 @@
   },
   "dependencies": {
     "@kitbook/mdsvex-shiki-twoslash": "0.0.4",
-    "@kitbook/vite-plugin-kitbook": "link:../vite-plugin-kitbook",
+    "@kitbook/vite-plugin-kitbook": "0.0.12",
     "svelte-pieces": "2.0.0-next.1",
-    "svelte2tsx": "^0.6.16"
+    "svelte2tsx": "^0.6.21"
   },
   "peerDependencies": {
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.83",
+    "@iconify/json": "^2.2.113",
     "@sveltejs/adapter-auto": "2.1.0",
-    "@sveltejs/kit": "^1.20.5",
-    "@sveltejs/package": "^2.1.0",
-    "@unocss/svelte-scoped": "^0.53.4",
+    "@sveltejs/kit": "^1.24.1",
+    "@sveltejs/package": "^2.2.2",
+    "@unocss/svelte-scoped": "^0.55.7",
+    "mdsvex": "^0.11.0",
     "prettier": "^2.8.8",
-    "publint": "^0.1.12",
-    "svelte": "^4.0.0",
-    "svelte-check": "^3.4.4",
-    "tslib": "^2.5.3",
-    "typescript": "~5.1.5",
-    "unocss": "^0.53.4",
-    "vite": "^4.3.9",
-    "vitest": "^0.32.2"
+    "publint": "^0.2.2",
+    "svelte": "^4.2.0",
+    "svelte-check": "^3.5.1",
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "unocss": "^0.55.7",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.4"
   },
   "repository": {
     "type": "git",

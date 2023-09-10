@@ -1,8 +1,17 @@
-<script lang="ts">
-  // @ts-expect-error virtual module
-  import { WrapRootLayout } from 'virtual:kitbook-modules';
+<script>
+  import { pagesStore } from 'kitbook';
+  import { setContext } from 'svelte';
+  setContext('pages-store', pagesStore);
+  
+  /** @type {import('kitbook').KitbookSettings} */
+  const kitbookSettings = {
+    title: 'Kitbook',
+    description: 'Svelte Component Documentation and Prototyping Workbench built using SvelteKit',
+    githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
+    expandTree: true,
+  };
+
+  setContext('kitbook-settings', kitbookSettings);
 </script>
 
-<svelte:component this={WrapRootLayout}>
-  <slot />
-</svelte:component>
+<slot />

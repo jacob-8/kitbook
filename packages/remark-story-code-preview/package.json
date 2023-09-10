@@ -41,17 +41,17 @@
     "prettier-plugin-svelte": "^2.10.1",
     "prism-svelte": "^0.5.0",
     "prismjs": "^1.29.0",
-    "svelte": "^4.0.0",
+    "svelte": "^4.2.0",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
     "@types/mdast": "^3.0.10",
-    "@vitest/ui": "^0.32.2",
+    "@vitest/ui": "^0.34.4",
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
-    "typescript": "^5.1.5",
+    "typescript": "^5.2.2",
     "unbuild": "^1.0.2",
     "unified": "^10.1.2",
-    "vitest": "^0.32.2"
+    "vitest": "^0.34.4"
   }
 }

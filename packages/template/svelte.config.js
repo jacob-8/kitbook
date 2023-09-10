@@ -1,7 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
-import { mdsvex } from 'mdsvex';
-import { KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
+import { mdsvex, KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

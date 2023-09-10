@@ -51,7 +51,7 @@ Update by setting store value:
 ## Usage
 
 ```svelte
-<script lang="ts"></script>
+<script lang="ts">
   import { createQueryParamStore } from 'svelte-pieces';
   const item = createQueryParamStore({ key: 'item'});
 </script>

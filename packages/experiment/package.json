@@ -11,14 +11,14 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.20.5",
-		"@sveltejs/package": "^2.1.0",
-		"svelte": "^4.0.0",
-		"svelte-check": "^3.4.4",
-		"tslib": "^2.5.3",
-		"typescript": "^5.1.5",
-		"vite": "^4.3.9",
-		"vite-plugin-inspect": "^0.7.29"
+		"@sveltejs/kit": "^1.24.1",
+		"@sveltejs/package": "^2.2.2",
+		"svelte": "^4.2.0",
+		"svelte-check": "^3.5.1",
+		"tslib": "^2.6.2",
+		"typescript": "^5.2.2",
+		"vite": "^4.4.9",
+		"vite-plugin-inspect": "^0.7.38"
 	},
 	"type": "module"
 }

@@ -2,6 +2,11 @@ import type { Folder, GroupedPageMap } from "../../kitbook-types";
 import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
 
 export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
+  if (!groupedPages) return {
+    name: 'No pages found',
+    url: '/',
+    depth: 0,
+  }
   const pagesToOrganize = Object.values(groupedPages)
 
   const rootFolder: Folder = {

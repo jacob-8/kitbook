@@ -9,5 +9,6 @@
   
   <p style="padding-bottom: 20px;">You could build something amazing here.</p>
   
+  <Button href="/kitbook">Navigate to template kitbook</Button>
   <Button href="https://kitbook.vercel.app">Open Kitbook Docs</Button>
 </div>
