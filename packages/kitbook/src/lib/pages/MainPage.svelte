@@ -33,7 +33,9 @@
 
 <div class="tw-prose max-w-full">
   {#if data.error}
-    {data.error}
+    <div class="text-red">
+      Error: {data.error}
+    </div>
   {:else}
     {#if data.loadedModules.svx}
       <div class="mb-10">

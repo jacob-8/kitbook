@@ -13,7 +13,7 @@
   class:text-blue-600={active}
   class:capitalize={!page.name.startsWith('+page') && !page.name.startsWith('+layout')}
   class="hover:text-blue-700 pr-3 text-xs flex"
-  href={page.url}
+  href={activeURL.split('kitbook')[0] + 'kitbook' + page.url}
   style="padding-left: calc(0.75rem * {depth}"
 >
   <span

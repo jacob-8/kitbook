@@ -1,10 +1,11 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import UnoCSS from '@unocss/svelte-scoped/preprocess';
-import { mdsvex, KITBOOK_MDSVEX_CONFIG } from '@kitbook/vite-plugin-kitbook';
+import { mdsvex, KITBOOK_MDSVEX_CONFIG, MDSVEX_EXTENSIONS } from '@kitbook/vite-plugin-kitbook';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
+  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
   preprocess: [
     mdsvex(KITBOOK_MDSVEX_CONFIG),
     UnoCSS({
