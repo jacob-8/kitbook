@@ -67,7 +67,7 @@
 - quickly display meta tags of iframe when rendering +page.svelte components
 - distinguish between Index and README in search if both exist
 - snap side panels to 0 if within x pixels.
-- add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')
+- add option to easily hide a directory
 - add optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - connections graph
 - could refactor to use activePage instead of activeUrl to make code simpler

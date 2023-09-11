@@ -10,11 +10,9 @@
   const isRootFolder = folder.name === '.';
   let actualExpandedState = activePath.includes(folder.url) || expanded;
   $: active = activePath.includes(folder.url);
-
-  const internalHiddenFolder = folder.name === 'routes for copying';
 </script>
 
-{#if !internalHiddenFolder}
+{#if folder.name !== 'kitbook'}
   {#if !isRootFolder}
     <button
       type="button"
