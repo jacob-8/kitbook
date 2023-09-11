@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.37",
+  "version": "1.0.0-alpha.38",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev",
@@ -8,8 +8,7 @@
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
     "preview": "vite preview",
     "sync": "svelte-kit sync",
-    "package": "svelte-kit sync && svelte-package",
-    "package:lint": "publint",
+    "package": "svelte-kit sync && svelte-package && publint",
     "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
@@ -20,8 +19,7 @@
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    ".gitignore"
+    "dist"
   ],
   "exports": {
     ".": {
