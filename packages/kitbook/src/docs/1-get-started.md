@@ -19,6 +19,22 @@ const config = {
 export default config;
 ```
 
+- Add the necessary [MDSvex](https://mdsvex.pngwn.io/) imports and configuration into your `svelte.config.js`:
+```js title="svelte.config.js" {1,4,6}
+import { mdsvex, MDSVEX_EXTENSIONS, KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
+
+const config = {
+  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
+	preprocess: [
+    mdsvex(KITBOOK_MDSVEX_CONFIG),
+    vitePreprocess(),
+  ],
+	// ...
+};
+
+export default config;
+```
+
 - Place your app inside of a [(group)](https://kit.svelte.dev/docs/advanced-routing#advanced-layouts-group) folder named anything and add a `kitbook` folder to `src/routes`:
 ```txt {2,6}
 src/routes/
@@ -30,11 +46,11 @@ src/routes/
 └ +layout.svelte <-- initialize everything both your app and Kitbook need, like i18n 
 ```
 
-- Run `npm kitbook` or `pnpm kitbook`
+- Run your dev server as normal (`npm run dev`, `pnpm dev`, etc...)
  
-- Kitbook will automatically copy in its routing files to `src/routes/kitbook`. Please edit the settings found in `src/routes/kitbook/+layout.svelte` for your app, but don't touch the other files as they will be overridden in future updates as needed.
+- Kitbook will automatically copy its routing files to `src/routes/kitbook`. Please edit the settings found in `src/routes/kitbook/+layout.svelte` for your app, but don't touch the other files as they will be overridden in future updates as needed.
 
-At this point you can open Kitbook and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files as they are also just plain Svelte components with a very important `data` prop*.
+At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files as they are also just plain Svelte components with a very important `data` prop*.
  
 Next you could...
 
