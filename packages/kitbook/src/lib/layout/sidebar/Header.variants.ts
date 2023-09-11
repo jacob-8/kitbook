@@ -5,21 +5,23 @@ export const variants: Variants<Component> = [
   {
     // name: 'Not Expanded',
     props: {
-      activeURL: "/foo",
+      kitbookPath: '',
+      activePath: "/foo",
     },
   },
   {
     name: 'active / desktop',
     width: 800,
     props: {
-      activeURL: "/",
-      githubURL: "/",
+      kitbookPath: '',
+      activePath: "/",
     },
   },
   {
     name: 'with slot',
     props: {
-      activeURL: "/Somewhere",
+      kitbookPath: '',
+      activePath: "/somewhere",
     },
     slots: [
       {

@@ -86,7 +86,7 @@
 </div>
 
 {#if dragging}
-  <div class="absolute inset-0" />
+  <div class="absolute inset-0 z-1" />
 {/if}
 
 <svelte:window on:mouseup={() => (dragging = null)} />

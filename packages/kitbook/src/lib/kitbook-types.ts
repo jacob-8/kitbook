@@ -3,8 +3,21 @@ import type { ComponentProps, SvelteComponent } from "svelte";
 export interface KitbookSettings {
   title: string;
   description: string;
+  viewports: Viewport[];
+  languages?: Language[];
   expandTree?: boolean;
   githubURL?: string;
+}
+
+export type Viewport = {
+  name?: string;
+  width: number;
+  height: number;
+}
+
+export type Language = {
+  name: string;
+  code: string;
 }
 
 export type Variants<T extends SvelteComponent> = Variant<T>[]
@@ -12,8 +25,7 @@ export type Variants<T extends SvelteComponent> = Variant<T>[]
 export type Variant<T extends SvelteComponent> = {
   name?: string,
   description?: string,
-  width?: number,
-  height?: number,
+  viewports?: Viewport[];
   props?: ComponentProps<T>,
   contexts?: MockedContext[],
   slots?: Slot[]
