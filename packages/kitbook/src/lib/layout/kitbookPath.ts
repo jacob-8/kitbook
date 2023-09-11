@@ -2,11 +2,17 @@ export function findKitbookPath(path: string): {
   kitbookPath: string;
   activePath: string;
 } {
-  if (path.endsWith('/')) {
-    path = path.slice(0, -1);
+  const kitbookIndex = path.indexOf('/kitbook');
+
+  if (kitbookIndex === -1) {
+    return {
+      kitbookPath: '',
+      activePath: path.replace(/\/$/, ''),
+    };
   }
-  const kitbookPath = '/kitbook';
-  const activePath = path.slice(kitbookPath.length);
+
+  const kitbookPath = path.slice(0, kitbookIndex + 8);
+  const activePath = path.slice(kitbookPath.length).replace(/\/$/, '');
   return {
     kitbookPath,
     activePath,
@@ -15,16 +21,30 @@ export function findKitbookPath(path: string): {
 
 if (import.meta.vitest) {
   describe(findKitbookPath, () => {
-    test('root', () => {
+    test('root is /', () => {
+      expect(findKitbookPath('/')).toEqual({
+        kitbookPath: '',
+        activePath: '',
+      });
+    });
+
+    test('root is /kitbook', () => {
       expect(findKitbookPath('/kitbook')).toEqual({
         kitbookPath: '/kitbook',
         activePath: '',
       });
     });
 
-    test('root with trailing slash', () => {
+    test('root is /kitbook/', () => {
       expect(findKitbookPath('/kitbook/')).toEqual({
         kitbookPath: '/kitbook',
+        activePath: '',
+      });
+    });
+
+    test('root is /en/kitbook', () => {
+      expect(findKitbookPath('/en/kitbook')).toEqual({
+        kitbookPath: '/en/kitbook',
         activePath: '',
       });
     });
@@ -37,15 +57,15 @@ if (import.meta.vitest) {
     });
 
     test('nested with trailing slash', () => {
-      expect(findKitbookPath('/kitbook/docs/')).toEqual({
-        kitbookPath: '/kitbook',
+      expect(findKitbookPath('/de/kitbook/docs/')).toEqual({
+        kitbookPath: '/de/kitbook',
         activePath: '/docs',
       });
     });
 
     test('nested including kitbook in name', () => {
-      expect(findKitbookPath('/kitbook/docs/kitbook')).toEqual({
-        kitbookPath: '/kitbook',
+      expect(findKitbookPath('/en/kitbook/docs/kitbook')).toEqual({
+        kitbookPath: '/en/kitbook',
         activePath: '/docs/kitbook',
       });
     });

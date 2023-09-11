@@ -26,7 +26,7 @@ export function initKitbook(isKitbookItself: boolean) {
       console.log(`${bold}${green}[Kitbook] Made sure files in ${kitbookDirectory} are up to date.\n${reset}`);
     }
 
-    const src = 'node_modules/kitbook/dist/routes/kitbook';
+    const src = 'node_modules/kitbook/dist/routes';
     const destination = kitbookDirectory;
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles });
   } catch (e) {

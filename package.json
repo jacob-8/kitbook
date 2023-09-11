@@ -16,7 +16,6 @@
 		"pieces:preview": "pnpm --filter=svelte-pieces preview",
 		"pieces:test": "pnpm --filter=svelte-pieces test",
 		"template": "pnpm --filter=template dev",
-		"template:kitbook": "pnpm --filter=template kitbook",
 		"template:build": "pnpm --filter=template build",
 		"release": "pnpm build:deps && pnpm test && changeset publish",
 		"check-packages": "pnpm update --interactive --recursive --latest"

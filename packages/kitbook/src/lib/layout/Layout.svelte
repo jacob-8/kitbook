@@ -19,7 +19,6 @@
   const { title, description, expandTree, githubURL } = settings || {};
 
   $: ({kitbookPath, activePath} = findKitbookPath($page.url.pathname))
-
   let showSidebar = false;
 </script>
 

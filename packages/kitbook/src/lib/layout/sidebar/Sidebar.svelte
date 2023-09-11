@@ -19,7 +19,7 @@
 <ResponsiveSlideover showWidth="md" side="left" bind:open={showSidebar}>
   <div slot="mobileHeading" class="flex items-start justify-between border-b border-gray-300">
     <a
-      href={kitbookPath}
+      href={kitbookPath || '/'}
       class:border-l-2={!activePath}
       class:border-blue-700={!activePath}
       class:text-blue-800={!activePath}

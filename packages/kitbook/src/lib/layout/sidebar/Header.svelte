@@ -16,7 +16,7 @@
     <i class="i-ic-round-menu" />
   </button>
   <a
-    href={kitbookPath}
+    href={kitbookPath || '/'}
     class:text-blue-600={!activePath}
     class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden"
   >
