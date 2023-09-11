@@ -20,5 +20,5 @@ declare namespace svelteHTML {
 
 interface DragValues {
   pixels: number, 
-  percentage: number,
+  percentage?: number,
 }

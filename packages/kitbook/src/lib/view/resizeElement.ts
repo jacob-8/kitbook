@@ -43,10 +43,10 @@ export function resizeElement(node: HTMLElement, container: HTMLDivElement) {
   }
 
   function updateWidth(width: number) {
-    node.dispatchEvent(new CustomEvent<number>("updatewidth", { detail: width }));
+    node.dispatchEvent(new CustomEvent<DragValues>("updatewidth", { detail: { pixels: width } }));
   }
   function updateHeight(height: number) {
-    node.dispatchEvent(new CustomEvent<number>("updateheight", { detail: height }));
+    node.dispatchEvent(new CustomEvent<DragValues>("updateheight", { detail: { pixels: height } }));
   }
 
   return {
