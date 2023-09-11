@@ -3,8 +3,9 @@
   import ViewBody from './ViewBody.svelte';
   import Iframe from './Iframe.svelte';
   import { IntersectionObserver } from 'svelte-pieces';
-  import { page } from '$app/stores';
   import { compressToEncodedURIComponent as encode } from '../lz/lz-string';
+  import { page } from '$app/stores';
+  import { findKitbookPath } from '$lib/layout/kitbookPath';
 
   const DEFAULT_PIXEL_HEIGHT = 220;
 
@@ -18,8 +19,10 @@
   export let queryParams: string;
 
   let iframe: Iframe;
+
+  $: ({kitbookPath, activePath} = findKitbookPath($page.url.pathname))
   $: encodedProps = props ? `props=${encode(JSON.stringify(props))}&` : '';
-  $: src = `/kitbook/sandbox${$page.url.pathname.split('kitbook')[1]}?${encodedProps}${queryParams}`;
+  $: src = `${kitbookPath}/sandbox${activePath}?${encodedProps}${queryParams}`;
 </script>
 
 <IntersectionObserver let:intersecting once>

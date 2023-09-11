@@ -9,6 +9,7 @@
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders';
   import LayoutPanes from './LayoutPanes.svelte';
   import { Button } from 'svelte-pieces';
+  import { findKitbookPath } from './kitbookPath';
   // import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
   const settings = getContext<KitbookSettings>('kitbook-settings');
@@ -17,13 +18,11 @@
   };
   const { title, description, expandTree, githubURL } = settings || {};
 
-  $: [kitbookRoot, activePath] = $page.url.pathname.split('kitbook');
-  $: kitbookPath = kitbookRoot + 'kitbook';
+  $: ({kitbookPath, activePath} = findKitbookPath($page.url.pathname))
 
   let showSidebar = false;
 </script>
 
-{kitbookPath} | {activePath}
 <LayoutPanes>
   <svelte:fragment slot="leftside">
     <Header bind:showSidebar {githubURL} {kitbookPath} {activePath}>

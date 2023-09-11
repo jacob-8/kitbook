@@ -14,6 +14,8 @@ Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add 
   "foam.files.ignore": [
       "**/node_modules/**/*",
       // any folders containing unrelated markdown files not part of your Kitbook can be added here to avoid autocompletion noise
+      "**/.svelte-kit/**/*",
+      // "**/dist/**/*", // needed if using svelte-package
   ]
 }
 ```
