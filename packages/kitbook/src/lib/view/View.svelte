@@ -19,7 +19,7 @@
 
   let iframe: Iframe;
   $: encodedProps = props ? `props=${encode(JSON.stringify(props))}&` : '';
-  $: src = `/sandbox${$page.url.pathname}?${encodedProps}${queryParams}`;
+  $: src = `/kitbook/sandbox${$page.url.pathname.split('kitbook')[1]}?${encodedProps}${queryParams}`;
 </script>
 
 <IntersectionObserver let:intersecting once>

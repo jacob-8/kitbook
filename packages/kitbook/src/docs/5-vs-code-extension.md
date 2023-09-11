@@ -1,4 +1,4 @@
-# Add the Kitbook Extension
+# Add the VS Code Kitbook Extension
 
 There is a not-yet-published Kitbook VSCode extension (`jacob-8.kitbook-vscode`) which can be manually installed using the `packages\vscode\kitbook-vscode-0.0.1.vsix` file in this repo.
 

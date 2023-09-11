@@ -3,12 +3,13 @@
   import Page from './Page.svelte';
 
   export let folder: Folder;
-  export let activeURL: string;
+  export let kitbookPath: string;
+  export let activePath: string;
   export let expanded = false;
 
   const isRootFolder = folder.name === '.';
-  let actualExpandedState = activeURL.indexOf(folder.url) !== -1 || expanded;
-  $: active = activeURL.indexOf(folder.url) !== -1;
+  let actualExpandedState = activePath.includes(folder.url) || expanded;
+  $: active = activePath.includes(folder.url);
 
   const internalHiddenFolder = folder.name === 'routes for copying';
 </script>
@@ -35,11 +36,11 @@
   {#if isRootFolder || actualExpandedState}
     {#each folder.pages as page}
       {#if page.url !== '/README' && page.url !== '/index'}
-        <Page {page} {activeURL} depth={folder.depth} />
+        <Page {page} {kitbookPath} {activePath} depth={folder.depth} />
       {/if}
     {/each}
     {#each folder.folders as subfolder}
-      <svelte:self folder={subfolder} {expanded} {activeURL} />
+      <svelte:self folder={subfolder} {expanded} {kitbookPath} {activePath} />
     {/each}
   {/if}
 {/if}

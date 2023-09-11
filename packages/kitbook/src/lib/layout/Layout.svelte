@@ -17,18 +17,20 @@
   };
   const { title, description, expandTree, githubURL } = settings || {};
 
-  $: activeURL = $page.url.pathname;
+  $: [kitbookRoot, activePath] = $page.url.pathname.split('kitbook');
+  $: kitbookPath = kitbookRoot + 'kitbook';
 
   let showSidebar = false;
 </script>
 
+{kitbookPath} | {activePath}
 <LayoutPanes>
   <svelte:fragment slot="leftside">
-    <Header bind:showSidebar {githubURL} {activeURL}>
+    <Header bind:showSidebar {githubURL} {kitbookPath} {activePath}>
       <slot name="title">{title}</slot>
     </Header>
     <nav class="hidden md:block overflow-y-auto grow-1">
-      <Sidebar bind:showSidebar folder={putPagesIntoFolders($page.data.pages)} {activeURL} expanded={expandTree}>
+      <Sidebar bind:showSidebar folder={putPagesIntoFolders($page.data.pages)} {kitbookPath} {activePath} expanded={expandTree}>
         <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
       </Sidebar>
     </nav>

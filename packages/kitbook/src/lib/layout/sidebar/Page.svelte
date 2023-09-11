@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { GroupedPage } from '../../kitbook-types';
   export let page: GroupedPage;
-  export let activeURL: string;
+  export let kitbookPath: string;
+  export let activePath: string;
   export let depth: number;
-  $: active = activeURL === page.url;
+  $: active = activePath === page.url;
   $: doesNotHaveSvxOrVariants = !(page.loadSvx || page.loadVariants);
 </script>
 
@@ -13,7 +14,7 @@
   class:text-blue-600={active}
   class:capitalize={!page.name.startsWith('+page') && !page.name.startsWith('+layout')}
   class="hover:text-blue-700 pr-3 text-xs flex"
-  href={activeURL.split('kitbook')[0] + 'kitbook' + page.url}
+  href={kitbookPath + page.url}
   style="padding-left: calc(0.75rem * {depth}"
 >
   <span

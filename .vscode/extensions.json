@@ -8,7 +8,6 @@
     "antfu.unocss",
     // Code quality
     "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
     // Git
     "eamodio.gitlens",
     "github.vscode-pull-request-github",

@@ -26,7 +26,7 @@
   $: variants = updatedVariants || data.loadedModules?.variants;
 
   $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
-    '/lib/routes/sandbox/[...file]/+'
+    '/lib/routes/kitbook/sandbox/[...file]/+'
   );
   $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>

@@ -2,15 +2,15 @@
   import { ResponsiveSlideover } from 'svelte-pieces';
   import Folder from './Folder.svelte';
   import type { Folder as FolderType } from 'kitbook';
+  import { afterNavigate } from '$app/navigation';
+  
   export let folder: FolderType;
-  export let activeURL: string;
+  export let kitbookPath: string;
+  export let activePath: string;
   export let showSidebar = false;
   export let title = 'Kitbook';
   export let expanded = false;
 
-  let root = '/';
-
-  import { afterNavigate } from '$app/navigation';
   afterNavigate(() => {
     showSidebar = false;
   });
@@ -19,10 +19,10 @@
 <ResponsiveSlideover showWidth="md" side="left" bind:open={showSidebar}>
   <div slot="mobileHeading" class="flex items-start justify-between border-b border-gray-300">
     <a
-      href={root}
-      class:border-l-2={activeURL === root}
-      class:border-blue-700={activeURL === root}
-      class:text-blue-800={activeURL === root}
+      href={kitbookPath}
+      class:border-l-2={!activePath}
+      class:border-blue-700={!activePath}
+      class:text-blue-800={!activePath}
       class="hover:text-blue-700 p-3 text-lg font-medium text-gray-900"
       id="modal-headline"
     >
@@ -39,7 +39,7 @@ focus:text-gray-500 transition ease-in-out duration-150"
     >
   </div>
 
-  <Folder {folder} {activeURL} {expanded} />
+  <Folder {folder} {kitbookPath} {activePath} {expanded} />
   <slot name="footer" />
 
   <a

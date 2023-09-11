@@ -3,9 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- handle can't copy bug
 - automatically analyze component for props
-- test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
-
 - variant grid
 
 - Add full-screen focus view for sandbox

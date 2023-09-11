@@ -14,6 +14,8 @@
   "foam.files.ignore": [
     "**/node_modules/**/*",
     "**/package/**/*",
+    "**/.svelte-kit/**/*",
+    "**/dist/**/*",
   ],
   "foam.completion.label": "title",
   "svelte.plugin.svelte.compilerWarnings": {
