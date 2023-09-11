@@ -38,27 +38,24 @@ export function drag(node: HTMLElement) {
     node.dispatchEvent(new CustomEvent<boolean>("startdragging"));
   }
 
-  
   function onmousemove(event: MouseEvent) {
-    const widthPercent = (event.clientX / documentWidth) * 100;
-    updateWidth(widthPercent)
-    const heightPercent = (event.clientY / documentHeight) * 100;
-    updateHeight(heightPercent)
+    updateWidth(event.clientX)
+    updateHeight(event.clientY)
   }
   
   function ontouchmove(event: TouchEvent) {
-    const widthPercent = (event.touches[0].clientX / documentWidth) * 100;
-    updateWidth(widthPercent)
-    const heightPercent = (event.touches[0].clientY / documentHeight) * 100;
-    updateHeight(heightPercent)
+    updateWidth(event.touches[0].clientX)
+    updateHeight(event.touches[0].clientY)
   }
 
-  function updateWidth(width: number) {
-    node.dispatchEvent(new CustomEvent<number>("updatewidth", { detail: width }));
+  function updateWidth(widthPixels: number) {
+    const widthPercent = (widthPixels / documentWidth) * 100;
+    node.dispatchEvent(new CustomEvent<DragValues>("updatewidth", { detail: { pixels: widthPixels, percentage: widthPercent }}));
   }
 
-  function updateHeight(height: number) {
-    node.dispatchEvent(new CustomEvent<number>("updateheight", { detail: height }));
+  function updateHeight(heightPixels: number) {
+    const heightPercent = (heightPixels / documentHeight) * 100;
+    node.dispatchEvent(new CustomEvent<DragValues>("updateheight", { detail: { pixels: heightPixels, percentage: heightPercent }}));
   }
 
   return {
