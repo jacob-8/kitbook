@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../styles/tw-prose.css';
   import { getContext, type SvelteComponent } from 'svelte';
   import type { Writable } from 'svelte/store';
   import { page } from '$app/stores';

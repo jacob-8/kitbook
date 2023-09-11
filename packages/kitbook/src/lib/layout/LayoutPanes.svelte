@@ -10,7 +10,7 @@
 </script>
 
 <svelte:window
-  on:keydown|preventDefault={(e) => {
+  on:keydown={(e) => {
     if (e.key === 's') $showTreeDesktop = !$showTreeDesktop;
   }}
   bind:innerWidth

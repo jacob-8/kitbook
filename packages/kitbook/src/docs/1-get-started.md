@@ -5,22 +5,22 @@
 - Install the `kitbook` package: `npm i -D kitbook@alpha` or `pnpm add -D kitbook@alpha`
 
 - Add the `kitbook()` Vite plugin *before* your `sveltekit()` plugin:
-```js title="vite.config.js" {2,6}
+```js title="vite.config.js" {3,7}
+import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from 'kitbook/plugins/vite';
 
-const config = {
+export default defineConfig({
 	plugins: [
 		kitbook(),
 		sveltekit(),
 	],
-};
-
-export default config;
+});
 ```
 
 - Add the necessary [MDSvex](https://mdsvex.pngwn.io/) imports and configuration into your `svelte.config.js`:
-```js title="svelte.config.js" {1,4,6}
+```js title="svelte.config.js" {2,5,7}
+import { vitePreprocess } from '@sveltejs/kit/vite';
 import { mdsvex, MDSVEX_EXTENSIONS, KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
 
 const config = {

@@ -1,8 +1,8 @@
 import fs from 'fs';
 
 const TYPINGS_EXT = '.d.ts';
-const PAGE_MARKDOWN = '_page.md';
-const LAYOUT_MARKDOWN = '_layout.md';
+const PAGE_MARKDOWN = '_page.svelte';
+const LAYOUT_MARKDOWN = '_layout.svelte';
 const VARIANTS = 'variants.js';
 const ROUTES_DIR = 'src/routes'
 const KITBOOK_DIRECTORY_NAME = 'kitbook';
@@ -26,7 +26,7 @@ export function initKitbook(isKitbookItself: boolean) {
       console.log(`${bold}${green}[Kitbook] Made sure files in ${kitbookDirectory} are up to date.\n${reset}`);
     }
 
-    const src = 'node_modules/kitbook/dist/routes';
+    const src = 'node_modules/kitbook/dist/routes/kitbook';
     const destination = kitbookDirectory;
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles });
   } catch (e) {
