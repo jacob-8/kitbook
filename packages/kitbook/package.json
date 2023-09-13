@@ -1,6 +1,6 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.38",
+  "version": "1.0.0-alpha.39",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "scripts": {
     "dev": "vite dev",
@@ -31,6 +31,11 @@
       "types": "./dist/plugins/vite.d.ts",
       "svelte": "./dist/plugins/vite.js",
       "default": "./dist/plugins/vite.js"
+    },
+    "./defineConfig": {
+      "types": "./dist/defineConfig.d.ts",
+      "svelte": "./dist/defineConfig.js",
+      "default": "./dist/defineConfig.js"
     }
   },
   "typesVersions": {
@@ -47,11 +52,13 @@
     "svelte2tsx": "^0.6.21"
   },
   "peerDependencies": {
+    "@playwright/test": "^1.37.1",
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0 || ^4.0.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.113",
+    "@playwright/test": "^1.37.1",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "^1.24.1",
     "@sveltejs/package": "^2.2.2",

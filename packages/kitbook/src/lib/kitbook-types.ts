@@ -1,5 +1,6 @@
 import type { Viewport } from "@kitbook/vite-plugin-kitbook";
 import type { ComponentProps, SvelteComponent } from "svelte";
+import type { Page, Expect } from '@playwright/test'
 
 export type Variants<T extends SvelteComponent> = Variant<T>[]
 
@@ -9,9 +10,19 @@ export type Variant<T extends SvelteComponent> = {
   viewports?: Viewport[];
   props?: ComponentProps<T>,
   contexts?: MockedContext[],
+  /**
+   * Presently only the 'default' slot is supported
+   */
   slots?: Record<string, string | any>
-  // 'default' or name of dynamic slot (though dynamic slots aren't supported yet)
+  tests?: Record<string, Test>
 }
+
+type Test = ({page, expect, filepathWithoutExtension, name}: {
+  page: Page, 
+  expect: Expect, 
+  filepathWithoutExtension:string,
+  name: string,
+}) => Promise<void>;
 
 export type MockedContext = {
   key: any,
