@@ -1,47 +1,69 @@
-import type { Plugin, UserConfig } from 'vite';
+import type { Plugin } from 'vite';
 import { initKitbook } from './initKitbook';
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook';
 import virtualImportModulesContent from './virtual/importModulesStringified';
-import { RESOLVED_VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, DEFAULT_IMPORT_MODULE_GLOBS } from './constants';
+import { RESOLVED_VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, DEFAULT_IMPORT_MODULE_GLOBS, VIRTUAL_SETTINGS_IMPORT_ID, RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID } from './constants';
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode';
+import { KitbookSettings } from './types';
 
 /**
- * Creates a Vite plugin that enables Kitbook mode for SvelteKit projects.
- * @param {string[]} [options.fileGlobs] - An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to ['/src/**_/*.{md,svx,svelte,variants.ts}', '/README.md']. Adjust this to be able to incrementally adopt Kitbook into your project. << ignore the underscore in the glob pattern, it's just there to make the JSDoc comment work.
- * @param {UserConfig} [options.viteConfigAdjustments] - Adjust the Vite Config when running Kitbook. Useful for changing settings like the port that you don't want changed in your regular app.
- * @param {boolean} [options.isKitbookItself] - Don't Use - Only for internal use in the original Kitbook package
+ * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes wherever you have a folder titled `kitbook` somewhere in your `src/routes` directory. If none exists, `src/routes/kitbook` will be used.
 */
-export function kitbookPlugin({
-  fileGlobs: importModuleGlobs, viteConfigAdjustments, isKitbookItself
-}: {
-  fileGlobs?: string[];
-  viteConfigAdjustments?: UserConfig;
-  isKitbookItself?: boolean;
-} = {}): Plugin {
-  const isKitbookMode = process.env.npm_lifecycle_script?.includes('--mode kitbook');
-  if (isKitbookMode) initKitbook(isKitbookItself);
+export function kitbookPlugin(config: KitbookSettings): Plugin {
+  initKitbook(config.isKitbookItself);
+
+  // const ready = loadKitbookConfig(config);
 
   return {
     name: 'vite-plugin-svelte-kitbook',
     enforce: 'pre',
 
-    apply(config, { mode }) {
-      return mode === 'kitbook';
-    },
-
-    config: (config, { mode }) => {
-      if (mode === 'kitbook') return modifyViteConfigForKitbook(viteConfigAdjustments)
-    },
+    config: modifyViteConfigForKitbook,
 
     resolveId(id) {
       if (id === VIRTUAL_MODULES_IMPORT_ID) {
         return RESOLVED_VIRTUAL_MODULES_IMPORT_ID
       }
+      if (id === VIRTUAL_SETTINGS_IMPORT_ID) {
+        return RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID
+      }
     },
+
     load(id) {
+      // const { config } = await ready;
+      if (id === RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID) {
+        return `export const settings = ${JSON.stringify(config)}`
+      }
+
       if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
-        return writeModuleGlobsIntoVirtualModuleCode(virtualImportModulesContent, importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS);
+        return writeModuleGlobsIntoVirtualModuleCode(virtualImportModulesContent, config.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS);
       }
     },
   }
 }
+
+// function loadKitbookConfig(_config?: KitbookSettings): Promise<{ config: KitbookSettings, sources: string[] }> {
+//   if (_config) {
+//     return Promise.resolve({
+//       config: _config,
+//       sources: [],
+//     })
+//   }
+
+//   return loadConfig({
+//     sources: [
+//       {
+//         files: 'kitbook.config',
+//         extensions: ['ts', 'js'],
+//       },
+//       // {
+//       //   files: 'vite.config',
+//       //   async rewrite(config) {
+//       //     const resolved = await (typeof config === 'function' ? config() : config)
+//       //     return resolved?.kitbook
+//       //   },
+//       // },
+//     ],
+//     merge: false,
+//   }) as Promise<{ config: KitbookSettings, sources: string[] }>;
+// }

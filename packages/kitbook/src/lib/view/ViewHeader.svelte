@@ -51,7 +51,7 @@
 </div>
 
 {#if description}
-  <div class="text-sm py-1">{description}</div>
+  <div class="text-sm py-1 max-w-sm whitespace-normal">{description}</div>
 {/if}
 
 <slot adjustedHeight={height} adjustedWidth={width} />

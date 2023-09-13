@@ -12,8 +12,8 @@ const tsResult = ts.transpileModule(inputFileContent, {
   },
 });
 
-const commentRegex = /\/\/.*|\/\*[^]*?\*\//g;
-const withoutComments = tsResult.outputText.replace(commentRegex, "");
+const commentLinesRegex = /\/\/.*/g;
+const withoutComments = tsResult.outputText.replace(commentLinesRegex, "");
 
 const singleQuoteRegex = /'/g;
 const withDoubleQuotes = withoutComments.replace(singleQuoteRegex, '"');

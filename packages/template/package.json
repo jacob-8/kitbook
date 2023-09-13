@@ -6,23 +6,20 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "kitbook": "vite dev --mode kitbook",
-    "kitbook:build": "svelte-kit sync && vite build --mode kitbook",
-    "kitbook:build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../template && pnpm kitbook:build",
-    "kitbook:preview": "vite preview --mode kitbook",
+    "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../template && pnpm build",
     "package": "svelte-kit package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "2.1.0",
-    "@sveltejs/kit": "1.20.5",
-    "kitbook": "1.0.0-alpha.36",
-    "svelte": "^4.0.0",
-    "svelte-check": "^3.4.4",
-    "tslib": "^2.5.3",
-    "typescript": "~5.1.5",
-    "vite": "^4.3.9"
+    "@sveltejs/kit": "1.24.1",
+    "kitbook": "1.0.0-alpha.38",
+    "svelte": "^4.2.0",
+    "svelte-check": "^3.5.1",
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "vite": "^4.4.9"
   },
   "type": "module"
 }

@@ -8,12 +8,17 @@ declare namespace App {
 	// interface Platform {}
 }
 
+// Syntax: https://github.com/sveltejs/language-tools/blob/master/docs/preprocessors/typescript.md#im-using-an-attributeevent-on-a-dom-element-and-it-throws-a-type-error
 declare namespace svelteHTML {
-	// https://github.com/sveltejs/language-tools >> docs/preprocessors/typescript.md
 	interface HTMLAttributes<T> {
-		'on:updatewidth'?: (event: { detail: number }) => any;
-		'on:updateheight'?: (event: { detail: number }) => any;
-		"on:stopdragging"?: (event: boolean) => any;
-		"on:startdragging"?: (event: boolean) => any;
+		'on:updatewidth'?: (event: { detail: DragValues }) => any;
+		'on:updateheight'?: (event: { detail: DragValues }) => any;
+		'on:stopdragging'?: (event: boolean) => any;
+		'on:startdragging'?: (event: boolean) => any;
 	}
+}
+
+interface DragValues {
+  pixels: number, 
+  percentage?: number,
 }

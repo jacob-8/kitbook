@@ -46,8 +46,8 @@
       <div
         on:mouseover={() => (hovered = true)}
         on:mouseout={() => (hovered = false)}
-        use:portal={'#instrument-panel'}
-      >
+        >
+        <!-- use:portal={'#instrument-panel'} -->
         {#if intersecting}
           <div
             style="transition: all 300ms;"

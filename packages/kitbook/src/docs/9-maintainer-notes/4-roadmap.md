@@ -3,9 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
+- handle can't copy bug
 - automatically analyze component for props
-- test in other projects using `kitbook: file:../../../kitbook/packages/kitbook/package`
-
 - variant grid
 
 - Add full-screen focus view for sandbox
@@ -52,7 +51,7 @@
 - Vite server middleware to update/add variants from browser
 - add changesets
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
-- dynamic slots: https://github.com/sveltejs/svelte/issues/2588 && https://github.com/sveltejs/svelte/pull/4296
+- dynamic slots
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
 - use plugin to automatically give IDs to stories
 - screenshots: VitestPreview, [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) and [Viteshot](https://viteshot.com/) for tips
@@ -68,7 +67,7 @@
 - quickly display meta tags of iframe when rendering +page.svelte components
 - distinguish between Index and README in search if both exist
 - snap side panels to 0 if within x pixels.
-- add option to easily hide a directory (and refactor out hardcoded hide of 'routes for copying')
+- add option to easily hide a directory
 - add optional stackblitz icon to quickly open a kitbook in stackblitz (will only work for kitbooks that don't depend on packages in other parts of a monorepo) 
 - connections graph
 - could refactor to use activePage instead of activeUrl to make code simpler

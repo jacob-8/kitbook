@@ -5,13 +5,13 @@ export const variants: Variants<Component> = [
   {
     // name: 'First',
     props: {
-      href: 'foo',
+      href: '/foo',
     },
   },
   {
     name: 'With Custom Site',
     props: {
-      href: 'foo',
+      href: '/foo',
       site: 'TypeScript',
     },
   },

@@ -1,14 +1,12 @@
 import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from './src/lib/plugins/vite';
+import kitbookConfig from './kitbook.config';
 import path from 'path';
 
 export default defineConfig({
 	plugins: [
-		kitbook({
-			isKitbookItself: true,
-			// fileGlobs: ['/src/docs/**/*.md', '/README.md']
-		}),
+		kitbook(kitbookConfig),
 		sveltekit(),
 	],
 	define: {

@@ -1,5 +1,4 @@
 <script>
-  // import './global.css'; // you can import needed global styles here
   import { pagesStore } from 'kitbook';
   import { setContext } from 'svelte';
   setContext('pages-store', pagesStore);

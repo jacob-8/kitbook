@@ -3,7 +3,7 @@ import { testModules } from "./testModules";
 import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
 
 
-export function groupColocatedPages(ungrouped: UngroupedPage[], extensions = { svx: ['md', 'svx'], variants: 'variants.ts' }): GroupedPageMap {
+export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts' }): GroupedPageMap {
   const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte'];
   const grouped: GroupedPageMap = {};
 
@@ -359,7 +359,7 @@ if (import.meta.vitest) {
 
 const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
 
-function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[]): UngroupedPage[] {
+function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[] = []): UngroupedPage[] {
   return pages.sort(({ name: nameA }, { name: nameB }) => {
     if (nameA.match(STARTS_WITH_PAGE_OR_LAYOUT) && nameB.match(STARTS_WITH_PAGE_OR_LAYOUT)) {
       if (nameA.startsWith('+') && nameB.startsWith('_')) return -1;

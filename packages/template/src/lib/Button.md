@@ -3,7 +3,7 @@
   import Button from './Button.svelte';
 </script>
 
-# Button
+# Button with a Story and Variants
 
 <Story
   knobs={{ href: 'https://kitbook.vercel.app', text: 'Kitbook Home' }}

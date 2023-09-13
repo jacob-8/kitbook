@@ -1,4 +1,5 @@
-export type { Folder, Modules, Variants, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, KitbookSettings } from './kitbook-types';
+export type { KitbookSettings } from '@kitbook/vite-plugin-kitbook';
+export type { Folder, Modules, Variants, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage } from './kitbook-types';
 
 export { default as Layout } from './layout/Layout.svelte';
 export { layoutLoad } from './layout/layoutLoad'

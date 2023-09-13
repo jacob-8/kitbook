@@ -5,14 +5,17 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "files.associations": {},
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.svx": "svelte"
+  },
   "css.lint.unknownAtRules": "ignore",
   "vitest.enable": true,
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
     "**/node_modules/**/*",
     "**/package/**/*",
+    "**/.svelte-kit/**/*",
+    "**/dist/**/*",
   ],
   "foam.completion.label": "title",
   "svelte.plugin.svelte.compilerWarnings": {

@@ -1,11 +1,14 @@
 import adapter from '@sveltejs/adapter-auto';
 import { vitePreprocess } from '@sveltejs/kit/vite';
+import { mdsvex, MDSVEX_EXTENSIONS, KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // Consult https://github.com/sveltejs/svelte-preprocess
-  // for more information about preprocessors
-  preprocess: vitePreprocess(),
+  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
+  preprocess: [
+    mdsvex(KITBOOK_MDSVEX_CONFIG),
+    vitePreprocess(),
+  ],
 
   kit: {
     adapter: adapter(),
@@ -18,5 +21,4 @@ const config = {
   },
 };
 
-import { augmentSvelteConfigForKitbook } from 'kitbook/plugins/vite';
-export default augmentSvelteConfigForKitbook(config);
+export default config;

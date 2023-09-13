@@ -19,10 +19,6 @@
   const PADDING_TWICE = 24;
 </script>
 
-{#if dragging}
-  <div class="absolute inset-0" />
-{/if}
-
 <div bind:this={container} class="overflow-x-auto">
   <div
     style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
@@ -37,8 +33,8 @@
         role="button"
         tabindex="0"
         use:resizeElement={container}
-        on:updatewidth={({ detail: updatedWidth }) => {
-          userAdjustedWidth = updatedWidth;
+        on:updatewidth={({ detail: { pixels } }) => {
+          userAdjustedWidth = pixels;
         }}
         on:mousedown={() => (dragging = 'width')}
         on:dblclick={() => (userAdjustedWidth = null)}
@@ -49,8 +45,8 @@
         role="button"
         tabindex="0"
         use:resizeElement={container}
-        on:updateheight={({ detail: updatedHeight }) => {
-          userAdjustedHeight = updatedHeight;
+        on:updateheight={({ detail: { pixels } }) => {
+          userAdjustedHeight = pixels;
         }}
         on:mousedown={() => (dragging = 'height')}
         on:dblclick={() => (userAdjustedHeight = null)}
@@ -61,11 +57,11 @@
         role="button"
         tabindex="0"
         use:resizeElement={container}
-        on:updatewidth={({ detail: updatedWidth }) => {
-          userAdjustedWidth = updatedWidth;
+        on:updatewidth={({ detail: { pixels } }) => {
+          userAdjustedWidth = pixels;
         }}
-        on:updateheight={({ detail: updatedHeight }) => {
-          userAdjustedHeight = updatedHeight;
+        on:updateheight={({ detail: { pixels } }) => {
+          userAdjustedHeight = pixels;
         }}
         on:mousedown={() => (dragging = 'both')}
         on:dblclick={() => {
@@ -88,6 +84,10 @@
     </div>
   </div>
 </div>
+
+{#if dragging}
+  <div class="absolute inset-0 z-1" />
+{/if}
 
 <svelte:window on:mouseup={() => (dragging = null)} />
 

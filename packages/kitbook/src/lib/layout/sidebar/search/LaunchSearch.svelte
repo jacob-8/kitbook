@@ -3,7 +3,7 @@
   import { Button } from 'svelte-pieces';
   import SearchModal from './SearchModal.svelte';
 
-  const isMac = typeof navigator !== 'undefined' && navigator.platform === 'MacIntel';
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
 
   let searching = false;
 

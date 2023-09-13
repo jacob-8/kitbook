@@ -4,9 +4,8 @@
 
   export let showSidebar = false;
   export let githubURL: string = undefined;
-  export let activeURL: string;
-
-  let root = '/';
+  export let kitbookPath: string;
+  export let activePath: string;
 </script>
 
 <header class="flex flex-wrap py-1 pl-1 w-full">
@@ -17,8 +16,8 @@
     <i class="i-ic-round-menu" />
   </button>
   <a
-    href={root}
-    class:text-blue-600={activeURL === root}
+    href={kitbookPath || '/'}
+    class:text-blue-600={!activePath}
     class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden"
   >
     <slot>Kitbook</slot>

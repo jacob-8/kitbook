@@ -57,12 +57,12 @@
         {/if}
       </div>
       {#if data.variant?.slots}
-        {@const content = data.variant.slots[0].content}
+        {@const defaultSlotContent = data.variant.slots[0].content}
         <svelte:component this={data.loadedModules.component} {...variantProps}>
-          {#if typeof content === 'string'}
-            {@html content}
+          {#if typeof defaultSlotContent === 'string'}
+            {@html defaultSlotContent}
           {:else}
-            <svelte:component this={content} />
+            <svelte:component this={defaultSlotContent} />
           {/if}
         </svelte:component>
       {:else}

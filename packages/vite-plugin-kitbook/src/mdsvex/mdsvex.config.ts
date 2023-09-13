@@ -1,4 +1,4 @@
-import { defineMDSveXConfig as defineConfig } from 'mdsvex';
+import { defineMDSveXConfig } from 'mdsvex';
 import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -6,7 +6,7 @@ import rehypeUrls from 'rehype-urls';
 import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash';
 import { MDSVEX_EXTENSIONS } from '../constants';
 
-const config = defineConfig({
+export const config = defineMDSveXConfig({
   extensions: MDSVEX_EXTENSIONS,
   remarkPlugins: [],
   rehypePlugins: [
@@ -23,8 +23,6 @@ const config = defineConfig({
   highlight: shikiTwoslashHighlighter({ themes: ['dark-plus'] }),
 });
 
-export default config;
-
 function openExternalInNewTab(url, node) {
   if (url.protocol?.startsWith('http')) {
     node.properties.target = '_blank'
@@ -33,3 +31,12 @@ function openExternalInNewTab(url, node) {
   }
   // rehype-urls + this seems like a simpler approach than rehype-external-links
 }
+
+// Users can augment the config like this:
+// import { defineMDSveXConfig } from 'mdsvex';
+// import { KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
+
+// const myMDSveXConfig = defineMDSveXConfig({
+//   ...KITBOOK_MDSVEX_CONFIG,
+//   extensions: ['.md', '.svx'],
+// });

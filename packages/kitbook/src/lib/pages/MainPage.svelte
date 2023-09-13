@@ -1,8 +1,9 @@
 <script lang="ts">
+  import '../styles/tw-prose.css';
   import { getContext, type SvelteComponent } from 'svelte';
   import type { Writable } from 'svelte/store';
   import { page } from '$app/stores';
-  import type { GroupedPage, GroupedPageMap, LoadedModules, Variants } from '../kitbook-types';
+  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, Variants } from '../kitbook-types';
   import EditInGithub from '../components/EditInGithub.svelte';
   import View from '../view/View.svelte';
 
@@ -15,6 +16,7 @@
   } = { loadedModules: {} };
 
   const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
+  const { viewports, languages } = getContext<KitbookSettings>('kitbook-settings');
 
   let updatedVariants: Variants<SvelteComponent>;
   $: if ($pagesStore?.[data.pageKey]) {
@@ -26,17 +28,19 @@
   $: variants = updatedVariants || data.loadedModules?.variants;
 
   $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
-    '/lib/routes/sandbox/[...file]/+'
+    '/lib/routes/kitbook/sandbox/[...file]/+'
   );
   $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
 </script>
 
-<div class="tw-prose max-w-full">
+<main style="flex: 1" class="overflow-y-auto bg-white">
   {#if data.error}
-    {data.error}
+    <div class="text-red">
+      Error: {data.error}
+    </div>
   {:else}
     {#if data.loadedModules.svx}
-      <div class="mb-10">
+      <div class="tw-prose mb-10">
         <svelte:component this={data.loadedModules.svx} />
       </div>
     {/if}
@@ -44,21 +48,38 @@
     {#if data.loadedModules.component}
       {#if data.loadedModules.variants}
         <div class="text-2xl mb-4">
-          {data.page.name.startsWith('+') ? 'Page' : 'Component'} Variants
+          {#if data.page.name.startsWith('+layout')}
+             Layout
+          {:else if data.page.name.startsWith('+page')}
+             Page
+          {:else}
+             Component
+          {/if}
+          Variants
         </div>
-        {#each variants as variant, index (index)}
-          <View
-            title={variant.name}
-            description={variant.description}
-            width={variant.width}
-            height={variant.height}
-            queryParams="variantIdx={index}"
-            useIframe={!wouldRecurseInfinitelyInSandbox}
-          >
-            {#if wouldRecurseInfinitelyInSandbox}
-              <svelte:component this={data.loadedModules.component} {...variant.props || {}} />
-            {/if}
-          </View>
+        {#each variants as { name, description, viewports: variantViewports, props }, index (index)}
+          <div class="inline-block whitespace-nowrap overflow-x-auto w-full">
+            <div class="flex">
+              {#each variantViewports || viewports || [{ name: 'default', width: 400,
+                height: 400}] as {name: viewportName, width, height}}
+                {#each languages || [{ name: null, code: null}] as { name: languageName, code: languageCode}}
+                  <View
+                    title={name}
+                    description={description}
+                    {width}
+                    {height}
+                    {languageCode}
+                    queryParams="variantIdx={index}"
+                    useIframe={!wouldRecurseInfinitelyInSandbox}
+                  >
+                    {#if wouldRecurseInfinitelyInSandbox}
+                      <svelte:component this={data.loadedModules.component} {...props || {}} />
+                    {/if}
+                  </View>
+                {/each}
+              {/each}
+            </div>
+          </div>
         {/each}
       {/if}
     {/if}
@@ -74,4 +95,4 @@
 
     <EditInGithub path={data?.page?.path} />
   {/if}
-</div>
+</main>
