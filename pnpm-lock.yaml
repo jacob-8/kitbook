@@ -90,7 +90,7 @@ importers:
         specifier: 0.0.4
         version: link:../mdsvex-shiki-twoslash
       '@kitbook/vite-plugin-kitbook':
-        specifier: 0.0.13
+        specifier: 0.0.14
         version: link:../vite-plugin-kitbook
       svelte-pieces:
         specifier: 2.0.0-next.1

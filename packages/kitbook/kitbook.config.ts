@@ -1,4 +1,4 @@
-import { defineConfig } from "kitbook/defineConfig";
+import { defineConfig } from "./src/lib/defineConfig";
 
 export default defineConfig({
   title: 'Kitbook',

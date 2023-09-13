@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite';
 import { kitbook } from './src/lib/plugins/vite';
-import kitbookConfig from './src/lib/kitbook.config';
+import kitbookConfig from './kitbook.config';
 import path from 'path';
 
 export default defineConfig({
