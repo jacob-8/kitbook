@@ -1,24 +1,5 @@
+import type { Viewport } from "@kitbook/vite-plugin-kitbook";
 import type { ComponentProps, SvelteComponent } from "svelte";
-
-export interface KitbookSettings {
-  title: string;
-  description: string;
-  viewports: Viewport[];
-  languages?: Language[];
-  expandTree?: boolean;
-  githubURL?: string;
-}
-
-export type Viewport = {
-  name?: string;
-  width: number;
-  height: number;
-}
-
-export type Language = {
-  name: string;
-  code: string;
-}
 
 export type Variants<T extends SvelteComponent> = Variant<T>[]
 
@@ -28,12 +9,8 @@ export type Variant<T extends SvelteComponent> = {
   viewports?: Viewport[];
   props?: ComponentProps<T>,
   contexts?: MockedContext[],
-  slots?: Slot[]
-}
-
-type Slot = {
-  // name?: string; // leave blank for default slot - dynamic slots not supported yet
-  content: string | typeof SvelteComponent;
+  slots?: Record<string, string | any>
+  // 'default' or name of dynamic slot (though dynamic slots aren't supported yet)
 }
 
 export type MockedContext = {

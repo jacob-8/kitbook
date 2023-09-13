@@ -51,7 +51,7 @@
 - Vite server middleware to update/add variants from browser
 - add changesets
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
-- dynamic slots: https://github.com/sveltejs/svelte/issues/2588 && https://github.com/sveltejs/svelte/pull/4296
+- dynamic slots
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
 - use plugin to automatically give IDs to stories
 - screenshots: VitestPreview, [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) and [Viteshot](https://viteshot.com/) for tips

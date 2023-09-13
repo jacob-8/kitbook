@@ -60,7 +60,8 @@
         {#each variants as { name, description, viewports: variantViewports, props }, index (index)}
           <div class="inline-block whitespace-nowrap overflow-x-auto w-full">
             <div class="flex">
-              {#each variantViewports || viewports as {name: viewportName, width, height}}
+              {#each variantViewports || viewports || [{ name: 'default', width: 400,
+                height: 400}] as {name: viewportName, width, height}}
                 {#each languages || [{ name: null, code: null}] as { name: languageName, code: languageCode}}
                   <View
                     title={name}

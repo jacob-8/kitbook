@@ -23,11 +23,9 @@ export const variants: Variants<Component> = [
       kitbookPath: '',
       activePath: "/somewhere",
     },
-    slots: [
-      {
-        content: 'My Workbench'
-      }
-    ]
+    slots: {
+      default: 'My Workbench'
+    }
   },
 ].map(variant => {
   return {

@@ -1,44 +1,10 @@
 <script>
   import { pagesStore } from 'kitbook';
+  import { settings } from 'virtual:kitbook-settings';
   import { setContext } from 'svelte';
-  setContext('pages-store', pagesStore);
-  
-  /** @type {import('kitbook').KitbookSettings} */
-  const kitbookSettings = {
-    title: 'Kitbook',
-    description: 'Svelte Component Documentation and Prototyping Workbench built using SvelteKit',
-    viewports: [
-      {
-        name: 'Mobile',
-        width: 320,
-        height: 568,
-      },
-      {
-        name: 'Desktop',
-        width: 1024,
-        height: 768,
-      },
-      {
-        name: 'Tablet',
-        width: 768,
-        height: 1024,
-      },
-    ],
-    // languages: [
-    //   {
-    //     name: 'English',
-    //     code: 'en',
-    //   },
-    //   {
-    //     name: 'Spanish',
-    //     code: 'es',
-    //   },
-    // ],
-    githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
-    expandTree: true,
-  };
 
-  setContext('kitbook-settings', kitbookSettings);
+  setContext('pages-store', pagesStore);
+  setContext('kitbook-settings', settings);
 </script>
 
 <slot />

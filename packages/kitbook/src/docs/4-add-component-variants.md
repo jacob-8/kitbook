@@ -24,12 +24,10 @@ export const variants: Variants<Component> = [
         context: { foo: 'baz' },
       }
     ]
-    slots: [
-      {
-        content: 'My Workbench' // can pass a string or a Svelte component
-        // presently we can only mock the default slot and not named slots until Svelte supports dynamically named slots since Kitbook needs to have the dynamically named slots feature to be able to mock named slots
-      }
-    ],
+    slots: {
+      default: 'My Workbench' // can pass a string or a Svelte component
+      // presently we can only mock the default slot and not named slots until Svelte supports dynamically named slots since Kitbook needs to have the dynamically named slots feature to be able to mock named slots
+    }
   },
 ]
 ```

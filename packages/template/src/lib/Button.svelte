@@ -3,6 +3,14 @@
   export let site = "Kitbook";
 </script>
 
-<a {href} style="background: pink; padding: 5px; border-radius: 4px;">
+<a {href}>
   <slot>Open {site} Docs</slot>
 </a>
+
+<style>
+  a {
+    background: pink; 
+    padding: 5px; 
+    border-radius: 4px;
+  }
+</style>
