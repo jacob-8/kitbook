@@ -19,19 +19,21 @@ export function initKitbook(isKitbookItself: boolean) {
   try {
     let kitbookDirectory = findKitbookDirectory(ROUTES_DIR);
 
+    if (kitbookDirectory) {
+      const files = fs.readdirSync(kitbookDirectory);
+      const hasFiles = files.length > 0;
+      if (hasFiles) return;
+    }
+
     if (!kitbookDirectory) {
       fs.mkdirSync(DEFAULT_KITBOOK_DIRECTORY);
       kitbookDirectory = DEFAULT_KITBOOK_DIRECTORY;
-      console.log(`${bold}${green}[Kitbook] Added Kitbook route folder to: ${DEFAULT_KITBOOK_DIRECTORY}\n${reset}`);
     }
-
-    const files = fs.readdirSync(kitbookDirectory);
-    if (files.length > 0) return;
     
     const src = 'node_modules/kitbook/dist/routes';
     const destination = kitbookDirectory;
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles });
-    console.log(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory} which includes customization files for your Kitbook.\n${reset}`);
+    console.log(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. You don't need to touch these.\n${reset}`);
   } catch (e) {
     console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`);
   }
