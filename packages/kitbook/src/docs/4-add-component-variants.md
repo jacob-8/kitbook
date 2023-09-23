@@ -10,10 +10,11 @@ import type Component from './Header.svelte';
 
 export const variants: Variants<Component> = [
   {
-    name: 'Desktop',
+    name: 'Situation A',
     description: 'Describe this variant',
-    width: 800,
-    height: 600,
+    viewports: [
+      { name: 'Desktop', width: 800, height: 600 },
+    ],
     props: {
       activeURL: "/",
       githubURL: "https://github.com/jacob-8/kitbook/",
