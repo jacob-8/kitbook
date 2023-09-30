@@ -3,7 +3,8 @@
 ## Important before considering this a publicly usable project
 *(you have been warned, early-adopters)*
 
-- handle can't copy bug
+
+- expose virtual module types properly so that they can be used in other packages
 - automatically analyze component for props
 - variant grid
 

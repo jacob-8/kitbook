@@ -61,7 +61,7 @@
     "standard-version": "^9.5.0",
     "to-vfile": "^7.2.4",
     "typescript": "^5.2.2",
-    "unbuild": "^1.0.2",
+    "unbuild": "^2.0.0",
     "unified": "^10.1.2",
     "vitest": "^0.34.4"
   }

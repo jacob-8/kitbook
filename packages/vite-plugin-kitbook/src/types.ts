@@ -1,3 +1,5 @@
+import { ViewerOptions } from "./viewer/options";
+
 export interface KitbookSettings {
   title: string;
   description: string;
@@ -10,6 +12,7 @@ export interface KitbookSettings {
    * @param {boolean} [options.isKitbookItself] - Don't Use - Only for internal use in the original Kitbook package
    */
   importModuleGlobs?: string[];
+  viewer?: ViewerOptions;
   /**
   * Don't Use - Only for internal use in the original Kitbook package
   */

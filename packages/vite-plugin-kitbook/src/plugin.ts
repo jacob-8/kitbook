@@ -5,16 +5,15 @@ import virtualImportModulesContent from './virtual/importModulesStringified';
 import { RESOLVED_VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, DEFAULT_IMPORT_MODULE_GLOBS, VIRTUAL_SETTINGS_IMPORT_ID, RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID, DEFAULT_VIEWPORTS } from './constants';
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode';
 import { KitbookSettings } from './types';
+import { kitbookViewer } from './viewer';
 
 /**
  * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes wherever you have a folder titled `kitbook` somewhere in your `src/routes` directory. If none exists, `src/routes/kitbook` will be used.
 */
-export function kitbookPlugin(config: KitbookSettings = {title: "Kitbook", description: "Component workbench", viewports: DEFAULT_VIEWPORTS}): Plugin {
+export function kitbookPlugin(config: KitbookSettings = {title: "Kitbook", description: "Component workbench", viewports: DEFAULT_VIEWPORTS}): Plugin[] {
   initKitbook(config.isKitbookItself);
 
-  // const ready = loadKitbookConfig(config);
-
-  return {
+  const plugin: Plugin = {
     name: 'vite-plugin-svelte-kitbook',
     enforce: 'pre',
 
@@ -30,7 +29,6 @@ export function kitbookPlugin(config: KitbookSettings = {title: "Kitbook", descr
     },
 
     load(id) {
-      // const { config } = await ready;
       if (id === RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID) {
         return `export const settings = ${JSON.stringify(config)}`
       }
@@ -40,30 +38,7 @@ export function kitbookPlugin(config: KitbookSettings = {title: "Kitbook", descr
       }
     },
   }
+
+  return [plugin, kitbookViewer(config.viewer)]
 }
 
-// function loadKitbookConfig(_config?: KitbookSettings): Promise<{ config: KitbookSettings, sources: string[] }> {
-//   if (_config) {
-//     return Promise.resolve({
-//       config: _config,
-//       sources: [],
-//     })
-//   }
-
-//   return loadConfig({
-//     sources: [
-//       {
-//         files: 'kitbook.config',
-//         extensions: ['ts', 'js'],
-//       },
-//       // {
-//       //   files: 'vite.config',
-//       //   async rewrite(config) {
-//       //     const resolved = await (typeof config === 'function' ? config() : config)
-//       //     return resolved?.kitbook
-//       //   },
-//       // },
-//     ],
-//     merge: false,
-//   }) as Promise<{ config: KitbookSettings, sources: string[] }>;
-// }
