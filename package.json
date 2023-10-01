@@ -1,6 +1,7 @@
 {
 	"name": "kitbook-monorepo",
 	"version": "0.0.1",
+	"type": "module",
 	"scripts": {
 		"stub": "pnpm -r --filter=./packages/* --parallel run stub",
 		"build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F vite-plugin-kitbook --parallel run build",
@@ -18,21 +19,29 @@
 		"template": "pnpm --filter=template dev",
 		"template:build": "pnpm --filter=template build",
 		"release": "pnpm build:deps && pnpm test && changeset publish",
+		"lint": "eslint . --cache",
 		"check-packages": "pnpm update --interactive --recursive --latest"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.26.2",
-		"@typescript-eslint/eslint-plugin": "^5.60.0",
-		"@typescript-eslint/parser": "^5.60.0",
-		"eslint": "^8.43.0",
-		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-svelte": "^2.31.1",
+    "@antfu/eslint-config": "1.0.0-beta.12",
+    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/parser": "6.7.3",
+    "eslint": "^8.50.0",
+    "eslint-define-config": "^1.23.0",
+    "eslint-plugin-svelte": "^2.33.2",
+    "eslint-plugin-svelte-stylistic": "^0.0.4",
 		"prettier": "^2.8.8",
-		"prettier-plugin-svelte": "^2.10.1",
 		"svelte": "^4.2.0",
+		"lint-staged": "^14.0.1",
+    "simple-git-hooks": "^2.9.0",
 		"typescript": "~5.2.2",
 		"vite": "^4.4.9",
-		"vitest": "^0.34.4"
-	},
-	"type": "module"
+    "vitest": "^0.34.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
 }
