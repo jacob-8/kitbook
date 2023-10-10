@@ -1,5 +1,3 @@
-import { listeners } from './listener.js'
-
 let current_block: undefined | SvelteBlockDetail
 let pointer = 0
 
@@ -29,8 +27,6 @@ export const nodes = {
     else {
       this.root.push(node)
     }
-
-    listeners.add(node, map_anchor)
   },
 
   remove(node: SvelteBlockDetail) {
@@ -44,8 +40,6 @@ export const nodes = {
       node.parent.children = node.parent.children.filter(n => n !== node)
       node.parent = undefined
     }
-
-    listeners.remove(node)
   },
 }
 
@@ -58,8 +52,6 @@ document.addEventListener('SvelteRegisterComponent', ({ detail }) => {
 
     node.detail = component
     node.tagName = tagName
-
-    listeners.update(node)
   }
   else {
     nodes.map.set(component.$$.fragment, {
@@ -113,10 +105,10 @@ document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
             nodes.map.set(block, node)
           }
 
-          Promise.resolve().then(() => {
-            const invalidate = node.detail.$$?.bound || {}
-            Object.keys(invalidate).length && listeners.update(node)
-          })
+          // Promise.resolve().then(() => {
+          //   const invalidate = node.detail.$$?.bound || {}
+          //   Object.keys(invalidate).length && listeners.update(node)
+          // })
           break
         }
       }
@@ -162,7 +154,7 @@ document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
     block.p = (changed, ctx) => {
       const parent = current_block
       current_block = nodes.map.get(current_node_id)
-      current_block && listeners.update(current_block)
+      // current_block && listeners.update(current_block)
 
       original(changed, ctx)
 

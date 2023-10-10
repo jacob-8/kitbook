@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store'
-import { listeners } from './listener.js'
 
 function createNodesStore() {
   const roots: SvelteBlockDetail[] = []
@@ -29,7 +28,7 @@ function createNodesStore() {
       update(nodes => [...nodes, node])
     }
 
-    listeners.add(node, map_anchor)
+    // listeners.add(node, map_anchor)
   }
 
   function remove(node: SvelteBlockDetail) {
@@ -44,7 +43,7 @@ function createNodesStore() {
       node.parent = undefined
     }
 
-    listeners.remove(node)
+    // listeners.remove(node)
   }
 
   return { subscribe, set, add, remove }
