@@ -1,122 +1,141 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
+import type { SvelteComponentTyped } from 'svelte'
 
 interface SvelteDevInternal {
-	version: string;
+  version: string
+}
+
+interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponentTyped<Props, Events, Slots> {
+  $$: {
+    fragment: {
+      c(): void // create
+      d(detaching: boolean): void // destroy
+      // h(): any // hydrate
+      i(): void // intro(local)
+      // o(): void // outro(local) // found in the blocks
+      l(nodes: any[]): void // claim(nodes)
+      m(target: Node, anchor: Node): void // mount
+      p(changed: boolean, ctx: any): void // update
+    }
+  }
 }
 
 declare global {
-	type SvelteComponentDetail = {
-		id: string;
-		options: {
-			$$inline?: boolean;
-			hydrate?: boolean;
-			target?: Element;
-			props?: Record<string, any>;
-		};
-		tagName: string;
-		component: {
-			$$: {
-				fragment: {
-					c(): void;
-					d(detaching: boolean): void;
-					h(): void;
-					l(nodes: any[]): void;
-					m(target: Node, anchor: Node): void;
-					p(changed: boolean, ctx: any): void;
-				};
-			};
-			$$events_def?: {};
-			$$prop_def?: {};
-			$$slot_def?: {};
-			$capture_state(): any;
-		};
-	};
+  interface SvelteComponentDetail {
+    id: 'create_fragment'
+    options: {
+      $$inline?: boolean
+      props?: Record<string, any>
+      hydrate?: boolean
+      target?: Element
+    }
+    tagName: string
+    component: MySvelteComponentTyped<Props, Events, Slots>
+  }
 
-	type SvelteBlockDetail = {
-		id: number;
-		source: string;
-		type:
-			| 'anchor'
-			| 'block'
-			| 'catch'
-			| 'component'
-			| 'each'
-			| 'element'
-			| 'else'
-			| 'if'
-			| 'iteration'
-			| 'key'
-			| 'pending'
-			| 'slot'
-			| 'text'
-			| 'then';
+  interface SvelteBlockDetail {
+    id: number // is 'create_fragment' for a component
+    source: string
+    type:
+    | 'anchor'
+    | 'block'
+    | 'catch'
+    | 'component' // components are registered as components and as blocks
+    | 'each'
+    | 'element'
+    | 'else'
+    | 'if'
+    | 'iteration'
+    | 'key'
+    | 'pending'
+    | 'slot'
+    | 'text'
+    | 'then'
 
-		detail?: any;
-		tagName?: string;
+    detail?: any
+    tagName?: string
 
-		parent?: SvelteBlockDetail;
-		parentBlock?: SvelteBlockDetail;
-		children: SvelteBlockDetail[];
+    parent?: SvelteBlockDetail
+    parentBlock?: SvelteBlockDetail
+    children: SvelteBlockDetail[]
 
-		block: SvelteComponentDetail['component']['$$']['fragment'];
-		ctx: Array<any>; // TODO: do we need this typed?
-	};
+    block: SvelteComponentDetail['component']['$$']['fragment']
+    ctx: Array<any> // TODO: do we need this typed?
+  }
 
-	type SvelteListenerDetail = {
-		node: Node & {
-			__listeners?: Omit<SvelteListenerDetail, 'node'>[];
-		};
-		event: string;
-		handler: EventListenerOrEventListenerObject;
-		modifiers: Array<'capture' | 'preventDefault' | 'stopPropagation' | 'stopImmediatePropagation'>;
-	};
+  type SvelteElementDetail = Node & {
+    claim_order: number
+    __svelte_meta?: { // target always has, node will have unless it is a text node
+      loc: {
+        file: string // this will tell the component
+        line: number
+        column: number
+        char: number
+      }
+    }
+    hydrate_init: boolean
+    actual_end_child?: any
+  }
 
-	interface DocumentEventMap {
-		SvelteRegisterComponent: CustomEvent<SvelteDevInternal & SvelteComponentDetail>;
+  interface SvelteListenerDetail {
+    node: Node & {
+      __listeners?: Omit<SvelteListenerDetail, 'node'>[]
+    }
+    event: string
+    handler: EventListenerOrEventListenerObject
+    modifiers: Array<'capture' | 'preventDefault' | 'stopPropagation' | 'stopImmediatePropagation'>
+  }
 
-		SvelteRegisterBlock: CustomEvent<SvelteDevInternal & SvelteBlockDetail>;
+  interface DocumentEventMap {
+    SvelteRegisterComponent: CustomEvent<SvelteDevInternal & SvelteComponentDetail>
 
-		SvelteDOMInsert: CustomEvent<SvelteDevInternal & { target: Node; node: Node; anchor?: Node }>;
-		SvelteDOMRemove: CustomEvent<SvelteDevInternal & { node: Node }>;
+    SvelteRegisterBlock: CustomEvent<SvelteDevInternal & SvelteBlockDetail>
 
-		SvelteDOMAddEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>;
-		SvelteDOMRemoveEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>;
+    SvelteDOMInsert: CustomEvent<SvelteDevInternal & {
+      node: SvelteElementDetail
+      target: SvelteElementDetail
+      anchor?: SvelteElementDetail // usually null
+    }>
+    SvelteDOMRemove: CustomEvent<SvelteDevInternal & { node: Node }>
 
-		SvelteDOMSetAttribute: CustomEvent<
-			SvelteDevInternal & {
-				node: Element;
-				attribute: string;
-				value?: string;
-			}
-		>;
-		SvelteDOMRemoveAttribute: CustomEvent<
-			SvelteDevInternal & {
-				node: Element;
-				attribute: string;
-			}
-		>;
-		SvelteDOMSetProperty: CustomEvent<
-			SvelteDevInternal & {
-				node: Element;
-				property: string;
-				value?: any;
-			}
-		>;
-		SvelteDOMSetDataset: CustomEvent<
-			SvelteDevInternal & {
-				node: HTMLElement;
-				property: string;
-				value?: any;
-			}
-		>;
-		SvelteDOMSetData: CustomEvent<
-			SvelteDevInternal & {
-				node: Text;
-				data: unknown;
-			}
-		>;
-	}
+    SvelteDOMAddEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>
+    SvelteDOMRemoveEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>
+
+    SvelteDOMSetAttribute: CustomEvent<
+      SvelteDevInternal & {
+        node: Element
+        attribute: string
+        value?: string
+      }
+    >
+    SvelteDOMRemoveAttribute: CustomEvent<
+      SvelteDevInternal & {
+        node: Element
+        attribute: string
+      }
+    >
+    SvelteDOMSetProperty: CustomEvent<
+      SvelteDevInternal & {
+        node: Element
+        property: string
+        value?: any
+      }
+    >
+    SvelteDOMSetDataset: CustomEvent<
+      SvelteDevInternal & {
+        node: HTMLElement
+        property: string
+        value?: any
+      }
+    >
+    SvelteDOMSetData: CustomEvent<
+      SvelteDevInternal & {
+        node: Text
+        data: unknown
+      }
+    >
+  }
 }
 
-export {};
+export { }
