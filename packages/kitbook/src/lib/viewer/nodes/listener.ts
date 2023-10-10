@@ -13,14 +13,3 @@ export const listeners = {
     nodes.forEach(({ remove }) => remove(node))
   },
 }
-
-export function addListener(listener: typeof nodes[number]) {
-  nodes.push(listener)
-}
-
-export function removeListener(listener: typeof nodes[number]) {
-  const index = nodes.indexOf(listener)
-  if (index === -1)
-    return false
-  return !!nodes.splice(index, 1)
-}

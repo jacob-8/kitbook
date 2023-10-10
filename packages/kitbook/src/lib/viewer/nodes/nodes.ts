@@ -13,7 +13,7 @@ export const nodes = {
     this.map.set(node.detail, node)
 
     let map_target = target && this.map.get(target)
-    if (!map_target || map_target.parentBlock != node.parentBlock)
+    if (!map_target || map_target.parentBlock !== node.parentBlock)
       map_target = node.parentBlock
 
     node.parent = map_target
@@ -47,10 +47,6 @@ export const nodes = {
 
     listeners.remove(node)
   },
-}
-
-export function getNode(id: number | Node) {
-  return nodes.map.get(id)
 }
 
 document.addEventListener('SvelteRegisterComponent', ({ detail }) => {

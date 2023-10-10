@@ -1,7 +1,7 @@
 export interface ViewerOptions {
 	/**
 	 * define a key combo to toggle inspector,
-	 * @default 'meta-shift' on mac, 'control-shift' on other os
+	 * @default 'alt-shift'
 	 *
 	 * any number of modifiers `control` `shift` `alt` `meta` followed by zero or one regular key, separated by -
 	 * examples: control-shift, control-o, control-alt-s  meta-x control-meta
@@ -69,7 +69,7 @@ export interface ViewerOptions {
 }
 
 export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
-	toggleKeyCombo: process.platform === 'darwin' ? 'meta-shift' : 'control-shift',
+	toggleKeyCombo: 'alt-shift',
 	navKeys: { parent: 'ArrowUp', child: 'ArrowDown', next: 'ArrowRight', prev: 'ArrowLeft' },
 	openKey: 'Enter',
 	holdMode: true,

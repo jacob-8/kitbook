@@ -1,25 +1,21 @@
 <script lang="ts">
-  import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
-  import { onMount } from 'svelte'
-  // import { components } from './nodes'
-  // import { hovered, root, selected, visibility } from './nodes/store'
-  import Node from './nodes/Node.svelte'
-  import { nodes } from './nodes/nodes'
+  import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook';
+  import { onMount } from 'svelte';
+  import Node from './nodes/Node.svelte';
+  import { nodes } from './nodes/nodes';
+  import Targeting from './Targeting.svelte';
 
-  export let options: ViewerOptions = {}
-  let roots: SvelteBlockDetail[] = []
+  export let options: ViewerOptions = {};
+  // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
+
+  let roots: SvelteBlockDetail[] = [];
+  let targeting = false;
 
   onMount(() => {
-    document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
-    // console.log({ block: detail, id: detail.id, type: detail.type })
-      // blocks = [...blocks, detail]
-      // if (detail.type === 'component') {
-    })
-    document.addEventListener('SvelteDOMInsert', ({ detail }) => {
-    // console.log({ el: detail })
-    // elements = [...elements, detail]
-    })
-  })
+    setTimeout(() => {
+      roots = nodes.root;
+    }, 1000);
+  });
 </script>
 
 <div class="fixed right-0 bottom-0 top-0 w-30vw border-2 border-red bg-white overflow-y-auto">
@@ -33,16 +29,22 @@
   <button
     type="button"
     on:click={() => {
-      roots = nodes.root
-      console.log(nodes)
-    }}>Log nodes</button>
-
-  <!-- {#each $components as { tagName, options: { props } }}
-    <div>
-      <b>{tagName}</b>
-      {#if props}
-        <div class="ml-2">Props: {Object.keys(props).join(', ')}</div>
-      {/if}
-    </div>
-  {/each} -->
+      roots = nodes.root;
+      console.log(nodes);
+    }}>Log nodes</button
+  >
+  <button type="button" class="block" on:click={() => (targeting = !targeting)}> Toggle targeting</button>
 </div>
+
+{#if targeting}
+  <Targeting viteBase={options.__internal.base} />
+{/if}
+
+<svelte:window 
+on:keydown={(event) => {
+  if (event.altKey && event.shiftKey) targeting = true;
+}}
+on:keyup={(event) => {
+  console.log({alt: event.altKey})
+  targeting = event.altKey && event.shiftKey;
+}} />

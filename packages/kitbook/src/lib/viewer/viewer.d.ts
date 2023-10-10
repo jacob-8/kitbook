@@ -66,16 +66,22 @@ declare global {
 
   type SvelteElementDetail = Node & {
     claim_order: number
-    __svelte_meta?: { // target always has, node will have unless it is a text node
-      loc: {
-        file: string // this will tell the component
-        line: number
-        column: number
-        char: number
-      }
-    }
+    __svelte_meta?: SvelteMeta // target always has, node will have unless it is a text node
     hydrate_init: boolean
     actual_end_child?: any
+  }
+
+  type SvelteHTMLElement = HTMLElement & {
+    __svelte_meta?: SvelteMeta
+  }
+
+  type SvelteMeta = {
+    loc: {
+      file: string
+      line: number
+      column: number
+      char: number
+    }
   }
 
   interface SvelteListenerDetail {

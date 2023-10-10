@@ -19,6 +19,11 @@ type DebugNode = Omit<SvelteBlockDetail, 'parent' | 'children'> & {
   children: DebugNode[]
   dom?: HTMLLIElement
 }
-export const selected = writable<SvelteBlockDetail>()
-export const hovered = writable<SvelteBlockDetail>(undefined)
+
 export const root = writable<DebugNode[]>([])
+
+export const selected = writable<SvelteBlockDetail>()
+export const hovered = writable<SvelteBlockDetail>()
+
+export const selectedElement = writable<SvelteHTMLElement>()
+export const hoveredElement = writable<SvelteHTMLElement>()

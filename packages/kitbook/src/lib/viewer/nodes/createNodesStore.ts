@@ -12,7 +12,7 @@ function createNodesStore() {
     map.set(node.detail, node)
 
     let map_target = target && map.get(target)
-    if (!map_target || map_target.parentBlock != node.parentBlock)
+    if (!map_target || map_target.parentBlock !== node.parentBlock)
       map_target = node.parentBlock
 
     node.parent = map_target
