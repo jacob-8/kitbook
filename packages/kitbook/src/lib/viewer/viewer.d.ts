@@ -84,15 +84,6 @@ declare global {
     }
   }
 
-  interface SvelteListenerDetail {
-    node: Node & {
-      __listeners?: Omit<SvelteListenerDetail, 'node'>[]
-    }
-    event: string
-    handler: EventListenerOrEventListenerObject
-    modifiers: Array<'capture' | 'preventDefault' | 'stopPropagation' | 'stopImmediatePropagation'>
-  }
-
   interface DocumentEventMap {
     SvelteRegisterComponent: CustomEvent<SvelteDevInternal & SvelteComponentDetail>
 
@@ -104,9 +95,6 @@ declare global {
       anchor?: SvelteElementDetail // usually null
     }>
     SvelteDOMRemove: CustomEvent<SvelteDevInternal & { node: Node }>
-
-    SvelteDOMAddEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>
-    SvelteDOMRemoveEventListener: CustomEvent<SvelteDevInternal & SvelteListenerDetail>
 
     SvelteDOMSetAttribute: CustomEvent<
       SvelteDevInternal & {

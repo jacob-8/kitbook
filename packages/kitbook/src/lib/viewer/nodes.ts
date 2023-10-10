@@ -66,10 +66,4 @@ function setup(root: Document) {
   })
   // root.addEventListener('SvelteDOMInsert', svelteDOMInsert)
   // root.addEventListener('SvelteDOMRemove', svelteDOMRemove)
-  // root.addEventListener('SvelteDOMAddEventListener', svelteDOMAddEventListener)
-  // root.addEventListener('SvelteDOMRemoveEventListener', svelteDOMRemoveEventListener)
-  // root.addEventListener('SvelteDOMSetData', svelteUpdateNode)
-  // root.addEventListener('SvelteDOMSetProperty', svelteUpdateNode)
-  // root.addEventListener('SvelteDOMSetAttribute', svelteUpdateNode)
-  // root.addEventListener('SvelteDOMRemoveAttribute', svelteUpdateNode)
 }

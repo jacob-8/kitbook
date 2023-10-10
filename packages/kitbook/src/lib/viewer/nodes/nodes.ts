@@ -123,19 +123,19 @@ document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
 
       if (type === 'each') {
         const group
-					= (parent && nodes.map.get(parent.id + id))
+          = (parent && nodes.map.get(parent.id + id))
 					/** @type {SvelteBlockDetail} */ || ({
-					  version: '',
-					  id: pointer++,
-					  type: 'block',
-					  tagName: 'each',
-					  parentBlock: parent,
-					  children: [],
-					  detail: {
-					    ctx: {},
-					    source: detail.source,
-					  },
-					})
+            version: '',
+            id: pointer++,
+            type: 'block',
+            tagName: 'each',
+            parentBlock: parent,
+            children: [],
+            detail: {
+              ctx: {},
+              source: detail.source,
+            },
+          })
         parent && nodes.map.set(parent.id + id, group)
         nodes.add({ node: group, target, anchor })
 
@@ -191,11 +191,11 @@ document.addEventListener('SvelteDOMInsert', ({ detail }) => {
 
   function deep_insert({ node: element, target, anchor }: Omit<DocumentEventMap['SvelteDOMInsert']['detail'], 'version'>) {
     const type
-			= element.nodeType === Node.ELEMENT_NODE
-			  ? 'element'
-			  : element.nodeValue && element.nodeValue !== ' '
-			    ? 'text'
-			    : 'anchor'
+      = element.nodeType === Node.ELEMENT_NODE
+        ? 'element'
+        : element.nodeValue && element.nodeValue !== ' '
+          ? 'text'
+          : 'anchor'
 
     nodes.add({
       anchor,
@@ -223,53 +223,3 @@ document.addEventListener('SvelteDOMRemove', ({ detail }) => {
     nodes.remove(node)
 })
 
-document.addEventListener('SvelteDOMAddEventListener', ({ detail }) => {
-  const { node, ...rest } = detail
-  node.__listeners = node.__listeners || []
-  node.__listeners.push(rest)
-})
-
-document.addEventListener('SvelteDOMRemoveEventListener', ({ detail }) => {
-  const { node, event, handler, modifiers } = detail
-  if (!node.__listeners || node.__listeners.length)
-    return
-  node.__listeners = node.__listeners.filter(
-    l => l.event !== event || l.handler !== handler || l.modifiers !== modifiers,
-  )
-})
-
-document.addEventListener('SvelteDOMSetData', ({ detail }) => {
-  const node = nodes.map.get(detail.node)
-  if (!node)
-    return
-  if (node.type === 'anchor')
-    node.type = 'text'
-  listeners.update(node)
-})
-
-document.addEventListener('SvelteDOMSetProperty', ({ detail }) => {
-  const node = nodes.map.get(detail.node)
-  if (!node)
-    return
-  if (node.type === 'anchor')
-    node.type = 'text'
-  listeners.update(node)
-})
-
-document.addEventListener('SvelteDOMSetAttribute', ({ detail }) => {
-  const node = nodes.map.get(detail.node)
-  if (!node)
-    return
-  if (node.type === 'anchor')
-    node.type = 'text'
-  listeners.update(node)
-})
-
-document.addEventListener('SvelteDOMRemoveAttribute', ({ detail }) => {
-  const node = nodes.map.get(detail.node)
-  if (!node)
-    return
-  if (node.type === 'anchor')
-    node.type = 'text'
-  listeners.update(node)
-})

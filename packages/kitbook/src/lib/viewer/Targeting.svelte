@@ -7,7 +7,7 @@
     if (element === $hoveredElement) return;
     if ($hoveredElement) $hoveredElement.classList.remove('kitbook-viewer-active-target');
 
-    $hoveredElement = element
+    $hoveredElement = element;
     $hoveredElement.classList.add('kitbook-viewer-active-target');
   }
 
@@ -17,8 +17,8 @@
     return () => {
       document.body.classList.remove('crosshairs');
       $hoveredElement?.classList.remove('kitbook-viewer-active-target');
-      $hoveredElement = null
-      
+      $hoveredElement = null;
+
       $selectedElement = null;
     };
   });
@@ -59,6 +59,16 @@
   :global(.kitbook-viewer-active-target) {
     outline: 2px dashed #ff3e00 !important;
   }
+  /* :global(.kitbook-viewer-active-target::before) {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(255, 0, 0, 0.5);
+    z-index: 1;
+  } */
 
   :global(.crosshairs) {
     cursor: crosshair !important;

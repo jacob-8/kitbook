@@ -9,7 +9,7 @@
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
   let roots: SvelteBlockDetail[] = [];
-  let targeting = false;
+  let targeting = true;
 
   onMount(() => {
     setTimeout(() => {
@@ -18,33 +18,30 @@
   });
 </script>
 
-<div class="fixed right-0 bottom-0 top-0 w-30vw border-2 border-red bg-white overflow-y-auto">
-  <ul>
+{#if targeting}
+  <div class="fixed right-0 bottom-0 top-0 w-30vw border-2 border-red bg-white overflow-y-auto flex flex-col">
     {#each roots as node (node.id)}
       {#if node.tagName !== 'Viewer'}
         <Node {node} />
       {/if}
     {/each}
-  </ul>
-  <button
-    type="button"
-    on:click={() => {
-      roots = nodes.root;
-      console.log(nodes);
-    }}>Log nodes</button
-  >
-  <button type="button" class="block" on:click={() => (targeting = !targeting)}> Toggle targeting</button>
-</div>
+    <button
+      type="button"
+      on:click={() => {
+        roots = nodes.root;
+        console.log(nodes);
+      }}>Log nodes</button
+    >
+  </div>
 
-{#if targeting}
   <Targeting viteBase={options.__internal.base} />
 {/if}
 
-<svelte:window 
-on:keydown={(event) => {
-  if (event.altKey && event.shiftKey) targeting = true;
-}}
-on:keyup={(event) => {
-  console.log({alt: event.altKey})
-  targeting = event.altKey && event.shiftKey;
-}} />
+<svelte:window
+  on:keydown={(event) => {
+    if (event.altKey && event.shiftKey) targeting = !targeting;
+  }}
+  on:keyup={(event) => {
+    // targeting = event.altKey && event.shiftKey;
+  }}
+/>

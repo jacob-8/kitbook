@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
   import Indexer from './Indexer.svelte'
   import { hovered, selected } from './store'
 
@@ -9,7 +8,6 @@
 
   $: isSelected = $selected?.id === node.id
   $: isHovered = $hovered?.id === node.id
-
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
