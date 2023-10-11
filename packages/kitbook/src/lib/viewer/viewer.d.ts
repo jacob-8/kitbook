@@ -1,16 +1,16 @@
 /// <reference types="svelte" />
 /// <reference types="vite/client" />
-import type { SvelteComponentTyped } from 'svelte'
+import type { SvelteComponent } from 'svelte'
 
 interface SvelteDevInternal {
   version: string
 }
 
-interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponentTyped<Props, Events, Slots> {
+interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponent<Props, Events, Slots> {
   $$: {
     fragment: {
       m(target: Node, anchor: Node): void // mount
-      p(changed: boolean, ctx: any): void // update
+      p(ctx: any, dirty: boolean): void // update
       d(detaching: boolean): void // destroy
 
       // we only use the functions above but the ones below also exist in certain contexts

@@ -1,7 +1,8 @@
 <script lang="ts">
-  export let name: string
+  export let firstname: string
+  export let lastname: string
 </script>
 
-<div>Bam start {name}</div>
+<div>Bam name: {firstname} {lastname}</div>
 <slot />
 <div>Bam!</div>

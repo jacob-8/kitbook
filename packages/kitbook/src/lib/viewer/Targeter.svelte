@@ -7,35 +7,26 @@
     selectedElement,
   } from './tree/active'
   import { componentsWithChildren, elementsToParentComponent } from './tree/nodes'
-  import Props from './Props.Svelte'
-
-  let hoveredComponentBounds: {
-    top: number
-    right: number
-    bottom: number
-    left: number
-  }
-  let hoveredComponentDetail: SvelteComponentDetail
+  import Props from './Props.svelte'
+  import HighlightBounds from './focused/HighlightBounds.svelte'
 
   onMount(() => {
     document.body.classList.add('crosshairs')
     return () => {
       document.body.classList.remove('crosshairs')
-      removeHoverStateAndClasses()
-      $selectedElement = null
-      $selectedComponent = null
+      removeHover()
+      removeSelect()
     }
   })
 
-  function removeHoverStateAndClasses() {
+  function removeHover() {
     $hoveredElement = null
     $hoveredComponent = null
-    removeHoverClasses()
   }
 
-  function removeHoverClasses() {
-    hoveredComponentBounds = null
-    hoveredComponentDetail = null
+  function removeSelect() {
+    $selectedElement = null
+    $selectedComponent = null
   }
 
   function hover(element: SvelteElementDetail) {
@@ -43,47 +34,17 @@
       return
 
     $hoveredElement = element
-    $hoveredComponent = $elementsToParentComponent.get(element)
-  }
-
-  $: if (!$hoveredComponent)
-    removeHoverClasses()
-
-  $: if ($hoveredComponent)
-    updateHoveredComponentDisplay()
-
-  function updateHoveredComponentDisplay() {
-    removeHoverClasses()
-
-    const component = $componentsWithChildren.get($hoveredComponent)
-    hoveredComponentDetail = component.componentDetail
-
-    const bounds = {
-      top: 50000,
-      right: 50000,
-      bottom: 50000,
-      left: 50000,
-    }
-
-    const { clientWidth, clientHeight } = document.documentElement
-    const offset = window.scrollY
-
-    for (const element of component.childElements) {
-      const rect = element.getBoundingClientRect()
-      bounds.top = Math.min(bounds.top, offset + rect.top)
-      bounds.right = Math.min(bounds.right, clientWidth - rect.right)
-      bounds.bottom = Math.min(bounds.bottom, clientHeight - rect.bottom)
-      bounds.left = Math.min(bounds.left, rect.left)
-    }
-
-    hoveredComponentBounds = bounds
+    const hoveredFragment = $elementsToParentComponent.get(element)
+    $hoveredComponent = $componentsWithChildren.get(hoveredFragment)
   }
 
   function select(element: SvelteElementDetail) {
     if (!isSelectable(element))
       return
+
     $selectedElement = element
-    $selectedComponent = $elementsToParentComponent.get(element)
+    const selectedFragment = $elementsToParentComponent.get(element)
+    $selectedComponent = $componentsWithChildren.get(selectedFragment)
   }
 
   function isSelectable(element: SvelteElementDetail) {
@@ -96,6 +57,9 @@
   let labelWidth: number
   let mouseX: number
   let mouseY: number
+
+  $: hoveredFile = $hoveredComponent?.childElements.values().next().value as SvelteElementDetail
+  $: friendlyFileName = hoveredFile?.__svelte_meta?.loc?.file.split('src/').pop()
 </script>
 
 <svelte:body
@@ -108,34 +72,30 @@
     hover(target)
   }}
   on:mouseleave={() => {
-    removeHoverStateAndClasses()
+    removeHover()
   }}
   on:mousemove={({ x, y }) => {
     mouseX = x
     mouseY = y
   }} />
 
-{#if hoveredComponentBounds}
-  <div
-    class="fixed outline-3 outline-dashed outline-gray-300 bg-gray-500/10 pointer-events-none"
-    style="
-      top: {hoveredComponentBounds.top}px;
-        right: {hoveredComponentBounds.right}px;
-        bottom: {hoveredComponentBounds.bottom}px;
-        left: {hoveredComponentBounds.left}px;
-    " />
+{#if $selectedComponent}
+  <HighlightBounds elementsToHighlight={$selectedComponent.childElements} color="blue" />
 {/if}
 
-{#if hoveredComponentDetail}
+{#if $hoveredComponent}
+  {#if $selectedComponent !== $hoveredComponent}
+    <HighlightBounds elementsToHighlight={$hoveredComponent.childElements} />
+  {/if}
   <div
     style:left="{Math.min(mouseX + 10, document.documentElement.clientWidth - labelWidth - 10)}px"
     style:top="{document.documentElement.clientHeight < mouseY + 50 ? mouseY - 10 : mouseY + 10}px"
     bind:offsetWidth={labelWidth}
     class="fixed bg-#000000cc text-white py-2px px-1 rounded z-9999999 pointer-events-none">
     <div>
-      {hoveredComponentDetail.tagName}
+      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{friendlyFileName}</span>
     </div>
-    <Props props={hoveredComponentDetail.options.props} />
+    <Props props={$hoveredComponent.componentDetail.options.props} />
   </div>
 {/if}
 

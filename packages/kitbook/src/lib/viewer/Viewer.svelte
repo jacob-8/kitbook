@@ -1,8 +1,10 @@
 <script lang="ts">
   import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
-  import { componentsWithChildren } from './tree/nodes'
   import Targeter from './Targeter.svelte'
-  import Component from './tree/Component.svelte'
+  import Tabs from './Tabs.svelte'
+  import { selectedComponent } from './tree/active'
+  import Tree from './tree/Tree.svelte'
+  import Component from './focused/Component.svelte'
 
   export let options: ViewerOptions = {}
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
@@ -19,14 +21,15 @@
 {#if active}
   <Targeter />
 
-  <div class="fixed right-10px bottom-10px rounded max-h-50vh max-w-200px border-2 border-gray bg-white overflow-y-auto flex flex-col">
-    {#each $componentsWithChildren as [_fragment, { componentDetail, childComponents }] (_fragment)}
-      {#if componentDetail.tagName === 'Root'}
-        {#each childComponents as componentFragment (componentFragment)}
-          <Component {componentFragment} componentsWithChildren={$componentsWithChildren} />
-        {/each}
-      {/if}
-    {/each}
+  <div class="fixed right-10px bottom-10px rounded max-h-50vh max-w-200px border border-gray bg-white overflow-y-auto flex flex-col">
+    <Tabs activeTab={$selectedComponent ? 'second' : 'first'}>
+      <svelte:fragment slot="first">
+        <Tree />
+      </svelte:fragment>
+      <svelte:fragment slot="second">
+        <Component />
+      </svelte:fragment>
+    </Tabs>
   </div>
 {/if}
 
@@ -34,6 +37,8 @@
   on:keydown={(event) => {
     if (event.altKey && event.shiftKey)
       active = !active
+    if (event.key === 'Escape')
+      active = false
   }} />
 
 <!-- on:keyup={(event) => {

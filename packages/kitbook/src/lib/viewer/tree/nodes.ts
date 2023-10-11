@@ -130,14 +130,14 @@ document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
     // update
     if (block.p) {
       const original = block.p
-      block.p = (changed, ctx) => {
+      block.p = (ctx, dirty) => {
         // store current parent in memory
         const parentComponentFragment = currentParentFragment
         // temporarily set currentParentFragment to this component
         currentParentFragment = block
 
         // run the update
-        original(changed, ctx)
+        original(ctx, dirty)
 
         // then reset the parent back to what it was
         currentParentFragment = parentComponentFragment
@@ -168,6 +168,7 @@ document.addEventListener('SvelteRegisterBlock', ({ detail }) => {
       const original = block.d
       block.d = (detaching) => {
         lastAwaitFragment = awaitFragmentsToParentComponent.get(block)
+        awaitFragmentsToParentComponent.delete(block)
         original(detaching)
       }
     }

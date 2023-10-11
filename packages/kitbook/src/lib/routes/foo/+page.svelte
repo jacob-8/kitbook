@@ -10,14 +10,14 @@
 <main>
   {#each numbers as number}
     <div>{number}</div>
-    <Bam name={number.toString()}>
+    <Bam firstname="John" lastname={`Man${number}`}>
       <div>Inside {number}</div>
     </Bam>
   {/each}
   <div>Hi</div>
 
-  <div class="w-400px bg-gray-100 ml-10">
-    <Bam name="individual">
+  <div class="w-400px bg-orange-100 ml-10">
+    <Bam firstname="John" lastname="Individual">
       <div>Inside bam</div>
     </Bam>
   </div>

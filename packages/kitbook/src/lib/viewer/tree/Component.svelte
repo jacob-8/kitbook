@@ -6,8 +6,8 @@
   export let componentsWithChildren: Map<ComponentFragment, ComponentWithChildren>
   $: component = componentsWithChildren.get(componentFragment)
 
-  $: isSelected = $selectedComponent === componentFragment
-  $: isHovered = $hoveredComponent === componentFragment
+  $: isSelected = $selectedComponent === component
+  $: isHovered = $hoveredComponent === component
 </script>
 
 {#if component}
@@ -18,8 +18,8 @@
     title={JSON.stringify(Object.keys(component.componentDetail.options.props), null, 2)}
     class:bg-gray-200={isHovered}
     class:bg-blue-100={isSelected}
-    on:click={() => $selectedComponent = componentFragment}
-    on:mouseover={() => $hoveredComponent = componentFragment}
+    on:click={() => $selectedComponent = component}
+    on:mouseover={() => $hoveredComponent = component}
     on:mouseout={() => $hoveredComponent = null}>
     {component.componentDetail.tagName}
   </div>
