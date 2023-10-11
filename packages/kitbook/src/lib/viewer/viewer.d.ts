@@ -9,19 +9,29 @@ interface SvelteDevInternal {
 interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponentTyped<Props, Events, Slots> {
   $$: {
     fragment: {
-      c(): void // create
-      d(detaching: boolean): void // destroy
-      // h(): any // hydrate
-      i(): void // intro(local)
-      // o(): void // outro(local) // found in the blocks
-      l(nodes: any[]): void // claim(nodes)
       m(target: Node, anchor: Node): void // mount
       p(changed: boolean, ctx: any): void // update
+      d(detaching: boolean): void // destroy
+      // we only use the functions above but the ones below also exist in certain contexts
+      // c(): void // create
+      // h(): any // hydrate
+      // i(): void // intro(local)
+      // o(): void // outro(local) // found in the blocks
+      // l(nodes: any[]): void // claim(nodes)
     }
   }
 }
 
 declare global {
+  interface ComponentWithChildren {
+    componentDetail: SvelteComponentDetail
+    parentComponent?: ComponentFragment
+    childComponents: Set<ComponentFragment>
+    childElements: Set<SvelteElementDetail>
+  }
+
+  type ComponentFragment = SvelteComponentDetail['component']['$$']['fragment']
+
   interface SvelteComponentDetail {
     id: 'create_fragment'
     options: {
@@ -35,38 +45,30 @@ declare global {
   }
 
   interface SvelteBlockDetail {
-    id: number // is 'create_fragment' for a component
+    version: string
+    id: string
     source: string
+    block: ComponentFragment
+    ctx: Array<any>
     type:
     | 'anchor'
     | 'block'
-    | 'catch'
     | 'component' // components are registered as components and as blocks
     | 'each'
     | 'element'
     | 'else'
     | 'if'
-    | 'iteration'
     | 'key'
-    | 'pending'
     | 'slot'
     | 'text'
+    | 'pending' // await
     | 'then'
-
-    detail?: any
-    tagName?: string
-
-    parent?: SvelteBlockDetail
-    parentBlock?: SvelteBlockDetail
-    children: SvelteBlockDetail[]
-
-    block: SvelteComponentDetail['component']['$$']['fragment']
-    ctx: Array<any> // TODO: do we need this typed?
+    | 'catch'
   }
 
   type SvelteElementDetail = Node & {
     claim_order: number
-    __svelte_meta?: SvelteMeta // target always has, node will have unless it is a text node
+    __svelte_meta?: SvelteMeta // nodes of element type will have, nodes of text type won't
     hydrate_init: boolean
     actual_end_child?: any
   }
@@ -75,7 +77,7 @@ declare global {
     __svelte_meta?: SvelteMeta
   }
 
-  type SvelteMeta = {
+  interface SvelteMeta {
     loc: {
       file: string
       line: number
@@ -86,50 +88,14 @@ declare global {
 
   interface DocumentEventMap {
     SvelteRegisterComponent: CustomEvent<SvelteDevInternal & SvelteComponentDetail>
-
     SvelteRegisterBlock: CustomEvent<SvelteDevInternal & SvelteBlockDetail>
-
     SvelteDOMInsert: CustomEvent<SvelteDevInternal & {
       node: SvelteElementDetail
       target: SvelteElementDetail
       anchor?: SvelteElementDetail // usually null
     }>
-    SvelteDOMRemove: CustomEvent<SvelteDevInternal & { node: Node }>
-
-    SvelteDOMSetAttribute: CustomEvent<
-      SvelteDevInternal & {
-        node: Element
-        attribute: string
-        value?: string
-      }
-    >
-    SvelteDOMRemoveAttribute: CustomEvent<
-      SvelteDevInternal & {
-        node: Element
-        attribute: string
-      }
-    >
-    SvelteDOMSetProperty: CustomEvent<
-      SvelteDevInternal & {
-        node: Element
-        property: string
-        value?: any
-      }
-    >
-    SvelteDOMSetDataset: CustomEvent<
-      SvelteDevInternal & {
-        node: HTMLElement
-        property: string
-        value?: any
-      }
-    >
-    SvelteDOMSetData: CustomEvent<
-      SvelteDevInternal & {
-        node: Text
-        data: unknown
-      }
-    >
+    SvelteDOMRemove: CustomEvent<SvelteDevInternal & {
+      node: SvelteElementDetail
+    }>
   }
 }
-
-export { }
