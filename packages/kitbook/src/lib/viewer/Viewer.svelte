@@ -2,20 +2,14 @@
   import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
   import Targeter from './Targeter.svelte'
   import Tabs from './Tabs.svelte'
-  import { selectedComponent } from './tree/active'
+  import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
   import Component from './focused/Component.svelte'
 
   export let options: ViewerOptions = {}
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
-  // viteBase={options.__internal.base}
-  // const { file, line, column } = element.__svelte_meta.loc;
-  // const file_loc = `${file}:${line + 1}:${column + 1}`;
-  // if (file_loc) {
-  //   fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`);
-  // }
 
-  let active = true
+  let active = false
 </script>
 
 {#if active}
@@ -27,7 +21,7 @@
         <Tree />
       </svelte:fragment>
       <svelte:fragment slot="second">
-        <Component />
+        <Component viteBase={options.__internal.viteBase} kitbookRoot={options.__internal.kitbookRoot} />
       </svelte:fragment>
     </Tabs>
   </div>

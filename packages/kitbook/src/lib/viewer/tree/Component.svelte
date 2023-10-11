@@ -1,6 +1,6 @@
 <script lang="ts">
   // import Element from './Element.svelte'
-  import { hoveredComponent, selectedComponent } from './active'
+  import { hoveredComponent, selectedComponent } from '../focused/active'
 
   export let componentFragment: ComponentFragment
   export let componentsWithChildren: Map<ComponentFragment, ComponentWithChildren>
@@ -8,21 +8,27 @@
 
   $: isSelected = $selectedComponent === component
   $: isHovered = $hoveredComponent === component
+
+  $: hasElements = component?.childElements.size > 0
 </script>
 
 {#if component}
   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div
-    class="w-full px-2"
-    title={JSON.stringify(Object.keys(component.componentDetail.options.props), null, 2)}
-    class:bg-gray-200={isHovered}
+  <button
+    type="button"
+    disabled={!hasElements}
+    class="w-full text-left px-2"
+    class:font-italic={!hasElements}
+    class:bg-gray-200={isHovered && hasElements}
     class:bg-blue-100={isSelected}
     on:click={() => $selectedComponent = component}
-    on:mouseover={() => $hoveredComponent = component}
+    on:mouseover={() => {
+      if (hasElements)
+        $hoveredComponent = component
+    }}
     on:mouseout={() => $hoveredComponent = null}>
     {component.componentDetail.tagName}
-  </div>
+  </button>
   <div class="ml-3">
     <!-- {#each component.childElements as element}
       <Element {element} />

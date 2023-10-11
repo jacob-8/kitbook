@@ -5,10 +5,11 @@
     hoveredElement,
     selectedComponent,
     selectedElement,
-  } from './tree/active'
+  } from './focused/active'
   import { componentsWithChildren, elementsToParentComponent } from './tree/nodes'
-  import Props from './Props.svelte'
+  // import Props from './Props.svelte'
   import HighlightBounds from './focused/HighlightBounds.svelte'
+  import { getFirstElementFilename } from './focused/filename'
 
   onMount(() => {
     document.body.classList.add('crosshairs')
@@ -57,9 +58,6 @@
   let labelWidth: number
   let mouseX: number
   let mouseY: number
-
-  $: hoveredFile = $hoveredComponent?.childElements.values().next().value as SvelteElementDetail
-  $: friendlyFileName = hoveredFile?.__svelte_meta?.loc?.file.split('src/').pop()
 </script>
 
 <svelte:body
@@ -93,9 +91,9 @@
     bind:offsetWidth={labelWidth}
     class="fixed bg-#000000cc text-white py-2px px-1 rounded z-9999999 pointer-events-none">
     <div>
-      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{friendlyFileName}</span>
+      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getFirstElementFilename($hoveredComponent).split('src/').pop()}</span>
     </div>
-    <Props props={$hoveredComponent.componentDetail.options.props} />
+    <!-- <Props props={$hoveredComponent.componentDetail.options.props} /> -->
   </div>
 {/if}
 

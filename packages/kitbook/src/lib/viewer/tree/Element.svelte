@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { hoveredElement, selectedElement } from './active'
+  import { hoveredElement, selectedElement } from '../focused/active'
 
   export let element: SvelteElementDetail
   $: isSelected = $selectedElement === element

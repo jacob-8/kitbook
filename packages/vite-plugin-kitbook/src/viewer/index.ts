@@ -5,7 +5,7 @@ import { DEFAULT_VIEWER_OPTIONS } from './options'
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
-export function kitbookViewer(userChosenOptions: ViewerOptions): Plugin {
+export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself: boolean): Plugin {
   const viewerOptions: ViewerOptions = {
     ...DEFAULT_VIEWER_OPTIONS,
     ...userChosenOptions || {},
@@ -18,7 +18,8 @@ export function kitbookViewer(userChosenOptions: ViewerOptions): Plugin {
 
     configResolved(config) {
       viewerOptions.__internal = {
-        base: config.base?.replace(/\/$/, '') || '',
+        viteBase: config.base?.replace(/\/$/, '') || '',
+        kitbookRoot: isKitbookItself ? '' : '/kitbook',
       }
     },
 

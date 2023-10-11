@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { selectedComponent } from './tree/active'
+  import { selectedComponent } from './focused/active'
 
   export let activeTab: 'first' | 'second' = 'first'
 </script>
