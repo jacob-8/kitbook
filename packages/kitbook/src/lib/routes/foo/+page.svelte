@@ -15,9 +15,12 @@
     </Bam>
   {/each}
   <div>Hi</div>
-  <Bam>
-    <div>Inside bam</div>
-  </Bam>
+
+  <div class="w-400px bg-gray-100 ml-10">
+    <Bam>
+      <div>Inside bam</div>
+    </Bam>
+  </div>
 
   <footer>
     {#await sleep(2000)}

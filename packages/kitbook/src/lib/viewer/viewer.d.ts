@@ -12,6 +12,7 @@ interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponentTy
       m(target: Node, anchor: Node): void // mount
       p(changed: boolean, ctx: any): void // update
       d(detaching: boolean): void // destroy
+
       // we only use the functions above but the ones below also exist in certain contexts
       // c(): void // create
       // h(): any // hydrate
@@ -66,15 +67,11 @@ declare global {
     | 'catch'
   }
 
-  type SvelteElementDetail = Node & {
+  type SvelteElementDetail = Node & HTMLElement & {
     claim_order: number
     __svelte_meta?: SvelteMeta // nodes of element type will have, nodes of text type won't
     hydrate_init: boolean
     actual_end_child?: any
-  }
-
-  type SvelteHTMLElement = HTMLElement & {
-    __svelte_meta?: SvelteMeta
   }
 
   interface SvelteMeta {
@@ -92,7 +89,7 @@ declare global {
     SvelteDOMInsert: CustomEvent<SvelteDevInternal & {
       node: SvelteElementDetail
       target: SvelteElementDetail
-      anchor?: SvelteElementDetail // usually null
+      anchor?: SvelteElementDetail
     }>
     SvelteDOMRemove: CustomEvent<SvelteDevInternal & {
       node: SvelteElementDetail

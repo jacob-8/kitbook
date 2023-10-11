@@ -1,47 +1,90 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { hoveredElement, selectedElement } from './tree/active'
+  import {
+    hoveredComponent,
+    hoveredElement,
+    selectedComponent,
+    selectedElement,
+  } from './tree/active'
   import { componentsWithChildren, elementsToParentComponent } from './tree/nodes'
 
-  export let viteBase: string
+  // export let viteBase: string
+
+  let highlightedComponentBounds: {
+    top: number
+    right: number
+    bottom: number
+    left: number
+  }
 
   onMount(() => {
     document.body.classList.add('crosshairs')
     return () => {
       document.body.classList.remove('crosshairs')
-      $hoveredElement?.classList.remove('kitbook-viewer-active-target')
-      $hoveredElement = null
-
+      removeHoverStateAndClasses()
       $selectedElement = null
+      $selectedComponent = null
     }
   })
 
-  function highlightElement(element: SvelteHTMLElement) {
-    if (element === $hoveredElement)
-      return
-    if ($hoveredElement)
-      $hoveredElement.classList.remove('kitbook-viewer-active-target')
-
-    $hoveredElement = element
-    $hoveredElement.classList.add('kitbook-viewer-active-target')
+  function removeHoverStateAndClasses() {
+    $hoveredElement = null
+    $hoveredComponent = null
+    removeHoverClasses()
   }
 
-  function selectElement(element: SvelteHTMLElement) {
+  function removeHoverClasses() {
+    highlightedComponentBounds = null
+  // for (const element of document.querySelectorAll('.kitbook-viewer-hovered'))
+    //   element.classList.remove('kitbook-viewer-hovered')
+  }
+
+  function highlightElement(element: SvelteElementDetail) {
+    if (element === $hoveredElement)
+      return
+
+    $hoveredElement = element
+    $hoveredComponent = $elementsToParentComponent.get(element)
+  }
+
+  $: if ($hoveredComponent) {
+    removeHoverClasses()
+
+    const componentElements = $componentsWithChildren.get($hoveredComponent).childElements
+
+    const bounds = {
+      top: 50000,
+      right: 50000,
+      bottom: 50000,
+      left: 50000,
+    }
+
+    const { clientWidth, clientHeight } = document.documentElement
+    const offset = window.scrollY
+
+    for (const element of componentElements) {
+      // element.classList.add('kitbook-viewer-hovered')
+      const rect = element.getBoundingClientRect()
+      bounds.top = Math.min(bounds.top, offset + rect.top)
+      bounds.right = Math.min(bounds.right, clientWidth - rect.right)
+      bounds.bottom = Math.min(bounds.bottom, clientHeight - rect.bottom)
+      bounds.left = Math.min(bounds.left, rect.left)
+    }
+
+    highlightedComponentBounds = bounds
+  }
+
+  $: if (!$hoveredComponent)
+    removeHoverClasses()
+
+  function selectElement(element: SvelteElementDetail) {
     if (!isSelectable(element))
       return
     $selectedElement = element
-
-    const componentFragment = $elementsToParentComponent.get(element)
-    console.log({ component: $componentsWithChildren.get(componentFragment).componentDetail.tagName })
-
-  // const { file, line, column } = element.__svelte_meta.loc;
-    // const file_loc = `${file}:${line + 1}:${column + 1}`;
-    // if (file_loc) {
-    //   fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`);
-    // }
+    $selectedComponent = $elementsToParentComponent.get(element)
   }
 
-  function isSelectable(element: SvelteHTMLElement) {
+  function isSelectable(element: SvelteElementDetail) {
     const file = element.__svelte_meta?.loc?.file
     if (!file || file.includes('node_modules/'))
       return false // no file or 3rd party
@@ -57,13 +100,27 @@
   on:mouseover={({ target }) => {
     // @ts-expect-error - not able to add types here because JS
     highlightElement(target)
+  }}
+  on:mouseleave={() => {
+    removeHoverStateAndClasses()
   }} />
 
+{#if highlightedComponentBounds}
+  <div
+    class="fixed outline-3 outline-dashed outline-gray-300 bg-gray-500/10 pointer-events-none"
+    style="
+      top: {highlightedComponentBounds.top}px;
+        right: {highlightedComponentBounds.right}px;
+        bottom: {highlightedComponentBounds.bottom}px;
+        left: {highlightedComponentBounds.left}px;
+    " />
+{/if}
+
 <style>
-  :global(.kitbook-viewer-active-target) {
+  :global(.kitbook-viewer-hovered) {
     outline: 2px dashed #ff3e00 !important;
   }
-  /* :global(.kitbook-viewer-active-target::before) {
+  /* :global(.kitbook-viewer-hovered::before) {
     content: '';
     position: absolute;
     top: 0;
