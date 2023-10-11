@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
   import { componentsWithChildren } from './tree/nodes'
-  import Targeting from './Targeting.svelte'
+  import Targeter from './Targeter.svelte'
   import Component from './tree/Component.svelte'
 
   export let options: ViewerOptions = {}
@@ -13,14 +13,13 @@
   //   fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`);
   // }
 
-  let targeting = true
+  let active = true
 </script>
 
-{#if targeting}
-  <Targeting />
+{#if active}
+  <Targeter />
 
-  <div
-    class="fixed right-0 bottom-0 top-0 w-30vw border-2 border-red bg-white overflow-y-auto flex flex-col">
+  <div class="fixed right-10px bottom-10px rounded max-h-50vh max-w-200px border-2 border-gray bg-white overflow-y-auto flex flex-col">
     {#each $componentsWithChildren as [_fragment, { componentDetail, childComponents }] (_fragment)}
       {#if componentDetail.tagName === 'Root'}
         {#each childComponents as componentFragment (componentFragment)}
@@ -34,7 +33,7 @@
 <svelte:window
   on:keydown={(event) => {
     if (event.altKey && event.shiftKey)
-      targeting = !targeting
+      active = !active
   }} />
 
 <!-- on:keyup={(event) => {

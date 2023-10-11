@@ -7,15 +7,15 @@
     selectedElement,
   } from './tree/active'
   import { componentsWithChildren, elementsToParentComponent } from './tree/nodes'
+  import Props from './Props.Svelte'
 
-  // export let viteBase: string
-
-  let highlightedComponentBounds: {
+  let hoveredComponentBounds: {
     top: number
     right: number
     bottom: number
     left: number
   }
+  let hoveredComponentDetail: SvelteComponentDetail
 
   onMount(() => {
     document.body.classList.add('crosshairs')
@@ -34,12 +34,11 @@
   }
 
   function removeHoverClasses() {
-    highlightedComponentBounds = null
-  // for (const element of document.querySelectorAll('.kitbook-viewer-hovered'))
-    //   element.classList.remove('kitbook-viewer-hovered')
+    hoveredComponentBounds = null
+    hoveredComponentDetail = null
   }
 
-  function highlightElement(element: SvelteElementDetail) {
+  function hover(element: SvelteElementDetail) {
     if (element === $hoveredElement)
       return
 
@@ -47,10 +46,17 @@
     $hoveredComponent = $elementsToParentComponent.get(element)
   }
 
-  $: if ($hoveredComponent) {
+  $: if (!$hoveredComponent)
     removeHoverClasses()
 
-    const componentElements = $componentsWithChildren.get($hoveredComponent).childElements
+  $: if ($hoveredComponent)
+    updateHoveredComponentDisplay()
+
+  function updateHoveredComponentDisplay() {
+    removeHoverClasses()
+
+    const component = $componentsWithChildren.get($hoveredComponent)
+    hoveredComponentDetail = component.componentDetail
 
     const bounds = {
       top: 50000,
@@ -62,8 +68,7 @@
     const { clientWidth, clientHeight } = document.documentElement
     const offset = window.scrollY
 
-    for (const element of componentElements) {
-      // element.classList.add('kitbook-viewer-hovered')
+    for (const element of component.childElements) {
       const rect = element.getBoundingClientRect()
       bounds.top = Math.min(bounds.top, offset + rect.top)
       bounds.right = Math.min(bounds.right, clientWidth - rect.right)
@@ -71,13 +76,10 @@
       bounds.left = Math.min(bounds.left, rect.left)
     }
 
-    highlightedComponentBounds = bounds
+    hoveredComponentBounds = bounds
   }
 
-  $: if (!$hoveredComponent)
-    removeHoverClasses()
-
-  function selectElement(element: SvelteElementDetail) {
+  function select(element: SvelteElementDetail) {
     if (!isSelectable(element))
       return
     $selectedElement = element
@@ -90,47 +92,54 @@
       return false // no file or 3rd party
     return true
   }
+
+  let labelWidth: number
+  let mouseX: number
+  let mouseY: number
 </script>
 
 <svelte:body
   on:click|preventDefault={({ target }) => {
     // @ts-expect-error - not able to add types here because JS
-    selectElement(target)
+    select(target)
   }}
   on:mouseover={({ target }) => {
     // @ts-expect-error - not able to add types here because JS
-    highlightElement(target)
+    hover(target)
   }}
   on:mouseleave={() => {
     removeHoverStateAndClasses()
+  }}
+  on:mousemove={({ x, y }) => {
+    mouseX = x
+    mouseY = y
   }} />
 
-{#if highlightedComponentBounds}
+{#if hoveredComponentBounds}
   <div
     class="fixed outline-3 outline-dashed outline-gray-300 bg-gray-500/10 pointer-events-none"
     style="
-      top: {highlightedComponentBounds.top}px;
-        right: {highlightedComponentBounds.right}px;
-        bottom: {highlightedComponentBounds.bottom}px;
-        left: {highlightedComponentBounds.left}px;
+      top: {hoveredComponentBounds.top}px;
+        right: {hoveredComponentBounds.right}px;
+        bottom: {hoveredComponentBounds.bottom}px;
+        left: {hoveredComponentBounds.left}px;
     " />
 {/if}
 
-<style>
-  :global(.kitbook-viewer-hovered) {
-    outline: 2px dashed #ff3e00 !important;
-  }
-  /* :global(.kitbook-viewer-hovered::before) {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 50%;
-    background-color: rgba(255, 0, 0, 0.5);
-    z-index: 1;
-  } */
+{#if hoveredComponentDetail}
+  <div
+    style:left="{Math.min(mouseX + 10, document.documentElement.clientWidth - labelWidth - 10)}px"
+    style:top="{document.documentElement.clientHeight < mouseY + 50 ? mouseY - 10 : mouseY + 10}px"
+    bind:offsetWidth={labelWidth}
+    class="fixed bg-#000000cc text-white py-2px px-1 rounded z-9999999 pointer-events-none">
+    <div>
+      {hoveredComponentDetail.tagName}
+    </div>
+    <Props props={hoveredComponentDetail.options.props} />
+  </div>
+{/if}
 
+<style>
   :global(.crosshairs) {
     cursor: crosshair !important;
   }

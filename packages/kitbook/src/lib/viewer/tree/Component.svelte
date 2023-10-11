@@ -14,9 +14,9 @@
   <!-- svelte-ignore a11y-mouse-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
-    class="w-full pl-1"
+    class="w-full px-2"
     title={JSON.stringify(Object.keys(component.componentDetail.options.props), null, 2)}
-    class:bg-green-100={isHovered}
+    class:bg-gray-200={isHovered}
     class:bg-blue-100={isSelected}
     on:click={() => $selectedComponent = componentFragment}
     on:mouseover={() => $hoveredComponent = componentFragment}
