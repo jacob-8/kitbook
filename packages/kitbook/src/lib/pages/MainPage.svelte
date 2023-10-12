@@ -1,36 +1,36 @@
 <script lang="ts">
-  import '../styles/tw-prose.css';
-  import { getContext, type SvelteComponent } from 'svelte';
-  import type { Writable } from 'svelte/store';
-  import { page } from '$app/stores';
-  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, Variants } from '../kitbook-types';
-  import EditInGithub from '../components/EditInGithub.svelte';
-  import View from '../view/View.svelte';
+  import '../styles/tw-prose.css'
+  import { type SvelteComponent, getContext } from 'svelte'
+  import type { Writable } from 'svelte/store'
+  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, Variants } from '../kitbook-types'
+  import EditInGithub from '../components/EditInGithub.svelte'
+  import View from '../view/View.svelte'
+  import { page } from '$app/stores'
 
   export let data: {
-    pages?: GroupedPageMap;
-    page?: GroupedPage;
-    pageKey?: string;
-    loadedModules?: LoadedModules;
-    error?: string;
-  } = { loadedModules: {} };
+    pages?: GroupedPageMap
+    page?: GroupedPage
+    pageKey?: string
+    loadedModules?: LoadedModules
+    error?: string
+  } = { loadedModules: {} }
 
-  const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store');
-  const { viewports, languages } = getContext<KitbookSettings>('kitbook-settings');
+  const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store')
+  const { viewports, languages } = getContext<KitbookSettings>('kitbook-settings')
 
-  let updatedVariants: Variants<SvelteComponent>;
+  let updatedVariants: Variants<SvelteComponent>
   $: if ($pagesStore?.[data.pageKey]) {
     (async () => {
       updatedVariants = (await $pagesStore[data.pageKey]?.loadVariants?.loadModule())
-        ?.variants as Variants<SvelteComponent>;
-    })();
+        ?.variants as Variants<SvelteComponent>
+    })()
   }
-  $: variants = updatedVariants || data.loadedModules?.variants;
+  $: variants = updatedVariants || data.loadedModules?.variants
 
   $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
-    '/lib/routes/kitbook/sandbox/[...file]/+'
-  );
-  $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants);
+    '/lib/routes/kitbook/sandbox/[...file]/+',
+  )
+  $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants)
 </script>
 
 <main style="flex: 1" class="overflow-y-auto bg-white">
@@ -49,20 +49,19 @@
       {#if data.loadedModules.variants}
         <div class="text-2xl mb-4">
           {#if data.page.name.startsWith('+layout')}
-             Layout
+            Layout
           {:else if data.page.name.startsWith('+page')}
-             Page
+            Page
           {:else}
-             Component
+            Component
           {/if}
           Variants
         </div>
         {#each variants as { name, description, viewports: variantViewports, props }, index (index)}
           <div class="inline-block whitespace-nowrap overflow-x-auto w-full">
             <div class="flex">
-              {#each variantViewports || viewports || [{ name: 'default', width: 400,
-                height: 400}] as {name: viewportName, width, height}}
-                {#each languages || [{ name: null, code: null}] as { name: languageName, code: languageCode}}
+              {#each variantViewports || viewports || [{ name: 'default', width: 400, height: 400 }] as { name: viewportName, width, height }}
+                {#each languages || [{ name: null, code: null }] as { name: languageName, code: languageCode }}
                   <View
                     title={name}
                     description={description}
@@ -70,8 +69,7 @@
                     {height}
                     {languageCode}
                     queryParams="variantIdx={index}"
-                    useIframe={!wouldRecurseInfinitelyInSandbox}
-                  >
+                    useIframe={!wouldRecurseInfinitelyInSandbox}>
                     {#if wouldRecurseInfinitelyInSandbox}
                       <svelte:component this={data.loadedModules.component} {...props || {}} />
                     {/if}

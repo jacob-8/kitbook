@@ -6,10 +6,9 @@
     selectedComponent,
     selectedElement,
   } from './focused/active'
-  import { componentsWithChildren, elementsToParentComponent } from './tree/nodes'
-  // import Props from './Props.svelte'
+  import { componentsWithChildren, elementsToLocalParentComponent } from './tree/compiledNodes'
   import HighlightBounds from './focused/HighlightBounds.svelte'
-  import { getFirstElementFilename } from './focused/filename'
+  import { getLocalFilename } from './focused/filename'
 
   onMount(() => {
     document.body.classList.add('crosshairs')
@@ -31,27 +30,37 @@
   }
 
   function hover(element: SvelteElementDetail) {
-    if (!isSelectable(element))
+    const selectableElement = findSelectable(element, { includeSelf: true })
+
+    if (selectableElement === $hoveredElement)
       return
 
-    if (element === $hoveredElement)
-      return
-
-    $hoveredElement = element
-    const hoveredFragment = $elementsToParentComponent.get(element)
+    $hoveredElement = selectableElement
+    const hoveredFragment = $elementsToLocalParentComponent.get(selectableElement)
     $hoveredComponent = $componentsWithChildren.get(hoveredFragment)
   }
 
   function select(element: SvelteElementDetail) {
-    if (!isSelectable(element))
-      return
+    const selectableElement = findSelectable(element, { includeSelf: true })
 
-    if (element === $selectedElement)
+    if (selectableElement === $selectedElement)
       return removeSelect()
 
-    $selectedElement = element
-    const selectedFragment = $elementsToParentComponent.get(element)
+    $selectedElement = selectableElement
+    const selectedFragment = $elementsToLocalParentComponent.get(selectableElement)
     $selectedComponent = $componentsWithChildren.get(selectedFragment)
+  }
+
+  function findSelectable(element: SvelteElementDetail, { includeSelf = false }) {
+    if (!includeSelf)
+      element = element.parentNode as SvelteElementDetail
+
+    while (element) {
+      if (isSelectable(element))
+        return element
+
+      element = element.parentNode as SvelteElementDetail
+    }
   }
 
   function isSelectable(element: SvelteElementDetail) {
@@ -97,9 +106,8 @@
     bind:offsetWidth={labelWidth}
     class="fixed bg-#000000cc text-white py-2px px-1 rounded z-10000000 pointer-events-none">
     <div>
-      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getFirstElementFilename($hoveredComponent).split('src/').pop()}</span>
+      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getLocalFilename($hoveredComponent).split('src/').pop()}</span>
     </div>
-    <!-- <Props props={$hoveredComponent.componentDetail.options.props} /> -->
   </div>
 {/if}
 

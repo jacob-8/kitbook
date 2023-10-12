@@ -3,7 +3,7 @@
   import VariantsTemplate from '../templates/Foo.variants?raw'
   import SvxTemplate from '../templates/Foo.svx?raw'
   import { selectedComponent } from './active'
-  import { getFirstElementFilename } from './filename'
+  import { getLocalFilename } from './filename'
   import { serialize } from './serialize'
   import Tabs from './Tabs.svelte'
   import Variants from './Variants.svelte'
@@ -11,7 +11,7 @@
   export let viteBase: string
   export let kitbookRoot: string
 
-  $: filename = getFirstElementFilename($selectedComponent)
+  $: filename = getLocalFilename($selectedComponent)
 
   function openComponent() {
     const file_loc = `${filename}:1:1`

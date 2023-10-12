@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { componentsWithChildren } from './nodes'
+  import { componentsWithChildren } from './compiledNodes'
   import Component from './Component.svelte'
 </script>
 
