@@ -41,7 +41,10 @@ export type GroupedPage = PageMetadata & {
   extensions: string[]
   loadSvx?: ModuleLoadFunctions
   loadComponent?: ModuleLoadFunctions
-  loadVariants?: ModuleLoadFunctions
+  loadVariants?: {
+    loadModule: VariantsModule
+    loadRaw: RawModule
+  }
 }
 export type GroupedPageMap = Record<string, GroupedPage>
 
@@ -64,6 +67,7 @@ interface ModuleLoadFunctions {
 export type Modules = Record<string, Module>
 export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
+type VariantsModule = () => Promise<{ 'variants': Variant<any>[] }>
 type RawModule = () => Promise<string>
 
 export interface LoadedModules {

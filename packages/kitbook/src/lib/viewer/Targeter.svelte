@@ -67,7 +67,7 @@
 </script>
 
 <svelte:body
-  on:click|preventDefault={({ target }) => {
+  on:click|preventDefault|stopPropagation={({ target }) => {
     // @ts-expect-error - not able to add types here because JS
     select(target)
   }}

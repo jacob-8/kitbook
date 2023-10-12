@@ -1,25 +1,29 @@
-// import type { Variants } from '$lib';
-// import type Component from './Folder.svelte';
+import type { Variants } from 'kitbook'
+import type Component from './Folder.svelte'
 
-// export const variants: Variants<Component> = [
-//   {
-//     name: 'First',
-//     props: {
-//       activeURL: 'foo',
-//       folder: {
-//         name: '.',
-//         url: '/',
-//         depth: 0,
-//         folders: [],
-//         pages: [],
-//       }
-//     },
-//   },
-//   {
-//     name: 'Second',
-//     props: {
-//       activeURL: 'bar',
-//       folder: null
-//     },
-//   }
-// ]
+export const variants: Variants<Component> = [
+  {
+    name: 'Situation A',
+    description: 'Add optional information about this variant',
+    props: {
+      folder: {
+        name: 'stories',
+        url: '/docs/1-stories',
+        depth: 2,
+        folders: [],
+        pages: [{
+          name: 'complex example',
+          url: '/docs/1-stories/complex-example',
+          path: '/src/docs/1-stories/complex-example.md',
+          extensions: ['md'],
+        }],
+      },
+      expanded: true,
+      kitbookPath: '',
+      activePath: '',
+    },
+    viewports: [
+      { width: 200, height: 200 },
+    ],
+  },
+]

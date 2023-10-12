@@ -2,33 +2,48 @@
   export let elementsToHighlight: Set<SvelteElementDetail>
   export let color: 'gray' | 'blue' = 'gray'
 
-  let highlightBounds = {
-    top: null,
-    right: null,
-    bottom: null,
-    left: null,
+  let highlightBounds: {
+    top: number
+    right: number
+    bottom: number
+    left: number
   }
 
-  $: if (elementsToHighlight?.size > 0) {
+  $: if (elementsToHighlight)
+    calculateBounds()
+
+  function calculateBounds() {
+    if (elementsToHighlight?.size === 0)
+      return highlightBounds = undefined
+
     const bounds = {
-      top: 50000,
-      right: 50000,
-      bottom: 50000,
-      left: 50000,
+      top: Number.POSITIVE_INFINITY,
+      right: Number.POSITIVE_INFINITY,
+      bottom: Number.POSITIVE_INFINITY,
+      left: Number.POSITIVE_INFINITY,
     }
 
     const { clientWidth, clientHeight } = document.documentElement
-    const offset = window.scrollY
 
     for (const element of elementsToHighlight) {
       const rect = element.getBoundingClientRect()
-      bounds.top = Math.min(bounds.top, offset + rect.top)
+      bounds.top = Math.min(bounds.top, rect.top)
       bounds.right = Math.min(bounds.right, clientWidth - rect.right)
       bounds.bottom = Math.min(bounds.bottom, clientHeight - rect.bottom)
       bounds.left = Math.min(bounds.left, rect.left)
     }
 
     highlightBounds = bounds
+  }
+
+  $: {
+    const firstElement = elementsToHighlight.values().next().value as SvelteElementDetail
+    const { clientHeight: documentHeight } = document.documentElement
+    const { clientHeight: elementHeight } = firstElement
+    if (elementHeight < documentHeight) {
+      firstElement.scrollIntoView({ block: 'nearest' })
+      calculateBounds()
+    }
   }
 </script>
 
@@ -46,3 +61,5 @@
         left: {highlightBounds.left}px;
     " />
 {/if}
+
+<svelte:window on:scroll={calculateBounds} />

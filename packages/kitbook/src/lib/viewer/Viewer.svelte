@@ -8,7 +8,7 @@
   export let options: ViewerOptions = {}
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
-  let active = true
+  let active = false
 </script>
 
 {#if active}

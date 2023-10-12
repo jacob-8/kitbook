@@ -6,9 +6,10 @@
   import { getFirstElementFilename } from './filename'
   import { serialize } from './serialize'
   import Tabs from './Tabs.svelte'
+  import Variants from './Variants.svelte'
 
   export let viteBase: string
-  export let kitbookRoot = '/kitbook'
+  export let kitbookRoot: string
 
   $: filename = getFirstElementFilename($selectedComponent)
 
@@ -36,7 +37,8 @@
 
   $: currentPropsState = (() => {
     const state = $selectedComponent.componentDetail.component.$capture_state()
-    const serializedState = serialize($selectedComponent.componentDetail.options.props, state)
+    const { props } = $selectedComponent.componentDetail.options
+    const serializedState = serialize(props, state)
     return JSON.stringify(serializedState, null, 2).replace(/["']REMOVEQUOTE_/g, '')
       .replace(/_REMOVEQUOTE["']/g, '')
   })()
@@ -71,9 +73,8 @@
 
 <div class="flex font-semibold items-center border-b border-gray-300 text-lg">
   <button type="button" on:click={() => $selectedComponent = null}><span class="i-material-symbols-arrow-back align--3px" /></button>
-  <div class=" mr-auto">{$selectedComponent.componentDetail.tagName}</div>
-  <button type="button" on:click={openComponent} title="Edit Component: {filename.split('src/').pop()}">
-    <span class="i-vscode-icons-file-type-svelte align--2px" />
+  <button class="mr-auto" type="button" on:click={openComponent} title="Edit Component: {filename.split('src/').pop()}">
+    <span class="i-vscode-icons-file-type-svelte align--2px" /> {$selectedComponent.componentDetail.tagName}
   </button>
   <button type="button" on:click={openVariants} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>
   <button type="button" on:click={openSvx} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
@@ -86,12 +87,14 @@
     <pre>{currentPropsState}</pre>
   </svelte:fragment>
   <svelte:fragment slot="second">
-    Show Variants here
+    <Variants {kitbookRoot} {filename}>
+      <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
+    </Variants>
   </svelte:fragment>
 </Tabs>
 
 <style>
   button, a {
-    --at-apply: text-left p-2 hover:bg-gray-200;
+    --at-apply: p-2 hover:bg-gray-200;
   }
 </style>

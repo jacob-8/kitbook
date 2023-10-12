@@ -1,4 +1,6 @@
-export function serialize(props: Record<string, any>, state: Record<string, any>) {
+export function serialize(props: Record<string, any>, state: Record<string, any>): Record<string, any> {
+  if (!props || !state)
+    return {}
   const cleanedState = clone(state)
 
   const keyIntersection = Object.keys(props).filter(key => key in state)
@@ -78,5 +80,11 @@ if (import.meta.vitest) {
         }
       `)
     })
+  })
+
+  test('handles undefined', () => {
+    const props = undefined
+    const state = undefined
+    expect(serialize(props, state)).toMatchInlineSnapshot('{}')
   })
 }

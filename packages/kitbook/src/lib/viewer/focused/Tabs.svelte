@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let activeTab: 'first' | 'second' = 'first'
+  export let activeTab: 'first' | 'second' = 'second'
 </script>
 
 <div class="border-b border-gray-300 text-gray-800 flex">
