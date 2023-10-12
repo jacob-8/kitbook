@@ -1,18 +1,19 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from 'svelte'
 
-  export let title: string;
-  export let description: string = undefined;
-  export let height: number = undefined;
-  export let width: number = undefined;
-  export let useIframe: boolean;
-  export let src: string;
+  export let title: string
+  export let description: string = undefined
+  export let height: number = undefined
+  export let width: number = undefined
+  export let useIframe: boolean
+  export let src: string
 
-  const dispatch = createEventDispatcher<{ refresh: boolean }>();
+  const dispatch = createEventDispatcher<{ refresh: boolean }>()
 
   function askPixels(dimension: 'width' | 'height'): number {
-    const pixels = prompt(`Specify ${dimension} in pixels:`);
-    if (pixels) return +pixels;
+    const pixels = prompt(`Specify ${dimension} in pixels:`)
+    if (pixels)
+      return +pixels
   }
 </script>
 
@@ -25,28 +26,24 @@
   <div class="ml-auto" />
 
   <button
+    type="button"
     title="Specify Width"
     class="p-1 opacity-50 hover:opacity-100"
-    on:click={() => (width = askPixels('width'))}
-    ><span class="i-ant-design-column-width-outlined" /></button
-  >
+    on:click={() => (width = askPixels('width'))}><span class="i-ant-design-column-width-outlined" /></button>
   <button
+    type="button"
     title="Specify Height"
     class="p-1 opacity-50 hover:opacity-100"
-    on:click={() => (height = askPixels('height'))}
-    ><span class="i-ant-design-column-height-outlined" /></button
-  >
+    on:click={() => (height = askPixels('height'))}><span class="i-ant-design-column-height-outlined" /></button>
 
-  <a href={src} title="Open Story by Itself" class="p-1 opacity-50 hover:opacity-100"
-    ><span class="i-tabler-external-link" /></a
-  >
+  <a href={src} title="Open Story by Itself" class="p-1 opacity-50 hover:opacity-100"><span class="i-tabler-external-link" /></a>
 
   {#if useIframe}
     <button
+      type="button"
       title="Refresh Iframe"
       class="p-1 opacity-50 hover:opacity-100"
-      on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh" /></button
-    >
+      on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh" /></button>
   {/if}
 </div>
 

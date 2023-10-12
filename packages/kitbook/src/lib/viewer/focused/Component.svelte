@@ -5,6 +5,7 @@
   import { selectedComponent } from './active'
   import { getFirstElementFilename } from './filename'
   import { serialize } from './serialize'
+  import Tabs from './Tabs.svelte'
 
   export let viteBase: string
   export let kitbookRoot = '/kitbook'
@@ -30,9 +31,15 @@
       .replace(/["']REMOVEQUOTE_/g, '')
       .replace(/_REMOVEQUOTE["']/g, '')
 
-    console.log({ state, modifiedTemplate })
     ensureFileExists(variantsFilename, modifiedTemplate)
   }
+
+  $: currentPropsState = (() => {
+    const state = $selectedComponent.componentDetail.component.$capture_state()
+    const serializedState = serialize($selectedComponent.componentDetail.options.props, state)
+    return JSON.stringify(serializedState, null, 2).replace(/["']REMOVEQUOTE_/g, '')
+      .replace(/_REMOVEQUOTE["']/g, '')
+  })()
 
   $: svxFilename = filename.replace('.svelte', '.svx')
   function openSvx() {
@@ -62,23 +69,29 @@
   }
 </script>
 
-<div class="flex flex-col text-sm font-semibold">
-  {#if $selectedComponent}
-    <button type="button" on:click={openComponent} title={filename.split('src/').pop()}>Edit Component</button>
-    <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}>Edit Variants</button>
-    <button type="button" on:click={openSvx} title={svxFilename.split('src/').pop()}>Edit Documentation (.svx)</button>
-    <!-- <button type="button" on:click={createComposition}>New Composition</button> -->
-    <hr class="border-gray">
-    <a href="{kitbookRoot}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank">Open in Kitbook</a>
-  {:else}
-    <div>
-      Select a component to view
-    </div>
-  {/if}
+<div class="flex font-semibold items-center border-b border-gray-300 text-lg">
+  <button type="button" on:click={() => $selectedComponent = null}><span class="i-material-symbols-arrow-back align--3px" /></button>
+  <div class=" mr-auto">{$selectedComponent.componentDetail.tagName}</div>
+  <button type="button" on:click={openComponent} title="Edit Component: {filename.split('src/').pop()}">
+    <span class="i-vscode-icons-file-type-svelte align--2px" />
+  </button>
+  <button type="button" on:click={openVariants} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>
+  <button type="button" on:click={openSvx} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
+  <!-- <button type="button" on:click={() => {}} title="New Composition"><span class="i-carbon-chart-treemap align--2px" /></button> -->
+  <a href="{kitbookRoot}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
 </div>
+
+<Tabs>
+  <svelte:fragment slot="first">
+    <pre>{currentPropsState}</pre>
+  </svelte:fragment>
+  <svelte:fragment slot="second">
+    Show Variants here
+  </svelte:fragment>
+</Tabs>
 
 <style>
   button, a {
-    --at-apply: text-left p-1 hover:bg-gray-100;
+    --at-apply: text-left p-2 hover:bg-gray-200;
   }
 </style>

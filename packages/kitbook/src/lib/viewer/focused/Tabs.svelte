@@ -1,20 +1,18 @@
 <script lang="ts">
-  import { selectedComponent } from './focused/active'
-
   export let activeTab: 'first' | 'second' = 'first'
 </script>
 
-<div class="border-b border-gray-400 text-gray-800 flex">
+<div class="border-b border-gray-300 text-gray-800 flex">
   <button
     type="button"
-    class="py-1 px-2 border-r border-gray-400"
+    class="py-1 px-2 border-r border-gray-300"
     class:active={activeTab === 'first'}
-    on:click={() => (activeTab = 'first')}>Tree</button>
+    on:click={() => (activeTab = 'first')}>Current Props State</button>
   <button
     type="button"
     class="py-1 px-2"
     class:active={activeTab === 'second'}
-    on:click={() => (activeTab = 'second')}>{$selectedComponent ? $selectedComponent.componentDetail.tagName : 'Component'}</button>
+    on:click={() => (activeTab = 'second')}>Variants</button>
 </div>
 
 {#if activeTab === 'first'}
