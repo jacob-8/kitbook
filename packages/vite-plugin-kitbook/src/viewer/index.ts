@@ -1,3 +1,4 @@
+import { access, constants, writeFileSync } from 'node:fs'
 import type { Plugin } from 'vite'
 import type { ViewerOptions } from './options'
 import { DEFAULT_VIEWER_OPTIONS } from './options'
@@ -36,6 +37,18 @@ export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself:
     transform(code, id) {
       if (id.includes('vite/dist/client/client.mjs'))
         return { code: `${code}\nimport('${LOAD_VIEWER_ID}')` }
+    },
+
+    configureServer(server) {
+      server.ws.on('kitbook:ensure-file-exists', ({ filename, template }, client) => {
+        access(filename, constants.F_OK, (err) => {
+          if (err) {
+            console.log({ creating: filename })
+            writeFileSync(filename, template)
+          }
+          client.send('kitbook:open-file', { filename })
+        })
+      })
     },
   }
 }

@@ -1,12 +1,12 @@
-import type { Variants } from '$lib';
-import type Component from './Header.svelte';
+import type Component from './Header.svelte'
+import type { Variants } from '$lib'
 
 export const variants: Variants<Component> = [
   {
     // name: 'Not Expanded',
     props: {
       kitbookPath: '',
-      activePath: "/foo",
+      activePath: '/foo',
     },
   },
   {
@@ -14,20 +14,20 @@ export const variants: Variants<Component> = [
     width: 800,
     props: {
       kitbookPath: '',
-      activePath: "/",
+      activePath: '/',
     },
   },
   {
     name: 'with slot',
     props: {
       kitbookPath: '',
-      activePath: "/somewhere",
+      activePath: '/somewhere',
     },
     slots: {
-      default: 'My Workbench'
-    }
+      default: 'My Workbench',
+    },
   },
-].map(variant => {
+].map((variant) => {
   return {
     width: 600,
     ...variant,

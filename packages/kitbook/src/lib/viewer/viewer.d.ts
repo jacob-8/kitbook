@@ -21,6 +21,7 @@ interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponent<P
       // l(nodes: any[]): void // claim(nodes)
     }
   }
+  $capture_state(): Record<string, any>
 }
 
 declare global {

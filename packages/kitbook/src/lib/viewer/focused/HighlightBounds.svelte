@@ -38,7 +38,7 @@
     class:bg-gray-500={color === 'gray'}
     class:outline-blue-300={color === 'blue'}
     class:bg-blue-500={color === 'blue'}
-    class="fixed outline-3 outline-dashed !bg-opacity-10 pointer-events-none"
+    class="fixed outline-3 outline-dashed !bg-opacity-10 pointer-events-none z-9999999"
     style="
       top: {highlightBounds.top}px;
         right: {highlightBounds.right}px;

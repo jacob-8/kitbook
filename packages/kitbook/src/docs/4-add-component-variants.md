@@ -5,8 +5,8 @@ To easily mock a component in a variety of states **with type safety** you can c
 Here is an example of a `Header.svelte` component's variants file:
 
 ```ts title="Header.variants.ts"
-import type { Variants } from 'kitbook';
-import type Component from './Header.svelte';
+import type { Variants } from 'kitbook'
+import type Component from './Header.svelte'
 
 export const variants: Variants<Component> = [
   {
@@ -16,15 +16,15 @@ export const variants: Variants<Component> = [
       { name: 'Desktop', width: 800, height: 600 },
     ],
     props: {
-      activeURL: "/",
-      githubURL: "https://github.com/jacob-8/kitbook/",
+      activeURL: '/',
+      githubURL: 'https://github.com/jacob-8/kitbook/',
     },
     contexts: [
       {
         key: 'settings',
         context: { foo: 'baz' },
       }
-    ]
+    ],
     slots: {
       default: 'My Workbench' // can pass a string or a Svelte component
       // presently we can only mock the default slot and not named slots until Svelte supports dynamically named slots since Kitbook needs to have the dynamically named slots feature to be able to mock named slots
@@ -36,8 +36,8 @@ export const variants: Variants<Component> = [
 `+page.svelte` files are actually just plain Svelte components with a very important `data` prop. You can create a variants file for them as well but replace `+` with `_` (`_page.variants.ts`) because `+` is reserved for SvelteKit files:
 
 ```ts title="_page.variants.ts" {2, 9-11}
-import type { Variants } from 'kitbook';
-import type Component from './+page.svelte';
+import type { Variants } from 'kitbook'
+import type Component from './+page.svelte'
 
 export const variants: Variants<Component> = [
   {

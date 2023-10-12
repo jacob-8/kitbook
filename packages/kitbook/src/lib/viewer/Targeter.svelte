@@ -31,6 +31,9 @@
   }
 
   function hover(element: SvelteElementDetail) {
+    if (!isSelectable(element))
+      return
+
     if (element === $hoveredElement)
       return
 
@@ -43,6 +46,9 @@
     if (!isSelectable(element))
       return
 
+    if (element === $selectedElement)
+      return removeSelect()
+
     $selectedElement = element
     const selectedFragment = $elementsToParentComponent.get(element)
     $selectedComponent = $componentsWithChildren.get(selectedFragment)
@@ -50,7 +56,7 @@
 
   function isSelectable(element: SvelteElementDetail) {
     const file = element.__svelte_meta?.loc?.file
-    if (!file || file.includes('node_modules/'))
+    if (!file || file.includes('node_modules'))
       return false // no file or 3rd party
     return true
   }
@@ -89,7 +95,7 @@
     style:left="{Math.min(mouseX + 10, document.documentElement.clientWidth - labelWidth - 10)}px"
     style:top="{document.documentElement.clientHeight < mouseY + 50 ? mouseY - 10 : mouseY + 10}px"
     bind:offsetWidth={labelWidth}
-    class="fixed bg-#000000cc text-white py-2px px-1 rounded z-9999999 pointer-events-none">
+    class="fixed bg-#000000cc text-white py-2px px-1 rounded z-10000000 pointer-events-none">
     <div>
       {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getFirstElementFilename($hoveredComponent).split('src/').pop()}</span>
     </div>

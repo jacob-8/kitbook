@@ -1,25 +1,30 @@
 {
   "name": "kitbook",
+  "type": "module",
   "version": "1.0.0-alpha.42",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
-    "preview": "vite preview",
-    "sync": "svelte-kit sync",
-    "package": "svelte-kit sync && svelte-package && publint",
-    "package:watch": "svelte-kit sync && svelte-package --watch",
-    "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
-    "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
-    "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
-    "test": "vitest"
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/kitbook"
   },
-  "type": "module",
-  "svelte": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "keywords": [
+    "Kitbook",
+    "Svelte",
+    "SvelteKit",
+    "Typescript",
+    "UI",
+    "Component library",
+    "Documentation",
+    "Prototyping",
+    "Workbench",
+    "Stories"
   ],
   "exports": {
     ".": {
@@ -38,6 +43,7 @@
       "default": "./dist/defineConfig.js"
     }
   },
+  "types": "./dist/index.d.ts",
   "typesVersions": {
     ">4.0": {
       "*": [
@@ -45,16 +51,34 @@
       ]
     }
   },
-  "dependencies": {
-    "@kitbook/mdsvex-shiki-twoslash": "0.0.4",
-    "@kitbook/vite-plugin-kitbook": "0.0.15",
-    "svelte-pieces": "2.0.0-next.1",
-    "svelte2tsx": "^0.6.21"
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
+    "preview": "vite preview",
+    "sync": "svelte-kit sync",
+    "package": "svelte-kit sync && svelte-package && publint",
+    "package:watch": "svelte-kit sync && svelte-package --watch",
+    "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
+    "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
+    "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
+    "test": "vitest"
   },
+  "svelte": "./dist/index.js",
   "peerDependencies": {
     "@playwright/test": "^1.37.1",
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0 || ^4.0.0"
+  },
+  "dependencies": {
+    "@kitbook/mdsvex-shiki-twoslash": "0.0.4",
+    "@kitbook/vite-plugin-kitbook": "0.0.15",
+    "magicast": "^0.3.0",
+    "svelte-pieces": "2.0.0-next.1",
+    "svelte2tsx": "^0.6.21"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.113",
@@ -73,28 +97,5 @@
     "unocss": "^0.55.7",
     "vite": "^4.4.9",
     "vitest": "^0.34.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jacob-8/kitbook.git",
-    "directory": "packages/kitbook"
-  },
-  "keywords": [
-    "Kitbook",
-    "Svelte",
-    "SvelteKit",
-    "Typescript",
-    "UI",
-    "Component library",
-    "Documentation",
-    "Prototyping",
-    "Workbench",
-    "Stories"
-  ],
-  "author": "Jacob Bowdoin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jacob-8/kitbook/issues"
-  },
-  "homepage": "https://kitbook.vercel.app"
+  }
 }
