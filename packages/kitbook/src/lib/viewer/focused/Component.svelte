@@ -2,7 +2,7 @@
   import { generateCode, parseModule } from 'magicast'
   import type { Viewport } from '@kitbook/vite-plugin-kitbook'
   import VariantsTemplate from '../templates/Foo.variants?raw'
-  import SvxTemplate from '../templates/Foo.svx?raw'
+  import SvxTemplate from '../templates/SvxTemplate.svelte?raw'
   import { selectedComponent } from './active'
   import { getLocalFilename } from './filename'
   import { serialize } from './serialize'

@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let href: string;
-  export let site = "Kitbook";
+  export let href: string
+  export let site = 'Kitbook'
 </script>
 
 <a {href}>
@@ -9,8 +9,8 @@
 
 <style>
   a {
-    background: pink; 
-    padding: 5px; 
+    background: pink;
+    padding: 5px;
     border-radius: 4px;
   }
 </style>

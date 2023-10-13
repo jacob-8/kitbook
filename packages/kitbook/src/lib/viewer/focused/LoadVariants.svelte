@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { type Variant, pagesStore } from 'kitbook'
+  import type { Variant } from 'kitbook'
   import type { Viewport } from '@kitbook/vite-plugin-kitbook'
+  import { pagesStore } from '../../modules/hmrUpdatedModules'
   import DisplayVariants from './DisplayVariants.svelte'
 
   export let kitbookRoute: string

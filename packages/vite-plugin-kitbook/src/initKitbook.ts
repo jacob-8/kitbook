@@ -5,17 +5,13 @@ const TYPINGS_EXT = '.d.ts'
 const PAGE_MARKDOWN = '_page.svelte'
 const LAYOUT_MARKDOWN = '_layout.svelte'
 const VARIANTS = 'variants.js'
-const DEFAULT_ROUTES_DIR = 'src/routes'
-const DEFAULT_KITBOOK_ROUTE = '/kitbook'
 
 const green = '\x1B[32m'
 const red = '\x1B[31m'
 const bold = '\x1B[1m'
 const reset = '\x1B[0m'
 
-export function initKitbook(config: KitbookSettings) {
-  const routesDirectory = config.routesDirectory || DEFAULT_ROUTES_DIR
-  const kitbookRoute = config.kitbookRoute ?? DEFAULT_KITBOOK_ROUTE
+export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) {
   const kitbookDirectory = routesDirectory + kitbookRoute
 
   try {

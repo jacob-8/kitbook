@@ -7,9 +7,10 @@ import { components, elements } from './nodes'
 // const nodeComponents = new Set<ComponentWithChildren>()
 
 export const componentsWithChildren = derived([components, elements], ([$components, $elements], set) => {
-  const componentsWithElementsAdded: Map<ComponentFragment, ComponentWithChildren> = $components
+  const componentsWithElementsAdded: Map<ComponentFragment, ComponentWithChildren> = new Map($components)
 
   $components.forEach((component, fragment) => {
+    // from each component, find its parent component and add it to that parent's childComponents
     const parentComponent = componentsWithElementsAdded.get(component.parentComponent)
     if (!parentComponent)
       return

@@ -6,14 +6,16 @@ import { DEFAULT_VIEWER_OPTIONS } from './options'
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
-export function kitbookViewer(config: KitbookSettings): Plugin {
+export function kitbookViewer(userSettings: KitbookSettings): Plugin {
   const settings: KitbookSettings = {
-    ...config,
+    ...userSettings,
     viewer: {
       ...DEFAULT_VIEWER_OPTIONS,
-      ...config.viewer || {},
+      ...userSettings.viewer || {},
     },
   }
+
+  const loadViewerCode = `import { loadViewer } from 'kitbook/viewer/load-viewer';loadViewer(${JSON.stringify(settings)})`
 
   return {
     name: 'vite-plugin-kitbook-viewer',
@@ -33,12 +35,12 @@ export function kitbookViewer(config: KitbookSettings): Plugin {
 
     async load(id) {
       if (id === RESOLVED_LOAD_VIEWER_ID)
-        return `import { loadViewer } from 'kitbook/viewer/load-viewer';loadViewer(${JSON.stringify(settings)})`
+        return loadViewerCode
     },
 
     transform(code, id) {
       if (id.includes('vite/dist/client/client.mjs'))
-        return { code: `${code}\nimport('${LOAD_VIEWER_ID}')` }
+        return { code: `console.log('client.mjs - start listening here - don't create any imports')\nimport('${LOAD_VIEWER_ID}')\n${code}` }
     },
 
     configureServer(server) {

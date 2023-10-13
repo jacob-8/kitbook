@@ -32,6 +32,10 @@
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./viewer/load-viewer": {
+      "types": "./dist/viewer/load-viewer.d.ts",
+      "default": "./dist/viewer/load-viewer.js"
+    },
     "./plugins/vite": {
       "types": "./dist/plugins/vite.d.ts",
       "svelte": "./dist/plugins/vite.js",
