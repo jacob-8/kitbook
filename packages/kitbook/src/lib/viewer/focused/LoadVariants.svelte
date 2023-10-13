@@ -10,6 +10,7 @@
   $: localFilenameWithLeadingSlash = filename.split('/src').pop().replace('.svelte', '')
   $: page = $pagesStore[localFilenameWithLeadingSlash]
 
+  let loading = true
   let variantsModule: { 'variants': Variant<any>[]; 'viewports': Viewport[] }
   $: if (page?.loadVariants?.loadModule) {
     page.loadVariants.loadModule().then((module) => {
@@ -17,6 +18,10 @@
     }).catch((error) => {
       console.error(error)
     })
+  }
+  else {
+    variantsModule = null
+    loading = false
   }
 </script>
 
@@ -26,10 +31,12 @@
   {:else}
     <slot />
   {/if}
-{:else}
+{:else if loading}
   <div class="p-2">
     Loading variants...
   </div>
+{:else}
+  <slot />
 {/if}
 <!-- <div class="p-2 text-red">
       Error loading variants: {error}
