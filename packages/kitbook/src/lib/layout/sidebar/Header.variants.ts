@@ -5,7 +5,7 @@ import type Component from './Header.svelte'
 export const viewports: Viewport[] = [
   { height: 200, width: 800 },
   { height: 200, width: 200 },
-  { height: 200, width: 200 },
+  { height: 500, width: 200 },
 ]
 
 export const variants: Variant<Component>[] = [
@@ -25,10 +25,10 @@ export const variants: Variant<Component>[] = [
     },
   },
   {
-    name: 'with slot',
+    name: 'with slots',
     props: {
       kitbookPath: '',
-      activePath: '/somewhere',
+      activePath: '/foo',
     },
     slots: {
       default: 'My Workbench',

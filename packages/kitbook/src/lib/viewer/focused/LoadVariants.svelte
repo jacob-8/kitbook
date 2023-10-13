@@ -1,30 +1,36 @@
 <script lang="ts">
-  import { pages } from 'virtual:kitbook-modules'
+  import { type Variant, pagesStore } from 'kitbook'
+  import type { Viewport } from '@kitbook/vite-plugin-kitbook'
   import DisplayVariants from './DisplayVariants.svelte'
 
   export let kitbookRoute: string
+  export let viewports: Viewport[]
   export let filename: string
 
   $: localFilenameWithLeadingSlash = filename.split('/src').pop().replace('.svelte', '')
-  $: page = pages[localFilenameWithLeadingSlash]
+  $: page = $pagesStore[localFilenameWithLeadingSlash]
+
+  let variantsModule: { 'variants': Variant<any>[]; 'viewports': Viewport[] }
+  $: if (page?.loadVariants?.loadModule) {
+    page.loadVariants.loadModule().then((module) => {
+      variantsModule = module
+    }).catch((error) => {
+      console.error(error)
+    })
+  }
 </script>
 
-{#if page?.loadVariants?.loadModule}
-  {#await page.loadVariants.loadModule()}
-    <div class="p-2">
-      Loading variants...
-    </div>
-  {:then module}
-    {#if module.variants?.length}
-      <DisplayVariants variants={module.variants} fileViewports={module.viewports} {kitbookRoute} {localFilenameWithLeadingSlash} />
-    {:else}
-      <slot />
-    {/if}
-  {:catch error}
-    <div class="p-2 text-red">
-      Error loading variants: {error}
-    </div>
-  {/await}
+{#if variantsModule}
+  {#if variantsModule.variants?.length}
+    <DisplayVariants variants={variantsModule.variants} fileViewports={variantsModule.viewports || viewports} {kitbookRoute} {localFilenameWithLeadingSlash} />
+  {:else}
+    <slot />
+  {/if}
 {:else}
-  <slot />
+  <div class="p-2">
+    Loading variants...
+  </div>
 {/if}
+<!-- <div class="p-2 text-red">
+      Error loading variants: {error}
+    </div> -->

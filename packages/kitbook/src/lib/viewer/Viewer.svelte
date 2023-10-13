@@ -18,14 +18,14 @@
   <div
     class="fixed right-10px bottom-10px rounded max-h-90vh max-w-90vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
     {#if $selectedComponent}
-      <Component viteBase={settings.viewer.__internal.viteBase} kitbookRoute={settings.kitbookRoute} />
+      <Component viteBase={settings.viewer.__internal.viteBase} kitbookRoute={settings.kitbookRoute} viewports={settings.viewports} />
     {:else}
       <Tree kitbookRoute={settings.kitbookRoute} on:close={() => active = false} />
     {/if}
   </div>
 {/if}
 
-<Button class="bottom-1 right-1 px-2! hidden! md:block! fixed" form="menu" onclick={() => active = !active}>
+<Button class="bottom-1 right-1 px-2! fixed" form="menu" onclick={() => active = !active}>
   <span class="i-mdi-target text-2xl" />
 </Button>
 

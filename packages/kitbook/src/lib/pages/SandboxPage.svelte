@@ -16,20 +16,19 @@
   // error?: string;
   }
 
+  let { variant } = data
   const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store')
+  $: page = $pagesStore[data.pageKey]
 
-  let updatedVariant: Variant<SvelteComponent>
-  $: if ($pagesStore?.[data.pageKey] && data.variantIdx) {
-    (async () => {
-      updatedVariant
-        = ((await $pagesStore[data.pageKey].loadVariants.loadModule())?.variants[
-          data.variantIdx
-        ] as Variant<SvelteComponent>) || {}
-    })()
+  $: if (page?.loadVariants?.loadModule && data.variantIdx) {
+    page.loadVariants.loadModule().then((module) => {
+      variant = module?.variants[data.variantIdx] || {}
+    }).catch((error) => {
+      console.error(error)
+    })
   }
 
   const isStory = !!data.storyId
-  $: variantProps = updatedVariant?.props || data.variant?.props || {}
 
   if (isStory) {
     // `Story` components check the `sandboxId` context to know whether to show when in the sandbox - this is passed to the sandbox originally using the `storyId` query param in iframe url
@@ -50,15 +49,14 @@
   {:else}
     <ErrorBoundary onError={console.error}>
       <div slot="before">
-        {#if Object.keys(variantProps).length === 0}
-          <b>Kitbook tip</b>: Your component may need props passed in. Create a "{data.page
-            ?.name}.variants.ts" file with at least variant. In the future Kitbook will try to
+        {#if Object.keys(variant.props).length === 0}
+          <b>Kitbook tip</b>: Your component may need props passed in. Create a "{data.page?.name}.variants.ts" file with at least variant. In the future Kitbook will try to
           automatically supply default props, but until then they must be supplied manually.
         {/if}
       </div>
-      {#if data.variant?.slots}
-        {@const defaultSlotContent = data.variant.slots.default}
-        <svelte:component this={data.loadedModules.component} {...variantProps}>
+      {#if variant?.slots}
+        {@const defaultSlotContent = variant.slots.default}
+        <svelte:component this={data.loadedModules.component} {...variant.props}>
           {#if typeof defaultSlotContent === 'string'}
             {@html defaultSlotContent}
           {:else}
@@ -66,7 +64,7 @@
           {/if}
         </svelte:component>
       {:else}
-        <svelte:component this={data.loadedModules.component} {...variantProps} />
+        <svelte:component this={data.loadedModules.component} {...variant.props} />
       {/if}
     </ErrorBoundary>
   {/if}

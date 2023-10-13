@@ -1,5 +1,6 @@
 <script lang="ts">
   import { generateCode, parseModule } from 'magicast'
+  import type { Viewport } from '@kitbook/vite-plugin-kitbook'
   import VariantsTemplate from '../templates/Foo.variants?raw'
   import SvxTemplate from '../templates/Foo.svx?raw'
   import { selectedComponent } from './active'
@@ -10,6 +11,7 @@
 
   export let viteBase: string
   export let kitbookRoute: string
+  export let viewports: Viewport[]
 
   $: filename = getLocalFilename($selectedComponent)
 
@@ -87,7 +89,7 @@
     <pre>{currentPropsState}</pre>
   </svelte:fragment>
   <svelte:fragment slot="second">
-    <LoadVariants {kitbookRoute} {filename}>
+    <LoadVariants {kitbookRoute} {filename} {viewports}>
       <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
     </LoadVariants>
   </svelte:fragment>

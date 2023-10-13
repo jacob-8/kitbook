@@ -6,7 +6,7 @@
   export let kitbookRoute: string
   export let localFilenameWithLeadingSlash: string
   export let variants: Variant<any>[]
-  export let fileViewports: Viewport[] = [{ height: 400, width: 400 }]
+  export let fileViewports: Viewport[]
 
   let currentVariantIndex = 0
   $: variant = variants[currentVariantIndex]
@@ -55,7 +55,7 @@
   }
 </script>
 
-<div class="bg-gray-100 px-2 items-center flex">
+<div class="bg-gray-100 px-2 items-center flex flex-wrap">
   {#if !isFirstVariant}
     <button
       type="button"
@@ -77,7 +77,7 @@
       <button
         type="button"
         title="left arrow"
-        on:click={previousVariant}><span class="i-material-symbols-arrow-back align--2px" /></button>
+        on:click={previousViewport}><span class="i-material-symbols-arrow-back align--2px" /></button>
     {/if}
 
     {viewport.width} x {viewport.height}
@@ -92,12 +92,12 @@
       <button
         type="button"
         title="right arrow"
-        on:click={nextVariant}><span class="i-material-symbols-arrow-forward align--2px" /></button>
+        on:click={nextViewport}><span class="i-material-symbols-arrow-forward align--2px" /></button>
     {/if}
   </div>
 </div>
 
-<div style="width: {viewport.width}px; height: {viewport.height}px;">
+<div style="width: {viewport.width}px; height: {viewport.height}px;" class="border">
   <Iframe src="{kitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantIdx={currentVariantIndex}" />
 </div>
 
