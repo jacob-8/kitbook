@@ -16,7 +16,7 @@
   {#if !isRootFolder}
     <button
       type="button"
-      class="hover:text-blue-700 capitalize pr-3 font-semibold cursor-pointer flex text-sm text-left"
+      class="hover:text-blue-700 capitalize pr-3 font-semibold cursor-pointer flex text-sm text-left w-full"
       class:text-blue-800={active}
       style="padding-left: calc(0.75rem * {folder.depth - 1}"
       on:click={() => (actualExpandedState = !actualExpandedState)}>

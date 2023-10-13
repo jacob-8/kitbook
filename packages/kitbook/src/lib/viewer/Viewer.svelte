@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
+  import { Button } from 'svelte-pieces'
   import Targeter from './Targeter.svelte'
   import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
@@ -19,10 +20,14 @@
     {#if $selectedComponent}
       <Component viteBase={options.__internal.viteBase} kitbookRoot={options.__internal.kitbookRoot} />
     {:else}
-      <Tree />
+      <Tree kitbookRoot={options.__internal.kitbookRoot} on:close={() => active = false} />
     {/if}
   </div>
 {/if}
+
+<Button class="bottom-1 right-1 px-2! hidden! md:block! fixed" form="menu" onclick={() => active = !active}>
+  <span class="i-mdi-target text-2xl" />
+</Button>
 
 <svelte:window
   on:keydown={(event) => {

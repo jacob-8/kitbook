@@ -5,9 +5,7 @@ export const variants: Variants<Component> = [
   {
     name: 'Situation A',
     description: 'Add optional information about this variant',
-    props: {
-      name: 'James',
-    },
+    props: {},
     viewports: [
       { name: 'Desktop', width: 800, height: 600 },
     ],

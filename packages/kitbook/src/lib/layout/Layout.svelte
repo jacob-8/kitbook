@@ -1,25 +1,24 @@
 <script lang="ts">
-  import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css';
-  import '../styles/main.css';
-  import type { KitbookSettings } from 'kitbook';
-  import { getContext } from 'svelte';
-  import { page } from '$app/stores';
-  import Header from './sidebar/Header.svelte';
-  import Sidebar from './sidebar/Sidebar.svelte';
-  import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders';
-  import LayoutPanes from './LayoutPanes.svelte';
-  import { Button } from 'svelte-pieces';
-  import { findKitbookPath } from './kitbookPath';
+  import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css'
+  import '../styles/main.css'
+  import type { KitbookSettings } from 'kitbook'
+  import { getContext } from 'svelte'
+  import Header from './sidebar/Header.svelte'
+  import Sidebar from './sidebar/Sidebar.svelte'
+  import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders'
+  import LayoutPanes from './LayoutPanes.svelte'
+  import { findKitbookPath } from './kitbookPath'
+  import { page } from '$app/stores'
   // import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
-  const settings = getContext<KitbookSettings>('kitbook-settings');
-  if (!settings) {
+  const settings = getContext<KitbookSettings>('kitbook-settings')
+  if (!settings)
     console.warn('No settings context found. Do you have a +layout.svelte file in your kitbook folder that sets the kitbook-settings context?')
-  };
-  const { title, description, expandTree, githubURL } = settings || {};
 
-  $: ({kitbookPath, activePath} = findKitbookPath($page.url.pathname))
-  let showSidebar = false;
+  const { title, description, expandTree, githubURL } = settings || {}
+
+  $: ({ kitbookPath, activePath } = findKitbookPath($page.url.pathname))
+  let showSidebar = false
 </script>
 
 <LayoutPanes>
@@ -40,10 +39,6 @@
     <InstrumentPanel />
   </svelte:fragment> -->
 </LayoutPanes>
-
-<Button class="bottom-1 right-1 px-2! hidden! md:block! fixed" form="menu" onclick={() => alert('Built with Kitbook. Press "s" to show/hide tree.')}>
-  <span class="i-material-symbols-info-outline text-2xl" />
-</Button>
 
 <svelte:head>
   <!-- TODO: Update based on title + current page -->

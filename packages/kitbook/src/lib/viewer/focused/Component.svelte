@@ -6,7 +6,7 @@
   import { getLocalFilename } from './filename'
   import { serialize } from './serialize'
   import Tabs from './Tabs.svelte'
-  import Variants from './Variants.svelte'
+  import LoadVariants from './LoadVariants.svelte'
 
   export let viteBase: string
   export let kitbookRoot: string
@@ -87,9 +87,9 @@
     <pre>{currentPropsState}</pre>
   </svelte:fragment>
   <svelte:fragment slot="second">
-    <Variants {kitbookRoot} {filename}>
+    <LoadVariants {kitbookRoot} {filename}>
       <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
-    </Variants>
+    </LoadVariants>
   </svelte:fragment>
 </Tabs>
 

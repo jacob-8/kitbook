@@ -1,6 +1,6 @@
 <script lang="ts">
   import { pages } from 'virtual:kitbook-modules'
-  import Iframe from '$lib/view/Iframe.svelte'
+  import DisplayVariants from './DisplayVariants.svelte'
 
   export let kitbookRoot: string
   export let filename: string
@@ -11,22 +11,19 @@
 
 {#if page?.loadVariants?.loadModule}
   {#await page.loadVariants.loadModule()}
-    Loading variants...
+    <div class="p-2">
+      Loading variants...
+    </div>
   {:then module}
     {#if module.variants?.length}
-      {#each module.variants as variant, index}
-        <div
-          style="
-            width: {variant.viewports?.[0]?.width || 400}px;
-              height: {variant.viewports?.[0]?.height || 400}px;">
-          <Iframe src="{kitbookRoot}/sandbox{localFilenameWithLeadingSlash}?variantIdx={index}" />
-        </div>
-      {/each}
+      <DisplayVariants variants={module.variants} {kitbookRoot} {localFilenameWithLeadingSlash} />
     {:else}
       <slot />
     {/if}
   {:catch error}
-    Error loading variants: {error}
+    <div class="p-2 text-red">
+      Error loading variants: {error}
+    </div>
   {/await}
 {:else}
   <slot />

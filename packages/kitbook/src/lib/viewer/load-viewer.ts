@@ -1,6 +1,14 @@
 import type { ComponentProps } from 'svelte'
 import Viewer from './Viewer.svelte'
 
+export function loadViewer(options: ComponentProps<Viewer>['options']) {
+  if (inIframe())
+    return
+
+  // eslint-disable-next-line no-new
+  new Viewer({ target: create_viewer_host(), props: { options } })
+}
+
 function create_viewer_host() {
   console.info('creating kitbook-viewer-host')
   const id = 'kitbook-viewer-host'
@@ -13,7 +21,11 @@ function create_viewer_host() {
   return el
 }
 
-export function loadViewer(options: ComponentProps<Viewer>['options']) {
-  // eslint-disable-next-line no-new
-  new Viewer({ target: create_viewer_host(), props: { options } })
+function inIframe() {
+  try {
+    return window.self !== window.top
+  }
+  catch (e) {
+    return true
+  }
 }

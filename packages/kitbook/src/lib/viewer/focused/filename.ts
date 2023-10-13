@@ -6,13 +6,13 @@ export function isFromNodeModules(component: ComponentWithChildren): boolean {
   })
 }
 
-export function getLocalFilename(component: ComponentWithChildren): string | false {
+export function getLocalFilename(component: ComponentWithChildren): string {
   const elements = Array.from(component.childElements)
   const elementNotInNodeModules = elements.find((element) => {
     const filename = element?.__svelte_meta?.loc.file
     return !filename.includes('node_modules')
   })
-  return elementNotInNodeModules?.__svelte_meta?.loc?.file || false
+  return elementNotInNodeModules?.__svelte_meta?.loc?.file
 }
 
 if (import.meta.vitest) {
