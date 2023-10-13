@@ -62,4 +62,4 @@
     " />
 {/if}
 
-<svelte:window on:scroll={calculateBounds} />
+<svelte:window on:scroll={calculateBounds} on:resize={calculateBounds} />
