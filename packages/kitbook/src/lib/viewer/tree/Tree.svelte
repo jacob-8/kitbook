@@ -3,7 +3,7 @@
   import { componentsWithChildren } from './compiledNodes'
   import Component from './Component.svelte'
 
-  export let kitbookRoot: string
+  export let kitbookRoute: string
 
   const dispatch = createEventDispatcher<{ close: boolean }>()
 </script>
@@ -11,7 +11,7 @@
 <div class="flex font-semibold items-center border-b border-gray-300 text-lg">
   <button type="button" on:click={() => dispatch('close')}><span class="i-material-symbols-close align--3px" /></button>
   <a href="https://kitbook.vercel.app/" target="_blank" title="Go to Docs" class="mr-auto">Kitbook Viewer</a>
-  <a href="{kitbookRoot}/" target="_blank" title="Go to Kitbook"><span class="i-tabler-external-link align--3px text-xl" /></a>
+  <a href={kitbookRoute} target="_blank" title="Go to Kitbook"><span class="i-tabler-external-link align--3px text-xl" /></a>
 </div>
 
 <div class="flex flex-col overflow-y-auto">

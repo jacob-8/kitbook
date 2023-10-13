@@ -2,7 +2,7 @@
   import { pages } from 'virtual:kitbook-modules'
   import DisplayVariants from './DisplayVariants.svelte'
 
-  export let kitbookRoot: string
+  export let kitbookRoute: string
   export let filename: string
 
   $: localFilenameWithLeadingSlash = filename.split('/src').pop().replace('.svelte', '')
@@ -16,7 +16,7 @@
     </div>
   {:then module}
     {#if module.variants?.length}
-      <DisplayVariants variants={module.variants} {kitbookRoot} {localFilenameWithLeadingSlash} />
+      <DisplayVariants variants={module.variants} fileViewports={module.viewports} {kitbookRoute} {localFilenameWithLeadingSlash} />
     {:else}
       <slot />
     {/if}

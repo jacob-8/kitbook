@@ -9,7 +9,7 @@
   import LoadVariants from './LoadVariants.svelte'
 
   export let viteBase: string
-  export let kitbookRoot: string
+  export let kitbookRoute: string
 
   $: filename = getLocalFilename($selectedComponent)
 
@@ -79,7 +79,7 @@
   <button type="button" on:click={openVariants} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>
   <button type="button" on:click={openSvx} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
   <!-- <button type="button" on:click={() => {}} title="New Composition"><span class="i-carbon-chart-treemap align--2px" /></button> -->
-  <a href="{kitbookRoot}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
+  <a href="{kitbookRoute}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
 </div>
 
 <Tabs>
@@ -87,7 +87,7 @@
     <pre>{currentPropsState}</pre>
   </svelte:fragment>
   <svelte:fragment slot="second">
-    <LoadVariants {kitbookRoot} {filename}>
+    <LoadVariants {kitbookRoute} {filename}>
       <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
     </LoadVariants>
   </svelte:fragment>

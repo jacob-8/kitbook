@@ -3,7 +3,7 @@
   import type { Viewport } from '@kitbook/vite-plugin-kitbook'
   import Iframe from '$lib/view/Iframe.svelte'
 
-  export let kitbookRoot: string
+  export let kitbookRoute: string
   export let localFilenameWithLeadingSlash: string
   export let variants: Variant<any>[]
   export let fileViewports: Viewport[] = [{ height: 400, width: 400 }]
@@ -97,11 +97,8 @@
   </div>
 </div>
 
-<div
-  style="
-    width: {viewport.width}px;
-      height: {viewport.height}px;">
-  <Iframe src="{kitbookRoot}/sandbox{localFilenameWithLeadingSlash}?variantIdx={currentVariantIndex}" />
+<div style="width: {viewport.width}px; height: {viewport.height}px;">
+  <Iframe src="{kitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantIdx={currentVariantIndex}" />
 </div>
 
 <svelte:window on:keydown={handleKeydown} />

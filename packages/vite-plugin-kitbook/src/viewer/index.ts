@@ -1,15 +1,18 @@
 import { access, constants, writeFileSync } from 'node:fs'
 import type { Plugin } from 'vite'
-import type { ViewerOptions } from './options'
+import type { KitbookSettings } from '../types'
 import { DEFAULT_VIEWER_OPTIONS } from './options'
 
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
-export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself: boolean): Plugin {
-  const viewerOptions: ViewerOptions = {
-    ...DEFAULT_VIEWER_OPTIONS,
-    ...userChosenOptions || {},
+export function kitbookViewer(config: KitbookSettings): Plugin {
+  const settings: KitbookSettings = {
+    ...config,
+    viewer: {
+      ...DEFAULT_VIEWER_OPTIONS,
+      ...config.viewer || {},
+    },
   }
 
   return {
@@ -18,9 +21,8 @@ export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself:
     enforce: 'pre',
 
     configResolved(config) {
-      viewerOptions.__internal = {
+      settings.viewer.__internal = {
         viteBase: config.base?.replace(/\/$/, '') || '',
-        kitbookRoot: isKitbookItself ? '' : '/kitbook',
       }
     },
 
@@ -31,7 +33,7 @@ export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself:
 
     async load(id) {
       if (id === RESOLVED_LOAD_VIEWER_ID)
-        return `import { loadViewer } from 'kitbook/viewer/load-viewer';loadViewer(${JSON.stringify(viewerOptions)})`
+        return `import { loadViewer } from 'kitbook/viewer/load-viewer';loadViewer(${JSON.stringify(settings)})`
     },
 
     transform(code, id) {
@@ -42,10 +44,9 @@ export function kitbookViewer(userChosenOptions: ViewerOptions, isKitbookItself:
     configureServer(server) {
       server.ws.on('kitbook:ensure-file-exists', ({ filename, template }, client) => {
         access(filename, constants.F_OK, (err) => {
-          if (err) {
-            console.log({ creating: filename })
+          if (err)
             writeFileSync(filename, template)
-          }
+
           client.send('kitbook:open-file', { filename })
         })
       })

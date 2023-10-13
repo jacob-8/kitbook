@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { ViewerOptions } from '@kitbook/vite-plugin-kitbook'
+  import type { KitbookSettings } from '@kitbook/vite-plugin-kitbook'
   import { Button } from 'svelte-pieces'
   import Targeter from './Targeter.svelte'
   import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
   import Component from './focused/Component.svelte'
 
-  export let options: ViewerOptions = {}
+  export let settings: KitbookSettings
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
   let active = false
@@ -16,11 +16,11 @@
   <Targeter />
 
   <div
-    class="fixed right-10px bottom-10px rounded max-h-50vh max-w-40vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
+    class="fixed right-10px bottom-10px rounded max-h-90vh max-w-90vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
     {#if $selectedComponent}
-      <Component viteBase={options.__internal.viteBase} kitbookRoot={options.__internal.kitbookRoot} />
+      <Component viteBase={settings.viewer.__internal.viteBase} kitbookRoute={settings.kitbookRoute} />
     {:else}
-      <Tree kitbookRoot={options.__internal.kitbookRoot} on:close={() => active = false} />
+      <Tree kitbookRoute={settings.kitbookRoute} on:close={() => active = false} />
     {/if}
   </div>
 {/if}

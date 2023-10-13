@@ -1,12 +1,12 @@
 import type { ComponentProps } from 'svelte'
 import Viewer from './Viewer.svelte'
 
-export function loadViewer(options: ComponentProps<Viewer>['options']) {
+export function loadViewer(settings: ComponentProps<Viewer>['settings']) {
   if (inIframe())
     return
 
   // eslint-disable-next-line no-new
-  new Viewer({ target: create_viewer_host(), props: { options } })
+  new Viewer({ target: create_viewer_host(), props: { settings } })
 }
 
 function create_viewer_host() {

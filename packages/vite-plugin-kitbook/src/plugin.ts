@@ -11,7 +11,7 @@ import { kitbookViewer } from './viewer'
  * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes wherever you have a folder titled `kitbook` somewhere in your `src/routes` directory. If none exists, `src/routes/kitbook` will be used.
  */
 export function kitbookPlugin(config: KitbookSettings = { title: 'Kitbook', description: 'Component workbench', viewports: DEFAULT_VIEWPORTS }): Plugin[] {
-  initKitbook(config.isKitbookItself)
+  initKitbook(config)
 
   const plugin: Plugin = {
     name: 'vite-plugin-svelte-kitbook',
@@ -36,5 +36,5 @@ export function kitbookPlugin(config: KitbookSettings = { title: 'Kitbook', desc
     },
   }
 
-  return [plugin, kitbookViewer(config.viewer, config.isKitbookItself)]
+  return [plugin, kitbookViewer(config)]
 }

@@ -1,4 +1,4 @@
-import { UserConfig } from 'vite';
+import type { UserConfig } from 'vite'
 
 /** Modify server.fs.allow one level up from the project root for displaying README.md */
 export function modifyViteConfigForKitbook(): UserConfig {
@@ -6,7 +6,7 @@ export function modifyViteConfigForKitbook(): UserConfig {
     server: {
       fs: {
         allow: ['..'],
-      }
+      },
     },
-  };
+  }
 }

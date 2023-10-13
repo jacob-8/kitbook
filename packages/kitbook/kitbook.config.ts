@@ -1,4 +1,4 @@
-import { defineConfig } from "./src/lib/defineConfig";
+import { defineConfig } from './src/lib/defineConfig'
 
 export default defineConfig({
   title: 'Kitbook',
@@ -32,5 +32,6 @@ export default defineConfig({
   // ],
   githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
   expandTree: true,
-  isKitbookItself: true,
-});
+  routesDirectory: 'src/lib/routes',
+  kitbookRoute: '',
+})

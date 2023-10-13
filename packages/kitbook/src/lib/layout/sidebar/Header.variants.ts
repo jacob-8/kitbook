@@ -1,20 +1,27 @@
+import type { Variant } from 'kitbook'
+import type { Viewport } from '@kitbook/vite-plugin-kitbook'
 import type Component from './Header.svelte'
-import type { Variants } from '$lib'
 
-export const variants: Variants<Component> = [
+export const viewports: Viewport[] = [
+  { height: 200, width: 800 },
+  { height: 200, width: 200 },
+  { height: 200, width: 200 },
+]
+
+export const variants: Variant<Component>[] = [
   {
-    // name: 'Not Expanded',
+    name: 'inactive',
     props: {
       kitbookPath: '',
       activePath: '/foo',
     },
   },
   {
-    name: 'active / desktop',
-    width: 800,
+    name: 'active',
+    description: 'should be blue',
     props: {
       kitbookPath: '',
-      activePath: '/',
+      activePath: '',
     },
   },
   {
@@ -27,9 +34,4 @@ export const variants: Variants<Component> = [
       default: 'My Workbench',
     },
   },
-].map((variant) => {
-  return {
-    width: 600,
-    ...variant,
-  }
-})
+]

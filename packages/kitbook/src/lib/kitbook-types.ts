@@ -67,7 +67,7 @@ interface ModuleLoadFunctions {
 export type Modules = Record<string, Module>
 export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
-type VariantsModule = () => Promise<{ 'variants': Variant<any>[] }>
+type VariantsModule = () => Promise<{ 'variants': Variant<any>[]; 'viewports': Viewport[] }>
 type RawModule = () => Promise<string>
 
 export interface LoadedModules {

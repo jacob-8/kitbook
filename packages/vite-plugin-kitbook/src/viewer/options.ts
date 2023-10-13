@@ -59,7 +59,6 @@ export interface ViewerOptions {
    */
   __internal?: {
     viteBase: string
-    kitbookRoot: string
   }
 }
 

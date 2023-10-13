@@ -1,65 +1,49 @@
-import fs from 'fs';
+import fs from 'node:fs'
+import type { KitbookSettings } from './types'
 
-const TYPINGS_EXT = '.d.ts';
-const PAGE_MARKDOWN = '_page.svelte';
-const LAYOUT_MARKDOWN = '_layout.svelte';
-const VARIANTS = 'variants.js';
-const ROUTES_DIR = 'src/routes'
-const KITBOOK_DIRECTORY_NAME = 'kitbook';
-const DEFAULT_KITBOOK_DIRECTORY = 'src/routes/kitbook';
+const TYPINGS_EXT = '.d.ts'
+const PAGE_MARKDOWN = '_page.svelte'
+const LAYOUT_MARKDOWN = '_layout.svelte'
+const VARIANTS = 'variants.js'
+const DEFAULT_ROUTES_DIR = 'src/routes'
+const DEFAULT_KITBOOK_ROUTE = '/kitbook'
 
-const green = '\x1b[32m';
-const red = '\x1b[31m';
-const bold = '\x1b[1m';
-const reset = '\x1b[0m';
+const green = '\x1B[32m'
+const red = '\x1B[31m'
+const bold = '\x1B[1m'
+const reset = '\x1B[0m'
 
-export function initKitbook(isKitbookItself: boolean) {
-  if (isKitbookItself) return 
+export function initKitbook(config: KitbookSettings) {
+  const routesDirectory = config.routesDirectory || DEFAULT_ROUTES_DIR
+  const kitbookRoute = config.kitbookRoute ?? DEFAULT_KITBOOK_ROUTE
+  const kitbookDirectory = routesDirectory + kitbookRoute
 
   try {
-    let kitbookDirectory = findKitbookDirectory(ROUTES_DIR);
+    const kitbookDirectoryExists = fs.existsSync(kitbookDirectory)
+    console.log({ kitbookDirectory, kitbookDirectoryExists })
 
-    if (kitbookDirectory) {
-      const files = fs.readdirSync(kitbookDirectory);
-      const hasFiles = files.length > 0;
-      if (hasFiles) return;
+    if (kitbookDirectoryExists) {
+      const files = fs.readdirSync(kitbookDirectory)
+      const hasFiles = files.length > 0
+      if (hasFiles)
+        return
     }
 
-    if (!kitbookDirectory) {
-      fs.mkdirSync(DEFAULT_KITBOOK_DIRECTORY);
-      kitbookDirectory = DEFAULT_KITBOOK_DIRECTORY;
-    }
-    
-    const src = 'node_modules/kitbook/dist/routes';
-    const destination = kitbookDirectory;
-    fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles });
-    console.log(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. You don't need to touch these.\n${reset}`);
-  } catch (e) {
-    console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`);
+    if (!kitbookDirectoryExists)
+      fs.mkdirSync(kitbookDirectory)
+
+    const src = 'node_modules/kitbook/dist/routes'
+    const destination = kitbookDirectory
+    fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles })
+    console.log(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. You don't need to touch these.\n${reset}`)
   }
-}
-
-function findKitbookDirectory(directory: string): string | null {
-  const files = fs.readdirSync(directory);
-  for (const file of files) {
-    const filePath = directory + '/' + file;
-    const fileStat = fs.statSync(filePath);
-    if (fileStat.isDirectory()) {
-      if (file === KITBOOK_DIRECTORY_NAME) {
-        return filePath;
-      } else {
-        const subdirectory = findKitbookDirectory(filePath);
-        if (subdirectory !== null) {
-          return subdirectory;
-        }
-      }
-    }
+  catch (e) {
+    console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`)
   }
-  return null;
 }
 
 export function excludeDocFiles(src: string) {
-  const partsOfFilesUsedJustForDevelopingKitbook = ['mock', TYPINGS_EXT, PAGE_MARKDOWN, LAYOUT_MARKDOWN, VARIANTS];
-  const skip = partsOfFilesUsedJustForDevelopingKitbook.some(file => src.includes(file));
-  return !skip;
+  const partsOfFilesUsedJustForDevelopingKitbook = ['mock', TYPINGS_EXT, PAGE_MARKDOWN, LAYOUT_MARKDOWN, VARIANTS]
+  const skip = partsOfFilesUsedJustForDevelopingKitbook.some(file => src.includes(file))
+  return !skip
 }
