@@ -1,10 +1,10 @@
 import type { Plugin } from 'vite'
+import type { KitbookSettings } from 'kitbook'
 import { initKitbook } from './initKitbook'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook'
 import virtualImportModulesContent from './virtual/importModulesStringified'
 import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, RESOLVED_VIRTUAL_MODULES_IMPORT_ID, RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_SETTINGS_IMPORT_ID } from './constants'
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode'
-import type { KitbookSettings } from './types'
 import { kitbookViewer } from './viewer'
 
 /**

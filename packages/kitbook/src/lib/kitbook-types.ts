@@ -1,4 +1,3 @@
-import type { Viewport } from '@kitbook/vite-plugin-kitbook'
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
@@ -77,4 +76,97 @@ export interface LoadedModules {
   componentRaw?: string
   variants?: Variants<any>
   variantsRaw?: string
+}
+
+export interface KitbookSettings {
+  title: string
+  description: string
+  viewports: Viewport[]
+  languages?: Language[]
+  expandTree?: boolean
+  githubURL?: string
+  /**
+   * An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to ['/src/**_/*.{md,svx,svelte,variants.ts}', '/README.md']. Adjust this to be able to incrementally adopt Kitbook into your project. << ignore the underscore in the glob pattern, it's just there to make the JSDoc comment work.
+   */
+  importModuleGlobs?: string[]
+  viewer?: ViewerOptions
+  /** `src/routes` by default - if you have changed the default SvelteKit routes directory, you must specify it here also */
+  routesDirectory?: string
+  /** `/kitbook` by default, pass in an empty string `""` for the root `/` route */
+  kitbookRoute?: string
+}
+
+export interface Viewport {
+  name?: string
+  width: number
+  height: number
+}
+
+export interface Language {
+  name: string
+  code: string
+}
+
+export interface ViewerOptions {
+  /**
+   * define a key combo to toggle inspector,
+   * @default 'alt-shift'
+   *
+   * any number of modifiers `control` `shift` `alt` `meta` followed by zero or one regular key, separated by -
+   * examples: control-shift, control-o, control-alt-s  meta-x control-meta
+   * Some keys have native behavior (e.g. alt-s opens history menu on firefox).
+   * To avoid conflicts or accidentally typing into inputs, modifier only combinations are recommended.
+   */
+  toggleKeyCombo?: string
+
+  /**
+   * define keys to select elements with via keyboard
+   * @default {parent: 'ArrowUp', child: 'ArrowDown', next: 'ArrowRight', prev: 'ArrowLeft' }
+   *
+   * improves accessibility and also helps when you want to select elements that do not have a hoverable surface area
+   * due to tight wrapping
+   *
+   * A note for users of screen-readers:
+   * If you are using arrow keys to navigate the page itself, change the navKeys to avoid conflicts.
+   * e.g. navKeys: {parent: 'w', prev: 'a', child: 's', next: 'd'}
+   *
+   *
+   * parent: select closest parent
+   * child: select first child (or grandchild)
+   * next: next sibling (or parent if no next sibling exists)
+   * prev: previous sibling (or parent if no prev sibling exists)
+   */
+  navKeys?: { parent: string; child: string; next: string; prev: string }
+
+  /**
+   * define key to open the editor for the currently selected dom node
+   *
+   * @default 'Enter'
+   */
+  openKey?: string
+
+  /**
+   * inspector is automatically disabled when releasing toggleKeyCombo after holding it for a longpress
+   * @default true
+   */
+  holdMode?: boolean
+
+  /**
+   * when to show the toggle button
+   * @default 'active'
+   */
+  showToggleButton?: 'always' | 'active' | 'never'
+
+  /**
+   * where to display the toggle button
+   * @default bottom-right
+   */
+  toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+
+  /**
+   * internal options that are automatically set, not to be set or used by users
+   */
+  __internal?: {
+    viteBase: string
+  }
 }

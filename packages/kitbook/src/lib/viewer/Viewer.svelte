@@ -7,6 +7,7 @@
   import Component from './focused/Component.svelte'
 
   export let settings: KitbookSettings
+  console.log({ settings })
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
   let active = false

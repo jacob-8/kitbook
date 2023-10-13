@@ -1,4 +1,4 @@
-import { derived, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 
 export function createComponentStore() {
   const components = new Map<ComponentFragment, ComponentWithChildren>()

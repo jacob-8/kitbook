@@ -4,7 +4,6 @@ export const RESOLVED_VIRTUAL_MODULES_IMPORT_ID = `\0${VIRTUAL_MODULES_IMPORT_ID
 export const VIRTUAL_SETTINGS_IMPORT_ID = 'virtual:kitbook-settings'
 export const RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID = `\0${VIRTUAL_SETTINGS_IMPORT_ID}`
 
-export const MDSVEX_EXTENSIONS = ['.md', '.svx']
 export const DEFAULT_IMPORT_MODULE_GLOBS = ['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']
 export const DEFAULT_VIEWPORTS = [
   { name: 'mobile', width: 320, height: 568 },

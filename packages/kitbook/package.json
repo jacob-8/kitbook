@@ -41,6 +41,11 @@
       "svelte": "./dist/plugins/vite.js",
       "default": "./dist/plugins/vite.js"
     },
+    "./plugins/mdsvex.js": {
+      "types": "./dist/plugins/mdsvex.d.ts",
+      "svelte": "./dist/plugins/mdsvex.js",
+      "default": "./dist/plugins/mdsvex.js"
+    },
     "./defineConfig": {
       "types": "./dist/defineConfig.d.ts",
       "svelte": "./dist/defineConfig.js",
@@ -64,8 +69,8 @@
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
     "preview": "vite preview",
     "sync": "svelte-kit sync",
-    "package": "svelte-kit sync && svelte-package && publint",
-    "package:watch": "svelte-kit sync && svelte-package --watch",
+    "package": "svelte-kit sync && node stringify_import_virtual_modules.js && svelte-package && publint",
+    "package:watch": "svelte-kit sync && node stringify_import_virtual_modules.js && svelte-package --watch",
     "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
@@ -78,9 +83,13 @@
     "svelte": "^3.55.0 || ^4.0.0"
   },
   "dependencies": {
-    "@kitbook/mdsvex-shiki-twoslash": "0.0.4",
-    "@kitbook/vite-plugin-kitbook": "0.0.15",
+    "@kitbook/mdsvex-shiki-twoslash": "^0.0.4",
+    "@kitbook/rehype-display-link-titles": "^0.0.3",
     "magicast": "^0.3.0",
+    "mdsvex": "^0.11.0",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-slug": "^5.1.0",
+    "rehype-urls": "^1.1.1",
     "svelte-pieces": "2.0.0-next.1",
     "svelte2tsx": "^0.6.21"
   },

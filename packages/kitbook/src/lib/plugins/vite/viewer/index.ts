@@ -40,7 +40,7 @@ export function kitbookViewer(userSettings: KitbookSettings): Plugin {
 
     transform(code, id) {
       if (id.includes('vite/dist/client/client.mjs'))
-        return { code: `console.log('client.mjs - start listening here - don't create any imports')\nimport('${LOAD_VIEWER_ID}')\n${code}` }
+        return { code: `console.log('client.mjs - start listening here - do not create any imports')\nimport('${LOAD_VIEWER_ID}')\n${code}` }
     },
 
     configureServer(server) {
