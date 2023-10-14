@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { KitbookSettings } from '@kitbook/vite-plugin-kitbook'
+  import type { KitbookSettings } from 'kitbook'
   import { Button } from 'svelte-pieces'
   import Targeter from './Targeter.svelte'
   import { selectedComponent } from './focused/active'
@@ -7,7 +7,6 @@
   import Component from './focused/Component.svelte'
 
   export let settings: KitbookSettings
-  console.log({ settings })
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
   let active = false

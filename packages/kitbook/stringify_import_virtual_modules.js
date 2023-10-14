@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import ts from 'typescript'
 
 const inputFilePath = './src/virtual/importModules.ts'
-const inputFileContent = fs.readFileSync(inputFilePath, 'utf8')
+const inputFileContent = fs.readFileSync(inputFilePath, 'utf-8')
 
 const tsResult = ts.transpileModule(inputFileContent, {
   compilerOptions: {

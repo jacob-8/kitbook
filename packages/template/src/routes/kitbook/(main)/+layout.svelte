@@ -1,4 +1,4 @@
-<script> import { Layout } from 'kitbook'
+<script>import { Layout } from "kitbook";
 </script>
 
 <Layout>

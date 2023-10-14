@@ -1,18 +1,10 @@
 <script>
-  import { pagesStore } from 'kitbook'
-  import { setContext } from 'svelte'
+  import { pagesStore } from 'kitbook';
+  import { settings } from 'virtual:kitbook-settings';
+  import { setContext } from 'svelte';
 
-  setContext('pages-store', pagesStore)
-
-  /** @type {import('kitbook').KitbookSettings} */
-  const kitbookSettings = {
-    title: 'Kitbook',
-    description: 'Svelte Component Documentation and Prototyping Workbench built using SvelteKit',
-    githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
-    expandTree: true,
-  }
-
-  setContext('kitbook-settings', kitbookSettings)
+  setContext('pages-store', pagesStore);
+  setContext('kitbook-settings', settings);
 </script>
 
 <slot />

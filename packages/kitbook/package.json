@@ -41,7 +41,7 @@
       "svelte": "./dist/plugins/vite.js",
       "default": "./dist/plugins/vite.js"
     },
-    "./plugins/mdsvex.js": {
+    "./plugins/mdsvex": {
       "types": "./dist/plugins/mdsvex.d.ts",
       "svelte": "./dist/plugins/mdsvex.js",
       "default": "./dist/plugins/mdsvex.js"
@@ -69,8 +69,8 @@
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
     "preview": "vite preview",
     "sync": "svelte-kit sync",
-    "package": "svelte-kit sync && node stringify_import_virtual_modules.js && svelte-package && publint",
-    "package:watch": "svelte-kit sync && node stringify_import_virtual_modules.js && svelte-package --watch",
+    "package": "svelte-kit sync && svelte-package && publint",
+    "package:watch": "svelte-kit sync && svelte-package --watch",
     "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",

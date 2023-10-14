@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import type { KitbookSettings } from './types'
+import type { KitbookSettings } from 'kitbook'
 
 const TYPINGS_EXT = '.d.ts'
 const PAGE_MARKDOWN = '_page.svelte'
