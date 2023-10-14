@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { generateCode, parseModule } from 'magicast'
+  // import { generateCode, parseModule } from 'magicast'
   import type { Viewport } from 'kitbook'
   import VariantsTemplate from '../templates/Foo.variants?raw'
   import SvxTemplate from '../templates/SvxTemplate.svelte?raw'
@@ -25,24 +25,25 @@
     const state = $selectedComponent.componentDetail.component.$capture_state()
     const serializedState = serialize($selectedComponent.componentDetail.options.props, state)
 
-    const module = parseModule(VariantsTemplate)
-    module.exports.variants[0].props = serializedState
-    const { code } = generateCode(module)
+    // magicast breaks the build - need to debug
+    // const module = parseModule(VariantsTemplate)
+    // module.exports.variants[0].props = serializedState
+    // const { code } = generateCode(module)
 
-    const modifiedTemplate = code
-      .replace('Foo.svelte', filename.split('/').pop())
-      .replace(/["']REMOVEQUOTE_/g, '')
-      .replace(/_REMOVEQUOTE["']/g, '')
-
+    const code = VariantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
+    const modifiedTemplate = removeQuotesFromSerializedFunctions(code.replace('Foo.svelte', filename.split('/').pop()))
     ensureFileExists(variantsFilename, modifiedTemplate)
+  }
+
+  function removeQuotesFromSerializedFunctions(code: string): string {
+    return code.replace(/["']REMOVEQUOTE_/g, '').replace(/_REMOVEQUOTE["']/g, '')
   }
 
   $: currentPropsState = (() => {
     const state = $selectedComponent.componentDetail.component.$capture_state()
     const { props } = $selectedComponent.componentDetail.options
     const serializedState = serialize(props, state)
-    return JSON.stringify(serializedState, null, 2).replace(/["']REMOVEQUOTE_/g, '')
-      .replace(/_REMOVEQUOTE["']/g, '')
+    return removeQuotesFromSerializedFunctions(JSON.stringify(serializedState, null, 2))
   })()
 
   $: svxFilename = filename.replace('.svelte', '.svx')
@@ -89,9 +90,7 @@
     <pre>{currentPropsState}</pre>
   </svelte:fragment>
   <svelte:fragment slot="second">
-    <LoadVariants {kitbookRoute} {filename} {viewports}>
-      <button type="button" on:click={openVariants} title={variantsFilename.split('src/').pop()}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
-    </LoadVariants>
+    <LoadVariants {kitbookRoute} {filename} {viewports} openVariantsFn={openVariants} />
   </svelte:fragment>
 </Tabs>
 
