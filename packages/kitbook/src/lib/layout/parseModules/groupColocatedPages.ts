@@ -1,38 +1,40 @@
-import type { GroupedPageMap, UngroupedPage } from "../../kitbook-types";
-import { testModules } from "./testModules";
-import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
-
+import type { GroupedPageMap, UngroupedPage } from '../../kitbook-types'
+import { testModules } from './testModules'
+import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
 
 export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts' }): GroupedPageMap {
-  const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte'];
-  const grouped: GroupedPageMap = {};
+  const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte']
+  const grouped: GroupedPageMap = {}
 
   for (const page of sortPageAndLayoutPagesWithPlusFirst(ungrouped)) {
-    const url = convertUnderscorePrefixToPlus(page.url);
+    const url = convertUnderscorePrefixToPlus(page.url)
 
-    if (!allowedExtensions.includes(page.ext)) continue;
+    if (!allowedExtensions.includes(page.ext))
+      continue
 
-    if (!grouped[url]) {
+    if (!grouped[url])
       grouped[url] = { name: page.name, url, path: page.path, extensions: [page.ext] }
-    } else {
-      grouped[url].extensions.push(page.ext)
-    }
 
-    if (extensions.svx.includes(page.ext)) {
-      grouped[url].loadSvx = loadModuleObject(page);
-    } else if (page.ext === 'svelte') {
-      grouped[url].loadComponent = loadModuleObject(page);
-    } else if (page.ext === extensions.variants) {
-      grouped[url].loadVariants = loadModuleObject(page);
-    }
+    else
+      grouped[url].extensions.push(page.ext)
+
+    if (extensions.svx.includes(page.ext))
+      grouped[url].loadSvx = loadModuleObject(page)
+
+    else if (page.ext === 'svelte')
+      grouped[url].loadComponent = loadModuleObject(page)
+
+    else if (page.ext === extensions.variants)
+      // @ts-expect-error - need to fix types
+      grouped[url].loadVariants = loadModuleObject(page)
   }
 
-  return grouped;
+  return grouped
 }
 
 if (import.meta.vitest) {
   test('groupColocatedPages properly groups ungrouped pages', () => {
-    const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules);
+    const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules)
     expect(groupColocatedPages(ungroupedPages)).toMatchInlineSnapshot(`
       {
         "/README": {
@@ -324,8 +326,8 @@ if (import.meta.vitest) {
           "url": "/routes/c/+page",
         },
       }
-    `);
-  });
+    `)
+  })
 }
 
 /** Groups _page/_layout Kitbook modules with +page/+layout modules */
@@ -336,25 +338,27 @@ function convertUnderscorePrefixToPlus(s: string): string {
 function loadModuleObject(page: UngroupedPage) {
   return {
     loadModule: page.load.loadModule,
-    loadRaw: page.load.loadRaw
-  };
+    loadRaw: page.load.loadRaw,
+  }
 }
 
 function isPageOrLayout(name: string): boolean {
-  if (name.startsWith('+page')) return true;
-  if (name.startsWith('+layout')) return true; // layouts are just pages, but with slot inheritance super-powers
-  return false;
+  if (name.startsWith('+page'))
+    return true
+  if (name.startsWith('+layout'))
+    return true // layouts are just pages, but with slot inheritance super-powers
+  return false
 }
 
 if (import.meta.vitest) {
   test('isPageOrLayout', () => {
-    expect(isPageOrLayout('+page')).toMatchInlineSnapshot('true');
-    expect(isPageOrLayout('+page@(app)')).toMatchInlineSnapshot('true');
-    expect(isPageOrLayout('_page')).toMatchInlineSnapshot('false');
-    expect(isPageOrLayout('+layout')).toMatchInlineSnapshot('true');
-    expect(isPageOrLayout('+layout@')).toMatchInlineSnapshot('true');
-    expect(isPageOrLayout('blue')).toMatchInlineSnapshot('false');
-  });
+    expect(isPageOrLayout('+page')).toMatchInlineSnapshot('true')
+    expect(isPageOrLayout('+page@(app)')).toMatchInlineSnapshot('true')
+    expect(isPageOrLayout('_page')).toMatchInlineSnapshot('false')
+    expect(isPageOrLayout('+layout')).toMatchInlineSnapshot('true')
+    expect(isPageOrLayout('+layout@')).toMatchInlineSnapshot('true')
+    expect(isPageOrLayout('blue')).toMatchInlineSnapshot('false')
+  })
 }
 
 const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
@@ -362,16 +366,18 @@ const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
 function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[] = []): UngroupedPage[] {
   return pages.sort(({ name: nameA }, { name: nameB }) => {
     if (nameA.match(STARTS_WITH_PAGE_OR_LAYOUT) && nameB.match(STARTS_WITH_PAGE_OR_LAYOUT)) {
-      if (nameA.startsWith('+') && nameB.startsWith('_')) return -1;
-      if (nameA.startsWith('_') && nameB.startsWith('+')) return 1;
+      if (nameA.startsWith('+') && nameB.startsWith('_'))
+        return -1
+      if (nameA.startsWith('_') && nameB.startsWith('+'))
+        return 1
     }
-    return 0;
-  });
+    return 0
+  })
 }
 
 if (import.meta.vitest) {
   test('sortPageAndLayoutPagesWithPlusFirst moves + ahead of _ without affecting other components', () => {
-    const pages = ["_MyComponent", "_page@", "+page@", "_layout", "+layout", "AnotherRegularComponent"].map(p => {
+    const pages = ['_MyComponent', '_page@', '+page@', '_layout', '+layout', 'AnotherRegularComponent'].map((p) => {
       return {
         name: p,
         ext: null,
@@ -425,6 +431,6 @@ if (import.meta.vitest) {
           "url": null,
         },
       ]
-    `);
-  });
+    `)
+  })
 }

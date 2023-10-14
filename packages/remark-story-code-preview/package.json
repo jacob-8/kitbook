@@ -2,6 +2,7 @@
   "name": "@kitbook/remark-story-code-preview",
   "type": "module",
   "version": "1.0.0-alpha.43",
+  "private": true,
   "description": "Place a Story component's code inside a code prop",
   "author": "Jacob Bowdoin",
   "license": "MIT",

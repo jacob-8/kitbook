@@ -6,7 +6,7 @@
   "scripts": {
     "stub": "pnpm -r --filter=./packages/* --parallel run stub && pnpm package:watch",
     "build": "pnpm build:deps && pnpm package",
-    "build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F remark-story-code-preview --parallel run build",
+    "build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles --parallel run build",
     "dev": "pnpm --filter=kitbook dev",
     "kitbook": "pnpm dev",
     "kitbook:build": "pnpm --filter=kitbook build",

@@ -3,14 +3,14 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
-    "esModuleInterop": true,
     // "strict": true,
     "types": [
       "vitest/globals",
       "vitest/importMeta"
-    ]
+    ],
+    "esModuleInterop": true
   },
   "include": [
     "src"
-  ],
+  ]
 }

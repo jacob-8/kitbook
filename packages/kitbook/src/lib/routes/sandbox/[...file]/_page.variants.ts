@@ -1,8 +1,8 @@
-import type { Variants } from 'kitbook';
-import type Component from './+page.svelte';
+import type { Variants } from 'kitbook'
+import type Component from './+page.svelte'
 
-import IndividualComponent from './mockComponents/IndividualComponent.svelte';
-import StoryComponent from './mockComponents/StoryComponent.md';
+import IndividualComponent from './mockComponents/IndividualComponent.svelte'
+import StoryComponent from './mockComponents/StoryComponent.md'
 
 export const variants: Variants<Component> = [
   {
