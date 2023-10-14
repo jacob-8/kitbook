@@ -1,10 +1,10 @@
-import type { ComponentProps } from 'svelte'
-import Viewer from './Viewer.svelte'
+import type { KitbookSettings } from 'kitbook'
 
-export function loadViewer(settings: ComponentProps<Viewer>['settings']) {
+export async function loadViewer(settings: KitbookSettings) {
   if (inIframe())
     return
 
+  const Viewer = (await import('./Viewer.svelte')).default
   // eslint-disable-next-line no-new
   new Viewer({ target: create_viewer_host(), props: { settings } })
 }

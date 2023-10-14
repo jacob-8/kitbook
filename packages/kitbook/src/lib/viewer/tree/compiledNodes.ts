@@ -1,7 +1,15 @@
-import { derived } from 'svelte/store'
+import { type Writable, derived } from 'svelte/store'
 
 // import { isFromNodeModules } from '../focused/filename'
-import { components, elements } from './nodes'
+
+declare global {
+  interface Window {
+    kitbookSvelteComponents: Writable<Map<ComponentFragment, ComponentWithChildren>>
+    kitbookSvelteElements: Writable<Map<SvelteElementDetail, ComponentFragment>>
+  }
+}
+const components = window.kitbookSvelteComponents
+const elements = window.kitbookSvelteElements
 
 // TODO: handle node_modules components better
 // const nodeComponents = new Set<ComponentWithChildren>()
