@@ -2,18 +2,30 @@
   "publisher": "jacob-8",
   "name": "kitbook-vscode",
   "displayName": "Kitbook",
-  "description": "Convenient keybindings and snippets for Kitbook, a component workbench for Svelte",
   "version": "1.0.0-alpha.44",
-  "engines": {
-    "vscode": "^1.74.0"
+  "private": true,
+  "description": "Convenient keybindings and snippets for Kitbook, a component workbench for Svelte",
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
   },
   "categories": [
     "Other"
   ],
+  "main": "./out/extension.js",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
   "activationEvents": [
     "onCommand:kitbook.toggleMdFileAssociation"
   ],
-  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
