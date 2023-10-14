@@ -1,7 +1,68 @@
 {
   "name": "kitbook",
-  "version": "1.0.0-alpha.42",
+  "type": "module",
+  "version": "1.0.0-alpha.43",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacob-8/kitbook.git",
+    "directory": "packages/kitbook"
+  },
+  "bugs": {
+    "url": "https://github.com/jacob-8/kitbook/issues"
+  },
+  "keywords": [
+    "Kitbook",
+    "Svelte",
+    "SvelteKit",
+    "Typescript",
+    "UI",
+    "Component library",
+    "Documentation",
+    "Prototyping",
+    "Workbench",
+    "Stories"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./viewer/load-viewer": {
+      "types": "./dist/viewer/load-viewer.d.ts",
+      "default": "./dist/viewer/load-viewer.js"
+    },
+    "./plugins/vite": {
+      "types": "./dist/plugins/vite.d.ts",
+      "svelte": "./dist/plugins/vite.js",
+      "default": "./dist/plugins/vite.js"
+    },
+    "./plugins/mdsvex": {
+      "types": "./dist/plugins/mdsvex.d.ts",
+      "svelte": "./dist/plugins/mdsvex.js",
+      "default": "./dist/plugins/mdsvex.js"
+    },
+    "./defineConfig": {
+      "types": "./dist/defineConfig.d.ts",
+      "svelte": "./dist/defineConfig.js",
+      "default": "./dist/defineConfig.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    ">4.0": {
+      "*": [
+        "./dist/*.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -15,46 +76,22 @@
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "test": "vitest"
   },
-  "type": "module",
   "svelte": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./plugins/vite": {
-      "types": "./dist/plugins/vite.d.ts",
-      "svelte": "./dist/plugins/vite.js",
-      "default": "./dist/plugins/vite.js"
-    },
-    "./defineConfig": {
-      "types": "./dist/defineConfig.d.ts",
-      "svelte": "./dist/defineConfig.js",
-      "default": "./dist/defineConfig.js"
-    }
-  },
-  "typesVersions": {
-    ">4.0": {
-      "*": [
-        "./dist/*.d.ts"
-      ]
-    }
-  },
-  "dependencies": {
-    "@kitbook/mdsvex-shiki-twoslash": "0.0.4",
-    "@kitbook/vite-plugin-kitbook": "0.0.15",
-    "svelte-pieces": "2.0.0-next.1",
-    "svelte2tsx": "^0.6.21"
-  },
   "peerDependencies": {
     "@playwright/test": "^1.37.1",
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0 || ^4.0.0"
+  },
+  "dependencies": {
+    "@kitbook/mdsvex-shiki-twoslash": "^0.0.4",
+    "@kitbook/rehype-display-link-titles": "^0.0.3",
+    "magicast": "^0.3.0",
+    "mdsvex": "^0.11.0",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-slug": "^5.1.0",
+    "rehype-urls": "^1.1.1",
+    "svelte-pieces": "2.0.0-next.1",
+    "svelte2tsx": "^0.6.21"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.113",
@@ -73,28 +110,5 @@
     "unocss": "^0.55.7",
     "vite": "^4.4.9",
     "vitest": "^0.34.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jacob-8/kitbook.git",
-    "directory": "packages/kitbook"
-  },
-  "keywords": [
-    "Kitbook",
-    "Svelte",
-    "SvelteKit",
-    "Typescript",
-    "UI",
-    "Component library",
-    "Documentation",
-    "Prototyping",
-    "Workbench",
-    "Stories"
-  ],
-  "author": "Jacob Bowdoin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jacob-8/kitbook/issues"
-  },
-  "homepage": "https://kitbook.vercel.app"
+  }
 }

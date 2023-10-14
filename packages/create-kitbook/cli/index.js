@@ -3,10 +3,10 @@
 
 // not in use, but left here as a starter example for when setting up the create-kitbook cli command
 
-import { startKitbookDevServer } from './dev.js';
+import { cac } from 'cac'
+import { startKitbookDevServer } from './dev.js'
 
-import { cac } from 'cac';
-const cli = cac('kitbook');
+const cli = cac('kitbook')
 
 cli
   .command('dev [root]', 'Run Vite dev server using an adjusted config for Kitbook')
@@ -21,5 +21,5 @@ cli
 //   .command('preview [root]', 'Preview Built Kitbook using Vite')
 //   .action((root, options) => previewKitbook(root, options))
 
-cli.help();
-cli.parse(process.argv);
+cli.help()
+cli.parse(process.argv)

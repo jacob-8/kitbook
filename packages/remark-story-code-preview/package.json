@@ -1,7 +1,12 @@
 {
   "name": "@kitbook/remark-story-code-preview",
-  "version": "0.0.1",
+  "type": "module",
+  "version": "1.0.0-alpha.43",
+  "private": true,
   "description": "Place a Story component's code inside a code prop",
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
@@ -10,10 +15,6 @@
   "bugs": {
     "url": "https://github.com/jacob-8/kitbook/issues"
   },
-  "homepage": "https://kitbook.vercel.app",
-  "license": "MIT",
-  "author": "Jacob Bowdoin",
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -50,7 +51,7 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "typescript": "^5.2.2",
-    "unbuild": "^1.0.2",
+    "unbuild": "^2.0.0",
     "unified": "^10.1.2",
     "vitest": "^0.34.4"
   }

@@ -1,9 +1,8 @@
-import type { Variants } from 'kitbook';
-import type Component from './Button.svelte';
+import type { Variants } from 'kitbook'
+import type Component from './Button.svelte'
 
 export const variants: Variants<Component> = [
   {
-    // name: 'First',
     props: {
       href: '/foo',
     },

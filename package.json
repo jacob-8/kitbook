@@ -1,38 +1,46 @@
 {
-	"name": "kitbook-monorepo",
-	"version": "0.0.1",
-	"scripts": {
-		"stub": "pnpm -r --filter=./packages/* --parallel run stub",
-		"build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles -F vite-plugin-kitbook --parallel run build",
-		"dev": "pnpm --filter=kitbook dev",
-		"build": "pnpm --filter=kitbook build",
-		"preview": "pnpm --filter=kitbook preview",
-		"package": "pnpm --filter=kitbook package",
-		"test": "vitest",
-		"test:all": "pnpm --recursive --stream --filter=!kitbook-vscode test -- --run",
-		"pieces": "pnpm --filter=svelte-pieces dev",
-		"pieces:build": "pnpm --filter=svelte-pieces build",
-		"pieces:package": "pnpm --filter=svelte-pieces package",
-		"pieces:preview": "pnpm --filter=svelte-pieces preview",
-		"pieces:test": "pnpm --filter=svelte-pieces test",
-		"template": "pnpm --filter=template dev",
-		"template:build": "pnpm --filter=template build",
-		"release": "pnpm build:deps && pnpm test && changeset publish",
-		"check-packages": "pnpm update --interactive --recursive --latest"
-	},
-	"devDependencies": {
-		"@changesets/cli": "^2.26.2",
-		"@typescript-eslint/eslint-plugin": "^5.60.0",
-		"@typescript-eslint/parser": "^5.60.0",
-		"eslint": "^8.43.0",
-		"eslint-config-prettier": "^8.8.0",
-		"eslint-plugin-svelte": "^2.31.1",
-		"prettier": "^2.8.8",
-		"prettier-plugin-svelte": "^2.10.1",
-		"svelte": "^4.2.0",
-		"typescript": "~5.2.2",
-		"vite": "^4.4.9",
-		"vitest": "^0.34.4"
-	},
-	"type": "module"
+  "name": "kitbook-monorepo",
+  "type": "module",
+  "version": "1.0.0-alpha.43",
+  "private": true,
+  "scripts": {
+    "stub": "pnpm -r --filter=./packages/* --parallel run stub && pnpm package:watch",
+    "build": "pnpm build:deps && pnpm package",
+    "build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles --parallel run build",
+    "dev": "pnpm --filter=kitbook dev",
+    "kitbook": "pnpm dev",
+    "kitbook:build": "pnpm --filter=kitbook build",
+    "preview": "pnpm --filter=kitbook preview",
+    "package": "pnpm --filter=kitbook package",
+    "package:watch": "pnpm --filter=kitbook package:watch",
+    "template": "pnpm --filter=template dev",
+    "template:build": "pnpm --filter=template build",
+    "test": "vitest",
+    "release": "bumpp -r",
+    "lint": "eslint . --cache",
+    "check-packages": "pnpm update --interactive --recursive --latest"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "1.0.0-beta.12",
+    "@typescript-eslint/eslint-plugin": "6.7.3",
+    "@typescript-eslint/parser": "6.7.3",
+    "bumpp": "^9.2.0",
+    "eslint": "^8.50.0",
+    "eslint-define-config": "^1.23.0",
+    "eslint-plugin-svelte": "^2.33.2",
+    "eslint-plugin-svelte-stylistic": "^0.0.4",
+    "lint-staged": "^14.0.1",
+    "prettier": "^2.8.8",
+    "simple-git-hooks": "^2.9.0",
+    "svelte": "^4.2.0",
+    "typescript": "~5.2.2",
+    "vite": "^4.4.9",
+    "vitest": "^0.34.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
 }

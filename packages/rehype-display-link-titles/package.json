@@ -1,7 +1,11 @@
 {
   "name": "@kitbook/rehype-display-link-titles",
-  "version": "0.0.3",
+  "type": "module",
+  "version": "1.0.0-alpha.43",
   "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases or sections from Foam auto-generated links",
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
@@ -20,10 +24,6 @@
     "wiki",
     "knowledge-management"
   ],
-  "homepage": "https://kitbook.vercel.app",
-  "license": "MIT",
-  "author": "Jacob Bowdoin",
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -61,7 +61,7 @@
     "standard-version": "^9.5.0",
     "to-vfile": "^7.2.4",
     "typescript": "^5.2.2",
-    "unbuild": "^1.0.2",
+    "unbuild": "^2.0.0",
     "unified": "^10.1.2",
     "vitest": "^0.34.4"
   }

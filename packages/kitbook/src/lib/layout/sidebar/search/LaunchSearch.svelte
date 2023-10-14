@@ -1,33 +1,32 @@
 <script lang="ts">
-  import { afterNavigate } from '$app/navigation';
-  import { Button } from 'svelte-pieces';
-  import SearchModal from './SearchModal.svelte';
+  import { Button } from 'svelte-pieces'
+  import SearchModal from './SearchModal.svelte'
+  import { afterNavigate } from '$app/navigation'
 
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent);
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent)
 
-  let searching = false;
+  let searching = false
 
   afterNavigate(() => {
-    searching = false;
-  });
+    searching = false
+  })
 </script>
 
 <svelte:window
   on:keydown={(e) => {
-    if (e.code === 'Escape') searching = false;
+    if (e.code === 'Escape')
+      searching = false
     if (['k', 'p'].includes(e.key) && (isMac ? e.metaKey : e.ctrlKey)) {
-      e.preventDefault();
-      searching = !searching;
+      e.preventDefault()
+      searching = !searching
     }
-  }}
-/>
+  }} />
 
 <Button
   onclick={() => (searching = true)}
   form="menu"
   size="sm"
-  title="Search ({isMac ? '⌘' : 'Ctrl'} + K)"
->
+  title="Search ({isMac ? '⌘' : 'Ctrl'} + K)">
   <span class="i-carbon-search text-lg" />
 </Button>
 

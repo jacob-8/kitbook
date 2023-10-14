@@ -1,4 +1,4 @@
-import { writable } from "svelte/store";
-import type { GroupedPageMap } from "kitbook";
+import { writable } from 'svelte/store'
+import type { GroupedPageMap } from 'kitbook'
 
-export const pagesStore = writable<GroupedPageMap>({});
+export const pagesStore = writable<GroupedPageMap>({})

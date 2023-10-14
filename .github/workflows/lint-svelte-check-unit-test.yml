@@ -44,14 +44,11 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm build:deps && pnpm build
+      - run: pnpm build:deps
 
       - run: pnpm -F kitbook sync
-      - run: pnpm -F svelte-pieces sync
-      
       # - run: pnpm -F kitbook check
-      - run: pnpm -F svelte-pieces check
-      
+
       - name: Run Vitest Unit Tests
         run: pnpm test
 

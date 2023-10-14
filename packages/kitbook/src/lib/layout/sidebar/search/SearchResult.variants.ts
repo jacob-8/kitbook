@@ -1,63 +1,73 @@
-import type { Variants } from 'kitbook';
-import type Component from './SearchResult.svelte';
+import type { Variants, Viewport } from 'kitbook'
+import type Component from './SearchResult.svelte'
+
+export const viewports: Viewport[] = [
+  {
+    name: 'mobile',
+    width: 320,
+    height: 100,
+  },
+  {
+    name: 'tablet',
+    width: 768,
+    height: 100,
+  },
+]
+
 export const variants: Variants<Component> = [
   {
     name: 'README',
-    height: 100,
     props: {
       page: {
-        "extensions": [
-          "md",
+        extensions: [
+          'md',
         ],
-        "name": "README",
-        "path": "/README.md",
-        "url": "/README",
-      }
+        name: 'README',
+        path: '/README.md',
+        url: '/README',
+      },
     },
   },
   {
     name: 'README (active)',
-    height: 100,
     props: {
       page: {
-        "extensions": [
-          "md",
+        extensions: [
+          'md',
         ],
-        "name": "README",
-        "path": "/README.md",
-        "url": "/README",
+        name: 'README',
+        path: '/README.md',
+        url: '/README',
       },
       active: true,
     },
   },
   {
     name: 'doc (active)',
-    height: 100,
     props: {
       page: {
-        "extensions": [
-          "md",
+        extensions: [
+          'md',
         ],
-        "name": "why kitbook",
-        "path": "/src/docs/0-why-kitbook.md",
-        "url": "/docs/0-why-kitbook",
+        name: 'why kitbook',
+        path: '/src/docs/0-why-kitbook.md',
+        url: '/docs/0-why-kitbook',
       },
       active: true,
     },
   },
   {
     name: 'component with story and variants',
-    height: 100,
     props: {
       page: {
-        "extensions": [
-          "svelte",
-          "md",
-          "variants.ts",
+        extensions: [
+          'svelte',
+          'md',
+          'variants.ts',
         ],
-        "name": "Button",
-        "path": "/src/lib/a/Button.svelte",
-        "url": "/lib/a/Button",
+        name: 'Button',
+        path: '/src/lib/a/Button.svelte',
+        url: '/lib/a/Button',
       },
     },
   },

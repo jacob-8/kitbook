@@ -1,23 +1,6 @@
 # Kitbook Uses [MDSvex](https://mdsvex.pngwn.io/) 
 
-Kitbook automatically uses MDSvex to preprocess stories files. If you look at the source code, you'll see the extensions in the `mdsvex.config.ts` are set to `['.md', '.svx']`. As well, you'll notice the presence of a few rehype plugins to help with links, and shiki-twoslash for code highlighting. If you want to process your markdown differently you can pass your own `mdsvexConfig` to the `augmentSvelteConfigForKitbook` function in `svelte.config.js` like this:
-
-```js twoslash title="svelte.config.js"
-import { augmentSvelteConfigForKitbook } from '@kitbook/vite-plugin-kitbook'; 
-/** @type {import('@sveltejs/kit').Config} */
-let config = {};
-
-// ---cut---
-//...
-/** @type {import('mdsvex').MdsvexOptions} */
-const mdsvexConfig = {
-  extensions: ['.svx'],
-  // ...etc
-}
-
-export default augmentSvelteConfigForKitbook(config, { mdsvexConfig });
-
-```
+Kitbook automatically uses MDSvex to preprocess stories files. You'll notice the extensions you previously imported in your `svelte.config.js` are set to `['.md', '.svx']`. As well, you'll notice the presence of a few rehype plugins to help with links, and shiki-twoslash for code highlighting. If you want to process your markdown differently you can pass your own config to the `mdsvex` plugin.
 
 *Do note that if you use an MDSvex layout file then you can't use `lang='ts'` in your stories files.*
 

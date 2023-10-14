@@ -1,40 +1,31 @@
 # Roadmap
 
-## Important before considering this a publicly usable project
+## This project is still in alpha and the API is still being shaped.
 *(you have been warned, early-adopters)*
 
-- handle can't copy bug
-- automatically analyze component for props
-- variant grid
-
-- Add full-screen focus view for sandbox
-  - make instrument panel show in focus view on mobile
-
-- show Story and Variant code in instrument panel using code editor: `data.loadedModules.svxRaw` <!-- i-tabler-code"-->
-
-- be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
-- `import { svelte2tsx } from 'svelte2tsx';` `import FolderRaw from './Folder.svelte?raw';`
-
-- improve knob sub-components, maybe use svelte-knobby to help 
-- extract stories so we can do real HMR and have more control over props for each component in a Story, place in `.kitbook/stories`
-
+## Alpha features still needed - please feel free to contribute!
+- compositions
+- Vite server config to update/add compositions from browser
 - revisit split-pane story height
-- solve template usage of unbuilt (and thus styles not working) version of svelte-pieces when run locally in this repo
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
-- catch when a variants file exists by itself and inform how to use variants
 - understand why main.css imported in Layout.svelte gets passed to the iframe as well (don't want `<pre>` elements in the iframe to have negative x margins)
-
-- publish Kitbook extension
-
 - `npm publish --tag beta`
 - share mdsvex-shiki-twoslash w/ orta
-- send test question to discord query person
 
 ## Beta
-- don't break if no export from init.ts
+- publish Kitbook extension
+- catch when a variants file exists by itself and inform how to use variants
+- edit props 
+- don't show grayed out empty stories for components with details on build
+- be able to pass filter option to layout load so that certain pages which will break without proper initialization won't be shown in Kitbook - after this we can start automatically displaying components without stories
+  - `import { svelte2tsx } from 'svelte2tsx';`
+  - `import FolderRaw from './Folder.svelte?raw';`
+- variant grid
+- automatically analyze component for props
+- Add full-screen focus view for sandbox
+  - show source code using code editor: `data.loadedModules.svxRaw` <!-- i-tabler-code"-->
 - update meta-tags based on current page
 - add shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page
-- don't show grayed out empty stories for components with details on build
 - figure out easier way to reference types inside of Kitbook
 - Allow for titling documentation with `1a` as well as `1` and not have the `a` show up in the sidebar
 - keep sidebar active page in view
@@ -46,9 +37,6 @@
 - add quick QRCode for easy opening of an iframed example on phone
 - add ability to pass a route and use the same Frame component as a Story (useful in SvelteFireTS to show)
 - add button to iframe to open separately in new window
-- add a simple Story that doesn't use an iframe but still allows for easy introspection code implementation
-- Vite server middleware to update/add stories from browser
-- Vite server middleware to update/add variants from browser
 - add changesets
 - Story layout improvements (learn from svench and https://bookit.leveluptutorials.com/book/A%20Parent-Basic and implement own ideas)
 - dynamic slots
@@ -74,13 +62,6 @@
 - edit on Gitpod link?
 - consider scaling down iframe when it's larger than the viewport
 - global scrollbar css will affect stories not using sandbox (is this even an issue?)
-- learn more about - at moment it keeps svelte-pieces from directly accessing kitbook:
-```json
-"publishConfig": {
-  "directory": "src/lib", // try this instead of package to avoid additional import strings in neighbor packages
-  "linkDirectory": true
-},
-```
 
  Additionally, the following could also be helpful sources of inspiration in the future:
 

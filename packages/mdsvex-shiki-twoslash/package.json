@@ -1,7 +1,11 @@
 {
   "name": "@kitbook/mdsvex-shiki-twoslash",
-  "version": "0.0.4",
+  "type": "module",
+  "version": "1.0.0-alpha.43",
   "description": "A plugin for MDSvex that highlights code blocks using shiki-twoslash",
+  "author": "Jacob Bowdoin",
+  "license": "MIT",
+  "homepage": "https://kitbook.vercel.app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jacob-8/kitbook.git",
@@ -20,10 +24,6 @@
     "highlight",
     "code highlighting"
   ],
-  "homepage": "https://kitbook.vercel.app",
-  "license": "MIT",
-  "author": "Jacob Bowdoin",
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -43,9 +43,7 @@
     "build": "unbuild",
     "stub": "unbuild --stub",
     "test": "vitest",
-    "test:ui": "vitest --ui",
-    "release": "pnpm test && standard-version && git push --follow-tags && pnpm publish",
-    "prepublishOnly": "pnpm build"
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "fenceparser": "^2.2.0",
@@ -59,7 +57,7 @@
     "prettier": "^2.8.8",
     "svelte": "^4.2.0",
     "typescript": "^5.2.2",
-    "unbuild": "^1.0.2",
+    "unbuild": "^2.0.0",
     "vitest": "^0.34.4"
   }
 }

@@ -1,35 +1,36 @@
-import type { Variants } from '$lib';
-import type Component from './Header.svelte';
+import type { Variant, Viewport } from 'kitbook'
+import type Component from './Header.svelte'
 
-export const variants: Variants<Component> = [
+export const viewports: Viewport[] = [
+  { height: 200, width: 800 },
+  { height: 200, width: 200 },
+  { height: 500, width: 200 },
+]
+
+export const variants: Variant<Component>[] = [
   {
-    // name: 'Not Expanded',
+    name: 'inactive',
     props: {
       kitbookPath: '',
-      activePath: "/foo",
+      activePath: '/foo',
     },
   },
   {
-    name: 'active / desktop',
-    width: 800,
+    name: 'active',
+    description: 'should be blue',
     props: {
       kitbookPath: '',
-      activePath: "/",
+      activePath: '',
     },
   },
   {
-    name: 'with slot',
+    name: 'with slots',
     props: {
       kitbookPath: '',
-      activePath: "/somewhere",
+      activePath: '/foo',
     },
     slots: {
-      default: 'My Workbench'
-    }
+      default: 'My Workbench',
+    },
   },
-].map(variant => {
-  return {
-    width: 600,
-    ...variant,
-  }
-})
+]

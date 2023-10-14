@@ -15,9 +15,9 @@ Documentation and Prototyping Workbench Tool for SvelteKit apps built with Svelt
 </p>
 
 ## Kitbook Monorepo
-Contains Kitbook and Svelte-Pieces
 - Read the [Kitbook README](packages/kitbook/README.md) for features, examples, and more
-- Or jump to the [Svelte Pieces README](./packages/svelte-pieces/README.md) for that package's documentation
 
 
+## svelte-pieces
 
+Moved to its own repository [here](https://github.com/jacob-8/svelte-pieces)
