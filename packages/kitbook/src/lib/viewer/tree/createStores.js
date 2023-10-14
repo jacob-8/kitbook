@@ -1,10 +1,12 @@
 import { writable } from 'svelte/store'
 
 export function createComponentStore() {
-  const components = new Map<ComponentFragment, ComponentWithChildren>()
+  /** @type {Map<ComponentFragment, ComponentWithChildren>} */
+  const components = new Map()
   const { subscribe, set } = writable(components)
 
-  function registerComponent(detail: SvelteComponentDetail) {
+  /** @param {SvelteComponentDetail} detail */
+  function registerComponent(detail) {
     const fragment = detail.component.$$.fragment
 
     const existingComponent = components.get(fragment)
@@ -23,7 +25,11 @@ export function createComponentStore() {
     set(components)
   }
 
-  function setParentComponent(componentFragment: ComponentFragment, parentFragment: ComponentFragment) {
+  /**
+   * @param {ComponentFragment} componentFragment
+   * @param {ComponentFragment} parentFragment
+   */
+  function setParentComponent(componentFragment, parentFragment) {
     const component = components.get(componentFragment)
     if (!component)
       return
@@ -31,11 +37,13 @@ export function createComponentStore() {
     set(components)
   }
 
-  function getComponent(componentFragment: ComponentFragment) {
+  /** @param {ComponentFragment} componentFragment */
+  function getComponent(componentFragment) {
     return components.get(componentFragment)
   }
 
-  function removeComponent(componentFragment: ComponentFragment) {
+  /** @param {ComponentFragment} componentFragment */
+  function removeComponent(componentFragment) {
     const deleted = components.delete(componentFragment)
     if (deleted)
       set(components)
@@ -51,15 +59,21 @@ export function createComponentStore() {
 }
 
 export function createElementsStore() {
-  const elements = new Map<SvelteElementDetail, ComponentFragment>()
+  /** @type {Map<SvelteElementDetail, ComponentFragment>} */
+  const elements = new Map()
   const { subscribe, set } = writable(elements)
 
-  function addElement(detail: SvelteElementDetail, parentFragment: ComponentFragment) {
+  /**
+   * @param {SvelteElementDetail} detail
+   * @param {ComponentFragment} parentFragment
+   */
+  function addElement(detail, parentFragment) {
     elements.set(detail, parentFragment)
     set(elements)
   }
 
-  function removeElement(detail: SvelteElementDetail) {
+  /** @param {SvelteElementDetail} detail */
+  function removeElement(detail) {
     const deleted = elements.delete(detail)
     if (deleted)
       set(elements)

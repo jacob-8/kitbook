@@ -3,10 +3,14 @@ import { createComponentStore, createElementsStore } from './createStores'
 export const components = createComponentStore()
 export const elements = createElementsStore()
 
-let currentParentFragment: ComponentFragment
+/** @type {ComponentFragment} */
+let currentParentFragment
 
-const awaitFragmentsToParentComponent = new Map<ComponentFragment, ComponentFragment>()
-let lastAwaitFragment: ComponentFragment
+/** @type {Map<ComponentFragment, ComponentFragment>} */
+const awaitFragmentsToParentComponent = new Map()
+
+/** @type {ComponentFragment} */
+let lastAwaitFragment
 
 document.addEventListener('SvelteRegisterComponent', ({ detail }) => {
   components.registerComponent(detail)
