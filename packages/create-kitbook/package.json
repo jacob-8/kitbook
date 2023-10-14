@@ -1,7 +1,6 @@
 {
   "name": "create-kitbook",
   "type": "module",
-  "version": "0.0.0",
   "private": true,
   "author": "Jacob Bowdoin",
   "license": "ISC",
