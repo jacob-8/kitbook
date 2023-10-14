@@ -1,3 +1,4 @@
+// @ts-check
 import { groupColocatedModulesIntoPages, pagesStore } from 'kitbook'
 
 // Vite reference: https://vitejs.dev/guide/features.html#glob-import

@@ -1,5 +1,4 @@
-import type { Variant } from 'kitbook'
-import type { Viewport } from '@kitbook/vite-plugin-kitbook'
+import type { Variant, Viewport } from 'kitbook'
 import type Component from './Header.svelte'
 
 export const viewports: Viewport[] = [

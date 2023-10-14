@@ -1,6 +1,5 @@
 <script lang="ts">
-  import type { Variant } from 'kitbook'
-  import type { Viewport } from '@kitbook/vite-plugin-kitbook'
+  import type { Variant, Viewport } from 'kitbook'
   import Iframe from '$lib/view/Iframe.svelte'
 
   export let kitbookRoute: string

@@ -1,14 +1,13 @@
 import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
-import type { KitbookSettings } from 'kitbook'
+import type { KitbookSettings } from '../../kitbook-types'
 import { initKitbook } from './initKitbook.js'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
 import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, RESOLVED_VIRTUAL_MODULES_IMPORT_ID, RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_SETTINGS_IMPORT_ID } from './constants.js'
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
-
-// import virtualImportModulesContent from './virtual/importModulesStringified'
 
 /**
  * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes to `src/routes/kitbook` unless you update the `routesDirectory` and `kitbookRoute` settings.
@@ -25,7 +24,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
   initKitbook(settings)
 
   const plugin: Plugin = {
-    name: 'vite-plugin-svelte-kitbook',
+    name: 'vite-plugin-kitbook',
     enforce: 'pre',
 
     config: modifyViteConfigForKitbook,
@@ -43,10 +42,10 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
         return `export const settings = ${JSON.stringify(settings)}`
 
       if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
-        const filepath = resolve(__dirname, './virtual/importModules.ts')
+        const _dirname = dirname(fileURLToPath(import.meta.url))
+        const filepath = resolve(_dirname, './virtual/importModules.js')
         const content = readFileSync(filepath, 'utf-8')
         return writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
-        // return writeModuleGlobsIntoVirtualModuleCode(virtualImportModulesContent, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
       }
     },
   }
