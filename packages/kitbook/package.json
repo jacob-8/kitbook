@@ -83,8 +83,8 @@
     "svelte": "^3.55.0 || ^4.0.0"
   },
   "dependencies": {
-    "@kitbook/mdsvex-shiki-twoslash": "^0.0.4",
-    "@kitbook/rehype-display-link-titles": "^0.0.3",
+    "@kitbook/mdsvex-shiki-twoslash": "workspace:*",
+    "@kitbook/rehype-display-link-titles": "workspace:*",
     "magicast": "^0.3.0",
     "mdsvex": "^0.11.0",
     "rehype-autolink-headings": "^6.1.1",
