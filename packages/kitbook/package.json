@@ -1,7 +1,7 @@
 {
   "name": "kitbook",
   "type": "module",
-  "version": "1.0.0-alpha.45",
+  "version": "1.0.0-alpha.46",
   "description": "Svelte Component Documentation and Prototyping Workbench built using SvelteKit",
   "author": "Jacob Bowdoin",
   "license": "MIT",

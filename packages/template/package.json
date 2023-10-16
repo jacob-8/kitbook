@@ -24,5 +24,6 @@
   "stackblitz": {
     "installDependencies": false,
     "startCommand": "node .stackblitz.js && npm install && npm run dev"
-  }
+  },
+  "version": "1.0.0-alpha.46"
 }
