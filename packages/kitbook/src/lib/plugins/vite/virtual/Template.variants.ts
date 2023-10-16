@@ -1,5 +1,5 @@
 import type { Variants } from 'kitbook'
-import type Component from './Foo.svelte'
+import type Component from './Template.svelte'
 
 export const variants: Variants<Component> = [
   {

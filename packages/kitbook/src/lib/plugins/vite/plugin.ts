@@ -5,7 +5,7 @@ import type { Plugin } from 'vite'
 import type { KitbookSettings } from '../../kitbook-types'
 import { initKitbook } from './initKitbook.js'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
-import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, RESOLVED_VIRTUAL_MODULES_IMPORT_ID, RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID, VIRTUAL_MODULES_IMPORT_ID, VIRTUAL_SETTINGS_IMPORT_ID } from './constants.js'
+import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, VirtualModules } from './constants.js'
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
 
@@ -30,22 +30,26 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
     config: modifyViteConfigForKitbook,
 
     resolveId(id) {
-      if (id === VIRTUAL_SETTINGS_IMPORT_ID)
-        return RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID
-
-      if (id === VIRTUAL_MODULES_IMPORT_ID)
-        return RESOLVED_VIRTUAL_MODULES_IMPORT_ID
+      if (Object.values(VirtualModules).includes(id as VirtualModules))
+        return `\0${id}`
     },
 
     load(id) {
-      if (id === RESOLVED_VIRTUAL_SETTINGS_IMPORT_ID)
+      if (id === VirtualModules.KITBOOK_SETTINGS)
         return `export const settings = ${JSON.stringify(settings)}`
 
-      if (id === RESOLVED_VIRTUAL_MODULES_IMPORT_ID) {
+      if (id === VirtualModules.KITBOOK_MODULES) {
         const _dirname = dirname(fileURLToPath(import.meta.url))
         const filepath = resolve(_dirname, './virtual/importModules.js')
         const content = readFileSync(filepath, 'utf-8')
         return writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
+      }
+
+      if (id === VirtualModules.KITBOOK_TEMPLATES) {
+        const _dirname = dirname(fileURLToPath(import.meta.url))
+        const filepath = resolve(_dirname, './virtual/Template.variants.ts')
+        const variantsTemplate = readFileSync(filepath, 'utf-8')
+        return `export const variants = \`${variantsTemplate}\``
       }
     },
   }

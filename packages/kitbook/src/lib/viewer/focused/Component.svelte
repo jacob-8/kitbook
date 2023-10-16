@@ -1,8 +1,7 @@
 <script lang="ts">
   // import { generateCode, parseModule } from 'magicast'
   import type { Viewport } from 'kitbook'
-  import VariantsTemplate from '../templates/Foo.variants?raw'
-  import SvxTemplate from '../templates/SvxTemplate.svelte?raw'
+  import { variants as variantsTemplate } from 'virtual:kitbook-templates'
   import { selectedComponent } from './active'
   import { getLocalFilename } from './filename'
   import { serialize } from './serialize'
@@ -30,8 +29,8 @@
     // module.exports.variants[0].props = serializedState
     // const { code } = generateCode(module)
 
-    const code = VariantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
-    const modifiedTemplate = removeQuotesFromSerializedFunctions(code.replace('Foo.svelte', filename.split('/').pop()))
+    const code = variantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
+    const modifiedTemplate = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filename.split('/').pop()))
     ensureFileExists(variantsFilename, modifiedTemplate)
   }
 
@@ -46,9 +45,10 @@
     return removeQuotesFromSerializedFunctions(JSON.stringify(serializedState, null, 2))
   })()
 
-  $: svxFilename = filename.replace('.svelte', '.svx')
+  $: svxFilename = filename.replace('.svelte', '.md')
   function openSvx() {
-    ensureFileExists(svxFilename, SvxTemplate)
+    const markdownTemplate = 'You can write some documentation for your component here using Markdown. Feel free to also change the extension to .svx and use Svelte in your Markdown if you\'ve installed MDSvex.'
+    ensureFileExists(svxFilename, markdownTemplate)
   }
 
   // function createComposition() {

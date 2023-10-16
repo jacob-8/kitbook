@@ -9,3 +9,9 @@ declare module 'virtual:kitbook-settings' {
 
   export const settings: KitbookSettings
 }
+
+declare module 'virtual:kitbook-templates' {
+  import type { KitbookSettings } from 'kitbook'
+
+  export const variants: string
+}
