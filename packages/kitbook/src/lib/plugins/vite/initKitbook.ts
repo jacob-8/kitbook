@@ -16,7 +16,6 @@ export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) 
 
   try {
     const kitbookDirectoryExists = fs.existsSync(kitbookDirectory)
-    console.log({ kitbookDirectory, kitbookDirectoryExists })
 
     if (kitbookDirectoryExists) {
       const files = fs.readdirSync(kitbookDirectory)
