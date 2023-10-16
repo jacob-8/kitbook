@@ -1,8 +1,8 @@
 import type { Variants } from 'kitbook'
+import type { SvelteComponent } from 'svelte'
 import type Component from './+page.svelte'
 
 import IndividualComponent from './mockComponents/IndividualComponent.svelte'
-import StoryComponent from './mockComponents/StoryComponent.md'
 
 export const variants: Variants<Component> = [
   {
@@ -13,9 +13,10 @@ export const variants: Variants<Component> = [
         variant: {
           props: { age: 42 },
         },
+        variantIdx: '0',
+        pageKey: '',
         editedProps: null,
         loadedModules: {
-          svx: StoryComponent,
         },
         storyId: 'showMe',
         page: null,
@@ -31,9 +32,10 @@ export const variants: Variants<Component> = [
         variant: {
           props: { name: 'James' },
         },
+        variantIdx: '0',
+        pageKey: '',
         editedProps: null,
         loadedModules: {
-          component: IndividualComponent,
         },
         storyId: null,
         page: null,
@@ -47,9 +49,11 @@ export const variants: Variants<Component> = [
     props: {
       data: {
         variant: null,
+        variantIdx: 0,
+        pageKey: '',
         editedProps: null, // test that this is optional
         loadedModules: {
-          component: IndividualComponent,
+          component: IndividualComponent as typeof SvelteComponent,
         },
         storyId: null,
         page: null,

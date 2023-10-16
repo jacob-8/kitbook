@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte'
-import type { GroupedPageMap, LoadedModules, Variants } from '../kitbook-types'
+import type { GroupedPageMap, LoadedModules } from '../kitbook-types'
 
 export async function mainPageLoad({ params, parent }) {
   const { pages }: { pages: GroupedPageMap } = await parent()
@@ -19,7 +19,7 @@ export async function mainPageLoad({ params, parent }) {
       loadedModules.componentRaw = await page.loadComponent.loadRaw()
     }
     if (page.loadVariants) {
-      loadedModules.variants = (await page.loadVariants.loadModule())?.variants as Variants<any>
+      loadedModules.variantsModule = (await page.loadVariants.loadModule())
       loadedModules.variantsRaw = await page.loadVariants.loadRaw()
     }
     return { page, pageKey, loadedModules }

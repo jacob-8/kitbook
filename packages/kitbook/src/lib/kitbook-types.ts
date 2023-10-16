@@ -41,7 +41,7 @@ export type GroupedPage = PageMetadata & {
   loadSvx?: ModuleLoadFunctions
   loadComponent?: ModuleLoadFunctions
   loadVariants?: {
-    loadModule: VariantsModule
+    loadModule: () => Promise<VariantsModule>
     loadRaw: RawModule
   }
 }
@@ -66,15 +66,17 @@ interface ModuleLoadFunctions {
 export type Modules = Record<string, Module>
 export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
-type VariantsModule = () => Promise<{ 'variants': Variant<any>[]; 'viewports': Viewport[] }>
 type RawModule = () => Promise<string>
+
+// LoadedVariantsModule
+export interface VariantsModule { 'variants': Variant<any>[]; 'viewports': Viewport[] }
 
 export interface LoadedModules {
   svx?: typeof SvelteComponent
   svxRaw?: string
   component?: typeof SvelteComponent
   componentRaw?: string
-  variants?: Variants<any>
+  variantsModule?: VariantsModule
   variantsRaw?: string
 }
 
@@ -118,7 +120,7 @@ export interface ViewerOptions {
    * Some keys have native behavior (e.g. alt-s opens history menu on firefox).
    * To avoid conflicts or accidentally typing into inputs, modifier only combinations are recommended.
    */
-  toggleKeyCombo?: string
+  // toggleKeyCombo?: string
 
   /**
    * define keys to select elements with via keyboard
@@ -137,32 +139,32 @@ export interface ViewerOptions {
    * next: next sibling (or parent if no next sibling exists)
    * prev: previous sibling (or parent if no prev sibling exists)
    */
-  navKeys?: { parent: string; child: string; next: string; prev: string }
+  // navKeys?: { parent: string; child: string; next: string; prev: string }
 
   /**
    * define key to open the editor for the currently selected dom node
    *
    * @default 'Enter'
    */
-  openKey?: string
+  // openKey?: string
 
   /**
    * inspector is automatically disabled when releasing toggleKeyCombo after holding it for a longpress
    * @default true
    */
-  holdMode?: boolean
+  // holdMode?: boolean
 
   /**
    * when to show the toggle button
    * @default 'active'
    */
-  showToggleButton?: 'always' | 'active' | 'never'
+  // showToggleButton?: 'always' | 'active' | 'never'
 
   /**
    * where to display the toggle button
    * @default bottom-right
    */
-  toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  // toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
 
   /**
    * internal options that are automatically set, not to be set or used by users

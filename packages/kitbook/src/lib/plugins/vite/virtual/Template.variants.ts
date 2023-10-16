@@ -1,7 +1,7 @@
-import type { Variants } from 'kitbook'
+import type { Variant } from 'kitbook'
 import type Component from './Template.svelte'
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'Situation A',
     description: 'Add optional information about this variant',

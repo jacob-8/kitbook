@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Variant, Viewport } from 'kitbook'
+  import type { VariantsModule, Viewport } from 'kitbook'
   import { pagesStore } from '../../modules/hmrUpdatedModules'
   import DisplayVariants from './DisplayVariants.svelte'
 
@@ -12,7 +12,7 @@
   $: page = $pagesStore[localFilenameWithLeadingSlash]
 
   let loading = true
-  let variantsModule: { 'variants': Variant<any>[]; 'viewports': Viewport[] }
+  let variantsModule: VariantsModule
   $: if (page?.loadVariants?.loadModule) {
     page.loadVariants.loadModule().then((module) => {
       variantsModule = module

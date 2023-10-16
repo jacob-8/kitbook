@@ -45,12 +45,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
         return writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
       }
 
-      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_TEMPLATES)) {
-        const _dirname = dirname(fileURLToPath(import.meta.url))
-        const filepath = resolve(_dirname, './virtual/Template.variants.js')
-        const variantsTemplate = readFileSync(filepath, 'utf-8')
-        return `export const variants = \`${variantsTemplate}\``
-      }
+      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_TEMPLATES))
+        return `export const variants = \`${getVariantsTemplate()}\``
     },
   }
 
@@ -59,4 +55,16 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
 function addVirtualFilePrefix(id: string): string {
   return `\0${id}`
+}
+
+function getVariantsTemplate() {
+  const _dirname = dirname(fileURLToPath(import.meta.url))
+  try {
+    const filepath = resolve(_dirname, './virtual/Template.variants.js')
+    return readFileSync(filepath, 'utf-8')
+  }
+  catch {
+    const filepath = resolve(_dirname, './virtual/Template.variants.ts') // for when developing on Kitbook itself
+    return readFileSync(filepath, 'utf-8')
+  }
 }

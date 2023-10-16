@@ -1,7 +1,8 @@
 <script lang="ts">
-  import type { PageData } from './$types';
-  export let data: PageData;
-  import { SandboxPage } from 'kitbook';
+  import { SandboxPage } from 'kitbook'
+  import type { PageData } from './$types'
+
+  export let data: PageData
 </script>
 
 <SandboxPage {data} />
