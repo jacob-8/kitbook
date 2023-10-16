@@ -47,7 +47,7 @@ jobs:
       - run: pnpm build:deps
 
       - run: pnpm -F kitbook sync
-      # - run: pnpm -F kitbook check
+      - run: pnpm -F kitbook check
 
       - name: Run Vitest Unit Tests
         run: pnpm test

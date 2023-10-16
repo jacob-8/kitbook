@@ -1,8 +1,8 @@
-# Add the VS Code Kitbook Extension
+# VSCode Kitbook Extension
 
 There is a not-yet-published Kitbook VSCode extension (`jacob-8.kitbook-vscode`) which can be manually installed using the `packages\vscode\kitbook-vscode-0.0.1.vsix` file in this repo.
 
-More features will be added to this extension but at present it serves to easily allow you to toggle on/off the treatment of markdown files as `svelte` files to enable you to go back and forth between markdown and svelte language services in the same `.md` file.
+At present it serves to easily allow you to toggle on/off the treatment of markdown files as `svelte` files to enable you to go back and forth between markdown and svelte language services in the same `.md` file.
 
 After installing the extension, add the following keybinding (adjust as you desire) to your keyboard shortcuts by opening the Command Palette (Ctrl+p on Windows) and select `Preferences: Open Keyboard Shortcuts (JSON)`. Add the following:
 
@@ -15,7 +15,7 @@ After installing the extension, add the following keybinding (adjust as you desi
 
 Then any time you press that keybinding, the association will be flipped:
 
-```json title=".vscode/settings.json" {2}
+```txt title=".vscode/settings.json" {2}
 "files.associations": {
   "*.md": "svelte", // toggles this line on/off
   "*.foo": "bar" // ignores other associations if they exist
@@ -26,4 +26,4 @@ Every Svelte developer knows how great the Svelte Language Tools are, but there'
 
 ## Future plans
 
-It would be very easy to update the extension to be able to easily add Story or Variant files next to existing Svelte components without having to write out the little bit of boilerplate these files require. This would be similar to how the Svelte extension lets you easily add route files from the "SvelteKit Files" context menu option.
+With the recent move to using Compositions instead of Stories, and with the addition of the Viewer to easily add workbench files, this extension may not actually be needed...
