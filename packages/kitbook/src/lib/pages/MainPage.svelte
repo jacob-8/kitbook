@@ -33,7 +33,7 @@
   $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || data.loadedModules?.variants)
 </script>
 
-<main style="flex: 1" class="overflow-y-auto bg-white">
+<main style="flex: 1" class="overflow-y-auto bg-white pt-3">
   {#if data.error}
     <div class="text-red">
       Error: {data.error}

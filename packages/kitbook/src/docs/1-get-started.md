@@ -1,66 +1,55 @@
-# Get Started: How to Create a KitBook
+# Get Started
 
-**Warning: This is alpha software and not ready.** Watch the updating [[4-roadmap]] for clues on when that will be.
+**Warning: This is alpha software and the API will change.** Please use if you like powerful tools, like scanning release notes for breaking changes, and like contributing to fix bugs. Please don't use if you don't like the above, but you can read the [[4-roadmap]] for clues on when things will be more stable.
 
-- Install the `kitbook` package: `npm i -D kitbook@alpha` or `pnpm add -D kitbook@alpha`
+## How to Add Kitbook to Your SvelteKit App
+
+Kitbook has a lot of powerful features, but let's start with the bare minimum to just get going:
+
+- `npm install -D kitbook@alpha` or `pnpm add -D kitbook@alpha`
 
 - Add the `kitbook()` Vite plugin *before* your `sveltekit()` plugin:
-```js title="vite.config.js" {3,7}
-import { defineConfig } from 'vite'
-import { sveltekit } from '@sveltejs/kit/vite';
-import { kitbook } from 'kitbook/plugins/vite';
+	```js twoslash title="vite.config.js" {3,7}
+	import { defineConfig } from 'vite'
+	import { sveltekit } from '@sveltejs/kit/vite'
+	import { kitbook } from 'kitbook/plugins/vite'
 
-export default defineConfig({
-	plugins: [
-		kitbook(),
-		sveltekit(),
-	],
-});
-```
+	export default defineConfig({
+	  plugins: [
+	    kitbook(),
+	    sveltekit(),
+	  ],
+	})
+	```
 
-*You can pass configuration settings into the kitbook plugin, though defaults are provided to help you get started quickly.*
+	*You can pass optional configuration settings to the plugin. You will see them referenced throughout the docs and you can read the types if you want to utilize them.*
 
-- Add the necessary [MDSvex](https://mdsvex.pngwn.io/) imports and configuration into your `svelte.config.js`:
-```js title="svelte.config.js" {2,5,7}
-import { vitePreprocess } from '@sveltejs/kit/vite';
-import { mdsvex, MDSVEX_EXTENSIONS, KITBOOK_MDSVEX_CONFIG } from 'kitbook/plugins/vite';
+- Run your dev server as normal (`npm run dev`) and Kitbook will add a `src/routes/kitbook` folder to add a `/kitbook` route to your app - leave these files alone. 
 
-const config = {
-  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
-	preprocess: [
-    mdsvex(KITBOOK_MDSVEX_CONFIG),
-    vitePreprocess(),
-  ],
-	// ...
-};
+	At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files - they are also Svelte components with a very important `data` prop*.
 
-export default config;
-```
+	If you don't have any app shell components in your root layout file, (e.g. a header), then your routes folder structure is probably good. However, if you have app shell components, then you'll notice that your Kitbook is also inheriting them. This won't work and you may need to adjust your folder structure to look like this:
 
-- If you have root layout elements you don't want to affect your Kitbook, place your app inside of a [(group)](https://kit.svelte.dev/docs/advanced-routing#advanced-layouts-group) folder named anything.
-- Run your dev server (`npm run dev`) and Kitbook will add a `kitbook` routes folder to `src/routes` - leave these files alone. Your folder structure might look like this:
+	```txt {2,6}
+	src/routes/
+	│ (app)/
+	│ ├ dashboard/
+	│ ├ item/
+	│ └ +layout.svelte <-- add app shell components like headers and initialize app only items, like db connections (refers to all layout files like +layout.ts)
+	│ kitbook/
+	└ +layout.svelte <-- initialize everything both your app and Kitbook need, like i18n 
+	```
 
-```txt {2,6}
-src/routes/
-│ (app)/
-│ ├ dashboard/
-│ ├ item/
-│ └ +layout.svelte <-- initialize app only items, like db connections (refers to all layout files like +layout.ts)
-│ kitbook/
-└ +layout.svelte <-- initialize everything both your app and Kitbook need, like i18n 
-```
-
-At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files as they are also just plain Svelte components with a very important `data` prop*.
+	You may find it a bit jarring to have your component workbench included in your main app. Kitbook originally worked as a companion app, like all previous art does, but this created a lot of friction I didn't like. 
+	- I don't often take the time to start two dev servers and open two tabs. I often only worked in my Kitbook or only in my app, but not both which is the sweet spot. 
+	- Another friction point, is the work required to set up the component workbench with just the right scaffolding to match the main app. It's annoying to have to keep everything in sync (like i18n) for example. The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
+	- This avoids all the compatibility issues other tools have around trying to use SvelteKit specific imports. 
+  
+	Give the combined app and workbench approach a try and see if you like it. If you don't need the workbench published you can also easily add a script to remove the `kitbook` route folder before building for production.
  
-Next you could...
-
-- [[2-write-documentation]]
-- [[3-add-stories]] 
-- [[4-add-component-variants]]
+Let's move on to learn about Kitbook's [[1a-viewer]] tool which bridges the gap between our app and our component workbench. 
 
 [//begin]: # "Autogenerated link references for markdown compatibility"
 [4-roadmap]: 9-maintainer-notes/4-roadmap.md "Roadmap"
-[2-write-documentation]: 2-write-documentation.md "Write Documentation"
-[3-add-stories]: 3-add-stories.md "Add Stories"
-[4-add-component-variants]: 4-add-component-variants.md "Add Component Variants"
+[1a-viewer]: 1a-viewer.md "Viewer"
 [//end]: # "Autogenerated link references"

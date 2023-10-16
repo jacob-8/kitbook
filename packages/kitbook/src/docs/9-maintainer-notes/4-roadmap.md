@@ -1,9 +1,9 @@
 # Roadmap
 
-## This project is still in alpha and the API is still being shaped.
+**This project is still in alpha and the API is still being shaped.**
 *(you have been warned, early-adopters)*
 
-## Alpha features still needed - please feel free to contribute!
+## Alpha features still needed - please feel free to open issues and discuss what you may be able to contribute!
 - compositions
 - Vite server config to update/add compositions from browser
 - revisit split-pane story height

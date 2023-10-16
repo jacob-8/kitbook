@@ -8,19 +8,20 @@
 
 ```js twoslash title="svelte.config.js"
 import { PreprocessUnocss } from 'svelte-preprocess-unocss'
+
 /** @type {import('@sveltejs/kit').Config} */
 // ---cut---
 const config = {
   preprocess: [
     PreprocessUnocss({ classPrefix: 'kb-' }),
   ],
-};
+}
 ```
 
 We then add a `uno.config.ts` file:
 
 ```ts title="uno.config.ts"
-import { defineConfig, presetUno, presetIcons } from 'svelte-preprocess-unocss'
+import { defineConfig, presetIcons, presetUno } from 'svelte-preprocess-unocss'
 
 export default defineConfig({
   presets: [

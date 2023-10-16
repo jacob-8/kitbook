@@ -15,9 +15,11 @@
 </div>
 
 <div class="flex flex-col overflow-y-auto">
-  {#each $componentsWithChildren as [_fragment, { componentDetail, childComponents }] (_fragment)}
+  <!-- use spread for Svelte 3 compatibility, not needed in Svelte 4 -->
+  {#each [...$componentsWithChildren] as [_fragment, { componentDetail, childComponents }] (_fragment)}
     {#if componentDetail.tagName === 'Root'}
-      {#each childComponents as componentFragment (componentFragment)}
+      <!-- use spread for Svelte 3 compatibility, not needed in Svelte 4 -->
+      {#each [...childComponents] as componentFragment (componentFragment)}
         <Component {componentFragment} componentsWithChildren={$componentsWithChildren} />
       {/each}
     {/if}

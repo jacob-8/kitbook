@@ -1,5 +1,22 @@
 # Write Documentation
 
+- Add the necessary [MDSvex](https://mdsvex.pngwn.io/) imports and configuration into your `svelte.config.js`:
+```js twoslash title="svelte.config.js" {2,5,7}
+import { vitePreprocess } from '@sveltejs/kit/vite'
+import { KITBOOK_MDSVEX_CONFIG, MDSVEX_EXTENSIONS, mdsvex } from 'kitbook/plugins/mdsvex'
+
+const config = {
+  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
+  preprocess: [
+    mdsvex(KITBOOK_MDSVEX_CONFIG),
+    vitePreprocess(),
+  ],
+  // ...
+}
+
+export default config
+```
+
 You can create a folder with any name under your `/src` folder and begin writing documentation in markdown. This Kitbook has a `docs` folder, which is where this file exists as can be seen in the sidebar navigation. Since [[3-mdsvex]] to preprocess all `.md` and `.svx` files you can also include Svelte components in your markdown.
 
 ## Index Page

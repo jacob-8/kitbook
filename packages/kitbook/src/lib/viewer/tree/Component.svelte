@@ -35,11 +35,12 @@
     {component.componentDetail.tagName}
   </button>
   <div class="ml-2 pl-1 border-l border-dashed">
-    <!-- {#each component.childElements as element}
+    <!-- {#each [...component.childElements] as element}
       <Element {element} />
     {/each} -->
 
-    {#each component.childComponents as childFragment (childFragment)}
+    <!-- use spread for Svelte 3 compatibility, not needed in Svelte 4 -->
+    {#each [...component.childComponents] as childFragment (childFragment)}
       <svelte:self componentFragment={childFragment} {componentsWithChildren} />
     {/each}
   </div>

@@ -83,6 +83,7 @@ export interface KitbookSettings {
   description: string
   viewports: Viewport[]
   languages?: Language[]
+  /** `false` by default */
   expandTree?: boolean
   githubURL?: string
   /**
