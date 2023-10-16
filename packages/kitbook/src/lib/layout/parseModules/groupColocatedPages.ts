@@ -73,6 +73,18 @@ if (import.meta.vitest) {
           "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
+        "/docs/1a-you-can-use-letters-to-adjust-ordering": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "you can use letters to adjust ordering",
+          "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
+          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
+        },
         "/docs/my-notes/0-unocss": {
           "extensions": [
             "md",
@@ -352,12 +364,12 @@ function isPageOrLayout(name: string): boolean {
 
 if (import.meta.vitest) {
   test('isPageOrLayout', () => {
-    expect(isPageOrLayout('+page')).toMatchInlineSnapshot('true')
-    expect(isPageOrLayout('+page@(app)')).toMatchInlineSnapshot('true')
-    expect(isPageOrLayout('_page')).toMatchInlineSnapshot('false')
-    expect(isPageOrLayout('+layout')).toMatchInlineSnapshot('true')
-    expect(isPageOrLayout('+layout@')).toMatchInlineSnapshot('true')
-    expect(isPageOrLayout('blue')).toMatchInlineSnapshot('false')
+    expect(isPageOrLayout('+page')).toBeTruthy()
+    expect(isPageOrLayout('+page@(app)')).toBeTruthy()
+    expect(isPageOrLayout('_page')).toBeFalsy()
+    expect(isPageOrLayout('+layout')).toBeTruthy()
+    expect(isPageOrLayout('+layout@')).toBeTruthy()
+    expect(isPageOrLayout('blue')).toBeFalsy()
   })
 }
 
@@ -380,55 +392,27 @@ if (import.meta.vitest) {
     const pages = ['_MyComponent', '_page@', '+page@', '_layout', '+layout', 'AnotherRegularComponent'].map((p) => {
       return {
         name: p,
-        ext: null,
-        load: null,
-        path: null,
-        url: null,
       }
-    })
+    }) as UngroupedPage[]
     expect(sortPageAndLayoutPagesWithPlusFirst(pages)).toMatchInlineSnapshot(`
       [
         {
-          "ext": null,
-          "load": null,
           "name": "_MyComponent",
-          "path": null,
-          "url": null,
         },
         {
-          "ext": null,
-          "load": null,
           "name": "+page@",
-          "path": null,
-          "url": null,
         },
         {
-          "ext": null,
-          "load": null,
           "name": "+layout",
-          "path": null,
-          "url": null,
         },
         {
-          "ext": null,
-          "load": null,
           "name": "_page@",
-          "path": null,
-          "url": null,
         },
         {
-          "ext": null,
-          "load": null,
           "name": "_layout",
-          "path": null,
-          "url": null,
         },
         {
-          "ext": null,
-          "load": null,
           "name": "AnotherRegularComponent",
-          "path": null,
-          "url": null,
         },
       ]
     `)

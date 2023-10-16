@@ -1,11 +1,11 @@
-import type { Modules, GroupedPageMap, RawModules } from "../../kitbook-types";
-import { groupColocatedPages } from "./groupColocatedPages";
-import { parseModulesIntoUngroupedPages } from "./parseModulesIntoUngroupedPages";
-import { testModules } from "./testModules";
+import type { GroupedPageMap, Modules, RawModules } from '../../kitbook-types'
+import { groupColocatedPages } from './groupColocatedPages'
+import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
+import { testModules } from './testModules'
 
 export function groupColocatedModulesIntoPages(modules: Modules, rawModules: RawModules): GroupedPageMap {
-  const ungroupedPages = parseModulesIntoUngroupedPages(modules, rawModules);
-  return groupColocatedPages(ungroupedPages);
+  const ungroupedPages = parseModulesIntoUngroupedPages(modules, rawModules)
+  return groupColocatedPages(ungroupedPages)
 }
 
 if (import.meta.vitest) {
@@ -48,6 +48,18 @@ if (import.meta.vitest) {
           "name": "get started",
           "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
+        },
+        "/docs/1a-you-can-use-letters-to-adjust-ordering": {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "you can use letters to adjust ordering",
+          "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
+          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
         },
         "/docs/my-notes/0-unocss": {
           "extensions": [
@@ -302,6 +314,6 @@ if (import.meta.vitest) {
           "url": "/routes/c/+page",
         },
       }
-    `);
-  });
+    `)
+  })
 }

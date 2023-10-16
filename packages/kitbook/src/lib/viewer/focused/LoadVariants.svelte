@@ -42,3 +42,9 @@
 <!-- <div class="p-2 text-red">
       Error loading variants: {error}
     </div> -->
+
+<style>
+  button {
+    --at-apply: p-2 hover:bg-gray-200;
+  }
+</style>

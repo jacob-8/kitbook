@@ -1,11 +1,13 @@
-import type { Folder, GroupedPageMap } from "../../kitbook-types";
-import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
+import type { Folder, GroupedPageMap } from '../../kitbook-types'
+import { removeInitialDigitAndHyphens } from './utils/removeInitialDigitAndHyphens'
 
 export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
-  if (!groupedPages) return {
-    name: 'No pages found',
-    url: '/',
-    depth: 0,
+  if (!groupedPages) {
+    return {
+      name: 'No pages found',
+      url: '/',
+      depth: 0,
+    }
   }
   const pagesToOrganize = Object.values(groupedPages)
 
@@ -15,23 +17,26 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
     depth: 0,
     folders: [],
     pages: [],
-  };
+  }
 
-  if (!pagesToOrganize?.length) return rootFolder;
+  if (!pagesToOrganize?.length)
+    return rootFolder
 
   pagesToOrganize.forEach((page) => {
-    let currentFolder = rootFolder;
+    let currentFolder = rootFolder
 
-    const path = page.url.split('/');
+    const path = page.url.split('/')
     path.forEach((folderName, index) => {
-      const cleanedFolderName = removeInitialDigitAndHyphens(folderName);
+      const cleanedFolderName = removeInitialDigitAndHyphens(folderName)
 
       if (index === path.length - 1) {
-        currentFolder.pages.push(page); // is a page
-      } else if (folderName === '') {
-        currentFolder = rootFolder;
-      } else {
-        let folder = currentFolder.folders.find((folder) => folder.name === cleanedFolderName);
+        currentFolder.pages.push(page) // is a page
+      }
+      else if (folderName === '') {
+        currentFolder = rootFolder
+      }
+      else {
+        let folder = currentFolder.folders.find(folder => folder.name === cleanedFolderName)
         if (!folder) {
           folder = {
             name: cleanedFolderName,
@@ -42,28 +47,28 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
             depth: index,
             folders: [],
             pages: [],
-          };
-          currentFolder.folders.push(folder);
+          }
+          currentFolder.folders.push(folder)
         }
-        currentFolder = folder;
+        currentFolder = folder
       }
-    });
-  });
-  return rootFolder;
+    })
+  })
+  return rootFolder
 }
 
 function filterKitbookRoutes(path: string, kitbookRoutes: string): boolean {
-  return !path.includes(kitbookRoutes);
+  return !path.includes(kitbookRoutes)
 }
 
 if (import.meta.vitest) {
   test('filterKitbookRoutes', () => {
-    const defaultKitbookRoutes = 'src/kitbook';
-    const standardSvelteKitRoutes = 'src/routes';
+    const defaultKitbookRoutes = 'src/kitbook'
+    const standardSvelteKitRoutes = 'src/routes'
 
-    expect(filterKitbookRoutes('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false');
-    expect(filterKitbookRoutes('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true');
+    expect(filterKitbookRoutes('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false')
+    expect(filterKitbookRoutes('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true')
 
-    expect(filterKitbookRoutes('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false');
-  });
+    expect(filterKitbookRoutes('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false')
+  })
 }

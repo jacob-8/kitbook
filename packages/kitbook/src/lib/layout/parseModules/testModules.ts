@@ -5,6 +5,7 @@ export const testModules = {
   '/src/index.md': () => Promise.resolve(null),
   '/src/docs/0-why-kitbook.md': () => Promise.resolve(null),
   '/src/docs/1-get-started.md': () => Promise.resolve(null),
+  '/src/docs/1a-you-can-use-letters-to-adjust-ordering.md': () => Promise.resolve(null),
   '/src/docs/my-notes/0-unocss.md': () => Promise.resolve(null),
   '/src/docs/my-notes/1-deploy-to-vercel.md': () => Promise.resolve(null),
 

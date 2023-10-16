@@ -49,6 +49,10 @@ describe('filterPages from testModules', () => {
           "url": "/docs/1-get-started",
         },
         {
+          "name": "you can use letters to adjust ordering",
+          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
+        },
+        {
           "name": "why kitbook",
           "url": "/docs/0-why-kitbook",
         },

@@ -6,7 +6,7 @@ export function isFromNodeModules(component: ComponentWithChildren): boolean {
   })
 }
 
-export function getLocalFilename(component: ComponentWithChildren): string {
+export function getLocalFilename(component: ComponentWithChildren): string | undefined {
   const elements = Array.from(component.childElements)
   const elementNotInNodeModules = elements.find((element) => {
     const filename = element?.__svelte_meta?.loc.file

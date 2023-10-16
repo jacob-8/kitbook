@@ -47,7 +47,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
       if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_TEMPLATES)) {
         const _dirname = dirname(fileURLToPath(import.meta.url))
-        const filepath = resolve(_dirname, './virtual/Template.variants.ts')
+        const filepath = resolve(_dirname, './virtual/Template.variants.js')
         const variantsTemplate = readFileSync(filepath, 'utf-8')
         return `export const variants = \`${variantsTemplate}\``
       }

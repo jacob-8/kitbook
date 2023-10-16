@@ -74,6 +74,16 @@ if (import.meta.vitest) {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
+          "name": "you can use letters to adjust ordering",
+          "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
+          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
+        },
+        {
+          "ext": "md",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
           "name": "unocss",
           "path": "/src/docs/my-notes/0-unocss.md",
           "url": "/docs/my-notes/0-unocss",

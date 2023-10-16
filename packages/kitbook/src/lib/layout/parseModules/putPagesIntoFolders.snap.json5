@@ -63,6 +63,18 @@
           "path": "/src/docs/1-get-started.md",
           "url": "/docs/1-get-started",
         },
+        {
+          "extensions": [
+            "md",
+          ],
+          "loadSvx": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "you can use letters to adjust ordering",
+          "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
+          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
+        },
       ],
       "url": "/docs",
     },

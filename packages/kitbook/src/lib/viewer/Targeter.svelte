@@ -106,7 +106,7 @@
     bind:offsetWidth={labelWidth}
     class="fixed bg-#000000cc text-white py-2px px-1 rounded z-10000000 pointer-events-none">
     <div>
-      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getLocalFilename($hoveredComponent).split('src/').pop()}</span>
+      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getLocalFilename($hoveredComponent)?.split('src/').pop()}</span>
     </div>
   </div>
 {/if}
