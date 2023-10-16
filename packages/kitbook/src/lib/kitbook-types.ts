@@ -1,8 +1,6 @@
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
-export type Variants<T extends SvelteComponent> = Variant<T>[]
-
 export interface Variant<T extends SvelteComponent> {
   name?: string
   description?: string

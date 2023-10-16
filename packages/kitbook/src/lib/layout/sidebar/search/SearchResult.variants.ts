@@ -14,7 +14,7 @@ export const viewports: Viewport[] = [
   },
 ]
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'README',
     props: {

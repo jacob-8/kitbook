@@ -1,7 +1,7 @@
+import type { Variant } from 'kitbook'
 import type Component from './EditInGithub.svelte'
-import type { Variants } from '$lib'
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'With githubUrl context',
     props: {

@@ -6,9 +6,9 @@ export const variants: Variant<Component>[] = [
     name: 'Situation A',
     description: 'Add optional information about this variant',
     props: {},
-    viewports: [
-      { name: 'Desktop', width: 800, height: 600 },
-    ],
+    // viewports: [
+    //   { name: 'Desktop', width: 800, height: 600 },
+    // ],
     // contexts: [
     //   {
     //     key: 'settings',

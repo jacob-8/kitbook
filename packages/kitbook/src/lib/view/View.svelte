@@ -14,7 +14,6 @@
   export let languageCode: string = undefined
   export let width: number
   export let height = DEFAULT_PIXEL_HEIGHT
-  export let useIframe = true
   export let hovered = false
   export let props: Record<string, any> = undefined
   export let queryParams: string
@@ -30,8 +29,6 @@
 <!-- http://localhost:5174/en/kitbook/routes/[lang=locale]/(app)/zh-TW//en/kitbook/sandbox/routes/[lang=locale]/(app)/+layout?variantIdx=0 -->
 <!-- http://localhost:5174/zh-TW/kitbook/sandbox/routes/[lang=locale]/(app)/+layout?variantIdx=0 -->
 <IntersectionObserver let:intersecting once>
-  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
     class="not-prose mb-4 mr-2"
     on:mouseover={() => (hovered = true)}
@@ -42,19 +39,14 @@
       {width}
       {height}
       {src}
-      {useIframe}
       let:adjustedHeight
       let:adjustedWidth
       on:refresh={() => {
         iframe.reload()
       }}>
       <ViewBody {hovered} height={adjustedHeight} width={adjustedWidth}>
-        {#if useIframe}
-          {#if intersecting}
-            <Iframe bind:this={iframe} {src} />
-          {/if}
-        {:else}
-          <slot />
+        {#if intersecting}
+          <Iframe bind:this={iframe} {src} />
         {/if}
       </ViewBody>
     </ViewHeader>
