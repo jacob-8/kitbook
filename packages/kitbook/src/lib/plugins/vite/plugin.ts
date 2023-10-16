@@ -31,21 +31,21 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
     resolveId(id) {
       if (Object.values(VirtualModules).includes(id as VirtualModules))
-        return `\0${id}`
+        return addVirtualFilePrefix(id)
     },
 
     load(id) {
-      if (id === VirtualModules.KITBOOK_SETTINGS)
+      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_SETTINGS))
         return `export const settings = ${JSON.stringify(settings)}`
 
-      if (id === VirtualModules.KITBOOK_MODULES) {
+      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_MODULES)) {
         const _dirname = dirname(fileURLToPath(import.meta.url))
         const filepath = resolve(_dirname, './virtual/importModules.js')
         const content = readFileSync(filepath, 'utf-8')
         return writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
       }
 
-      if (id === VirtualModules.KITBOOK_TEMPLATES) {
+      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_TEMPLATES)) {
         const _dirname = dirname(fileURLToPath(import.meta.url))
         const filepath = resolve(_dirname, './virtual/Template.variants.ts')
         const variantsTemplate = readFileSync(filepath, 'utf-8')
@@ -55,4 +55,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
   }
 
   return [plugin, kitbookViewer(settings)]
+}
+
+function addVirtualFilePrefix(id: string): string {
+  return `\0${id}`
 }
