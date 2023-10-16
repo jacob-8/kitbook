@@ -18,7 +18,7 @@ const config = {
 export default config
 ```
 
-*In the future, we might use `svelte-markdown` to automatically provide markdown support for those who don't need to use Svelte components within their markdown. Then the above step would not be needed.*
+*In the future, we might use [`svelte-markdown`](https://github.com/pablo-abc/svelte-markdown) to automatically provide markdown support for those who don't need to use Svelte components within their markdown. Then the above step would not be needed.*
 
 For general documentation (like this page you're reading now), you can create a folder with any name under your `/src` folder and begin writing documentation in markdown. This Kitbook has a `docs` folder, which is where this file exists as can be seen in the sidebar navigation.
 

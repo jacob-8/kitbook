@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../styles/tw-prose.css'
+  import '../styles/kb-prose.css'
   import { getContext } from 'svelte'
   import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, VariantsModule } from 'kitbook'
   import EditInGithub from '../components/EditInGithub.svelte'
@@ -42,7 +42,7 @@
     </div>
   {:else}
     {#if data.loadedModules.svx}
-      <div class="tw-prose mb-10 max-w-1000px">
+      <div class="kb-prose mb-10 max-w-1000px">
         <svelte:component this={data.loadedModules.svx} />
       </div>
     {/if}

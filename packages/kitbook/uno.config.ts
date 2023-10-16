@@ -1,5 +1,4 @@
 import { defineConfig, presetIcons, presetUno } from 'unocss'
-// import { colors } from '@unocss/preset-uno';
 
 export default defineConfig({
   presets: [
@@ -12,9 +11,4 @@ export default defineConfig({
       },
     }),
   ],
-  // theme: {
-    // colors: {
-      // primary: colors.blue,
-  //   }
-  // }
 })

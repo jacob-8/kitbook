@@ -10,6 +10,7 @@
 </script>
 
 <a
+  data-sveltekit-preload-data="off"
   class:opacity-60={doesNotHaveSvxOrVariants}
   class:font-semibold={active}
   class:text-blue-600={active}
