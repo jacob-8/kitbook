@@ -20,6 +20,8 @@ export default antfu(
     ignores: [
       'examples/**',
       '**/.svelte-kit**',
+      '**/package/**',
+      '**/src/routes/kitbook/**',
     ],
   },
 )
