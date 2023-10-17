@@ -7,6 +7,7 @@
   import { pagesStore } from '../modules/hmrUpdatedModules'
   import { openComponent, openSvx, openVariantsWithoutProps } from '../open/openFiles'
   import Variants from './Variants.svelte'
+  import { dev } from '$app/environment'
 
   export let data: {
     pages?: GroupedPageMap
@@ -45,23 +46,30 @@
   {:else}
     {#if data.loadedModules.component}
       <div class="font-semibold text-2xl mb-2">{data.page?.name}
-        <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`)} title="Edit Component"><span class="i-vscode-icons-file-type-svelte align--2px" />
-        </button>
+        {#if dev}
+          <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`)} title="Edit Component">
+            <span class="i-vscode-icons-file-type-svelte align--2px" />
+          </button>
+        {/if}
       </div>
     {/if}
+
     {#if data.loadedModules.svx}
       <div class="kb-prose mb-8 max-w-1000px">
         <svelte:component this={data.loadedModules.svx} />
+        <!-- TODO: update the MDSvex to parse for links to compositions and use the IFrame component with the right composition url -->
       </div>
-    {:else}
+    {:else if dev}
       <Button class="block mb-2" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (.md)</Button>
     {/if}
 
+    <!-- {#if data.loadedModules.compositions}
+      leftovers not referenced in the docs
+    {/if} -->
     {#if data.loadedModules.component}
-
       {#if variants}
         <Variants {variants} viewports={fileViewports || viewports} {languages} />
-      {:else}
+      {:else if dev}
         <Button class="block mb-2" onclick={() => openVariantsWithoutProps(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (.variants.ts)</Button>
       {/if}
     {/if}

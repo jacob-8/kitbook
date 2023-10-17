@@ -35,6 +35,18 @@ export function openSvx(filename: string) {
   ensureFileExists(filename, markdownTemplate)
 }
 
+export function createComposition(path: string) {
+  const compositionName = prompt('Enter a name for the composition file:')
+  if (!compositionName)
+    return
+  const compositionFilename = path.replace('.svelte', `${compositionName}.composition`)
+  const template = `<script lang="ts">
+
+</script>
+`
+  ensureFileExists(compositionFilename, template)
+}
+
 function ensureFileExists(filename: string, template: string) {
   if (!import.meta.hot)
     return alert('Dev server must be running with HMR enabled to use this feature.')
@@ -48,11 +60,3 @@ if (import.meta.hot) {
     fetch(`${settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
   })
 }
-
-// function createComposition() {
-//   const compositionName = prompt('Enter a name for the composition file:')
-//   if (!compositionName)
-//     return
-//   const compositionFilename = filename.replace('.svelte', `${compositionName}.composition.svelte`)
-//   ensureFileExists(compositionFilename, 'TODO')
-// }
