@@ -8,7 +8,7 @@ import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
 import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, VirtualModules } from './constants.js'
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
-import { DEFAULT_VIEWER_OPTIONS } from './viewer/options'
+import { DEFAULT_VIEWER_OPTIONS } from './viewer/options.js'
 
 /**
  * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes to `src/routes/kitbook` unless you update the `routesDirectory` and `kitbookRoute` settings.
