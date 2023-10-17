@@ -33,30 +33,37 @@
 
   $: variants = variantsModule?.variants || data.loadedModules?.variantsModule?.variants
   $: fileViewports = variantsModule?.viewports || data.loadedModules?.variantsModule?.viewports
+  $: pathWithoutExtension = `.${data.page?.path.replace(/.(svelte|md)$/, '')}`
 </script>
 
 <main style="flex: 1" class="overflow-y-auto bg-white pt-3">
-  <div class="font-semibold text-2xl mb-2">{data.page?.name}
-    <button type="button" on:click={() => openComponent(`.${data.page.path}`)} title="Edit Component"><span class="i-vscode-icons-file-type-svelte align--2px" />
-    </button>
-  </div>
+
   {#if data.error}
     <div class="text-red">
       Error: {data.error}
     </div>
   {:else}
+    {#if data.loadedModules.component}
+      <div class="font-semibold text-2xl mb-2">{data.page?.name}
+        <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`)} title="Edit Component"><span class="i-vscode-icons-file-type-svelte align--2px" />
+        </button>
+      </div>
+    {/if}
     {#if data.loadedModules.svx}
       <div class="kb-prose mb-8 max-w-1000px">
         <svelte:component this={data.loadedModules.svx} />
       </div>
     {:else}
-      <Button class="block mb-2" onclick={() => openSvx(`.${data.page.path.replace('.svelte', '.md')}`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (.md)</Button>
+      <Button class="block mb-2" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (.md)</Button>
     {/if}
 
-    {#if variants && data.loadedModules.component}
-      <Variants {variants} viewports={fileViewports || viewports} {languages} />
-    {:else}
-      <Button class="block mb-2" onclick={() => openVariantsWithoutProps(`.${data.page.path}`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (.variants.ts)</Button>
+    {#if data.loadedModules.component}
+
+      {#if variants}
+        <Variants {variants} viewports={fileViewports || viewports} {languages} />
+      {:else}
+        <Button class="block mb-2" onclick={() => openVariantsWithoutProps(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (.variants.ts)</Button>
+      {/if}
     {/if}
 
     <EditInGithub path={data?.page?.path} />
