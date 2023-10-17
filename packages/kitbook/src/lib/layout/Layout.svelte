@@ -1,8 +1,7 @@
 <script lang="ts">
   import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css'
   import '../styles/main.css'
-  import type { KitbookSettings } from 'kitbook'
-  import { getContext } from 'svelte'
+  import { settings } from 'virtual:kitbook-settings'
   import Header from './sidebar/Header.svelte'
   import Sidebar from './sidebar/Sidebar.svelte'
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders'
@@ -10,10 +9,6 @@
   import { findKitbookPath } from './kitbookPath'
   import { page } from '$app/stores'
   // import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
-
-  const settings = getContext<KitbookSettings>('kitbook-settings')
-  if (!settings)
-    console.warn('No settings context found. Do you have a +layout.svelte file in your kitbook folder that sets the kitbook-settings context?')
 
   const { title, description, expandTree, githubURL } = settings || {}
 
