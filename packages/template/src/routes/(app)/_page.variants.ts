@@ -1,7 +1,7 @@
-import type { Variants } from 'kitbook';
+import type { Variant } from 'kitbook';
 import type Component from './+page.svelte';
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'First',
     props: {

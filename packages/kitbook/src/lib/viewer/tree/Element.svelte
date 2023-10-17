@@ -6,8 +6,6 @@
   $: isHovered = $hoveredElement === element
 </script>
 
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
   class="w-full ml-3 text-xs"
   class:bg-green-200={isHovered}

@@ -1,11 +1,14 @@
 <script lang="ts">
   import '../styles/kb-prose.css'
-  import { getContext } from 'svelte'
-  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, VariantsModule } from 'kitbook'
+  import type { GroupedPage, GroupedPageMap, LoadedModules, VariantsModule } from 'kitbook'
+  import { Button } from 'svelte-pieces'
+  import { settings } from 'virtual:kitbook-settings'
   import EditInGithub from '../components/EditInGithub.svelte'
-  import View from '../view/View.svelte'
   import { pagesStore } from '../modules/hmrUpdatedModules'
-  import { page } from '$app/stores'
+  import { openComponent, openSvx, openVariantsWithoutProps } from '../open/openFiles'
+  import Layout from '../layout/Layout.svelte'
+  import Variants from './Variants.svelte'
+  import { dev } from '$app/environment'
 
   export let data: {
     pages?: GroupedPageMap
@@ -15,7 +18,7 @@
     error?: string
   } = { loadedModules: {} }
 
-  const { viewports, languages } = getContext<KitbookSettings>('kitbook-settings')
+  const { viewports, languages, githubURL } = settings
 
   $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
   let variantsModule: VariantsModule
@@ -26,73 +29,56 @@
       console.error(error)
     })
   }
+  else {
+    variantsModule = null
+  }
+
   $: variants = variantsModule?.variants || data.loadedModules?.variantsModule?.variants
   $: fileViewports = variantsModule?.viewports || data.loadedModules?.variantsModule?.viewports
+  $: pathWithoutExtension = `.${data.page?.path.replace(/.(svelte|md)$/, '')}`
 
-  $: wouldRecurseInfinitelyInSandbox = $page.url.pathname.startsWith(
-    '/lib/routes/kitbook/sandbox/[...file]/+',
-  )
-  $: doesNotHaveStoriesOrVariants = !(data.loadedModules?.svx || variants)
+  $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
 </script>
 
-<main style="flex: 1" class="overflow-y-auto bg-white pt-3">
-  {#if data.error}
-    <div class="text-red">
-      Error: {data.error}
-    </div>
-  {:else}
-    {#if data.loadedModules.svx}
-      <div class="kb-prose mb-10 max-w-1000px">
-        <svelte:component this={data.loadedModules.svx} />
-      </div>
-    {/if}
+<Layout>
+  <main style="flex: 1" class="overflow-y-auto bg-white pt-3">
 
-    {#if data.loadedModules.component}
-      {#if variants}
-        <div class="text-2xl mb-4">
-          {#if data.page.name.startsWith('+layout')}
-            Layout
-          {:else if data.page.name.startsWith('+page')}
-            Page
-          {:else}
-            Component
+    {#if data.error}
+      <div class="text-red">
+        Error: {data.error}
+      </div>
+    {:else}
+      {#if data.loadedModules.component}
+        <div class="font-semibold text-2xl mb-2">{title}
+          {#if dev}
+            <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`)} title="Edit Component">
+              <span class="i-vscode-icons-file-type-svelte align--2px" />
+            </button>
           {/if}
-          Variants
         </div>
-        {#each variants as { name, description, viewports: variantViewports, props }, index (index)}
-          <div class="inline-block whitespace-nowrap overflow-x-auto w-full">
-            <div class="flex">
-              {#each variantViewports || fileViewports || viewports as { name: viewportName, width, height }}
-                {#each languages || [{ name: null, code: null }] as { name: languageName, code: languageCode }}
-                  <View
-                    title={name}
-                    description={description}
-                    {width}
-                    {height}
-                    {languageCode}
-                    queryParams="variantIdx={index}"
-                    useIframe={!wouldRecurseInfinitelyInSandbox}>
-                    {#if wouldRecurseInfinitelyInSandbox}
-                      <svelte:component this={data.loadedModules.component} {...props || {}} />
-                    {/if}
-                  </View>
-                {/each}
-              {/each}
-            </div>
-          </div>
-        {/each}
       {/if}
-    {/if}
 
-    {#if doesNotHaveStoriesOrVariants}
-      <div class="mb-3 p-3 bg-gray-200 rounded">
-        <b>Kitbook tip</b>: You have not created a Stories file ({data.page?.name}.svx/.md) nor a
-        Variants file ({data.page?.name}.variants.ts) file. In the future Kitbook will try to
-        automatically supply default props, but until then you must manually scaffold a page for
-        this component by creating either a Stories or Variants file.
-      </div>
-    {/if}
+      {#if data.loadedModules.svx}
+        <div class="kb-prose mb-8 max-w-1000px">
+          <svelte:component this={data.loadedModules.svx} />
+          <!-- TODO: update the MDSvex to parse for links to compositions and use the IFrame component with the right composition url -->
+        </div>
+      {:else if dev}
+        <Button class="block mb-2" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (md)</Button>
+      {/if}
 
-    <EditInGithub path={data?.page?.path} />
-  {/if}
-</main>
+      <!-- {#if data.loadedModules.compositions}
+      leftovers not referenced in the docs
+    {/if} -->
+      {#if data.loadedModules.component}
+        {#if variants}
+          <Variants {variants} viewports={fileViewports || viewports} {languages} />
+        {:else if dev}
+          <Button class="block mb-2" onclick={() => openVariantsWithoutProps(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (variants.ts)</Button>
+        {/if}
+      {/if}
+
+      <EditInGithub path={data?.page?.path} {githubURL} />
+    {/if}
+  </main>
+</Layout>

@@ -17,7 +17,6 @@
 </script>
 
 {#if component}
-  <!-- svelte-ignore a11y-mouse-events-have-key-events -->
   <button
     bind:this={buttonElement}
     type="button"

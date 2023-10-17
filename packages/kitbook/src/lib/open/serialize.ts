@@ -88,3 +88,7 @@ if (import.meta.vitest) {
     expect(serialize(props, state)).toMatchInlineSnapshot('{}')
   })
 }
+
+export function removeQuotesFromSerializedFunctions(code: string): string {
+  return code.replace(/["']REMOVEQUOTE_/g, '').replace(/_REMOVEQUOTE["']/g, '')
+}

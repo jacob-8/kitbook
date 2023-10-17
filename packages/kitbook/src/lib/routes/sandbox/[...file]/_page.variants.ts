@@ -1,10 +1,10 @@
-import type { Variants } from 'kitbook'
+import type { Variant } from 'kitbook'
 import type { SvelteComponent } from 'svelte'
 import type Component from './+page.svelte'
 
 import IndividualComponent from './mockComponents/IndividualComponent.svelte'
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'Individual Story',
     description: 'If there is a params.id (story ID), find the corresponding module matching params.file from data.modules, pass props being pulled from the query params, and hide all other content outside that Story using CSS',

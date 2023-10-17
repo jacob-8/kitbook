@@ -1,37 +1,32 @@
 <script lang="ts">
-  import { getContext } from 'svelte';
-  import View from '../view/View.svelte';
-  import parseInput from './knobs';
-  import Knobs from './Knobs.svelte';
-  import { portal, IntersectionObserver } from 'svelte-pieces';
+  import { getContext } from 'svelte'
+  import { IntersectionObserver } from 'svelte-pieces'
+  import View from '../view/View.svelte'
+  import parseInput from './knobs'
+  import Knobs from './Knobs.svelte'
 
   /**
    * Until IDs are provided by the Kitbook plugin, each story in a story file must have a unique name to work
    */
-  export let name = 'default';
+  export let name = 'default'
   /**
    * Used by knobs to save state in URL, and to pass props to sandboxed stories; need a plugin to give these sequentially or need to pass in manually
    */
-  export let id = name.replace(/[^A-Za-z0-9]/g, '_');
-  export let width: number = undefined;
-  export let height: number = undefined;
-  export let persist: 'localStorage' | 'sessionStorage' = undefined;
+  export let id = name.replace(/[^A-Za-z0-9]/g, '_')
+  export let width: number = undefined
+  export let height: number = undefined
+  export let persist: 'localStorage' | 'sessionStorage' = undefined
 
-  export let useSandbox = true;
-  const propsFromSandbox = getContext<T>('sandboxProps');
-  const idFromSandbox = getContext<string>('sandboxId');
-  const isCurrentSandboxStory = id === idFromSandbox;
+  const propsFromSandbox = getContext<T>('sandboxProps')
+  const idFromSandbox = getContext<string>('sandboxId')
+  const isCurrentSandboxStory = id === idFromSandbox
 
-  export { input as knobs };
-  type T = $$Generic;
-  let input: T = undefined;
-  $: knobs = input && parseInput<T>(input);
+  let input: T = undefined
+  export { input as knobs }
+  type T = $$Generic
+  $: knobs = input && parseInput<T>(input)
 
-  function set(field: string, value: any) {
-    $knobs[field] = value;
-  }
-
-  let hovered = false;
+  let hovered = false
 </script>
 
 {#if isCurrentSandboxStory}
@@ -41,20 +36,16 @@
 {:else if !idFromSandbox}
   <IntersectionObserver let:intersecting>
     {#if knobs}
-      <!-- svelte-ignore a11y-mouse-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         on:mouseover={() => (hovered = true)}
-        on:mouseout={() => (hovered = false)}
-        >
+        on:mouseout={() => (hovered = false)}>
         <!-- use:portal={'#instrument-panel'} -->
         {#if intersecting}
           <div
             style="transition: all 300ms;"
             class="mb-4 p-1 rounded opacity-60 border border-transparent !border-opacity-50"
             class:border-blue-900={hovered}
-            class:opacity-100={hovered}
-          >
+            class:opacity-100={hovered}>
             <div class="text-sm font-semibold">{name}</div>
             <Knobs {persist} {id} {knobs} />
           </div>
@@ -67,12 +58,7 @@
       {height}
       bind:hovered
       props={$knobs}
-      queryParams="storyId={id}"
-      useIframe={useSandbox}
-    >
-      {#if !useSandbox}
-        <slot props={$knobs} knobs={$knobs} {set} />
-      {/if}
+      queryParams="storyId={id}">
     </View>
   </IntersectionObserver>
 {/if}

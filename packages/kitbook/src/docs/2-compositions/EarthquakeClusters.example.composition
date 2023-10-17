@@ -1,0 +1,80 @@
+<script lang="ts">
+  // @ts-expect-error
+  import Map from '$lib/maps/mapbox/map/Map.svelte';
+  // @ts-expect-error
+  import GeoJSONSource from '$lib/maps/mapbox/sources/GeoJSONSource.svelte';
+  // @ts-expect-error
+  import Layer from '$lib/maps/mapbox/map/Layer.svelte';
+
+  // export let height = 350;
+  const clustersId = 'clusters';
+</script>
+
+<Map let:map>
+  <GeoJSONSource
+    data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
+    options={{ cluster: true, clusterMaxZoom: 14, clusterRadius: 50 }}
+    let:source
+  >
+    <Layer
+      id={clustersId}
+      options={{
+        type: 'circle',
+        filter: ['has', 'point_count'],
+        paint: {
+          'circle-color': [
+            'step',
+            ['get', 'point_count'],
+            '#51bbd6',
+            100,
+            '#f1f075',
+            750,
+            '#f28cb1',
+          ],
+          'circle-radius': ['step', ['get', 'point_count'], 20, 100, 30, 750, 40],
+        },
+      }}
+      on:click={({ detail }) => {
+        const features = map.queryRenderedFeatures(detail.point, {
+          layers: [clustersId],
+        });
+        const clusterId = features[0].properties.cluster_id;
+        source.getClusterExpansionZoom(clusterId, (err, zoom) => {
+          if (err) return;
+          map.easeTo({
+            center: features[0].geometry.coordinates,
+            zoom,
+          });
+        });
+      }}
+      on:mouseenter={() => (map.getCanvas().style.cursor = 'pointer')}
+      on:mouseleave={() => (map.getCanvas().style.cursor = '')}
+    />
+    <Layer
+      options={{
+        type: 'symbol',
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': '{point_count_abbreviated}',
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': 12,
+        },
+      }}
+    />
+    <Layer
+      options={{
+        type: 'circle',
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+          'circle-color': '#11b4da',
+          'circle-radius': 4,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#fff',
+        },
+      }}
+      on:click={() => alert('point clicked')}
+      on:mouseenter={() => (map.getCanvas().style.cursor = 'pointer')}
+      on:mouseleave={() => (map.getCanvas().style.cursor = '')}
+    />
+  </GeoJSONSource>
+</Map>

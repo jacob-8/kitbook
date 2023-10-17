@@ -5,8 +5,8 @@
   export let kitbookPath: string
   export let activePath: string
   export let depth: number
-  $: active = activePath === page.url
-  $: doesNotHaveSvxOrVariants = !(page.loadSvx || page.loadVariants)
+  $: active = activePath === page?.url
+  $: doesNotHaveSvxOrVariants = !(page?.loadSvx || page?.loadVariants)
 </script>
 
 <a

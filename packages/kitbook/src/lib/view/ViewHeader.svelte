@@ -5,7 +5,6 @@
   export let description: string = undefined
   export let height: number = undefined
   export let width: number = undefined
-  export let useIframe: boolean
   export let src: string
 
   const dispatch = createEventDispatcher<{ refresh: boolean }>()
@@ -38,13 +37,11 @@
 
   <a href={src} title="Open Story by Itself" class="p-1 opacity-50 hover:opacity-100"><span class="i-tabler-external-link" /></a>
 
-  {#if useIframe}
-    <button
-      type="button"
-      title="Refresh Iframe"
-      class="p-1 opacity-50 hover:opacity-100"
-      on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh" /></button>
-  {/if}
+  <button
+    type="button"
+    title="Refresh Iframe"
+    class="p-1 opacity-50 hover:opacity-100"
+    on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh" /></button>
 </div>
 
 {#if description}

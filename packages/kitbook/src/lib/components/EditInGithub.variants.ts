@@ -1,15 +1,13 @@
+import type { Variant } from 'kitbook'
 import type Component from './EditInGithub.svelte'
-import type { Variants } from '$lib'
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'With githubUrl context',
     props: {
       path: '/src/lib/components/EditInGithub.svelte',
+      githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
     },
-    contexts: [
-      { key: 'githubUrl', context: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook' },
-    ],
   },
   {
     name: 'Without githubUrl context',

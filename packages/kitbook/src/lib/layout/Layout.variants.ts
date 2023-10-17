@@ -1,4 +1,4 @@
-import type { KitbookSettings, Variants } from 'kitbook'
+import type { KitbookSettings, Variant } from 'kitbook'
 import type Component from './Layout.svelte'
 
 const settings: KitbookSettings = {
@@ -12,7 +12,7 @@ const settings: KitbookSettings = {
   ],
 }
 
-export const variants: Variants<Component> = [
+export const variants: Variant<Component>[] = [
   {
     name: 'Not Expanded',
     description: 'Only the active route will be expanded (since this is a Kitbook inside the Kitbook, it will be pulling the page to show from the parent Kitbook URL which renders a blank page if you click to other pages, it will break out of that variant and show a clone of the parent Kitbook)',
