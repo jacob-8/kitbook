@@ -1,4 +1,4 @@
-import type { Variants, Viewport } from 'kitbook'
+import type { Variant, Viewport } from 'kitbook'
 import type Component from './SearchResult.svelte'
 
 export const viewports: Viewport[] = [
