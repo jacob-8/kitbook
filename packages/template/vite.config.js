@@ -5,7 +5,9 @@ import { kitbook } from 'kitbook/plugins/vite'
 
 export default defineConfig({
   plugins: [
-    kitbook(),
+    kitbook({
+      expandTree: true,
+    }),
     sveltekit(),
   ],
 })
