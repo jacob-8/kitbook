@@ -6,5 +6,4 @@ export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
   // openKey: 'Enter',
   // holdMode: true,
   // showToggleButton: 'active',
-  // toggleButtonPos: 'bottom-right',
 }

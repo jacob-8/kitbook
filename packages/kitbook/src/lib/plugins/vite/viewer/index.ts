@@ -7,6 +7,9 @@ import type { KitbookSettings } from 'kitbook'
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
+const green = '\x1B[32m'
+const reset = '\x1B[0m'
+
 export function kitbookViewer(settings: KitbookSettings): Plugin {
   return {
     name: 'vite-plugin-kitbook:viewer',
@@ -39,6 +42,11 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
           client.send('kitbook:open-file', { filename })
         })
       })
+      if (settings.kitbookRoute) {
+        server.httpServer?.once('listening', () => {
+          console.info(`Kitbook: ${green}http://localhost:${server.config.server.port}${settings.kitbookRoute}${reset}`)
+        })
+      }
     },
   }
 }

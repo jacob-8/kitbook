@@ -159,12 +159,6 @@ export interface ViewerOptions {
   // showToggleButton?: 'always' | 'active' | 'never'
 
   /**
-   * where to display the toggle button
-   * @default bottom-right
-   */
-  // toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-
-  /**
    * internal options that are automatically set, not to be set or used by users
    */
   __internal?: {
