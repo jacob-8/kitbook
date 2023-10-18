@@ -56,7 +56,6 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
         return `${pageModulesCode}
         export const settings = ${JSON.stringify(settings)}
-        export const variantsTemplate = \`${getVariantsTemplate()}\`
         `
       }
     },
@@ -67,16 +66,4 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
 function addVirtualFilePrefix(id: string): string {
   return `\0${id}`
-}
-
-function getVariantsTemplate() {
-  const _dirname = dirname(fileURLToPath(import.meta.url))
-  try {
-    const filepath = resolve(_dirname, './virtual/Template.variants.js')
-    return readFileSync(filepath, 'utf-8')
-  }
-  catch {
-    const filepath = resolve(_dirname, './virtual/Template.variants.ts') // for when developing on Kitbook itself
-    return readFileSync(filepath, 'utf-8')
-  }
 }

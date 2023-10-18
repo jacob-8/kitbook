@@ -4,7 +4,7 @@
   import { Button } from 'svelte-pieces'
   import EditInGithub from '../components/EditInGithub.svelte'
   import { pagesStore } from '../modules/hmrUpdatedModules'
-  import { openComponent, openSvx, openVariantsWithoutProps } from '../open/openFiles'
+  import { openComponent, openSvx, openVariants } from '../open/openFiles'
   import Layout from '../layout/Layout.svelte'
   import Variants from './Variants.svelte'
   import { dev } from '$app/environment'
@@ -18,7 +18,7 @@
     error?: string
   } = { loadedModules: {} }
 
-  const { viewports, languages, githubURL } = data.settings
+  const { viewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
 
   $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
   let variantsModule: VariantsModule
@@ -42,7 +42,6 @@
 
 <Layout>
   <main style="flex: 1" class="overflow-y-auto bg-white pt-3">
-
     {#if data.error}
       <div class="text-red">
         Error: {data.error}
@@ -51,7 +50,7 @@
       {#if data.loadedModules.component}
         <div class="font-semibold text-2xl mb-2">{title}
           {#if dev}
-            <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`)} title="Edit Component">
+            <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} title="Edit Component">
               <span class="i-vscode-icons-file-type-svelte align--2px" />
             </button>
           {/if}
@@ -74,7 +73,7 @@
         {#if variants}
           <Variants {variants} viewports={fileViewports || viewports} {languages} />
         {:else if dev}
-          <Button class="block mb-2" onclick={() => openVariantsWithoutProps(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (variants.ts)</Button>
+          <Button class="block mb-2" onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (variants.ts)</Button>
         {/if}
       {/if}
 

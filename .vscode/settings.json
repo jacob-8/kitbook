@@ -5,6 +5,8 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
+
+  // Kitbook
   "files.associations": {
     "*.svx": "svelte",
     "*.composition": "svelte"
@@ -17,6 +19,8 @@
     "**/dist/**/*"
   ],
   "foam.files.notesExtensions": "composition",
+
+  // ESLint
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -24,7 +28,7 @@
     "source.fixAll.eslint": true,
     "source.organizeImports": false
   },
-  // Silent the stylistic rules in you IDE, but still auto fix them
+  // Silence stylistic rules in IDE, but still auto fix them
   "eslint.rules.customizations": [
     { "rule": "@stylistic/*", "severity": "off" },
     { "rule": "style*", "severity": "off" },
@@ -48,6 +52,7 @@
     "yaml"
   ],
   "eslint.experimental.useFlatConfig": true,
+
   "unocss.root": "packages/kitbook",
   "svelte.plugin.svelte.compilerWarnings": {
     "a11y-click-events-have-key-events": "ignore",

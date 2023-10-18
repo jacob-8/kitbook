@@ -1,41 +1,26 @@
-import { get } from 'svelte/store'
-import { removeQuotesFromSerializedFunctions, serialize } from './serialize'
-import { page } from '$app/stores'
+import { serialize } from './serialize'
 
-// import { generateCode, parseModule } from 'magicast'
-
-export function openComponent(filename: string) {
-  const { data } = get(page)
-  const file_loc = `${filename}:1:1`
-  fetch(`${data.settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
+export function openComponent(filepath: string, viteBase: string) {
+  const file_loc = `${filepath}:1:1`
+  fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
 }
 
-export function openVariantsWithoutProps(path: string) {
-  const { data } = get(page)
-  const modifiedTemplate = data.variantsTemplate.replace('Template.svelte', path.split('/').pop())
-  const variantsPath = path.replace('.svelte', '.variants.ts')
-  ensureFileExists(variantsPath, modifiedTemplate)
-}
+export function openVariants(filepath: string, componentDetail?: SvelteComponentDetail) {
+  if (!import.meta.hot)
+    return alert('Dev server must be running with HMR enabled to use this feature.')
 
-export function openVariants(filename: string, variantsFilename: string, componentDetail: SvelteComponentDetail) {
+  if (!componentDetail?.options)
+    return import.meta.hot.send('kitbook:open-variants', { filepath, props: {} })
+
   const { props } = componentDetail.options
   const state = componentDetail.component.$capture_state()
   const serializedState = serialize(props, state)
-
-  // magicast breaks the build - need to debug
-  // const module = parseModule(VariantsTemplate)
-  // module.exports.variants[0].props = serializedState
-  // const { code } = generateCode(module)
-
-  const { data } = get(page)
-  const code = data.variantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
-  const modifiedTemplate = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filename.split('/').pop()))
-  ensureFileExists(variantsFilename, modifiedTemplate)
+  import.meta.hot.send('kitbook:open-variants', { filepath, props: serializedState })
 }
 
-export function openSvx(filename: string) {
+export function openSvx(filepath: string) {
   const markdownTemplate = 'You can write some documentation for your component here using Markdown. Feel free to also change the extension to .svx and use Svelte in your Markdown if you\'ve installed MDSvex.'
-  ensureFileExists(filename, markdownTemplate)
+  ensureFileExists(filepath, markdownTemplate)
 }
 
 export function createComposition(path: string) {
@@ -50,17 +35,16 @@ export function createComposition(path: string) {
   ensureFileExists(compositionFilename, template)
 }
 
-function ensureFileExists(filename: string, template: string) {
+function ensureFileExists(filepath: string, template: string) {
   if (!import.meta.hot)
     return alert('Dev server must be running with HMR enabled to use this feature.')
 
-  import.meta.hot.send('kitbook:ensure-file-exists', { filename, template })
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath, template })
 }
 
 if (import.meta.hot) {
-  import.meta.hot.on('kitbook:open-file', ({ filename }) => {
-    const file_loc = `${filename}:1:1`
-    const { data } = get(page)
-    fetch(`${data.settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
+  import.meta.hot.on('kitbook:open-file', ({ filepath, viteBase }) => {
+    const file_loc = `${filepath}:1:1`
+    fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
   })
 }

@@ -3,8 +3,6 @@ import type Component from './Folder.svelte'
 
 export const variants: Variant<Component>[] = [
   {
-    name: 'Situation A',
-    description: 'Add optional information about this variant',
     props: {
       folder: {
         name: 'stories',

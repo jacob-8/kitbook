@@ -12,11 +12,10 @@ import { pagesStore } from '../modules/hmrUpdatedModules'
  *
  * `{svelte,variants.ts}` = Automatically create a default Story for each component w/ variants automatically being populated by colocated files `*.variants.ts` files (Foo.svelte and Foo.variants.ts; +page.svelte and _page.variants.ts)
  */
-export function layoutLoad({ pages: initialPages, settings, variantsTemplate }:
+export function layoutLoad({ pages: initialPages, settings }:
 {
   pages: GroupedPageMap
   settings: KitbookSettings
-  variantsTemplate: string
 }) {
   return async () => {
     if (!Object.keys(initialPages).length)
@@ -35,7 +34,6 @@ export function layoutLoad({ pages: initialPages, settings, variantsTemplate }:
       pages: initialPages,
       pagesStore,
       settings,
-      variantsTemplate,
     }
   }
 }

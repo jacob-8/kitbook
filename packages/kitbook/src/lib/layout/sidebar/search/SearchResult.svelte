@@ -1,12 +1,14 @@
 <script lang="ts">
-  import { Button } from 'svelte-pieces';
-  import type { GroupedPage } from '../../../kitbook-types';
-  export let page: GroupedPage;
-  export let active = false;
+  import { Button } from 'svelte-pieces'
+  import type { GroupedPage } from '../../../kitbook-types'
+
+  export let kitbookPath: string
+  export let page: GroupedPage
+  export let active = false
 </script>
 
 {#if page}
-  <Button form="menu" class="w-full !rounded-0" href={page.url} {active}>
+  <Button form="menu" class="w-full !rounded-0" href={kitbookPath + page.url} {active}>
     <div class="text-left">
       <div class="capitalize">
         {page.name}

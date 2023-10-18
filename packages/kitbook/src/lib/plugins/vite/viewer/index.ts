@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
 import type { KitbookSettings } from 'kitbook'
+import { removeQuotesFromSerializedFunctions } from '../../../open/serialize.js'
 
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
@@ -32,16 +33,15 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
     },
 
     configureServer(server) {
-      server.ws.on('kitbook:ensure-file-exists', ({ filename, template }, client) => {
-        access(filename, constants.F_OK, (err) => {
-          if (err) {
-            writeFileSync(filename, template)
-            console.info(`added ${filename}`)
-          }
-
-          client.send('kitbook:open-file', { filename })
-        })
+      server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
+        writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
       })
+      server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
+        const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
+        const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
+        writeFileIfNeededThenOpen(filepath.replace('.svelte', '.variants.ts'), template, settings.viewer.__internal.viteBase, client)
+      })
+
       if (settings.kitbookRoute) {
         server.httpServer?.once('listening', () => {
           console.info(`Kitbook: ${green}http://localhost:${server.config.server.port}${settings.kitbookRoute}${reset}`)
@@ -55,5 +55,28 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 function componentListenerCode(): string {
   const _dirname = dirname(fileURLToPath(import.meta.url))
   const filepath = resolve(_dirname, './listenForComponentsElements.js')
+  return readFileSync(filepath, 'utf-8')
+}
+
+function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: any) {
+  access(filepath, constants.F_OK, (err) => {
+    if (err) {
+      writeFileSync(filepath, template)
+      console.info(`added ${filepath}`)
+    }
+
+    client.send('kitbook:open-file', { filepath, viteBase })
+  })
+}
+
+// import { generateCode, parseModule } from 'magicast'
+// magicast breaks the build - need to debug
+// const module = parseModule(VariantsTemplate)
+// module.exports.variants[0].props = serializedState
+// const { code } = generateCode(module)
+
+function getVariantsTemplate() {
+  const _dirname = dirname(fileURLToPath(import.meta.url))
+  const filepath = resolve(_dirname, '../virtual/Template.variants.ts.txt')
   return readFileSync(filepath, 'utf-8')
 }
