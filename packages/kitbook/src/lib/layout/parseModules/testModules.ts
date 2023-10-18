@@ -27,8 +27,7 @@ export const testModules = {
 
   '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself
 
-  // TODO:
-  // '/src/lib/a/F.composition': () => Promise.resolve(null), // compositions by themselves will be put into their own bucket, ready to be referenced by docs modules but not given a page themselves
+  '/src/lib/a/F.composition': () => Promise.resolve(null), // compositions by themselves will be put into their own bucket, ready to be referenced by docs modules but not given a page themselves
 
   // pages
   '/src/routes/+page.svelte': () => Promise.resolve(null), // page only

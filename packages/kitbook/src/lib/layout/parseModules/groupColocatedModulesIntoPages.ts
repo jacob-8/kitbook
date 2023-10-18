@@ -160,10 +160,27 @@ if (import.meta.vitest) {
             "svelte",
             "svx",
             "variants.ts",
+            "composition",
+            "first.composition",
+            "second.composition",
           ],
           "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
+          },
+          "loadCompositions": {
+            "default": {
+              "loadModule": [Function],
+              "loadRaw": [Function],
+            },
+            "first": {
+              "loadModule": [Function],
+              "loadRaw": [Function],
+            },
+            "second": {
+              "loadModule": [Function],
+              "loadRaw": [Function],
+            },
           },
           "loadSvx": {
             "loadModule": [Function],
@@ -176,6 +193,20 @@ if (import.meta.vitest) {
           "name": "D",
           "path": "/src/lib/a/D.svelte",
           "url": "/lib/a/D",
+        },
+        "/lib/a/F": {
+          "extensions": [
+            "composition",
+          ],
+          "loadCompositions": {
+            "default": {
+              "loadModule": [Function],
+              "loadRaw": [Function],
+            },
+          },
+          "name": "F",
+          "path": "/src/lib/a/F.composition",
+          "url": "/lib/a/F",
         },
         "/routes/+layout": {
           "extensions": [

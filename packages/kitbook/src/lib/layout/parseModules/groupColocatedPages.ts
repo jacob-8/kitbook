@@ -9,24 +9,31 @@ export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions 
   for (const page of sortPageAndLayoutPagesWithPlusFirst(ungrouped)) {
     const url = convertUnderscorePrefixToPlus(page.url)
 
-    if (!allowedExtensions.includes(page.ext))
+    if (!allowedExtensions.includes(page.ext) && !page.ext.endsWith(extensions.compositions))
       continue
 
     if (!grouped[url])
       grouped[url] = { name: page.name, url, path: page.path, extensions: [page.ext] }
-
     else
       grouped[url].extensions.push(page.ext)
 
-    if (extensions.svx.includes(page.ext))
+    if (extensions.svx.includes(page.ext)) {
       grouped[url].loadSvx = loadModuleObject(page)
-
-    else if (page.ext === 'svelte')
+    }
+    else if (page.ext === 'svelte') {
       grouped[url].loadComponent = loadModuleObject(page)
-
-    else if (page.ext === extensions.variants)
+    }
+    else if (page.ext === extensions.variants) {
       // @ts-expect-error - need to fix types
       grouped[url].loadVariants = loadModuleObject(page)
+    }
+    else if (page.ext.endsWith(extensions.compositions)) {
+      const compositionName = page.ext === extensions.compositions ? 'default' : page.ext.split('.')[0]
+      grouped[url].loadCompositions = {
+        ...grouped[url].loadCompositions,
+        [compositionName]: loadModuleObject(page),
+      }
+    }
   }
 
   return grouped

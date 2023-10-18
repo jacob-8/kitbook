@@ -38,7 +38,7 @@ export type GroupedPage = PageMetadata & {
   extensions: string[]
   loadSvx?: ModuleLoadFunctions
   loadComponent?: ModuleLoadFunctions
-  loadCompositions?: ModuleLoadFunctions
+  loadCompositions?: Record<string, ModuleLoadFunctions>
   loadVariants?: {
     loadModule: () => Promise<VariantsModule>
     loadRaw: RawModule

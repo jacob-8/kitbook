@@ -219,6 +219,16 @@ if (import.meta.vitest) {
           "url": "/lib/E",
         },
         {
+          "ext": "composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "F",
+          "path": "/src/lib/a/F.composition",
+          "url": "/lib/a/F",
+        },
+        {
           "ext": "svelte",
           "load": {
             "loadModule": [Function],
