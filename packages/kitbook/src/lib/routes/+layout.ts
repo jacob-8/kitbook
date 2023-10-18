@@ -1,5 +1,6 @@
+// @ts-ignore - virtual import
+import { pages, settings, variantsTemplate } from 'virtual:kitbook'
 import { layoutLoad } from 'kitbook'
-import { pages } from 'virtual:kitbook-modules'
 import type { LayoutLoad } from './$types'
 
-export const load = layoutLoad({ pages }) satisfies LayoutLoad
+export const load = layoutLoad({ pages, settings, variantsTemplate }) satisfies LayoutLoad

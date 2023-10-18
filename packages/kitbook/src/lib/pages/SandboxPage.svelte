@@ -1,77 +1,58 @@
 <script lang="ts">
-  import { type SvelteComponent, getContext, setContext } from 'svelte'
+  import { type SvelteComponent, setContext } from 'svelte'
   import type { Writable } from 'svelte/store'
   import type { GroupedPage, GroupedPageMap, LoadedModules, Variant } from '../kitbook-types'
   import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js'
 
   export let data: {
     pages: GroupedPageMap
+    pagesStore: Writable<GroupedPageMap>
     page: GroupedPage
     pageKey: string
     loadedModules: LoadedModules
-    storyId: string
     variant?: Variant<SvelteComponent>
     variantIdx?: string // string is better because it works as an index also and doesn't give false negative on '0'
     editedProps?: Record<string, any>
   // error?: string;
   }
 
-  let { variant } = data
-  const pagesStore = getContext<Writable<GroupedPageMap>>('pages-store')
+  let { variant, pagesStore } = data
   $: page = $pagesStore[data.pageKey]
 
   $: if (page?.loadVariants?.loadModule && data.variantIdx) {
-    page.loadVariants.loadModule().then((module) => {
-      variant = module?.variants[data.variantIdx] || {}
-    }).catch((error) => {
-      console.error(error)
-    })
+    page.loadVariants
+      .loadModule()
+      .then((module) => {
+        variant = module?.variants[data.variantIdx] || {}
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
-  const isStory = !!data.storyId
-
-  if (isStory) {
-    // `Story` components check the `sandboxId` context to know whether to show when in the sandbox - this is passed to the sandbox originally using the `storyId` query param in iframe url
-    setContext<string>('sandboxId', data.storyId)
-    setContext<Record<string, any>>('sandboxProps', data.editedProps || {})
-  }
-
-  for (const { key, context } of data.variant?.contexts || [])
-    setContext(key, context)
-
+  for (const { key, context } of data.variant?.contexts || []) setContext(key, context)
 </script>
 
 <div class="absolute inset-0 overflow-auto">
-  {#if isStory}
-    <div id="sandbox" style="display: contents;">
-      <svelte:component this={data.loadedModules.svx} />
-    </div>
-  {:else}
-    <ErrorBoundary onError={console.error}>
-      <div slot="before">
-        {#if Object.keys(variant.props).length === 0}
-          <b>Kitbook tip</b>: Your component may need props passed in. Create a "{data.page?.name}.variants.ts" file with at least variant. In the future Kitbook will try to
-          automatically supply default props, but until then they must be supplied manually.
-        {/if}
-      </div>
-      {#if variant?.slots}
-        {@const defaultSlotContent = variant.slots.default}
-        <svelte:component this={data.loadedModules.component} {...variant.props}>
-          {#if typeof defaultSlotContent === 'string'}
-            {@html defaultSlotContent}
-          {:else}
-            <svelte:component this={defaultSlotContent} />
-          {/if}
-        </svelte:component>
-      {:else}
-        <svelte:component this={data.loadedModules.component} {...variant.props} />
+  <ErrorBoundary onError={console.error}>
+    <div slot="before">
+      {#if Object.keys(variant.props).length === 0}
+        <b>Kitbook tip</b>: Your component may need props passed in. Create a "{data.page
+          ?.name}.variants.ts" file with at least variant. In the future Kitbook will try to
+        automatically supply default props, but until then they must be supplied manually.
       {/if}
-    </ErrorBoundary>
-  {/if}
+    </div>
+    {#if variant?.slots}
+      {@const defaultSlotContent = variant.slots.default}
+      <svelte:component this={data.loadedModules.component} {...variant.props}>
+        {#if typeof defaultSlotContent === 'string'}
+          {@html defaultSlotContent}
+        {:else}
+          <svelte:component this={defaultSlotContent} />
+        {/if}
+      </svelte:component>
+    {:else}
+      <svelte:component this={data.loadedModules.component} {...variant.props} />
+    {/if}
+  </ErrorBoundary>
 </div>
-
-<style>
-  #sandbox > :global(:not(.show-in-sandbox)) {
-    display: none;
-  }
-</style>

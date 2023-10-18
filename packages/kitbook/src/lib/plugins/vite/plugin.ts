@@ -5,10 +5,12 @@ import type { Plugin } from 'vite'
 import type { KitbookSettings } from '../../kitbook-types'
 import { initKitbook } from './initKitbook.js'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
-import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS, VirtualModules } from './constants.js'
+import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR, DEFAULT_VIEWPORTS } from './constants.js'
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
 import { DEFAULT_VIEWER_OPTIONS } from './viewer/options.js'
+
+const LOAD_MODULES_ID = 'virtual:kitbook'
 
 /**
  * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes to `src/routes/kitbook` unless you update the `routesDirectory` and `kitbookRoute` settings.
@@ -41,23 +43,22 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
     config: modifyViteConfigForKitbook,
 
     resolveId(id) {
-      if (Object.values(VirtualModules).includes(id as VirtualModules))
-        return addVirtualFilePrefix(id)
+      if (id === LOAD_MODULES_ID)
+        return addVirtualFilePrefix(LOAD_MODULES_ID)
     },
 
     load(id) {
-      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_SETTINGS))
-        return `export const settings = ${JSON.stringify(settings)}`
-
-      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_MODULES)) {
+      if (id === addVirtualFilePrefix(LOAD_MODULES_ID)) {
         const _dirname = dirname(fileURLToPath(import.meta.url))
         const filepath = resolve(_dirname, './virtual/importModules.js')
         const content = readFileSync(filepath, 'utf-8')
-        return writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
-      }
+        const pageModulesCode = writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
 
-      if (id === addVirtualFilePrefix(VirtualModules.KITBOOK_TEMPLATES))
-        return `export const variants = \`${getVariantsTemplate()}\``
+        return `${pageModulesCode}
+        export const settings = ${JSON.stringify(settings)}
+        export const variantsTemplate = \`${getVariantsTemplate()}\`
+        `
+      }
     },
   }
 

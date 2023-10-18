@@ -12,7 +12,7 @@ const red = '\x1B[31m'
 const bold = '\x1B[1m'
 const reset = '\x1B[0m'
 
-const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-alpha.48^'
+const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-alpha.50^'
 const FILE_WITH_NOTICE = '[...file]/+page.svelte'
 
 export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) {
@@ -36,7 +36,7 @@ export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) 
     const src = 'node_modules/kitbook/dist/routes'
     const destination = kitbookDirectory
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles })
-    console.log(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
+    console.info(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
   }
   catch (e) {
     console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`)

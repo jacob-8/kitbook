@@ -1,16 +1,18 @@
-import { settings } from 'virtual:kitbook-settings'
-import { variants as variantsTemplate } from 'virtual:kitbook-templates'
+import { get } from 'svelte/store'
 import { removeQuotesFromSerializedFunctions, serialize } from './serialize'
+import { page } from '$app/stores'
 
 // import { generateCode, parseModule } from 'magicast'
 
 export function openComponent(filename: string) {
+  const { data } = get(page)
   const file_loc = `${filename}:1:1`
-  fetch(`${settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
+  fetch(`${data.settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
 }
 
 export function openVariantsWithoutProps(path: string) {
-  const modifiedTemplate = variantsTemplate.replace('Template.svelte', path.split('/').pop())
+  const { data } = get(page)
+  const modifiedTemplate = data.variantsTemplate.replace('Template.svelte', path.split('/').pop())
   const variantsPath = path.replace('.svelte', '.variants.ts')
   ensureFileExists(variantsPath, modifiedTemplate)
 }
@@ -25,7 +27,8 @@ export function openVariants(filename: string, variantsFilename: string, compone
   // module.exports.variants[0].props = serializedState
   // const { code } = generateCode(module)
 
-  const code = variantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
+  const { data } = get(page)
+  const code = data.variantsTemplate.replace('props: {}', `props: ${JSON.stringify(serializedState, null, 2)}`)
   const modifiedTemplate = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filename.split('/').pop()))
   ensureFileExists(variantsFilename, modifiedTemplate)
 }
@@ -57,6 +60,7 @@ function ensureFileExists(filename: string, template: string) {
 if (import.meta.hot) {
   import.meta.hot.on('kitbook:open-file', ({ filename }) => {
     const file_loc = `${filename}:1:1`
-    fetch(`${settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
+    const { data } = get(page)
+    fetch(`${data.settings.viewer.__internal.viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
   })
 }

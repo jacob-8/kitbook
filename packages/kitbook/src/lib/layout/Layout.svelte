@@ -1,7 +1,6 @@
 <script lang="ts">
   import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css'
   import '../styles/main.css'
-  import { settings } from 'virtual:kitbook-settings'
   import Header from './sidebar/Header.svelte'
   import Sidebar from './sidebar/Sidebar.svelte'
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders'
@@ -10,7 +9,7 @@
   import { page } from '$app/stores'
   // import InstrumentPanel from './instrument-panel/InstrumentPanel.svelte';
 
-  const { title, description, expandTree, githubURL } = settings || {}
+  const { title, description, expandTree, githubURL } = $page.data.settings
 
   $: ({ kitbookPath, activePath } = findKitbookPath($page.url.pathname))
   let showSidebar = false

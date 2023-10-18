@@ -1,6 +1,7 @@
 {
   "name": "template",
   "type": "module",
+  "version": "1.0.0-alpha.49",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -24,6 +25,5 @@
   "stackblitz": {
     "installDependencies": false,
     "startCommand": "node .stackblitz.js && npm install && npm run dev"
-  },
-  "version": "1.0.0-alpha.49"
+  }
 }

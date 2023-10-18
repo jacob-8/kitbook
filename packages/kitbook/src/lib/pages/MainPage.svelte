@@ -1,8 +1,7 @@
 <script lang="ts">
   import '../styles/kb-prose.css'
-  import type { GroupedPage, GroupedPageMap, LoadedModules, VariantsModule } from 'kitbook'
+  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, VariantsModule } from 'kitbook'
   import { Button } from 'svelte-pieces'
-  import { settings } from 'virtual:kitbook-settings'
   import EditInGithub from '../components/EditInGithub.svelte'
   import { pagesStore } from '../modules/hmrUpdatedModules'
   import { openComponent, openSvx, openVariantsWithoutProps } from '../open/openFiles'
@@ -11,6 +10,7 @@
   import { dev } from '$app/environment'
 
   export let data: {
+    settings?: KitbookSettings
     pages?: GroupedPageMap
     page?: GroupedPage
     pageKey?: string
@@ -18,7 +18,7 @@
     error?: string
   } = { loadedModules: {} }
 
-  const { viewports, languages, githubURL } = settings
+  const { viewports, languages, githubURL } = data.settings
 
   $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
   let variantsModule: VariantsModule

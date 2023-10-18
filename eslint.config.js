@@ -22,6 +22,7 @@ export default antfu(
       '**/.svelte-kit**',
       '**/package/**',
       '**/src/routes/kitbook/**',
+      '**/src/lib/routes/+layout.ts',
     ],
   },
 )
