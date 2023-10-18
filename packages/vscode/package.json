@@ -2,7 +2,7 @@
   "publisher": "jacob-8",
   "name": "kitbook-vscode",
   "displayName": "Kitbook",
-  "version": "1.0.0-alpha.49",
+  "version": "1.0.0-alpha.50",
   "private": true,
   "description": "Convenient keybindings and snippets for Kitbook, a component workbench for Svelte",
   "author": "Jacob Bowdoin",
