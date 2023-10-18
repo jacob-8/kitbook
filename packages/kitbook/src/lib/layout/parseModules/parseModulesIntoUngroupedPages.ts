@@ -179,6 +179,36 @@ if (import.meta.vitest) {
           "url": "/lib/a/D",
         },
         {
+          "ext": "composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.composition",
+          "url": "/lib/a/D",
+        },
+        {
+          "ext": "first.composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.first.composition",
+          "url": "/lib/a/D",
+        },
+        {
+          "ext": "second.composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.second.composition",
+          "url": "/lib/a/D",
+        },
+        {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
