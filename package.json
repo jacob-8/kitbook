@@ -4,7 +4,7 @@
   "version": "1.0.0-alpha.49",
   "private": true,
   "scripts": {
-    "stub": "pnpm -r --filter=./packages/* --parallel run stub && pnpm package:watch",
+    "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "build": "pnpm build:deps && pnpm package",
     "build:deps": "pnpm -F mdsvex-shiki-twoslash -F rehype-display-link-titles --parallel run build",
     "dev": "pnpm --filter=kitbook dev",
@@ -42,5 +42,9 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "stackblitz": {
+    "installDependencies": false,
+    "startCommand": "pnpm install && pnpm stub && pnpm dev"
   }
 }
