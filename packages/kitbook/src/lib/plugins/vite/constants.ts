@@ -1,5 +1,5 @@
 export const DEFAULT_IMPORT_MODULE_GLOBS = [
-  '/src/**/*.{md,svx,svelte,variants.ts}',
+  '/src/**/*.{md,svx,svelte,variants.ts,composition}',
   '/README.md',
 ]
 

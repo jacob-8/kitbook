@@ -67,7 +67,7 @@ function isPageOrLayout(name: string): boolean {
 }
 
 if (import.meta.vitest) {
-  test('isPageOrLayout', () => {
+  test(isPageOrLayout, () => {
     expect(isPageOrLayout('+page')).toBeTruthy()
     expect(isPageOrLayout('+page@(app)')).toBeTruthy()
     expect(isPageOrLayout('_page')).toBeFalsy()

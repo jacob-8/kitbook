@@ -23,16 +23,24 @@ export function openSvx(filepath: string) {
   ensureFileExists(filepath, markdownTemplate)
 }
 
-export function createComposition(path: string) {
-  const compositionName = prompt('Enter a name for the composition file:')
-  if (!compositionName)
-    return
-  const compositionFilename = path.replace('.svelte', `${compositionName}.composition`)
-  const template = `<script lang="ts">
-
+export function openComposition(filepathWithoutExtension: string, extension: string) {
+  const tag = filepathWithoutExtension.split('/').pop()
+  const template = `<script context="module" lang="ts">
+  // set dimensions for this composition
+  export let width = 600
+  export let height = 400
 </script>
+
+<script lang="ts">
+  import ${tag} from './${tag}.svelte'
+  // props will be added here automatically and also editable in the future, for the moment you need to add them and pass to your component.
+</script>
+
+<${tag}>
+  <!-- add slot code here if needed -->
+</${tag}>
 `
-  ensureFileExists(compositionFilename, template)
+  ensureFileExists(`${filepathWithoutExtension}.${extension}`, template)
 }
 
 function ensureFileExists(filepath: string, template: string) {

@@ -1,4 +1,3 @@
-import type { SvelteComponent } from 'svelte'
 import type { GroupedPageMap, LoadedModules } from '../kitbook-types'
 
 export async function mainPageLoad({ params, parent }) {
@@ -11,23 +10,31 @@ export async function mainPageLoad({ params, parent }) {
 
   if (page) {
     if (page.loadSvx) {
-      loadedModules.svx = (await page.loadSvx.loadModule())?.default as typeof SvelteComponent
+      loadedModules.svx = (await page.loadSvx.loadModule())?.default
       loadedModules.svxRaw = await page.loadSvx.loadRaw()
     }
     if (page.loadComponent) {
-      loadedModules.component = (await page.loadComponent.loadModule())?.default as typeof SvelteComponent
+      loadedModules.component = (await page.loadComponent.loadModule())?.default
       loadedModules.componentRaw = await page.loadComponent.loadRaw()
     }
     if (page.loadVariants) {
       loadedModules.variantsModule = (await page.loadVariants.loadModule())
       loadedModules.variantsRaw = await page.loadVariants.loadRaw()
     }
+    if (page.loadCompositions) {
+      loadedModules.compositions = {}
+      loadedModules.compositionsRaw = {}
+      for (const compositionName in page.loadCompositions) {
+        loadedModules.compositions[compositionName] = (await page.loadCompositions[compositionName].loadModule())?.default
+        loadedModules.compositionsRaw[compositionName] = await page.loadCompositions[compositionName].loadRaw()
+      }
+    }
     return { page, pageKey, loadedModules }
   }
 
   const indexPage = pages['/index']
   if (indexPage) {
-    loadedModules.svx = (await indexPage.loadSvx.loadModule() as any)?.default as typeof SvelteComponent
+    loadedModules.svx = (await indexPage.loadSvx.loadModule())?.default
     loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
     return { page: indexPage, pageKey: '/index', loadedModules }
   }
@@ -35,7 +42,7 @@ export async function mainPageLoad({ params, parent }) {
   const readmePage = pages['/README']
   if (readmePage) {
     try {
-      loadedModules.svx = (await readmePage.loadSvx.loadModule())?.default as typeof SvelteComponent
+      loadedModules.svx = (await readmePage.loadSvx.loadModule())?.default
       loadedModules.svxRaw = await readmePage.loadSvx.loadRaw()
       return { page: readmePage, pageKey: '/README', loadedModules }
     }

@@ -17,7 +17,9 @@ export const viewports: Viewport[] = [
 export const variants: Variant<Component>[] = [
   {
     name: 'README',
+    description: 'This one should not be active',
     props: {
+      kitbookPath: '',
       page: {
         extensions: [
           'md',
@@ -31,6 +33,7 @@ export const variants: Variant<Component>[] = [
   {
     name: 'README (active)',
     props: {
+      kitbookPath: '',
       page: {
         extensions: [
           'md',
@@ -45,6 +48,7 @@ export const variants: Variant<Component>[] = [
   {
     name: 'doc (active)',
     props: {
+      kitbookPath: '',
       page: {
         extensions: [
           'md',
@@ -59,6 +63,7 @@ export const variants: Variant<Component>[] = [
   {
     name: 'component with story and variants',
     props: {
+      kitbookPath: '',
       page: {
         extensions: [
           'svelte',

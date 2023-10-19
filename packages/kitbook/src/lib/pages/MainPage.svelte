@@ -2,11 +2,13 @@
   import '../styles/kb-prose.css'
   import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, VariantsModule } from 'kitbook'
   import { Button } from 'svelte-pieces'
+  import type { SvelteComponent } from 'svelte'
   import EditInGithub from '../components/EditInGithub.svelte'
   import { pagesStore } from '../modules/hmrUpdatedModules'
-  import { openComponent, openSvx, openVariants } from '../open/openFiles'
+  import { openComponent, openComposition, openSvx, openVariants } from '../open/openFiles'
   import Layout from '../layout/Layout.svelte'
   import Variants from './Variants.svelte'
+  import Compositions from './Compositions.svelte'
   import { dev } from '$app/environment'
 
   export let data: {
@@ -21,6 +23,7 @@
   const { viewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
 
   $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
+
   let variantsModule: VariantsModule
   $: if (pageFromUpdatingStore?.loadVariants?.loadModule) {
     pageFromUpdatingStore.loadVariants.loadModule().then((module) => {
@@ -34,9 +37,23 @@
   }
 
   $: variants = variantsModule?.variants || data.loadedModules?.variantsModule?.variants
-  $: fileViewports = variantsModule?.viewports || data.loadedModules?.variantsModule?.viewports
-  $: pathWithoutExtension = `.${data.page?.path.replace(/.(svelte|md)$/, '')}`
 
+  let compositions: Record<string, typeof SvelteComponent>
+  $: if (pageFromUpdatingStore?.loadCompositions)
+    updateCompositions()
+  else
+    compositions = data.loadedModules?.compositions
+
+  function updateCompositions() {
+    if (!compositions)
+      compositions = {}
+    Object.entries(pageFromUpdatingStore.loadCompositions).forEach(async ([compositionName, loadComposition]) => {
+      compositions[compositionName] = (await loadComposition.loadModule()).default
+    })
+  }
+
+  $: fileViewports = variantsModule?.viewports || data.loadedModules?.variantsModule?.viewports
+  $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
 </script>
 
@@ -48,11 +65,30 @@
       </div>
     {:else}
       {#if data.loadedModules.component}
-        <div class="font-semibold text-2xl mb-2">{title}
+        <div class="flex items-center font-semibold text-2xl mb-2">
+          {title}
+
           {#if dev}
-            <button type="button" on:click={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} title="Edit Component">
-              <span class="i-vscode-icons-file-type-svelte align--2px" />
-            </button>
+            <Button onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} form="menu" color="black" title="Edit Component">
+              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" />
+            </Button>
+
+            <Button
+              onclick={() => {
+                if (data.loadedModules.compositions) {
+                  const name = prompt('What do you want to name this composition? (lowercase, no spaces or periods)')
+                  if (name)
+                    openComposition(pathWithoutExtension, `${name}.composition`)
+                  return
+                }
+                openComposition(pathWithoutExtension, 'composition')
+              }}
+              form="menu"
+              color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
+
+            {#if !variants}
+              <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
+            {/if}
           {/if}
         </div>
       {/if}
@@ -60,21 +96,17 @@
       {#if data.loadedModules.svx}
         <div class="kb-prose mb-8 max-w-1000px">
           <svelte:component this={data.loadedModules.svx} />
-          <!-- TODO: update the MDSvex to parse for links to compositions and use the IFrame component with the right composition url -->
         </div>
       {:else if dev}
-        <Button class="block mb-2" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (md)</Button>
+        <Button class="block mb-3" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (md)</Button>
       {/if}
 
-      <!-- {#if data.loadedModules.compositions}
-      leftovers not referenced in the docs
-    {/if} -->
-      {#if data.loadedModules.component}
-        {#if variants}
-          <Variants {variants} viewports={fileViewports || viewports} {languages} />
-        {:else if dev}
-          <Button class="block mb-2" onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variants File (variants.ts)</Button>
-        {/if}
+      {#if compositions}
+        <Compositions {compositions} {pathWithoutExtension} />
+      {/if}
+
+      {#if variants}
+        <Variants {variants} {pathWithoutExtension} viewports={fileViewports || viewports} {languages} />
       {/if}
 
       <EditInGithub path={data?.page?.path} {githubURL} />

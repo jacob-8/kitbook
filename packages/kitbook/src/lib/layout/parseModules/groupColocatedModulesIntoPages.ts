@@ -10,7 +10,7 @@ export function groupColocatedModulesIntoPages(modules: Modules, rawModules: Raw
 
 if (import.meta.vitest) {
   // this test is redundant with the one in groupColocatedPages.ts but it's here to make sure that the two functions work together (would be good to figure out how to remove it)
-  test('groupColocatedModulesIntoPages', () => {
+  test(groupColocatedModulesIntoPages, () => {
     expect(groupColocatedModulesIntoPages(testModules, testModules)).toMatchFileSnapshot('./groupColocatedModulesIntoPages.snap')
   })
 }
