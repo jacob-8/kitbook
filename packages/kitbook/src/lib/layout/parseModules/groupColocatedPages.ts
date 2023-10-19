@@ -1,8 +1,9 @@
-import type { GroupedPageMap, UngroupedPage } from '../../kitbook-types'
+import type { SvelteComponent } from 'svelte'
+import type { GroupedPage, GroupedPageMap, UngroupedPage, VariantsModule } from '../../kitbook-types'
 import { testModules } from './testModules'
 import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
 
-export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
+export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof SvelteComponent } | VariantsModule>[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
   const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte']
   const grouped: GroupedPageMap = {}
 
@@ -18,21 +19,20 @@ export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions 
       grouped[url].extensions.push(page.ext)
 
     if (extensions.svx.includes(page.ext)) {
-      grouped[url].loadSvx = loadModuleObject(page)
+      grouped[url].loadSvx = loadModuleObject(page) as GroupedPage['loadSvx']
     }
     else if (page.ext === 'svelte') {
-      grouped[url].loadComponent = loadModuleObject(page)
+      grouped[url].loadComponent = loadModuleObject(page) as GroupedPage['loadComponent']
     }
     else if (page.ext === extensions.variants) {
-      // @ts-expect-error - need to fix types
-      grouped[url].loadVariants = loadModuleObject(page)
+      grouped[url].loadVariants = loadModuleObject(page) as GroupedPage['loadVariants']
     }
     else if (page.ext.endsWith(extensions.compositions)) {
       const compositionName = page.ext === extensions.compositions ? 'default' : page.ext.split('.')[0]
       grouped[url].loadCompositions = {
         ...grouped[url].loadCompositions,
         [compositionName]: loadModuleObject(page),
-      }
+      } as GroupedPage['loadCompositions']
     }
   }
 
@@ -51,7 +51,7 @@ function convertUnderscorePrefixToPlus(s: string): string {
   return s.replace('_page', '+page').replace('_layout', '+layout')
 }
 
-function loadModuleObject(page: UngroupedPage) {
+function loadModuleObject<T>(page: UngroupedPage<T>) {
   return {
     loadModule: page.load.loadModule,
     loadRaw: page.load.loadRaw,
@@ -79,7 +79,7 @@ if (import.meta.vitest) {
 
 const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
 
-function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[] = []): UngroupedPage[] {
+function sortPageAndLayoutPagesWithPlusFirst<T>(pages: UngroupedPage<T>[] = []): UngroupedPage<T>[] {
   return pages.sort(({ name: nameA }, { name: nameB }) => {
     if (nameA.match(STARTS_WITH_PAGE_OR_LAYOUT) && nameB.match(STARTS_WITH_PAGE_OR_LAYOUT)) {
       if (nameA.startsWith('+') && nameB.startsWith('_'))
@@ -97,7 +97,7 @@ if (import.meta.vitest) {
       return {
         name: p,
       }
-    }) as UngroupedPage[]
+    }) as UngroupedPage<any>[]
     expect(sortPageAndLayoutPagesWithPlusFirst(pages)).toMatchInlineSnapshot(`
       [
         {

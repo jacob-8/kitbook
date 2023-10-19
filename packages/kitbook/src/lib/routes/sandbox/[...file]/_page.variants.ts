@@ -9,18 +9,19 @@ export const variants: Variant<Component>[] = [
     name: 'Component Variant',
     props: {
       data: {
+        pagesStore: null,
+        page: null,
+        pageKey: '',
+
+        variantIndex: '0',
+        component: IndividualComponent as typeof SvelteComponent,
         variant: {
           props: { name: 'James' },
         },
-        variantIdx: '0',
-        pageKey: '',
-        editedProps: null,
-        loadedModules: {
-        },
-        page: null,
+        // editedProps: null,
+
         pages: null,
         settings: null,
-        pagesStore: null,
       },
     },
   },
@@ -29,17 +30,17 @@ export const variants: Variant<Component>[] = [
     description: 'without props',
     props: {
       data: {
-        variant: null,
-        variantIdx: 0,
-        pageKey: '',
-        editedProps: null, // test that this is optional
-        loadedModules: {
-          component: IndividualComponent as typeof SvelteComponent,
-        },
+        pagesStore: null,
         page: null,
+        pageKey: '',
+
+        variantIndex: '0',
+        component: IndividualComponent as typeof SvelteComponent,
+        variant: null,
+        // editedProps: null, // test that this is optional
+
         pages: null,
         settings: null,
-        pagesStore: null,
       },
     },
   },

@@ -3,7 +3,10 @@ import type Component from './SearchModal.svelte'
 
 export const variants: Variant<Component>[] = [
   {
-    props: {},
+    description: 'urls should start with `/search` since that is passed in as the kitbookPath',
+    props: {
+      kitbookPath: '/search',
+    },
     viewports: [
       { name: 'Desktop', width: 800, height: 600 },
       { name: 'Mobile', width: 320, height: 600 },

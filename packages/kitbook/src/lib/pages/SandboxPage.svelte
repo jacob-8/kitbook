@@ -15,8 +15,8 @@
     composition?: typeof SvelteComponent
 
     variantIndex?: string
-    component: typeof SvelteComponent
-    variant: VariantType<any>
+    component?: typeof SvelteComponent
+    variant?: VariantType<any>
   // editedProps?: Record<string, any>
   }
 </script>

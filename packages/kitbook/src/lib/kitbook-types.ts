@@ -40,9 +40,9 @@ interface PageMetadata {
   name: string
 }
 
-export type UngroupedPage = PageMetadata & {
+export type UngroupedPage<T> = PageMetadata & {
   ext: string
-  load: LoadFunctions<{ [key: string]: any }>
+  load: LoadFunctions<T>
 }
 
 export type GroupedPage = PageMetadata & {

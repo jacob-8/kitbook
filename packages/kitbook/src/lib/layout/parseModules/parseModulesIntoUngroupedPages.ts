@@ -1,15 +1,16 @@
-import type { Modules, RawModules, UngroupedPage } from "../../kitbook-types";
-import { parsePath } from "./parsePath";
-import { testModules } from "./testModules";
-import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
+import type { Modules, RawModules, UngroupedPage } from '../../kitbook-types'
+import { parsePath } from './parsePath'
+import { testModules } from './testModules'
+import { removeInitialDigitAndHyphens } from './utils/removeInitialDigitAndHyphens'
 
-export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: RawModules): UngroupedPage[] {
-  const paths = Object.keys(modules);
-  if (!paths.length) return []
+export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: RawModules): UngroupedPage<any>[] {
+  const paths = Object.keys(modules)
+  if (!paths.length)
+    return []
 
   return paths.map((path) => {
-    const { name, ext } = parsePath(path);
-    const url = path.replace('src/', '').replace(`.${ext}`, '');
+    const { name, ext } = parsePath(path)
+    const url = path.replace('src/', '').replace(`.${ext}`, '')
 
     return {
       path,
@@ -19,9 +20,9 @@ export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: Raw
       load: {
         loadModule: modules[path],
         loadRaw: rawModules[path],
-      }
-    };
-  });
+      },
+    }
+  })
 }
 
 if (import.meta.vitest) {
@@ -429,6 +430,6 @@ if (import.meta.vitest) {
           "url": "/lib/Vue",
         },
       ]
-    `);
-  });
+    `)
+  })
 }

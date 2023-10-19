@@ -23,7 +23,7 @@
     </button>
   </div>
   {#if description}
-    <div class="text-sm pb-1 max-w-sm whitespace-normal">{description}</div>
+    <div class="text-sm pb-1 max-w-1000px whitespace-normal">{description}</div>
   {/if}
   <div class="inline-block overflow-x-auto w-full pt-8 -mt-8">
     <div class="flex">
