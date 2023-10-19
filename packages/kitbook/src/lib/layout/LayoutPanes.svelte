@@ -25,7 +25,7 @@
   {/if}
 
   <div
-    class="hidden md:flex md:h-100vh w-8px shrink-0 group cursor-ew-resize"
+    class="hidden md:flex md:h-100vh w-8px mr--4px z-1 shrink-0 group cursor-ew-resize"
     use:drag
     on:startdragging={() => {
       $showTreeDesktop = true

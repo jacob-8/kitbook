@@ -58,7 +58,7 @@
 </script>
 
 <Layout>
-  <main style="flex: 1" class="overflow-y-auto bg-white pt-3">
+  <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
     {#if data.error}
       <div class="text-red">
         Error: {data.error}

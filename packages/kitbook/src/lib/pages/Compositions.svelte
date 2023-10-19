@@ -3,11 +3,13 @@
   import View from '../view/View.svelte'
   import { openComposition } from '../open/openFiles'
 
+  // max width - see how much space there is
   export let compositions: Record<string, typeof SvelteComponent>
   export let pathWithoutExtension: string
   export let width: number = undefined
   export let height: number = undefined
 
+  let containerWidth = 1000
 // May need .not-prose when hoisted into documentation
 </script>
 
@@ -25,10 +27,10 @@
       {compositionName === 'default' ? '' : compositionName} composition
     </button>
   </div>
-  <div class="inline-block overflow-x-auto w-full pt-8 -mt-8">
+  <div class="inline-block overflow-x-auto w-full pt-8 -mt-8" bind:clientWidth={containerWidth}>
     <div class="flex">
       <View
-        {width}
+        width={width || Math.min(containerWidth, 1000)}
         {height}
         {compositionName}>
       </View>
