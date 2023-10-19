@@ -1,9 +1,9 @@
 import type { SvelteComponent } from 'svelte'
-import type { GroupedPage, GroupedPageMap, UngroupedPage, VariantsModule } from '../../kitbook-types'
+import type { CompositionModule, GroupedPage, GroupedPageMap, UngroupedPage, VariantsModule } from '../../kitbook-types'
 import { testModules } from './testModules'
 import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
 
-export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof SvelteComponent } | VariantsModule>[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
+export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof SvelteComponent } | VariantsModule | CompositionModule>[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
   const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte']
   const grouped: GroupedPageMap = {}
 

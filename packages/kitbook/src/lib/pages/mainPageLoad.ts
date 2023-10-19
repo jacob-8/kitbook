@@ -22,10 +22,10 @@ export async function mainPageLoad({ params, parent }) {
       loadedModules.variantsRaw = await page.loadVariants.loadRaw()
     }
     if (page.loadCompositions) {
-      loadedModules.compositions = {}
+      loadedModules.compositionsModules = {}
       loadedModules.compositionsRaw = {}
       for (const compositionName in page.loadCompositions) {
-        loadedModules.compositions[compositionName] = (await page.loadCompositions[compositionName].loadModule())?.default
+        loadedModules.compositionsModules[compositionName] = (await page.loadCompositions[compositionName].loadModule())
         loadedModules.compositionsRaw[compositionName] = await page.loadCompositions[compositionName].loadRaw()
       }
     }

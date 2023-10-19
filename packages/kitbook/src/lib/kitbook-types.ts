@@ -49,7 +49,7 @@ export type GroupedPage = PageMetadata & {
   extensions: string[]
   loadSvx?: LoadFunctions<{ default: typeof SvelteComponent }>
   loadComponent?: LoadFunctions<{ default: typeof SvelteComponent }>
-  loadCompositions?: Record<string, LoadFunctions<{ default: typeof SvelteComponent }>>
+  loadCompositions?: Record<string, LoadFunctions<CompositionModule>>
   loadVariants?: LoadFunctions<VariantsModule>
 }
 export type GroupedPageMap = Record<string, GroupedPage>
@@ -65,6 +65,7 @@ type Module = () => Promise<{ [key: string]: any }>
 type RawModule = () => Promise<string>
 
 export interface VariantsModule { 'variants': Variant<any>[]; 'viewports': Viewport[] }
+export interface CompositionModule { default: typeof SvelteComponent; width?: number; height?: number }
 
 export interface LoadedModules {
   svx?: typeof SvelteComponent
@@ -73,7 +74,7 @@ export interface LoadedModules {
   componentRaw?: string
   variantsModule?: VariantsModule
   variantsRaw?: string
-  compositions?: Record<string, typeof SvelteComponent>
+  compositionsModules?: Record<string, CompositionModule>
   compositionsRaw?: Record<string, string>
 }
 

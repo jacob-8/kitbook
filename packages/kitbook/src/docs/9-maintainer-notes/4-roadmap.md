@@ -4,13 +4,13 @@
 *(you have been warned, early-adopters)*
 
 ## Alpha features I have already planned out and just need to implement - hold your horses
-- composition dimensions
 - visual regression testing
   - using Playwright but do note VitestPreview, [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) and [Viteshot](https://viteshot.com/)
 - auto-adjusting iframe height
 - i18n
-- swap svelte-markdown from mdsvex
-- compositions display in documentation when referenced, update the MDSvex to parse for links to compositions and just create an ID that can be targeted by composition
+- use remark+rehype for basic html instead of mdsvex
+  - compositions display in documentation when referenced, update the MDSvex to parse for links to compositions and just create an ID that can be targeted by composition
+  - May need .not-prose when hoisted into documentation
 
 ## Beta - please feel free to open issues and discuss what you may be able to contribute!
 - responsive iframes shrink to keep interior resolution

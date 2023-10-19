@@ -1,19 +1,15 @@
 <script lang="ts">
-  import type { SvelteComponent } from 'svelte'
   import View from '../view/View.svelte'
   import { openComposition } from '../open/openFiles'
+  import type { CompositionModule } from '$lib/kitbook-types'
 
-  // max width - see how much space there is
-  export let compositions: Record<string, typeof SvelteComponent>
+  export let compositionModules: Record<string, CompositionModule>
   export let pathWithoutExtension: string
-  export let width: number = undefined
-  export let height: number = undefined
 
   let containerWidth = 1000
-// May need .not-prose when hoisted into documentation
 </script>
 
-{#each Object.entries(compositions) as [compositionName, _composition]}
+{#each Object.entries(compositionModules) as [compositionName, { width, height }]}
   <div class="font-semibold text-sm py-1">
     <button
       class="capitalize relative z-2"

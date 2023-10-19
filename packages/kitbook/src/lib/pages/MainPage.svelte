@@ -1,8 +1,7 @@
 <script lang="ts">
   import '../styles/kb-prose.css'
-  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules, VariantsModule } from 'kitbook'
+  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules } from 'kitbook'
   import { Button } from 'svelte-pieces'
-  import type { SvelteComponent } from 'svelte'
   import EditInGithub from '../components/EditInGithub.svelte'
   import { pagesStore } from '../modules/hmrUpdatedModules'
   import { openComponent, openComposition, openSvx, openVariants } from '../open/openFiles'
@@ -20,39 +19,38 @@
     error?: string
   } = { loadedModules: {} }
 
-  const { viewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
+  const { viewports: kitbookViewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
 
   $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
 
-  let variantsModule: VariantsModule
-  $: if (pageFromUpdatingStore?.loadVariants?.loadModule) {
+  let variantsModule = data.loadedModules?.variantsModule
+  $: if (pageFromUpdatingStore?.loadVariants?.loadModule)
+    updateVariantsModule()
+  else
+    variantsModule = data.loadedModules?.variantsModule
+
+  function updateVariantsModule() {
     pageFromUpdatingStore.loadVariants.loadModule().then((module) => {
       variantsModule = module
     }).catch((error) => {
       console.error(error)
     })
   }
-  else {
-    variantsModule = null
-  }
 
-  $: variants = variantsModule?.variants || data.loadedModules?.variantsModule?.variants
-
-  let compositions: Record<string, typeof SvelteComponent>
+  let compositionModules = data.loadedModules?.compositionsModules
   $: if (pageFromUpdatingStore?.loadCompositions)
     updateCompositions()
   else
-    compositions = data.loadedModules?.compositions
+    compositionModules = data.loadedModules?.compositionsModules
 
   function updateCompositions() {
-    if (!compositions)
-      compositions = {}
+    if (!compositionModules)
+      compositionModules = {}
     Object.entries(pageFromUpdatingStore.loadCompositions).forEach(async ([compositionName, loadComposition]) => {
-      compositions[compositionName] = (await loadComposition.loadModule()).default
+      compositionModules[compositionName] = (await loadComposition.loadModule())
     })
   }
 
-  $: fileViewports = variantsModule?.viewports || data.loadedModules?.variantsModule?.viewports
   $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
 </script>
@@ -75,7 +73,7 @@
 
             <Button
               onclick={() => {
-                if (data.loadedModules.compositions) {
+                if (compositionModules) {
                   const name = prompt('What do you want to name this composition? (lowercase, no spaces or periods)')
                   if (name)
                     openComposition(pathWithoutExtension, `${name}.composition`)
@@ -86,7 +84,7 @@
               form="menu"
               color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
 
-            {#if !variants}
+            {#if !variantsModule?.variants}
               <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
             {/if}
           {/if}
@@ -101,12 +99,12 @@
         <Button class="block mb-3" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (md)</Button>
       {/if}
 
-      {#if compositions}
-        <Compositions {compositions} {pathWithoutExtension} />
+      {#if compositionModules}
+        <Compositions {compositionModules} {pathWithoutExtension} />
       {/if}
 
-      {#if variants}
-        <Variants {variants} {pathWithoutExtension} viewports={fileViewports || viewports} {languages} />
+      {#if variantsModule?.variants}
+        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || kitbookViewports} {languages} />
       {/if}
 
       <EditInGithub path={data?.page?.path} {githubURL} />
