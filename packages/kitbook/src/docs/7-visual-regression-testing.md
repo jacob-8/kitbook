@@ -1,4 +1,4 @@
-# Visual Regression Testing
+# Visual Regression Testing: In progress
 
 Beyond simply giving an easy way to mock components in a variety of states, the simple [[3-component-variants|Variants]] format of Kitbook enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/). Here's how to set things up.
 
