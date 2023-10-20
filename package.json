@@ -1,7 +1,7 @@
 {
   "name": "kitbook-monorepo",
   "type": "module",
-  "version": "1.0.0-alpha.50",
+  "version": "1.0.0-alpha.51",
   "private": true,
   "scripts": {
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
