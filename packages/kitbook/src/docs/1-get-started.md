@@ -1,12 +1,10 @@
 # Get Started
 
-**Warning: This is alpha software and the API will change.** Please use if you like powerful tools, like scanning release notes for breaking changes, and like contributing to fix bugs. Please don't use if you don't like the above, but you can read the [[4-roadmap]] for clues on when things will be more stable.
-
 ## How to Add Kitbook to Your SvelteKit App
 
 Kitbook has a lot of powerful features, but let's start with the bare minimum to just get going:
 
-- `npm install -D kitbook@alpha` or `pnpm add -D kitbook@alpha`
+- `npm install -D kitbook` or `pnpm add -D kitbook`
 
 - Add the `kitbook()` Vite plugin *before* your `sveltekit()` plugin:
 	```js twoslash title="vite.config.js" {3,7}
@@ -24,32 +22,32 @@ Kitbook has a lot of powerful features, but let's start with the bare minimum to
 
 	*You can pass optional configuration settings to the plugin. You will see them referenced throughout the docs and you can read the types if you want to utilize them.*
 
-- Run your dev server as normal (`npm run dev`) and Kitbook will add a `src/routes/kitbook` folder to add a `/kitbook` route to your app - leave these files alone. 
+- Run your dev server as normal (`npm run dev`) and Kitbook will add a `src/routes/kitbook` folder to add a `/kitbook` route to your app. At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files as they are just Svelte components with a very important `data` prop*.
 
-	At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files - they are also Svelte components with a very important `data` prop*.
+If you don't have any app shell components in your root layout file, (e.g. a header), then your routes folder structure is probably good. However, if you have app shell components, then you'll notice that your Kitbook is also inheriting them. This won't work and you may need to adjust your folder structure to look like this:
 
-	If you don't have any app shell components in your root layout file, (e.g. a header), then your routes folder structure is probably good. However, if you have app shell components, then you'll notice that your Kitbook is also inheriting them. This won't work and you may need to adjust your folder structure to look like this:
+```txt {2,6}
+src/routes/
+│ (app)/
+│ ├ dashboard/
+│ ├ item/
+│ └ +layout.svelte <-- add app shell components like headers and initialize app only items, like db connections (refers to all layout files like +layout.ts)
+│ kitbook/
+└ +layout.svelte <-- initialize everything both your app and Kitbook need, like i18n 
+```
 
-	```txt {2,6}
-	src/routes/
-	│ (app)/
-	│ ├ dashboard/
-	│ ├ item/
-	│ └ +layout.svelte <-- add app shell components like headers and initialize app only items, like db connections (refers to all layout files like +layout.ts)
-	│ kitbook/
-	└ +layout.svelte <-- initialize everything both your app and Kitbook need, like i18n 
-	```
+You may find it a bit jarring to have your component workbench included in your main app. Kitbook originally worked as a companion app, like all previous art does, but this created a lot of friction:
+- Starting two dev servers is a pain and you will find yourself only working in Kitbook or only in your app, but not both which is the sweet spot. 
+- Set up the component workbench with just the right scaffolding to match the main app is a pain. It's annoying to have to keep everything in sync (like i18n) for example. The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
+- The status checks for Playwright E2E tests running against Vercel deployments breaks down when your app deployment finishes before your Kitbook workbench deployment. 
 
-	You may find it a bit jarring to have your component workbench included in your main app. Kitbook originally worked as a companion app, like all previous art does, but this created a lot of friction I didn't like. 
-	- I don't often take the time to start two dev servers and open two tabs. I often only worked in my Kitbook or only in my app, but not both which is the sweet spot. 
-	- Another friction point, is the work required to set up the component workbench with just the right scaffolding to match the main app. It's annoying to have to keep everything in sync (like i18n) for example. The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
-	- This avoids all the compatibility issues other tools have around trying to use SvelteKit specific imports. 
-  
-	Give the combined app and workbench approach a try and see if you like it. If you don't need the workbench published you can also easily add a script to remove the `kitbook` route folder before building for production.
- 
-Let's move on to learn about Kitbook's [[2-viewer]] tool which bridges the gap between our app and our component workbench. 
+Furthermore the combined app + Kitbook approach is the only way to get the [[2-viewer]] tool which is a huge benefit. Let's move on to learn about Kitbook's [[2-viewer]] tool which bridges the gap between our app and our component workbench. 
+
+---
+
+If you don't need the workbench published you can also easily add a script to remove the `kitbook` routes folder before building for production. *You could also [[1-use-by-itself-(for-a-library)|create an entirely separate SvelteKit app]] by itself and update the `importModuleGlobs` setting to point to the main app's folder, but then you lose the all the benefits of the [[2-viewer]] so I don't recommend that approach.*
 
 [//begin]: # "Autogenerated link references for markdown compatibility"
-[4-roadmap]: 9-maintainer-notes/4-roadmap.md "Roadmap"
 [2-viewer]: 2-viewer.md "Viewer"
+[1-use-by-itself-(for-a-library)|create an entirely separate SvelteKit app]: 3-customizations/1-use-by-itself-(for-a-library).md "Use Kitbook by Itself"
 [//end]: # "Autogenerated link references"

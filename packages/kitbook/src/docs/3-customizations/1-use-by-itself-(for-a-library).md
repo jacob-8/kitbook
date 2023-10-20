@@ -23,7 +23,7 @@ If you are using `svelte-package` and you don't want to add your stories and var
 
 ```
 *.variants.ts
-*.composition.svelte
+*.composition
 **/*.md
 *.svx
 ```
