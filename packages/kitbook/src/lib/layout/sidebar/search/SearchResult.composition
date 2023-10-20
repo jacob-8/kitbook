@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   export let width = 800;
-  export let height = 200;
+  export let height = 100;
 </script>
 
 <script lang="ts">

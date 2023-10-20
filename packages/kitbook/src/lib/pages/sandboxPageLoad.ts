@@ -1,8 +1,24 @@
 // import { decompressFromEncodedURIComponent as decode } from '../lz/lz-string'
-import type { GroupedPageMap, Variant } from '../kitbook-types'
+import type { SvelteComponent } from 'svelte'
+import type { GroupedPage, Variant } from '../kitbook-types'
+import type { LayoutLoadResult } from '../layout/layoutLoad'
+
+export interface SandboxPageLoadResult {
+  page: GroupedPage
+  pageKey: string
+
+  compositionName?: string
+  composition?: typeof SvelteComponent
+
+  variantIndex?: string
+  component?: typeof SvelteComponent
+  variant?: Variant<any>
+
+  // editedProps?: Record<string, any>
+}
 
 export async function sandboxPageLoad({ params, parent, url }) {
-  const { pages }: { pages: GroupedPageMap } = await parent()
+  const { pages } = await parent() as LayoutLoadResult
   const pageKey = `/${params?.file}` || ''
   const page = pages[pageKey]
 

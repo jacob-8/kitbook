@@ -26,7 +26,7 @@ export function openSvx(filepath: string) {
 export function openComposition(filepathWithoutExtension: string, extension: string) {
   const tag = filepathWithoutExtension.split('/').pop()
   const template = `<script context="module" lang="ts">
-  // set dimensions for this composition
+  // set dimensions for this composition (both are optional)
   export let width = 600
   export let height = 400
 </script>
@@ -44,6 +44,7 @@ export function openComposition(filepathWithoutExtension: string, extension: str
 }
 
 function ensureFileExists(filepath: string, template: string) {
+  // TODO: could jump to GitHub instead of error if no dev server - use githubURL + filepath
   if (!import.meta.hot)
     return alert('Dev server must be running with HMR enabled to use this feature.')
 

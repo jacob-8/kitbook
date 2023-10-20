@@ -1,12 +1,20 @@
-import type { GroupedPageMap, LoadedModules } from '../kitbook-types'
+import type { GroupedPage, LoadedModules } from 'kitbook'
+import type { LayoutLoadResult } from '../layout/layoutLoad'
 
-export async function mainPageLoad({ params, parent }) {
-  const { pages }: { pages: GroupedPageMap } = await parent()
+export interface MainPageLoadResult {
+  loadedModules: LoadedModules
+  page?: GroupedPage
+  pageKey?: string
+  error?: string
+}
+
+export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResult> {
+  const loadedModules: LoadedModules = {}
+  const { pages } = await parent() as LayoutLoadResult
   if (!pages)
-    return { error: 'No pages found. Kitbook is not setup properly.' }
+    return { error: 'No pages found. Kitbook is not setup properly.', loadedModules }
   const pageKey = parsePageKey(params?.file)
   const page = pages[pageKey]
-  const loadedModules: LoadedModules = {}
 
   if (page) {
     if (page.loadSvx) {
@@ -49,11 +57,12 @@ export async function mainPageLoad({ params, parent }) {
     catch (e) {
       return {
         error: `Displaying your project README.md as the Kitbook homepage will only work if you allow the Vite server to access one level up from project root (/src) by setting "server.fs.allow = ['..']" in your Vite config. You must have changed the Kitbook default. See https://vitejs.dev/config/#server-fs-allow for more info. // ERROR: ${e}`,
+        loadedModules,
       }
     }
   }
 
-  return { error: 'No modules found for this route. By default Kitbook will try to display your project README.md file as the home page if no src/index.md file exists.' }
+  return { error: 'No modules found for this route. By default Kitbook will try to display your project README.md file as the home page if no src/index.md file exists.', loadedModules }
 }
 
 function parsePageKey(input: string) {

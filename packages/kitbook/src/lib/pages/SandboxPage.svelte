@@ -1,24 +1,11 @@
 <script lang="ts">
-  import type { Writable } from 'svelte/store'
-  import type { GroupedPage, GroupedPageMap, Variant as VariantType } from 'kitbook'
-  import type { SvelteComponent } from 'svelte'
   import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js'
+  import type { LayoutLoadResult } from '../layout/layoutLoad'
   import Variant from './Variant.svelte'
   import Composition from './Composition.svelte'
+  import type { SandboxPageLoadResult } from './sandboxPageLoad'
 
-  export let data: {
-    pagesStore: Writable<GroupedPageMap>
-    page: GroupedPage
-    pageKey: string
-
-    compositionName?: string
-    composition?: typeof SvelteComponent
-
-    variantIndex?: string
-    component?: typeof SvelteComponent
-    variant?: VariantType<any>
-  // editedProps?: Record<string, any>
-  }
+  export let data: SandboxPageLoadResult & LayoutLoadResult
 </script>
 
 <div class="absolute inset-0 overflow-auto">

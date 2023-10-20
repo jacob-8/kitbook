@@ -1,53 +1,56 @@
 <script lang="ts">
   import '../styles/kb-prose.css'
-  import type { GroupedPage, GroupedPageMap, KitbookSettings, LoadedModules } from 'kitbook'
   import { Button } from 'svelte-pieces'
   import EditInGithub from '../components/EditInGithub.svelte'
-  import { pagesStore } from '../modules/hmrUpdatedModules'
   import { openComponent, openComposition, openSvx, openVariants } from '../open/openFiles'
   import Layout from '../layout/Layout.svelte'
+  import type { LayoutLoadResult } from '../layout/layoutLoad'
   import Variants from './Variants.svelte'
   import Compositions from './Compositions.svelte'
+  import type { MainPageLoadResult } from './mainPageLoad'
   import { dev } from '$app/environment'
 
-  export let data: {
-    settings?: KitbookSettings
-    pages?: GroupedPageMap
-    page?: GroupedPage
-    pageKey?: string
-    loadedModules?: LoadedModules
-    error?: string
-  } = { loadedModules: {} }
+  export let data: MainPageLoadResult & LayoutLoadResult
 
   const { viewports: kitbookViewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
+  const { pagesStore } = data
+  $: pageFromHMR = $pagesStore?.[data.pageKey]
 
-  $: pageFromUpdatingStore = $pagesStore?.[data.pageKey]
-
-  let variantsModule = data.loadedModules?.variantsModule
-  $: if (pageFromUpdatingStore?.loadVariants?.loadModule)
+  let { variantsModule } = data.loadedModules
+  $: if (pageFromHMR?.loadVariants?.loadModule)
     updateVariantsModule()
   else
-    variantsModule = data.loadedModules?.variantsModule
+    ({ variantsModule } = data.loadedModules)
 
   function updateVariantsModule() {
-    pageFromUpdatingStore.loadVariants.loadModule().then((module) => {
+    pageFromHMR.loadVariants.loadModule().then((module) => {
       variantsModule = module
     }).catch((error) => {
       console.error(error)
     })
   }
 
-  let compositionModules = data.loadedModules?.compositionsModules
-  $: if (pageFromUpdatingStore?.loadCompositions)
+  $: compositionModules = data.loadedModules.compositionsModules
+  $: if (pageFromHMR?.loadCompositions)
     updateCompositions()
-  else
-    compositionModules = data.loadedModules?.compositionsModules
 
   function updateCompositions() {
     if (!compositionModules)
       compositionModules = {}
-    Object.entries(pageFromUpdatingStore.loadCompositions).forEach(async ([compositionName, loadComposition]) => {
+    Object.entries(pageFromHMR.loadCompositions).forEach(async ([compositionName, loadComposition]) => {
       compositionModules[compositionName] = (await loadComposition.loadModule())
+    })
+  }
+
+  $: svx = data.loadedModules.svx
+  $: if (pageFromHMR?.loadSvx)
+    updateSvx()
+
+  function updateSvx() {
+    pageFromHMR.loadSvx.loadModule().then((module) => {
+      svx = module.default
+    }).catch((error) => {
+      console.error(error)
     })
   }
 
@@ -67,9 +70,15 @@
           {title}
 
           {#if dev}
-            <Button onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} form="menu" color="black" title="Edit Component">
+            <Button class="ml-1" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} form="menu" color="black" title="Edit Component">
               <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" />
             </Button>
+
+            {#if !svx}
+              <Button onclick={() => openSvx(`${pathWithoutExtension}.md`)} form="menu" color="black">
+                <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs
+              </Button>
+            {/if}
 
             <Button
               onclick={() => {
@@ -91,12 +100,10 @@
         </div>
       {/if}
 
-      {#if data.loadedModules.svx}
+      {#if svx}
         <div class="kb-prose mb-8 max-w-1000px">
-          <svelte:component this={data.loadedModules.svx} />
+          <svelte:component this={svx} />
         </div>
-      {:else if dev}
-        <Button class="block mb-3" onclick={() => openSvx(`${pathWithoutExtension}.md`)} color="black"><span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs File (md)</Button>
       {/if}
 
       {#if compositionModules}

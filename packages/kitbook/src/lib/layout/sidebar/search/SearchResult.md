@@ -1,0 +1,1 @@
+You'll recognize this component from the search modal. If you're running Kitbook locally you can add another composition or just to the specific composition and variant files by clicking their headings.
