@@ -1,29 +1,32 @@
 <script lang="ts">
   import type { GroupedPage } from '../../kitbook-types'
+  import { dev } from '$app/environment'
 
   export let page: GroupedPage
   export let kitbookPath: string
   export let activePath: string
   export let depth: number
   $: active = activePath === page?.url
-  $: doesNotHaveSvxOrVariants = !(page?.loadSvx || page?.loadVariants)
+  $: hasKitbookFiles = page?.loadSvx || page?.loadVariants || page?.loadCompositions
 </script>
 
-<a
-  data-sveltekit-preload-data="off"
-  class:opacity-60={doesNotHaveSvxOrVariants}
-  class:font-semibold={active}
-  class:text-blue-600={active}
-  class:capitalize={!page.name.startsWith('+page') && !page.name.startsWith('+layout')}
-  class="hover:text-blue-700 pr-3 text-xs flex"
-  href={kitbookPath + page.url}
-  style="padding-left: calc(0.75rem * {depth}">
-  <span
-    class="border-l border-gray-300 hover:border-blue-700 pr-3"
-    class:border-dotted={!active}
-    class:border-l-2={active}
-    class:border-blue-700={active} />
-  <span class="py-0.5" style="overflow-wrap: anywhere;">
-    {page.name}
-  </span>
-</a>
+{#if dev || hasKitbookFiles}
+  <a
+    data-sveltekit-preload-data="off"
+    class:opacity-60={!hasKitbookFiles}
+    class:font-semibold={active}
+    class:text-blue-600={active}
+    class:capitalize={!page.name.startsWith('+page') && !page.name.startsWith('+layout')}
+    class="hover:text-blue-700 pr-3 text-xs flex"
+    href={kitbookPath + page.url}
+    style="padding-left: calc(0.75rem * {depth}">
+    <span
+      class="border-l border-gray-300 hover:border-blue-700 pr-3"
+      class:border-dotted={!active}
+      class:border-l-2={active}
+      class:border-blue-700={active} />
+    <span class="py-0.5" style="overflow-wrap: anywhere;">
+      {page.name}
+    </span>
+  </a>
+{/if}

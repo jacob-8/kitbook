@@ -1,82 +1,80 @@
 <script lang="ts">
-  import { resizeElement } from './resizeElement';
+  import { resizeElement } from './resizeElement'
 
-  export let hovered = false;
+  export let hovered = false
+  export let width: number = undefined
+  export let height: number = undefined
 
-  export let width: number = undefined;
-  export let height: number = undefined;
+  let userAdjustedWidth: number
+  let userAdjustedHeight: number
 
-  let userAdjustedWidth: number;
-  let userAdjustedHeight: number;
+  $: widthToDisplay = userAdjustedWidth || width
+  $: heightToDisplay = userAdjustedHeight || height
 
-  $: widthToDisplay = userAdjustedWidth || width;
-  $: heightToDisplay = userAdjustedHeight || height;
-
-  let container: HTMLDivElement;
-  let dragging: 'width' | 'height' | 'both';
+  let container: HTMLDivElement
+  let dragging: 'width' | 'height' | 'both'
   // may need to also listen for touchdown to give a touchcatcher like in the Layout
 
-  const PADDING_TWICE = 24;
+  export function resetDimensions() {
+    userAdjustedWidth = null
+    userAdjustedHeight = null
+  }
 </script>
 
-<div bind:this={container} class="overflow-x-auto">
+<div bind:this={container}>
   <div
-    style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay
-      ? `${widthToDisplay}px`
-      : 'unset'};"
-    class:border-blue-900={hovered}
+    style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'};
+      width: {widthToDisplay
+        ? `${widthToDisplay}px`
+        : 'unset'};"
+    class:border-gray-700={hovered}
     class:checkerboard={hovered}
-    class="overflow-hidden p-3 relative rounded border !border-opacity-50"
-  >
+    class="relative border !border-opacity-50">
     {#if container}
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: { pixels } }) => {
-          userAdjustedWidth = pixels;
+          userAdjustedWidth = pixels
         }}
         on:mousedown={() => (dragging = 'width')}
         on:dblclick={() => (userAdjustedWidth = null)}
-        class="absolute right-0 top-0 bottom-0 w-3 cursor-ew-resize hover:bg-blue-200 hover:bg-opacity-75"
-        class:bg-blue-200={dragging === 'width'}
-      />
+        class="absolute z-1 right-0 top-0 bottom-0 w-2 cursor-ew-resize hover:bg-gray-200/75"
+        class:bg-gray-200={dragging === 'width'} />
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updateheight={({ detail: { pixels } }) => {
-          userAdjustedHeight = pixels;
+          userAdjustedHeight = pixels
         }}
         on:mousedown={() => (dragging = 'height')}
         on:dblclick={() => (userAdjustedHeight = null)}
-        class="absolute right-0 left-0 bottom-0 h-3 cursor-ns-resize hover:bg-blue-200 hover:bg-opacity-75"
-        class:bg-blue-200={dragging === 'height'}
-      />
+        class="absolute z-1 right-0 left-0 bottom-0 h-2 cursor-ns-resize hover:bg-gray-200/75"
+        class:bg-gray-200={dragging === 'height'} />
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: { pixels } }) => {
-          userAdjustedWidth = pixels;
+          userAdjustedWidth = pixels
         }}
         on:updateheight={({ detail: { pixels } }) => {
-          userAdjustedHeight = pixels;
+          userAdjustedHeight = pixels
         }}
         on:mousedown={() => (dragging = 'both')}
         on:dblclick={() => {
-          userAdjustedWidth = null;
-          userAdjustedHeight = null;
+          userAdjustedWidth = null
+          userAdjustedHeight = null
         }}
-        class="absolute right-0 bottom-0 w-3 h-3 cursor-nwse-resize hover:bg-blue-200 hover:bg-opacity-75"
-        class:bg-blue-200={dragging === 'both'}
-      />
+        class="absolute z-1 right-0 bottom-0 w-3 h-3 cursor-nwse-resize hover:bg-gray-200/75"
+        class:bg-gray-200={dragging === 'both'} />
     {/if}
     {#if dragging}
       <div class="bg-white px-1 absolute bottom-3 right-3 z-1 shadow-lg border rounded">
-        {((widthToDisplay || container.clientWidth) - PADDING_TWICE).toFixed()} x {(
-          (heightToDisplay || container.clientHeight) - PADDING_TWICE
-        ).toFixed()}
+        {(widthToDisplay || container.clientWidth).toFixed()} x
+        {(heightToDisplay || container.clientHeight).toFixed()}
       </div>
     {/if}
     <div class="bg-white h-full relative">

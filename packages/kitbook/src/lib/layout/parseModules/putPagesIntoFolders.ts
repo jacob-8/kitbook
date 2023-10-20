@@ -23,6 +23,10 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
     return rootFolder
 
   pagesToOrganize.forEach((page) => {
+    const pageIsJustAComposition = page.extensions.length === 1 && page.extensions[0] === 'composition'
+    if (pageIsJustAComposition)
+      return
+
     let currentFolder = rootFolder
 
     const path = page.url.split('/')
@@ -36,7 +40,7 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
         currentFolder = rootFolder
       }
       else {
-        let folder = currentFolder.folders.find(folder => folder.name === cleanedFolderName)
+        let folder = currentFolder.folders.find(({ name }) => name === cleanedFolderName)
         if (!folder) {
           folder = {
             name: cleanedFolderName,
@@ -55,20 +59,4 @@ export function putPagesIntoFolders(groupedPages: GroupedPageMap): Folder {
     })
   })
   return rootFolder
-}
-
-function filterKitbookRoutes(path: string, kitbookRoutes: string): boolean {
-  return !path.includes(kitbookRoutes)
-}
-
-if (import.meta.vitest) {
-  test('filterKitbookRoutes', () => {
-    const defaultKitbookRoutes = 'src/kitbook'
-    const standardSvelteKitRoutes = 'src/routes'
-
-    expect(filterKitbookRoutes('/src/kitbook/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('false')
-    expect(filterKitbookRoutes('/src/routes/+page.svelte', defaultKitbookRoutes)).toMatchInlineSnapshot('true')
-
-    expect(filterKitbookRoutes('/src/routes/+page.svelte', standardSvelteKitRoutes)).toMatchInlineSnapshot('false')
-  })
 }

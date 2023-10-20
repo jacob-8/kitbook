@@ -23,7 +23,7 @@
   <div
     class="fixed right-10px bottom-10px rounded max-h-90vh max-w-90vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
     {#if selectedIsLocal}
-      <Component kitbookRoute={settings.kitbookRoute} viewports={settings.viewports} />
+      <Component {settings} />
     {:else}
       <Tree kitbookRoute={settings.kitbookRoute} on:close={() => active = false} />
     {/if}

@@ -1,6 +1,5 @@
 <script>
   import Knobs from '$lib/stories/Knobs.svelte';
-  import Story from '$lib/stories/Story.svelte';
   import parseInput from '$lib/stories/knobs';
 </script>
 

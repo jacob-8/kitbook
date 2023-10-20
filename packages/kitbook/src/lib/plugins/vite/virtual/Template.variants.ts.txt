@@ -1,20 +1,30 @@
-import type { Variant } from 'kitbook'
+import type { Variant, Viewport } from 'kitbook'
 import type Component from './Template.svelte'
+
+// optionally override your kitbook viewports for all variants in this file
+// export const viewports: Viewport[] = [
+//   { name: 'Desktop', width: 800, height: 600 },
+//   { name: 'Mobile', width: 320, height: 480}
+// ]
 
 export const variants: Variant<Component>[] = [
   {
     name: 'Situation A',
     description: 'Add optional information about this variant',
     props: {},
+
+    // optionally set viewports just for this variant
     // viewports: [
     //   { name: 'Desktop', width: 800, height: 600 },
     // ],
+
     // contexts: [
     //   {
     //     key: 'settings',
     //     context: { foo: 'baz' },
     //   },
     // ],
+
     // slots: {
     //   default: 'My Workbench', // can pass a string or a Svelte component - presently we can only mock the default slot and not named slots until Svelte supports dynamically named slots since Kitbook needs to have the dynamically named slots feature to be able to mock named slots
     // },

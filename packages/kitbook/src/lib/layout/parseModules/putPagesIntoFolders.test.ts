@@ -6,7 +6,7 @@ import { testModules } from './testModules'
 describe(putPagesIntoFolders, () => {
   test('organizes Pages into proper folders', () => {
     const pages = parseModulesIntoUngroupedPages(testModules, testModules)
-    expect(putPagesIntoFolders(groupColocatedPages(pages))).toMatchFileSnapshot('./putPagesIntoFolders.snap.json5')
+    expect(putPagesIntoFolders(groupColocatedPages(pages))).toMatchFileSnapshot('./putPagesIntoFolders.snap')
   })
 
   test('handles no pages found', () => {

@@ -1,15 +1,16 @@
-import type { Modules, RawModules, UngroupedPage } from "../../kitbook-types";
-import { parsePath } from "./parsePath";
-import { testModules } from "./testModules";
-import { removeInitialDigitAndHyphens } from "./utils/removeInitialDigitAndHyphens";
+import type { Modules, RawModules, UngroupedPage } from '../../kitbook-types'
+import { parsePath } from './parsePath'
+import { testModules } from './testModules'
+import { removeInitialDigitAndHyphens } from './utils/removeInitialDigitAndHyphens'
 
-export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: RawModules): UngroupedPage[] {
-  const paths = Object.keys(modules);
-  if (!paths.length) return []
+export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: RawModules): UngroupedPage<any>[] {
+  const paths = Object.keys(modules)
+  if (!paths.length)
+    return []
 
   return paths.map((path) => {
-    const { name, ext } = parsePath(path);
-    const url = path.replace('src/', '').replace(`.${ext}`, '');
+    const { name, ext } = parsePath(path)
+    const url = path.replace('src/', '').replace(`.${ext}`, '')
 
     return {
       path,
@@ -19,9 +20,9 @@ export function parseModulesIntoUngroupedPages(modules: Modules, rawModules: Raw
       load: {
         loadModule: modules[path],
         loadRaw: rawModules[path],
-      }
-    };
-  });
+      },
+    }
+  })
 }
 
 if (import.meta.vitest) {
@@ -179,6 +180,36 @@ if (import.meta.vitest) {
           "url": "/lib/a/D",
         },
         {
+          "ext": "composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.composition",
+          "url": "/lib/a/D",
+        },
+        {
+          "ext": "first.composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.first.composition",
+          "url": "/lib/a/D",
+        },
+        {
+          "ext": "second.composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "D",
+          "path": "/src/lib/a/D.second.composition",
+          "url": "/lib/a/D",
+        },
+        {
           "ext": "svx",
           "load": {
             "loadModule": [Function],
@@ -187,6 +218,16 @@ if (import.meta.vitest) {
           "name": "E",
           "path": "/src/lib/E.svx",
           "url": "/lib/E",
+        },
+        {
+          "ext": "composition",
+          "load": {
+            "loadModule": [Function],
+            "loadRaw": [Function],
+          },
+          "name": "F",
+          "path": "/src/lib/a/F.composition",
+          "url": "/lib/a/F",
         },
         {
           "ext": "svelte",
@@ -389,6 +430,6 @@ if (import.meta.vitest) {
           "url": "/lib/Vue",
         },
       ]
-    `);
-  });
+    `)
+  })
 }

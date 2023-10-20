@@ -3,5 +3,4 @@ declare module 'virtual:kitbook' {
 
   export const pages: GroupedPageMap
   export const settings: KitbookSettings
-  export const variantsTemplate: string
 }

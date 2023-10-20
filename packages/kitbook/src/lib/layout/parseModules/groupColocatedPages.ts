@@ -1,32 +1,39 @@
-import type { GroupedPageMap, UngroupedPage } from '../../kitbook-types'
+import type { SvelteComponent } from 'svelte'
+import type { CompositionModule, GroupedPage, GroupedPageMap, UngroupedPage, VariantsModule } from '../../kitbook-types'
 import { testModules } from './testModules'
 import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
 
-export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts' }): GroupedPageMap {
+export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof SvelteComponent } | VariantsModule | CompositionModule>[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
   const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte']
   const grouped: GroupedPageMap = {}
 
   for (const page of sortPageAndLayoutPagesWithPlusFirst(ungrouped)) {
     const url = convertUnderscorePrefixToPlus(page.url)
 
-    if (!allowedExtensions.includes(page.ext))
+    if (!allowedExtensions.includes(page.ext) && !page.ext.endsWith(extensions.compositions))
       continue
 
     if (!grouped[url])
       grouped[url] = { name: page.name, url, path: page.path, extensions: [page.ext] }
-
     else
       grouped[url].extensions.push(page.ext)
 
-    if (extensions.svx.includes(page.ext))
-      grouped[url].loadSvx = loadModuleObject(page)
-
-    else if (page.ext === 'svelte')
-      grouped[url].loadComponent = loadModuleObject(page)
-
-    else if (page.ext === extensions.variants)
-      // @ts-expect-error - need to fix types
-      grouped[url].loadVariants = loadModuleObject(page)
+    if (extensions.svx.includes(page.ext)) {
+      grouped[url].loadSvx = loadModuleObject(page) as GroupedPage['loadSvx']
+    }
+    else if (page.ext === 'svelte') {
+      grouped[url].loadComponent = loadModuleObject(page) as GroupedPage['loadComponent']
+    }
+    else if (page.ext === extensions.variants) {
+      grouped[url].loadVariants = loadModuleObject(page) as GroupedPage['loadVariants']
+    }
+    else if (page.ext.endsWith(extensions.compositions)) {
+      const compositionName = page.ext === extensions.compositions ? 'default' : page.ext.split('.')[0]
+      grouped[url].loadCompositions = {
+        ...grouped[url].loadCompositions,
+        [compositionName]: loadModuleObject(page),
+      } as GroupedPage['loadCompositions']
+    }
   }
 
   return grouped
@@ -35,310 +42,7 @@ export function groupColocatedPages(ungrouped: UngroupedPage[] = [], extensions 
 if (import.meta.vitest) {
   test('groupColocatedPages properly groups ungrouped pages', () => {
     const ungroupedPages = parseModulesIntoUngroupedPages(testModules, testModules)
-    expect(groupColocatedPages(ungroupedPages)).toMatchInlineSnapshot(`
-      {
-        "/README": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "README",
-          "path": "/README.md",
-          "url": "/README",
-        },
-        "/docs/0-why-kitbook": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "why kitbook",
-          "path": "/src/docs/0-why-kitbook.md",
-          "url": "/docs/0-why-kitbook",
-        },
-        "/docs/1-get-started": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "get started",
-          "path": "/src/docs/1-get-started.md",
-          "url": "/docs/1-get-started",
-        },
-        "/docs/1a-you-can-use-letters-to-adjust-ordering": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "you can use letters to adjust ordering",
-          "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
-          "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
-        },
-        "/docs/my-notes/0-unocss": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "unocss",
-          "path": "/src/docs/my-notes/0-unocss.md",
-          "url": "/docs/my-notes/0-unocss",
-        },
-        "/docs/my-notes/1-deploy-to-vercel": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "deploy to vercel",
-          "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
-          "url": "/docs/my-notes/1-deploy-to-vercel",
-        },
-        "/index": {
-          "extensions": [
-            "md",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "index",
-          "path": "/src/index.md",
-          "url": "/index",
-        },
-        "/lib/A": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "A",
-          "path": "/src/lib/A.svelte",
-          "url": "/lib/A",
-        },
-        "/lib/B": {
-          "extensions": [
-            "svelte",
-            "svx",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "B",
-          "path": "/src/lib/B.svelte",
-          "url": "/lib/B",
-        },
-        "/lib/E": {
-          "extensions": [
-            "svx",
-          ],
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "E",
-          "path": "/src/lib/E.svx",
-          "url": "/lib/E",
-        },
-        "/lib/a/C": {
-          "extensions": [
-            "svelte",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "C",
-          "path": "/src/lib/a/C.svelte",
-          "url": "/lib/a/C",
-        },
-        "/lib/a/D": {
-          "extensions": [
-            "svelte",
-            "svx",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "D",
-          "path": "/src/lib/a/D.svelte",
-          "url": "/lib/a/D",
-        },
-        "/routes/+layout": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/routes/+layout.svelte",
-          "url": "/routes/+layout",
-        },
-        "/routes/+page": {
-          "extensions": [
-            "svelte",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/routes/+page.svelte",
-          "url": "/routes/+page",
-        },
-        "/routes/a/+layout": {
-          "extensions": [
-            "svelte",
-            "svx",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/routes/a/+layout.svelte",
-          "url": "/routes/a/+layout",
-        },
-        "/routes/a/+page": {
-          "extensions": [
-            "svelte",
-            "svx",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/routes/a/+page.svelte",
-          "url": "/routes/a/+page",
-        },
-        "/routes/b/+layout": {
-          "extensions": [
-            "svelte",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/routes/b/+layout.svelte",
-          "url": "/routes/b/+layout",
-        },
-        "/routes/b/+page": {
-          "extensions": [
-            "svelte",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/routes/b/+page.svelte",
-          "url": "/routes/b/+page",
-        },
-        "/routes/c/+layout": {
-          "extensions": [
-            "svelte",
-            "svx",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+layout",
-          "path": "/src/routes/c/+layout.svelte",
-          "url": "/routes/c/+layout",
-        },
-        "/routes/c/+page": {
-          "extensions": [
-            "svelte",
-            "svx",
-            "variants.ts",
-          ],
-          "loadComponent": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadSvx": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "loadVariants": {
-            "loadModule": [Function],
-            "loadRaw": [Function],
-          },
-          "name": "+page",
-          "path": "/src/routes/c/+page.svelte",
-          "url": "/routes/c/+page",
-        },
-      }
-    `)
+    expect(groupColocatedPages(ungroupedPages)).toMatchFileSnapshot('./groupColocatedPages.snap')
   })
 }
 
@@ -347,7 +51,7 @@ function convertUnderscorePrefixToPlus(s: string): string {
   return s.replace('_page', '+page').replace('_layout', '+layout')
 }
 
-function loadModuleObject(page: UngroupedPage) {
+function loadModuleObject<T>(page: UngroupedPage<T>) {
   return {
     loadModule: page.load.loadModule,
     loadRaw: page.load.loadRaw,
@@ -363,7 +67,7 @@ function isPageOrLayout(name: string): boolean {
 }
 
 if (import.meta.vitest) {
-  test('isPageOrLayout', () => {
+  test(isPageOrLayout, () => {
     expect(isPageOrLayout('+page')).toBeTruthy()
     expect(isPageOrLayout('+page@(app)')).toBeTruthy()
     expect(isPageOrLayout('_page')).toBeFalsy()
@@ -375,7 +79,7 @@ if (import.meta.vitest) {
 
 const STARTS_WITH_PAGE_OR_LAYOUT = /(\+|_)(page|layout).*/
 
-function sortPageAndLayoutPagesWithPlusFirst(pages: UngroupedPage[] = []): UngroupedPage[] {
+function sortPageAndLayoutPagesWithPlusFirst<T>(pages: UngroupedPage<T>[] = []): UngroupedPage<T>[] {
   return pages.sort(({ name: nameA }, { name: nameB }) => {
     if (nameA.match(STARTS_WITH_PAGE_OR_LAYOUT) && nameB.match(STARTS_WITH_PAGE_OR_LAYOUT)) {
       if (nameA.startsWith('+') && nameB.startsWith('_'))
@@ -393,7 +97,7 @@ if (import.meta.vitest) {
       return {
         name: p,
       }
-    }) as UngroupedPage[]
+    }) as UngroupedPage<any>[]
     expect(sortPageAndLayoutPagesWithPlusFirst(pages)).toMatchInlineSnapshot(`
       [
         {

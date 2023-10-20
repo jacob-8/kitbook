@@ -18,11 +18,16 @@ export const testModules = {
   '/src/lib/a/C.svelte': () => Promise.resolve(null), // with variants
   '/src/lib/a/C.variants.ts': () => Promise.resolve(null),
 
-  '/src/lib/a/D.svelte': () => Promise.resolve(null), // with svx and variants
+  '/src/lib/a/D.svelte': () => Promise.resolve(null), // with svx, variants, and compositions
   '/src/lib/a/D.svx': () => Promise.resolve(null),
   '/src/lib/a/D.variants.ts': () => Promise.resolve(null),
+  '/src/lib/a/D.composition': () => Promise.resolve(null), // default composition
+  '/src/lib/a/D.first.composition': () => Promise.resolve(null), // named composition
+  '/src/lib/a/D.second.composition': () => Promise.resolve(null),
 
-  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself (e.g. display combinations of components w/o one particular component being primary)
+  '/src/lib/E.svx': () => Promise.resolve(null), // svx by itself
+
+  '/src/lib/a/F.composition': () => Promise.resolve(null), // compositions by themselves will be put into their own bucket, ready to be referenced by docs modules but not given a page themselves
 
   // pages
   '/src/routes/+page.svelte': () => Promise.resolve(null), // page only

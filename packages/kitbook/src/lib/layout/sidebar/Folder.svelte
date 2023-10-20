@@ -12,7 +12,7 @@
   $: active = activePath.includes(folder.url)
 </script>
 
-<!-- TODO: don't show folder if not dev and no pages with markdown, compositions, or variants, don't show page also -->
+<!-- TODO: don't show folder if not dev and no pages with markdown, compositions, or variants -->
 
 {#if folder.name !== 'kitbook'}
   {#if !isRootFolder}

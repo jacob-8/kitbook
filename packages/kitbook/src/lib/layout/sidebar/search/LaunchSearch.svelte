@@ -3,6 +3,8 @@
   import SearchModal from './SearchModal.svelte'
   import { afterNavigate } from '$app/navigation'
 
+  export let kitbookPath: string
+
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.userAgent)
 
   let searching = false
@@ -31,5 +33,5 @@
 </Button>
 
 {#if searching}
-  <SearchModal on:close={() => (searching = false)} />
+  <SearchModal {kitbookPath} on:close={() => (searching = false)} />
 {/if}

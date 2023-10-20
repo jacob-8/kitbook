@@ -6,7 +6,7 @@ import { KITBOOK_MDSVEX_CONFIG, MDSVEX_EXTENSIONS, mdsvex } from './src/lib/plug
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
+  extensions: ['.svelte', '.composition', ...MDSVEX_EXTENSIONS],
   preprocess: [
     mdsvex(KITBOOK_MDSVEX_CONFIG),
     UnoCSS({

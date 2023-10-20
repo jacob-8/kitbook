@@ -7,6 +7,8 @@
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
 
+  export let kitbookPath: string
+
   const dispatch = createEventDispatcher<{ close: boolean }>()
   function close() {
     dispatch('close')
@@ -72,7 +74,7 @@
       use:autofocus
       on:keydown={(e) => {
         if (e.key === 'Enter' && activeIndex !== null)
-          goto(filteredPages[activeIndex].url)
+          goto(kitbookPath + filteredPages[activeIndex].url)
       }}
       bind:value={query}
       placeholder="Search"
@@ -84,7 +86,7 @@
       on:click={close}><span class="i-fa-solid-times" /></button>
     <div class="overflow-y-auto flex-1 border-t border-gray-300">
       {#each filteredPages as page, index}
-        <SearchResult active={index === activeIndex} {page} />
+        <SearchResult {kitbookPath} active={index === activeIndex} {page} />
       {:else}
         <div class="opacity-50 p-3">No results found</div>
       {/each}

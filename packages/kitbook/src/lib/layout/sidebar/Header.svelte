@@ -23,7 +23,7 @@
   </a>
   <div class="flex-1" />
 
-  <LaunchSearch />
+  <LaunchSearch {kitbookPath} />
 
   {#if githubURL}
     <Button

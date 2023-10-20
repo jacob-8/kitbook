@@ -34,30 +34,28 @@ export interface Folder {
   pages?: GroupedPage[]
 }
 
-export type GroupedPage = PageMetadata & {
-  extensions: string[]
-  loadSvx?: ModuleLoadFunctions
-  loadComponent?: ModuleLoadFunctions
-  loadVariants?: {
-    loadModule: () => Promise<VariantsModule>
-    loadRaw: RawModule
-  }
-}
-export type GroupedPageMap = Record<string, GroupedPage>
-
-export type UngroupedPage = PageMetadata & {
-  ext: string
-  load: ModuleLoadFunctions
-}
-
 interface PageMetadata {
   path: string // allows easy link to Github
   url: string // used as the key in GroupedPageMap
   name: string
 }
 
-interface ModuleLoadFunctions {
-  loadModule: Module
+export type UngroupedPage<T> = PageMetadata & {
+  ext: string
+  load: LoadFunctions<T>
+}
+
+export type GroupedPage = PageMetadata & {
+  extensions: string[]
+  loadSvx?: LoadFunctions<{ default: typeof SvelteComponent }>
+  loadComponent?: LoadFunctions<{ default: typeof SvelteComponent }>
+  loadCompositions?: Record<string, LoadFunctions<CompositionModule>>
+  loadVariants?: LoadFunctions<VariantsModule>
+}
+export type GroupedPageMap = Record<string, GroupedPage>
+
+interface LoadFunctions<T> {
+  loadModule: () => Promise<T>
   loadRaw: RawModule
 }
 
@@ -66,8 +64,8 @@ export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
 type RawModule = () => Promise<string>
 
-// LoadedVariantsModule
 export interface VariantsModule { 'variants': Variant<any>[]; 'viewports': Viewport[] }
+export interface CompositionModule { default: typeof SvelteComponent; width?: number; height?: number }
 
 export interface LoadedModules {
   svx?: typeof SvelteComponent
@@ -76,6 +74,8 @@ export interface LoadedModules {
   componentRaw?: string
   variantsModule?: VariantsModule
   variantsRaw?: string
+  compositionsModules?: Record<string, CompositionModule>
+  compositionsRaw?: Record<string, string>
 }
 
 export interface KitbookSettings {
