@@ -1,12 +1,12 @@
-import type { Variant } from 'kitbook';
-import type Component from './+page.svelte';
+import type { Variant } from 'kitbook'
+import type Component from './+page.svelte'
 
 export const variants: Variant<Component>[] = [
   {
     name: 'First',
     props: {
       data: {
-        name: 'Jimmy'
+        name: 'Jimmy',
       },
     },
   },
@@ -14,8 +14,8 @@ export const variants: Variant<Component>[] = [
     name: 'Second',
     props: {
       data: {
-        name: 'James'
+        name: 'James',
       },
     },
-  }
+  },
 ]

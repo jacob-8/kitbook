@@ -1,10 +1,8 @@
 # Roadmap
 
 ## Remaining alpha features: I have already planned these out and just need to implement - just wait for them
-- visual regression testing
-  - using Playwright but do note VitestPreview, [Histoire plugin](https://github.com/histoire-dev/histoire/tree/main/packages/histoire-plugin-screenshot) and [Viteshot](https://viteshot.com/)
-- auto-adjusting iframe height
 - i18n
+- auto-adjusting iframe height
 - use remark+rehype for basic html instead of mdsvex
   - compositions display in documentation when referenced, update the MDSvex to parse for links to compositions and just create an ID that can be targeted by composition
   - May need .not-prose when hoisted into documentation

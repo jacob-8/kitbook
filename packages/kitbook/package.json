@@ -32,23 +32,25 @@
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./plugins/mdsvex": {
+      "types": "./dist/plugins/mdsvex.d.ts",
+      "svelte": "./dist/plugins/mdsvex.js",
+      "default": "./dist/plugins/mdsvex.js"
+    },
     "./viewer/load-viewer": {
       "types": "./dist/viewer/load-viewer.d.ts",
       "default": "./dist/viewer/load-viewer.js"
     },
     "./plugins/vite": {
       "types": "./dist/plugins/vite.d.ts",
-      "svelte": "./dist/plugins/vite.js",
       "default": "./dist/plugins/vite.js"
     },
-    "./plugins/mdsvex": {
-      "types": "./dist/plugins/mdsvex.d.ts",
-      "svelte": "./dist/plugins/mdsvex.js",
-      "default": "./dist/plugins/mdsvex.js"
+    "./test": {
+      "types": "./dist/test.d.ts",
+      "default": "./dist/test.js"
     },
     "./defineConfig": {
       "types": "./dist/defineConfig.d.ts",
-      "svelte": "./dist/defineConfig.js",
       "default": "./dist/defineConfig.js"
     }
   },
@@ -74,11 +76,12 @@
     "prepublishOnly": "svelte-kit sync && vitest run && npm run package",
     "check": "svelte-check --tsconfig ./tsconfig.json --threshold warning --diagnostic-sources js,svelte",
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "test:components": "playwright test kitbook",
+    "test:components:update": "playwright test kitbook --update-snapshots"
   },
   "svelte": "./dist/index.js",
   "peerDependencies": {
-    "@playwright/test": "^1.37.1",
     "@sveltejs/kit": "^1.13.0",
     "svelte": "^3.55.0 || ^4.0.0"
   },
