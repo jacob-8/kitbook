@@ -1,4 +1,4 @@
-import type { KitbookSettings } from '.'
+import type { KitbookSettings } from './kitbook-types'
 
 export function defineConfig(config: Omit<KitbookSettings, 'viewports'> & Partial<Pick<KitbookSettings, 'viewports'>>): KitbookSettings {
   return {

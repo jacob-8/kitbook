@@ -10,9 +10,12 @@
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm package && cd ../template && pnpm build",
     "package": "svelte-kit package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+    "test:components": "playwright test kitbook",
+    "test:components:update": "playwright test kitbook --update-snapshots"
   },
   "devDependencies": {
+    "@playwright/test": "^1.37.1",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "1.24.1",
     "kitbook": "workspace:*",
