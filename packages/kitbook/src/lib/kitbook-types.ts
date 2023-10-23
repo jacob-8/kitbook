@@ -35,7 +35,7 @@ export interface Folder {
 }
 
 interface PageMetadata {
-  path: string // allows easy link to Github
+  path: string // allows adding easy link to Github
   url: string // used as the key in GroupedPageMap
   name: string
 }

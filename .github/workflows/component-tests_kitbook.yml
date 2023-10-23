@@ -10,7 +10,7 @@ permissions:
 jobs:
   run-e2e:
     name: Playwright Component Tests
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview - kitbook'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
