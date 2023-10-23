@@ -192,6 +192,10 @@ runComponentTests({ test, expect, kitbookConfig, variantModules })
 
 If you know a way to update Playwright's file parsing to handle imported Svelte files, please submit a PR. Or at least a way to ignore the Svelte file. That's not the data we need to run the tests. We only need file locations, variant names, viewports and languages.
 
+## Vercel Tip
+
+You may notice from time to time that the comment call-to-action button shows up in your snapshots. If you don't use Vercel comments, you can [turn off comments](https://vercel.com/docs/workflow-collaboration/comments/how-comments-work#at-the-account-level).
+
 ---
 
 You've now learned the features of Kitbook as far as they have been documented. As you document and prototype your components for each situation you need, you may run into questions as to how to accomplish something. Feel free to browse the Kitbook related files in any of the provided [[8-examples|repo examples]] where Kitbook in is use. You may find your answer there. If not, please [create an issue](https://github.com/jacob-8/kitbook/issues/new), and let's discuss how you could add a needed feature.
