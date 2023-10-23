@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   run-e2e:
-    name: Playwright Component Tests
+    name: Playwright Component Tests - Template
     if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook-template'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -43,7 +43,7 @@ jobs:
         run: pnpm install
 
       - name: Run Playwright Component tests
-        run: pnpm -F template test:components
+        run: pnpm build && pnpm -F template test:components
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
