@@ -11,8 +11,7 @@
     "package": "svelte-kit package",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "test:components": "playwright test kitbook",
-    "test:components:update": "playwright test kitbook --update-snapshots"
+    "test:components": "playwright test kitbook --update-snapshots"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",

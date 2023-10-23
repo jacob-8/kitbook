@@ -13,10 +13,11 @@ pnpm install -D @playwright/test
 This function will take your current version of playwright and your Kitbook config ([[0-config|read here for quick setup]]) and construct urls to each variant found in your `variants.ts` files. It snapshots each url for all desired viewports (and languages if applicable - coming soon). These snapshots live in your repo so all changes will show up in a pull request's `Files changed` section with convenient before/after previews. This will allow your pull requests to self-document the visual changes made to your components.
 
 ```ts title="e2e/kitbook.spec.ts"
-import { getVariants, runComponentTests } from 'kitbook/test'
+import { clearSnapshots, getVariants, runComponentTests } from 'kitbook/test'
 import { expect, test } from '@playwright/test'
 import kitbookConfig from '../kitbook.config'
 
+clearSnapshots()
 const variantModules = await getVariants()
 runComponentTests({ test, expect, kitbookConfig, variantModules })
 ```
@@ -61,8 +62,7 @@ export default defineConfig({
 This script will run playwright against all test files with "kitbook" in the name which will just pick up our component tests:
 
 ```txt title="package.json"
-"test:components": "playwright test kitbook",
-"test:components:update": "playwright test kitbook --update-snapshots",
+"test:components": "playwright test kitbook --update-snapshots",
 ```
 
 Now you can run these commands and see the test results.

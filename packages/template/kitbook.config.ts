@@ -10,9 +10,9 @@ export default defineConfig({
       height: 568,
     },
     {
-      name: 'Desktop',
-      width: 1024,
-      height: 768,
+      name: 'Tablet',
+      width: 768,
+      height: 1024,
     },
   ],
   // languages: [
