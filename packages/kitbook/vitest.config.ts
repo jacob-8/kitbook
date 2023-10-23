@@ -5,8 +5,6 @@ export default defineProject({
     name: 'kitbook:unit',
     globals: true,
     includeSource: ['src/**/*.ts'],
-    exclude: [...defaultExclude, 'dist'],
+    exclude: [...defaultExclude, 'dist', 'e2e/*.spec.ts'],
   },
 })
-
-
