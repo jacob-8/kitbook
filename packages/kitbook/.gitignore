@@ -1,4 +1,2 @@
 /.svelte-kit
 dist
-playwright-report
-test-results

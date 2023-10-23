@@ -2,6 +2,8 @@
 node_modules
 ins.md
 
+playwright-report
+test-results
 
 # ensure locally create snapshots are not committed
 *win32.png
