@@ -81,19 +81,45 @@ export interface LoadedModules {
 export interface KitbookSettings {
   title: string
   description: string
+  /** Kitbook provides mobile and desktop sizes by default, but you can set your own. These will apply to every variant unless overriden by a `viewports` export from that file or from the `viewports` prop within a specific variant. */
   viewports: Viewport[]
   languages?: Language[]
+  /**
+   * Function instructing Kitbook how to apply your language codes to each URL. For example, if your route is `[lang=locale]/(app)/+page.svelte`, you would pass in:
+   * ```
+   * ({code, url}) => url.replace('[lang=locale]', code)
+   * ```
+   * If you use query params to set the language then you need a little more complex function to add `lang=${code}` to the query string or start a new query string if none exists. For example:
+   * ```
+   * ({code, url}) => {
+   *   const [path, search] = url.split('?')
+   *   const params = new URLSearchParams(search)
+   *   params.set('lang', code)
+   *   return `${path}?${params.toString()}`
+   * }
+   * ```
+   */
+  addLanguageToUrl?: ({ code, url }: { code: string; url: string }) => string
   /** `false` by default */
   expandTree?: boolean
   githubURL?: string
   /**
-   * An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to ['/src/**_/*.{md,svx,svelte,variants.ts}', '/README.md']. Adjust this to be able to incrementally adopt Kitbook into your project. << ignore the underscore in the glob pattern, it's just there to make the JSDoc comment work.
+   * An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to
+   * ```
+   * ['/src/**\/*.{md,svx,svelte,variants.ts,composition}', '/README.md']
+   * ```
+   * Adjust this to be able to incrementally adopt Kitbook into your project.
+   * IGNORE the backslash in the glob pattern, it's just there to make the JSDoc comment work.
    */
   importModuleGlobs?: string[]
   viewer?: ViewerOptions
   /** `src/routes` by default - if you have changed the default SvelteKit routes directory, you must specify it here also */
   routesDirectory?: string
-  /** `/kitbook` by default, pass in an empty string `""` for the root `/` route */
+  /**
+   * `/kitbook` by default
+   *
+   * Pass an empty string `""` to indicate the root `/` route
+   */
   kitbookRoute?: string
 }
 
