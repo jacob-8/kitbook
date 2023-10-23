@@ -73,7 +73,7 @@ You may also enjoy using the Playwright UI runner by adding the `--ui` flag to y
 
 ## Add GitHub Action
 
-I run my component testing against actual Vercel deployment previews and the following workflow is an example of how to do that. But it's easy to adapt to other environments as all you need is to do is make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you can just start a dev server. Also change `jacob-8/kitbook` to your repo name.
+I run my component testing against actual Vercel deployment previews and the following workflow is an example of how to do that. But it's easy to adapt to other environments as all you need is to do is make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you can just start a dev server. Also change `kitbook/kitbook` to your repo name (not `user/repo` but `repo/repo`).
 
 ```yaml title=".github/workflows/component-tests.yml"
 name: Playwright Component Tests
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Allow image commit and branch name extraction
-        run: git config --system --add safe.directory /__w/jacob-8/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+        run: git config --system --add safe.directory /__w/kitbook/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
 
       - name: Get Branch
         uses: actions/checkout@v3
