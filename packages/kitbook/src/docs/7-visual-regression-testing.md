@@ -172,6 +172,25 @@ There is perhaps an even better option than the three above: uploading the image
       })
 ```
 
+## Skip Files
+
+If you need to pass a Svelte component into a variant as a prop, you'll need to skip taking screenshots for that variants file as Playwright will choke when trying to import the Svelte file. You can pass an array of `skipFiles` like this:
+
+```ts title="e2e/kitbook.spec.ts" {5-7,10}
+import { expect, test } from '@playwright/test'
+import { clearSnapshots, getVariants, runComponentTests } from '../src/lib/test'
+import kitbookConfig from '../kitbook.config'
+
+const skipFiles = [
+  '/lib/routes/sandbox/[...file]/_page.variants.ts',
+]
+
+clearSnapshots()
+const variantModules = await getVariants({ skipFiles })
+runComponentTests({ test, expect, kitbookConfig, variantModules })
+```
+
+If you know a way to update Playwright's file parsing to handle imported Svelte files, please submit a PR. Or at least a way to ignore the Svelte file. That's not the data we need to run the tests. We only need file locations, variant names, viewports and languages.
 
 ---
 

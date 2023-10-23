@@ -1,3 +1,7 @@
 .DS_Store
 node_modules
 ins.md
+
+
+# ensure locally create snapshots are not committed
+*win32.png

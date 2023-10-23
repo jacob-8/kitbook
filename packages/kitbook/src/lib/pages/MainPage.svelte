@@ -9,6 +9,7 @@
   import Compositions from './Compositions.svelte'
   import type { MainPageLoadResult } from './mainPageLoad'
   import { dev } from '$app/environment'
+  import { page } from '$app/stores'
 
   export let data: MainPageLoadResult & LayoutLoadResult
 
@@ -58,7 +59,7 @@
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
 </script>
 
-<Layout>
+<Layout settings={data.settings} pages={data.pages} pathname={$page.url.pathname}>
   <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
     {#if data.error}
       <div class="text-red">
