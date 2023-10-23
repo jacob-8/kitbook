@@ -20,7 +20,6 @@ export function runComponentTests({
     variants.forEach((variant, index) => {
       for (const { name: viewportName, width, height } of variant.viewports || fileViewports || projectViewports) {
         const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index })
-
         const viewportIdentifier = viewportName || `${width}x${height}`
         const testName = `${directory}/${filenameWithoutExtension}/${variant.name || index.toString()}-${viewportIdentifier}`
         test(testName, async ({ page }) => {

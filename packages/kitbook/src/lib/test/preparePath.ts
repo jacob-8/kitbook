@@ -11,7 +11,6 @@ export function preparePath({ kitbookRoute, path, index, srcDirectory = 'src' }:
     url: string
   } {
   const [, relativePath] = path.split(srcDirectory)
-
   const normalizedPath = relativePath
     .replace(/\\\\|\\/g, '/')
 
@@ -22,7 +21,7 @@ export function preparePath({ kitbookRoute, path, index, srcDirectory = 'src' }:
   const parts = filepathWithoutExtension.split('/').filter(Boolean)
   const filenameWithoutExtension = parts.pop() as string
 
-  const url = `${kitbookRoute || DEFAULT_KITBOOK_ROUTE}/sandbox${filepathWithoutExtension}?variantIndex=${index}`
+  const url = `${kitbookRoute ?? DEFAULT_KITBOOK_ROUTE}/sandbox${filepathWithoutExtension}?variantIndex=${index}`
 
   return {
     directory: parts.join('/'),

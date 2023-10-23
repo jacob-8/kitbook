@@ -1,13 +1,12 @@
 # Roadmap
 
-## Remaining alpha features: I have already planned these out and just need to implement - just wait for them
-- i18n
-- auto-adjusting iframe height
+## Remaining alpha feature in progress:
 - use remark+rehype for basic html instead of mdsvex
   - compositions display in documentation when referenced, update the MDSvex to parse for links to compositions and just create an ID that can be targeted by composition
   - May need .not-prose when hoisted into documentation
 
 ## Beta: Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!
+- auto-adjusting iframe height (I already planned this out)
 - responsive iframes shrink to keep interior resolution
 - movable viewer and adjustable shortcuts
 - show compositions in viewer

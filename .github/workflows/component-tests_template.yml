@@ -9,8 +9,8 @@ permissions:
 
 jobs:
   run-e2e:
-    name: Playwright Component Tests
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview - kitbook-template'
+    name: Playwright Component Tests - Template
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook-template'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Allow image commit and branch name extraction
-        run: git config --system --add safe.directory /__w/jacob-8/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+        run: git config --system --add safe.directory /__w/kitbook/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
 
       - name: Get Branch
         uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
         run: pnpm install
 
       - name: Run Playwright Component tests
-        run: pnpm -F template test:components
+        run: pnpm build && pnpm -F template test:components
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}

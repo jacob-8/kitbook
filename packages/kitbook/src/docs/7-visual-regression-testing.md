@@ -73,7 +73,7 @@ You may also enjoy using the Playwright UI runner by adding the `--ui` flag to y
 
 ## Add GitHub Action
 
-I run my component testing against actual Vercel deployment previews and the following workflow is an example of how to do that. But it's easy to adapt to other environments as all you need is to do is make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you can just start a dev server. Also change `jacob-8/kitbook` to your repo name.
+I run my component testing against actual Vercel deployment previews and the following workflow is an example of how to do that. But it's easy to adapt to other environments as all you need is to do is make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you can just start a dev server. Also change `kitbook/kitbook` to your repo name (not `user/repo` but `repo/repo`).
 
 ```yaml title=".github/workflows/component-tests.yml"
 name: Playwright Component Tests
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Allow image commit and branch name extraction
-        run: git config --system --add safe.directory /__w/jacob-8/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+        run: git config --system --add safe.directory /__w/kitbook/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
 
       - name: Get Branch
         uses: actions/checkout@v3
@@ -172,6 +172,25 @@ There is perhaps an even better option than the three above: uploading the image
       })
 ```
 
+## Skip Files
+
+If you need to pass a Svelte component into a variant as a prop, you'll need to skip taking screenshots for that variants file as Playwright will choke when trying to import the Svelte file. You can pass an array of `skipFiles` like this:
+
+```ts title="e2e/kitbook.spec.ts" {5-7,10}
+import { expect, test } from '@playwright/test'
+import { clearSnapshots, getVariants, runComponentTests } from '../src/lib/test'
+import kitbookConfig from '../kitbook.config'
+
+const skipFiles = [
+  '/lib/routes/sandbox/[...file]/_page.variants.ts',
+]
+
+clearSnapshots()
+const variantModules = await getVariants({ skipFiles })
+runComponentTests({ test, expect, kitbookConfig, variantModules })
+```
+
+If you know a way to update Playwright's file parsing to handle imported Svelte files, please submit a PR. Or at least a way to ignore the Svelte file. That's not the data we need to run the tests. We only need file locations, variant names, viewports and languages.
 
 ---
 
