@@ -69,11 +69,11 @@ Now you can run these commands and see the test results.
 
 If you're already using Playwright for e2e tests you can incorporate the visual regression tests into your same test runs, or if you need to keep them separate because you have different settings you can always create a custom playwright config file and add the config flag to your script command above, e.g. `--config playwright.components.config.ts`.
 
-You may also enjoy using playwright UI runner by adding the `--ui` flag to your script.
+You may also enjoy using the Playwright UI runner by adding the `--ui` flag to your script.
 
 ## Add GitHub Action
 
-I run my component testing against actual deployment previews so the following workflow will only work if you deploy to Vercel. But it's easy to adapt to other environments as all you need is the base url, or you can just start a dev server.
+I run my component testing against actual Vercel deployment previews and the following workflow is an example of how to do that. But it's easy to adapt to other environments as all you need is to do is make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you can just start a dev server. Also change `jacob-8/kitbook` to your repo name.
 
 ```yaml title=".github/workflows/component-tests.yml"
 name: Playwright Component Tests
@@ -88,26 +88,24 @@ permissions:
 jobs:
   run-e2e:
     name: Playwright Component Tests
-    if: github.event.deployment_status.state == 'success' && (github.event.deployment_status.environment == 'Production' || github.event.deployment_status.environment == 'Preview')
-    runs-on: ubuntu-latest # can only run containers on Linux
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview'
+    # Can also use (github.event.deployment_status.environment == 'Production' || github.event.deployment_status.environment == 'Preview') if wanting to run again on the main branch but this is unneeded if you never push directly to the main branch
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
       image: mcr.microsoft.com/playwright:v1.37.1-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
 
     steps:
-      # use the ref to get the right branch
-      - uses: actions/checkout@v3
+      - name: Allow image commit and branch name extraction
+        run: git config --system --add safe.directory /__w/jacob-8/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+
+      - name: Get Branch
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: '${{ github.event.deployment_status.deployment.ref }}'
+          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger (convenient with Vercel)
 
-      # allow branch name extraction; allow updated images changed within a container to be committed
-      # might be ok with --global instead of system, https://github.com/actions/checkout/issues/1169
-      - run: git config --system --add safe.directory /__w/polylingual.dev/polylingual.dev
-
-      # workaround to extract branch name in "deployment_status" actions
-      - name: Extract branch name
-        shell: bash # redundant here but needed in a Windows env
+      - name: Extract branch name # only needed if using the deployment_status trigger (convenient with Vercel)
         run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
         id: extract_branch
 
@@ -124,7 +122,7 @@ jobs:
         run: pnpm install
 
       - name: Run Playwright Component tests
-        run: pnpm test:components:update
+        run: pnpm test:components
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
@@ -134,7 +132,7 @@ jobs:
         if: github.event.deployment_status.environment != 'Production'
         with:
           commit_message: '[Updated Component Snapshots]'
-          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed when triggered by deployment_status
+          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger (convenient with Vercel)
 
       - uses: actions/upload-artifact@v3
         if: always()

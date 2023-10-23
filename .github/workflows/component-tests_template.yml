@@ -1,0 +1,63 @@
+name: Playwright Component Tests - Template
+
+on:
+  deployment_status
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  run-e2e:
+    name: Playwright Component Tests
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview - kitbook-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.37.1-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+
+    steps:
+      - name: Allow image commit and branch name extraction
+        run: git config --system --add safe.directory /__w/jacob-8/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+
+      - name: Get Branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger (convenient with Vercel)
+
+      - name: Extract branch name # only needed if using the deployment_status trigger (convenient with Vercel)
+        run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Run Playwright Component tests
+        run: pnpm -F template test:components
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+
+      - name: Commit Changed Component Snapshots
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        if: github.event.deployment_status.environment != 'Production'
+        with:
+          commit_message: '[Updated Component Snapshots]'
+          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger (convenient with Vercel)
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
