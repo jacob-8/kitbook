@@ -4,6 +4,9 @@ export async function loadViewer(settings: KitbookSettings) {
   if (inIframe())
     return
 
+  if (location.pathname.includes('sandbox'))
+    return
+
   const Viewer = (await import('./Viewer.svelte')).default
   // eslint-disable-next-line no-new
   new Viewer({ target: create_viewer_host(), props: { settings } })

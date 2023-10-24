@@ -3,8 +3,8 @@ import { clearSnapshots, getVariants, runComponentTests } from '../src/lib/test'
 import kitbookConfig from '../kitbook.config'
 
 const skipFiles = [
-  '/docs/1-variants/DefaultSlot.variants.ts',
-  '/lib/routes/sandbox/[...file]/_page.variants.ts',
+  '/docs/1-variants/DefaultSlot',
+  '/lib/routes/sandbox/[...file]/+page',
 ]
 
 clearSnapshots()
