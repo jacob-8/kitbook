@@ -25,6 +25,7 @@ export function runComponentTests({
         test(testName, async ({ page }) => {
           await page.setViewportSize({ width, height })
           await page.goto(url)
+          await page.waitForLoadState('networkidle') // TODO: remove once local styles are able to load down with SSR. This is only needed when snapshotting locally as local dev SSR styles don't come down. SSR is fine when snapshotting a built version as is done in GitHub actions off of a Vercel preview url.
           await expect(page).toHaveScreenshot([`${testName}.png`])
         })
 
