@@ -2,7 +2,14 @@ import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import type { VariantsModule } from '../kitbook-types'
 
-/** This function must be run using a root level await call before you define your Playwright tests as if you run Playwright tests from within an async function the runner will error. */
+/**
+ * This function must be run using a root level await call before you define your Playwright tests as if you run Playwright tests from within an async function the runner will error.
+ *
+ * @param options
+ * @param options.projectRoot The root directory of your SvelteKit project. Defaults to `process.cwd()`.
+ * @param options.srcDirectory The directory where your SvelteKit source files are located. Defaults to `src`.
+ * @param options.skipFiles An array of filepaths to skip when importing variants. The filepaths should be relative to the srcDirectory and without extensions. A basic homepage would be written as `/routes/+page`, a button in your lib would be `/lib/Button`.
+ */
 export async function getVariants(options: {
   projectRoot?: string
   srcDirectory?: string
@@ -43,8 +50,13 @@ function findFiles(directory: string, ending: string): string[] {
 }
 
 function filterSkippedFiles(filepaths: string[], skipFiles: string[], srcDirectory: string) {
-  return filepaths
-    .filter(path => !skipFiles.includes(getRelativeNormalizedPath(path, srcDirectory)))
+  return filepaths.filter((path) => {
+    const shortPath = getRelativeNormalizedPath(path, srcDirectory)
+      .replace('.variants.ts', '')
+      .replace('_page', '+page')
+      .replace('_layout', '+layout')
+    return !skipFiles.includes(shortPath)
+  })
 }
 
 function getRelativeNormalizedPath(path: string, srcDirectory: string): string {
@@ -61,8 +73,8 @@ if (import.meta.vitest) {
       'C:\\dev\\kitbook\\packages\\kitbook\\src\\lib\\components\\EditInGithub.variants.ts',
     ]
     const skipFiles = [
-      '/docs/1-variants/DefaultSlot.variants.ts',
-      '/lib/routes/sandbox/[...file]/_page.variants.ts',
+      '/docs/1-variants/DefaultSlot',
+      '/lib/routes/sandbox/[...file]/+page',
     ]
     const srcDirectory = 'src'
 
