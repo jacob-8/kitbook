@@ -1,5 +1,6 @@
 <script lang="ts">
   import { IntersectionObserver } from 'svelte-pieces'
+  import type { KitbookSettings } from '../kitbook-types'
   import ViewHeader from './ViewHeader.svelte'
   import ViewBody from './ViewBody.svelte'
   import Iframe from './Iframe.svelte'
@@ -9,6 +10,7 @@
   const DEFAULT_HEIGHT = 220
 
   export let languageCode: string = undefined
+  export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
   export let width: number
   export let height = DEFAULT_HEIGHT
   export let hovered = false
@@ -19,7 +21,7 @@
   let iframe: Iframe
   let viewBody: ViewBody
 
-  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, props, variantIndex, compositionName })
+  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName })
 </script>
 
 <IntersectionObserver let:intersecting once>
@@ -28,6 +30,7 @@
     on:mouseover={() => (hovered = true)}
     on:mouseout={() => (hovered = false)}>
     <ViewHeader
+      {languageCode}
       {width}
       {height}
       {hovered}

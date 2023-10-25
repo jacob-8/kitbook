@@ -230,6 +230,10 @@ Sometimes its nice to use `$lib` imports when assembling your mock data for vari
 }
 ```
 
+## Compositions
+
+Screenshotting compositions is not yet supported but it will be added. In the meantime, if you read the source code used for variants you could probably set it up yourself. 
+
 ---
 
 You've now learned the features of Kitbook as far as they have been documented. As you document and prototype your components for each situation you need, you may run into questions as to how to accomplish something. Feel free to browse the Kitbook related files in any of the provided [[8-examples|repo examples]] where Kitbook in is use. You may find your answer there. If not, please [create an issue](https://github.com/jacob-8/kitbook/issues/new), and let's discuss how you could add a needed feature.

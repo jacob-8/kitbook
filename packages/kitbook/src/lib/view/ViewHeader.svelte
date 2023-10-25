@@ -5,11 +5,18 @@
   export let hovered = false
   export let width: number
   export let height: number
+  export let languageCode: string
 
   const dispatch = createEventDispatcher<{ refresh: void; resetDimensions: void }>()
 </script>
 
 <div class="flex items-center absolute z-1 right-0 top--8" class:bg-white={hovered}>
+  {#if languageCode}
+    <span class:!opacity-50={hovered} class="uppercase text-sm-p-1 opacity-0">
+      {languageCode}
+    </span>
+  {/if}
+
   <button
     type="button"
     title="Reset Dimensions"

@@ -1,4 +1,4 @@
-import { serialize } from './serialize'
+import { serializeIntersection } from './serialize'
 
 export function openComponent(filepath: string, viteBase: string) {
   const file_loc = `${filepath}:1:1`
@@ -14,7 +14,7 @@ export function openVariants(filepath: string, componentDetail?: SvelteComponent
 
   const { props } = componentDetail.options
   const state = componentDetail.component.$capture_state()
-  const serializedState = serialize(props, state)
+  const serializedState = serializeIntersection(props, state)
   import.meta.hot.send('kitbook:open-variants', { filepath, props: serializedState })
 }
 
@@ -26,9 +26,12 @@ export function openSvx(filepath: string) {
 export function openComposition(filepathWithoutExtension: string, extension: string) {
   const tag = filepathWithoutExtension.split('/').pop()
   const template = `<script context="module" lang="ts">
-  // set dimensions for this composition (both are optional)
-  export let width = 600
-  export let height = 400
+  // import type { Viewport } from 'kitbook'
+  // override default full-width composition viewport (set width as null for it to be auto-adjusting full-width)
+  // export const viewports: Viewport[] = [
+  //   { width: 600, height: 400 },
+  // ]
+  // at the moment only the first viewport will be shown - updates are coming to show all viewports
 </script>
 
 <script lang="ts">

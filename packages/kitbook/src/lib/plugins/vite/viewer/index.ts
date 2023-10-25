@@ -39,7 +39,13 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
       server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
         const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
         const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
-        writeFileIfNeededThenOpen(filepath.replace('.svelte', '.variants.ts'), template, settings.viewer.__internal.viteBase, client)
+
+        const variantsPath = filepath
+          .replace('.svelte', '.variants.ts')
+          .replace('+page', '_page')
+          .replace('+layout', '_layout')
+
+        writeFileIfNeededThenOpen(variantsPath, template, settings.viewer.__internal.viteBase, client)
       })
 
       if (settings.kitbookRoute) {

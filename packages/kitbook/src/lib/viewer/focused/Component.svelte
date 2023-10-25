@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { KitbookSettings } from 'kitbook'
-  import { removeQuotesFromSerializedFunctions, serialize } from '../../open/serialize'
+  import { removeQuotesFromSerializedFunctions, serializeIntersection } from '../../open/serialize'
   import { openComponent, openComposition, openSvx, openVariants } from '../../open/openFiles'
   import { selectedComponent } from './active'
   import { getLocalFilename } from './filename'
@@ -17,7 +17,7 @@
   $: currentPropsState = (() => {
     const { props } = $selectedComponent.componentDetail.options
     const state = $selectedComponent.componentDetail.component.$capture_state()
-    const serializedState = serialize(props, state)
+    const serializedState = serializeIntersection(props, state)
     return removeQuotesFromSerializedFunctions(JSON.stringify(serializedState, null, 2))
   })()
 </script>

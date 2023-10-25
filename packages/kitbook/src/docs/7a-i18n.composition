@@ -1,0 +1,17 @@
+<script context="module" lang="ts">
+  import type { Language, Viewport } from 'kitbook'
+  
+  export const viewports: Viewport[] = [
+    { width: 400, height: 200 },
+  ]
+  export const languages: Language[] = [
+    { code: 'en', name: 'English' },
+    { code: 'fr', name: 'French' },
+  ]
+</script>
+
+<script lang="ts">
+  import { page } from '$app/stores'
+</script>
+
+The Kitbook tool's demo app doesn't have i18n but my language is <b>{$page.url.searchParams.get('lang')}</b> and if i18n was set up this component would be shown according to that locale.

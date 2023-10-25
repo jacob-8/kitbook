@@ -11,6 +11,7 @@ const settings: KitbookSettings = {
     { name: 'Mobile', width: 320, height: 568 },
     { name: 'Desktop', width: 1024, height: 768 },
   ],
+  languages: [{ name: null, code: null }],
 }
 
 export const variants: Variant<Component>[] = [

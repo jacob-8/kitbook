@@ -5,13 +5,8 @@ To easily mock a component in a variety of states **with type safety** you can c
 It's easiest to create a variants file using the [[2-viewer]], so we won't give a simple template here, but rather show an example with all the possible options:
 
 ```ts title="Header.variants.ts"
-import type { Variant, Viewport } from 'kitbook'
+import type { Variant } from 'kitbook'
 import type Component from './Header.svelte'
-
-export const viewports: Viewport[] = [
-  { name: 'Desktop', width: 800, height: 600 },
-  { name: 'Mobile', width: 320, height: 480 },
-]
 
 export const variants: Variant<Component>[] = [
   {
@@ -38,14 +33,37 @@ export const variants: Variant<Component>[] = [
       activeURL: '/dashboard',
       githubURL: 'https://github.com/jacob-8/kitbook/dashboard',
     },
-    viewports: [
-      { name: 'special', width: 555, height: 432 },
-    ],
   }
 ]
 ```
 
-The viewports specified above are completely optional. Viewports are automatically specified at a Kitbook-wide level in your Kitbook config. Then you have the option in each variants file to add viewports applying to each variant. Then if you want further control, you can specificy viewports for a variant just on the variant itself as seen in the second variant above.
+## Fine-grained viewport control
+
+You can override project viewport defaults on a variant file basis or for an individual variant. The following specifies particular viewports for this component and also for a specific variant:
+
+```ts title="foo.variants.ts"
+import type { Variant, Viewport } from 'kitbook'
+import type Component from './EditInGithub.svelte'
+
+export const viewports: Viewport[] = [
+  { name: 'Mobile', width: 320, height: 480 },
+  { name: 'Desktop', width: 800, height: 600 },
+]
+
+export const variants: Variant<Component>[] = [
+  {
+    name: 'This variant will be shown twice using the above sizes',
+  },
+  {
+    name: 'This variant will be shown just once',
+    viewports: [
+      { name: 'special', width: 555, height: 432 },
+    ],
+  },
+]
+```
+
+Viewport names are optional. They are just used for clarity where applicable.
 
 ## Page and Layout Variants
 

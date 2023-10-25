@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Variant, Viewport } from 'kitbook'
-  import Iframe from '$lib/view/Iframe.svelte'
+  import Iframe from '../../view/Iframe.svelte'
 
   export let kitbookRoute: string
   export let localFilenameWithLeadingSlash: string
