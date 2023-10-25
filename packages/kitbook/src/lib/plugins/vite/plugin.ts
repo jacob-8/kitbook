@@ -10,6 +10,7 @@ import { DEFAULT_IMPORT_MODULE_GLOBS, DEFAULT_KITBOOK_ROUTE, DEFAULT_ROUTES_DIR,
 import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
 import { DEFAULT_VIEWER_OPTIONS } from './viewer/options.js'
+import { markdownToHtml } from './markdown/markdownToHtml'
 
 const LOAD_MODULES_ID = 'virtual:kitbook'
 
@@ -46,12 +47,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
     config: modifyViteConfigForKitbook,
 
     transform(code, id) {
-      if (id.endsWith('.md')) {
-        console.log({ id })
-        return {
-          code: 'export const html = `<div>Markdown needs converted</div>`',
-        }
-      }
+      if (id.endsWith('.md'))
+        return { code: `export const html = "${markdownToHtml(code)}"` }
     },
 
     resolveId(id) {

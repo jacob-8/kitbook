@@ -1,12 +1,12 @@
-import { shikiTwoslashHighlighter } from ".";
-import { format as prettier } from 'prettier';
-import parserHTML from 'prettier/parser-html'
-import fs from 'node:fs';
+import fs from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import parserHTML from 'prettier/parser-html'
+import { format as prettier } from 'prettier'
+import { shikiTwoslashHighlighter } from '.'
 
-const REPLACE_BODY = 'REPLACE_BODY';
-const REPLACE_TITLE = 'REPLACE_TITLE';
+const REPLACE_BODY = 'REPLACE_BODY'
+const REPLACE_TITLE = 'REPLACE_TITLE'
 const htmlShell = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,33 +29,34 @@ const _dirname = typeof __dirname !== 'undefined'
   ? __dirname
   : dirname(fileURLToPath(import.meta.url))
 
-describe("mdsvex-shiki-twoslash", () => {
-  const fixturesDirectory = resolve(_dirname, './fixtures');
+describe('mdsvex-shiki-twoslash', () => {
+  const fixturesDirectory = resolve(_dirname, './fixtures')
   fs.readdirSync(fixturesDirectory).forEach((filename) => {
-    if (!filename.includes('txt')) return;
+    if (!filename.includes('txt'))
+      return
 
-    const name = filename.replace('.txt', '');
+    const name = filename.replace('.txt', '')
     test(name, async () => {
-      const fileContents = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8');
-      const normalizedContents = fileContents.replace(/\r\n/g, '\n'); // Replace CRLF with LF
+      const fileContents = fs.readFileSync(`${fixturesDirectory}/${name}.txt`, 'utf8')
+      const normalizedContents = fileContents.replace(/\r\n/g, '\n') // Replace CRLF with LF
       const SPLIT = '__SPLIT__'
-      const [firstLine, code] = normalizedContents.replace('\n', SPLIT).split(SPLIT);
-      const [lang, meta] = firstLine.replace(' ', SPLIT).split(SPLIT);
+      const [firstLine, code] = normalizedContents.replace('\n', SPLIT).split(SPLIT)
+      const [lang, meta] = firstLine.replace(' ', SPLIT).split(SPLIT)
       // cleaner but doesn't work
       // const [firstLine, code] = normalizedContents.split('\n');
       // const [lang, meta] = firstLine.split(' ');
 
-      const highlightedCode = await highlight(code, lang, meta);
-      const htmlDocument = htmlShell.replace(REPLACE_BODY, highlightedCode).replace(REPLACE_TITLE, name);
-      expect(htmlDocument).toMatchFileSnapshot(`${fixturesDirectory}/${name}.html`);
-    });
-  });
-});
+      const highlightedCode = await highlight(code, lang, meta)
+      const htmlDocument = htmlShell.replace(REPLACE_BODY, highlightedCode).replace(REPLACE_TITLE, name)
+      expect(htmlDocument).toMatchFileSnapshot(`${fixturesDirectory}/${name}.html`)
+    })
+  })
+})
 
-const highlighter = shikiTwoslashHighlighter().highlighter;
+const highlighter = shikiTwoslashHighlighter().highlighter
 
 async function highlight(code: string, lang?: string | undefined, meta?: string | undefined, format = true) {
-  const highlighted = await highlighter(code, lang, meta);
+  const highlighted = await highlighter(code, lang, meta)
   if (format) {
     return prettier(highlighted, {
       parser: 'html',

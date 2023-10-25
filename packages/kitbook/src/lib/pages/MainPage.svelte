@@ -48,8 +48,6 @@
   $: if (pageFromHMR?.loadMarkdown)
     updateMarkdown()
 
-  $: console.log({ markdown })
-
   function updateMarkdown() {
     pageFromHMR.loadMarkdown.loadModule().then((module) => {
       markdown = module
