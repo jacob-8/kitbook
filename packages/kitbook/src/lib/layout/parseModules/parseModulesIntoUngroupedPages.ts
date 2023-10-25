@@ -120,13 +120,13 @@ if (import.meta.vitest) {
           "url": "/lib/B",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "B",
-          "path": "/src/lib/B.svx",
+          "path": "/src/lib/B.md",
           "url": "/lib/B",
         },
         {
@@ -160,13 +160,13 @@ if (import.meta.vitest) {
           "url": "/lib/a/D",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "D",
-          "path": "/src/lib/a/D.svx",
+          "path": "/src/lib/a/D.md",
           "url": "/lib/a/D",
         },
         {
@@ -210,13 +210,13 @@ if (import.meta.vitest) {
           "url": "/lib/a/D",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "E",
-          "path": "/src/lib/E.svx",
+          "path": "/src/lib/E.md",
           "url": "/lib/E",
         },
         {
@@ -250,13 +250,13 @@ if (import.meta.vitest) {
           "url": "/routes/a/+page",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "_page",
-          "path": "/src/routes/a/_page.svx",
+          "path": "/src/routes/a/_page.md",
           "url": "/routes/a/_page",
         },
         {
@@ -280,13 +280,13 @@ if (import.meta.vitest) {
           "url": "/routes/b/_page",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "_page",
-          "path": "/src/routes/c/_page.svx",
+          "path": "/src/routes/c/_page.md",
           "url": "/routes/c/_page",
         },
         {
@@ -330,13 +330,13 @@ if (import.meta.vitest) {
           "url": "/routes/a/+layout",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "_layout",
-          "path": "/src/routes/a/_layout.svx",
+          "path": "/src/routes/a/_layout.md",
           "url": "/routes/a/_layout",
         },
         {
@@ -370,13 +370,13 @@ if (import.meta.vitest) {
           "url": "/routes/c/+layout",
         },
         {
-          "ext": "svx",
+          "ext": "md",
           "load": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "_layout",
-          "path": "/src/routes/c/_layout.svx",
+          "path": "/src/routes/c/_layout.md",
           "url": "/routes/c/_layout",
         },
         {

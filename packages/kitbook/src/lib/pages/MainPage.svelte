@@ -44,13 +44,15 @@
     })
   }
 
-  $: ({ svx } = data.loadedModules)
-  $: if (pageFromHMR?.loadSvx)
-    updateSvx()
+  $: ({ markdown } = data.loadedModules)
+  $: if (pageFromHMR?.loadMarkdown)
+    updateMarkdown()
 
-  function updateSvx() {
-    pageFromHMR.loadSvx.loadModule().then((module) => {
-      svx = module.default
+  $: console.log({ markdown })
+
+  function updateMarkdown() {
+    pageFromHMR.loadMarkdown.loadModule().then((module) => {
+      markdown = module
     }).catch((error) => {
       console.error(error)
     })
@@ -76,7 +78,7 @@
               <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" /> {title}
             </Button>
 
-            {#if !svx}
+            {#if !markdown}
               <Button onclick={() => openSvx(`${pathWithoutExtension}.md`)} form="menu" color="black">
                 <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs
               </Button>
@@ -102,9 +104,9 @@
         </div>
       {/if}
 
-      {#if svx}
+      {#if markdown}
         <div class="kb-prose mb-8 max-w-1000px">
-          <svelte:component this={svx} />
+          {@html markdown.html}
         </div>
       {/if}
 

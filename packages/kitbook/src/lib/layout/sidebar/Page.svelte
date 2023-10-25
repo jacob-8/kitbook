@@ -7,7 +7,7 @@
   export let activePath: string
   export let depth: number
   $: active = activePath === page?.url
-  $: hasKitbookFiles = page?.loadSvx || page?.loadVariants || page?.loadCompositions
+  $: hasKitbookFiles = page?.loadMarkdown || page?.loadVariants || page?.loadCompositions
 </script>
 
 {#if dev || hasKitbookFiles}

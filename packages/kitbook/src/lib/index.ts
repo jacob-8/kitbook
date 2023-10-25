@@ -1,4 +1,4 @@
-export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule } from './kitbook-types'
+export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule, MarkdownModule } from './kitbook-types'
 
 export { default as Layout } from './layout/Layout.svelte'
 export { layoutLoad } from './layout/layoutLoad'

@@ -3,7 +3,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -15,7 +15,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -27,7 +27,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -39,7 +39,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -51,7 +51,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -63,7 +63,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -75,7 +75,7 @@
     "extensions": [
       "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -98,13 +98,13 @@
   "/lib/B": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
     ],
     "loadComponent": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -114,14 +114,14 @@
   },
   "/lib/E": {
     "extensions": [
-      "svx",
+      "md",
     ],
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
     "name": "E",
-    "path": "/src/lib/E.svx",
+    "path": "/src/lib/E.md",
     "url": "/lib/E",
   },
   "/lib/a/C": {
@@ -144,7 +144,7 @@
   "/lib/a/D": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
       "variants.ts",
       "composition",
       "first.composition",
@@ -168,7 +168,7 @@
         "loadRaw": [Function],
       },
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -221,13 +221,13 @@
   "/routes/a/+layout": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
     ],
     "loadComponent": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -238,13 +238,13 @@
   "/routes/a/+page": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
     ],
     "loadComponent": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -289,14 +289,14 @@
   "/routes/c/+layout": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
       "variants.ts",
     ],
     "loadComponent": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
@@ -311,14 +311,14 @@
   "/routes/c/+page": {
     "extensions": [
       "svelte",
-      "svx",
+      "md",
       "variants.ts",
     ],
     "loadComponent": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },
-    "loadSvx": {
+    "loadMarkdown": {
       "loadModule": [Function],
       "loadRaw": [Function],
     },

@@ -19,7 +19,7 @@ export function openVariants(filepath: string, componentDetail?: SvelteComponent
 }
 
 export function openSvx(filepath: string) {
-  const markdownTemplate = 'You can write some documentation for your component here using Markdown. Feel free to also change the extension to .svx and use Svelte in your Markdown if you\'ve installed MDSvex.'
+  const markdownTemplate = 'You can write some documentation for your component here using markdown.'
   ensureFileExists(filepath, markdownTemplate)
 }
 

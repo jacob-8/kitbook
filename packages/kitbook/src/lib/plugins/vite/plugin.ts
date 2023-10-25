@@ -45,6 +45,15 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
     config: modifyViteConfigForKitbook,
 
+    transform(code, id) {
+      if (id.endsWith('.md')) {
+        console.log({ id })
+        return {
+          code: 'export const html = `<div>Markdown needs converted</div>`',
+        }
+      }
+    },
+
     resolveId(id) {
       if (id === LOAD_MODULES_ID)
         return addVirtualFilePrefix(LOAD_MODULES_ID)

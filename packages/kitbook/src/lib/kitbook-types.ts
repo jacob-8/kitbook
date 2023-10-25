@@ -48,7 +48,7 @@ export type UngroupedPage<T> = PageMetadata & {
 
 export type GroupedPage = PageMetadata & {
   extensions: string[]
-  loadSvx?: LoadFunctions<{ default: typeof SvelteComponent }>
+  loadMarkdown?: LoadFunctions<MarkdownModule>
   loadComponent?: LoadFunctions<{ default: typeof SvelteComponent }>
   loadCompositions?: Record<string, LoadFunctions<CompositionModule>>
   loadVariants?: LoadFunctions<VariantsModule>
@@ -65,6 +65,10 @@ export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
 type RawModule = () => Promise<string>
 
+export interface MarkdownModule {
+  html: string
+}
+
 export interface VariantsModule {
   variants: Variant<any>[]
   viewports?: Viewport[]
@@ -78,8 +82,8 @@ export interface CompositionModule {
 }
 
 export interface LoadedModules {
-  svx?: typeof SvelteComponent
-  svxRaw?: string
+  markdown?: MarkdownModule
+  markdownRaw?: string
   component?: typeof SvelteComponent
   componentRaw?: string
   variantsModule?: VariantsModule
@@ -116,7 +120,7 @@ export interface KitbookSettings {
   /**
    * An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to
    * ```
-   * ['/src/**\/*.{md,svx,svelte,variants.ts,composition}', '/README.md']
+   * ['/src/**\/*.{svelte,md,variants.ts,composition}', '/README.md']
    * ```
    * Adjust this to be able to incrementally adopt Kitbook into your project.
    * IGNORE the backslash in the glob pattern, it's just there to make the JSDoc comment work.

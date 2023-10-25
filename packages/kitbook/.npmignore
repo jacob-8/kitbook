@@ -1,4 +1,3 @@
 /mockComponents
 *.variants.ts
-*.svx
 **/*.md

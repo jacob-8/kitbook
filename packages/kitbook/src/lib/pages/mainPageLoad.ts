@@ -17,9 +17,9 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
   const page = pages[pageKey]
 
   if (page) {
-    if (page.loadSvx) {
-      loadedModules.svx = (await page.loadSvx.loadModule())?.default
-      loadedModules.svxRaw = await page.loadSvx.loadRaw()
+    if (page.loadMarkdown) {
+      loadedModules.markdown = await page.loadMarkdown.loadModule()
+      loadedModules.markdownRaw = await page.loadMarkdown.loadRaw()
     }
     if (page.loadComponent) {
       loadedModules.component = (await page.loadComponent.loadModule())?.default
@@ -42,16 +42,16 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
 
   const indexPage = pages['/index']
   if (indexPage) {
-    loadedModules.svx = (await indexPage.loadSvx.loadModule())?.default
-    loadedModules.svxRaw = await indexPage.loadSvx.loadRaw()
+    loadedModules.markdown = await indexPage.loadMarkdown.loadModule()
+    loadedModules.markdownRaw = await indexPage.loadMarkdown.loadRaw()
     return { page: indexPage, pageKey: '/index', loadedModules }
   }
 
   const readmePage = pages['/README']
   if (readmePage) {
     try {
-      loadedModules.svx = (await readmePage.loadSvx.loadModule())?.default
-      loadedModules.svxRaw = await readmePage.loadSvx.loadRaw()
+      loadedModules.markdown = await readmePage.loadMarkdown.loadModule()
+      loadedModules.markdownRaw = await readmePage.loadMarkdown.loadRaw()
       return { page: readmePage, pageKey: '/README', loadedModules }
     }
     catch (e) {

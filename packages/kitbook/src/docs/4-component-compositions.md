@@ -2,7 +2,20 @@
 
 When you're prototyping and documentation needs go beyond simply passing props, context, or a string or component into the default slot, you can use compositions. From any Kitbook page documenting a Svelte component, you can click the "Add Composition" button to create a new composition file. This will create a new file with the same name as the component you're documenting, but with the `composition` extension instead of `svelte`. For example, if you're documenting `MyComponent.svelte`, the first composition file will be `MyComponent.composition`. If you want to create further compositions, click the button again and provide a name. If you choose `foo`, the file will be `MyComponent.foo.composition`. The template documents itself and will help you get started. To look at an example, this Kitbook's [[SearchResult]] page also has a simple composition.
 
+To get these files with the `.composition` extension to work, you'll need to update the extensions property in your svelte config:
+
+```js twoslash title="svelte.config.js" {2}
+const config = {
+  extensions: ['.svelte', '.composition'],
+  // ...
+}
+
+export default config
+```
+
 You can also create a composition beside a corresponding markdown documentation page as you see in [[complex-examples]] (look at the source code). In cases when you have no companion Svelte component and just markdown, there's no quick button to add a composition but you can still add one manually by creating a new file with the same name, using the `composition` extension instead of `md`.
+
+
 
 ## Not for pages or layouts
 There are no such things as `+page.svelte` or `+layout.svelte` compositions as these are always root level and just receive props. You never place these inside others components. *Yes, you can pass an actual component to the default slot of a layout so you don't need a composition for this*
