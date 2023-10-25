@@ -106,6 +106,9 @@ if (import.meta.vitest) {
 }
 
 export function serializeSettings(settings: KitbookSettings): string {
+  if (!settings.addLanguageToUrl)
+    return JSON.stringify(settings)
+
   const serializedSettings = {
     ...settings,
     addLanguageToUrl: `REMOVEQUOTE_${settings.addLanguageToUrl.toString().replace(/\n/g, '').replace(/["']/g, '`')}_REMOVEQUOTE`,
