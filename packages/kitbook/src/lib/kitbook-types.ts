@@ -198,6 +198,7 @@ export interface ViewerOptions {
    * internal options that are automatically set, not to be set or used by users
    */
   __internal?: {
+    /** empty string by default */
     viteBase: string
   }
 }

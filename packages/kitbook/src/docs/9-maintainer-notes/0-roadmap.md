@@ -33,6 +33,7 @@
 - it's all focused on Typescript users, but someone could adjust things to make it work for a JavaScript only user
 
 ## Rough edges: Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) if you know how to help
+- hotkey should still open search when sidebar is closed
 - catch when a variants file exists by itself and inform how to use variants
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - on build don't show folders that have no components with Kitbook files 

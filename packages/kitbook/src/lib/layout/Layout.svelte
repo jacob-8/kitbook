@@ -14,6 +14,14 @@
 
   $: ({ kitbookPath, activePath } = findKitbookPath(pathname))
   let showSidebar = false
+
+  let activeLanguages = [settings.languages[0]]
+
+  function changeLanguage(event) {
+    const { selectedOptions } = event.target as HTMLSelectElement
+    const languageCodes = Array.from(selectedOptions, option => option.value)
+    activeLanguages = languageCodes.map(code => settings.languages.find(language => language.code === code))
+  }
 </script>
 
 <LayoutPanes>
@@ -21,6 +29,14 @@
     <Header bind:showSidebar githubURL={settings.githubURL} {kitbookPath} {activePath}>
       <slot name="title">{settings.title}</slot>
     </Header>
+    {#if settings.languages.length > 1}
+      <div class="font-semibold px-2">Language:</div>
+      <select multiple class="mx-1 mb-2 p-1 bg-transparent text-sm" on:change={changeLanguage}>
+        {#each settings.languages as language}
+          <option value={language.code} selected={activeLanguages.includes(language)}>{language.name}</option>
+        {/each}
+      </select>
+    {/if}
     <nav class="hidden md:block overflow-y-auto grow-1">
       <Sidebar bind:showSidebar folder={putPagesIntoFolders(pages)} {kitbookPath} {activePath} expanded={settings.expandTree}>
         <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
@@ -28,7 +44,7 @@
     </nav>
   </svelte:fragment>
 
-  <slot />
+  <slot {activeLanguages} />
 </LayoutPanes>
 
 <svelte:head>

@@ -20,13 +20,7 @@ export default defineConfig({
       height: 1024,
     },
   ],
-  // The Kitbook tool itself is only in English, so this is unneeded but we are specifying it for demonstration purposes. Normally you would have at least two languages here.
-  languages: [
-    {
-      name: 'English',
-      code: 'en',
-    },
-  ],
+  languages: [{ name: null, code: null }], // This is only here to enable a composition inside Kitbook's docs. Normally you would have at least two languages here.
   addLanguageToUrl: ({ code, url }) => {
     const [path, search] = url.split('?')
     const params = new URLSearchParams(search)

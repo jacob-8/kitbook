@@ -30,6 +30,7 @@
     on:mouseover={() => (hovered = true)}
     on:mouseout={() => (hovered = false)}>
     <ViewHeader
+      {languageCode}
       {width}
       {height}
       {hovered}
