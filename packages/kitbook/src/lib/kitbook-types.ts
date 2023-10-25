@@ -5,6 +5,7 @@ export interface Variant<T extends SvelteComponent> {
   name?: string
   description?: string
   viewports?: Viewport[]
+  languages?: Language[]
   props?: ComponentProps<T>
   contexts?: MockedContext[]
   /**
@@ -64,8 +65,17 @@ export type RawModules = Record<string, RawModule>
 type Module = () => Promise<{ [key: string]: any }>
 type RawModule = () => Promise<string>
 
-export interface VariantsModule { 'variants': Variant<any>[]; 'viewports': Viewport[] }
-export interface CompositionModule { default: typeof SvelteComponent; width?: number; height?: number }
+export interface VariantsModule {
+  variants: Variant<any>[]
+  viewports?: Viewport[]
+  languages?: Language[]
+}
+
+export interface CompositionModule {
+  default: typeof SvelteComponent
+  viewports?: Viewport[]
+  languages?: Language[]
+}
 
 export interface LoadedModules {
   svx?: typeof SvelteComponent
@@ -83,7 +93,7 @@ export interface KitbookSettings {
   description: string
   /** Kitbook provides mobile and desktop sizes by default, but you can set your own. These will apply to every variant unless overriden by a `viewports` export from that file or from the `viewports` prop within a specific variant. */
   viewports: Viewport[]
-  languages?: Language[]
+  languages: Language[]
   /**
    * Function instructing Kitbook how to apply your language codes to each URL. For example, if your route is `[lang=locale]/(app)/+page.svelte`, you would pass in:
    * ```

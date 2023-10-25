@@ -13,7 +13,8 @@
 
   export let data: MainPageLoadResult & LayoutLoadResult
 
-  const { viewports: kitbookViewports, languages, githubURL, viewer: { __internal: { viteBase } } } = data.settings
+  const { viewports: projectViewports, languages: projectLanguages, addLanguageToUrl, githubURL, viewer: { __internal: { viteBase } } } = data.settings
+
   const { pagesStore } = data
   $: pageFromHMR = $pagesStore?.[data.pageKey]
 
@@ -68,11 +69,11 @@
     {:else}
       {#if data.loadedModules.component}
         <div class="flex items-center font-semibold text-2xl mb-2">
-          {title}
-
-          {#if dev}
-            <Button class="ml-1" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} form="menu" color="black" title="Edit Component">
-              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" />
+          {#if !dev}
+            {title}
+          {:else}
+            <Button class="text-2xl" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viteBase)} form="menu" color="black" title="Edit Component">
+              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" /> {title}
             </Button>
 
             {#if !svx}
@@ -108,11 +109,11 @@
       {/if}
 
       {#if compositionModules}
-        <Compositions {compositionModules} {pathWithoutExtension} />
+        <Compositions {compositionModules} {pathWithoutExtension} {projectLanguages} {addLanguageToUrl} />
       {/if}
 
       {#if variantsModule?.variants}
-        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || kitbookViewports} {languages} />
+        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages || projectLanguages} {addLanguageToUrl} />
       {/if}
 
       <EditInGithub path={data?.page?.path} {githubURL} />

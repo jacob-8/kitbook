@@ -20,16 +20,19 @@ export default defineConfig({
       height: 1024,
     },
   ],
-  // languages: [
-  //   {
-  //     name: 'English',
-  //     code: 'en',
-  //   },
-  //   {
-  //     name: 'Spanish',
-  //     code: 'es',
-  //   },
-  // ],
+  // The Kitbook tool itself is only in English, so this is unneeded but we are specifying it for demonstration purposes. Normally you would have at least two languages here.
+  languages: [
+    {
+      name: 'English',
+      code: 'en',
+    },
+  ],
+  addLanguageToUrl: ({ code, url }) => {
+    const [path, search] = url.split('?')
+    const params = new URLSearchParams(search)
+    params.set('lang', code)
+    return `${path}?${params.toString()}`
+  },
   githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
   expandTree: true,
   routesDirectory: 'src/lib/routes',

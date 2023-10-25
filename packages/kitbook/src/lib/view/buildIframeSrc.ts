@@ -1,10 +1,12 @@
+import type { KitbookSettings } from '../kitbook-types'
 import { findKitbookPath } from '../layout/kitbookPath'
 import { compressToEncodedURIComponent as encode } from '../lz/lz-string'
 
-export function buildIframeUrl({ pathname, languageCode, props, variantIndex, compositionName }:
+export function buildIframeUrl({ pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName }:
 {
   pathname: string
   languageCode?: string
+  addLanguageToUrl?: KitbookSettings['addLanguageToUrl']
   props?: Record<string, any>
   variantIndex?: number
   compositionName?: string
@@ -17,14 +19,16 @@ export function buildIframeUrl({ pathname, languageCode, props, variantIndex, co
     queryParams.push(`variantIndex=${variantIndex}`)
   if (compositionName)
     queryParams.push(`compositionName=${compositionName}`)
-
-  const languageEncodedKitbookPath = languageCode ? `${kitbookPath.replace('en', languageCode)}` : kitbookPath
-
   if (queryParams.length === 0)
-    throw new Error('No variantIndex nor Composition name specified')
+    throw new Error('No variantIndex or Composition name specified')
 
   const queryParamsString = `?${queryParams.join('&')}`
-  return `${languageEncodedKitbookPath}/sandbox${activePath}${queryParamsString}`
+  const url = `${kitbookPath}/sandbox${activePath}${queryParamsString}`
+
+  if (languageCode && addLanguageToUrl)
+    return addLanguageToUrl({ url, code: languageCode })
+
+  return url
 }
 
 if (import.meta.vitest) {
@@ -38,20 +42,25 @@ if (import.meta.vitest) {
       expect(actual).toEqual(expected)
     })
 
-    test('composition (with random unused language code)', () => {
+    test('composition with language', () => {
       const actual = buildIframeUrl({
         pathname: '/kitbook/foo/bar',
         languageCode: 'de',
+        addLanguageToUrl({ code, url }) {
+          const [path, search] = url.split('?')
+          const params = new URLSearchParams(search)
+          params.set('lang', code)
+          return `${path}?${params.toString()}`
+        },
         compositionName: 'default',
       })
-      const expected = '/kitbook/sandbox/foo/bar?compositionName=default'
+      const expected = '/kitbook/sandbox/foo/bar?compositionName=default&lang=de'
       expect(actual).toEqual(expected)
     })
 
-    test('variant with props and English language code', () => {
+    test('variant with props and English in url but no code and function', () => {
       const actual = buildIframeUrl({
         pathname: '/en/kitbook/foo/bar',
-        languageCode: 'en',
         variantIndex: 1,
         props: { foo: 'bar' },
       })
@@ -61,8 +70,11 @@ if (import.meta.vitest) {
 
     test('variant with different language', () => {
       const actual = buildIframeUrl({
-        pathname: '/en/kitbook/foo/bar',
+        pathname: '/[lang]/kitbook/foo/bar',
         languageCode: 'de',
+        addLanguageToUrl({ code, url }) {
+          return url.replace('[lang]', code)
+        },
         variantIndex: 2,
       })
       const expected = '/de/kitbook/sandbox/foo/bar?variantIndex=2'

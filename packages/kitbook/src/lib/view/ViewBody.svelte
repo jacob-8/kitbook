@@ -19,6 +19,8 @@
     userAdjustedWidth = null
     userAdjustedHeight = null
   }
+
+  const mouseOffset = 6 // should be half width of handles
 </script>
 
 <div bind:this={container}>
@@ -29,39 +31,39 @@
         : 'unset'};"
     class:border-gray-700={hovered}
     class:checkerboard={hovered}
-    class="relative border !border-opacity-50">
+    class="relative border !border-opacity-50 p-2">
     {#if container}
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: { pixels } }) => {
-          userAdjustedWidth = pixels
+          userAdjustedWidth = pixels + mouseOffset
         }}
         on:mousedown={() => (dragging = 'width')}
         on:dblclick={() => (userAdjustedWidth = null)}
-        class="absolute z-1 right-0 top-0 bottom-0 w-2 cursor-ew-resize hover:bg-gray-200/75"
+        class="absolute z-1 right-0 top-0 bottom-0 w-3 cursor-ew-resize hover:bg-gray-200/75"
         class:bg-gray-200={dragging === 'width'} />
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updateheight={({ detail: { pixels } }) => {
-          userAdjustedHeight = pixels
+          userAdjustedHeight = pixels + mouseOffset
         }}
         on:mousedown={() => (dragging = 'height')}
         on:dblclick={() => (userAdjustedHeight = null)}
-        class="absolute z-1 right-0 left-0 bottom-0 h-2 cursor-ns-resize hover:bg-gray-200/75"
+        class="absolute z-1 right-0 left-0 bottom-0 h-3 cursor-ns-resize hover:bg-gray-200/75"
         class:bg-gray-200={dragging === 'height'} />
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: { pixels } }) => {
-          userAdjustedWidth = pixels
+          userAdjustedWidth = pixels + mouseOffset
         }}
         on:updateheight={({ detail: { pixels } }) => {
-          userAdjustedHeight = pixels
+          userAdjustedHeight = pixels + mouseOffset
         }}
         on:mousedown={() => (dragging = 'both')}
         on:dblclick={() => {

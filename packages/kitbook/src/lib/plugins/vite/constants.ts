@@ -1,3 +1,5 @@
+import type { Language } from '../../kitbook-types'
+
 export const DEFAULT_IMPORT_MODULE_GLOBS = [
   '/src/**/*.{md,svx,svelte,variants.ts,composition}',
   '/README.md',
@@ -11,3 +13,4 @@ export const DEFAULT_VIEWPORTS = [
 
 export const DEFAULT_ROUTES_DIR = 'src/routes'
 export const DEFAULT_KITBOOK_ROUTE = '/kitbook'
+export const UNSET_LANGUAGE: Language = { name: null, code: null }

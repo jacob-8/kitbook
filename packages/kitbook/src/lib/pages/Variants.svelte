@@ -1,15 +1,16 @@
 <script lang="ts">
-  import type { Language, Variant, Viewport } from 'kitbook'
+  import type { KitbookSettings, Language, Variant, Viewport } from '../kitbook-types'
   import View from '../view/View.svelte'
   import { openVariants } from '../open/openFiles'
 
   export let variants: Variant<any>[]
   export let pathWithoutExtension: string
   export let viewports: Viewport[]
-  export let languages: Language[]
+  export let moduleLanguages: Language[]
+  export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
 </script>
 
-{#each variants as { name, description, viewports: variantViewports }, index (index)}
+{#each variants as { name, description, viewports: variantViewports, languages: variantLanguages }, index (index)}
   <div class="font-semibold text-sm pb-1">
     <button
       class="capitalize relative z-2"
@@ -28,14 +29,17 @@
   <div class="inline-block overflow-x-auto w-full pt-8 -mt-8">
     <div class="flex">
       {#each variantViewports || viewports as { name: _viewportName, width, height }}
-        {#each languages || [{ name: null, code: null }] as { name: _languageName, code: languageCode }}
-          <View
-            {width}
-            {height}
-            {languageCode}
-            variantIndex={index}>
-          </View>
-        {/each}
+        <div>
+          {#each variantLanguages || moduleLanguages as { code: languageCode }}
+            <View
+              {width}
+              {height}
+              {languageCode}
+              {addLanguageToUrl}
+              variantIndex={index}>
+            </View>
+          {/each}
+        </div>
       {/each}
     </div>
   </div>

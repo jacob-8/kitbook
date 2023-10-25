@@ -2,18 +2,23 @@
 
 ## Remaining alpha feature in progress:
 - use remark+rehype for basic html instead of mdsvex
-  - compositions display in documentation when referenced, update the MDSvex to parse for links to compositions and just create an ID that can be targeted by composition
-  - May need .not-prose when hoisted into documentation
 
-## Beta: Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!
+## Move to beta stage as API will be stable but don't announce as there are some important bugs to fix and features missing
+- fix variants imports for playwright issue in node (.js and `Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'` by using relative paths, https://github.com/nodejs/node/issues/31710)
+- visual regression testing GitHub action
+- Hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
+
+## Announced Beta: Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!
+- snapshot compositions also
+- automatically analyze component for props
+- editable props for variants and compositions
 - auto-adjusting iframe height (I already planned this out)
 - responsive iframes shrink to keep interior resolution
 - movable viewer and adjustable shortcuts
+- toggleable padding around variants
 - show compositions in viewer
 - full-screen focus view for sandbox
   - show source code using code editor <!-- i-tabler-code"-->
-- automatically analyze component for props
-- editable props 
 - start automatically displaying components without stories by using default props
   - document how to adjust glob to be able to gradually include components
   - `import { svelte2tsx } from 'svelte2tsx';`
