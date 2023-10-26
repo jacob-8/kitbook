@@ -11,7 +11,7 @@ import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVir
 import { kitbookViewer } from './viewer/index.js'
 import { markdownToHtml } from './markdown/markdownToHtml.js'
 import { mergeUserSettingsWithDefaults } from './mergeUserSettingsWithDefaults.js'
-import { bold, green, reset } from './colors'
+import { bold, green, reset } from './colors.js'
 
 const LOAD_MODULES_ID = 'virtual:kitbook'
 
