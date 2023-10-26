@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { join } from 'node:path'
 import type { KitbookSettings } from 'kitbook'
-import { bold, green, red, reset } from './colors'
+import { bold, green, red, reset } from './colors.js'
 
 const TYPINGS_EXT = '.d.ts'
 const PAGE_MARKDOWN = '_page.svelte'
