@@ -9,13 +9,12 @@ import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeUrls from 'rehype-urls'
 import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
+import remarkGfm from 'remark-gfm'
 import { remarkHighlighter } from './remarkHighlighter.js'
-
-// import remarkGfm from 'remark-gfm'
 
 const processor = unified()
   .use(remarkParse)
-  // .use(remarkGfm) // not yet
+  .use(remarkGfm) // not yet
   .use(remarkToc)
   .use(remarkHighlighter, shikiTwoslashHighlighter({ themes: ['dark-plus'] })) // requires async
   .use(remarkRehype, { allowDangerousHtml: true }) // allowDangerousHtml lets shikied html pass through
