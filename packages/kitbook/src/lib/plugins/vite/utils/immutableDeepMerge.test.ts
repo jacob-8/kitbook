@@ -1,5 +1,5 @@
-import { immutableDeepMerge } from './immutableDeepMerge';
-import type { PreprocessorGroup } from 'svelte/types/compiler/preprocess';
+import type { PreprocessorGroup } from 'svelte/types/compiler/preprocess'
+import { immutableDeepMerge } from './immutableDeepMerge'
 
 describe('immutableDeepMerge', () => {
   test('basic', () => {
@@ -32,26 +32,26 @@ describe('immutableDeepMerge', () => {
           ],
           "e": 2,
         }
-      `);
-  });
+      `)
+  })
 
   test('plugins', () => {
     const plugIn = () => {
       return {
-        name: 'plugIn'
+        name: 'plugIn',
       }
-    };
+    }
     const fooIn = () => {
       return {
-        name: 'fooIn'
+        name: 'fooIn',
       }
-    };
+    }
 
     const obj1 = {
-      process: [plugIn()]
+      process: [plugIn()],
     }
     const obj2 = {
-      process: [fooIn()]
+      process: [fooIn()],
     }
 
     expect(immutableDeepMerge(obj1, obj2)).toMatchInlineSnapshot(`
@@ -65,24 +65,24 @@ describe('immutableDeepMerge', () => {
           },
         ],
       }
-    `);
-  });
+    `)
+  })
 
   test('works with different types', () => {
     const obj1 = {
       b: {
         c: 'hallo',
-        f: 'yes'
-      }
+        f: 'yes',
+      },
     }
     const obj2 = {
       b: {
         c: {
           d: {
-            e: 12345
-          }
-        }
-      }
+            e: 12345,
+          },
+        },
+      },
     }
 
     expect(immutableDeepMerge(obj1, obj2)).toMatchInlineSnapshot(`
@@ -96,8 +96,8 @@ describe('immutableDeepMerge', () => {
             "f": "yes",
           },
         }
-      `);
-  });
+      `)
+  })
 
   test('handles odd numbers of objects', () => {
     expect(immutableDeepMerge({ a: 1 }, { a: 2, b: 2 }, { b: 3 })).toMatchInlineSnapshot(`
@@ -105,27 +105,27 @@ describe('immutableDeepMerge', () => {
           "a": 2,
           "b": 3,
         }
-      `);
+      `)
     expect(immutableDeepMerge({ a: 1 })).toMatchInlineSnapshot(`
         {
           "a": 1,
         }
-      `);
-  });
+      `)
+  })
 
   test('gracefully handles being passed undefined instead of an object', () => {
     expect(immutableDeepMerge({ a: 1 }, undefined)).toMatchInlineSnapshot(`
         {
           "a": 1,
         }
-      `);
-    expect(immutableDeepMerge(undefined)).toMatchInlineSnapshot('{}');
-  });
+      `)
+    expect(immutableDeepMerge(undefined)).toMatchInlineSnapshot('{}')
+  })
 
   test('merges vite config with additional Kitbook options', () => {
     const sveltekitMockPlugin: () => Promise<any> = () => {
-      return new Promise((resolve) => resolve([]));
-    };
+      return new Promise(resolve => resolve([]))
+    }
 
     function kitbookMockPlugin() {
       return {
@@ -135,7 +135,7 @@ describe('immutableDeepMerge', () => {
           return {
             code: src,
           }
-        }
+        },
       }
     }
 
@@ -143,8 +143,8 @@ describe('immutableDeepMerge', () => {
       plugins: [sveltekitMockPlugin()],
       server: {
         port: 9999,
-      }
-    };
+      },
+    }
 
     const kitbookViteConfig: import('vite').UserConfig = {
       plugins: [kitbookMockPlugin()],
@@ -152,9 +152,9 @@ describe('immutableDeepMerge', () => {
         port: 4321,
         fs: {
           allow: ['..'],
-        }
+        },
       },
-      cacheDir: "node_modules/.vite-kitbook",
+      cacheDir: 'node_modules/.vite-kitbook',
     }
 
     expect(immutableDeepMerge(viteConfig, kitbookViteConfig)).toMatchInlineSnapshot(`
@@ -176,8 +176,8 @@ describe('immutableDeepMerge', () => {
             "port": 4321,
           },
         }
-      `);
-  });
+      `)
+  })
 
   test('if given a string or object and an array, incorporates the non-iterable as the first element of the array', () => {
     const configWithOneObject: { preprocess: PreprocessorGroup } = {
@@ -195,7 +195,7 @@ describe('immutableDeepMerge', () => {
         { name: 'second' },
         { name: 'third' },
         { name: 'fourth' },
-      ]
-    });
-  });
-});
+      ],
+    })
+  })
+})

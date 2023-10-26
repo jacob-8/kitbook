@@ -4,8 +4,6 @@ export default defineProject({
   test: {
     name: 'mdsvex-shiki-twoslash:unit',
     globals: true,
-		includeSource: ['src/**/*.ts'],
+    includeSource: ['src/**/*.ts'],
   },
 })
-
-

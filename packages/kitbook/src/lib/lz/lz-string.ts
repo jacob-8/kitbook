@@ -20,7 +20,9 @@ const baseReverseDic = {}
 export function compressToEncodedURIComponent(input: string) {
   if (input == null)
     return ''
-  return _compress(input, 6, (index: number) => { return keyStrUriSafe.charAt(index) })
+  return _compress(input, 6, (index: number) => {
+    return keyStrUriSafe.charAt(index)
+  })
 }
 
 export function decompressFromEncodedURIComponent(input: string) {
@@ -29,7 +31,9 @@ export function decompressFromEncodedURIComponent(input: string) {
   if (input === '')
     return null
   input = input.replace(/ /g, '+')
-  return _decompress(input.length, 32, (index: number) => { return getBaseValue(keyStrUriSafe, input.charAt(index)) })
+  return _decompress(input.length, 32, (index: number) => {
+    return getBaseValue(keyStrUriSafe, input.charAt(index))
+  })
 }
 
 function getBaseValue(alphabet: string, character: string) {
@@ -378,6 +382,7 @@ function _decompress(length: number, resetValue: number, getNextValue: (index: n
     power <<= 1
   }
 
+  // eslint-disable-next-line unused-imports/no-unused-vars
   switch (next = bits) {
     case 0:
       bits = 0

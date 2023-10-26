@@ -6,5 +6,3 @@ export default defineProject({
     globals: true,
   },
 })
-
-

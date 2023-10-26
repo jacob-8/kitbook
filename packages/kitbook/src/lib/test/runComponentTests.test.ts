@@ -47,13 +47,10 @@ describe(prepareTestsToRun, () => {
     })
 
     test('one viewport language', () => {
-      const variantModuleWithOneOneLanguage: [string, VariantsModule] = [
-        '...src/lib/Foo.variants.ts',
-        { languages: [{ code: 'en', name: 'English' }],
-variants: [
-          { props: { foo: 'no name, no viewports, no languages' } },
-        ] },
-      ]
+      const variantModuleWithOneOneLanguage: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
+        languages: [{ code: 'en', name: 'English' }],
+        variants: [{ props: { foo: 'no name, no viewports, no languages' } }],
+      }]
 
       expect(prepareTestsToRun({
         kitbookConfig: { viewports: oneViewport, languages: twoLanguages, addLanguageToUrl } as KitbookSettings,

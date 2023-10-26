@@ -6,25 +6,25 @@ on:
       - '**'
 
 jobs:
-  # lint:
-  #   name: Lint
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 8.6.0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
 
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 18
-  #         cache: pnpm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
 
-  #     - run: pnpm install
+      - run: pnpm install
 
-  #     - name: Lint
-  #       run: pnpm lint
+      - name: Lint
+        run: pnpm lint
 
   unit_test:
     name: Svelte Check & Unit Test
