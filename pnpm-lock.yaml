@@ -54,15 +54,6 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(@vitest/ui@0.34.4)
 
-  packages/create-kitbook:
-    devDependencies:
-      cac:
-        specifier: ^6.7.14
-        version: 6.7.14
-      kleur:
-        specifier: ^4.1.5
-        version: 4.1.5
-
   packages/kitbook:
     dependencies:
       '@kitbook/mdsvex-shiki-twoslash':
