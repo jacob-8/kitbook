@@ -1,16 +1,12 @@
 import fs from 'node:fs'
 import { join } from 'node:path'
 import type { KitbookSettings } from 'kitbook'
+import { bold, green, red, reset } from './colors'
 
 const TYPINGS_EXT = '.d.ts'
 const PAGE_MARKDOWN = '_page.svelte'
 const LAYOUT_MARKDOWN = '_layout.svelte'
 const VARIANTS = 'variants.js'
-
-const green = '\x1B[32m'
-const red = '\x1B[31m'
-const bold = '\x1B[1m'
-const reset = '\x1B[0m'
 
 const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-alpha.50^'
 const FILE_WITH_NOTICE = '[...file]/+page.svelte'

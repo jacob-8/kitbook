@@ -1,6 +1,6 @@
 # Hello World
 
-## Table of Content
+## Table of Contents
 
 ## Install
 

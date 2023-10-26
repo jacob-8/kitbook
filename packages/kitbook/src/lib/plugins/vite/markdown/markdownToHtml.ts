@@ -1,5 +1,22 @@
-export function markdownToHtml(_code: string): string {
-  return '<div>Markdown needs converted</div>'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkSlug from 'remark-slug'
+import remarkToc from 'remark-toc'
+import remarkRehype from 'remark-rehype'
+import rehypeFormat from 'rehype-format'
+import rehypeStringify from 'rehype-stringify'
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkSlug)
+  .use(remarkToc)
+  .use(remarkRehype)
+  .use(rehypeFormat) // pretty print
+  .use(rehypeStringify)
+
+export function markdownToHtml(code: string): string {
+  const html = processor.processSync(code).value as string
+  return html
 }
 
 // import MarkdownIt from 'markdown-it'
