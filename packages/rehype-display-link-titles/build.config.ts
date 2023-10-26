@@ -8,6 +8,7 @@ export default defineBuildConfig({
   declaration: true,
   externals: [
     'unified',
+    'hast',
   ],
   rollup: {
     emitCJS: true,
