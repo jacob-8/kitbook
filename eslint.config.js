@@ -8,7 +8,7 @@ export default antfu(
     // typescript: false,
   },
   ...typescript({
-    componentExts: ['svelte'],
+    componentExts: ['svelte', 'composition'],
     overrides: {
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-alert': 'off',
