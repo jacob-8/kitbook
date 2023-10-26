@@ -1,16 +1,30 @@
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
-import remarkSlug from 'remark-slug'
+import rehypeSlug from 'rehype-slug'
 import remarkToc from 'remark-toc'
 import remarkRehype from 'remark-rehype'
 import rehypeFormat from 'rehype-format'
 import rehypeStringify from 'rehype-stringify'
+import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeUrls from 'rehype-urls'
+
+// import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
+// shikiTwoslashHighlighter({ themes: ['dark-plus'] })
 
 const processor = unified()
   .use(remarkParse)
-  .use(remarkSlug)
   .use(remarkToc)
   .use(remarkRehype)
+  .use(rehypeDisplayLinkTitles) // place first to save needless tests of heading links about to be created by following plugins
+  .use(rehypeUrls, openExternalInNewTab)
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, {
+    behavior: 'wrap',
+    properties: {
+      class: 'heading-anchor',
+    },
+  })
   .use(rehypeFormat) // pretty print
   .use(rehypeStringify)
 
@@ -19,24 +33,11 @@ export function markdownToHtml(code: string): string {
   return html
 }
 
-// import MarkdownIt from 'markdown-it'
-
-// https://github.com/markdown-it/markdown-it
-
-// export interface PluginOptions {
-//   markdown?: (body: string) => string
-//   markdownIt?: MarkdownIt | MarkdownIt.Options
-// }
-
-// export function markdownCompiler(options: PluginOptions): MarkdownIt | { render: (body: string) => string } {
-//   if (options.markdownIt) {
-//     if (options.markdownIt instanceof MarkdownIt || (options.markdownIt?.constructor?.name === 'MarkdownIt'))
-//       return options.markdownIt as MarkdownIt
-//     else if (typeof options.markdownIt === 'object')
-//       return MarkdownIt(options.markdownIt)
-//   }
-//   else if (options.markdown) {
-//     return { render: options.markdown }
-//   }
-//   return MarkdownIt({ html: true })
-// }
+// rehype-urls plus this function seems like a simpler approach than rehype-external-links
+function openExternalInNewTab(url, node) {
+  if (url.protocol?.startsWith('http')) {
+    node.properties.target = '_blank'
+    node.properties.rel = 'noopener'
+    node.properties.rel = 'noreferrer'
+  }
+}

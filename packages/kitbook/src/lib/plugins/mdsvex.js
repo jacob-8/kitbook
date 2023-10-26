@@ -6,7 +6,7 @@ import rehypeUrls from 'rehype-urls'
 import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
 
 export { mdsvex } from 'mdsvex'
-export const MDSVEX_EXTENSIONS = ['.md', '.svx']
+export const MDSVEX_EXTENSIONS = ['.svx']
 
 export const KITBOOK_MDSVEX_CONFIG = defineMDSveXConfig({
   extensions: MDSVEX_EXTENSIONS,

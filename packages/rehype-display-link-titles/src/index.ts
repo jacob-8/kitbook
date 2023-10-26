@@ -4,11 +4,8 @@ import type { Element as HAST_Element, Root } from 'hast'
 
 import { slug } from 'github-slugger' // https://github.com/rehypejs/rehype-slug uses this to generate heading ids this function must match it
 
-// interface Options {
-//   [key: string]: any
-// }
-// /** @type {import('unified').Plugin<[Options?]|void[], Root>} */
-export function rehypeDisplayLinkTitles(): (tree: any, file: any) => void {
+/** @type {import('unified').Plugin<[Options?]|Array<void>, Root>} */
+export function rehypeDisplayLinkTitles(options = {}) {
   return (tree: Root) => {
     visit(tree, 'element', visitor())
   }
@@ -19,8 +16,7 @@ export function rehypeDisplayLinkTitles(): (tree: any, file: any) => void {
         removeMarkdownExtensionFromHref(node as AnchorElement)
 
         const title = node.properties.title as string
-        node.children
-        // @ts-expect-error
+        // @ts-expect-error - value exists
         const text = node.children?.[0]?.value
 
         const hasAlias = text?.includes('|')
@@ -53,6 +49,11 @@ interface AnchorElement extends HAST_Element {
   tagName: 'a'
   properties: { href: string; title?: string }
   children: { type: 'text'; value: string }[]
+}
+
+// Leaving as a dummy for learning purposes (from rehype-autolink-headings)
+interface Options {
+  // [key: string]: any
 }
 
 function removeMarkdownExtensionFromHref(node: AnchorElement) {

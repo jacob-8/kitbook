@@ -129,9 +129,6 @@ importers:
       remark-rehype:
         specifier: ^10.1.0
         version: 10.1.0
-      remark-slug:
-        specifier: ^7.0.1
-        version: 7.0.1
       remark-toc:
         specifier: ^8.0.1
         version: 8.0.1
