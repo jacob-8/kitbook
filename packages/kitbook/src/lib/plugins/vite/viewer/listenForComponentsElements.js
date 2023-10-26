@@ -132,7 +132,6 @@ function createComponentStore() {
 
     const existingComponent = components.get(fragment)
     if (existingComponent) {
-      console.info('component already exists')
       existingComponent.componentDetail = detail
     }
     else {

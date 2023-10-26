@@ -6,24 +6,26 @@ Here's how we added Vitest to Kitbook written here for maintenance reference.
 - turn on `globals` option and [In-source testing](https://vitest.dev/guide/features.html#in-source-testing) by creating a `vitest.config.ts` file:
 
 ```ts twoslash title="vitest.config.ts"
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
     globals: true,
     includeSource: ['src/**/*.ts'],
   },
-});
+})
 ```
 
 - Acquaint Typescript:
 
-```json title="tsconfig.json" {3-4}
-"compilerOptions": {
-  "types": [
-    "vitest/globals",
-    "vitest/importMeta"
-  ]
+```json title="tsconfig.json" {4-5}
+{
+  "compilerOptions": {
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta"
+    ]
+  }
 }
 ```
 
@@ -31,7 +33,7 @@ export default defineConfig({
 ```ts
 if (import.meta.vitest) {
   test('capitalize turns bar into Bar', () => {
-    expect(capitalize('bar')).toMatchInlineSnapshot(`"Bar"`);
+    expect(capitalize('bar')).toMatchInlineSnapshot('"Bar"')
   })
 }
 ```

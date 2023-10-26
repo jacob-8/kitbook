@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { dev } from '$app/environment';
+  import { dev } from '$app/environment'
 
-  export let error = null;
-  export let onError = null;
+  export let error = null
+  export let onError = null
 
-  $: if ($error && onError) onError($error);
+  $: if ($error && onError)
+    onError($error)
 </script>
 
 {#if $error}

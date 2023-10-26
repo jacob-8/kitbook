@@ -1,8 +1,9 @@
-import { setLineNumberBaseTo1 } from "./setLineNumberBaseTo1";
+import { setLineNumberBaseTo1 } from './setLineNumberBaseTo1'
 
 test('setLineNumberBaseTo1', () => {
   const meta = {
-    title: 'examples/index.ts', highlight: { '1': true, '3': true }
+    title: 'examples/index.ts',
+    highlight: { 1: true, 3: true },
   }
   expect(setLineNumberBaseTo1(meta)).toMatchInlineSnapshot(`
       {
@@ -12,12 +13,13 @@ test('setLineNumberBaseTo1', () => {
         },
         "title": "examples/index.ts",
       }
-    `);
-});
+    `)
+})
 
 test('setLineNumberBaseTo1 handles ranges', () => {
   const meta = {
-    title: 'examples/index.ts', highlight: { '1': true, '3-4': true }
+    title: 'examples/index.ts',
+    highlight: { '1': true, '3-4': true },
   }
   expect(setLineNumberBaseTo1(meta)).toMatchInlineSnapshot(`
       {
@@ -27,24 +29,21 @@ test('setLineNumberBaseTo1 handles ranges', () => {
         },
         "title": "examples/index.ts",
       }
-    `);
-});
+    `)
+})
 
 test('setLineNumberBaseTo1 handles no highlight', () => {
   const meta = {
-    title: 'examples/index.ts'
+    title: 'examples/index.ts',
   }
   expect(setLineNumberBaseTo1(meta)).toMatchInlineSnapshot(`
       {
         "title": "examples/index.ts",
       }
-    `);
-});
+    `)
+})
 
 test('setLineNumberBaseTo1 handles undefined meta', () => {
-  const meta = {
-    title: 'examples/index.ts'
-  }
-  // @ts-expect-error
-  expect(setLineNumberBaseTo1(undefined)).toMatchInlineSnapshot('undefined');
-});
+  // @ts-expect-error - undefined is incorrect
+  expect(setLineNumberBaseTo1(undefined)).toEqual(undefined)
+})

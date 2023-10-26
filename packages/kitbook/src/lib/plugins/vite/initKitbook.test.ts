@@ -10,4 +10,3 @@ test(excludeDocFiles, () => {
   expect(excludeDocFiles('+page.d.ts')).toBeFalsy()
   expect(excludeDocFiles('sandbox/mockComponents/+page.svelte')).toBeFalsy()
 })
-

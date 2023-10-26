@@ -1,3 +1,3 @@
 ```js
-console.log('hi)
+const a = 2
 ```

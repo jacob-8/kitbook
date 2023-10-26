@@ -1,22 +1,22 @@
 <script context="module" lang="ts">
   import type { Viewport } from 'kitbook'
-  
+
   export const viewports: Viewport[] = [
     { width: 800, height: 100 },
   ]
 </script>
 
 <script lang="ts">
-  import type { GroupedPage } from 'kitbook';
-  import SearchResult from './SearchResult.svelte';
+  import type { GroupedPage } from 'kitbook'
+  import SearchResult from './SearchResult.svelte'
 
-  export let kitbookPath = '/kitbook';
+  export let kitbookPath = '/kitbook'
   export let page: GroupedPage = {
     extensions: ['md'],
     name: 'README',
     path: '/README.md',
     url: '/README',
-  };
+  }
 </script>
 
 <SearchResult {kitbookPath} {page} />
