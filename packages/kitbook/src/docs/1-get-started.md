@@ -38,7 +38,7 @@ src/routes/
 
 You may find it a bit jarring to have your component workbench included in your main app. Kitbook originally worked as a companion app, like all previous art does, but this created a lot of friction:
 - Starting two dev servers is a pain and you will find yourself only working in Kitbook or only in your app, but not both which is the sweet spot. 
-- Set up the component workbench with just the right scaffolding to match the main app is a pain. It's annoying to have to keep everything in sync (like i18n) for example. The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
+- Setting up the component workbench with just the right scaffolding to match the main app is a pain. It's annoying to have to keep everything in sync (like i18n for example). The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
 - The status checks for Playwright E2E tests running against Vercel deployments breaks down when your app deployment finishes before your Kitbook workbench deployment. 
 
 Furthermore the combined app + Kitbook approach is the only way to get the [[2-viewer]] tool which is a huge benefit. Let's move on to learn about Kitbook's [[2-viewer]] tool which bridges the gap between our app and our component workbench. 
