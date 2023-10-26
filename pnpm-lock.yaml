@@ -108,6 +108,9 @@ importers:
       '@sveltejs/package':
         specifier: ^2.2.2
         version: 2.2.2(svelte@4.2.2)(typescript@5.2.2)
+      '@types/mdast':
+        specifier: ^4.0.2
+        version: 4.0.2
       '@unocss/svelte-scoped':
         specifier: ^0.55.7
         version: 0.55.7
@@ -150,6 +153,9 @@ importers:
       unified:
         specifier: ^10.1.2
         version: 10.1.2
+      unist-util-visit:
+        specifier: ^4.1.1
+        version: 4.1.2
       unocss:
         specifier: ^0.55.7
         version: 0.55.7(postcss@8.4.31)(vite@4.5.0)
@@ -1404,6 +1410,12 @@ packages:
 
   /@types/mdast@3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
+    dependencies:
+      '@types/unist': 2.0.6
+    dev: true
+
+  /@types/mdast@4.0.2:
+    resolution: {integrity: sha512-tYR83EignvhYO9iU3kDg8V28M0jqyh9zzp5GV+EO+AYnyUl3P5ltkTeJuTiFZQFz670FSb3EwT/6LQdX+UdKfw==}
     dependencies:
       '@types/unist': 2.0.6
     dev: true

@@ -34,9 +34,11 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
     config: modifyViteConfigForKitbook,
 
-    transform(code, id) {
-      if (id.endsWith('.md'))
-        return { code: `export const html = \`${markdownToHtml(code)}\`` }
+    async transform(code, id) {
+      if (id.endsWith('.md')) {
+        const html = await markdownToHtml(code)
+        return { code: `export const html = \`${html}\`` }
+      }
     },
 
     resolveId(id) {

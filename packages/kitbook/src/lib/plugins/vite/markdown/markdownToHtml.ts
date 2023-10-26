@@ -8,18 +8,18 @@ import rehypeStringify from 'rehype-stringify'
 import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeUrls from 'rehype-urls'
+import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
+import { remarkHighlighter } from './remarkHighlighter.js'
 
 // import remarkGfm from 'remark-gfm'
 
-// import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
-// shikiTwoslashHighlighter({ themes: ['dark-plus'] })
-
 const processor = unified()
   .use(remarkParse)
-  // .use(remarkGfm)
+  // .use(remarkGfm) // not yet
   .use(remarkToc)
-  .use(remarkRehype)
-  .use(rehypeDisplayLinkTitles) // place first to save needless tests of heading links about to be created by following plugins
+  .use(remarkHighlighter, shikiTwoslashHighlighter({ themes: ['dark-plus'] })) // requires async
+  .use(remarkRehype, { allowDangerousHtml: true }) // allowDangerousHtml lets shikied html pass through
+  .use(rehypeDisplayLinkTitles) // place first to save needless checking of heading links about to be created by following plugins
   .use(rehypeUrls, openExternalInNewTab)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, {
@@ -29,11 +29,10 @@ const processor = unified()
     },
   })
   .use(rehypeFormat) // pretty print
-  .use(rehypeStringify)
+  .use(rehypeStringify, { allowDangerousHtml: true })
 
 export async function markdownToHtml(code: string): Promise<string> {
-  const html = (await processor.process(code)).value as string
-  return html
+  return (await processor.process(code)).value as string
 }
 
 // rehype-urls plus this function seems like a simpler approach than rehype-external-links
