@@ -2,7 +2,7 @@
   import '../styles/kb-prose.css'
   import { Button } from 'svelte-pieces'
   import EditInGithub from '../components/EditInGithub.svelte'
-  import { openComponent, openComposition, openSvx, openVariants } from '../open/openFiles'
+  import { openComponent, openComposition, openMarkdown, openVariants } from '../open/openFiles'
   import Layout from '../layout/Layout.svelte'
   import type { LayoutLoadResult } from '../layout/layoutLoad'
   import Variants from './Variants.svelte'
@@ -72,15 +72,13 @@
           {#if !dev}
             {title}
           {:else}
-            <Button class="text-2xl" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component">
-              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px" /> {title}
+            <Button class="!text-xl flex items-center !py-1.5 !px-2 -ml-2" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component">
+              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px mr-1" /> {title}
             </Button>
 
-            {#if !markdown}
-              <Button onclick={() => openSvx(`${pathWithoutExtension}.md`)} form="menu" color="black">
-                <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Add Docs
-              </Button>
-            {/if}
+            <Button onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
+              <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> {markdown ? 'Edit' : 'Add'} Docs
+            </Button>
 
             <Button
               onclick={() => {
@@ -103,6 +101,12 @@
       {/if}
 
       {#if markdown}
+        {#if !data.loadedModules.component}
+          <Button class="fixed top-0 right-0" onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
+            <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Edit
+          </Button>
+        {/if}
+
         <div class="kb-prose mb-8 max-w-1000px">
           {@html markdown.html}
         </div>

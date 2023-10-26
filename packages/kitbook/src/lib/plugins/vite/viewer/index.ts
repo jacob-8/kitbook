@@ -31,7 +31,10 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 
     configureServer(server) {
       server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
-        writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
+        const pageProofPath = filepath
+          .replace('+page', '_page')
+          .replace('+layout', '_layout')
+        writeFileIfNeededThenOpen(pageProofPath, template, settings.viewer.__internal.viteBase, client)
       })
       server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
         const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)

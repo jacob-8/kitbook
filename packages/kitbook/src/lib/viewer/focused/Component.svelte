@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { KitbookSettings } from 'kitbook'
   import { removeQuotesFromSerializedFunctions, serializeIntersection } from '../../open/serialize'
-  import { openComponent, openComposition, openSvx, openVariants } from '../../open/openFiles'
+  import { openComponent, openComposition, openMarkdown, openVariants } from '../../open/openFiles'
   import { selectedComponent } from './active'
   import { getLocalFilename } from './filename'
   import Tabs from './Tabs.svelte'
@@ -28,7 +28,7 @@
     <span class="i-vscode-icons-file-type-svelte align--2px" /> {$selectedComponent.componentDetail.tagName}
   </button>
   <button type="button" on:click={() => openVariants(filename, $selectedComponent.componentDetail)} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>
-  <button type="button" on:click={() => openSvx(svxFilename)} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
+  <button type="button" on:click={() => openMarkdown(svxFilename)} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
   <button type="button" on:click={() => openComposition(filename.replace('.svelte', ''), 'composition')} title="New Composition"><span class="i-carbon-chart-treemap align--2px" /></button>
   <a href="{kitbookRoute}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
 </div>
