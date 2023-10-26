@@ -17,7 +17,7 @@ export interface Variant<T extends SvelteComponent> {
 
 type Test = ({ page, expect, filepathWithoutExtension, name }: {
   page: Page
-  expect: Expect
+  expect: Expect<any>
   filepathWithoutExtension: string
   name: string
 }) => Promise<void>

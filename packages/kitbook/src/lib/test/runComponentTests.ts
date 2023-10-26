@@ -5,7 +5,7 @@ import { preparePath } from './preparePath'
 
 interface PlaywrightPieces {
   test: typeof playwrightTest
-  expect: Expect
+  expect: Expect<any>
 }
 
 interface KitbookPieces {
