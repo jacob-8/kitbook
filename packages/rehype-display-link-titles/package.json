@@ -62,6 +62,6 @@
     "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
     "unified": "^10.1.2",
-    "vitest": "^0.34.4"
+    "vitest": "^0.34.6"
   }
 }

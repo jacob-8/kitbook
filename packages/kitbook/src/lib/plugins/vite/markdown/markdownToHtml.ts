@@ -9,11 +9,14 @@ import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeUrls from 'rehype-urls'
 
+// import remarkGfm from 'remark-gfm'
+
 // import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
 // shikiTwoslashHighlighter({ themes: ['dark-plus'] })
 
 const processor = unified()
   .use(remarkParse)
+  // .use(remarkGfm)
   .use(remarkToc)
   .use(remarkRehype)
   .use(rehypeDisplayLinkTitles) // place first to save needless tests of heading links about to be created by following plugins
@@ -28,8 +31,8 @@ const processor = unified()
   .use(rehypeFormat) // pretty print
   .use(rehypeStringify)
 
-export function markdownToHtml(code: string): string {
-  const html = processor.processSync(code).value as string
+export async function markdownToHtml(code: string): Promise<string> {
+  const html = (await processor.process(code)).value as string
   return html
 }
 

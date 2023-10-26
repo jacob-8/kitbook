@@ -13,7 +13,7 @@ describe(markdownToHtml, () => {
   const cases = import.meta.glob('./cases/*.md', { as: 'raw' })
   for (const [path, loadRaw] of Object.entries(cases)) {
     test(path.replace(/.\/cases\/(.+).md/, '$1'), async () => {
-      const html = markdownToHtml(await loadRaw())
+      const html = await markdownToHtml(await loadRaw())
       expect(html).toMatchFileSnapshot(path.replace('.md', '.html'))
     })
   }

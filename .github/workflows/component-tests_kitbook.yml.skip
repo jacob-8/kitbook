@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.37.1-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
 
     steps:
       - name: Allow image commit and branch name extraction
