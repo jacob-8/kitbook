@@ -8,7 +8,6 @@
 
   // Kitbook
   "files.associations": {
-    "*.svx": "svelte",
     "*.composition": "svelte"
   },
   "foam.completion.label": "title",

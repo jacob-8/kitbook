@@ -1,0 +1,10 @@
+
+<h1 id="get-started-how-to-create-a-kitbook"><a class="heading-anchor" href="#get-started-how-to-create-a-kitbook">Get Started: How to Create a KitBook</a></h1>
+<ul>
+  <li>Install the <code>kitbook</code> package: <code>npm i -D kitbook@alpha</code> or <code>pnpm add -D kitbook@alpha</code> (warning: it's alpha = not ready)</li>
+</ul><pre class="shiki dark-plus" style="background-color: #1E1E1E; color: #D4D4D4"><div class="language-id">diff</div><div class='code-container'><code><div class='line'><span style="color: #D4D4D4">import &#123; sveltekit &#125; from '@sveltejs/kit/vite';</span></div><div class='line'><span style="color: #B5CEA8">+import &#123; kitbook &#125; from 'kitbook/plugins/vite';</span></div><div class='line'></div><div class='line'><span style="color: #D4D4D4">const config = &#123;</span></div><div class='line'><span style="color: #D4D4D4">	plugins: [</span></div><div class='line'><span style="color: #B5CEA8">+		kitbook(),</span></div><div class='line'><span style="color: #D4D4D4">		sveltekit(),</span></div><div class='line'><span style="color: #D4D4D4">	],</span></div><div class='line'><span style="color: #D4D4D4">&#125;;</span></div></code></div></pre>
+<ul>
+  <li>Run <code>npm kitbook</code> or <code>pnpm kitbook</code> to get going!</li>
+</ul>
+<p>When first time running the <code>kitbook</code> plugin in your package, a Kitbook routes folder will be copied into your <code>src/kitbook</code> directory</p>
+<p>[<a href="../../../kitbook/src/docs/8-examples" title="Examples (8-examples)">Check These Out</a>]</p>

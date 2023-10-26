@@ -1,34 +1,14 @@
 # Write Documentation
 
-You can document your application and components by writing markdown ending in `.md` and `.svx`. Kitbook relies on [MDSvex](https://mdsvex.pngwn.io/) so you can also include Svelte components in your markdown. To get started, you must add the necessary [MDSvex](https://mdsvex.pngwn.io/) imports and configuration into your `svelte.config.js`:
-
-```js twoslash title="svelte.config.js" {2,5,7}
-import { vitePreprocess } from '@sveltejs/kit/vite'
-import { KITBOOK_MDSVEX_CONFIG, MDSVEX_EXTENSIONS, mdsvex } from 'kitbook/plugins/mdsvex'
-
-const config = {
-  extensions: ['.svelte', ...MDSVEX_EXTENSIONS],
-  preprocess: [
-    mdsvex(KITBOOK_MDSVEX_CONFIG),
-    vitePreprocess(),
-  ],
-  // ...
-}
-
-export default config
-```
-
-*In the future, we will automatically provide markdown support for those who don't need to use Svelte components within their markdown. Then the above step would not be needed.*
-
-For general documentation (like this page you're reading now), you can create a folder with any name under your `/src` folder and begin writing documentation in markdown. This Kitbook has a `docs` folder, which is where this file exists as can be seen in the sidebar navigation.
+You can document your application and components by writing markdown ending in `.md`. For general documentation (like this page you're reading now), you can create a folder with any name under your `/src` folder and begin writing documentation in markdown. This Kitbook has a `docs` folder, which is where this file exists as can be seen in the sidebar navigation.
 
 ## Component Documentation
 
-To document a component titled `Button.svelte` add a sibling file titled `Button.md` or `Button.svx` and begin writing. Your documentation will automatically be included in the same page as any variants and compositions you've written for that component.
+To document a component titled `Button.svelte` add a sibling file titled `Button.md` and begin writing. Your documentation will automatically be included in the same page as any variants and compositions you've written for that component.
 
 ## Index Page
 
-By default Kitbook will display your project's README.md file as its home page, but you can override this by using a `src/index.md` or `src/index.svx` file.
+By default Kitbook will display your project's README.md file as its home page, but you can override this by using a `src/index.md` file.
 
 ## Naming Conventions
 
@@ -37,12 +17,6 @@ Name files and folders according to how you want them shown in the sidebar. Alph
 - `2-button.svelte`, displayed second as `Button`
   
 Folder naming follows the same conventions. `0-components/` will show up as `Components` and be placed before `1-about/` (displayed as `About`).
-
-## Customizing [MDSvex](https://mdsvex.pngwn.io/) 
-
-If you dig into the source code behind the MDSvex config you just added to your `svelte.config.js` file, you'll notice the presence of a few rehype plugins to help with links, and shiki-twoslash for code highlighting. If you want to process your markdown differently you can pass your own config to the `mdsvex` plugin.
-
-*Do note that if you use an MDSvex layout file then you can't use `lang='ts'` in your mdsvex files as MDSvex does not support that.*
 
 ## Convenient links
 

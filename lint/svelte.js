@@ -9,7 +9,7 @@ import svelteStylistic from 'eslint-plugin-svelte-stylistic'
 
 export const svelte = defineFlatConfig({
   // @ts-ignore
-  files: ['**/*.svelte', '**/*.svx'],
+  files: ['**/*.svelte', '**/*.composition'],
   plugins: {
     'svelte': sveltePlugin,
     'svelte-stylistic': svelteStylistic,

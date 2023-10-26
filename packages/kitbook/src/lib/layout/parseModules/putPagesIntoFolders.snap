@@ -13,7 +13,7 @@
               "extensions": [
                 "md",
               ],
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -25,7 +25,7 @@
               "extensions": [
                 "md",
               ],
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -43,7 +43,7 @@
           "extensions": [
             "md",
           ],
-          "loadSvx": {
+          "loadMarkdown": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -55,7 +55,7 @@
           "extensions": [
             "md",
           ],
-          "loadSvx": {
+          "loadMarkdown": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -67,7 +67,7 @@
           "extensions": [
             "md",
           ],
-          "loadSvx": {
+          "loadMarkdown": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -106,7 +106,7 @@
             {
               "extensions": [
                 "svelte",
-                "svx",
+                "md",
                 "variants.ts",
                 "composition",
                 "first.composition",
@@ -130,7 +130,7 @@
                   "loadRaw": [Function],
                 },
               },
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -163,13 +163,13 @@
         {
           "extensions": [
             "svelte",
-            "svx",
+            "md",
           ],
           "loadComponent": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
-          "loadSvx": {
+          "loadMarkdown": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
@@ -179,14 +179,14 @@
         },
         {
           "extensions": [
-            "svx",
+            "md",
           ],
-          "loadSvx": {
+          "loadMarkdown": {
             "loadModule": [Function],
             "loadRaw": [Function],
           },
           "name": "E",
-          "path": "/src/lib/E.svx",
+          "path": "/src/lib/E.md",
           "url": "/lib/E",
         },
       ],
@@ -203,13 +203,13 @@
             {
               "extensions": [
                 "svelte",
-                "svx",
+                "md",
               ],
               "loadComponent": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -220,13 +220,13 @@
             {
               "extensions": [
                 "svelte",
-                "svx",
+                "md",
               ],
               "loadComponent": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -287,14 +287,14 @@
             {
               "extensions": [
                 "svelte",
-                "svx",
+                "md",
                 "variants.ts",
               ],
               "loadComponent": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -309,14 +309,14 @@
             {
               "extensions": [
                 "svelte",
-                "svx",
+                "md",
                 "variants.ts",
               ],
               "loadComponent": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
-              "loadSvx": {
+              "loadMarkdown": {
                 "loadModule": [Function],
                 "loadRaw": [Function],
               },
@@ -368,7 +368,7 @@
       "extensions": [
         "md",
       ],
-      "loadSvx": {
+      "loadMarkdown": {
         "loadModule": [Function],
         "loadRaw": [Function],
       },
@@ -380,7 +380,7 @@
       "extensions": [
         "md",
       ],
-      "loadSvx": {
+      "loadMarkdown": {
         "loadModule": [Function],
         "loadRaw": [Function],
       },

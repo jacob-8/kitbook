@@ -1,18 +1,19 @@
-import type { GroupedPageMap, VariantsModule } from 'kitbook'
+import type { GroupedPageMap, MarkdownModule, VariantsModule } from 'kitbook'
 import type { SvelteComponent } from 'svelte'
 
+const markdownModuleImport = (() => {}) as () => Promise<MarkdownModule>
 const componentModuleImport = null as () => Promise<{ default: typeof SvelteComponent }>
 const variantModuleImport = null as () => Promise<VariantsModule>
-const loadRaw = (() => {}) as () => Promise<string>
+const stringImport = (() => {}) as () => Promise<string>
 
 export const pages: GroupedPageMap = {
   '/README': {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'README',
     path: '/README.md',
@@ -22,9 +23,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'why kitbook',
     path: '/src/docs/0-why-kitbook.md',
@@ -34,9 +35,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'get started',
     path: '/src/docs/1-get-started.md',
@@ -46,9 +47,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'you can use letters to adjust ordering',
     path: '/src/docs/1a-you-can-use-letters-to-adjust-ordering.md',
@@ -58,9 +59,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'unocss',
     path: '/src/docs/my-notes/0-unocss.md',
@@ -70,9 +71,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'deploy to vercel',
     path: '/src/docs/my-notes/1-deploy-to-vercel.md',
@@ -82,9 +83,9 @@ export const pages: GroupedPageMap = {
     extensions: [
       'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'index',
     path: '/src/index.md',
@@ -96,7 +97,7 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: 'A',
     path: '/src/lib/A.svelte',
@@ -105,15 +106,15 @@ export const pages: GroupedPageMap = {
   '/lib/B': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'B',
     path: '/src/lib/B.svelte',
@@ -121,14 +122,14 @@ export const pages: GroupedPageMap = {
   },
   '/lib/E': {
     extensions: [
-      'svx',
+      'md',
     ],
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: 'E',
-    path: '/src/lib/E.svx',
+    path: '/src/lib/E.md',
     url: '/lib/E',
   },
   '/lib/a/C': {
@@ -138,11 +139,11 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: 'C',
     path: '/src/lib/a/C.svelte',
@@ -151,7 +152,7 @@ export const pages: GroupedPageMap = {
   '/lib/a/D': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
       'variants.ts',
       'composition',
       'first.composition',
@@ -159,29 +160,29 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     loadCompositions: {
       default: {
         loadModule: componentModuleImport,
-        loadRaw,
+        loadRaw: stringImport,
       },
       first: {
         loadModule: componentModuleImport,
-        loadRaw,
+        loadRaw: stringImport,
       },
       second: {
         loadModule: componentModuleImport,
-        loadRaw,
+        loadRaw: stringImport,
       },
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: 'D',
     path: '/src/lib/a/D.svelte',
@@ -194,7 +195,7 @@ export const pages: GroupedPageMap = {
     loadCompositions: {
       default: {
         loadModule: componentModuleImport,
-        loadRaw,
+        loadRaw: stringImport,
       },
     },
     name: 'F',
@@ -207,7 +208,7 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+layout',
     path: '/src/routes/+layout.svelte',
@@ -219,7 +220,7 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+page',
     path: '/src/routes/+page.svelte',
@@ -228,15 +229,15 @@ export const pages: GroupedPageMap = {
   '/routes/a/+layout': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: '+layout',
     path: '/src/routes/a/+layout.svelte',
@@ -245,15 +246,15 @@ export const pages: GroupedPageMap = {
   '/routes/a/+page': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     name: '+page',
     path: '/src/routes/a/+page.svelte',
@@ -266,11 +267,11 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+layout',
     path: '/src/routes/b/+layout.svelte',
@@ -283,11 +284,11 @@ export const pages: GroupedPageMap = {
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+page',
     path: '/src/routes/b/+page.svelte',
@@ -296,20 +297,20 @@ export const pages: GroupedPageMap = {
   '/routes/c/+layout': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
       'variants.ts',
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+layout',
     path: '/src/routes/c/+layout.svelte',
@@ -318,20 +319,20 @@ export const pages: GroupedPageMap = {
   '/routes/c/+page': {
     extensions: [
       'svelte',
-      'svx',
+      'md',
       'variants.ts',
     ],
     loadComponent: {
       loadModule: componentModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
-    loadSvx: {
-      loadModule: componentModuleImport,
-      loadRaw,
+    loadMarkdown: {
+      loadModule: markdownModuleImport,
+      loadRaw: stringImport,
     },
     loadVariants: {
       loadModule: variantModuleImport,
-      loadRaw,
+      loadRaw: stringImport,
     },
     name: '+page',
     path: '/src/routes/c/+page.svelte',

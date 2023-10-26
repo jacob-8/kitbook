@@ -1,10 +1,10 @@
 import type { SvelteComponent } from 'svelte'
-import type { CompositionModule, GroupedPage, GroupedPageMap, UngroupedPage, VariantsModule } from '../../kitbook-types'
+import type { CompositionModule, GroupedPage, GroupedPageMap, MarkdownModule, UngroupedPage, VariantsModule } from '../../kitbook-types'
 import { testModules } from './testModules'
 import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
 
-export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof SvelteComponent } | VariantsModule | CompositionModule>[] = [], extensions = { svx: ['md', 'svx'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
-  const allowedExtensions = [...extensions.svx, extensions.variants, 'svelte']
+export function groupColocatedPages(ungrouped: UngroupedPage<MarkdownModule | { default: typeof SvelteComponent } | VariantsModule | CompositionModule>[] = [], extensions = { md: ['md'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
+  const allowedExtensions = [...extensions.md, extensions.variants, 'svelte']
   const grouped: GroupedPageMap = {}
 
   for (const page of sortPageAndLayoutPagesWithPlusFirst(ungrouped)) {
@@ -18,8 +18,8 @@ export function groupColocatedPages(ungrouped: UngroupedPage<{ default: typeof S
     else
       grouped[url].extensions.push(page.ext)
 
-    if (extensions.svx.includes(page.ext)) {
-      grouped[url].loadSvx = loadModuleObject(page) as GroupedPage['loadSvx']
+    if (extensions.md.includes(page.ext)) {
+      grouped[url].loadMarkdown = loadModuleObject(page) as GroupedPage['loadMarkdown']
     }
     else if (page.ext === 'svelte') {
       grouped[url].loadComponent = loadModuleObject(page) as GroupedPage['loadComponent']

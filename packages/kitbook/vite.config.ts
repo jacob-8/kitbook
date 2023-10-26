@@ -1,11 +1,13 @@
 import path from 'node:path'
 import { defineConfig } from 'vite'
 import { sveltekit } from '@sveltejs/kit/vite'
+import Inspect from 'vite-plugin-inspect'
 import { kitbook } from './src/lib/plugins/vite'
 import kitbookConfig from './kitbook.config'
 
 export default defineConfig({
   plugins: [
+    Inspect(),
     kitbook(kitbookConfig),
     sveltekit(),
   ],

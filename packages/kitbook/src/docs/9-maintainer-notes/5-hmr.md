@@ -22,14 +22,15 @@ Typescript files do not self accept of their own accord however and will trigger
 Before going further, add a simple plugin to log hot updates in a simple Vite project (I suggest using Stackblitz) and see in action what you've been reading about:
 
 ```ts title="vite.config.js"
-import type { Plugin } from 'vite';
+import type { Plugin } from 'vite'
+
 function logHotUpdate(): Plugin {
-	return {
-		name: 'log-hot-update',
-		handleHotUpdate({ modules }) {
-			console.log({ modules });
-		}
-	}
+  return {
+    name: 'log-hot-update',
+    handleHotUpdate({ modules }) {
+      console.log({ modules })
+    }
+  }
 }
 ```
 
@@ -40,19 +41,19 @@ If you edit a typescript file you notice `isSelfAccepting: false` but if you edi
 A major feature of our Kitbook is that we can quickly create component variants simply by editing an array of props objects in a Typescript file. On initial page load these are being imported in server side load functions to be able to do server side rendering of components. These are provided by a glob import:
 
 ```ts title="moduleGlobImport.ts"
-export const modules = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']);
+export const modules = import.meta.glob(['/src/**/*.{md,svelte,variants.ts,composition}', '/README.md'])
 ```
 
 Then we catch hot updates to these files and add them to a store which will replace the modules used on first load and smoothly avoid full page reloads.
 
 ```ts title="moduleGlobImport.ts" {1,5-9}
-import { modulesForKitbookStore } from "./hmrUpdatedModules";
+import { modulesForKitbookStore } from './hmrUpdatedModules'
 
-export const modulesForKitbook = import.meta.glob(['/src/**/*.{md,svx,svelte,variants.ts}', '/README.md']);
+export const modulesForKitbook = import.meta.glob(['/src/**/*.{md,svelte,variants.ts,composition}', '/README.md'])
 
 if (import.meta.hot) {
   import.meta.hot.accept((newModule) => {
-    modulesForKitbookStore.set(newModule.modulesForKitbook);
+    modulesForKitbookStore.set(newModule.modulesForKitbook)
   })
 }
 ```

@@ -18,8 +18,8 @@ export function openVariants(filepath: string, componentDetail?: SvelteComponent
   import.meta.hot.send('kitbook:open-variants', { filepath, props: serializedState })
 }
 
-export function openSvx(filepath: string) {
-  const markdownTemplate = 'You can write some documentation for your component here using Markdown. Feel free to also change the extension to .svx and use Svelte in your Markdown if you\'ve installed MDSvex.'
+export function openMarkdown(filepath: string) {
+  const markdownTemplate = 'You can write some documentation for your component here using markdown.'
   ensureFileExists(filepath, markdownTemplate)
 }
 

@@ -1,7 +1,7 @@
 import type { Language } from '../../kitbook-types'
 
 export const DEFAULT_IMPORT_MODULE_GLOBS = [
-  '/src/**/*.{md,svx,svelte,variants.ts,composition}',
+  '/src/**/*.{svelte,md,variants.ts,composition}',
   '/README.md',
 ]
 

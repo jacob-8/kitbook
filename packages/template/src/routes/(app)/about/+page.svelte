@@ -1,1 +1,1 @@
-Sample route with no variants or .svx file.
+Sample route with no variants or markdown file.

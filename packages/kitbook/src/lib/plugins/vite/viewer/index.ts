@@ -8,9 +8,6 @@ import { removeQuotesFromSerializedFunctions } from '../../../open/serialize.js'
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
-const green = '\x1B[32m'
-const reset = '\x1B[0m'
-
 export function kitbookViewer(settings: KitbookSettings): Plugin {
   return {
     name: 'vite-plugin-kitbook:viewer',
@@ -34,7 +31,10 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 
     configureServer(server) {
       server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
-        writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
+        const pageProofPath = filepath
+          .replace('+page', '_page')
+          .replace('+layout', '_layout')
+        writeFileIfNeededThenOpen(pageProofPath, template, settings.viewer.__internal.viteBase, client)
       })
       server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
         const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
@@ -47,12 +47,6 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 
         writeFileIfNeededThenOpen(variantsPath, template, settings.viewer.__internal.viteBase, client)
       })
-
-      if (settings.kitbookRoute) {
-        server.httpServer?.once('listening', () => {
-          console.info(`Kitbook: ${green}http://localhost:${server.config.server.port}${settings.kitbookRoute}${reset}`)
-        })
-      }
     },
   }
 }

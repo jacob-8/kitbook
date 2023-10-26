@@ -2,13 +2,11 @@
 import adapter from '@sveltejs/adapter-auto'
 import { vitePreprocess } from '@sveltejs/kit/vite'
 import UnoCSS from '@unocss/svelte-scoped/preprocess'
-import { KITBOOK_MDSVEX_CONFIG, MDSVEX_EXTENSIONS, mdsvex } from './src/lib/plugins/mdsvex.js'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  extensions: ['.svelte', '.composition', ...MDSVEX_EXTENSIONS],
+  extensions: ['.svelte', '.composition'],
   preprocess: [
-    mdsvex(KITBOOK_MDSVEX_CONFIG),
     UnoCSS({
       classPrefix: 'kb-',
     }),
