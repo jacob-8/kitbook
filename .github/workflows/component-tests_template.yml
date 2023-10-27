@@ -86,50 +86,49 @@ jobs:
         run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots ./packages/template/e2e
 
       - name: Run Playwright Component tests to get snapshot comparison files
-        run: pnpm build && pnpm -F template test:components # TODO: handle expected fail on component change so workflow isn't marked failing
+        run: pnpm build && pnpm -F template test:components
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+        continue-on-error: true # expected an error when components change so we need to not mark the workflow as failing
 
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
-        if: failure()
+
+      - name: Upload Playwright Report
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${PR}
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
+        continue-on-error: true # TODO: this will fail if there is no report found to upload so we should listen for that error and not let the rest of the steps happen (close out gracefully as there are no changes)
 
       - name: Remove Stale Snapshots
-        if: failure()
         run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${PR}/**
         env:
           PR: ${{ steps.findPr.outputs.pr }}
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
-      - id: upload-snapshots
-        if: failure()
-        uses: google-github-actions/upload-cloud-storage@v1 # use this to easily output uploaded filenames
+      - name: Upload Test Results (Snapshots)
+        id: upload-snapshots
+        uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
         with:
           path: ./packages/template/test-results
           destination: component-snapshots/kitbook-template/pr/${PR}
         env:
           PR: ${{ steps.findPr.outputs.pr }}
 
-      - name: Upload Playwright Report
-        if: failure()
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${PR}
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
-
       - name: Format Changed Component Snapshots for PR
-        if: failure() && steps.findPr.outputs.number
+        if: steps.findPr.outputs.number
         id: format_snapshot_links_for_pr
         uses: actions/github-script@v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const snapshotCommentFormatter = require('./.github/workflows/comment-formatter.cjs');
-            const comment = snapshotCommentFormatter({ uploadResults: ${{ steps.upload-snapshots.outputs.uploaded }}, prNumber: "${{ steps.findPr.outputs.pr }}" });
+            const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}" });
             core.setOutput("comment", comment);
 
       - name: Add Changed Component Snapshots to PR
-        if: failure() && steps.findPr.outputs.number
+        if: steps.findPr.outputs.number
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ steps.findPr.outputs.pr }}
