@@ -1,0 +1,50 @@
+name: Playwright Component Tests - Template
+
+on:
+  deployment_status
+
+permissions:
+  # contents: write
+  pull-requests: write
+
+jobs:
+  update-base-snapshots:
+    name: Keep Base Component Snapshots In Sync with Main Branch
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Run Playwright Component tests
+        run: pnpm build && pnpm -F template test:components
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+
+      - name: Wipe base clean
+      - uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: components-check
+          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}
+        with:
+          args: storage rm gs://component-snapshots/kitbook-template/main/** --verbosity=critical # set verbosity to ignore errors emitted when nothing is found to delete
+
+      - name: Upload base images
+      - uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: components-check
+        with:
+          args: storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/**
