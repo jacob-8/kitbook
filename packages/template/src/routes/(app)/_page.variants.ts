@@ -14,7 +14,7 @@ export const variants: Variant<Component>[] = [
     name: 'Second',
     props: {
       data: {
-        name: 'James Little',
+        name: 'James Little than Bob',
       },
     },
   },

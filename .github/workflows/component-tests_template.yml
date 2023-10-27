@@ -49,7 +49,7 @@ jobs:
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Base Snapshots
-        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main
+        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/snapshots
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
@@ -60,8 +60,8 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
 
     steps:
-      - name: Allow branch name extraction # might not be needed
-        run: git config --system --add safe.directory /__w/kitbook/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+      - name: Allow container to update filesystem
+        run: git config --system --add safe.directory /__w/kitbook/kitbook
 
       - name: Get Branch
         uses: actions/checkout@v3
@@ -95,24 +95,20 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: |
-          mkdir packages/template/e2e/snapshots
-          gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main ./packages/template/e2e/snapshots
+        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots ./packages/template/e2e
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
-        continue-on-error: true # Playwright will emit a fail when changed snapshots are found. This is annoying because we are expecting to have changes, but it's just how things are, so we continue.
 
       - name: Check for file existence
-        # if: ${{ failure() }}
         run: |
-          if [[ -d "packages/template/playwright-report/data" ]]; then
-            echo "Data for changes found."
+          if [[ -d "./packages/template/playwright-report/data" ]]; then
+            echo "Data for changes found"
           else
-            echo "No data for changes found."
+            echo "No data for changes found"
             exit 0
           fi
 
@@ -123,7 +119,7 @@ jobs:
       - id: upload-snapshots
         uses: google-github-actions/upload-cloud-storage@v1
         with:
-          path: /packages/template/test-results
+          path: ./packages/template/test-results
           destination: component-snapshots/kitbook-template/branch # TODO: use ${{ steps.extract_branch.outputs.GITHUB_BRANCH }}
       # in place of `gcloud storage cp --recursive ./packages/template/test-results gs://component-snapshots/kitbook-template/branch/${{ steps.extract_branch.outputs.GITHUB_BRANCH }}` to get filenames for next step
 
