@@ -50,4 +50,4 @@ jobs:
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Add snapshots
-        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main
+        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/snapshots
