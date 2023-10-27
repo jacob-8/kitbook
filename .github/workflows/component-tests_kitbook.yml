@@ -46,11 +46,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
       - name: Wipe base clean
-        id: gcloud
-        run: |-
-          gcloud storage rm gs://component-snapshots/kitbook/main/** --verbosity=critical
-      # set verbosity to ignore errors emitted when nothing is found to delete
+        run: gcloud storage rm gs://component-snapshots/kitbook/main/**
+        continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Add snapshots
-        run: |-
-          gcloud storage cp --recursive ./packages/kitbook/e2e/snapshots gs://component-snapshots/kitbook/main
+        run: gcloud storage cp --recursive ./packages/kitbook/e2e/snapshots gs://component-snapshots/kitbook/main
