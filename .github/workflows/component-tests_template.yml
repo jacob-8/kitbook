@@ -1,10 +1,9 @@
-name: Playwright Component Tests - Template
+name: Visual Regression Tests - Template
 
 on:
   deployment_status
 
 permissions:
-  # contents: write
   pull-requests: write
 
 jobs:
@@ -45,9 +44,120 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
-      - name: Wipe base clean
-        run: gcloud storage rm gs://component-snapshots/kitbook-template/main/**
+      - name: Wipe Base Clean
+        run: gcloud storage rm gs://component-snapshots/kitbook-template/main/** # https://cloud.google.com/sdk/gcloud/reference/storage
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
-      - name: Add snapshots
+      - name: Upload Base Snapshots
         run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main
+
+  compare-snapshots:
+    name: Compare Components Against Base Snapshots
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook-template'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+
+    steps:
+      - name: Allow branch name extraction # might not be needed
+        run: git config --system --add safe.directory /__w/kitbook/kitbook # --global might work instead of --system, https://github.com/actions/checkout/issues/1169
+
+      - name: Get Branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger (convenient with Vercel)
+
+      - name: Extract branch name # only needed if using the deployment_status trigger (convenient with Vercel)
+        run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Download Base Snapshots
+        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main ./packages/template/e2e/snapshots
+
+      - name: Run Playwright Component tests to get snapshot comparison files
+        run: pnpm build && pnpm -F template test:components
+        env:
+          CI: true
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+        continue-on-error: true # Playwright will emit a fail when changed snapshots are found. This is annoying because we are expecting to have changes, but it's just how things are, so we continue.
+
+      - name: Check for file existence
+        # if: ${{ failure() }}
+        run: |
+          if [[ -d "packages/template/playwright-report/data" ]]; then
+            echo "Data for changes found."
+          else
+            echo "No data for changes found."
+            exit 0
+          fi
+
+      - name: Remove Stale Snapshots
+        run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/** # TODO: use ${{ steps.extract_branch.outputs.GITHUB_BRANCH }}
+        continue-on-error: true # ignore errors emitted when nothing is found to delete
+
+      - id: upload-snapshots
+        uses: google-github-actions/upload-cloud-storage@v1
+        with:
+          path: /packages/template/test-results
+          destination: component-snapshots/kitbook-template/branch # TODO: use ${{ steps.extract_branch.outputs.GITHUB_BRANCH }}
+      # in place of `gcloud storage cp --recursive ./packages/template/test-results gs://component-snapshots/kitbook-template/branch/${{ steps.extract_branch.outputs.GITHUB_BRANCH }}` to get filenames for next step
+
+      - run: echo ${steps.upload-snapshots.outputs.uploaded}
+
+      # ignore __-expected.png
+      # show __-actual.png
+      # link to __-diff.png
+
+      - name: Add PR Comment with Snaphshots of Changed Components
+        uses: actions/github-script@v6
+        with:
+          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger (convenient with Vercel)
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Changed components:
+            (![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/${filepath-of-image}))
+            ${steps.upload-snapshots.outputs.uploaded}
+            `
+            })
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      # - name: Update base images
+      #   id: updateBase
+      #   uses: jacob-8/kitbook/packages/gcs-snapshot-storage@actionV1
+      #   with:
+      #     who-to-greet: Jacob
+      # - name: Get the output time
+      #   run: echo "The time was ${{ steps.updateBase.outputs.time }}"

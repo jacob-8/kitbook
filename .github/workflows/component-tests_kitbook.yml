@@ -1,10 +1,9 @@
-name: Playwright Component Tests - Kitbook
+name: Visual Regression Tests - Kitbook
 
 on:
   deployment_status
 
 permissions:
-  # contents: write
   pull-requests: write
 
 jobs:
