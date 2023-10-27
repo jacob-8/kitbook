@@ -95,13 +95,15 @@ jobs:
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
 
-      - name: Upload Playwright Report
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}
-        continue-on-error: true # TODO: this will fail if there is no report found to upload so we should listen for that error and not let the rest of the steps happen (close out gracefully as there are no changes)
+      # TODO: check if playwright-report exists before continuing further
 
-      - name: Remove Stale Snapshots
+      - name: Remove Old Report and Test Results
         run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
+
+      - name: Upload Playwright Report
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}
+        continue-on-error: true
 
       - name: Upload Test Results (Snapshots)
         id: upload-snapshots
