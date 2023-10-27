@@ -67,11 +67,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger (convenient with Vercel)
+          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger
 
-      - name: Extract branch name # only needed if using the deployment_status trigger (convenient with Vercel)
+      - id: extract_branch # branch name only needed if using the deployment_status trigger
         run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
-        id: extract_branch
 
       - uses: actions/setup-node@v3
         with:
@@ -95,7 +94,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots ./packages/template/e2e
+        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots /__w/kitbook/kitbook/packages/template/e2e
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
@@ -104,6 +103,7 @@ jobs:
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
       - name: Check for file existence
+        if: ${{ failure() }}
         run: |
           if [[ -d "./packages/template/playwright-report/data" ]]; then
             echo "Data for changes found"
@@ -113,26 +113,36 @@ jobs:
           fi
 
       - name: Remove Stale Snapshots
-        run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/** # TODO: use ${{ steps.extract_branch.outputs.GITHUB_BRANCH }}
+        if: ${{ failure() }}
+        run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/**
+        # TODO: run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - id: upload-snapshots
+        if: ${{ failure() }}
         uses: google-github-actions/upload-cloud-storage@v1
         with:
-          path: ./packages/template/test-results
-          destination: component-snapshots/kitbook-template/branch # TODO: use ${{ steps.extract_branch.outputs.GITHUB_BRANCH }}
+          path: /__w/kitbook/kitbook/packages/template/test-results
+          destination: component-snapshots/kitbook-template/branch
+          # TODO: destination: component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}
       # in place of `gcloud storage cp --recursive ./packages/template/test-results gs://component-snapshots/kitbook-template/branch/${{ steps.extract_branch.outputs.GITHUB_BRANCH }}` to get filenames for next step
 
       - run: echo ${steps.upload-snapshots.outputs.uploaded}
+        if: ${{ failure() }}
+
+      - name: Upload Base Snapshots
+        if: ${{ failure() }}
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/branch
 
       # ignore __-expected.png
       # show __-actual.png
       # link to __-diff.png
 
       - name: Add PR Comment with Snaphshots of Changed Components
+        if: ${{ failure() }}
         uses: actions/github-script@v6
         with:
-          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger (convenient with Vercel)
+          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.createComment({
@@ -140,7 +150,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `Changed components:
-            (![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/${filepath-of-image}))
+            Read diff report at https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/playwright-report/index.html
+            (![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/image-paths))
             ${steps.upload-snapshots.outputs.uploaded}
             `
             })
