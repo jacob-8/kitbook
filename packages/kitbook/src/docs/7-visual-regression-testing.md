@@ -131,7 +131,7 @@ jobs:
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # CHECK: This is for Vercel, make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you could also spin up a dev server.
 
       - name: Wipe base clean
-      - uses: actions-hub/gcloud@master
+        uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check # CHANGE to your Google Cloud project id
           APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # CHANGE to your GitHub secret name
@@ -139,7 +139,7 @@ jobs:
           args: storage rm gs://component-snapshots/kitbook/main/** --verbosity=critical # CHANGE to your bucket name and desired main snapshots path (we set verbosity to ignore errors emitted when nothing is found to delete)
 
       - name: Upload base images
-      - uses: actions-hub/gcloud@master
+        uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check # CHANGE to your Google Cloud project id
         with:

@@ -35,7 +35,7 @@ jobs:
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
       - name: Wipe base clean
-      - uses: actions-hub/gcloud@master
+        uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check
           APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}
@@ -43,7 +43,7 @@ jobs:
           args: storage rm gs://component-snapshots/kitbook-template/main/** --verbosity=critical # set verbosity to ignore errors emitted when nothing is found to delete
 
       - name: Upload base images
-      - uses: actions-hub/gcloud@master
+        uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check
         with:
