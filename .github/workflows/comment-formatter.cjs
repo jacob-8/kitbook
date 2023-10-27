@@ -6,7 +6,7 @@
  * @param {string} params.prNumber
  */
 function makeComment({ uploadResults, prNumber }) {
-  const playwrightReportUrl = `https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${prNumber}/playwright-report/index.html`
+  const playwrightReportUrl = `https://storage.googleapis.com/component-snapshots/kitbook-template/pr/${prNumber}/playwright-report/index.html`
 
   let comment = '## Playwright Component Snapshots Report'
 

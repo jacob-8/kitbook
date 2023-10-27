@@ -96,15 +96,11 @@ jobs:
         id: findPr
 
       - name: Upload Playwright Report
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${PR}
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}
         continue-on-error: true # TODO: this will fail if there is no report found to upload so we should listen for that error and not let the rest of the steps happen (close out gracefully as there are no changes)
 
       - name: Remove Stale Snapshots
-        run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${PR}/**
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
+        run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Test Results (Snapshots)
@@ -112,9 +108,7 @@ jobs:
         uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
         with:
           path: ./packages/template/test-results
-          destination: component-snapshots/kitbook-template/pr/${PR}
-        env:
-          PR: ${{ steps.findPr.outputs.pr }}
+          destination: component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}
 
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number
