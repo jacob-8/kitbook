@@ -43,27 +43,19 @@ jobs:
           credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
 
       - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-
-      - id: gcloud
-        name: gcloud
-        run: |-
-          gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/**
+        uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
       - name: Wipe base clean
-        uses: actions-hub/gcloud@master
-        env:
-          PROJECT_ID: components-check
-          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS_BASE64 }}
-        with:
-          args: storage rm gs://component-snapshots/kitbook-template/main/** --verbosity=critical # set verbosity to ignore errors emitted when nothing is found to delete
+        id: gcloud
+        run: |-
+          gcloud storage rm gs://component-snapshots/kitbook-template/main/** --verbosity=critical
+      # set verbosity to ignore errors emitted when nothing is found to delete
 
-      - name: Upload base images
-        uses: actions-hub/gcloud@master
-        env:
-          PROJECT_ID: components-check
-        with:
-          args: storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/**
+      - name: Add snapshots
+        run: |-
+          gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main
+
+      #   /__w/kitbook/kitbook/packages/template/e2e/snapshots
 
       # - name: Run Playwright Component tests to spit out snapshots comparison files
       #   run: pnpm build && pnpm -F template test:components
