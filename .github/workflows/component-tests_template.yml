@@ -95,7 +95,9 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main ./packages/template/e2e/snapshots
+        run: |
+          mkdir packages/template/e2e/snapshots
+          gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main ./packages/template/e2e/snapshots
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
