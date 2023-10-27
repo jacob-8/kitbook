@@ -36,6 +36,20 @@ jobs:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - id: gcloud
+        name: gcloud
+        run: |-
+          gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/**
+
       - name: Wipe base clean
         uses: actions-hub/gcloud@master
         env:
