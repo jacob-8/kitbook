@@ -60,18 +60,9 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
 
     steps:
-      - name: Allow container to update filesystem
-        run: git config --system --add safe.directory /__w/kitbook/kitbook
+      - run: git config --system --add safe.directory /__w/kitbook/kitbook # still needed?
 
-      - name: Get Branch
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger
-
-      - id: extract_branch # branch name only needed if using the deployment_status trigger
-        run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
-
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -94,7 +85,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots /__w/kitbook/kitbook/packages/template/e2e
+        run: gcloud storage cp --recursive gs://component-snapshots/kitbook-template/main/snapshots ./packages/template/e2e
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
@@ -102,59 +93,64 @@ jobs:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
-      - name: Check for file existence
-        if: ${{ failure() }}
-        run: |
-          if [[ -d "./packages/template/playwright-report/data" ]]; then
-            echo "Data for changes found"
-          else
-            echo "No data for changes found"
-            exit 0
-          fi
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+        if: failure()
+
+      - run: echo "Your PR is ${PR}"
+        if: failure() && steps.findPr.outputs.number
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
 
       - name: Remove Stale Snapshots
-        if: ${{ failure() }}
-        run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/**
-        # TODO: run: gcloud storage rm gs://component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/**
+        if: failure()
+        run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${PR}/**
+        env:
+          PR: ${{ steps.findPr.outputs.pr }}
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - id: upload-snapshots
-        if: ${{ failure() }}
-        uses: google-github-actions/upload-cloud-storage@v1
+        if: failure()
+        uses: google-github-actions/upload-cloud-storage@v1 # use this to easily output uploaded filenames
         with:
           path: /__w/kitbook/kitbook/packages/template/test-results
-          destination: component-snapshots/kitbook-template/branch
-          # TODO: destination: component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}
-      # in place of `gcloud storage cp --recursive ./packages/template/test-results gs://component-snapshots/kitbook-template/branch/${{ steps.extract_branch.outputs.GITHUB_BRANCH }}` to get filenames for next step
+          destination: component-snapshots/kitbook-template/pr/99
 
-      - run: echo ${steps.upload-snapshots.outputs.uploaded}
-        if: ${{ failure() }}
+      - run: echo "Uploaded - ${uploaded}"
+        if: failure()
+        env:
+          uploaded: ${{ steps.upload-snapshots.outputs.uploaded }}
 
       - name: Upload Base Snapshots
-        if: ${{ failure() }}
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/branch
+        if: failure()
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/99
 
-      # ignore __-expected.png
-      # show __-actual.png
-      # link to __-diff.png
-
-      - name: Add PR Comment with Snaphshots of Changed Components
-        if: ${{ failure() }}
+      - name: Changed Component Snapshots for PR
+        if: failure() && steps.findPr.outputs.number
+        id: format_snapshot_links_for_pr
         uses: actions/github-script@v6
         with:
-          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `Changed components:
-            Read diff report at https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/playwright-report/index.html
-            (![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/image-paths))
-            ${steps.upload-snapshots.outputs.uploaded}
-            `
-            })
+            const comment = "Hello world"
+            core.setOutput("comment", comment);
+          # Read diff report at https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/playwright-report/index.html
+          # (![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/branch/${steps.extract_branch.outputs.GITHUB_BRANCH}/image-paths))
+          # ${steps.upload-snapshots.outputs.uploaded}
+
+          # ignore __-expected.png
+          # show __-actual.png
+          # link to __-diff.png
+
+      - name: Add Changed Component Snapshots to PR
+        if: failure() && steps.findPr.outputs.number
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.findPr.outputs.pr }}
+          recreate: true
+          header: component-snapshots
+          message: |
+            ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
 
       - uses: actions/upload-artifact@v3
         if: always()
@@ -162,11 +158,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
-      # - name: Update base images
-      #   id: updateBase
-      #   uses: jacob-8/kitbook/packages/gcs-snapshot-storage@actionV1
-      #   with:
-      #     who-to-greet: Jacob
-      # - name: Get the output time
-      #   run: echo "The time was ${{ steps.updateBase.outputs.time }}"
