@@ -30,8 +30,8 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Playwright Component tests
-        run: pnpm build && pnpm -F template test:components
+      - name: Run Playwright Component tests to save all snapshots
+        run: pnpm build && pnpm -F template test:components:update
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
@@ -50,3 +50,7 @@ jobs:
           PROJECT_ID: components-check
         with:
           args: storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/**
+
+      # - name: Run Playwright Component tests to spit out snapshots comparison files
+      #   run: pnpm build && pnpm -F template test:components
+      #   continue-on-error: true

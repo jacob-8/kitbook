@@ -1,4 +1,4 @@
-import type { Language } from '../../kitbook-types'
+import type { KitbookSettings, Language } from '../../kitbook-types'
 
 export const DEFAULT_IMPORT_MODULE_GLOBS = [
   '/src/**/*.{svelte,md,variants.ts,composition}',
@@ -13,3 +13,12 @@ export const UNSET_LANGUAGE: Language = { name: null, code: null }
 
 export const DEFAULT_ROUTES_DIR = 'src/routes'
 export const DEFAULT_KITBOOK_ROUTE = '/kitbook'
+
+export const DEFAULT_KITBOOK_SETTINGS: KitbookSettings = {
+  title: 'Kitbook',
+  description: 'Component workbench',
+  viewports: DEFAULT_VIEWPORTS,
+  routesDirectory: DEFAULT_ROUTES_DIR,
+  kitbookRoute: DEFAULT_KITBOOK_ROUTE,
+  languages: [UNSET_LANGUAGE],
+}

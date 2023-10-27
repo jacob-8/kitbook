@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { clearSnapshots, getVariants, runComponentTests } from '../src/lib/test'
+import { getVariants, runComponentTests } from '../src/lib/test'
 import kitbookConfig from '../kitbook.config'
 
 const skipFiles = [
@@ -7,6 +7,5 @@ const skipFiles = [
   '/lib/routes/sandbox/[...file]/+page',
 ]
 
-clearSnapshots()
 const variantModules = await getVariants({ skipFiles })
 runComponentTests({ test, expect, kitbookConfig, variantModules })

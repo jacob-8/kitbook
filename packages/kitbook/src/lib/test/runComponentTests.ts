@@ -1,6 +1,7 @@
 /* eslint-disable node/prefer-global/process */
 import type { Expect, test as playwrightTest } from '@playwright/test'
 import type { KitbookSettings, Variant, VariantsModule } from '../kitbook-types'
+import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults'
 import { preparePath } from './preparePath'
 
 interface PlaywrightPieces {
@@ -9,7 +10,7 @@ interface PlaywrightPieces {
 }
 
 interface KitbookPieces {
-  kitbookConfig: KitbookSettings
+  kitbookConfig: KitbookSettings | Partial<KitbookSettings>
   variantModules: [string, VariantsModule][]
 }
 
@@ -28,7 +29,8 @@ export function runComponentTests({
   kitbookConfig,
   variantModules,
 }: PlaywrightPieces & KitbookPieces) {
-  const testsToRun = prepareTestsToRun({ kitbookConfig, variantModules })
+  const settings = mergeUserSettingsWithDefaults(kitbookConfig)
+  const testsToRun = prepareTestsToRun({ kitbookConfig: settings, variantModules })
   for (const testToRun of testsToRun) {
     runTest({ test, expect, ...testToRun })
 

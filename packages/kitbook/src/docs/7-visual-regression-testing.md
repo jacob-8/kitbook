@@ -13,11 +13,10 @@ pnpm install -D @playwright/test
 This function will take your current version of [Playwright](https://playwright.dev/) and your ([[0-config|Kitbook config]]) to construct urls to each variant found in your `variants.ts` files. It snapshots each url for all your viewports (and [[8-i18n|languages]] if applicable). 
 
 ```ts title="e2e/kitbook.spec.ts"
-import { clearSnapshots, getVariants, runComponentTests } from 'kitbook/test'
+import { getVariants, runComponentTests } from 'kitbook/test'
 import { expect, test } from '@playwright/test'
 import kitbookConfig from '../kitbook.config'
 
-clearSnapshots()
 const variantModules = await getVariants()
 runComponentTests({ test, expect, kitbookConfig, variantModules })
 ```
@@ -112,6 +111,8 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.39.0-jammy # CHECK: keep version in sync with installed Playwright package https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
+      - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -165,7 +166,7 @@ If you need to pass a Svelte component into a variant as a prop, you'll need to 
 
 ```ts title="e2e/kitbook.spec.ts" {5-7,10}
 import { expect, test } from '@playwright/test'
-import { clearSnapshots, getVariants, runComponentTests } from 'kitbook/test'
+import { getVariants, runComponentTests } from 'kitbook/test'
 import kitbookConfig from '../kitbook.config'
 
 const skipFiles = [
@@ -173,7 +174,6 @@ const skipFiles = [
   '/lib/ui/Button',
 ]
 
-clearSnapshots()
 const variantModules = await getVariants({ skipFiles })
 runComponentTests({ test, expect, kitbookConfig, variantModules })
 ```
