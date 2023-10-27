@@ -40,7 +40,7 @@ jobs:
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check
-          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS_BASE64 }}
         with:
           args: storage rm gs://component-snapshots/kitbook-template/main/** --verbosity=critical # set verbosity to ignore errors emitted when nothing is found to delete
 

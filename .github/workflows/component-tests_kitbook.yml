@@ -31,7 +31,7 @@ jobs:
         run: pnpm install
 
       - name: Run Playwright Component tests
-        run: pnpm build && pnpm -F kitbook test:components
+        run: pnpm build && pnpm -F kitbook test:components:update
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
@@ -40,7 +40,7 @@ jobs:
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: components-check
-          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS_BASE64 }}
         with:
           args: storage rm gs://component-snapshots/kitbook/main/** --verbosity=critical # set verbosity to ignore errors emitted when nothing is found to delete
 
