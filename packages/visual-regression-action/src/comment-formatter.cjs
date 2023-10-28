@@ -4,9 +4,10 @@
  * @param {object} params
  * @param {string} params.uploadResults
  * @param {string} params.prNumber
+ * @param {string} params.bucketName
  */
-function makeComment({ uploadResults, prNumber }) {
-  const bucket = 'https://storage.googleapis.com/component-snapshots'
+function makeComment({ uploadResults, prNumber, bucketName }) {
+  const bucket = `https://storage.googleapis.com/${bucketName}`
   const playwrightReportUrl = `${bucket}/kitbook-template/pr/${prNumber}/playwright-report/index.html`
   const testResults = splitResultsByTest(uploadResults)
 
@@ -43,8 +44,8 @@ function makeComment({ uploadResults, prNumber }) {
   return comment
 }
 
-module.exports = ({ uploadResults, prNumber }) => {
-  return makeComment({ uploadResults, prNumber })
+module.exports = ({ uploadResults, prNumber, bucketName }) => {
+  return makeComment({ uploadResults, prNumber, bucketName })
 }
 
 /**

@@ -4,8 +4,8 @@ env:
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
-  PRODUCTION_DEPLOYMENT_ENVIRONMENT: Production – kitbook-template
-  PREVIEW_DEPLOYMENT_ENVIRONMENT: Preview – kitbook-template
+  UPATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
 
 on:
   deployment_status
@@ -16,11 +16,11 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == $PRODUCTION_DEPLOYMENT_ENVIRONMENT
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook-template' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -40,13 +40,13 @@ jobs:
         run: pnpm build && pnpm -F template test:components:update
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
 
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
@@ -60,11 +60,11 @@ jobs:
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == $PREVIEW_DEPLOYMENT_ENVIRONMENT
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook-template' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
       - uses: actions/checkout@v3
@@ -84,7 +84,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret (same as above)
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -125,7 +125,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
-            const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}" });
+            const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}", bucketName: "$BUCKET_NAME" });
             core.setOutput("comment", comment);
 
       - name: Add Changed Component Snapshots to PR
