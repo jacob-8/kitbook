@@ -2,6 +2,7 @@ name: Visual Regression Tests - Template
 
 env:
   PROJECT_NAME: kitbook-template
+  BUCKET_NAME: component-snapshots
   PRODUCTION_DEPLOYMENT_ENVIRONMENT: Production – kitbook-template
   PREVIW_DEPLOYMENT_ENVIRONMENT: Production – kitbook-template
 
@@ -14,7 +15,7 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PRODUCTION_DEPLOYMENT_ENVIRONMENT }}'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '$PRODUCTION_DEPLOYMENT_ENVIRONMENT'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -50,15 +51,15 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
       - name: Wipe Base Clean
-        run: gcloud storage rm gs://component-snapshots/${{ env.PROJECT_NAME }}/main/** # https://cloud.google.com/sdk/gcloud/reference/storage
+        run: gcloud storage rm gs://$BUCKET_NAME/$PROJECT_NAME/main/** # https://cloud.google.com/sdk/gcloud/reference/storage
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Base Snapshots
-        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/${{ env.PROJECT_NAME }}/main/snapshots
+        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://$BUCKET_NAME/$PROJECT_NAME/main/snapshots
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PREVIW_DEPLOYMENT_ENVIRONMENT }}'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '$PREVIW_DEPLOYMENT_ENVIRONMENT'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -88,7 +89,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://component-snapshots/${{ env.PROJECT_NAME }}/main/snapshots ./packages/template/e2e
+        run: gcloud storage cp --recursive gs://$BUCKET_NAME/$PROJECT_NAME/main/snapshots ./packages/template/e2e
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
@@ -101,11 +102,11 @@ jobs:
         id: findPr
 
       - name: Remove Old Report and Test Results
-        run: gcloud storage rm gs://component-snapshots/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}/**
+        run: gcloud storage rm gs://$BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}/**
         continue-on-error: true # ignore error emitted when nothing found to delete for this PR
 
       - name: Upload Playwright Report
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}/playwright-report
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://$BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}/playwright-report
         continue-on-error: true # ignore error when no components have changed and there is no report
 
       - name: Upload Test Results (Snapshots)
@@ -113,7 +114,7 @@ jobs:
         uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
         with:
           path: ./packages/template/test-results
-          destination: component-snapshots/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}
+          destination: $BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}
 
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number
@@ -132,7 +133,7 @@ jobs:
         with:
           number: ${{ steps.findPr.outputs.pr }}
           recreate: true
-          header: component-snapshots
+          header: $PROJECT_NAME
           message: |
             ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
 
