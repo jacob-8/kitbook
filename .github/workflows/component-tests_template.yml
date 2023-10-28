@@ -52,11 +52,11 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
       - name: Wipe Base Clean
-        run: gcloud storage rm gs://$BUCKET_NAME/$PROJECT_NAME/main/** # https://cloud.google.com/sdk/gcloud/reference/storage
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/main/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Base Snapshots
-        run: gcloud storage cp --recursive $PROJECT_ROOT/e2e/snapshots gs://$BUCKET_NAME/$PROJECT_NAME/main/snapshots
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
@@ -90,32 +90,32 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://$BUCKET_NAME/$PROJECT_NAME/main/snapshots $PROJECT_ROOT/e2e
+        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: pnpm build && pnpm -F template test:components
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
         continue-on-error: true # expect an error when components change
 
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
 
       - name: Remove Old Report and Test Results
-        run: gcloud storage rm gs://$BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}/**
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/**
         continue-on-error: true # ignore error emitted when nothing found to delete for this PR
 
       - name: Upload Playwright Report
-        run: gcloud storage cp --recursive $PROJECT_ROOT/playwright-report gs://$BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}/playwright-report
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/playwright-report gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/playwright-report
         continue-on-error: true # ignore error when no components have changed and there is no report
 
       - name: Upload Test Results (Snapshots)
         id: upload-snapshots
         uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
         with:
-          path: $PROJECT_ROOT/test-results
-          destination: $BUCKET_NAME/$PROJECT_NAME/pr/${{ steps.findPr.outputs.pr }}
+          path: ${PROJECT_ROOT}/test-results
+          destination: ${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}
 
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number
@@ -125,7 +125,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
-            const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}", bucketName: "$BUCKET_NAME" });
+            const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}", bucketName: "${BUCKET_NAME}" });
             core.setOutput("comment", comment);
 
       - name: Add Changed Component Snapshots to PR
@@ -134,7 +134,7 @@ jobs:
         with:
           number: ${{ steps.findPr.outputs.pr }}
           recreate: true
-          header: $PROJECT_NAME
+          header: ${PROJECT_NAME}
           message: |
             ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
 
