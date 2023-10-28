@@ -10,14 +10,15 @@ function makeComment({ uploadResults, prNumber }) {
   const playwrightReportUrl = `${bucket}/kitbook-template/pr/${prNumber}/playwright-report/index.html`
   const testResults = splitResultsByTest(uploadResults)
 
-  let comment = '### :performing_arts: Kitbook Visual Regression Report'
+  let comment = `<a href="https://kitbook.vercel.app/">
+<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="20"></a> <b>Visual Regression Report</b>`
 
   comment += `
-  <details><summary>${Object.keys(testResults).length} changed snapshots (<a href="${playwrightReportUrl}" target="_blank">Playwright Report</a>)</summary>
-  `
+<details><summary>${Object.keys(testResults).length} changed snapshots (<a href="${playwrightReportUrl}" target="_blank">Playwright Report</a>)</summary>
+`
 
   comment += `
-  <div style="overflow-x: auto;">
+<div style="overflow-x: auto;">
   
 | new | old | diff |
 | - | - | - |`
