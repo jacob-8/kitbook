@@ -1,6 +1,14 @@
 # Visual Regression Testing
 
-The simple [[3-component-variants|Variants]] format of Kitbook enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/). 
+The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen here.
+
+<div style="overflow-x: auto;">
+
+| new | old | diff |
+| - | - | - |
+| ![new-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-actual.png) | ![expected-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-expected.png)  | ![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-diff.png) |
+
+</div>
 
 ## Install Playwright
 
@@ -34,8 +42,7 @@ export default defineConfig({
   snapshotPathTemplate: '{snapshotDir}/{arg}-{projectName}-{platform}{ext}',
   fullyParallel: true,
   reporter: 'html',
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: 0, // important to keep at 0 as we are expecting "failures" for changed snapshots and don't want to produce multiple change snapshots for each retry
   workers: process.env.CI ? 1 : undefined,
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173',
@@ -61,12 +68,13 @@ playwright-report
 test-results
 ```
 
-## Add Test Command
+## Add Test Commands
 
 This script will run playwright against all test files with "kitbook" in the name which will just pick up our component tests:
 
 ```txt title="package.json"
-"test:components": "playwright test kitbook --update-snapshots",
+"test:components": "playwright test kitbook",
+"test:components:update": "playwright test kitbook --update-snapshots",
 ```
 
 Now you can run these commands and see the test results.
@@ -84,11 +92,9 @@ Next, setup a Google Cloud Storage bucket to store snapshots and add a GitHub ac
 [Create a new bucket](https://console.cloud.google.com/storage/create-bucket) using the standard storage class and uncheck `Enforce public access prevention on this bucket`. Then in your bucket go to the `Permissions` tab and add a new principal `allUsers` with the `Storage Object Viewer` role and save. This is described [here](https://cloud.google.com/storage/docs/access-control/making-data-public#buckets). 
 
 
-Still in the Google Cloud Console, create a [service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey) for your project with the `Storage Folder Admin` role. Then from that service account, create a service account key, download it as JSON, and store it as a secret in your GitHub repo using `GOOGLE_APPLICATION_CREDENTIALS` or something you consider more helpful. *It's recommended to remove all newlines from the key before pasting as a GitHub secret.*
+Still in the Google Cloud Console, create a [service account](https://console.cloud.google.com/apis/credentials/serviceaccountkey) for your project with the `Storage Folder Admin` role. Then from that service account, create a service account key, download it as JSON, remove line breaks, and store it as a secret in your GitHub repo using `GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS` or something you consider more helpful.
 
 ### GitHub Action
-
-**WORK IN PROGRESS**: This action only establishes the baseline but does not yet compare changed snapshots on PRs.
 
 The following action will use your recently created storage bucket along with Vercel deployment urls to comment on your PR with changed snapshots. Note each of the places below where you need to update using your own details.
 
@@ -154,9 +160,9 @@ jobs:
           retention-days: 30
 ```
 
-It's important to note that snapshots will look slightly different on each platform, particularly because of font rendering differences, so we just use the ones created in a Linux CI environment for comparisons.
+Snapshots will look slightly different on each platform, mainly because of font rendering differences, so know that comparisons don't work well across different types of devices (e.g. your PC vs colleagues' Mac). So just use the ones created in a Linux CI environment for comparisons.
 
-**Great!** You've set up an essentially free visual regression testing system for your components!
+**Great!** You've set up a completely free visual regression testing system for your components!
 
 ## Further Tips
 
@@ -193,7 +199,7 @@ Sometimes its nice to use `$lib` imports when assembling your mock data for vari
 {
   "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    // ...
+    // ... other settings
     "paths": {
       "$lib": [
         "./src/lib"

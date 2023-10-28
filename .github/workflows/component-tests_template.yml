@@ -95,14 +95,14 @@ jobs:
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
 
-      # TODO: check if playwright-report exists before continuing further
+      # TODO: check if ./packages/template/playwright-report exists before continuing further
 
       - name: Remove Old Report and Test Results
         run: gcloud storage rm gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Playwright Report
-        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}
+        run: gcloud storage cp --recursive ./packages/template/playwright-report gs://component-snapshots/kitbook-template/pr/${{ steps.findPr.outputs.pr }}/playwright-report
         continue-on-error: true
 
       - name: Upload Test Results (Snapshots)
@@ -119,7 +119,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const snapshotCommentFormatter = require('./.github/workflows/comment-formatter.cjs');
+            const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
             const comment = snapshotCommentFormatter({ uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}", prNumber: "${{ steps.findPr.outputs.pr }}" });
             core.setOutput("comment", comment);
 

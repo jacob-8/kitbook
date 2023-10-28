@@ -1,12 +1,12 @@
 # Roadmap
 
-Project is now in the quiet beta stage as API is stable but there are a few important bugs to fix and features missing
-- fix variants imports for playwright issue in node by using relative paths (.js and `Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'` https://github.com/nodejs/node/issues/31710)
-
-## Beta
+The API is stable and so the project is in **beta**. You can use this in production if you are not bothered by some bugs that need fixed and some important features still missing.
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
+## Before 1.0
+
+- bug: fix variants imports for playwright issue in node by using relative paths (.js and `Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. On Windows, absolute paths must be valid file:// URLs. Received protocol 'c:'` https://github.com/nodejs/node/issues/31710)
 - hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
 - snapshot compositions also
 - automatically analyze component for props
@@ -32,8 +32,6 @@ Project is now in the quiet beta stage as API is stable but there are a few impo
 - it's all focused on Typescript users, but someone could adjust things to make it work for a JavaScript only user
 
 ## Rough edges 
-
-**Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) if you know how to help.**
 
 - hotkey should still open search when sidebar is closed
 - catch when a variants file exists by itself and inform how to use variants

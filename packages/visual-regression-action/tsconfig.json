@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta"
+    ],
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "include": [
+    "src"
+  ]
+}

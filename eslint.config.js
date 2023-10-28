@@ -25,6 +25,12 @@ export default antfu(
       '**/src/lib/routes/+layout.ts',
     ],
   },
+  {
+    rules: {
+      'jsdoc/require-property-description': 'off',
+      'jsdoc/require-returns-description': 'off',
+    },
+  },
 )
 
 // '@typescript-eslint/no-var-requires': 'off',
