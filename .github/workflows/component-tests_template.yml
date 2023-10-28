@@ -5,7 +5,7 @@ env:
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
   PRODUCTION_DEPLOYMENT_ENVIRONMENT: Production – kitbook-template
-  PREVIW_DEPLOYMENT_ENVIRONMENT: Preview – kitbook-template
+  PREVIEW_DEPLOYMENT_ENVIRONMENT: Preview – kitbook-template
 
 on:
   deployment_status
@@ -16,7 +16,7 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '$PRODUCTION_DEPLOYMENT_ENVIRONMENT'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == $PRODUCTION_DEPLOYMENT_ENVIRONMENT
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -60,7 +60,7 @@ jobs:
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '$PREVIW_DEPLOYMENT_ENVIRONMENT'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == $PREVIEW_DEPLOYMENT_ENVIRONMENT
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
