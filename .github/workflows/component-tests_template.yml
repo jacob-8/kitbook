@@ -114,8 +114,8 @@ jobs:
         id: upload-snapshots
         uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
         with:
-          path: ${PROJECT_ROOT}/test-results
-          destination: ${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}
+          path: '${PROJECT_ROOT}/test-results'
+          destination: '${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}'
 
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number
