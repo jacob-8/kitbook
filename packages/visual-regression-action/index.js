@@ -14,3 +14,28 @@ try {
 catch (error) {
   core.setFailed(error.message)
 }
+
+/**
+ * This function adds two numbers.
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} The sum of the two numbers.
+ */
+function add(a, b) {
+  return a + b
+}
+
+/**
+ * This function multiplies two numbers.
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} The product of the two numbers.
+ */
+function multiply(a, b) {
+  return a * b
+}
+
+module.exports = {
+  add,
+  multiply,
+}
