@@ -1,14 +1,6 @@
 # Visual Regression Testing
 
-The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen here.
-
-<div style="overflow-x: auto;">
-
-| new | old | diff |
-| - | - | - |
-| ![new-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-actual.png) | ![expected-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-expected.png)  | ![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium-retry1/routes/(app)/+page/Second-Mobile-diff.png) |
-
-</div>
+The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen [here](https://github.com/jacob-8/kitbook/pull/30#issuecomment-1783993937).
 
 ## Install Playwright
 
@@ -31,7 +23,7 @@ runComponentTests({ test, expect, kitbookConfig, variantModules })
 
 ## Add Playwright config
 
-If you don't already use Playwright the following [config](https://playwright.dev/docs/test-configuration) will get you started. Locally it uses your current dev server if already running, and if not it will auto-start to Vite's default port, 5173. On CI it will use the deployment preview url as the base url for the tests run in a GitHub action if you setup an action as described below in [[7-visual-regression-testing#GitHub Action]].
+If you don't already use Playwright the following [config](https://playwright.dev/docs/test-configuration) will get you started. Locally it uses your current dev server if already running, and if not it will start a dev server. On CI it will use the deployment preview url as the base url for the tests run in a GitHub action if you setup an action as described below in [[7-visual-regression-testing#GitHub Action]].
 
 ```ts title="playwright.config.ts"
 import { defineConfig, devices } from '@playwright/test'
@@ -63,25 +55,27 @@ export default defineConfig({
 
 ## Add to .gitignore
 
-```txt
+```txt title=".gitignore"
+**/e2e/snapshots/*
 playwright-report
 test-results
 ```
 
 ## Add Test Commands
 
-This script will run playwright against all test files with "kitbook" in the name which will just pick up our component tests:
+These script will run playwright against all test files with "kitbook" in the name which will just pick up our component tests. The first will update snapshots to create a base and the second will be used to compare against the base for changes.
 
 ```txt title="package.json"
-"test:components": "playwright test kitbook",
 "test:components:update": "playwright test kitbook --update-snapshots",
+"test:components": "playwright test kitbook",
 ```
 
 Now you can run these commands and see the test results.
 
-If you're already using Playwright for e2e tests you can incorporate the visual regression tests into your same test runs, or if you need to keep them separate because you have different settings you can always create a custom playwright config file and add the config flag to your script command above, e.g. `--config playwright.components.config.ts`.
+The action below is assuming that you are just running your component snapshot tests, but with some simple adjustments you could also incorporate your other Playwright tests into the same test runs if
+you're already using Playwright for e2e tests. However, do note that an easy way to keep them separate because of different settings or other conflicts is to create a custom playwright config file like `playwright.components.config.ts` and add the config flag to your script commands above, e.g. `--config playwright.components.config.ts`.
 
-You may also enjoy using the Playwright UI runner by adding the `--ui` flag to your script.
+You may also enjoy using the Playwright UI runner locally by adding the `--ui` flag.
 
 ## Add Changed Snapshots as PR Comment
 
@@ -96,10 +90,20 @@ Still in the Google Cloud Console, create a [service account](https://console.cl
 
 ### GitHub Action
 
-The following action will use your recently created storage bucket along with Vercel deployment urls to comment on your PR with changed snapshots. Note each of the places below where you need to update using your own details.
+The following action will use your recently created storage bucket along with Vercel deployment urls to comment on your PR with changed snapshots. Note each of the places pointed to with hands 👇 where you need to update using your own details.
 
 ```yaml title=".github/workflows/component-tests.yml"
-name: Component Visual Regression Tests
+name: Kitbook Visual Regression Tests
+
+# Set all of these 👇
+env:
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+  UPDATE_SNAPSHOTS_SCRIPT: pnpm test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm test:components
+  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
+  BUCKET_NAME: component-snapshots
+  PROJECT_NAME: kitbook
+  PROJECT_ROOT: . # just a period for a root level project; in a monorepo this would be: ./packages/foo
 
 on:
   deployment_status
@@ -110,12 +114,11 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production' # CHECK: is this the right environment name?
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production – kitbook' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # CHECK: keep version in sync with installed Playwright package https://playwright.dev/docs/ci#github-actions-via-containers
-
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -131,32 +134,119 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Playwright Component tests
-        run: pnpm test:components
+      - name: Run Playwright Component tests to save snapshots
+        run: eval $UPDATE_SNAPSHOTS_SCRIPT
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # CHECK: This is for Vercel, make sure the right url is passed to `PLAYWRIGHT_BASE_URL` or you could also spin up a dev server.
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
 
-      - name: Wipe base clean
-        uses: actions-hub/gcloud@master
-        env:
-          PROJECT_ID: components-check # CHANGE to your Google Cloud project id
-          APPLICATION_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # CHANGE to your GitHub secret name
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
         with:
-          args: storage rm gs://component-snapshots/kitbook/main/** --verbosity=critical # CHANGE to your bucket name and desired main snapshots path (we set verbosity to ignore errors emitted when nothing is found to delete)
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
 
-      - name: Upload base images
-        uses: actions-hub/gcloud@master
-        env:
-          PROJECT_ID: components-check # CHANGE to your Google Cloud project id
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
+
+      - name: Wipe Base Clean
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/main/**
+        continue-on-error: true # ignore errors emitted when nothing is found to delete
+
+      - name: Upload Base Snapshots
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
+
+  compare-snapshots:
+    name: Compare Components Against Base Snapshots
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview – kitbook' # 👈 set this
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          args: storage cp --recursive ./e2e/snapshots gs://component-snapshots/kitbook/main/** # CHANGE the first part to your local snapshots folder and the second part to your bucket name and desired main snapshots path
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Download Base Snapshots
+        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
+
+      - name: Run Playwright Component tests to get snapshot comparison files
+        run: eval $COMPARE_SNAPSHOTS_SCRIPT
+        env:
+          CI: true
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
+        continue-on-error: true # expect an error when components change
+
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+
+      - name: Remove Old Report and Test Results
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/**
+        continue-on-error: true # ignore error emitted when nothing found to delete for this PR
+
+      - name: Upload Playwright Report
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/playwright-report gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/playwright-report
+        continue-on-error: true # ignore error when no components have changed and there is no report
+
+      - name: Upload Test Results (Snapshots)
+        id: upload-snapshots
+        uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
+        with:
+          path: '${{ env.PROJECT_ROOT }}/test-results'
+          destination: '${{ env.BUCKET_NAME }}/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}'
+        continue-on-error: true # ignore error when no components have changed and there is no report
+
+      - name: Format Changed Component Snapshots for PR
+        if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
+        id: format_snapshot_links_for_pr
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
+            const comment = snapshotCommentFormatter({
+                uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}",
+                prNumber: "${{ steps.findPr.outputs.pr }}",
+                bucketName: "${{ env.BUCKET_NAME }}",
+                projectName: "${{ env.PROJECT_NAME }}",
+              });
+            core.setOutput("comment", comment);
+
+      - name: Add Changed Component Snapshots to PR
+        if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.findPr.outputs.pr }}
+          recreate: true
+          header: ${{ env.PROJECT_NAME }}
+          message: |
+            ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
 
       - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: ${{ env.PROJECT_ROOT }}/playwright-report/
           retention-days: 30
 ```
 
