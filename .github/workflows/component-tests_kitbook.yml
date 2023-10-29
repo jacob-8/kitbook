@@ -57,3 +57,95 @@ jobs:
 
       - name: Upload Base Snapshots
         run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you have Playwright save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
+
+  # compare-snapshots:
+  #   name: Compare Components Against Base Snapshots
+  #   if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook' # 👈 set this
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   container:
+  #     image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+
+  #     - name: Install pnpm
+  #       uses: pnpm/action-setup@v2
+  #       with:
+  #         version: 8.6.0
+
+  #     - name: Install Dependencies
+  #       run: pnpm install
+
+  #     - name: Authenticate to Google Cloud
+  #       id: auth
+  #       uses: google-github-actions/auth@v1
+  #       with:
+  #         credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret (same as above)
+
+  #     - name: Set up Google Cloud SDK
+  #       uses: google-github-actions/setup-gcloud@v1
+
+  #     - name: Download Base Snapshots
+  #       run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
+
+  #     - name: Run Playwright Component tests to get snapshot comparison files
+  #       run: $COMPARE_SNAPSHOTS_SCRIPT
+  #       env:
+  #         CI: true
+  #         PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
+  #       continue-on-error: true # expect an error when components change
+
+  #     - uses: jwalton/gh-find-current-pr@v1
+  #       id: findPr
+
+  #     - name: Remove Old Report and Test Results
+  #       run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/**
+  #       continue-on-error: true # ignore error emitted when nothing found to delete for this PR
+
+  #     - name: Upload Playwright Report
+  #       run: gcloud storage cp --recursive ${PROJECT_ROOT}/playwright-report gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/playwright-report
+  #       continue-on-error: true # ignore error when no components have changed and there is no report
+
+  #     - name: Upload Test Results (Snapshots)
+  #       id: upload-snapshots
+  #       uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
+  #       with:
+  #         path: '${{ env.PROJECT_ROOT }}/test-results'
+  #         destination: '${{ env.BUCKET_NAME }}/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}'
+
+  #     - name: Format Changed Component Snapshots for PR
+  #       if: steps.findPr.outputs.number
+  #       id: format_snapshot_links_for_pr
+  #       uses: actions/github-script@v6
+  #       with:
+  #         github-token: ${{secrets.GITHUB_TOKEN}}
+  #         script: |
+  #           const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
+  #           const comment = snapshotCommentFormatter({
+  #               uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}",
+  #               prNumber: "${{ steps.findPr.outputs.pr }}",
+  #               bucketName: "${{ env.BUCKET_NAME }}",
+  #               projectName: "${{ env.PROJECT_NAME }}",
+  #             });
+  #           core.setOutput("comment", comment);
+
+  #     - name: Add Changed Component Snapshots to PR
+  #       if: steps.findPr.outputs.number
+  #       uses: marocchino/sticky-pull-request-comment@v2
+  #       with:
+  #         number: ${{ steps.findPr.outputs.pr }}
+  #         recreate: true
+  #         header: ${{ env.PROJECT_NAME }}
+  #         message: |
+  #           ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
+
+  #     - uses: actions/upload-artifact@v3
+  #       if: always()
+  #       with:
+  #         name: playwright-report
+  #         path: playwright-report/
+  #         retention-days: 30

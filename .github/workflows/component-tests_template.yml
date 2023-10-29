@@ -4,8 +4,8 @@ env: # 👈 set these
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
-  UPATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
-  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
+  UPATE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components:update' # 👈 needs quotes if you have &&
+  COMPARE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components'
 
 on:
   deployment_status
@@ -116,9 +116,10 @@ jobs:
         with:
           path: '${{ env.PROJECT_ROOT }}/test-results'
           destination: '${{ env.BUCKET_NAME }}/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}'
+        continue-on-error: true # ignore error when no components have changed and there is no report
 
       - name: Format Changed Component Snapshots for PR
-        if: steps.findPr.outputs.number
+        if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
         id: format_snapshot_links_for_pr
         uses: actions/github-script@v6
         with:
@@ -134,7 +135,7 @@ jobs:
             core.setOutput("comment", comment);
 
       - name: Add Changed Component Snapshots to PR
-        if: steps.findPr.outputs.number
+        if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ steps.findPr.outputs.pr }}
