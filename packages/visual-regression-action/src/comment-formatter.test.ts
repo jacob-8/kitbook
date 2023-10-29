@@ -3,7 +3,7 @@ import snapshotCommentFormatter from './comment-formatter.cjs'
 const results = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-actual.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-diff.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-expected.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Tablet-chromium/routes/(app)/+page/Second-Tablet-actual.png'
 
 describe(snapshotCommentFormatter, () => {
-  const comment = snapshotCommentFormatter({ uploadResults: results, prNumber: '23', bucketName: 'component-snapshots' })
+  const comment = snapshotCommentFormatter({ uploadResults: results, prNumber: '23', bucketName: 'component-snapshots', projectName: 'kitbook-template' })
   test('basic', () => {
     expect(comment).toMatchFileSnapshot('./comment-formatter.snap.md')
   })

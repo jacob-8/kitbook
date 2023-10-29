@@ -5,10 +5,11 @@
  * @param {string} params.uploadResults
  * @param {string} params.prNumber
  * @param {string} params.bucketName
+ * @param {string} params.projectName
  */
-function makeComment({ uploadResults, prNumber, bucketName }) {
+function makeComment({ uploadResults, prNumber, bucketName, projectName }) {
   const bucket = `https://storage.googleapis.com/${bucketName}`
-  const playwrightReportUrl = `${bucket}/kitbook-template/pr/${prNumber}/playwright-report/index.html`
+  const playwrightReportUrl = `${bucket}/${projectName}/pr/${prNumber}/playwright-report/index.html`
   const testResults = splitResultsByTest(uploadResults)
 
   let comment = `<a href="https://kitbook.vercel.app/">
@@ -44,8 +45,8 @@ function makeComment({ uploadResults, prNumber, bucketName }) {
   return comment
 }
 
-module.exports = ({ uploadResults, prNumber, bucketName }) => {
-  return makeComment({ uploadResults, prNumber, bucketName })
+module.exports = ({ uploadResults, prNumber, bucketName, projectName }) => {
+  return makeComment({ uploadResults, prNumber, bucketName, projectName })
 }
 
 /**

@@ -1,5 +1,12 @@
 name: Visual Regression Tests - Kitbook
 
+env: # 👈 set these
+  BUCKET_NAME: component-snapshots
+  PROJECT_NAME: kitbook
+  PROJECT_ROOT: ./packages/kitbook # this would be . in a normal repo
+  UPATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F kitbook test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F kitbook test:components
+
 on:
   deployment_status
 
@@ -9,11 +16,11 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook'
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -29,24 +36,24 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Playwright Component tests
-        run: pnpm build && pnpm -F kitbook test:components:update
+      - name: Run Playwright Component tests to save snapshots
+        run: $UPATE_SNAPSHOTS_SCRIPT
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
 
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
-      - name: Wipe base clean
-        run: gcloud storage rm gs://component-snapshots/kitbook/main/**
+      - name: Wipe Base Clean
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/main/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
-      - name: Add snapshots
-        run: gcloud storage cp --recursive ./packages/kitbook/e2e/snapshots gs://component-snapshots/kitbook/main
+      - name: Upload Base Snapshots
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you have Playwright save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
