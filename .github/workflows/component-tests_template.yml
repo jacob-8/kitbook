@@ -1,12 +1,17 @@
 name: Visual Regression Tests - Template
 
-env: # 👈 set these
+# Set all of these 👇
+env:
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
-  UPDATE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components:update'
-  COMPARE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components'
-  # TODO: try container image version and deployment name again
+  UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
+  PRODUCTION_DEPLOYMENT_NAME: Production – kitbook-template
+  PREVIEW_DEPLOYMENT_NAME: Preview – kitbook-template
+  CONTAINER_IMAGE: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
 
 on:
   deployment_status
@@ -17,11 +22,11 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook-template' # 👈 set this
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PRODUCTION_DEPLOYMENT_NAME }}'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package https://playwright.dev/docs/ci#github-actions-via-containers
+      image: ${{ env.CONTAINER_IMAGE }}
     steps:
       - uses: actions/checkout@v3
 
@@ -41,13 +46,13 @@ jobs:
         run: eval $UPDATE_SNAPSHOTS_SCRIPT
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
 
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
@@ -57,15 +62,15 @@ jobs:
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Base Snapshots
-        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you have Playwright save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview – kitbook-template' # 👈 set this
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PREVIEW_DEPLOYMENT_NAME }}'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package
+      image: ${{ env.CONTAINER_IMAGE }}
 
     steps:
       - uses: actions/checkout@v3
@@ -85,19 +90,18 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}' # 👈 make sure this is saved as a secret (same as above)
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
+        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: eval $COMPARE_SNAPSHOTS_SCRIPT
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
         continue-on-error: true # expect an error when components change
 
       - uses: jwalton/gh-find-current-pr@v1
