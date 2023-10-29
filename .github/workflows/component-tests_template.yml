@@ -1,17 +1,20 @@
-name: Visual Regression Tests - Template
+name: Kitbook Visual Regression Tests - Template
 
 # Set all of these 👇
 env:
+  PRODUCTION_DEPLOYMENT_NAME: Production – kitbook-template
+  PREVIEW_DEPLOYMENT_NAME: Preview – kitbook-template
+
+  UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
+
+  CONTAINER_IMAGE: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+
+  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
-  UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
-  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
-  PRODUCTION_DEPLOYMENT_NAME: Production – kitbook-template
-  PREVIEW_DEPLOYMENT_NAME: Preview – kitbook-template
-  CONTAINER_IMAGE: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
-  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
-  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
 
 on:
   deployment_status
@@ -22,7 +25,7 @@ permissions:
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PRODUCTION_DEPLOYMENT_NAME }}'
+    if: ${{ github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == env.PRODUCTION_DEPLOYMENT_NAME }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
@@ -66,7 +69,7 @@ jobs:
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == '${{ env.PREVIEW_DEPLOYMENT_NAME }}'
+    if: ${{ github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == env.PREVIEW_DEPLOYMENT_NAME }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
