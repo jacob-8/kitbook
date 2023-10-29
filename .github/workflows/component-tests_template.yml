@@ -4,8 +4,9 @@ env: # 👈 set these
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
   PROJECT_ROOT: ./packages/template # this would be . in a normal repo
-  UPATE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components:update' # 👈 needs quotes if you have &&
+  UPDATE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components:update'
   COMPARE_SNAPSHOTS_SCRIPT: 'pnpm build && pnpm -F template test:components'
+  # TODO: try container image version and deployment name again
 
 on:
   deployment_status
@@ -37,7 +38,7 @@ jobs:
         run: pnpm install
 
       - name: Run Playwright Component tests to save snapshots
-        run: $UPATE_SNAPSHOTS_SCRIPT
+        run: eval $UPDATE_SNAPSHOTS_SCRIPT
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
@@ -93,7 +94,7 @@ jobs:
         run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
 
       - name: Run Playwright Component tests to get snapshot comparison files
-        run: $COMPARE_SNAPSHOTS_SCRIPT
+        run: eval $COMPARE_SNAPSHOTS_SCRIPT
         env:
           CI: true
           PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }} # 👈 set this if not using deployments
@@ -148,5 +149,5 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: playwright-report/
+          path: ${{ env.PROJECT_ROOT }}/playwright-report/
           retention-days: 30
