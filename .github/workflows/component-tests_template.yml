@@ -4,12 +4,10 @@ name: Kitbook Visual Regression Tests - Template
 env:
   PRODUCTION_DEPLOYMENT_NAME: Production – kitbook-template
   PREVIEW_DEPLOYMENT_NAME: Preview – kitbook-template
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
   UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
   COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
-
-  CONTAINER_IMAGE: 'mcr.microsoft.com/playwright:v1.39.0-jammy' # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
-  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
   GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
   BUCKET_NAME: component-snapshots
@@ -29,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: ${{ env.CONTAINER_IMAGE }}
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -73,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: ${{ env.CONTAINER_IMAGE }}
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
       - uses: actions/checkout@v3
