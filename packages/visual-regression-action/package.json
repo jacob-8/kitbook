@@ -1,12 +1,16 @@
 {
-  "name": "@kitbook/visual-regression-action",
+  "name": "@kitbook/format-snapshot-results-action",
   "type": "module",
   "version": "1.0.0-beta.1",
   "private": true,
+  "license": "MIT",
+  "main": "src/index.cjs",
   "scripts": {
     "test": "vitest"
   },
   "devDependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6"
   }

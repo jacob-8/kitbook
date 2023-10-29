@@ -63,7 +63,7 @@ jobs:
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview – kitbook template' # 👈 set this
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview – kitbook-template' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
