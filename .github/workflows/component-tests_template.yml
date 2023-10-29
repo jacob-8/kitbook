@@ -8,7 +8,7 @@ env:
   UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
   COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
 
-  CONTAINER_IMAGE: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+  CONTAINER_IMAGE: 'mcr.microsoft.com/playwright:v1.39.0-jammy' # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
   PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
 
   GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
@@ -105,6 +105,7 @@ jobs:
         run: eval $COMPARE_SNAPSHOTS_SCRIPT
         env:
           CI: true
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
         continue-on-error: true # expect an error when components change
 
       - uses: jwalton/gh-find-current-pr@v1
