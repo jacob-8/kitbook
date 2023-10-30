@@ -1,8 +1,8 @@
 /* eslint-disable node/prefer-global/process */
 import type { Expect, test as playwrightTest } from '@playwright/test'
 import type { KitbookSettings, Variant, VariantsModule } from '../kitbook-types'
-import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults'
-import { preparePath } from './preparePath'
+import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
+import { preparePath } from './preparePath.js'
 
 interface PlaywrightPieces {
   test: typeof playwrightTest

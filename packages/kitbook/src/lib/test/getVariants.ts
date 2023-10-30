@@ -1,5 +1,6 @@
 import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import type { VariantsModule } from '../kitbook-types'
 
 /**
@@ -26,7 +27,9 @@ export async function getVariants(options: {
   const allowedFilepaths = filterSkippedFiles(filepaths, skipFiles, srcDirectory)
 
   const importPromises = allowedFilepaths.map((path) => {
-    return import(path).then(module => [path, module]) as Promise<[string, VariantsModule]>
+    const url = pathToFileURL(path).href
+    console.log({ url })
+    return import(url).then(module => [url, module]) as Promise<[string, VariantsModule]>
   })
 
   if (importPromises.length === 0)
