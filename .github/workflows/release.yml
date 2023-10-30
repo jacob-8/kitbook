@@ -43,10 +43,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
-
-      # - name: Publish to VSCE & OVSX
-      #   run: npm run publish
-      #   working-directory: ./packages/vscode
-      #   env:
-      #     VSCE_TOKEN: ${{secrets.VSCE_TOKEN}}
-      #     OVSX_TOKEN: ${{secrets.OVSX_TOKEN}}
