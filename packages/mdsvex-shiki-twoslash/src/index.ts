@@ -65,8 +65,14 @@ function setupHighlightersDefinedInSettings(settings: HighlighterOptions): Promi
   )
 }
 
-function renderHTML({ code, lang, meta, settings, highlighters, twoslash }:
-{
+function renderHTML({
+  code,
+  lang,
+  meta,
+  settings,
+  highlighters,
+  twoslash,
+}: {
   code: string
   lang: string
   meta: Record<string, any>

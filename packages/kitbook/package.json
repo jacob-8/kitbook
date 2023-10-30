@@ -99,13 +99,13 @@
     "remark-parse": "^10.0.1",
     "remark-rehype": "^10.1.0",
     "remark-toc": "^8.0.1",
-    "svelte-pieces": "2.0.0-next.1",
+    "svelte-pieces": "2.0.0-next.4",
     "svelte2tsx": "^0.6.23",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.1"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.113",
+    "@iconify/json": "^2.2.135",
     "@playwright/test": "^1.39.0",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "^1.27.1",
@@ -121,7 +121,7 @@
     "typescript": "~5.2.2",
     "unocss": "^0.55.7",
     "vite": "^4.5.0",
-    "vite-plugin-inspect": "^0.7.40",
+    "vite-plugin-inspect": "^0.7.41",
     "vitest": "^0.34.6"
   }
 }

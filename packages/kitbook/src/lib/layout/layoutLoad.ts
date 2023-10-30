@@ -8,8 +8,10 @@ export interface LayoutLoadResult {
 }
 
 // import { derived } from 'svelte/store'
-export function layoutLoad({ pages: initialPages, settings }:
-{
+export function layoutLoad({
+  pages: initialPages,
+  settings,
+}: {
   pages: GroupedPageMap
   settings: KitbookSettings
 }): () => Promise<LayoutLoadResult> {

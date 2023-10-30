@@ -41,19 +41,19 @@ describe('rehypeDisplayLinkTitles', () => {
     expect((await processor.process(input + input)).value).toMatchInlineSnapshot('"<a href=\\"5-easy-wikilinks#linking-to-a-sub-heading\\" title=\\"Easy Wikilinks (5-easy-wikilinks)\\">Linking to a sub-heading</a><a href=\\"5-easy-wikilinks#linking-to-a-sub-heading\\" title=\\"Easy Wikilinks (5-easy-wikilinks)\\">Linking to a sub-heading</a>"')
   })
 
-  test('No title', async () => {
+  test('no title', async () => {
     const input = '<a href="https://example.com">Example</a>'
     expect((await processor.process(input)).value).eq(input)
   })
 
-  test('No text', async () => {
+  test('no text', async () => {
     const input = '<a href="https://example.com"></a>'
     expect((await processor.process(input)).value).eq(input)
     const input2 = '<a href="https://example.com" />'
     expect((await processor.process(input2)).value).eq(input)
   })
 
-  test('No href', async () => {
+  test('no href', async () => {
     const input = '<a>Hello</a>'
     expect((await processor.process(input)).value).eq(input)
   })

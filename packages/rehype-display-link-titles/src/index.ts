@@ -2,7 +2,9 @@ import { visit } from 'unist-util-visit'
 import type { BuildVisitor } from 'unist-util-visit/complex-types'
 import type { Element as HAST_Element, Root } from 'hast'
 
-import { slug } from 'github-slugger' // https://github.com/rehypejs/rehype-slug uses this to generate heading ids this function must match it
+import { slug } from 'github-slugger'
+
+// https://github.com/rehypejs/rehype-slug uses this to generate heading ids this function must match it
 
 /** @type {import('unified').Plugin<[Options?]|void[], Root>} */
 export function rehypeDisplayLinkTitles(): void | import('unified').Transformer<import('hast').Root, import('hast').Root> {

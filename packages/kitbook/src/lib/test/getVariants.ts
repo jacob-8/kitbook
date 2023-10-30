@@ -28,7 +28,6 @@ export async function getVariants(options: {
 
   const importPromises = allowedFilepaths.map((path) => {
     const url = pathToFileURL(path).href
-    console.log({ url })
     return import(url).then(module => [url, module]) as Promise<[string, VariantsModule]>
   })
 

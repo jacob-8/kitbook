@@ -2,8 +2,14 @@ import type { KitbookSettings } from '../kitbook-types'
 import { findKitbookPath } from '../layout/kitbookPath'
 import { compressToEncodedURIComponent as encode } from '../lz/lz-string'
 
-export function buildIframeUrl({ pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName }:
-{
+export function buildIframeUrl({
+  pathname,
+  languageCode,
+  addLanguageToUrl,
+  props,
+  variantIndex,
+  compositionName,
+}: {
   pathname: string
   languageCode?: string
   addLanguageToUrl?: KitbookSettings['addLanguageToUrl']

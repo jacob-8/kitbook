@@ -1,7 +1,13 @@
 import type { KitbookSettings } from '../kitbook-types'
 import { DEFAULT_KITBOOK_ROUTE } from '../plugins/vite/constants.js'
 
-export function preparePath({ kitbookRoute, path, index, srcDirectory = 'src', languageCode, addLanguageToUrl }: {
+export function preparePath({
+  kitbookRoute,
+  path,
+  index,
+  srcDirectory = 'src',
+  languageCode,
+  addLanguageToUrl }: {
   kitbookRoute?: string
   path: string
   index: number
