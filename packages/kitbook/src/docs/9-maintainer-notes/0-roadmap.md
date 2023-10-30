@@ -1,9 +1,5 @@
 # Roadmap
 
-- use env variables to make action customizable from the top entirely
-- use on Kitbook and update docs
-- merge
-
 The API is stable and so the project is in **beta**. You can use this in production if you are not bothered by some bugs that need fixed and some important features still missing.
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
@@ -15,7 +11,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 - snapshot compositions also
 - automatically analyze component for props
 - editable props for variants and compositions
-- auto-adjusting iframe height (I already planned this out)
+- auto-adjusting iframe height
 - responsive iframes shrink to keep interior resolution
 - movable viewer and adjustable shortcuts
 - toggleable padding around variants
