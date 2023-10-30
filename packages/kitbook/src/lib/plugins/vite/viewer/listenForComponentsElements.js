@@ -115,9 +115,9 @@ function listen() {
     elements.removeElement(node)
   })
 
-  // @ts-expect-error
+  // @ts-expect-error - global
   window.kitbookSvelteComponents = components
-  // @ts-expect-error
+  // @ts-expect-error - global
   window.kitbookSvelteElements = elements
 }
 

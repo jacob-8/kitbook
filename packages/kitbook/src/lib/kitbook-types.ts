@@ -15,7 +15,12 @@ export interface Variant<T extends SvelteComponent> {
   tests?: Record<string, Test>
 }
 
-type Test = ({ page, expect, filepathWithoutExtension, name }: {
+type Test = ({
+  page,
+  expect,
+  filepathWithoutExtension,
+  name,
+}: {
   page: Page
   expect: Expect<any>
   filepathWithoutExtension: string

@@ -13,7 +13,7 @@ export default antfu(
       //
     },
   }),
-  // @ts-ignore
+  // @ts-expect-error - does not fit the defineConfig types
   svelte,
   {
     ignores: [
@@ -31,6 +31,7 @@ export default antfu(
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-alert': 'off',
       'node/prefer-global/process': 'off',
+      'test/consistent-test-it': ['error', { fn: 'test', withinDescribe: 'test' }],
     },
   },
 )

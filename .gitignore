@@ -8,3 +8,4 @@ test-results
 
 # ensure locally create snapshots are not committed
 **/e2e/snapshots/*
+.eslintcache

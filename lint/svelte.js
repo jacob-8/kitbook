@@ -1,6 +1,6 @@
 // @ts-check
 
-// @ts-expect-error
+// @ts-expect-error - does not fit the defineConfig types
 import typescriptParser from '@typescript-eslint/parser'
 import sveltePlugin from 'eslint-plugin-svelte'
 import svelteParser from 'svelte-eslint-parser'
@@ -8,7 +8,7 @@ import { defineFlatConfig } from 'eslint-define-config'
 import svelteStylistic from 'eslint-plugin-svelte-stylistic'
 
 export const svelte = defineFlatConfig({
-  // @ts-ignore
+  // @ts-expect-error - does not fit the defineConfig types
   files: ['**/*.svelte', '**/*.composition'],
   plugins: {
     'svelte': sveltePlugin,
