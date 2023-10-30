@@ -1,7 +1,7 @@
 {
   "name": "@kitbook/rehype-display-link-titles",
   "type": "module",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Swap the title attribute for an <a> tag's main text to allow for using aliases or sections from Foam auto-generated links",
   "author": "Jacob Bowdoin",
   "license": "MIT",
