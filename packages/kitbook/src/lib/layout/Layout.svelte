@@ -1,6 +1,7 @@
 <script lang="ts">
   import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css'
   import '../styles/main.css'
+  import { MultiSelect } from 'svelte-pieces'
   import type { GroupedPageMap, KitbookSettings } from '../kitbook-types'
   import Header from './sidebar/Header.svelte'
   import Sidebar from './sidebar/Sidebar.svelte'
@@ -15,13 +16,11 @@
   $: ({ kitbookPath, activePath } = findKitbookPath(pathname))
   let showSidebar = false
 
-  let activeLanguages = [settings.languages[0]]
-
-  function changeLanguage(event) {
-    const { selectedOptions } = event.target as HTMLSelectElement
-    const languageCodes = Array.from(selectedOptions, option => option.value)
-    activeLanguages = languageCodes.map(code => settings.languages.find(language => language.code === code))
-  }
+  const [firstLanguage] = settings.languages
+  let selectedLanguages: Record<string, {
+    value: string
+    name: string
+  }> = { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } }
 </script>
 
 <LayoutPanes>
@@ -30,12 +29,14 @@
       <slot name="title">{settings.title}</slot>
     </Header>
     {#if settings.languages.length > 1}
-      <div class="font-semibold px-2">Language:</div>
-      <select multiple class="mx-1 mb-2 p-1 bg-transparent text-sm" on:change={changeLanguage}>
+      <div class="mx-2 mb-2">
+        <MultiSelect placeholder="Select languages" options={settings.languages.map(({ name, code }) => ({ name, value: code }))} bind:selectedOptions={selectedLanguages} />
+      </div>
+      <!-- <select multiple class="mx-1 mb-2 p-1 bg-transparent text-sm" on:change={changeLanguage}>
         {#each settings.languages as language}
           <option value={language.code} selected={activeLanguages.includes(language)}>{language.name}</option>
         {/each}
-      </select>
+      </select> -->
     {/if}
     <nav class="hidden md:block overflow-y-auto grow-1">
       <Sidebar bind:showSidebar folder={putPagesIntoFolders(pages)} {kitbookPath} {activePath} expanded={settings.expandTree}>
@@ -44,7 +45,7 @@
     </nav>
   </svelte:fragment>
 
-  <slot {activeLanguages} />
+  <slot activeLanguages={Object.values(selectedLanguages).map(({ name, value }) => ({ name, code: value }))} />
 </LayoutPanes>
 
 <svelte:head>

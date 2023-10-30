@@ -21,9 +21,9 @@
     "check-packages": "pnpm update --interactive --recursive --latest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "1.0.0-beta.12",
-    "@typescript-eslint/eslint-plugin": "6.7.3",
-    "@typescript-eslint/parser": "6.7.3",
+    "@antfu/eslint-config": "1.0.0-beta.29",
+    "@typescript-eslint/eslint-plugin": "6.9.0",
+    "@typescript-eslint/parser": "6.9.0",
     "bumpp": "^9.2.0",
     "eslint": "^8.52.0",
     "eslint-define-config": "^1.24.1",
