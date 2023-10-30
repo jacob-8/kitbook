@@ -55,11 +55,11 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
       - name: Wipe Base Clean
-        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/main/**
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/base/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
       - name: Upload Base Snapshots
-        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/base/snapshots # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a base/snapshots folder if you just copy from e2e/snapshots to base, so if you tried to copy from e2e/foo to base/snapshots, I suspect things will land in base/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
 
   compare-snapshots:
     name: Compare Components Against Base Snapshots
@@ -93,7 +93,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
 
       - name: Download Base Snapshots
-        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
+        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/base/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
 
       - name: Run Playwright Component tests to get snapshot comparison files
         run: eval $COMPARE_SNAPSHOTS_SCRIPT

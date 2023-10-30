@@ -25642,8 +25642,8 @@ async function run() {
     try {
         const uploadResults = core.getInput('upload-results');
         const prNumber = core.getInput('pr');
-        const bucketName = core.getInput('bucket-name');
-        const projectName = core.getInput('project-name');
+        const bucketName = core.getInput('bucket');
+        const projectName = core.getInput('project');
         core.debug(`uploadResults: ${uploadResults}`);
         core.debug(`prNumber: ${prNumber}`);
         core.debug(`bucketName: ${bucketName}`);
