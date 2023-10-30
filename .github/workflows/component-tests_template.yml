@@ -124,18 +124,12 @@ jobs:
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
         id: format_snapshot_links_for_pr
-        uses: actions/github-script@v6
+        uses: ./packages/format-snapshot-results-action # TODO: change to jacob-8/kitbook/packages/format-snapshot-results-action@1.0.0-beta.2
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const snapshotCommentFormatter = require('./packages/visual-regression-action/src/comment-formatter.cjs');
-            const comment = snapshotCommentFormatter({
-                uploadResults: "${{ steps.upload-snapshots.outputs.uploaded }}",
-                prNumber: "${{ steps.findPr.outputs.pr }}",
-                bucketName: "${{ env.BUCKET_NAME }}",
-                projectName: "${{ env.PROJECT_NAME }}",
-              });
-            core.setOutput("comment", comment);
+          upload-results: '${{ steps.upload-snapshots.outputs.uploaded }}'
+          pr: '${{ steps.findPr.outputs.pr }}'
+          bucket: '${{ env.BUCKET_NAME }}'
+          project: '${{ env.PROJECT_NAME }}'
 
       - name: Add Changed Component Snapshots to PR
         if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment
