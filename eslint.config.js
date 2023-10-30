@@ -30,6 +30,7 @@ export default antfu(
       'jsdoc/require-returns-description': 'off',
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'no-alert': 'off',
+      'node/prefer-global/process': 'off',
     },
   },
 )
