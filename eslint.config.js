@@ -10,8 +10,7 @@ export default antfu(
   ...typescript({
     componentExts: ['svelte', 'composition'],
     overrides: {
-      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
-      'no-alert': 'off',
+      //
     },
   }),
   // @ts-ignore
@@ -24,6 +23,14 @@ export default antfu(
       '**/src/routes/kitbook/**',
       '**/src/lib/routes/+layout.ts',
     ],
+  },
+  {
+    rules: {
+      'jsdoc/require-property-description': 'off',
+      'jsdoc/require-returns-description': 'off',
+      'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+      'no-alert': 'off',
+    },
   },
 )
 

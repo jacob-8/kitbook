@@ -1,0 +1,26 @@
+name: Format Snapshot Results
+description: Formats string of Kitbook generated snapshot files uploaded to a storage bucket in preparation for commenting on a PR
+author: jacob-8
+
+inputs:
+  upload-results:
+    description: comma-separated string of uploaded files
+    required: true
+    default: ''
+  pr:
+    description: PR number
+    required: true
+  bucket:
+    description: name of GCS storage bucket
+    required: true
+  project:
+    description: name of project to be able to use the right folder inside your bucket
+    required: true
+
+outputs:
+  comment:
+    description: String of markdown to be added to a pull request as a comment
+
+runs:
+  using: node20
+  main: dist/index.js

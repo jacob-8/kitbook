@@ -1,20 +1,29 @@
-name: Playwright Component Tests - Template
+name: Kitbook Visual Regression Tests - Template
+
+# Set all of these 👇
+env:
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+  UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
+  COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
+  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
+  BUCKET_NAME: component-snapshots
+  PROJECT_NAME: kitbook-template
+  PROJECT_ROOT: ./packages/template # this would be . in a normal repo
 
 on:
   deployment_status
 
 permissions:
-  # contents: write
   pull-requests: write
 
 jobs:
   update-base-snapshots:
     name: Keep Base Component Snapshots In Sync with Main Branch
-    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Production – kitbook-template'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production – kitbook-template' # 👈 set this
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # https://playwright.dev/docs/ci#github-actions-via-containers - keep version in sync with installed package
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -30,24 +39,111 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Playwright Component tests to save all snapshots
-        run: pnpm build && pnpm -F template test:components:update
+      - name: Run Playwright Component tests to save snapshots
+        run: eval $UPDATE_SNAPSHOTS_SCRIPT
         env:
           CI: true
-          PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
 
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: '${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}'
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1 # automatically picks up authentication from `auth`
 
-      - name: Wipe base clean
-        run: gcloud storage rm gs://component-snapshots/kitbook-template/main/**
+      - name: Wipe Base Clean
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/main/**
         continue-on-error: true # ignore errors emitted when nothing is found to delete
 
-      - name: Add snapshots
-        run: gcloud storage cp --recursive ./packages/template/e2e/snapshots gs://component-snapshots/kitbook-template/main/snapshots
+      - name: Upload Base Snapshots
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/e2e/snapshots gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly (gcloud will create a main/snapshots folder if you just copy from e2e/snapshots to main, so if you tried to copy from e2e/foo to main/snapshots, I suspect things will land in main/snapshots/foo which will break things further on if you don't adjust) see https://cloud.google.com/sdk/gcloud/reference/storage for help if you do modify the commands
+
+  compare-snapshots:
+    name: Compare Components Against Base Snapshots
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview – kitbook-template' # 👈 set this
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ env.GOOGLE_CLOUD_CREDENTIALS }}'
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      - name: Download Base Snapshots
+        run: gcloud storage cp --recursive gs://${BUCKET_NAME}/${PROJECT_NAME}/main/snapshots ${PROJECT_ROOT}/e2e # 👈 recommend you setup your playwright.config.ts to save snapshots into $PROJECT_ROOT/e2e/snapshots to make this work smoothly
+
+      - name: Run Playwright Component tests to get snapshot comparison files
+        run: eval $COMPARE_SNAPSHOTS_SCRIPT
+        env:
+          CI: true
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
+        continue-on-error: true # expect an error when components change
+
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+
+      - name: Remove Old Report and Test Results
+        run: gcloud storage rm gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/**
+        continue-on-error: true # ignore error emitted when nothing found to delete for this PR
+
+      - name: Upload Playwright Report
+        run: gcloud storage cp --recursive ${PROJECT_ROOT}/playwright-report gs://${BUCKET_NAME}/${PROJECT_NAME}/pr/${{ steps.findPr.outputs.pr }}/playwright-report
+        continue-on-error: true # ignore error when no components have changed and there is no report
+
+      - name: Upload Test Results (Snapshots)
+        id: upload-snapshots
+        uses: google-github-actions/upload-cloud-storage@v1 # use this instead of gcloud cli to easily output uploaded filenames
+        with:
+          path: '${{ env.PROJECT_ROOT }}/test-results'
+          destination: '${{ env.BUCKET_NAME }}/${{ env.PROJECT_NAME }}/pr/${{ steps.findPr.outputs.pr }}'
+        continue-on-error: true # ignore error when no components have changed and there is no report
+
+      - name: Format Changed Component Snapshots for PR
+        if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
+        id: format_snapshot_links_for_pr
+        uses: ./packages/format-snapshot-results-action # TODO: change to jacob-8/kitbook/packages/format-snapshot-results-action@1.0.0-beta.2
+        with:
+          upload-results: '${{ steps.upload-snapshots.outputs.uploaded }}'
+          pr: '${{ steps.findPr.outputs.pr }}'
+          bucket: '${{ env.BUCKET_NAME }}'
+          project: '${{ env.PROJECT_NAME }}'
+
+      - name: Add Changed Component Snapshots to PR
+        if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ steps.findPr.outputs.pr }}
+          recreate: true
+          header: ${{ env.PROJECT_NAME }}
+          message: |
+            ${{ steps.format_snapshot_links_for_pr.outputs.comment }}
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: ${{ env.PROJECT_ROOT }}/playwright-report/
+          retention-days: 30
