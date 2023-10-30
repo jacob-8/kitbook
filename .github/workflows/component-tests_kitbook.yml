@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-    image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
       - uses: actions/checkout@v3
