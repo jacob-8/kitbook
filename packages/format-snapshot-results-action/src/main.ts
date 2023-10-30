@@ -5,8 +5,8 @@ export async function run(): Promise<void> {
   try {
     const uploadResults: string = core.getInput('upload-results')
     const prNumber: string = core.getInput('pr')
-    const bucketName: string = core.getInput('bucket-name')
-    const projectName: string = core.getInput('project-name')
+    const bucketName: string = core.getInput('bucket')
+    const projectName: string = core.getInput('project')
     core.debug(`uploadResults: ${uploadResults}`)
     core.debug(`prNumber: ${prNumber}`)
     core.debug(`bucketName: ${bucketName}`)
