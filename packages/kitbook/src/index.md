@@ -8,8 +8,8 @@ Documentation, Prototyping, Inspection & Testing Workbench Tool for Svelte built
 - Variants and Compositions load via SSR first and then are hydrated client-side just like a SvelteKit app
 - Uses markdown to enable easy documenation as you build
 - Quickly create and compare numerous variants of a component via an array of typesafe prop objects in a colocated typescript file that can also be used for testing, especially visual regression tests of your components.
-- All SvelteKit-only imports are automatically avaiable because it run inside your regular SvelteKit app. No need for any special mocks or compatibility hacks. 
-- Build components using the same context as your main app, like i18n
+- All SvelteKit-only imports are automatically available because it runs inside your regular SvelteKit app. No need for any special mocks or compatibility hacks. 
+- Build components using the same context as your main app, like i18n.
 - [Foam](https://foambubble.github.io/foam/) based automatic updating wiki-links for easy linking between pages within your Kitbook that will never get out of date.
 <!-- - Easy knobs allow for adjusting a component's view state (special thanks @rixo's Svench and Rich Harris' svelte-knobby!) -->
 
