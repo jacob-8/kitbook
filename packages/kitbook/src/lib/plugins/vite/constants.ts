@@ -1,10 +1,5 @@
 import type { KitbookSettings, Language } from '../../kitbook-types'
 
-export const DEFAULT_IMPORT_MODULE_GLOBS = [
-  '/src/**/*.{svelte,md,variants.ts,composition}',
-  '/README.md',
-]
-
 export const DEFAULT_VIEWPORTS = [
   { name: 'mobile', width: 320, height: 568 },
   { name: 'desktop', width: 1024, height: 768 },

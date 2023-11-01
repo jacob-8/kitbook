@@ -4,11 +4,11 @@ import type { KitbookSettings } from 'kitbook'
 import { bold, green, red, reset } from './colors.js'
 
 const TYPINGS_EXT = '.d.ts'
-const PAGE_MARKDOWN = '_page.svelte'
-const LAYOUT_MARKDOWN = '_layout.svelte'
+const PAGE_MARKDOWN = '_page.md'
+const LAYOUT_MARKDOWN = '_layout.md'
 const VARIANTS = 'variants.js'
 
-const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-alpha.50^'
+const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-beta.6'
 const FILE_WITH_NOTICE = '[...file]/+page.svelte'
 
 export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) {
@@ -18,8 +18,8 @@ export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) 
     const hasFileWithNotice = fs.existsSync(`${kitbookDirectory}/${FILE_WITH_NOTICE}`)
 
     if (hasFileWithNotice) {
-      const mainPageFile = fs.readFileSync(`${kitbookDirectory}/${FILE_WITH_NOTICE}`, 'utf-8')
-      if (mainPageFile?.includes(LATEST_VERSION_WITH_ROUTES_UPDATE))
+      const fileWithNotice = fs.readFileSync(`${kitbookDirectory}/${FILE_WITH_NOTICE}`, 'utf-8')
+      if (fileWithNotice?.includes(LATEST_VERSION_WITH_ROUTES_UPDATE))
         return
     }
 
@@ -32,7 +32,7 @@ export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) 
     const src = 'node_modules/kitbook/dist/routes'
     const destination = kitbookDirectory
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles })
-    console.info(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
+    console.info(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Except for the import.meta.glob imports in the +layout.js file, don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
   }
   catch (e) {
     console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`)
