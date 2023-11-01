@@ -1,4 +1,4 @@
-// @ts-expect-error - virtual import
+// @ts-ignore - virtual import
 import { settings } from 'virtual:kitbook'
 import { groupColocatedModulesIntoPages, layoutLoad, pagesStore } from 'kitbook'
 import type { LayoutLoad } from './$types'
