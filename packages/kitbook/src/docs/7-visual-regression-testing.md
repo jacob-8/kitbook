@@ -222,7 +222,7 @@ jobs:
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
         id: format_snapshot_links_for_pr
-        uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1.0.0-beta.5
+        uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1.0.0-beta.6
         with:
           upload-results: '${{ steps.upload-snapshots.outputs.uploaded }}'
           pr: '${{ steps.findPr.outputs.pr }}'
