@@ -1,5 +1,5 @@
 import type { Expect, test as playwrightTest } from '@playwright/test'
-import type { KitbookSettings, Variant, VariantsModule } from '../kitbook-types'
+import type { KitbookSettings, Language, Variant, VariantsModule } from '../kitbook-types'
 import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
 import { preparePath } from './preparePath.js'
 
@@ -13,7 +13,7 @@ interface KitbookPieces {
   variantModules: [string, VariantsModule][]
 }
 
-interface TestToRun {
+export interface TestToRun {
   testName: string
   width: number
   height: number
@@ -47,10 +47,8 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
   for (const [path, { variants, viewports: fileViewports, languages: fileLanguages }] of variantModules) {
     variants.forEach((variant, index) => {
       const variantViewports = variant.viewports || fileViewports || projectViewports
-      const variantLanguages = variant.languages || fileLanguages || projectLanguages
-
       for (const { name: viewportName, width, height } of variantViewports) {
-        for (const language of variantLanguages) {
+        for (const language of getLanguages({ variantLanguages: variant.languages, moduleLanguages: fileLanguages, activeLanguages: projectLanguages })) {
           const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index, languageCode: language.code, addLanguageToUrl })
 
           const filepathWithoutExtension = `${directory}/${filenameWithoutExtension}`
@@ -67,6 +65,14 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
   }
 
   return tests
+}
+
+function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: projectLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
+  if (variantLanguages?.length === 0)
+    return projectLanguages.slice(0, 1)
+  if (moduleLanguages?.length === 0)
+    return projectLanguages.slice(0, 1)
+  return variantLanguages || moduleLanguages || projectLanguages
 }
 
 function runTest({ test, expect, testName, width, height, url, clientSideRendered }: PlaywrightPieces & TestToRun) {

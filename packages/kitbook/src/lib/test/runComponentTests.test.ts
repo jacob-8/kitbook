@@ -1,5 +1,5 @@
 import type { KitbookSettings, VariantsModule } from '../kitbook-types'
-import { prepareTestsToRun } from './runComponentTests'
+import { type TestToRun, prepareTestsToRun } from './runComponentTests'
 
 function addLanguageToUrl({ code, url }) {
   const [path, search] = url.split('?')
@@ -13,9 +13,7 @@ const undefinedLanguage = [{ code: null, name: null }]
 
 const variantModuleWithOneBoringVariant: [string, VariantsModule] = [
   '...src/lib/Foo.variants.ts',
-  { variants: [
-    { props: { foo: 'no name, no viewports, no languages' } },
-  ] },
+  { variants: [{ }] },
 ]
 
 describe(prepareTestsToRun, () => {
@@ -24,18 +22,22 @@ describe(prepareTestsToRun, () => {
       { code: 'en', name: 'English' },
       { code: 'fr', name: 'French' },
     ]
+    const twoLanguageKitbookConfig = { viewports: oneViewport, languages: twoLanguages, addLanguageToUrl } as KitbookSettings
+
+    const expectedEnglish: TestToRun = {
+      filepathWithoutExtension: 'lib/Foo',
+      height: 100,
+      testName: 'lib/Foo/0-100x100-en',
+      url: '/kitbook/sandbox/lib/Foo?variantIndex=0&lang=en',
+      width: 100,
+    }
+
     test('standard', () => {
       expect(prepareTestsToRun({
-        kitbookConfig: { viewports: oneViewport, languages: twoLanguages, addLanguageToUrl } as KitbookSettings,
+        kitbookConfig: twoLanguageKitbookConfig,
         variantModules: [variantModuleWithOneBoringVariant],
       })).toEqual([
-        {
-          filepathWithoutExtension: 'lib/Foo',
-          height: 100,
-          testName: 'lib/Foo/0-100x100-en',
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=0&lang=en',
-          width: 100,
-        },
+        expectedEnglish,
         {
           filepathWithoutExtension: 'lib/Foo',
           height: 100,
@@ -47,23 +49,38 @@ describe(prepareTestsToRun, () => {
     })
 
     test('one viewport language', () => {
-      const variantModuleWithOneOneLanguage: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
+      const variantModuleWithOneLanguage: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
         languages: [{ code: 'en', name: 'English' }],
-        variants: [{ props: { foo: 'no name, no viewports, no languages' } }],
+        variants: [{ }],
       }]
 
       expect(prepareTestsToRun({
-        kitbookConfig: { viewports: oneViewport, languages: twoLanguages, addLanguageToUrl } as KitbookSettings,
-        variantModules: [variantModuleWithOneOneLanguage],
-      })).toEqual([
-        {
-          filepathWithoutExtension: 'lib/Foo',
-          height: 100,
-          testName: 'lib/Foo/0-100x100-en',
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=0&lang=en',
-          width: 100,
-        },
-      ])
+        kitbookConfig: twoLanguageKitbookConfig,
+        variantModules: [variantModuleWithOneLanguage],
+      })).toEqual([expectedEnglish])
+    })
+
+    test('empty language array in variant module', () => {
+      const variantModuleWithEmptyLanguageArray: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
+        languages: [],
+        variants: [{ }],
+      }]
+
+      expect(prepareTestsToRun({
+        kitbookConfig: twoLanguageKitbookConfig,
+        variantModules: [variantModuleWithEmptyLanguageArray],
+      })).toEqual([expectedEnglish])
+    })
+
+    test('empty language array in variant', () => {
+      const variantModuleWithEmptyLanguageArray: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
+        variants: [{ languages: [] }],
+      }]
+
+      expect(prepareTestsToRun({
+        kitbookConfig: twoLanguageKitbookConfig,
+        variantModules: [variantModuleWithEmptyLanguageArray],
+      })).toEqual([expectedEnglish])
     })
   })
 
