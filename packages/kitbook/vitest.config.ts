@@ -5,6 +5,6 @@ export default defineProject({
     name: 'kitbook:unit',
     globals: true,
     includeSource: ['src/**/*.ts'],
-    exclude: [...defaultExclude, 'dist', 'e2e/*.spec.ts'],
+    exclude: [...defaultExclude, 'dist', '.svelte-kit', 'e2e/*.spec.ts'],
   },
 })

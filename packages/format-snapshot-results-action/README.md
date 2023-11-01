@@ -5,7 +5,7 @@ Action for formatting Kitbook visual regression snapshot results in preparation 
 ## Example usage
 
 ```yaml
-uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1.0.0-beta.4
+uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1.0.0-beta.5
 with:
   upload-results: '${{ steps.upload-snapshots.outputs.uploaded }}'
   pr: '${{ steps.findPr.outputs.pr }}'
