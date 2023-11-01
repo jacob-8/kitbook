@@ -23,7 +23,7 @@ export function groupColocatedModulesIntoPages({
   markdownRaw: RawModules
 }): GroupedPageMap {
   // Presently we are not using the distinctions, but this is set up to give flexibility in the future to allow users to choose their own extensions in their import.meta.glob patterns
-  const modules = { ...components, ...variants, ...compositions, ...markdown } as Modules
+  const modules = { ...markdown, ...components, ...variants, ...compositions } as Modules
   const rawModules: RawModules = { ...componentsRaw, ...variantsRaw, ...compositionsRaw, ...markdownRaw }
   const ungroupedPages = parseModulesIntoUngroupedPages(modules, rawModules)
   return groupColocatedPages(ungroupedPages)
