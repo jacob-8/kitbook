@@ -3,6 +3,7 @@ import { getVariants, runComponentTests } from '../src/lib/test'
 import kitbookConfig from '../kitbook.config'
 
 const skipFiles = [
+  '/lib/routes/[...file]/mockComponents/Hi',
   '/docs/1-variants/DefaultSlot',
   '/lib/routes/sandbox/[...file]/+page',
   '/lib/routes/sandbox/[...file]/mockComponents/NeedsPropsToNotError', // this page intentionally errors
