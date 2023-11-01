@@ -6,8 +6,17 @@
   export let variants: Variant<any>[]
   export let pathWithoutExtension: string
   export let viewports: Viewport[]
+  export let activeLanguages: Language[]
   export let moduleLanguages: Language[]
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
+
+  function getLanguages({ variantLanguages, moduleLanguages, activeLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
+    if (variantLanguages?.length === 0)
+      return activeLanguages.slice(0, 1)
+    if (moduleLanguages?.length === 0)
+      return activeLanguages.slice(0, 1)
+    return variantLanguages || moduleLanguages || activeLanguages
+  }
 </script>
 
 {#each variants as { name, description, viewports: variantViewports, languages: variantLanguages }, index (index)}
@@ -30,7 +39,7 @@
     <div class="flex">
       {#each variantViewports || viewports as { name: _viewportName, width, height }}
         <div>
-          {#each variantLanguages || moduleLanguages as { code: languageCode }}
+          {#each getLanguages({ variantLanguages, moduleLanguages, activeLanguages }) as { code: languageCode }}
             <View
               {width}
               {height}
