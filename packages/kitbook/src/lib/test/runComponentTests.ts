@@ -1,4 +1,3 @@
-/* eslint-disable node/prefer-global/process */
 import type { Expect, test as playwrightTest } from '@playwright/test'
 import type { KitbookSettings, Variant, VariantsModule } from '../kitbook-types'
 import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
@@ -20,7 +19,8 @@ interface TestToRun {
   height: number
   url: string
   filepathWithoutExtension: string
-  additionalTests?: Variant<any>['tests']
+  additionalTests?: Variant<any>['tests']['additional']
+  clientSideRendered?: boolean
 }
 
 export function runComponentTests({
@@ -60,7 +60,7 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
 
           const testName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}-${viewportIdentifier}${possibleLanguageSuffix}`
 
-          tests.push({ testName, width, height, url, filepathWithoutExtension, additionalTests: variant.tests })
+          tests.push({ testName, width, height, url, filepathWithoutExtension, additionalTests: variant.tests?.additional, clientSideRendered: variant.tests?.clientSideRendered })
         }
       }
     })
@@ -69,12 +69,11 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
   return tests
 }
 
-function runTest({ test, expect, testName, width, height, url }: PlaywrightPieces & TestToRun) {
+function runTest({ test, expect, testName, width, height, url, clientSideRendered }: PlaywrightPieces & TestToRun) {
   test(testName, async ({ page }) => {
     await page.setViewportSize({ width, height })
-    await page.goto(url)
-    if (!process.env.CI)
-      await page.waitForLoadState('networkidle') // TODO: remove once local styles are able to load down with SSR. This is only needed when snapshotting locally as local dev SSR styles don't come down. SSR is fine when snapshotting a built version as is done in GitHub actions off of a deployment preview url.
+    const waitUntil = clientSideRendered ? 'networkidle' : 'load'
+    await page.goto(url, { waitUntil })
     await expect(page).toHaveScreenshot([`${testName}.png`])
   })
 }

@@ -1,3 +1,5 @@
+// Kitbook no longer uses MDSvex but this is kept here for historical purposes, particulary for demonstration of how to use @kitbook/mdsvex-shiki-twoslash
+
 import { defineMDSveXConfig } from 'mdsvex'
 import { rehypeDisplayLinkTitles } from '@kitbook/rehype-display-link-titles'
 import rehypeSlug from 'rehype-slug'

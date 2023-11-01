@@ -12,7 +12,11 @@ export interface Variant<T extends SvelteComponent> {
    * Presently only the 'default' slot is supported
    */
   slots?: Record<string, string | any>
-  tests?: Record<string, Test>
+  tests?: {
+    additional?: Record<string, Test>
+    /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
+    clientSideRendered?: boolean
+  }
 }
 
 type Test = ({

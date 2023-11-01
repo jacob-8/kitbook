@@ -107,41 +107,37 @@ describe(prepareTestsToRun, () => {
       }],
     ] as [string, VariantsModule][]
 
-    expect(prepareTestsToRun({ kitbookConfig, variantModules })).toMatchInlineSnapshot(`
+    expect(prepareTestsToRun({ kitbookConfig, variantModules })).toEqual(
       [
         {
-          "additionalTests": undefined,
-          "filepathWithoutExtension": "lib/Foo",
-          "height": 600,
-          "testName": "lib/Foo/one_named_viewport-mobile",
-          "url": "/kitbook/sandbox/lib/Foo?variantIndex=0",
-          "width": 300,
+          filepathWithoutExtension: 'lib/Foo',
+          height: 600,
+          testName: 'lib/Foo/one_named_viewport-mobile',
+          url: '/kitbook/sandbox/lib/Foo?variantIndex=0',
+          width: 300,
         },
         {
-          "additionalTests": undefined,
-          "filepathWithoutExtension": "lib/Foo",
-          "height": 200,
-          "testName": "lib/Foo/two_unnamed_viewports-200x200",
-          "url": "/kitbook/sandbox/lib/Foo?variantIndex=1",
-          "width": 200,
+          filepathWithoutExtension: 'lib/Foo',
+          height: 200,
+          testName: 'lib/Foo/two_unnamed_viewports-200x200',
+          url: '/kitbook/sandbox/lib/Foo?variantIndex=1',
+          width: 200,
         },
         {
-          "additionalTests": undefined,
-          "filepathWithoutExtension": "lib/Foo",
-          "height": 500,
-          "testName": "lib/Foo/two_unnamed_viewports-500x500",
-          "url": "/kitbook/sandbox/lib/Foo?variantIndex=1",
-          "width": 500,
+          filepathWithoutExtension: 'lib/Foo',
+          height: 500,
+          testName: 'lib/Foo/two_unnamed_viewports-500x500',
+          url: '/kitbook/sandbox/lib/Foo?variantIndex=1',
+          width: 500,
         },
         {
-          "additionalTests": undefined,
-          "filepathWithoutExtension": "lib/Foo",
-          "height": 100,
-          "testName": "lib/Foo/2-100x100",
-          "url": "/kitbook/sandbox/lib/Foo?variantIndex=2",
-          "width": 100,
+          filepathWithoutExtension: 'lib/Foo',
+          height: 100,
+          testName: 'lib/Foo/2-100x100',
+          url: '/kitbook/sandbox/lib/Foo?variantIndex=2',
+          width: 100,
         },
-      ]
-    `)
+      ],
+    )
   })
 })
