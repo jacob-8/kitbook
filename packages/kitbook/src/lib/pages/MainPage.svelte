@@ -113,11 +113,11 @@
       {/if}
 
       {#if compositionModules}
-        <Compositions {compositionModules} {pathWithoutExtension} projectLanguages={activeLanguages} {addLanguageToUrl} />
+        <Compositions {compositionModules} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} />
       {/if}
 
       {#if variantsModule?.variants}
-        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages || activeLanguages} {addLanguageToUrl} />
+        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} />
       {/if}
 
       <EditInGithub path={data?.page?.path} {githubURL} />

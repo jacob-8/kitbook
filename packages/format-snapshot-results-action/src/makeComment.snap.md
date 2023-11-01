@@ -1,6 +1,6 @@
 <a href="https://kitbook.vercel.app/">
-<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="20"></a> <b>Visual Regression Report</b>
-<details><summary>2 changed snapshots (<a href="https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/playwright-report/index.html" target="_blank">Playwright Report</a>)</summary>
+<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="22"></a> <b>Visual Regression Report</b>
+<details><summary>2 changed snapshots for kitbook-template</summary>
 
 <div style="overflow-x: auto;">
   
@@ -13,3 +13,5 @@
 </div>
 
   </details>
+  
+  View detailed <a href="https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/playwright-report/index.html" target="_blank">Playwright Report</a>

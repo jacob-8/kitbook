@@ -12,7 +12,11 @@ export interface Variant<T extends SvelteComponent> {
    * Presently only the 'default' slot is supported
    */
   slots?: Record<string, string | any>
-  tests?: Record<string, Test>
+  tests?: {
+    additional?: Record<string, Test>
+    /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
+    clientSideRendered?: boolean
+  }
 }
 
 type Test = ({
@@ -122,15 +126,6 @@ export interface KitbookSettings {
   /** `false` by default */
   expandTree?: boolean
   githubURL?: string
-  /**
-   * An array of Vite glob patterns for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns. Defaults to
-   * ```
-   * ['/src/**\/*.{svelte,md,variants.ts,composition}', '/README.md']
-   * ```
-   * Adjust this to be able to incrementally adopt Kitbook into your project.
-   * IGNORE the backslash in the glob pattern, it's just there to make the JSDoc comment work.
-   */
-  importModuleGlobs?: string[]
   viewer?: ViewerOptions
   /** `src/routes` by default - if you have changed the default SvelteKit routes directory, you must specify it here also */
   routesDirectory?: string

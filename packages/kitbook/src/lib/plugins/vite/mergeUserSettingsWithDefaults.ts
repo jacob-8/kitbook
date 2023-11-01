@@ -3,6 +3,10 @@ import { DEFAULT_KITBOOK_SETTINGS } from './constants.js'
 import { DEFAULT_VIEWER_OPTIONS } from './viewer/options.js'
 
 export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSettings>): KitbookSettings {
+  // @ts-expect-error - checking for old value
+  if (userSettings.importModuleGlobs)
+    throw new Error('Kitbook: `importModuleGlobs` is no longer used. Please define your glob patterns in the root Kitbook `+layout.js` file.')
+
   checkLanguageSetup(userSettings)
 
   return {

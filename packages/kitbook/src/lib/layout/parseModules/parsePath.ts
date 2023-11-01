@@ -6,7 +6,7 @@ export function parsePath(path: string) {
 
   const match = path.match(/^\/src\/(.*\/)(.+?)\.(.+)$/)
   if (!match)
-    throw new Error(`${path} is not a module path that Kitbook can handle. Make sure the Kitbook Layout Load import.meta.glob starts with '/src/**'`)
+    throw new Error(`${path} is not a module path that Kitbook can handle. Your Kitbook root +layout.js import.meta.glob patterns must start with '/src/**' and you cannot yet have Kitbook files directly in the src folder. This can be fixed with a few changes but is not yet supported.`)
   const [, dir, name, ext] = match
   return { dir, name, ext }
 }

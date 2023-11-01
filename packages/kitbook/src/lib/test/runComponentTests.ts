@@ -1,6 +1,5 @@
-/* eslint-disable node/prefer-global/process */
 import type { Expect, test as playwrightTest } from '@playwright/test'
-import type { KitbookSettings, Variant, VariantsModule } from '../kitbook-types'
+import type { KitbookSettings, Language, Variant, VariantsModule } from '../kitbook-types'
 import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
 import { preparePath } from './preparePath.js'
 
@@ -14,13 +13,14 @@ interface KitbookPieces {
   variantModules: [string, VariantsModule][]
 }
 
-interface TestToRun {
+export interface TestToRun {
   testName: string
   width: number
   height: number
   url: string
   filepathWithoutExtension: string
-  additionalTests?: Variant<any>['tests']
+  additionalTests?: Variant<any>['tests']['additional']
+  clientSideRendered?: boolean
 }
 
 export function runComponentTests({
@@ -47,10 +47,8 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
   for (const [path, { variants, viewports: fileViewports, languages: fileLanguages }] of variantModules) {
     variants.forEach((variant, index) => {
       const variantViewports = variant.viewports || fileViewports || projectViewports
-      const variantLanguages = variant.languages || fileLanguages || projectLanguages
-
       for (const { name: viewportName, width, height } of variantViewports) {
-        for (const language of variantLanguages) {
+        for (const language of getLanguages({ variantLanguages: variant.languages, moduleLanguages: fileLanguages, activeLanguages: projectLanguages })) {
           const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index, languageCode: language.code, addLanguageToUrl })
 
           const filepathWithoutExtension = `${directory}/${filenameWithoutExtension}`
@@ -60,7 +58,7 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
 
           const testName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}-${viewportIdentifier}${possibleLanguageSuffix}`
 
-          tests.push({ testName, width, height, url, filepathWithoutExtension, additionalTests: variant.tests })
+          tests.push({ testName, width, height, url, filepathWithoutExtension, additionalTests: variant.tests?.additional, clientSideRendered: variant.tests?.clientSideRendered })
         }
       }
     })
@@ -69,12 +67,19 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
   return tests
 }
 
-function runTest({ test, expect, testName, width, height, url }: PlaywrightPieces & TestToRun) {
+function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: projectLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
+  if (variantLanguages?.length === 0)
+    return projectLanguages.slice(0, 1)
+  if (moduleLanguages?.length === 0)
+    return projectLanguages.slice(0, 1)
+  return variantLanguages || moduleLanguages || projectLanguages
+}
+
+function runTest({ test, expect, testName, width, height, url, clientSideRendered }: PlaywrightPieces & TestToRun) {
   test(testName, async ({ page }) => {
     await page.setViewportSize({ width, height })
-    await page.goto(url)
-    if (!process.env.CI)
-      await page.waitForLoadState('networkidle') // TODO: remove once local styles are able to load down with SSR. This is only needed when snapshotting locally as local dev SSR styles don't come down. SSR is fine when snapshotting a built version as is done in GitHub actions off of a deployment preview url.
+    const waitUntil = clientSideRendered ? 'networkidle' : 'load'
+    await page.goto(url, { waitUntil })
     await expect(page).toHaveScreenshot([`${testName}.png`])
   })
 }

@@ -14,11 +14,13 @@ export const variants: Variant<Component>[] = [
       baz: true,
     },
     tests: {
-      'bar-works': async ({ page, expect, name }) => {
-        await page.getByRole('button', { name: 'bar' }).click()
-        await expect(page.getByText('I can be seen after clicking on bar')).toBeVisible()
-        await expect(page).toHaveScreenshot([`${name}.png`])
-      },
+      additional: {
+        'bar-works': async ({ page, expect, name }) => {
+          await page.getByRole('button', { name: 'bar' }).click()
+          await expect(page.getByText('I can be seen after clicking on bar')).toBeVisible()
+          await expect(page).toHaveScreenshot([`${name}.png`])
+        },
+      }
     }
   },
 ]

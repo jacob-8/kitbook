@@ -1,13 +1,8 @@
-import { readFileSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
 import type { KitbookSettings } from '../../kitbook-types'
 import { serializeSettings } from '../../open/serialize.js'
 import { initKitbook } from './initKitbook.js'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
-import { DEFAULT_IMPORT_MODULE_GLOBS } from './constants.js'
-import { writeModuleGlobsIntoVirtualModuleCode } from './writeModuleGlobsIntoVirtualModuleCode.js'
 import { kitbookViewer } from './viewer/index.js'
 import { markdownToHtml } from './markdown/markdownToHtml.js'
 import { mergeUserSettingsWithDefaults } from './mergeUserSettingsWithDefaults.js'
@@ -48,12 +43,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
     load(id) {
       if (id === addVirtualFilePrefix(LOAD_MODULES_ID)) {
-        const _dirname = dirname(fileURLToPath(import.meta.url))
-        const filepath = resolve(_dirname, './virtual/importModules.js')
-        const content = readFileSync(filepath, 'utf-8')
-        const pageModulesCode = writeModuleGlobsIntoVirtualModuleCode(content, settings.importModuleGlobs || DEFAULT_IMPORT_MODULE_GLOBS)
-
-        return `${pageModulesCode}
+        return `
         export const settings = ${serializeSettings(settings)}
         `
       }

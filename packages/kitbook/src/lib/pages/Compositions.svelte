@@ -5,8 +5,14 @@
 
   export let compositionModules: Record<string, CompositionModule>
   export let pathWithoutExtension: string
-  export let projectLanguages: Language[]
+  export let activeLanguages: Language[]
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
+
+  function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[]; activeLanguages: Language[] }) {
+    if (moduleLanguages?.length === 0)
+      return activeLanguages.slice(0, 1)
+    return moduleLanguages || activeLanguages
+  }
 
   let containerWidth = 1000
 </script>
@@ -27,7 +33,7 @@
   </div>
   <div class="inline-block overflow-x-auto w-full pt-8 -mt-8" bind:clientWidth={containerWidth}>
     <div class="flex">
-      {#each moduleLanguages || projectLanguages as { code: languageCode }}
+      {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
         <View
           width={viewports?.[0].width || Math.min(containerWidth, 1000)}
           height={viewports?.[0].height}
