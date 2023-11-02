@@ -1,14 +1,14 @@
-<a href="https://kitbook.vercel.app/">
-<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="22"></a> <b>Visual Regression Report</b>
+<p><a href="https://kitbook.vercel.app/">
+<img src="https://storage.googleapis.com/component-snapshots/kitbook-logo.svg" height="22"></a> <b>Visual Regression Report</b></p>
 <details><summary>2 changed snapshots for kitbook-template</summary>
 
 <div style="overflow-x: auto;">
   
 | new | old | diff |
 | - | - | - |
-| routes/(app)/+page - Second-Mobile | | |
+| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - Second-Mobile | | |
 | ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-actual.png) | ![expected-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-expected.png) | ![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-diff.png) |
-| routes/(app)/+page - Second-Tablet | | |
+| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - Second-Tablet | | |
 | ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Tablet-chromium/routes/(app)/+page/Second-Tablet-actual.png) |  |  |
 </div>
 

@@ -101,9 +101,10 @@ env:
   UPDATE_SNAPSHOTS_SCRIPT: pnpm test:components:update
   COMPARE_SNAPSHOTS_SCRIPT: pnpm test:components
   GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
-  BUCKET_NAME: component-snapshots
-  PROJECT_NAME: kitbook
+  BUCKET_NAME: my-snapshots
+  PROJECT_NAME: foo
   PROJECT_ROOT: . # just a period for a root level project; in a monorepo this would be: ./packages/foo
+  KITBOOK_ROUTE: kitbook # set this to a slash (/) if you use the root route
 
 on:
   deployment_status
@@ -228,6 +229,8 @@ jobs:
           pr: '${{ steps.findPr.outputs.pr }}'
           bucket: '${{ env.BUCKET_NAME }}'
           project: '${{ env.PROJECT_NAME }}'
+          deployment-url: '${{ env.PLAYWRIGHT_BASE_URL }}'
+          kitbook-route: '${{ env.KITBOOK_ROUTE }}'
 
       - name: Add Changed Component Snapshots to PR
         if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment

@@ -5,10 +5,11 @@ env:
   PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
   UPDATE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components:update
   COMPARE_SNAPSHOTS_SCRIPT: pnpm build && pnpm -F template test:components
-  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }} # 👈 saved as a secret in your repo
+  GOOGLE_CLOUD_CREDENTIALS: ${{ secrets.GCS_COMPONENT_CHECK_BUCKETS_CREDENTIALS }}
   BUCKET_NAME: component-snapshots
   PROJECT_NAME: kitbook-template
-  PROJECT_ROOT: ./packages/template # this would be . in a normal repo
+  PROJECT_ROOT: ./packages/template
+  KITBOOK_ROUTE: kitbook
 
 on:
   deployment_status
@@ -133,6 +134,8 @@ jobs:
           pr: '${{ steps.findPr.outputs.pr }}'
           bucket: '${{ env.BUCKET_NAME }}'
           project: '${{ env.PROJECT_NAME }}'
+          deployment-url: '${{ env.PLAYWRIGHT_BASE_URL }}'
+          kitbook-route: '${{ env.KITBOOK_ROUTE }}'
 
       - name: Add Changed Component Snapshots to PR
         if: steps.findPr.outputs.number && steps.format_snapshot_links_for_pr.outputs.comment

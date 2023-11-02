@@ -1,4 +1,18 @@
-export function makeComment({ uploadResults, prNumber, bucketName, projectName }: { uploadResults: string; prNumber: string; bucketName: string; projectName: string }) {
+export function makeComment({
+  uploadResults,
+  prNumber,
+  bucketName,
+  projectName,
+  deploymentUrl,
+  kitbookRoute,
+}: {
+  uploadResults: string
+  prNumber: string
+  bucketName: string
+  projectName: string
+  deploymentUrl: string
+  kitbookRoute: string
+}) {
   const bucket = `https://storage.googleapis.com/${bucketName}`
   const playwrightReportUrl = `${bucket}/${projectName}/pr/${prNumber}/playwright-report/index.html`
   const testResults = splitResultsByTest(uploadResults)
@@ -17,12 +31,13 @@ export function makeComment({ uploadResults, prNumber, bucketName, projectName }
 | - | - | - |`
 
   for (const { imageUrls: { actual, expected, diff }, path, testName } of Object.values(testResults)) {
+    const link = formatUrl({ path, deploymentUrl, kitbookRoute })
     const actualImage = `![actual-img](${bucket}/${actual})`
     const expectedImage = expected ? `![expected-img](${bucket}/${expected})` : ''
     const diffImage = diff ? `![diff-img](${bucket}/${diff})` : ''
 
     comment += `
-| ${path} - ${testName} | | |
+| [${path}](${link}) - ${testName} | | |
 | ${actualImage} | ${expectedImage} | ${diffImage} |`
   }
 
@@ -80,4 +95,13 @@ export function splitResultsByTest(results: string): Record<string, TestResult> 
   }
 
   return testResult
+}
+
+const trailingSlash = /\/$/
+
+export function formatUrl({ path, deploymentUrl, kitbookRoute }: { path: string; deploymentUrl: string; kitbookRoute: string }) {
+  if (!kitbookRoute || kitbookRoute === '/')
+    return `${deploymentUrl.replace(trailingSlash, '')}/${path}`
+
+  return `${deploymentUrl.replace(trailingSlash, '')}/${kitbookRoute.replace(trailingSlash, '')}/${path}`
 }

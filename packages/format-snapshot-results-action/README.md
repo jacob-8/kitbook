@@ -11,4 +11,6 @@ with:
   pr: '${{ steps.findPr.outputs.pr }}'
   bucket: '${{ env.BUCKET_NAME }}'
   project: '${{ env.PROJECT_NAME }}'
+  deployment-url: '${{ env.PLAYWRIGHT_BASE_URL }}'
+  kitbook-route: '${{ env.KITBOOK_ROUTE }}'
 ```

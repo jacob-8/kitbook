@@ -16,6 +16,12 @@ inputs:
   project:
     description: name of project to be able to use the right folder inside your bucket
     required: true
+  deployment-url:
+    description: url where these snapshots came from
+    required: true
+  kitbook-route:
+    description: route to kitbook root
+    required: true
 
 outputs:
   comment:

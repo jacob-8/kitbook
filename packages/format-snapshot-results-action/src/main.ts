@@ -7,16 +7,22 @@ export async function run(): Promise<void> {
     const prNumber: string = core.getInput('pr')
     const bucketName: string = core.getInput('bucket')
     const projectName: string = core.getInput('project')
+    const deploymentUrl: string = core.getInput('deployment-url')
+    const kitbookRoute: string = core.getInput('kitbook-route')
     core.debug(`uploadResults: ${uploadResults}`)
     core.debug(`prNumber: ${prNumber}`)
     core.debug(`bucketName: ${bucketName}`)
     core.debug(`projectName: ${projectName}`)
+    core.debug(`deploymentUrl: ${deploymentUrl}`)
+    core.debug(`kitbookRoute: ${kitbookRoute}`)
 
     const comment = makeComment({
       uploadResults,
       prNumber,
       bucketName,
       projectName,
+      deploymentUrl,
+      kitbookRoute,
     })
 
     core.setOutput('comment', comment)
