@@ -32,10 +32,10 @@ export function runComponentTests({
   const testsToRun = prepareTestsToRun({ kitbookConfig: settings, variantModules })
   for (const testToRun of testsToRun) {
     if (!testToRun.userAdded?.skip)
-      runTest({ test, expect, userAdded: {}, ...testToRun })
+      runTest({ test, expect, ...testToRun })
 
     if (testToRun.userAdded?.additional)
-      runAdditionalTests({ test, expect, userAdded: {}, ...testToRun })
+      runAdditionalTests({ test, expect, ...testToRun })
   }
 }
 
@@ -75,17 +75,17 @@ function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: proj
   return variantLanguages || moduleLanguages || projectLanguages
 }
 
-function runTest({ test, expect, testName, width, height, url, userAdded: { clientSideRendered } }: PlaywrightPieces & TestToRun) {
+function runTest({ test, expect, testName, width, height, url, userAdded }: PlaywrightPieces & TestToRun) {
   test(testName, async ({ page }) => {
     await page.setViewportSize({ width, height })
-    const waitUntil = clientSideRendered ? 'networkidle' : 'load'
+    const waitUntil = userAdded?.clientSideRendered ? 'networkidle' : 'load'
     await page.goto(url, { waitUntil })
     await expect(page).toHaveScreenshot([`${testName}.png`])
   })
 }
 
-function runAdditionalTests({ test, expect, testName, width, height, url, filepathWithoutExtension, userAdded: { additional } }: PlaywrightPieces & TestToRun) {
-  for (const [additionalName, additionalTest] of Object.entries(additional)) {
+function runAdditionalTests({ test, expect, testName, width, height, url, filepathWithoutExtension, userAdded }: PlaywrightPieces & TestToRun) {
+  for (const [additionalName, additionalTest] of Object.entries(userAdded.additional)) {
     const name = `${testName}-${additionalName}`
     test(name, async ({ page }) => {
       await page.setViewportSize({ width, height })
