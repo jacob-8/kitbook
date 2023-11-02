@@ -32,6 +32,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Update v1 tag to latest release
+        run: |
+          git tag -d v1
+          git push origin --delete v1
+          git tag v1
+          git push origin v1
+
       - name: Install Dependencies
         run: pnpm i
 

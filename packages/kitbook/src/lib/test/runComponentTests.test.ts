@@ -97,6 +97,23 @@ describe(prepareTestsToRun, () => {
     }])
   })
 
+  test('skipped test', () => {
+    expect(prepareTestsToRun({
+      kitbookConfig: { viewports: oneViewport, languages: undefinedLanguage, kitbookRoute: '' } as KitbookSettings,
+      variantModules: [[
+        '...src/lib/Foo.variants.ts',
+        { variants: [{ tests: { skip: true } }] },
+      ]],
+    })).toEqual([{
+      filepathWithoutExtension: 'lib/Foo',
+      height: 100,
+      testName: 'lib/Foo/0-100x100',
+      url: '/sandbox/lib/Foo?variantIndex=0',
+      width: 100,
+      userAdded: { skip: true },
+    }])
+  })
+
   test('works', () => {
     const kitbookConfig = {
       viewports: oneViewport,

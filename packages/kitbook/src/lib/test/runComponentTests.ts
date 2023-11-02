@@ -19,8 +19,7 @@ export interface TestToRun {
   height: number
   url: string
   filepathWithoutExtension: string
-  additionalTests?: Variant<any>['tests']['additional']
-  clientSideRendered?: boolean
+  userAdded: Variant<any>['tests']
 }
 
 export function runComponentTests({
@@ -32,10 +31,11 @@ export function runComponentTests({
   const settings = mergeUserSettingsWithDefaults(kitbookConfig)
   const testsToRun = prepareTestsToRun({ kitbookConfig: settings, variantModules })
   for (const testToRun of testsToRun) {
-    runTest({ test, expect, ...testToRun })
+    if (!testToRun.userAdded?.skip)
+      runTest({ test, expect, userAdded: {}, ...testToRun })
 
-    if (testToRun.additionalTests)
-      runAdditionalTests({ test, expect, ...testToRun })
+    if (testToRun.userAdded?.additional)
+      runAdditionalTests({ test, expect, userAdded: {}, ...testToRun })
   }
 }
 
@@ -58,7 +58,7 @@ export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPiec
 
           const testName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}-${viewportIdentifier}${possibleLanguageSuffix}`
 
-          tests.push({ testName, width, height, url, filepathWithoutExtension, additionalTests: variant.tests?.additional, clientSideRendered: variant.tests?.clientSideRendered })
+          tests.push({ testName, width, height, url, filepathWithoutExtension, userAdded: variant.tests })
         }
       }
     })
@@ -75,7 +75,7 @@ function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: proj
   return variantLanguages || moduleLanguages || projectLanguages
 }
 
-function runTest({ test, expect, testName, width, height, url, clientSideRendered }: PlaywrightPieces & TestToRun) {
+function runTest({ test, expect, testName, width, height, url, userAdded: { clientSideRendered } }: PlaywrightPieces & TestToRun) {
   test(testName, async ({ page }) => {
     await page.setViewportSize({ width, height })
     const waitUntil = clientSideRendered ? 'networkidle' : 'load'
@@ -84,8 +84,8 @@ function runTest({ test, expect, testName, width, height, url, clientSideRendere
   })
 }
 
-function runAdditionalTests({ test, expect, testName, width, height, url, filepathWithoutExtension, additionalTests }: PlaywrightPieces & TestToRun) {
-  for (const [additionalName, additionalTest] of Object.entries(additionalTests)) {
+function runAdditionalTests({ test, expect, testName, width, height, url, filepathWithoutExtension, userAdded: { additional } }: PlaywrightPieces & TestToRun) {
+  for (const [additionalName, additionalTest] of Object.entries(additional)) {
     const name = `${testName}-${additionalName}`
     test(name, async ({ page }) => {
       await page.setViewportSize({ width, height })
