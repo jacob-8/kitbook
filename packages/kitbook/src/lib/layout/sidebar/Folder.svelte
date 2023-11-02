@@ -8,8 +8,8 @@
   export let expanded = false
 
   const isRootFolder = folder.name === '.'
-  let actualExpandedState = activePath.includes(folder.url) || expanded
   $: active = activePath.includes(folder.url)
+  $: actualExpandedState = activePath.includes(folder.url) || expanded // keep folder.url in here as well to re-expand if something has been closed and then url changes by navigation to next page
 </script>
 
 <!-- TODO: don't show folder if not dev and no pages with markdown, compositions, or variants -->
