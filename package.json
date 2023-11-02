@@ -43,6 +43,9 @@
   "lint-staged": {
     "*": "eslint --fix"
   },
+  "changelogithub": {
+    "prerelease": "false"
+  },
   "stackblitz": {
     "installDependencies": false,
     "startCommand": "pnpm install && pnpm stub && pnpm dev"
