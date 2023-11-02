@@ -19,7 +19,7 @@ export interface TestToRun {
   height: number
   url: string
   filepathWithoutExtension: string
-  userAdded: Variant<any>['tests']
+  userAdded?: Variant<any>['tests']
 }
 
 export function runComponentTests({
