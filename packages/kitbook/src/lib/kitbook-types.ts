@@ -13,6 +13,8 @@ export interface Variant<T extends SvelteComponent> {
    */
   slots?: Record<string, string | any>
   tests?: {
+    /** skips default snapshot test, but not additional tests */
+    skip?: boolean
     additional?: Record<string, Test>
     /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
     clientSideRendered?: boolean
