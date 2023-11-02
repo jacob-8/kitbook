@@ -302,7 +302,104 @@ Sometimes its nice to use `$lib` imports when assembling your mock data for vari
 
 ### Compositions (coming soon)
 
-Screenshotting compositions is not yet supported but it will be added. In the meantime, if you read the source code used for variants you could probably set it up yourself. 
+Screenshotting compositions is not yet supported but it will be added. In the meantime, if you read the source code used for variants you could probably set it up yourself.
+
+### Bucketless option
+
+If you don't care about repo bloat (maybe you just have a small, personal project) and don't want to be bothered to set up cloud storage, you can store your baseline snapshots in your repo itself and rely on GitHub's visual diff viewer instead of a PR comment.
+
+<details><summary>Expand to see how you could do it...</summary>
+
+Update your test to clear snapshots before running tests so that stale images get cleared out for deleted variants.
+
+```ts title="e2e/kitbook.spec.ts" {5}
+import { clearSnapshots, getVariants, runComponentTests } from 'kitbook/test'
+import { expect, test } from '@playwright/test'
+import kitbookConfig from '../kitbook.config'
+
+clearSnapshots()
+const variantModules = await getVariants()
+runComponentTests({ test, expect, kitbookConfig, variantModules })
+```
+
+Then use this workflow.
+
+```yaml title=".github/workflows/component-tests.yml"
+name: Kitbook Visual Regression Tests
+
+# Set all of these 👇
+env:
+  PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.target_url }}
+  UPDATE_SNAPSHOTS_SCRIPT: pnpm test:components:update
+
+on:
+  deployment_status
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-snapshots:
+    name: Update Component Snapshots
+    if: github.event.deployment_status.state == 'success' &&  github.event.deployment_status.environment == 'Preview'
+    # Can also use (github.event.deployment_status.environment == 'Production' || github.event.deployment_status.environment == 'Preview') if wanting to run again on the main branch but this is unneeded if you never push directly to the main branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container:
+      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package, https://playwright.dev/docs/ci#github-actions-via-containers
+
+    steps:
+      - name: Allow image commit and branch name extraction
+        run: git config --system --add safe.directory /__w/kitbook/kitbook # 👈 change kitbook to the name of your repo (repo/repo, not owner/repo)
+
+      - name: Get Branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: '${{ github.event.deployment_status.deployment.ref }}' # ref only needed if using the deployment_status trigger
+
+      - name: Extract branch name # only needed if using the deployment_status trigger
+        run: echo "GITHUB_BRANCH=$(git show -s --pretty=%D HEAD | tr -s ',' '\n' | sed 's/^ //' | grep -e 'origin/' | head -1 | sed 's/\origin\///g')" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Run Playwright Component tests
+        run: eval $UPDATE_SNAPSHOTS_SCRIPT
+        env:
+          CI: true
+          # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
+
+      - name: Commit Changed Component Snapshots If Changes Found
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        # if: github.event.deployment_status.environment != 'Production' # only needed if you push directly to the main branch
+        with:
+          commit_message: '[Updated Component Snapshots]' # 👈 you may want to update your auto-deployment service to ignore commits with this message
+          branch: ${{ steps.extract_branch.outputs.GITHUB_BRANCH }} # only needed if using the deployment_status trigger
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+```
+
+This workflow will not be maintained as using cloud storage is the better option, but if you find it helpful and have some improvement to it, feel free to submit a PR.
+
+</details>
 
 ## Test Component Interactions
 
