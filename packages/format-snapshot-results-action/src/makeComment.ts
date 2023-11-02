@@ -3,8 +3,8 @@ export function makeComment({ uploadResults, prNumber, bucketName, projectName }
   const playwrightReportUrl = `${bucket}/${projectName}/pr/${prNumber}/playwright-report/index.html`
   const testResults = splitResultsByTest(uploadResults)
 
-  let comment = `<a href="https://kitbook.vercel.app/">
-<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="22"></a> <b>Visual Regression Report</b>`
+  let comment = `<p><a href="https://kitbook.vercel.app/">
+<img src="https://storage.googleapis.com/component-snapshots/kitbook-logo.svg" height="22"></a> <b>Visual Regression Report</b></p>`
 
   comment += `
 <details><summary>${Object.keys(testResults).length} changed snapshots for ${projectName}</summary>
