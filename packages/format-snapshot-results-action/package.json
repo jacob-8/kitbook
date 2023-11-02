@@ -1,7 +1,7 @@
 {
   "name": "@kitbook/format-snapshot-results-action",
   "type": "commonjs",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "private": true,
   "license": "MIT",
   "exports": {
