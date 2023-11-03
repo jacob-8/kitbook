@@ -25644,15 +25644,21 @@ async function run() {
         const prNumber = core.getInput('pr');
         const bucketName = core.getInput('bucket');
         const projectName = core.getInput('project');
+        const deploymentUrl = core.getInput('deployment-url');
+        const kitbookRoute = core.getInput('kitbook-route');
         core.debug(`uploadResults: ${uploadResults}`);
         core.debug(`prNumber: ${prNumber}`);
         core.debug(`bucketName: ${bucketName}`);
         core.debug(`projectName: ${projectName}`);
+        core.debug(`deploymentUrl: ${deploymentUrl}`);
+        core.debug(`kitbookRoute: ${kitbookRoute}`);
         const comment = (0, makeComment_1.makeComment)({
             uploadResults,
             prNumber,
             bucketName,
             projectName,
+            deploymentUrl,
+            kitbookRoute,
         });
         core.setOutput('comment', comment);
     }
@@ -25672,15 +25678,15 @@ exports.run = run;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.splitResultsByTest = exports.makeComment = void 0;
-function makeComment({ uploadResults, prNumber, bucketName, projectName }) {
+exports.formatUrl = exports.splitResultsByTest = exports.makeComment = void 0;
+function makeComment({ uploadResults, prNumber, bucketName, projectName, deploymentUrl, kitbookRoute, }) {
     const bucket = `https://storage.googleapis.com/${bucketName}`;
     const playwrightReportUrl = `${bucket}/${projectName}/pr/${prNumber}/playwright-report/index.html`;
     const testResults = splitResultsByTest(uploadResults);
-    let comment = `<a href="https://kitbook.vercel.app/">
-<img src="https://raw.githubusercontent.com/jacob-8/kitbook/b96f77da81309a6ccd06693beb0f06ba8fdc0a2b/packages/kitbook/static/kitbook.svg" height="20"></a> <b>Visual Regression Report</b>`;
+    let comment = `<p><a href="https://kitbook.vercel.app/">
+<img src="https://storage.googleapis.com/component-snapshots/kitbook-logo.svg" height="22"></a> <b>Visual Regression Report</b></p>`;
     comment += `
-<details><summary>${Object.keys(testResults).length} changed snapshots (<a href="${playwrightReportUrl}" target="_blank">Playwright Report</a>)</summary>
+<details><summary>${Object.keys(testResults).length} changed snapshots for ${projectName}</summary>
 `;
     comment += `
 <div style="overflow-x: auto;">
@@ -25688,18 +25694,21 @@ function makeComment({ uploadResults, prNumber, bucketName, projectName }) {
 | new | old | diff |
 | - | - | - |`;
     for (const { imageUrls: { actual, expected, diff }, path, testName } of Object.values(testResults)) {
+        const link = formatUrl({ path, deploymentUrl, kitbookRoute });
         const actualImage = `![actual-img](${bucket}/${actual})`;
         const expectedImage = expected ? `![expected-img](${bucket}/${expected})` : '';
         const diffImage = diff ? `![diff-img](${bucket}/${diff})` : '';
         comment += `
-| ${path} - ${testName} | | |
+| [${path}](${link}) - ${testName} | | |
 | ${actualImage} | ${expectedImage} | ${diffImage} |`;
     }
     comment += `
 </div>
 `;
     comment += `
-  </details>`;
+  </details>
+  
+  View detailed <a href="${playwrightReportUrl}" target="_blank">Playwright Report</a>`;
     return comment;
 }
 exports.makeComment = makeComment;
@@ -25731,6 +25740,13 @@ function splitResultsByTest(results) {
     return testResult;
 }
 exports.splitResultsByTest = splitResultsByTest;
+const trailingSlash = /\/$/;
+function formatUrl({ path, deploymentUrl, kitbookRoute }) {
+    if (!kitbookRoute || kitbookRoute === '/')
+        return `${deploymentUrl.replace(trailingSlash, '')}/${path}`;
+    return `${deploymentUrl.replace(trailingSlash, '')}/${kitbookRoute.replace(trailingSlash, '')}/${path}`;
+}
+exports.formatUrl = formatUrl;
 
 
 /***/ }),
