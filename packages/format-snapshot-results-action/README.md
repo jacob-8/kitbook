@@ -14,3 +14,13 @@ with:
   deployment-url: '${{ env.PLAYWRIGHT_BASE_URL }}'
   kitbook-route: '${{ env.KITBOOK_ROUTE }}'
 ```
+
+## How to release update
+
+```bash
+pnpm -F format-snapshot* package
+git tag -d v1
+git push origin --delete v1
+git tag v1
+git push origin v1
+```
