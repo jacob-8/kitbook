@@ -6,6 +6,10 @@
   export let width: number
   export let height: number
   export let languageCode: string
+  export let blockScripts = false
+
+  let userBlockedScripts: boolean
+  $: scriptBlockingResult = userBlockedScripts ?? blockScripts
 
   const dispatch = createEventDispatcher<{ refresh: void; resetDimensions: void }>()
 </script>
@@ -16,6 +20,13 @@
       {languageCode}
     </span>
   {/if}
+
+  <button
+    type="button"
+    title="Toggle SSR/CSR"
+    class:opacity-50={hovered}
+    class="text-sm p-1 opacity-0 hover:opacity-100"
+    on:click={() => userBlockedScripts = !userBlockedScripts}>{scriptBlockingResult ? 'SSR' : 'CSR'}</button>
 
   <button
     type="button"
@@ -37,3 +48,5 @@
     class="px-2 py-1 opacity-0 hover:opacity-100"
     on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh align--3px" /></button>
 </div>
+
+<slot {scriptBlockingResult} />

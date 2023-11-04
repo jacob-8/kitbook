@@ -25,10 +25,7 @@
 
 <div bind:this={container}>
   <div
-    style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'};
-      width: {widthToDisplay
-        ? `${widthToDisplay}px`
-        : 'unset'};"
+    style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay ? `${widthToDisplay}px` : 'unset'};"
     class:border-gray-700={hovered}
     class:checkerboard={hovered}
     class="relative border !border-opacity-50 p-2">

@@ -61,66 +61,68 @@
 </script>
 
 <Layout settings={data.settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
-  <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
-    {#if data.error}
-      <div class="text-red">
-        Error: {data.error}
-      </div>
-    {:else}
-      {#if data.loadedModules.component}
-        <div class="flex items-center font-semibold text-2xl mb-2">
-          {#if !dev}
-            {title}
-          {:else}
-            <Button class="!text-xl flex items-center !py-1.5 !px-2 -ml-2" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component">
-              <span class="i-vscode-icons-file-type-svelte text-2xl align--2px mr-1" /> {title}
-            </Button>
-
-            <Button onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
-              <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> {markdown ? 'Edit' : 'Add'} Docs
-            </Button>
-
-            <Button
-              onclick={() => {
-                if (compositionModules) {
-                  const name = prompt('What do you want to name this composition? (lowercase, no spaces or periods)')
-                  if (name)
-                    openComposition(pathWithoutExtension, `${name}.composition`)
-                  return
-                }
-                openComposition(pathWithoutExtension, 'composition')
-              }}
-              form="menu"
-              color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
-
-            {#if !variantsModule?.variants}
-              <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
-            {/if}
-          {/if}
+  {#key $page.url.pathname}
+    <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
+      {#if data.error}
+        <div class="text-red">
+          Error: {data.error}
         </div>
-      {/if}
+      {:else}
+        {#if data.loadedModules.component}
+          <div class="flex items-center font-semibold text-2xl mb-2">
+            {#if !dev}
+              {title}
+            {:else}
+              <Button class="!text-xl flex items-center !py-1.5 !px-2 -ml-2" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component">
+                <span class="i-vscode-icons-file-type-svelte text-2xl align--2px mr-1" /> {title}
+              </Button>
 
-      {#if markdown}
-        {#if !data.loadedModules.component}
-          <Button class="fixed top-0 right-0" onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
-            <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Edit
-          </Button>
+              <Button onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
+                <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> {markdown ? 'Edit' : 'Add'} Docs
+              </Button>
+
+              <Button
+                onclick={() => {
+                  if (compositionModules) {
+                    const name = prompt('What do you want to name this composition? (lowercase, no spaces or periods)')
+                    if (name)
+                      openComposition(pathWithoutExtension, `${name}.composition`)
+                    return
+                  }
+                  openComposition(pathWithoutExtension, 'composition')
+                }}
+                form="menu"
+                color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
+
+              {#if !variantsModule?.variants}
+                <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
+              {/if}
+            {/if}
+          </div>
         {/if}
 
-        <div class="kb-prose mb-8 max-w-1000px">
-          {@html markdown.html}
-        </div>
-      {/if}
+        {#if markdown}
+          {#if !data.loadedModules.component}
+            <Button class="fixed top-0 right-0" onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
+              <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Edit
+            </Button>
+          {/if}
 
-      {#if compositionModules}
-        <Compositions {compositionModules} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} />
-      {/if}
+          <div class="kb-prose mb-8 max-w-1000px">
+            {@html markdown.html}
+          </div>
+        {/if}
 
-      {#if variantsModule?.variants}
-        <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} />
-      {/if}
+        {#if compositionModules}
+          <Compositions {compositionModules} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} />
+        {/if}
 
-      <EditInGithub path={data?.page?.path} {githubURL} />
-    {/if}
-  </main>
+        {#if variantsModule?.variants}
+          <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} />
+        {/if}
+
+        <EditInGithub path={data?.page?.path} {githubURL} />
+      {/if}
+    </main>
+  {/key}
 </Layout>

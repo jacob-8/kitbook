@@ -1,12 +1,5 @@
 import type { KitbookSettings, VariantsModule } from '../kitbook-types'
-import { type TestToRun, prepareTestsToRun } from './runComponentTests'
-
-function addLanguageToUrl({ code, url }) {
-  const [path, search] = url.split('?')
-  const params = new URLSearchParams(search)
-  params.set('lang', code)
-  return `${path}?${params.toString()}`
-}
+import { type VariantToRun, prepareVariantsToRun } from './runComponentTests'
 
 const oneViewport = [{ width: 100, height: 100 }]
 const undefinedLanguage = [{ code: null, name: null }]
@@ -16,48 +9,40 @@ const variantModuleWithOneBoringVariant: [string, VariantsModule] = [
   { variants: [{ }] },
 ]
 
-describe(prepareTestsToRun, () => {
+describe(prepareVariantsToRun, () => {
   describe('two project languages', () => {
     const twoLanguages = [
       { code: 'en', name: 'English' },
       { code: 'fr', name: 'French' },
     ]
-    const twoLanguageKitbookConfig = { viewports: oneViewport, languages: twoLanguages, addLanguageToUrl } as KitbookSettings
+    const [firstLanguage] = twoLanguages
+    const twoLanguageKitbookConfig = { viewports: oneViewport, languages: twoLanguages } as KitbookSettings
 
-    const expectedEnglish: TestToRun = {
+    const expected: VariantToRun = {
       filepathWithoutExtension: 'lib/Foo',
-      height: 100,
-      testName: 'lib/Foo/0-100x100-en',
-      url: '/kitbook/sandbox/lib/Foo?variantIndex=0&lang=en',
-      width: 100,
+      viewports: oneViewport,
+      languages: twoLanguages,
+      variantName: 'lib/Foo/0',
+      url: '/kitbook/sandbox/lib/Foo?variantIndex=0',
     }
 
     test('standard', () => {
-      expect(prepareTestsToRun({
+      expect(prepareVariantsToRun({
         kitbookConfig: twoLanguageKitbookConfig,
         variantModules: [variantModuleWithOneBoringVariant],
-      })).toEqual([
-        expectedEnglish,
-        {
-          filepathWithoutExtension: 'lib/Foo',
-          height: 100,
-          testName: 'lib/Foo/0-100x100-fr',
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=0&lang=fr',
-          width: 100,
-        },
-      ])
+      })).toEqual([expected])
     })
 
-    test('one viewport language', () => {
+    test('one variant modules language', () => {
       const variantModuleWithOneLanguage: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
-        languages: [{ code: 'en', name: 'English' }],
+        languages: [firstLanguage],
         variants: [{ }],
       }]
 
-      expect(prepareTestsToRun({
+      expect(prepareVariantsToRun({
         kitbookConfig: twoLanguageKitbookConfig,
         variantModules: [variantModuleWithOneLanguage],
-      })).toEqual([expectedEnglish])
+      })).toEqual([{ ...expected, languages: [firstLanguage] }])
     })
 
     test('empty language array in variant module', () => {
@@ -66,10 +51,10 @@ describe(prepareTestsToRun, () => {
         variants: [{ }],
       }]
 
-      expect(prepareTestsToRun({
+      expect(prepareVariantsToRun({
         kitbookConfig: twoLanguageKitbookConfig,
         variantModules: [variantModuleWithEmptyLanguageArray],
-      })).toEqual([expectedEnglish])
+      })).toEqual([{ ...expected, languages: [firstLanguage] }])
     })
 
     test('empty language array in variant', () => {
@@ -77,28 +62,28 @@ describe(prepareTestsToRun, () => {
         variants: [{ languages: [] }],
       }]
 
-      expect(prepareTestsToRun({
+      expect(prepareVariantsToRun({
         kitbookConfig: twoLanguageKitbookConfig,
         variantModules: [variantModuleWithEmptyLanguageArray],
-      })).toEqual([expectedEnglish])
+      })).toEqual([{ ...expected, languages: [firstLanguage] }])
     })
   })
 
   test('root route', () => {
-    expect(prepareTestsToRun({
+    expect(prepareVariantsToRun({
       kitbookConfig: { viewports: oneViewport, languages: undefinedLanguage, kitbookRoute: '' } as KitbookSettings,
       variantModules: [variantModuleWithOneBoringVariant],
     })).toEqual([{
       filepathWithoutExtension: 'lib/Foo',
-      height: 100,
-      testName: 'lib/Foo/0-100x100',
+      viewports: oneViewport,
+      languages: undefinedLanguage,
+      variantName: 'lib/Foo/0',
       url: '/sandbox/lib/Foo?variantIndex=0',
-      width: 100,
     }])
   })
 
   test('skipped test', () => {
-    expect(prepareTestsToRun({
+    expect(prepareVariantsToRun({
       kitbookConfig: { viewports: oneViewport, languages: undefinedLanguage, kitbookRoute: '' } as KitbookSettings,
       variantModules: [[
         '...src/lib/Foo.variants.ts',
@@ -106,70 +91,54 @@ describe(prepareTestsToRun, () => {
       ]],
     })).toEqual([{
       filepathWithoutExtension: 'lib/Foo',
-      height: 100,
-      testName: 'lib/Foo/0-100x100',
+      viewports: oneViewport,
+      languages: undefinedLanguage,
+      variantName: 'lib/Foo/0',
       url: '/sandbox/lib/Foo?variantIndex=0',
-      width: 100,
       userAdded: { skip: true },
     }])
   })
 
-  test('works', () => {
+  test('different viewports defined in variants and variant names', () => {
     const kitbookConfig = {
       viewports: oneViewport,
       languages: undefinedLanguage,
     } as KitbookSettings
 
+    const twoViewports = [
+      { width: 200, height: 200 },
+      { width: 500, height: 500 },
+    ]
     const variantModules: [string, VariantsModule][] = [
       ['...src/lib/Foo.variants.ts', {
         variants: [
           {
-            name: 'one named viewport',
-            viewports: [{ name: 'mobile', width: 300, height: 600 }],
+            name: 'one viewport',
+            viewports: oneViewport,
           },
           {
-            name: 'two unnamed viewports',
-            viewports: [
-              { width: 200, height: 200 },
-              { width: 500, height: 500 },
-            ],
-          },
-          {
-            props: { foo: 'no name, no viewports' },
+            name: 'two viewports',
+            viewports: twoViewports,
           },
         ],
       }],
     ] as [string, VariantsModule][]
 
-    expect(prepareTestsToRun({ kitbookConfig, variantModules })).toEqual(
+    expect(prepareVariantsToRun({ kitbookConfig, variantModules })).toEqual(
       [
         {
           filepathWithoutExtension: 'lib/Foo',
-          height: 600,
-          testName: 'lib/Foo/one_named_viewport-mobile',
+          languages: undefinedLanguage,
           url: '/kitbook/sandbox/lib/Foo?variantIndex=0',
-          width: 300,
+          variantName: 'lib/Foo/one_viewport',
+          viewports: oneViewport,
         },
         {
           filepathWithoutExtension: 'lib/Foo',
-          height: 200,
-          testName: 'lib/Foo/two_unnamed_viewports-200x200',
+          languages: undefinedLanguage,
           url: '/kitbook/sandbox/lib/Foo?variantIndex=1',
-          width: 200,
-        },
-        {
-          filepathWithoutExtension: 'lib/Foo',
-          height: 500,
-          testName: 'lib/Foo/two_unnamed_viewports-500x500',
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=1',
-          width: 500,
-        },
-        {
-          filepathWithoutExtension: 'lib/Foo',
-          height: 100,
-          testName: 'lib/Foo/2-100x100',
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=2',
-          width: 100,
+          variantName: 'lib/Foo/two_viewports',
+          viewports: twoViewports,
         },
       ],
     )

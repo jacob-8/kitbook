@@ -15,6 +15,7 @@ export interface Variant<T extends SvelteComponent> {
   tests?: {
     /** skips default snapshot test, but not additional tests */
     skip?: boolean
+    /** each additional test will take viewports into account and run once per applicable viewport but will not take languages into account */
     additional?: Record<string, Test>
     /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
     clientSideRendered?: boolean

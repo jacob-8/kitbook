@@ -1,19 +1,15 @@
-import type { KitbookSettings } from '../kitbook-types'
 import { DEFAULT_KITBOOK_ROUTE } from '../plugins/vite/constants.js'
 
 export function preparePath({
-  kitbookRoute,
   path,
   index,
+  kitbookRoute,
   srcDirectory = 'src',
-  languageCode,
-  addLanguageToUrl }: {
-  kitbookRoute?: string
+}: {
   path: string
   index: number
+  kitbookRoute?: string
   srcDirectory?: string
-  languageCode?: string
-  addLanguageToUrl?: KitbookSettings['addLanguageToUrl']
 }): {
     directory: string
     filenameWithoutExtension: string
@@ -32,12 +28,10 @@ export function preparePath({
 
   const url = `${kitbookRoute ?? DEFAULT_KITBOOK_ROUTE}/sandbox${filepathWithoutExtension}?variantIndex=${index}`
 
-  const urlWithLanguage = (languageCode && addLanguageToUrl) ? addLanguageToUrl({ url, code: languageCode }) : url
-
   return {
     directory: parts.join('/'),
     filenameWithoutExtension,
-    url: urlWithLanguage,
+    url,
   }
 }
 
@@ -49,25 +43,6 @@ if (import.meta.vitest) {
         directory: 'lib',
         filenameWithoutExtension: 'Button',
         url: '/kitbook/sandbox/lib/Button?variantIndex=0',
-      })
-    })
-
-    test('language', () => {
-      const path = 'C:\\dev\\template\\src\\lib\\Button.variants.ts'
-      expect(preparePath({
-        path,
-        index: 0,
-        languageCode: 'de',
-        addLanguageToUrl: ({ code, url }) => {
-          const [path, search] = url.split('?')
-          const params = new URLSearchParams(search)
-          params.set('lang', code)
-          return `${path}?${params.toString()}`
-        },
-      })).toEqual({
-        directory: 'lib',
-        filenameWithoutExtension: 'Button',
-        url: '/kitbook/sandbox/lib/Button?variantIndex=0&lang=de',
       })
     })
 

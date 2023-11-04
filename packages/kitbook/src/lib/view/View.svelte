@@ -17,6 +17,7 @@
   export let props: Record<string, any> = undefined
   export let variantIndex: number = undefined
   export let compositionName: string = undefined
+  export let blockScripts = false
 
   let iframe: Iframe
   let viewBody: ViewBody
@@ -35,12 +36,15 @@
       {height}
       {hovered}
       {src}
+      {blockScripts}
+      let:scriptBlockingResult
       on:resetDimensions={() => viewBody.resetDimensions()}
-      on:refresh={() => iframe.reload()} />
-    <ViewBody bind:this={viewBody} {hovered} {height} {width}>
-      {#if intersecting}
-        <Iframe bind:this={iframe} {src} />
-      {/if}
-    </ViewBody>
+      on:refresh={() => iframe.reload()}>
+      <ViewBody bind:this={viewBody} {hovered} {height} {width}>
+        {#if intersecting}
+          <Iframe bind:this={iframe} {src} blockScripts={scriptBlockingResult} />
+        {/if}
+      </ViewBody>
+    </ViewHeader>
   </div>
 </IntersectionObserver>

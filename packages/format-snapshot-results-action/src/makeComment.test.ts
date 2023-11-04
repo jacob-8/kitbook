@@ -1,6 +1,10 @@
 import { formatUrl, makeComment, splitResultsByTest } from './makeComment'
 
-const results = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-actual.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-diff.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-expected.png,kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Tablet-chromium/routes/(app)/+page/Second-Tablet-actual.png'
+const mobileActual = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-actual.png'
+const mobileDiff = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-diff.png'
+const mobileExpected = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-expected.png'
+const tabletActual = 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Tablet-chromium/routes/(app)/+page/First-Tablet-actual.png'
+const results = [mobileActual, mobileDiff, mobileExpected, tabletActual].join(',')
 
 describe(makeComment, () => {
   const comment = makeComment({
@@ -19,21 +23,21 @@ describe(makeComment, () => {
 test(splitResultsByTest, () => {
   expect(splitResultsByTest(results)).toEqual(
     {
-      'Second-Mobile': {
+      'First-Mobile': {
         imageUrls: {
-          actual: 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-actual.png',
-          diff: 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-diff.png',
-          expected: 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-expected.png',
+          actual: mobileActual,
+          diff: mobileDiff,
+          expected: mobileExpected,
         },
         path: 'routes/(app)/+page',
-        testName: 'Second-Mobile',
+        testName: 'First-Mobile',
       },
-      'Second-Tablet': {
+      'First-Tablet': {
         imageUrls: {
-          actual: 'kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Tablet-chromium/routes/(app)/+page/Second-Tablet-actual.png',
+          actual: tabletActual,
         },
         path: 'routes/(app)/+page',
-        testName: 'Second-Tablet',
+        testName: 'First-Tablet',
       },
     },
   )
