@@ -6,10 +6,10 @@
   
 | new | old | diff |
 | - | - | - |
-| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - Second-Mobile | | |
-| ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-actual.png) | ![expected-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-expected.png) | ![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Mobile-chromium/routes/(app)/+page/Second-Mobile-diff.png) |
-| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - Second-Tablet | | |
-| ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-Second-Tablet-chromium/routes/(app)/+page/Second-Tablet-actual.png) |  |  |
+| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - First-Mobile | | |
+| ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-actual.png) | ![expected-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-expected.png) | ![diff-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Mobile-chromium/routes/(app)/+page/First-Mobile-diff.png) |
+| [routes/(app)/+page](https://kitbook-template-git-visual-regression-comparison-polylingual.vercel.app/kitbook/routes/(app)/+page) - First-Tablet | | |
+| ![actual-img](https://storage.googleapis.com/component-snapshots/kitbook-template/pr/30/test-results/kitbook-routes-app-page-First-Tablet-chromium/routes/(app)/+page/First-Tablet-actual.png) |  |  |
 </div>
 
   </details>

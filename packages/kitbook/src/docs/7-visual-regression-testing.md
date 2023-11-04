@@ -223,7 +223,7 @@ jobs:
       - name: Format Changed Component Snapshots for PR
         if: steps.findPr.outputs.number && steps.upload-snapshots.outputs.uploaded
         id: format_snapshot_links_for_pr
-        uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1
+        uses: jacob-8/kitbook/packages/format-snapshot-results-action@v1 # 👈 use @v1 if you intend to keep up with Kitbook's beta updates until 1.0, but pin to a version (like @v1.0.0-beta.9) if you don't want to keep up with any possible breaking changes between beta and 1.0
         with:
           upload-results: '${{ steps.upload-snapshots.outputs.uploaded }}'
           pr: '${{ steps.findPr.outputs.pr }}'

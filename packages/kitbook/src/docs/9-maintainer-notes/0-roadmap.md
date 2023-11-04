@@ -6,9 +6,8 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
+- fix: variants not showing in viewer
 - when not dev, filter out modules with only a .svelte file (and provide toggle when in dev) - do some pre-processing in the typescript
-- destroy iframes on page navigation using #key so they don't keep previous url for a moment
-- save selected languages in URL for easy sharing
 - hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
 - snapshot compositions also
 - automatically analyze component for props
@@ -16,6 +15,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 - auto-adjusting iframe height
 - responsive iframes shrink to keep interior resolution
 - movable viewer and adjustable shortcuts
+- save selected languages in URL for easy sharing
 - toggleable padding around variants
 - show compositions in viewer
 - full-screen focus view for sandbox

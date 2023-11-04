@@ -1,5 +1,5 @@
 import type { Expect, test as playwrightTest } from '@playwright/test'
-import type { KitbookSettings, Language, Variant, VariantsModule } from '../kitbook-types'
+import type { KitbookSettings, Language, Variant, VariantsModule, Viewport } from '../kitbook-types'
 import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
 import { preparePath } from './preparePath.js'
 
@@ -13,11 +13,12 @@ interface KitbookPieces {
   variantModules: [string, VariantsModule][]
 }
 
-export interface TestToRun {
-  testName: string
-  width: number
-  height: number
+export interface VariantToRun {
+  variantName: string
+  viewports: Viewport[]
+  languages: Language[]
   url: string
+  addLanguageToUrl?: KitbookSettings['addLanguageToUrl']
   filepathWithoutExtension: string
   userAdded?: Variant<any>['tests']
 }
@@ -29,42 +30,44 @@ export function runComponentTests({
   variantModules,
 }: PlaywrightPieces & KitbookPieces) {
   const settings = mergeUserSettingsWithDefaults(kitbookConfig)
-  const testsToRun = prepareTestsToRun({ kitbookConfig: settings, variantModules })
-  for (const testToRun of testsToRun) {
-    if (!testToRun.userAdded?.skip)
-      runTest({ test, expect, ...testToRun })
+  const variantsToRun = prepareVariantsToRun({ kitbookConfig: settings, variantModules })
+  for (const variantToRun of variantsToRun) {
+    if (!variantToRun.userAdded?.skip)
+      runTestsForVariant({ test, expect, ...variantToRun })
 
-    if (testToRun.userAdded?.additional)
-      runAdditionalTests({ test, expect, ...testToRun })
+    if (variantToRun.userAdded?.additional)
+      runAdditionalTests({ test, expect, ...variantToRun })
   }
 }
 
-export function prepareTestsToRun({ kitbookConfig, variantModules }: KitbookPieces): TestToRun[] {
+export function prepareVariantsToRun({ kitbookConfig, variantModules }: KitbookPieces): VariantToRun[] {
   const { kitbookRoute, viewports: projectViewports, languages: projectLanguages, addLanguageToUrl } = kitbookConfig
 
-  const tests: TestToRun[] = []
+  const variantsToRun: VariantToRun[] = []
 
   for (const [path, { variants, viewports: fileViewports, languages: fileLanguages }] of variantModules) {
     variants.forEach((variant, index) => {
       const variantViewports = variant.viewports || fileViewports || projectViewports
-      for (const { name: viewportName, width, height } of variantViewports) {
-        for (const language of getLanguages({ variantLanguages: variant.languages, moduleLanguages: fileLanguages, activeLanguages: projectLanguages })) {
-          const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index, languageCode: language.code, addLanguageToUrl })
+      const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index })
 
-          const filepathWithoutExtension = `${directory}/${filenameWithoutExtension}`
-          const variantNameWithSafeCharacters = variant.name?.replace(/[^a-z0-9]/gi, '_')
-          const viewportIdentifier = viewportName || `${width}x${height}`
-          const possibleLanguageSuffix = language.code ? `-${language.code}` : ''
+      const filepathWithoutExtension = `${directory}/${filenameWithoutExtension}`
+      const variantNameWithSafeCharacters = variant.name?.replace(/[^a-z0-9]/gi, '_')
 
-          const testName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}-${viewportIdentifier}${possibleLanguageSuffix}`
+      const variantName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}`
 
-          tests.push({ testName, width, height, url, filepathWithoutExtension, userAdded: variant.tests })
-        }
-      }
+      variantsToRun.push({
+        variantName,
+        viewports: variantViewports,
+        languages: getLanguages({ variantLanguages: variant.languages, moduleLanguages: fileLanguages, activeLanguages: projectLanguages }),
+        url,
+        addLanguageToUrl,
+        filepathWithoutExtension,
+        userAdded: variant.tests,
+      })
     })
   }
 
-  return tests
+  return variantsToRun
 }
 
 function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: projectLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
@@ -75,27 +78,55 @@ function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: proj
   return variantLanguages || moduleLanguages || projectLanguages
 }
 
-function runTest({ test, expect, testName, width, height, url, userAdded }: PlaywrightPieces & TestToRun) {
-  test(testName, async ({ page }) => {
-    await page.setViewportSize({ width, height })
-    const waitUntil = userAdded?.clientSideRendered ? 'networkidle' : 'load'
-    await page.goto(url, { waitUntil })
-    await expect(page).toHaveScreenshot([`${testName}.png`])
+function runTestsForVariant({ test, expect, variantName, viewports, languages, url, addLanguageToUrl, userAdded }: PlaywrightPieces & VariantToRun) {
+  test.describe(variantName, () => {
+    const csr = !!userAdded?.clientSideRendered
+    const waitUntil = csr ? 'networkidle' : 'load'
+    test.use({ javaScriptEnabled: csr })
+
+    for (const { name, width, height } of viewports) {
+      const viewportName = name || `${width}x${height}`
+      if (languages.length === 1 && !languages[0].code) {
+        test(viewportName, async ({ page }) => {
+          await page.setViewportSize({ width, height })
+          await page.goto(url, { waitUntil })
+          await expect(page).toHaveScreenshot([`${variantName}-${viewportName}.png`])
+        })
+      }
+      else {
+        test.describe(viewportName, () => {
+          test.use({ viewport: { width, height } })
+          for (const language of languages) {
+            const urlWithLanguage = addLanguageToUrl({ url, code: language.code })
+            test(language.name, async ({ page }) => {
+              await page.goto(urlWithLanguage, { waitUntil })
+              await expect(page).toHaveScreenshot([`${variantName}-${viewportName}-${language.code}.png`])
+            })
+          }
+        })
+      }
+    }
   })
 }
 
-function runAdditionalTests({ test, expect, testName, width, height, url, filepathWithoutExtension, userAdded }: PlaywrightPieces & TestToRun) {
-  for (const [additionalName, additionalTest] of Object.entries(userAdded.additional)) {
-    const name = `${testName}-${additionalName}`
-    test(name, async ({ page }) => {
-      await page.setViewportSize({ width, height })
-      await page.goto(url)
-      await additionalTest({
-        page,
-        expect,
-        filepathWithoutExtension,
-        name,
-      })
-    })
-  }
+// ignores languages
+function runAdditionalTests({ test, expect, variantName, viewports, url, filepathWithoutExtension, userAdded }: PlaywrightPieces & VariantToRun) {
+  test.describe(variantName, () => {
+    for (const [additionalName, additionalTest] of Object.entries(userAdded.additional)) {
+      for (const { name, width, height } of viewports) {
+        const viewportName = name || `${width}x${height}`
+        const testName = `${additionalName}-${viewportName}`
+        test(testName, async ({ page }) => {
+          await page.setViewportSize({ width, height })
+          await page.goto(url)
+          await additionalTest({
+            page,
+            expect,
+            filepathWithoutExtension,
+            name: `${variantName}-${testName}`,
+          })
+        })
+      }
+    }
+  })
 }
