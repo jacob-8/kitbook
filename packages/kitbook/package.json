@@ -123,5 +123,9 @@
     "vite": "^4.5.0",
     "vite-plugin-inspect": "^0.7.41",
     "vitest": "^0.34.6"
+  },
+  "stackblitz": {
+    "installDependencies": false,
+    "startCommand": "node .stackblitz.js && npm install && npm run dev"
   }
 }
