@@ -199,7 +199,7 @@ jobs:
         env:
           CI: true
           # PLAYWRIGHT_BASE_URL is set above already, otherwise it would need set here
-        continue-on-error: true # expect an error when components change
+        continue-on-error: true # 👈 you expect an error when components change and this is ok, this does mean however that if you have a clear bill of health saying the no snapshots changed when they should have, you know there's a bug in your app keeping your tests from running, until there is a better process you will need to verify your logs
 
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
@@ -398,6 +398,32 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+```
+
+Then you will want to keep your deployment from redeploying when a commit is just to update snapshots. If using Vercel, you can use a custom ignore build step which uses a `vercel-deploy.sh` file in your repo like this:
+
+```bash title="vercel-deploy.sh"
+#!/bin/bash
+
+# Check if there are changes in the latest commit
+git diff --quiet HEAD^ HEAD ./
+HAS_CHANGES=$?
+
+# Check if the commit message contains [Updated Component Snapshots]
+git log -1 --pretty=%B | grep '\[Updated Component Snapshots\]'
+HAS_IGNORE_MESSAGE=$?
+
+echo "has changes is $HAS_CHANGES"
+echo "has ignore is $HAS_IGNORE_MESSAGE"
+
+if [ $HAS_CHANGES -eq 0 ] || [ $HAS_IGNORE_MESSAGE -eq 0 ]; then
+  # Ignore the build
+  echo "🛑 - Build cancelled"
+  exit 0
+else
+  echo "✅ - Build can proceed"
+  exit 1
+fi
 ```
 
 This workflow will not be maintained as using cloud storage is the better option, but if you find it helpful and have some improvement to it, feel free to submit a PR.
