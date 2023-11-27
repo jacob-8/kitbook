@@ -400,7 +400,7 @@ jobs:
           retention-days: 30
 ```
 
-Then you will want to keep your deployment from redeploying when a commit is just to update snapshots. If using Vercel, you can use a custom ignore build step which uses a `vercel-deploy.sh` file in your repo like this:
+Then you will want to keep your deployment from redeploying when a commit is just to update snapshots. If using Vercel, you can set "Ignored Build Step" to "Run my Bash script" with `bash vercel-deploy.sh`, then add this file to your repo:
 
 ```bash title="vercel-deploy.sh"
 #!/bin/bash

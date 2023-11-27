@@ -50,11 +50,13 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
     },
 
     configureServer(server) {
-      if (settings.kitbookRoute) {
+      const { kitbookRoute, addLanguageToUrl, languages } = settings
+      if (kitbookRoute) {
+        const languageAwareRoute = addLanguageToUrl ? addLanguageToUrl({ code: languages[0].code, url: kitbookRoute }) : kitbookRoute
         const originalPrint = server.printUrls
         server.printUrls = () => {
           originalPrint()
-          console.info(`  ${green}➜${reset}  ${bold}Kitbook${reset}: ${green}${server.config.server.https ? 'https' : 'http'}://localhost:${bold}${server.config.server.port}${reset}${green}${settings.kitbookRoute}${reset}`)
+          console.info(`  ${green}➜${reset}  ${bold}Kitbook${reset}: ${green}${server.config.server.https ? 'https' : 'http'}://localhost:${bold}${server.config.server.port}${reset}${green}${languageAwareRoute}${reset}`)
         }
       }
     },
