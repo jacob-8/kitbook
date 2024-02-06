@@ -2,7 +2,7 @@
   import type { Variant, Viewport } from 'kitbook'
   import Iframe from '../../view/Iframe.svelte'
 
-  export let kitbookRoute: string
+  export let languageInsertedKitbookRoute: string
   export let localFilenameWithLeadingSlash: string
   export let variants: Variant<any>[]
   export let fileViewports: Viewport[]
@@ -97,7 +97,7 @@
 </div>
 
 <div style="width: {viewport.width}px; height: {viewport.height}px;" class="border">
-  <Iframe src="{kitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantIdx={currentVariantIndex}" />
+  <Iframe src="{languageInsertedKitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantIndex={currentVariantIndex}" />
 </div>
 
 <svelte:window on:keydown={handleKeydown} />

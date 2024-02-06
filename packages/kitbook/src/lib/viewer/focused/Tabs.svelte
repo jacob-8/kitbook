@@ -25,6 +25,6 @@
 
 <style>
   .active {
-    --at-apply: font-semibold text-black
+    --at-apply: font-semibold text-black;
   }
 </style>

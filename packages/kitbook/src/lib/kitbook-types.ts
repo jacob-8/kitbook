@@ -138,6 +138,8 @@ export interface KitbookSettings {
    * Pass an empty string `""` to indicate the root `/` route
    */
   kitbookRoute?: string
+  /** Don't use this - Kitbook automatically calculates it by running your addLanguageToUrl function (if it exists) on your kitbookRoute. */
+  languageInsertedKitbookRoute?: string
 }
 
 export interface Viewport {

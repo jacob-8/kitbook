@@ -9,13 +9,20 @@ export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSetti
 
   checkLanguageSetup(userSettings)
 
-  return {
+  const combinedSettings: KitbookSettings = {
     ...DEFAULT_KITBOOK_SETTINGS,
     ...userSettings,
     viewer: {
       ...DEFAULT_VIEWER_OPTIONS,
       ...userSettings.viewer || {},
     },
+  }
+
+  const languageInsertedKitbookRoute = combinedSettings.addLanguageToUrl ? combinedSettings.addLanguageToUrl({ code: combinedSettings.languages[0].code, url: combinedSettings.kitbookRoute }) : combinedSettings.kitbookRoute
+
+  return {
+    ...combinedSettings,
+    languageInsertedKitbookRoute,
   }
 }
 
