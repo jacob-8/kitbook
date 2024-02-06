@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Button } from 'svelte-pieces'
-  import LaunchSearch from './search/LaunchSearch.svelte'
 
   export let showSidebar = false
   export let githubURL: string = undefined
@@ -23,7 +22,7 @@
   </a>
   <div class="flex-1" />
 
-  <LaunchSearch {kitbookPath} />
+  <slot name="searchbutton" />
 
   {#if githubURL}
     <Button

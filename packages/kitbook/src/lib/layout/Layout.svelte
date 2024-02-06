@@ -8,6 +8,8 @@
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders'
   import LayoutPanes from './LayoutPanes.svelte'
   import { findKitbookPath } from './kitbookPath'
+  import SearchModal from './sidebar/search/SearchModal.svelte'
+  import LaunchSearch from './sidebar/search/LaunchSearch.svelte'
 
   export let settings: KitbookSettings
   export let pathname: string
@@ -19,12 +21,17 @@
   const [firstLanguage] = settings.languages
   $: availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
   const selectedLanguages = createPersistedStore(`selected-languages_${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
+
+  let SearchModalComponent: SearchModal
 </script>
 
 <LayoutPanes>
   <svelte:fragment slot="leftside">
     <Header bind:showSidebar githubURL={settings.githubURL} {kitbookPath} {activePath}>
       <slot name="title">{settings.title}</slot>
+      <svelte:fragment slot="searchbutton">
+        <LaunchSearch onclick={() => SearchModalComponent.open()} />
+      </svelte:fragment>
     </Header>
     {#if settings.languages.length > 1}
       <div class="mx-2 mb-2">
@@ -40,6 +47,8 @@
 
   <slot activeLanguages={Object.values($selectedLanguages).map(({ name, value }) => ({ name, code: value }))} />
 </LayoutPanes>
+
+<SearchModal {kitbookPath} bind:this={SearchModalComponent} />
 
 <svelte:head>
   <meta name="description" content={settings.description} />
