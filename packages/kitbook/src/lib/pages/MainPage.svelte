@@ -13,7 +13,7 @@
 
   export let data: MainPageLoadResult & LayoutLoadResult
 
-  const { viewports: projectViewports, addLanguageToUrl, githubURL, viewer } = data.settings
+  const { viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle } = data.settings
 
   const { pagesStore } = data
   $: pageFromHMR = $pagesStore?.[data.pageKey]
@@ -58,7 +58,13 @@
 
   $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
+
+  $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
 </script>
+
+<svelte:head>
+  <title>{pageTitle}</title>
+</svelte:head>
 
 <Layout settings={data.settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
   {#key $page.url.pathname}

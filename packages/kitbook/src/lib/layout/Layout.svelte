@@ -17,8 +17,8 @@
   let showSidebar = false
 
   const [firstLanguage] = settings.languages
-  $: availableLanguageBasedKey = settings.languages.map(({ code }) => code).join('-')
-  const selectedLanguages = createPersistedStore(`selected-languages_${availableLanguageBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
+  $: availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
+  const selectedLanguages = createPersistedStore(`selected-languages_${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
 </script>
 
 <LayoutPanes>
@@ -42,7 +42,5 @@
 </LayoutPanes>
 
 <svelte:head>
-  <!-- TODO: Update based on title + current page -->
-  <title>{settings.title}</title>
   <meta name="description" content={settings.description} />
 </svelte:head>
