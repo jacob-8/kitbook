@@ -6,12 +6,11 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
+- bug: foam wikilinks from README.md or index.md broken when using a kitbook route don't work as they link relative to root - one option is to reroute to kitbook/index or kitbook/README
 - Kitbook menu in mobile doesn't have proper title from settings
 - Add visual regression comment if no changed snapshots
-- fix kitbook opener url to use url updater so it can convert /[lang] to /en
 - give md edit button a solid background
 - set languages cookie by project
-- bug: foam wikilinks from README.md or index.md broken when using a kitbook route don't work as they link relative to root - one option is to reroute to kitbook/index or kitbook/README
 - fix: variants not showing in viewer
 - when not dev, filter out modules with only a .svelte file (and provide toggle when in dev) - do some pre-processing in the typescript
 - hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
