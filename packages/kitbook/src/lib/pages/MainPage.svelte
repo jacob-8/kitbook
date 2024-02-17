@@ -8,8 +8,9 @@
   import Variants from './Variants.svelte'
   import Compositions from './Compositions.svelte'
   import type { MainPageLoadResult } from './mainPageLoad'
-  import { dev } from '$app/environment'
+  import { browser, dev } from '$app/environment'
   import { page } from '$app/stores'
+  import { goto } from '$app/navigation'
 
   export let data: MainPageLoadResult & LayoutLoadResult
 
@@ -60,6 +61,9 @@
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
 
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
+
+  $: if (data.pageKey === '/' && browser)
+    goto(`${window.location.href}/index`)
 </script>
 
 <svelte:head>

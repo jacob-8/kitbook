@@ -44,7 +44,7 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
   if (indexPage) {
     loadedModules.markdown = await indexPage.loadMarkdown.loadModule()
     loadedModules.markdownRaw = await indexPage.loadMarkdown.loadRaw()
-    return { page: indexPage, pageKey: '/index', loadedModules }
+    return { page: indexPage, pageKey, loadedModules }
   }
 
   const readmePage = pages['/README']
@@ -52,7 +52,7 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
     try {
       loadedModules.markdown = await readmePage.loadMarkdown.loadModule()
       loadedModules.markdownRaw = await readmePage.loadMarkdown.loadRaw()
-      return { page: readmePage, pageKey: '/README', loadedModules }
+      return { page: readmePage, pageKey, loadedModules }
     }
     catch (e) {
       return {
@@ -62,7 +62,7 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
     }
   }
 
-  return { error: 'No modules found for this route. By default Kitbook will try to display your project README.md file as the home page if no src/index.md file exists.', loadedModules }
+  return { error: 'No modules found for this route. By default Kitbook will display your project\'s README.md file as the home page if no src/index.md file exists.', loadedModules }
 }
 
 function parsePageKey(input: string) {
