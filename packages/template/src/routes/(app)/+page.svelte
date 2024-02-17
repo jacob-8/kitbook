@@ -12,4 +12,6 @@
 
   <Button href="/kitbook">Navigate to template kitbook</Button>
   <Button href="https://kitbook.vercel.app">Open Kitbook Docs</Button>
+
+  <div style="margin-top: 10px;">As well you could use the target icon in the lower right corner to open the Kitbook Viewer, and click on a Button to view it's props, variants, or jump directly to it in Kitbook.</div>
 </div>

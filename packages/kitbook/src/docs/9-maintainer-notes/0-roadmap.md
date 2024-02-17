@@ -6,6 +6,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
+- add templates
 - improve: viewer's component tree when components from packages are used which have slots
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - set languages cookie by project
