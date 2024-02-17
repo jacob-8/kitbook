@@ -29,11 +29,15 @@ export function shikiTwoslashHighlighter(settings: UserConfigSettings = {}): { h
 }
 
 function add_copy_button(html: string, code: string) {
-  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\\\`${escape_backticks(code)}\\\`)"></button></pre>`)
+  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\\\`${escape_problem_characters(code)}\\\`)"></button></pre>`)
 }
 
-function escape_backticks(input: string): string {
-  return input.replace(/`/g, '\\\\\\`') // three to escape the backtick and three to provide a backslash that will remain in DOM so copy operation works
+// three backslashes to escape the character when building
+// three backslashes to provide a backslash that will remain in DOM so copy function works properly
+function escape_problem_characters(input: string): string {
+  return input
+    .replaceAll('`', '\\\\\\`')
+    .replaceAll('$', '\\\\\\$')
 }
 
 type MDSvexHighlighter = (code: string, lang: string | undefined, metastring: string | undefined) => string | Promise<string>

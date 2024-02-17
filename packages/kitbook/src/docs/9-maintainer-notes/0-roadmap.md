@@ -6,35 +6,33 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
-- fix: variants not showing in viewer
-- Bug: foam wikilinks from README.md or index.md broken when using a kitbook route don't work as they link relative to root - one option is to reroute to kitbook/index or kitbook/README
-- add copy button to code blocks
-- movable viewer and adjustable shortcuts
-- Add visual regression comment if no changed snapshots
-- give md edit button a solid background
+- bug: foam wikilinks from README.md or index.md broken when using a kitbook route don't work as they link relative to root - one option is to reroute to kitbook/index or kitbook/README
+- improve: viewer's component tree when components from packages are used which have slots
+- improve: variants not showing in viewer
+- html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - set languages cookie by project
-- hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
 - snapshot compositions also
-- automatically analyze component for props
-- editable props for variants and compositions
-- auto-adjusting iframe height
-- responsive iframes shrink to keep interior resolution
 - save selected languages in URL for easy sharing
 - toggleable padding around variants
-- show compositions in viewer
 - full-screen focus view for sandbox
   - show source code using code editor <!-- i-tabler-code"-->
-- start automatically displaying components without stories by using default props
-  - document how to adjust glob to be able to gradually include components
+- automatically analyze component for props
   - `import { svelte2tsx } from 'svelte2tsx';`
   - `import FolderRaw from './Folder.svelte?raw';`
-- keep sidebar active page in view
-  - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
-- update meta-tags based on current page
+  - display a default variant for components without variants by using default props
+  - document how to adjust glob to be able to gradually include components
 - Next and Previous pages (see Docusaurus/Vitebook)
+- movable viewer and adjustable shortcuts
+- show compositions in viewer
+- auto-adjusting iframe height
+- hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
+- editable props for variants and compositions
 
 ## Rough edges 
 
+- responsive iframes shrink to keep interior resolution
+- keep sidebar active page in view
+  - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
 - on build don't show folders that have no components with Kitbook files 
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
@@ -46,6 +44,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Post 1.0
 
+- add visual regression comment if no changed snapshots
 - improve search to include raw string content with fuzzy search https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - more keyboard shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page
 - Dark mode (both for Kitbook and for individual sandboxes - or be able to show light and dark side by side) learn from https://github.com/dansvel/sveltekit-windi
