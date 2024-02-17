@@ -6,9 +6,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
-- bug: foam wikilinks from README.md or index.md broken when using a kitbook route don't work as they link relative to root - one option is to reroute to kitbook/index or kitbook/README
 - improve: viewer's component tree when components from packages are used which have slots
-- improve: variants not showing in viewer
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - set languages cookie by project
 - snapshot compositions also
