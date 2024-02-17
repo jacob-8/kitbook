@@ -2,13 +2,5 @@
 <h1 id="get-started"><a class="heading-anchor" href="#get-started">Get Started</a></h1>
 <ul>
   <li>Install...</li>
-</ul><pre class="shiki dark-plus" style="background-color: #1E1E1E; color: #D4D4D4"><div class="language-id">diff</div><div class='code-container'><code><div class='line'><span style="color: #D4D4D4">import &#123; sveltekit &#125; from '@sveltejs/kit/vite';</span></div><div class='line'><span style="color: #B5CEA8">+import &#123; kitbook &#125; from 'kitbook/plugins/vite';</span></div><div class='line'></div><div class='line'><span style="color: #D4D4D4">const config = &#123;</span></div><div class='line'><span style="color: #D4D4D4">	plugins: [</span></div><div class='line'><span style="color: #B5CEA8">+		kitbook(),</span></div><div class='line'><span style="color: #D4D4D4">		sveltekit(),</span></div><div class='line'><span style="color: #D4D4D4">	],</span></div><div class='line'><span style="color: #D4D4D4">&#125;;</span></div></code></div><button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\`import { sveltekit } from '@sveltejs/kit/vite';
-+import { kitbook } from 'kitbook/plugins/vite';
-
-const config = {
-	plugins: [
-+		kitbook(),
-		sveltekit(),
-	],
-};\`)"></button></pre>
+</ul><pre class="shiki dark-plus" style="background-color: #1E1E1E; color: #D4D4D4"><div class="language-id">diff</div><div class='code-container'><code><div class='line'><span style="color: #D4D4D4">import &#123; sveltekit &#125; from '@sveltejs/kit/vite';</span></div><div class='line'><span style="color: #B5CEA8">+import &#123; kitbook &#125; from 'kitbook/plugins/vite';</span></div><div class='line'></div><div class='line'><span style="color: #D4D4D4">const config = &#123;</span></div><div class='line'><span style="color: #D4D4D4">	plugins: [</span></div><div class='line'><span style="color: #B5CEA8">+		kitbook(),</span></div><div class='line'><span style="color: #D4D4D4">		sveltekit(),</span></div><div class='line'><span style="color: #D4D4D4">	],</span></div><div class='line'><span style="color: #D4D4D4">&#125;;</span></div></code></div><button type="button" class="copy-code-block" onclick="(function(btn){const pre=btn.closest('pre');let text='';pre.querySelectorAll('.code-container .line').forEach(line=>{text+=line.textContent+'\\n';});navigator.clipboard.writeText(text).catch(() => { alert('Error copying') })})(this)"></button></pre>
 <p>I'm going to link to [<a href="index" title="cases/index">FooBook</a>]</p>
