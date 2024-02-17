@@ -23,22 +23,22 @@ export function shikiTwoslashHighlighter(settings: UserConfigSettings = {}): { h
       const highlighters = await loadHighlighters(settings)
       const html = renderHTML({ code, lang, meta, settings, highlighters, twoslash })
       const escapedHtml = escapeSvelte(html)
-      return add_copy_button(escapedHtml, code)
+      return add_copy_button(escapedHtml)
     },
   }
 }
 
-function add_copy_button(html: string, code: string) {
-  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\\\`${escape_problem_characters(code)}\\\`)"></button></pre>`)
+function add_copy_button(html: string) {
+  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="(function(btn){const pre=btn.closest('pre');let text='';pre.querySelectorAll('.code-container .line').forEach(line=>{text+=line.textContent+'\\\\n';});navigator.clipboard.writeText(text).catch(() => { alert('Error copying') })})(this)"></button></pre>`)
 }
 
-// three backslashes to escape the character when building
-// three backslashes to provide a backslash that will remain in DOM so copy function works properly
-function escape_problem_characters(input: string): string {
-  return input
-    .replaceAll('`', '\\\\\\`')
-    .replaceAll('$', '\\\\\\$')
-}
+// for readability, here is the function above, this code is not actually needed
+// function inlined_function(btn) {
+//   const pre = btn.closest('pre')
+//   let text = ''
+//   pre.querySelectorAll('.code-container .line').forEach((line) => { text += line.textContent + '\\\\n' })
+//   navigator.clipboard.writeText(text).catch(() => { alert('Error copying') })
+// }
 
 type MDSvexHighlighter = (code: string, lang: string | undefined, metastring: string | undefined) => string | Promise<string>
 
