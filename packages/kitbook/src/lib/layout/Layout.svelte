@@ -2,6 +2,7 @@
   import '@kitbook/mdsvex-shiki-twoslash/shiki-twoslash.css'
   import '../styles/main.css'
   import { MultiSelect, createPersistedStore } from 'svelte-pieces'
+  import { readable } from 'svelte/store'
   import type { GroupedPageMap, KitbookSettings } from '../kitbook-types'
   import Header from './sidebar/Header.svelte'
   import Sidebar from './sidebar/Sidebar.svelte'
@@ -19,8 +20,14 @@
   let showSidebar = false
 
   const [firstLanguage] = settings.languages
-  $: availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
-  const selectedLanguages = createPersistedStore(`selected-languages_${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
+
+  let selectedLanguages = readable(null)
+  $: activeLanguages = Object.values($selectedLanguages || {}).map(({ name, value }) => ({ name, code: value }))
+
+  if (settings.languages.length > 1) {
+    const availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
+    selectedLanguages = createPersistedStore(`${settings.title} selected-languages ${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
+  }
 
   let SearchModalComponent: SearchModal
 </script>
@@ -33,7 +40,7 @@
         <LaunchSearch onclick={() => SearchModalComponent.open()} />
       </svelte:fragment>
     </Header>
-    {#if settings.languages.length > 1}
+    {#if $selectedLanguages}
       <div class="mx-2 mb-2">
         <MultiSelect placeholder="Select languages" options={settings.languages.map(({ name, code }) => ({ name, value: code }))} bind:selectedOptions={$selectedLanguages} />
       </div>
@@ -45,7 +52,7 @@
     </nav>
   </svelte:fragment>
 
-  <slot activeLanguages={Object.values($selectedLanguages).map(({ name, value }) => ({ name, code: value }))} />
+  <slot {activeLanguages} />
 </LayoutPanes>
 
 <SearchModal {kitbookPath} bind:this={SearchModalComponent} />

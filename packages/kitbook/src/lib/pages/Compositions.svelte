@@ -9,9 +9,16 @@
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
 
   function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[]; activeLanguages: Language[] }) {
+    // can set individual language props to an empty array to opt-out
     if (moduleLanguages?.length === 0)
       return activeLanguages.slice(0, 1)
-    return moduleLanguages || activeLanguages
+
+    if (moduleLanguages?.length)
+      return moduleLanguages
+    if (activeLanguages?.length)
+      return activeLanguages
+
+    return [{ code: null }]
   }
 
   let containerWidth = 1000

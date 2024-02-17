@@ -20,7 +20,7 @@ export default defineConfig({
       height: 1024,
     },
   ],
-  languages: [{ name: null, code: null }], // This is only here to enable a composition inside Kitbook's docs. Normally you would have at least two languages here.
+  languages: [{ name: null, code: null }], // This is only here to enable a composition inside Kitbook's docs. If you use this at all, you would have at least two languages here.
   addLanguageToUrl: ({ code, url }) => {
     const [path, search] = url.split('?')
     const params = new URLSearchParams(search)
