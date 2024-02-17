@@ -22,9 +22,18 @@ export function shikiTwoslashHighlighter(settings: UserConfigSettings = {}): { h
       const twoslash = meta.twoslash ? runTwoSlash(code, lang) : undefined
       const highlighters = await loadHighlighters(settings)
       const html = renderHTML({ code, lang, meta, settings, highlighters, twoslash })
-      return escapeSvelte(html)
+      const escapedHtml = escapeSvelte(html)
+      return add_copy_button(escapedHtml, code)
     },
   }
+}
+
+function add_copy_button(html: string, code: string) {
+  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\\\`${escape_backticks(code)}\\\`)"></button></pre>`)
+}
+
+function escape_backticks(input: string): string {
+  return input.replace(/`/g, '\\\\\\`') // three to escape the backtick and three to provide a backslash that will remain in DOM so copy operation works
 }
 
 type MDSvexHighlighter = (code: string, lang: string | undefined, metastring: string | undefined) => string | Promise<string>
