@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
   import { fade } from 'svelte/transition'
   import { portal } from 'svelte-pieces'
   import SearchResult from './SearchResult.svelte'
