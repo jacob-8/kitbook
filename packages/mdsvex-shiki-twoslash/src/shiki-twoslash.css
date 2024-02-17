@@ -22,6 +22,39 @@ pre.shiki {
   tab-size: 2;
 }
 
+pre.shiki .copy-code-block {
+  color: white;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  border-radius: 4px;
+  padding: 4px 10px;
+  border: 1px solid #3a3a3a;
+  background: #1e1e1e;
+  transition: background-color .25s,opacity .25s;
+  opacity: 0;
+}
+
+pre.shiki:hover .copy-code-block {
+  opacity: 1;
+}
+
+pre.shiki .copy-code-block:hover {
+  background: #111111;
+}
+
+pre.shiki .copy-code-block:focus {
+  background: black;
+}
+
+pre.shiki .copy-code-block::before {
+  content: 'Copy'
+}
+
+pre.shiki .copy-code-block:focus::before {
+  content: 'Copied';
+}
+
 pre.shiki .code-container {
   padding: var(--shiki-padding) 0;
   overflow: auto;

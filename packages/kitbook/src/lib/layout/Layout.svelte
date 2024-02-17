@@ -39,7 +39,7 @@
       </div>
     {/if}
     <nav class="hidden md:block overflow-y-auto grow-1">
-      <Sidebar bind:showSidebar folder={putPagesIntoFolders(pages)} {kitbookPath} {activePath} expanded={settings.expandTree}>
+      <Sidebar title={settings.title} bind:showSidebar folder={putPagesIntoFolders(pages)} {kitbookPath} {activePath} expanded={settings.expandTree}>
         <svelte:fragment slot="footer"><slot name="footer" /></svelte:fragment>
       </Sidebar>
     </nav>

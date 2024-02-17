@@ -22,9 +22,22 @@ export function shikiTwoslashHighlighter(settings: UserConfigSettings = {}): { h
       const twoslash = meta.twoslash ? runTwoSlash(code, lang) : undefined
       const highlighters = await loadHighlighters(settings)
       const html = renderHTML({ code, lang, meta, settings, highlighters, twoslash })
-      return escapeSvelte(html)
+      const escapedHtml = escapeSvelte(html)
+      return add_copy_button(escapedHtml, code)
     },
   }
+}
+
+function add_copy_button(html: string, code: string) {
+  return html.replace('</pre>', `<button type="button" class="copy-code-block" onclick="navigator.clipboard.writeText(\\\`${escape_problem_characters(code)}\\\`)"></button></pre>`)
+}
+
+// three backslashes to escape the character when building
+// three backslashes to provide a backslash that will remain in DOM so copy function works properly
+function escape_problem_characters(input: string): string {
+  return input
+    .replaceAll('`', '\\\\\\`')
+    .replaceAll('$', '\\\\\\$')
 }
 
 type MDSvexHighlighter = (code: string, lang: string | undefined, metastring: string | undefined) => string | Promise<string>

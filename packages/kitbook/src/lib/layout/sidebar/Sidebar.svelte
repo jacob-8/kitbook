@@ -8,7 +8,7 @@
   export let kitbookPath: string
   export let activePath: string
   export let showSidebar = false
-  export let title = 'Kitbook'
+  export let title: string
   export let expanded = false
 
   afterNavigate(() => {

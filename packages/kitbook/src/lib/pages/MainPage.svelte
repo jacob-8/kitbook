@@ -109,7 +109,7 @@
 
         {#if markdown}
           {#if !data.loadedModules.component}
-            <Button class="fixed top-0 right-0" onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
+            <Button class="fixed top-0 right-0 bg-white" onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
               <span class="i-vscode-icons-file-type-markdown align--6px text-2xl" /> Edit
             </Button>
           {/if}
