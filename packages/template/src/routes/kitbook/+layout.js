@@ -1,4 +1,4 @@
-// @ts-expect-error - virtual import
+// @ts-ignore - virtual import
 import { settings } from 'virtual:kitbook';
 import { groupColocatedModulesIntoPages, layoutLoad, pagesStore } from 'kitbook';
 /**
@@ -8,13 +8,13 @@ import { groupColocatedModulesIntoPages, layoutLoad, pagesStore } from 'kitbook'
  * Kitbook changes in the future will cause this file to be regenerated. Your glob patterns will be preserved as long as you only edit the patterns inside the array brackets and nothing else.
  */
 const components = import.meta.glob(['/src/**/*.svelte']);
-const componentsRaw = import.meta.glob(['/src/**/*.svelte'], { as: 'raw' });
+const componentsRaw = import.meta.glob(['/src/**/*.svelte'], { query: '?raw', import: 'default' });
 const variants = import.meta.glob(['/src/**/*.variants.ts']);
-const variantsRaw = import.meta.glob(['/src/**/*.variants.ts'], { as: 'raw' });
+const variantsRaw = import.meta.glob(['/src/**/*.variants.ts'], { query: '?raw', import: 'default' });
 const compositions = import.meta.glob(['/src/**/*.composition']);
-const compositionsRaw = import.meta.glob(['/src/**/*.composition'], { as: 'raw' });
+const compositionsRaw = import.meta.glob(['/src/**/*.composition'], { query: '?raw', import: 'default' });
 const markdown = import.meta.glob(['/src/**/*.md', '/README.md']);
-const markdownRaw = import.meta.glob(['/src/**/*.md', '/README.md'], { as: 'raw' });
+const markdownRaw = import.meta.glob(['/src/**/*.md', '/README.md'], { query: '?raw', import: 'default' });
 export const _pages = groupColocatedModulesIntoPages({ components, componentsRaw, variants, variantsRaw, compositions, compositionsRaw, markdown, markdownRaw });
 let firstLoad = true;
 if (firstLoad) {

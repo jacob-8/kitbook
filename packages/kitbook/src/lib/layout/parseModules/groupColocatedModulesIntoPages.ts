@@ -14,17 +14,17 @@ export function groupColocatedModulesIntoPages({
   markdownRaw,
 }: {
   components: Record<string, unknown>
-  componentsRaw: RawModules
+  componentsRaw: Record<string, unknown>
   variants: Record<string, unknown>
-  variantsRaw: RawModules
+  variantsRaw: Record<string, unknown>
   compositions: Record<string, unknown>
-  compositionsRaw: RawModules
+  compositionsRaw: Record<string, unknown>
   markdown: Record<string, unknown>
-  markdownRaw: RawModules
+  markdownRaw: Record<string, unknown>
 }): GroupedPageMap {
   // Presently we are not using the distinctions, but this is set up to give flexibility in the future to allow users to choose their own extensions in their import.meta.glob patterns
   const modules = { ...markdown, ...components, ...variants, ...compositions } as Modules
-  const rawModules: RawModules = { ...componentsRaw, ...variantsRaw, ...compositionsRaw, ...markdownRaw }
+  const rawModules = { ...componentsRaw, ...variantsRaw, ...compositionsRaw, ...markdownRaw } as RawModules
   const ungroupedPages = parseModulesIntoUngroupedPages(modules, rawModules)
   return groupColocatedPages(ungroupedPages)
 }
