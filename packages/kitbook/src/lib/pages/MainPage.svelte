@@ -63,7 +63,7 @@
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
 
   $: if (data.pageKey === '/' && browser)
-    goto(`${window.location.href.replace(/\/$/, '')}/index`)
+    goto(`${$page.url.pathname.replace(/\/$/, '')}/index`)
 </script>
 
 <svelte:head>
