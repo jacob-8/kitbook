@@ -24,7 +24,7 @@
   let containerWidth = 1000
 </script>
 
-{#each Object.entries(compositionModules) as [compositionName, { viewports, languages: moduleLanguages }]}
+{#each Object.entries(compositionModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages }]}
   <div class="font-semibold text-sm py-1">
     <button
       class="capitalize relative z-2"
@@ -40,14 +40,18 @@
   </div>
   <div class="inline-block overflow-x-auto w-full pt-8 -mt-8" bind:clientWidth={containerWidth}>
     <div class="flex">
-      {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
-        <View
-          width={viewports?.[0].width || Math.min(containerWidth, 1000)}
-          height={viewports?.[0].height}
-          {languageCode}
-          {addLanguageToUrl}
-          {compositionName}>
-        </View>
+      {#each compositionViewports || [{ width: null, height: 250 }] as { width, height }}
+        <div>
+          {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
+            <View
+              width={width || Math.min(containerWidth, 1000)}
+              {height}
+              {languageCode}
+              {addLanguageToUrl}
+              {compositionName}>
+            </View>
+          {/each}
+        </div>
       {/each}
     </div>
   </div>

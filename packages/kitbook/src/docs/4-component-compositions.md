@@ -13,6 +13,16 @@ const config = {
 export default config
 ```
 
+Add this VSCode setting:
+
+```json title=".vscode/settings.json"
+{
+  "files.associations": {
+    "*.composition": "svelte"
+  }
+}
+```
+
 You can also create a composition beside a corresponding markdown documentation page as you see in [[complex-examples]] (look at the source code). In cases when you have no companion Svelte component and just markdown, there's no quick button to add a composition but you can still add one manually by creating a new file with the same name, using the `composition` extension instead of `md`.
 
 

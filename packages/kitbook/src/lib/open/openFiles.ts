@@ -27,11 +27,11 @@ export function openComposition(filepathWithoutExtension: string, extension: str
   const tag = filepathWithoutExtension.split('/').pop()
   const template = `<script context="module" lang="ts">
   // import type { Viewport } from 'kitbook'
-  // override default full-width composition viewport (set width as null for it to be auto-adjusting full-width)
+  
+  // const null_defaults_to_full_width = null
   // export const viewports: Viewport[] = [
-  //   { width: 600, height: 400 },
-  // ]
-  // at the moment only the first viewport will be shown - updates are coming to show all viewports
+  //   { width: null_defaults_to_full_width, height: 250 },
+  //]
 </script>
 
 <script lang="ts">
