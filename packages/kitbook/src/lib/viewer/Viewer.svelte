@@ -25,7 +25,7 @@
     {#if selectedIsLocal}
       <Component {settings} />
     {:else}
-      <Tree kitbookRoute={settings.kitbookRoute} on:close={() => active = false} />
+      <Tree languageInsertedKitbookRoute={settings.languageInsertedKitbookRoute} on:close={() => active = false} />
     {/if}
   </div>
 {/if}
