@@ -59,6 +59,7 @@
 
   $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
   $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
+  $: shortenedTitle = title.length > 40 ? `...${title.slice(-38)}` : title
 
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
 
@@ -83,8 +84,8 @@
             {#if !dev}
               {title}
             {:else}
-              <Button class="!text-xl flex items-center !py-1.5 !px-2 -ml-2" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component">
-                <span class="i-vscode-icons-file-type-svelte text-2xl align--2px mr-1" /> {title}
+              <Button class="!text-xl flex items-center !py-1.5 !px-2 -ml-2" onclick={() => openComponent(`${pathWithoutExtension}.svelte`, viewer?.__internal?.viteBase)} form="menu" color="black" title="Edit Component, {title}">
+                <span class="i-vscode-icons-file-type-svelte text-2xl align--2px mr-1" /> {shortenedTitle}
               </Button>
 
               <Button onclick={() => openMarkdown(`${pathWithoutExtension}.md`)} form="menu" color="black">
