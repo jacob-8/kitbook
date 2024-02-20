@@ -51,7 +51,106 @@ function ensureFileExists(filepath: string, template: string) {
   if (!import.meta.hot)
     return alert('Dev server must be running with HMR enabled to use this feature.')
 
+  const pageProofPath = filepath
+    .replace('+page', '_page')
+    .replace('+layout', '_layout')
+
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath: pageProofPath, template })
+}
+
+export function createNewPage(filepath: string) {
+  const template = `<script lang="ts">
+  export let data
+</script>
+
+Hi {data.name}`
   import.meta.hot.send('kitbook:ensure-file-exists', { filepath, template })
+
+  const pageTemplate = `export const load = (() => {
+  return { name: 'Bill' }
+})`
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath: filepath.replace('+page.svelte', '+page.ts'), template: pageTemplate })
+
+  import.meta.hot.send('kitbook:open-variants', { filepath, props: { data: { name: 'John' } } })
+}
+
+export function createNewServerEndpoint(filepath: string) {
+  const template = `import type { RequestHandler } from './$types'
+import { error, json } from '@sveltejs/kit'
+import { ResponseCodes } from '$lib/response-codes'
+
+// export const config: Config = { maxDuration: 300 }
+
+// TODO: rename Operation to the name of this endpoint, i.e. SendEmailRequestBody
+export interface OperationRequestBody {
+  foo: string
+}
+export interface OperationResponseBody {
+  baz: string
+}
+
+export const POST: RequestHandler = async ({ locals: { getSession }, request }) => {
+  const { data: session_data, error: _error } = await getSession()
+  if (_error || !session_data?.user)
+    error(ResponseCodes.UNAUTHORIZED, { message: _error.message || 'Unauthorized' })
+
+  const { foo } = await request.json() as OperationRequestBody
+  if (!foo) error(ResponseCodes.BAD_REQUEST, 'No foo property found in request body')
+
+  try {
+    return json({baz: foo.replace('a', 'b')} satisfies OperationResponseBody)
+  } catch (err) {
+    console.error(err.message)
+    error(ResponseCodes.INTERNAL_SERVER_ERROR, err.message)
+  }
+}
+`
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath, template })
+  const testTemplate = `import { POST, type OperationRequestBody, type OperationResponseBody } from './+server'
+import { request } from '$lib/mocks/sveltekit-endpoint-helper'
+import { ResponseCodes } from '$lib/response-codes'
+import { authenticatedLocal } from '$lib/mocks/locals'
+
+// vi.mock('$app/environment', () => {
+//   return {
+//     dev: true,
+//   }
+// })
+
+describe(POST, () => {
+  test('throws error if no foo', async () => {
+    await expect(() => request(POST, { locals: authenticatedLocal, body: {} })).rejects.toThrowErrorMatchingInlineSnapshot(\`
+      HttpError {
+        "body": {
+          "message": "No foo property found in request body",
+        },
+        "status": 400,
+      }
+    \`)
+  })
+
+  test('replaces a with b', async () => {
+    const body: OperationRequestBody = {
+      foo: 'Hi a!',
+    }
+    const response = await request(POST, { locals: authenticatedLocal, body })
+    expect(response.status).toBe(ResponseCodes.OK)
+    const { baz } = await response.json() as OperationResponseBody
+    expect(baz).toBe('Hi b!')
+  })
+})
+`
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
+}
+
+export function createNewComponent(filepath: string) {
+  const template = `<script lang="ts">
+  export let name = 'Bill'
+</script>
+
+Hi {name}`
+  import.meta.hot.send('kitbook:ensure-file-exists', { filepath, template })
+  import.meta.hot.send('kitbook:open-variants', { filepath, props: { name: 'John' } })
 }
 
 if (import.meta.hot) {

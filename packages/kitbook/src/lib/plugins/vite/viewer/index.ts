@@ -1,4 +1,4 @@
-import { access, constants, readFileSync, writeFileSync } from 'node:fs'
+import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Plugin } from 'vite'
@@ -31,11 +31,9 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 
     configureServer(server) {
       server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
-        const pageProofPath = filepath
-          .replace('+page', '_page')
-          .replace('+layout', '_layout')
-        writeFileIfNeededThenOpen(pageProofPath, template, settings.viewer.__internal.viteBase, client)
+        writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
       })
+
       server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
         const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
         const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
@@ -61,6 +59,8 @@ function componentListenerCode(): string {
 function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: any) {
   access(filepath, constants.F_OK, (err) => {
     if (err) {
+      const directory = dirname(filepath)
+      mkdirSync(directory, { recursive: true })
       writeFileSync(filepath, template)
       console.info(`added ${filepath}`)
     }

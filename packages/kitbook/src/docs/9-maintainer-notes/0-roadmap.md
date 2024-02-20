@@ -6,7 +6,6 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
-- add templates
 - improve: viewer's component tree when components from packages are used which have slots
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - snapshot compositions also
@@ -28,6 +27,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Rough edges 
 
+- hide jump to vscode buttons when not in dev using check for import.meta.hot
 - responsive iframes shrink to keep interior resolution
 - keep sidebar active page in view
   - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
