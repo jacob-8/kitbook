@@ -82,7 +82,7 @@ if (import.meta.vitest) {
 
     expect(filterSkippedFiles(filepaths, skipFiles, srcDirectory)).toMatchInlineSnapshot(`
       [
-        "C:\\\\dev\\\\kitbook\\\\packages\\\\kitbook\\\\src\\\\lib\\\\components\\\\EditInGithub.variants.ts",
+        "C:\\dev\\kitbook\\packages\\kitbook\\src\\lib\\components\\EditInGithub.variants.ts",
       ]
     `)
   })
