@@ -19,6 +19,8 @@
   export let variantIndex: number = undefined
   export let compositionName: string = undefined
   export let blockScripts = false
+  export let csr: false = undefined
+  export let ssr: false = undefined
 
   let viewBody: ViewBody
 
@@ -38,6 +40,8 @@
     on:mouseover={() => (hovered = true)}
     on:mouseout={() => (hovered = false)}>
     <ViewHeader
+      {csr}
+      {ssr}
       {languageCode}
       {width}
       {height}
@@ -45,7 +49,7 @@
       {src}
       {blockScripts}
       let:scriptBlockingResult
-      resetDimensions={() => viewBody.resetDimensions}
+      resetDimensions={() => viewBody.resetDimensions()}
       {refresh}>
       <ViewBody bind:this={viewBody} {hovered} {height} {width}>
         {#if intersecting && showIframe}

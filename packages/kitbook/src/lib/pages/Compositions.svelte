@@ -32,7 +32,7 @@
   }
 </script>
 
-{#each Object.entries(compositionModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr }]}
+{#each Object.entries(compositionModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr }]}
   {#if csr === false}
     <div class="hidden">
       {reset_ssr_on_composition_change(compositionModules)}
@@ -59,6 +59,8 @@
           {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
             {#if showView}
               <View
+                {csr}
+                {ssr}
                 width={width || Math.min(containerWidth, 1000)}
                 {height}
                 {languageCode}

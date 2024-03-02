@@ -20,15 +20,19 @@
     userAdjustedHeight = null
   }
 
-  const mouseOffset = 6 // should be half width of handles
+  const dragHandleWidth = 12
+  const padding = 12 * 2 / 3
+  const borderWidth = 1
+  const dimensionsAdjustmentForPaddingAndBorder = (padding * 2) + (borderWidth * 2)
+  const mouseOffset = dragHandleWidth / 2
 </script>
 
 <div bind:this={container}>
   <div
-    style="height: {heightToDisplay ? `${heightToDisplay}px` : 'unset'}; width: {widthToDisplay ? `${widthToDisplay}px` : 'unset'};"
+    style="height: {heightToDisplay ? `${heightToDisplay + dimensionsAdjustmentForPaddingAndBorder}px` : 'unset'}; width: {widthToDisplay ? `${widthToDisplay + dimensionsAdjustmentForPaddingAndBorder}px` : 'unset'}; padding: {padding}px;"
     class:border-gray-700={hovered}
     class:checkerboard={hovered}
-    class="relative border !border-opacity-50 p-2">
+    class="relative border !border-opacity-50">
     {#if container}
       <div
         role="button"
@@ -39,7 +43,7 @@
         }}
         on:mousedown={() => (dragging = 'width')}
         on:dblclick={() => (userAdjustedWidth = null)}
-        class="absolute z-1 right-0 top-0 bottom-0 w-3 cursor-ew-resize hover:bg-gray-200/75"
+        class="absolute z-1 right-0 top-0 bottom-0 w-12px cursor-ew-resize hover:bg-gray-200/75"
         class:bg-gray-200={dragging === 'width'} />
       <div
         role="button"
@@ -50,28 +54,28 @@
         }}
         on:mousedown={() => (dragging = 'height')}
         on:dblclick={() => (userAdjustedHeight = null)}
-        class="absolute z-1 right-0 left-0 bottom-0 h-3 cursor-ns-resize hover:bg-gray-200/75"
+        class="absolute z-1 right-0 left-0 bottom-0 h-12px cursor-ns-resize hover:bg-gray-200/75"
         class:bg-gray-200={dragging === 'height'} />
       <div
         role="button"
         tabindex="0"
         use:resizeElement={container}
         on:updatewidth={({ detail: { pixels } }) => {
-          userAdjustedWidth = pixels + mouseOffset
+          userAdjustedWidth = pixels + mouseOffset - dimensionsAdjustmentForPaddingAndBorder
         }}
         on:updateheight={({ detail: { pixels } }) => {
-          userAdjustedHeight = pixels + mouseOffset
+          userAdjustedHeight = pixels + mouseOffset - dimensionsAdjustmentForPaddingAndBorder
         }}
         on:mousedown={() => (dragging = 'both')}
         on:dblclick={() => {
           userAdjustedWidth = null
           userAdjustedHeight = null
         }}
-        class="absolute z-1 right-0 bottom-0 w-3 h-3 cursor-nwse-resize hover:bg-gray-200/75"
+        class="absolute z-1 right-0 bottom-0 w-12px h-12px cursor-nwse-resize hover:bg-gray-200/75"
         class:bg-gray-200={dragging === 'both'} />
     {/if}
     {#if dragging}
-      <div class="bg-white px-1 absolute bottom-3 right-3 z-1 shadow-lg border rounded">
+      <div class="bg-white px-1 absolute bottom-12px right-12px z-1 shadow-lg border rounded">
         {(widthToDisplay || container.clientWidth).toFixed()} x
         {(heightToDisplay || container.clientHeight).toFixed()}
       </div>
