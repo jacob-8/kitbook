@@ -91,6 +91,10 @@ export interface CompositionModule {
   default: typeof SvelteComponent
   viewports?: Viewport[]
   languages?: Language[]
+  /** Set false to keep block iframe scripts and only show the server rendered version. HMR will not be working so you'll have to manually refresh to see updates.  If both `ssr` and `csr` are false, nothing will be rendered! */
+  csr?: boolean
+  /** Set false to only mount component client side. If both `ssr` and `csr` are false, nothing will be rendered! */
+  ssr?: boolean
 }
 
 export interface LoadedModules {

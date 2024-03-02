@@ -25,7 +25,18 @@ Add this VSCode setting:
 
 You can also create a composition beside a corresponding markdown documentation page as you see in [[complex-examples]] (look at the source code). In cases when you have no companion Svelte component and just markdown, there's no quick button to add a composition but you can still add one manually by creating a new file with the same name, using the `composition` extension instead of `md`.
 
+## Render only on client or only on server
 
+Inside your `.composition` file's context script block you can set either `csr` or `ssr` to false, but not both.
+
+```svelte
+<script context="module" lang="ts">
+  export const csr = false
+// export const ssr = false
+</script>
+```
+
+Even though components that are only SSR rendered and don't hydrate on the client usually can't have HMR, Kitbook will automatically reload an SSR-only composition (`export const csr = false`) on every change.
 
 ## Not for pages or layouts
 There are no such things as `+page.svelte` or `+layout.svelte` compositions as these are always root level and just receive props. You never place these inside others components. *Yes, you can pass an actual component to the default slot of a layout so you don't need a composition for this*

@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte'
-
   export let src: string
   export let hovered = false
   export let width: number
   export let height: number
   export let languageCode: string
   export let blockScripts = false
+  export let refresh: () => void
+  export let resetDimensions: () => void
 
   let userBlockedScripts: boolean
   $: scriptBlockingResult = userBlockedScripts ?? blockScripts
-
-  const dispatch = createEventDispatcher<{ refresh: void; resetDimensions: void }>()
 </script>
 
 <div class="flex items-center absolute z-1 right-0 top--8" class:bg-white={hovered}>
@@ -33,7 +31,7 @@
     title="Reset Dimensions"
     class:opacity-50={hovered}
     class="text-sm p-1 opacity-0 hover:opacity-100"
-    on:click={() => dispatch('resetDimensions')}>{width} x {height}</button>
+    on:click={resetDimensions}>{width} x {height}</button>
 
   <a
     href={src}
@@ -46,7 +44,7 @@
     title="Refresh Iframe"
     class:opacity-50={hovered}
     class="px-2 py-1 opacity-0 hover:opacity-100"
-    on:click={() => dispatch('refresh')}><span class="i-material-symbols-refresh align--3px" /></button>
+    on:click={refresh}><span class="i-material-symbols-refresh align--3px" /></button>
 </div>
 
 <slot {scriptBlockingResult} />

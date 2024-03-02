@@ -3,10 +3,6 @@
   export let blockScripts = false
 
   let iframe: HTMLIFrameElement
-
-  export function reload() {
-    iframe?.contentWindow.location.reload()
-  }
 </script>
 
 {#if blockScripts}

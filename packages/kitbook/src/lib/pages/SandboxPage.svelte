@@ -4,8 +4,10 @@
   import Variant from './Variant.svelte'
   import Composition from './Composition.svelte'
   import type { SandboxPageLoadResult } from './sandboxPageLoad'
+  import { browser } from '$app/environment'
 
   export let data: SandboxPageLoadResult & LayoutLoadResult
+  $: clientOnlyComponentOnServer = data.compositionModule.ssr === false && !browser
 </script>
 
 <div class="absolute inset-0 overflow-auto">
@@ -14,7 +16,9 @@
       {#if data.variantIndex}
         <Variant variant={data.variant} component={data.component} variantIndex={data.variantIndex} pagesStore={data.pagesStore} pageKey={data.pageKey} />
       {:else if data.compositionName}
-        <Composition compositionName={data.compositionName} composition={data.composition} pagesStore={data.pagesStore} pageKey={data.pageKey} />
+        {#if !clientOnlyComponentOnServer}
+          <Composition compositionName={data.compositionName} composition={data.compositionModule.default} pagesStore={data.pagesStore} pageKey={data.pageKey} />
+        {/if}
       {/if}
     </ErrorBoundary>
   {/key}

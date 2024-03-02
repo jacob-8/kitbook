@@ -1,5 +1,6 @@
 <script lang="ts">
   import { IntersectionObserver } from 'svelte-pieces'
+  import { tick } from 'svelte'
   import type { KitbookSettings } from '../kitbook-types'
   import ViewHeader from './ViewHeader.svelte'
   import ViewBody from './ViewBody.svelte'
@@ -19,10 +20,16 @@
   export let compositionName: string = undefined
   export let blockScripts = false
 
-  let iframe: Iframe
   let viewBody: ViewBody
 
   $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName })
+
+  let showIframe = true
+  async function refresh() {
+    showIframe = false
+    await tick()
+    showIframe = true
+  }
 </script>
 
 <IntersectionObserver let:intersecting once>
@@ -38,11 +45,11 @@
       {src}
       {blockScripts}
       let:scriptBlockingResult
-      on:resetDimensions={() => viewBody.resetDimensions()}
-      on:refresh={() => iframe.reload()}>
+      resetDimensions={() => viewBody.resetDimensions}
+      {refresh}>
       <ViewBody bind:this={viewBody} {hovered} {height} {width}>
-        {#if intersecting}
-          <Iframe bind:this={iframe} {src} blockScripts={scriptBlockingResult} />
+        {#if intersecting && showIframe}
+          <Iframe {src} blockScripts={scriptBlockingResult} />
         {/if}
       </ViewBody>
     </ViewHeader>
