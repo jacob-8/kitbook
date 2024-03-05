@@ -14,7 +14,7 @@
 
   export let data: MainPageLoadResult & LayoutLoadResult
 
-  const { viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle } = data.settings
+  const { viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode } = data.settings
 
   const { pagesStore } = data
   $: pageFromHMR = $pagesStore?.[data.pageKey]
@@ -125,11 +125,11 @@
         {/if}
 
         {#if compositionModules}
-          <Compositions {compositionModules} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} />
+          <Compositions {compositionModules} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
         {#if variantsModule?.variants}
-          <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} />
+          <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
         <EditInGithub path={data?.page?.path} {githubURL} />

@@ -46,7 +46,6 @@ The API is stable and so the project is in **beta**. You can use this in product
 - add visual regression comment if no changed snapshots
 - improve search to include raw string content with fuzzy search https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - more keyboard shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page
-- Dark mode (both for Kitbook and for individual sandboxes - or be able to show light and dark side by side) learn from https://github.com/dansvel/sveltekit-windi
 - [admonitions](https://docusaurus.io/docs/markdown-features/admonitions)
 - backlinks/connections graph (see Foam examples)
 - display meta tags of iframe when rendering +page.svelte components

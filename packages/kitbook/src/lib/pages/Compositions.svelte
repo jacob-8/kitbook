@@ -8,6 +8,7 @@
   export let pathWithoutExtension: string
   export let activeLanguages: Language[]
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
+  export let darkMode: true
 
   function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[]; activeLanguages: Language[] }) {
     // can set individual language props to an empty array to opt-out
@@ -56,19 +57,23 @@
     <div class="flex">
       {#each compositionViewports || [{ width: null, height: 250 }] as { width, height }}
         <div>
-          {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
-            {#if showView}
-              <View
-                {csr}
-                {ssr}
-                width={width || Math.min(containerWidth, 1000)}
-                {height}
-                {languageCode}
-                {addLanguageToUrl}
-                blockScripts={csr === false}
-                {compositionName}>
-              </View>
-            {/if}
+          {#each { length: darkMode ? 2 : 1 } as _, index}
+            {@const darkMode = index === 1}
+            {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
+              {#if showView}
+                <View
+                  {darkMode}
+                  {csr}
+                  {ssr}
+                  width={width || Math.min(containerWidth, 1000)}
+                  {height}
+                  {languageCode}
+                  {addLanguageToUrl}
+                  blockScripts={csr === false}
+                  {compositionName}>
+                </View>
+              {/if}
+            {/each}
           {/each}
         </div>
       {/each}

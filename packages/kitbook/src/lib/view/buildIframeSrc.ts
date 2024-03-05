@@ -9,6 +9,7 @@ export function buildIframeUrl({
   props,
   variantIndex,
   compositionName,
+  darkMode,
 }: {
   pathname: string
   languageCode?: string
@@ -16,9 +17,12 @@ export function buildIframeUrl({
   props?: Record<string, any>
   variantIndex?: number
   compositionName?: string
+  darkMode?: boolean
 }) {
   const { kitbookPath, activePath } = findKitbookPath(pathname)
   const queryParams = []
+  if (darkMode)
+    queryParams.push('darkMode=true')
   if (props)
     queryParams.push(`props=${encode(JSON.stringify(props))}`)
   if (typeof variantIndex === 'number')

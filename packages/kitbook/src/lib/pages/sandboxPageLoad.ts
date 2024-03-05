@@ -14,6 +14,7 @@ export interface SandboxPageLoadResult {
   component?: typeof SvelteComponent
   variant?: Variant<any>
 
+  darkMode: boolean
   // editedProps?: Record<string, any>
 }
 
@@ -24,16 +25,17 @@ export async function sandboxPageLoad({ params, parent, url }) {
 
   const compositionName = url.searchParams.get('compositionName') as string
   const variantIndex = url.searchParams.get('variantIndex') as string // keep as string because it works as an index and doesn't give false negative on '0'
+  const darkMode = url.searchParams.get('darkMode') === 'true'
 
   if (compositionName) {
     const compositionModule = (await page.loadCompositions[compositionName].loadModule())
-    return { page, pageKey, compositionModule, compositionName } satisfies SandboxPageLoadResult
+    return { page, pageKey, compositionModule, compositionName, darkMode } satisfies SandboxPageLoadResult
   }
 
   if (variantIndex) {
     const component = (await page.loadComponent.loadModule()).default
     const variant = (await page.loadVariants.loadModule()).variants[variantIndex] as Variant<any>
-    return { page, pageKey, component, variant, variantIndex } satisfies SandboxPageLoadResult
+    return { page, pageKey, component, variant, variantIndex, darkMode } satisfies SandboxPageLoadResult
   }
 
   // const editedProps: Record<string, any> = JSON.parse(decode(url.searchParams.get('props')) || null)

@@ -10,7 +10,7 @@
   $: clientOnlyComponentOnServer = data.compositionModule.ssr === false && !browser
 </script>
 
-<div class="absolute inset-0 overflow-auto">
+<div class="absolute inset-0 overflow-auto" class:dark={data.darkMode} class:bg-black={data.darkMode}>
   {#key data.pageKey}
     <ErrorBoundary onError={console.error}>
       {#if data.variantIndex}

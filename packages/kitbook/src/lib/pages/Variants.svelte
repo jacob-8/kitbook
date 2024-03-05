@@ -9,6 +9,7 @@
   export let activeLanguages: Language[]
   export let moduleLanguages: Language[]
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
+  export let darkMode: true
 
   function getLanguages({ variantLanguages, moduleLanguages, activeLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
     // can set individual language props to an empty array to opt-out
@@ -48,14 +49,18 @@
     <div class="flex">
       {#each variantViewports || viewports as { name: _viewportName, width, height }}
         <div>
-          {#each getLanguages({ variantLanguages, moduleLanguages, activeLanguages }) as { code: languageCode }}
-            <View
-              {width}
-              {height}
-              {languageCode}
-              {addLanguageToUrl}
-              variantIndex={index}>
-            </View>
+          {#each { length: darkMode ? 2 : 1 } as _, index}
+            {@const darkMode = index === 1}
+            {#each getLanguages({ variantLanguages, moduleLanguages, activeLanguages }) as { code: languageCode }}
+              <View
+                {darkMode}
+                {width}
+                {height}
+                {languageCode}
+                {addLanguageToUrl}
+                variantIndex={index}>
+              </View>
+            {/each}
           {/each}
         </div>
       {/each}

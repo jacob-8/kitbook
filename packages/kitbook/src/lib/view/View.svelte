@@ -21,10 +21,11 @@
   export let blockScripts = false
   export let csr: false = undefined
   export let ssr: false = undefined
+  export let darkMode: boolean
 
   let viewBody: ViewBody
 
-  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName })
+  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName, darkMode })
 
   let showIframe = true
   async function refresh() {

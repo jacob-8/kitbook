@@ -144,6 +144,8 @@ export interface KitbookSettings {
   kitbookRoute?: string
   /** Don't use this - Kitbook automatically calculates it by running your addLanguageToUrl function (if it exists) on your kitbookRoute. */
   languageInsertedKitbookRoute?: string
+  /** Experimental: API is still unstable and implementation is just being started */
+  darkMode?: true
 }
 
 export interface Viewport {
