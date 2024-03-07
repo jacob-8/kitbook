@@ -49,8 +49,8 @@
     <div class="flex">
       {#each variantViewports || viewports as { name: _viewportName, width, height }}
         <div>
-          {#each { length: darkMode ? 2 : 1 } as _, index}
-            {@const darkMode = index === 1}
+          {#each { length: darkMode ? 2 : 1 } as _, dark_index}
+            {@const darkMode = dark_index === 1}
             {#each getLanguages({ variantLanguages, moduleLanguages, activeLanguages }) as { code: languageCode }}
               <View
                 {darkMode}

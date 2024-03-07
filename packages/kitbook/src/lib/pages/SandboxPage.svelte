@@ -7,7 +7,7 @@
   import { browser } from '$app/environment'
 
   export let data: SandboxPageLoadResult & LayoutLoadResult
-  $: clientOnlyComponentOnServer = data.compositionModule.ssr === false && !browser
+  $: clientOnlyComponentOnServer = data.compositionModule?.ssr === false && !browser
 </script>
 
 <div class="absolute inset-0 overflow-auto" class:dark={data.darkMode} class:bg-black={data.darkMode}>
