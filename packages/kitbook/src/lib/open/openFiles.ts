@@ -1,3 +1,4 @@
+import { getFilenameAndExtension } from './get-filename-and-extension'
 import { serializeIntersection } from './serialize'
 
 export function openComponent(filepath: string, viteBase: string) {
@@ -23,9 +24,10 @@ export function openMarkdown(filepath: string) {
   ensureFileExists(filepath, markdownTemplate)
 }
 
-export function openComposition(filepathWithoutExtension: string, extension: string) {
-  const tag = filepathWithoutExtension.split('/').pop()
-  const template = `<script context="module" lang="ts">
+export function openComposition({ filepath, compositionName }: { filepath: string; compositionName?: string }) {
+  const { filepathWithoutExtension, filenameWithoutExtensions, extension } = getFilenameAndExtension(filepath)
+
+  const svelteCompositionTemplate = `<script context="module" lang="ts">
   // import type { Viewport } from 'kitbook'
   
   // const null_defaults_to_full_width = null
@@ -35,15 +37,34 @@ export function openComposition(filepathWithoutExtension: string, extension: str
 </script>
 
 <script lang="ts">
-  import ${tag} from './${tag}.svelte'
+  import ${filenameWithoutExtensions} from './${filenameWithoutExtensions}.svelte'
   // props will be added here automatically and also editable in the future, for the moment you need to add them and pass to your component.
 </script>
 
-<${tag}>
+<${filenameWithoutExtensions}>
   <!-- add slot code here if needed -->
-</${tag}>
+</${filenameWithoutExtensions}>
 `
-  ensureFileExists(`${filepathWithoutExtension}.${extension}`, template)
+
+  const markdownCompositionTemplate = `<script context="module" lang="ts">
+  import type { Viewport } from 'kitbook'
+  
+  const null_defaults_to_full_width = null
+  export const viewports: Viewport[] = [
+    { width: null_defaults_to_full_width, height: 200 },
+  ]
+</script>
+
+<script lang="ts">
+
+</script>
+
+Place your Svelte composition here.
+`
+
+  const compositionExtension = (compositionName && compositionName !== 'default') ? `${compositionName}.composition` : 'composition'
+  const template = extension === 'md' ? markdownCompositionTemplate : svelteCompositionTemplate
+  ensureFileExists(`${filepathWithoutExtension}.${compositionExtension}`, template)
 }
 
 function ensureFileExists(filepath: string, template: string) {

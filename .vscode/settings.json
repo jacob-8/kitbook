@@ -24,8 +24,8 @@
   "prettier.enable": false,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.organizeImports": false
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
   },
   // Silence stylistic rules in IDE, but still auto fix them
   "eslint.rules.customizations": [

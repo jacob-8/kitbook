@@ -23,7 +23,6 @@ The API is stable and so the project is in **beta**. You can use this in product
 - movable viewer and adjustable shortcuts
 - show compositions in viewer
 - auto-adjusting iframe height
-- hoist compositions into documentation when referenced, parse for links to compositions and just create an ID that can be targeted by composition. May need .not-prose when hoisted
 - editable props for variants and compositions
 
 ## Rough edges 

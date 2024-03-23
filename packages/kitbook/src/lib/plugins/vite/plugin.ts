@@ -31,6 +31,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
 
     async transform(code, id) {
       if (id.endsWith('.md')) {
+        if (id.endsWith('README.md'))
+          code = code.replace(/<!-- Kitbook Skip -->[\s\S]*<!-- Kitbook Skip End -->/g, '')
         const html = await markdownToHtml(code)
         return { code: `export const html = \`${html}\`` }
       }

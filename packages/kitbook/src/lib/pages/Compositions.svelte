@@ -4,11 +4,12 @@
   import { openComposition } from '../open/openFiles'
   import type { CompositionModule, KitbookSettings, Language } from '../kitbook-types'
 
-  export let compositionModules: Record<string, CompositionModule>
+  export let compositionsModules: Record<string, CompositionModule>
   export let pathWithoutExtension: string
   export let activeLanguages: Language[]
   export let addLanguageToUrl: KitbookSettings['addLanguageToUrl']
   export let darkMode: true
+  export let show_inlined = false
 
   function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[]; activeLanguages: Language[] }) {
     // can set individual language props to an empty array to opt-out
@@ -33,50 +34,49 @@
   }
 </script>
 
-{#each Object.entries(compositionModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr }]}
-  {#if csr === false}
-    <div class="hidden">
-      {reset_ssr_on_composition_change(compositionModules)}
+{#each Object.entries(compositionsModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr, inlined }]}
+  {#if (show_inlined && inlined) || (!show_inlined && !inlined)}
+    {#if csr === false}
+      <div class="hidden">
+        {reset_ssr_on_composition_change(compositionsModules)}
+      </div>
+    {/if}
+
+    <div class="font-semibold text-sm py-1">
+      <button
+        class="capitalize relative z-2"
+        type="button"
+        on:click={() => openComposition({ filepath: `${pathWithoutExtension}.svelte`, compositionName })}
+        title="Edit Composition">
+        <span class="i-carbon-chart-treemap align--2px" />
+        {compositionName === 'default' ? '' : compositionName} composition
+      </button>
+    </div>
+    <div class="inline-block overflow-x-auto w-full pt-8 -mt-8" bind:clientWidth={containerWidth}>
+      <div class="flex">
+        {#each compositionViewports || [{ width: null, height: 250 }] as { width, height }}
+          <div>
+            {#each { length: darkMode ? 2 : 1 } as _, index}
+              {@const darkMode = index === 1}
+              {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
+                {#if showView}
+                  <View
+                    {darkMode}
+                    {csr}
+                    {ssr}
+                    width={width || Math.min(containerWidth, 1000)}
+                    {height}
+                    {languageCode}
+                    {addLanguageToUrl}
+                    blockScripts={csr === false}
+                    {compositionName}>
+                  </View>
+                {/if}
+              {/each}
+            {/each}
+          </div>
+        {/each}
+      </div>
     </div>
   {/if}
-
-  <div class="font-semibold text-sm py-1">
-    <button
-      class="capitalize relative z-2"
-      type="button"
-      on:click={() => {
-        const extension = compositionName === 'default' ? 'composition' : `${compositionName}.composition`
-        openComposition(pathWithoutExtension, extension)
-      }}
-      title="Edit Composition">
-      <span class="i-carbon-chart-treemap align--2px" />
-      {compositionName === 'default' ? '' : compositionName} composition
-    </button>
-  </div>
-  <div class="inline-block overflow-x-auto w-full pt-8 -mt-8" bind:clientWidth={containerWidth}>
-    <div class="flex">
-      {#each compositionViewports || [{ width: null, height: 250 }] as { width, height }}
-        <div>
-          {#each { length: darkMode ? 2 : 1 } as _, index}
-            {@const darkMode = index === 1}
-            {#each getLanguages({ moduleLanguages, activeLanguages }) as { code: languageCode }}
-              {#if showView}
-                <View
-                  {darkMode}
-                  {csr}
-                  {ssr}
-                  width={width || Math.min(containerWidth, 1000)}
-                  {height}
-                  {languageCode}
-                  {addLanguageToUrl}
-                  blockScripts={csr === false}
-                  {compositionName}>
-                </View>
-              {/if}
-            {/each}
-          {/each}
-        </div>
-      {/each}
-    </div>
-  </div>
 {/each}

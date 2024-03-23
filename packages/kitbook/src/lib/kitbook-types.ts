@@ -81,6 +81,20 @@ export interface MarkdownModule {
   html: string
 }
 
+export interface MarkdownWithCompositionsModule {
+  sections: (HTMLSection | CompositionSection)[]
+}
+
+interface HTMLSection {
+  html: string
+  compositionName?: never // type guard
+}
+
+interface CompositionSection {
+  compositionName: string
+  html?: never // type guard
+}
+
 export interface VariantsModule {
   variants: Variant<any>[]
   viewports?: Viewport[]
@@ -95,6 +109,8 @@ export interface CompositionModule {
   csr?: false
   /** Set false to only mount component client side. If both `ssr` and `csr` are false, nothing will be rendered! */
   ssr?: false
+  /** Internal use */
+  inlined?: boolean
 }
 
 export interface LoadedModules {
