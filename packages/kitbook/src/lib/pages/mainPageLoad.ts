@@ -33,7 +33,7 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
       loadedModules.compositionsModules = {}
       loadedModules.compositionsRaw = {}
       for (const compositionName in page.loadCompositions) {
-        loadedModules.compositionsModules[compositionName] = (await page.loadCompositions[compositionName].loadModule())
+        loadedModules.compositionsModules[compositionName] = await page.loadCompositions[compositionName].loadModule()
         loadedModules.compositionsRaw[compositionName] = await page.loadCompositions[compositionName].loadRaw()
       }
     }

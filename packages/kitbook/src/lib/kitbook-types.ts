@@ -111,6 +111,7 @@ export interface CompositionModule {
   ssr?: false
   /** Internal use */
   inlined?: boolean
+  code?: string
 }
 
 export interface LoadedModules {

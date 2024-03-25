@@ -59,6 +59,15 @@
 			"</script>",
 		]
 	},
+	"svelte-context-tag": {
+		"scope": "svelte",
+		"prefix": "s-context",
+		"body": [
+			"<script context=\"module\" lang=\"ts\">",
+			"  $1",
+			"</script>",
+		]
+	},
 	"svelte-json-stringify": {
 		"scope": "svelte",
 		"prefix": "s-json",

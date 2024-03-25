@@ -34,7 +34,7 @@
   }
 </script>
 
-{#each Object.entries(compositionsModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr, inlined }]}
+{#each Object.entries(compositionsModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr, inlined, code }]}
   {#if (show_inlined && inlined) || (!show_inlined && !inlined)}
     {#if csr === false}
       <div class="hidden">
@@ -64,10 +64,11 @@
                     {darkMode}
                     {csr}
                     {ssr}
-                    width={width || Math.min(containerWidth, 1000)}
+                    width={width || Math.min(containerWidth, 1000 - 22)}
                     {height}
                     {languageCode}
                     {addLanguageToUrl}
+                    {code}
                     blockScripts={csr === false}
                     {compositionName}>
                   </View>

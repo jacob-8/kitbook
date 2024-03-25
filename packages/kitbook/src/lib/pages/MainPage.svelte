@@ -41,7 +41,9 @@
     if (!compositionsModules)
       compositionsModules = {}
     Object.entries(pageFromHMR.loadCompositions).forEach(async ([compositionName, loadComposition]) => {
-      compositionsModules[compositionName] = (await loadComposition.loadModule())
+      const module = await loadComposition.loadModule()
+      const code = await loadComposition.loadRaw()
+      compositionsModules[compositionName] = { ...module, code }
     })
   }
 
