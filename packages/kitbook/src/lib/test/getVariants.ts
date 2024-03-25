@@ -17,7 +17,7 @@ export async function getVariants(options: {
   skipFiles?: string[]
 } = {}): Promise<[string, VariantsModule][]> {
   const {
-    // eslint-disable-next-line node/prefer-global/process
+
     projectRoot = process.cwd(),
     srcDirectory = 'src',
     skipFiles = [],

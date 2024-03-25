@@ -6,27 +6,24 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Before 1.0
 
-- width needs to be for iframe contents, not iframe itself counting its own padding
+- movable viewer and adjustable shortcuts
 - improve: viewer's component tree when components from packages are used which have slots
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - snapshot compositions also
-- save selected languages in URL for easy sharing
-- toggleable padding around variants
 - full-screen focus view for sandbox
-  - show source code using code editor <!-- i-tabler-code"-->
+- Next and Previous pages (see Docusaurus/Vitebook)
+- save selected languages in URL for easy sharing
+- show source code using code editor
+- editable props for variants and compositions
 - automatically analyze component for props
   - `import { svelte2tsx } from 'svelte2tsx';`
   - `import FolderRaw from './Folder.svelte?raw';`
   - display a default variant for components without variants by using default props
   - document how to adjust glob to be able to gradually include components
-- Next and Previous pages (see Docusaurus/Vitebook)
-- movable viewer and adjustable shortcuts
-- show compositions in viewer
-- auto-adjusting iframe height
-- editable props for variants and compositions
 
 ## Rough edges 
 
+- show compositions in viewer
 - hide jump to vscode buttons when not in dev using check for import.meta.hot
 - responsive iframes shrink to keep interior resolution
 - keep sidebar active page in view
@@ -35,13 +32,13 @@ The API is stable and so the project is in **beta**. You can use this in product
 - on build don't show folders that have no components with Kitbook files 
 - Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
 - accept whichever w/h dimension is given last either via resize or by prompt
-- could refactor to use activePage instead of activeUrl to make code simpler
 - distinguish between Index and README in search if both exist
 - fix shiki-twoslash highlight not scrolling on small screens by learning from https://histoire.dev/guide/svelte3/controls.html
 - catch when a variants file exists by itself and inform how to use variants
 
 ## Post 1.0
 
+- Orama search index for full-text search
 - add visual regression comment if no changed snapshots
 - improve search to include raw string content with fuzzy search https://github.com/sveltejs/kit/blob/master/sites/kit.svelte.dev/src/lib/search/search.js
 - more keyboard shortcuts, https://zendeskgarden.github.io/react-components/index.html?path=/story/packages-avatars-readme--page

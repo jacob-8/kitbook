@@ -16,6 +16,7 @@
     "template": "pnpm --filter=template dev",
     "template:build": "pnpm --filter=template build",
     "test": "vitest",
+    "check": "pnpm --filter=kitbook check",
     "release": "bumpp -r",
     "lint": "eslint . --cache",
     "check-packages": "pnpm update --interactive --recursive --latest"

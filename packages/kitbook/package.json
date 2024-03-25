@@ -111,6 +111,7 @@
     "@sveltejs/kit": "^1.27.1",
     "@sveltejs/package": "^2.2.2",
     "@types/mdast": "^4.0.2",
+    "@types/node": "^20.11.30",
     "@unocss/svelte-scoped": "^0.55.7",
     "mdsvex": "^0.11.0",
     "prettier": "^2.8.8",

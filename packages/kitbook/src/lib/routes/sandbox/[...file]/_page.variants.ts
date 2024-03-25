@@ -22,6 +22,7 @@ export const variants: Variant<Component>[] = [
 
         pages: null,
         settings: null,
+        darkMode: false,
       },
     },
   },
@@ -41,6 +42,7 @@ export const variants: Variant<Component>[] = [
 
         pages: null,
         settings: null,
+        darkMode: false,
       },
     },
   },
