@@ -24,6 +24,8 @@ Kitbook has a lot of powerful features, but let's start with the bare minimum to
 
 - Run your dev server as normal (`npm run dev`) and Kitbook will add a `src/routes/kitbook` folder to add a `/kitbook` route to your app. At this point you can navigate to the `/kitbook` route and see all your Svelte components, *including `+page.svelte` and `+layout.svelte` files as they are just Svelte components with a very important `data` prop*.
 
+- If you are working on a fresh project that doesn't have a styles reset, Kitbook will look a little odd. Add a styles reset of your choice.
+
 If you don't have any app shell components in your root layout file, (e.g. a header), then your routes folder structure is probably good. However, if you have app shell components, then you'll notice that your Kitbook is also inheriting them. This won't work and you may need to adjust your folder structure to look like this:
 
 ```txt {2,6}
@@ -38,7 +40,7 @@ src/routes/
 
 You may find it a bit jarring to have your component workbench included in your main app. Most component prototyping tools work as a companion app, but in Kitbook's early days this created a lot of friction:
 - Starting two dev servers is a pain and you will find yourself only working in Kitbook or only in your app, but not both which is the whole point of the tool. If you don't use it all the time, why have it?
-- Setting up the component workbench with just the right scaffolding to match the main app is a pain. It's annoying to have to keep everything in sync (like i18n for example). The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
+- Setting up the component workbench with just the right scaffolding to match the main app is a pain. It's annoying to keep everything in sync, like i18n for example. The layout structure above makes it easy to clearly specify what context is needed for components and what is app only. 
 - Status checks for Playwright E2E tests running against Vercel deployments break down when your app deployment finishes before your Kitbook workbench deployment.
 
 Furthermore the integrated approach is the only way to get the [[2-viewer]] tool. Let's move on to learn about Kitbook's [[2-viewer]] tool which bridges the gap between our app and our component workbench. 

@@ -59,7 +59,7 @@
   }
 
   $: ({ sectionedMarkdown, compositionsModulesAfterInlined } = splitMarkdownHtmlIntoSections({
-    html: markdown.html,
+    html: markdown?.html,
     pageName: pageKey.split('/').pop(),
     compositionsModules,
   }))

@@ -1,6 +1,9 @@
 import type { CompositionModule, MarkdownWithCompositionsModule } from '$lib/kitbook-types'
 
-export function splitMarkdownHtmlIntoSections({ html, pageName, compositionsModules }: { html: string; pageName: string; compositionsModules: Record<string, CompositionModule> }): { sectionedMarkdown: MarkdownWithCompositionsModule; compositionsModulesAfterInlined: Record<string, CompositionModule> } {
+export function splitMarkdownHtmlIntoSections({ html, pageName, compositionsModules }: { html?: string; pageName: string; compositionsModules: Record<string, CompositionModule> }): { sectionedMarkdown: MarkdownWithCompositionsModule; compositionsModulesAfterInlined: Record<string, CompositionModule> } {
+  if (!html)
+    return { sectionedMarkdown: { sections: [] }, compositionsModulesAfterInlined: compositionsModules }
+
   let remainingHtml = html
   const sections: MarkdownWithCompositionsModule['sections'] = []
 
