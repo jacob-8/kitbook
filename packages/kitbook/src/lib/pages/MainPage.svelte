@@ -18,8 +18,9 @@
     pagesStore,
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
     pageKey,
-    settings: { viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode },
+    settings,
   } = data)
+  $: ({ viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode } = settings)
 
   $: pageFromHMR = $pagesStore?.[pageKey]
 
@@ -89,7 +90,7 @@
   <title>{pageTitle}</title>
 </svelte:head>
 
-<Layout settings={data.settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
+<Layout {settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
   {#key $page.url.pathname}
     <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
       {#if data.error}

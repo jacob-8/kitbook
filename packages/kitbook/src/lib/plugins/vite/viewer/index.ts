@@ -1,7 +1,7 @@
 import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Plugin } from 'vite'
+import type { HMRBroadcasterClient, Plugin } from 'vite'
 import type { KitbookSettings } from 'kitbook'
 import { removeQuotesFromSerializedFunctions } from '../../../open/serialize.js'
 
@@ -30,11 +30,11 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
     },
 
     configureServer(server) {
-      server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
+      server.hot.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
         writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
       })
 
-      server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
+      server.hot.on('kitbook:open-variants', ({ filepath, props }, client) => {
         const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
         const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
 
@@ -56,7 +56,7 @@ function componentListenerCode(): string {
   return readFileSync(filepath, 'utf-8')
 }
 
-function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: any) {
+function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: HMRBroadcasterClient) {
   access(filepath, constants.F_OK, (err) => {
     if (err) {
       const directory = dirname(filepath)

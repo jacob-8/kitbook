@@ -5,6 +5,8 @@
   export let githubURL: string = undefined
   export let kitbookPath: string
   export let activePath: string
+
+  $: rootUrl = kitbookPath || '/'
 </script>
 
 <header class="flex flex-wrap py-1 pl-1 w-full">
@@ -15,8 +17,8 @@
     <i class="i-ic-round-menu" />
   </button>
   <a
-    href={kitbookPath || '/'}
-    class:text-blue-600={!activePath}
+    href={rootUrl}
+    class:text-blue-600={activePath === `${rootUrl}index`}
     class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden">
     <slot>Kitbook</slot>
   </a>

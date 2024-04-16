@@ -167,7 +167,7 @@ export interface KitbookSettings {
 
 export interface Viewport {
   name?: string
-  width: number
+  width: number | null
   height: number
 }
 

@@ -61,6 +61,10 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
           console.info(`  ${green}➜${reset}  ${bold}Kitbook${reset}: ${green}${server.config.server.https ? 'https' : 'http'}://localhost:${bold}${server.config.server.port}${reset}${green}${languageAwareRoute}${reset}`)
         }
       }
+
+      server.watcher.on('change', (filepath) => {
+        server.hot.send('kitbook:route-to-edited-file', { filepath })
+      })
     },
   }
 

@@ -14,3 +14,7 @@ export { default as SandboxPage } from './pages/SandboxPage.svelte'
 export { sandboxPageLoad } from './pages/sandboxPageLoad'
 
 export { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from './lz/lz-string'
+
+export function delay<T>(value: T, delay_ms = 1000): Promise<T> {
+  return new Promise(resolve => setTimeout(() => resolve(value), delay_ms))
+}
