@@ -1,6 +1,8 @@
 # Visual Regression Testing
 
-The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen [here](https://github.com/jacob-8/kitbook/pull/30#issuecomment-1783993937).
+The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen [here](https://github.com/jacob-8/kitbook/pull/30#issuecomment-1783993937). 
+
+*Note: This is not yet available for Compositions, and due to the slowness of browser rendering, a much faster option that relies on HTML diffing instead of pixel diffing is in the plans for Kitbook. Though the below solution will remain for those who really need the pixel diffing.*
 
 ## Install Playwright
 
@@ -119,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+      image: mcr.microsoft.com/playwright:v1.43.1-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
     steps:
       - uses: actions/checkout@v3
 
@@ -164,7 +166,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
+      image: mcr.microsoft.com/playwright:v1.43.1-jammy # 👈 keep version in sync with installed playwright package https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
       - uses: actions/checkout@v3
@@ -350,7 +352,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy # 👈 keep version in sync with installed package, https://playwright.dev/docs/ci#github-actions-via-containers
+      image: mcr.microsoft.com/playwright:v1.43.1-jammy # 👈 keep version in sync with installed package, https://playwright.dev/docs/ci#github-actions-via-containers
 
     steps:
       - name: Allow image commit and branch name extraction

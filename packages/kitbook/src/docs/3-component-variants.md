@@ -1,99 +1,94 @@
 # Component Variants
 
-To easily mock a component in a variety of states **with type safety** you can create multiple variants of a component simply by adding a sibling file using a component's filename and replacing the the `.svelte` extension with `variants.ts`. See this Kitbook's [[SearchResult]] page for an example with several different variants.
+To easily mock a component in a variety of states **with type safety** you can create variants of a component simply by adding a sibling file using a component's filename and replacing the `svelte` extension with `variants.ts`. In actual usage, you won't need to create this file manually as Kitbook will generate it for you when you request, via a variety of options through the interface. See this Kitbook's [[SearchResult]] page for an example with several different variants.
 
-It's easiest to create a variants file using the [[2-viewer]], so we won't give a simple template here, but rather show an example with all the possible options:
+Here's a simple Variant example, the exported property name is the name of the Variant and root level properties will be passed into the component as props:
 
-```ts title="Header.variants.ts"
+```ts title="Greeting.variants.ts"
 import type { Variant } from 'kitbook'
-import type Component from './Header.svelte'
+import type Component from './Greeting.svelte'
 
-export const variants: Variant<Component>[] = [
-  {
-    name: 'Home Page',
-    description: 'Displays how the header will look from the home page',
-    props: {
-      activeURL: '/',
-      githubURL: 'https://github.com/jacob-8/kitbook/',
-    },
+export const Simple: Variant<Component> = {
+  greeting: 'Hello World',
+}
+```
+
+Variants have some configuration options which can be controlled via a reserved `_meta` property. Here's an example with some of them:
+
+```ts title="Greeting.variants.ts"
+import type { Variant } from 'kitbook'
+import type Component from './Greeting.svelte'
+
+export const Simple: Variant<Component> = {
+  greeting: 'Hello World',
+  _meta: {
+    description: 'A simple greeting',
+    viewports: [
+      { width: 320, height: 480 },
+      { width: 800, height: 600 },
+    ],
     contexts: [
       {
         key: 'settings',
         context: { foo: 'baz' },
       }
     ],
-    slots: {
-      default: 'My Workbench' // can pass a string or a Svelte component
-      // presently we can only mock the default slot and not named slots until Svelte supports dynamically named slots since Kitbook needs to have the dynamically named slots feature to be able to mock named slots
-    }
-  },
-  {
-    name: 'User Dashboard Page',
-    props: {
-      activeURL: '/dashboard',
-      githubURL: 'https://github.com/jacob-8/kitbook/dashboard',
-    },
+    // read the intellisense for the rest (languages, csr, ssr, tests, etc.)
   }
-]
+}
 ```
 
-## Fine-grained viewport control
+When you want to share `_meta` configuration across variants, export a `shared_meta` object which will apply to all variants except for properties specifically overwritten in the variant defintion itself:
 
-You can override project viewport defaults on a variant file basis or for an individual variant. The following specifies particular viewports for this component and also for a specific variant:
+```ts
+import type { Variant, VariantMeta } from 'kitbook'
 
-```ts title="foo.variants.ts"
-import type { Variant, Viewport } from 'kitbook'
-import type Component from './EditInGithub.svelte'
-
-export const viewports: Viewport[] = [
-  { name: 'Mobile', width: 320, height: 480 },
-  { name: 'Desktop', width: 800, height: 600 },
-]
-
-export const variants: Variant<Component>[] = [
-  {
-    name: 'This variant will be shown twice using the above sizes',
-  },
-  {
-    name: 'This variant will be shown just once',
-    viewports: [
-      { name: 'special', width: 555, height: 432 },
-    ],
-  },
-]
+export const shared_meta: VariantMeta = {
+  viewports: [
+    { width: 320, height: 480 },
+  ],
+}
 ```
 
-Viewport names are optional. They are just used for clarity where applicable.
+In practice, you will also find yourself wanting to share props across your variants. You can accomplish that like this:
+
+```ts title="Header.variants.ts"
+import type { Variant, VariantMeta } from 'kitbook'
+import type Component from './Header.svelte'
+
+// ...shared_meta here if you have any
+
+const shared = {
+  githubURL: 'https://github.com/jacob-8/kitbook/',
+} satisfies Partial<ComponentVariant>
+
+export const Home_Page: Variant<Component> = {
+  ...shared,
+  activeURL: '/',
+  _meta: {
+    description: 'Displays how the header will look from the home page',
+  }
+}
+
+export const User_Dashboard_Page: Variant<Component> = {
+  ...shared,
+  activeURL: '/dashboard',
+}
+```
+
+The use of Typescript's `satisfies` keyword in the `shared` object allows us to ensure that all required props are placed into either shared or the variant itself, but are not required in both. That's a bit much to type though, so when you create variants using Kitbook's `Add Variant` button or via the [[2-viewer]], Kitbook will handle getting all that stuff ready for you. You will just need to name your variants and adjust your props.
+
+## Fine-grained control
+
+To make sure you caught it, all `_meta` settings can be set for the entire variants file and overwritten for individual variants. This is a powerful feature that allows you to control how your component is displayed in different contexts, languages, viewports, etc.
 
 ## Page and Layout Variants
 
-`+page.svelte` files are just plain Svelte components with a very important `data` prop. So you can create a variants file for them as well but must replace the `+` prefix with `_` (`_page.variants.ts`) because `+` is reserved for SvelteKit files:
+`+page.svelte` files are just plain Svelte components with a very important `data` prop. So Kitbook will help create a variants file for them as well but it will replace the `+` prefix with `_` (`_page.variants.ts`) because `+` is reserved for SvelteKit files. The same applies to layout files: `_layout.variants.ts`.
 
-```ts title="_page.variants.ts" {2, 8-10}
-import type { Variant } from 'kitbook'
-import type Component from './+page.svelte'
+---
 
-export const variants: Variant<Component>[] = [
-  {
-    name: 'First',
-    props: {
-      data: {
-        // place data props here
-      },
-    },
-  },
-]
-```
-
-The same applies to layout files. Just add a `_layout.variants.ts` file and you're good to go.
-
-## Variant Tips
-
-The wonderful thing about variants is they're written in TypeScript so you can easily spin up varieties of variants with minimal effort without having to duplicate data. Just use features of the language like `...spread` and `.map()` or import data from mocks folder and apply it across multiple different components.
-
-That will be enough to keep you busy for awhile, but there may come a point where you want to mock something which uses named slots[^1] or perhaps is a composition of components working together. You'll want to keep reading to learn about [[4-component-compositions|Compositions]].
-
-[^1]: Yes, there is a way to dynamically create slots but it's a bit of hack using Svelte's internal API and hasn't been implemented.
+That will be enough to keep you busy for awhile, but you will come to a point where you want to mock something which uses slots or perhaps is a composition of components working together. You'll want to keep reading to learn about [[4-component-compositions|Compositions]].
 
 
 [//begin]: # "Autogenerated link references for markdown compatibility"

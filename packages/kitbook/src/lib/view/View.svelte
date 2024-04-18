@@ -33,7 +33,7 @@
   export let height = DEFAULT_HEIGHT
   export let hovered = false
   export let props: Record<string, any> = undefined
-  export let variantIndex: number = undefined
+  export let variantName: string = undefined
   export let compositionName: string = undefined
   export let blockScripts = false
   export let csr: false = undefined
@@ -43,7 +43,7 @@
 
   let viewBody: ViewBody
 
-  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantIndex, compositionName, darkMode })
+  $: src = buildIframeUrl({ pathname: $page.url.pathname, languageCode, addLanguageToUrl, props, variantName, compositionName, darkMode })
 
   let showIframe = true
   async function refresh() {
@@ -85,7 +85,7 @@
         {/if}
       </ViewBody>
       {#if showCode && codeHtml}
-        <div class="my-3 overflow-x-auto max-w-full" style="width: {width + 18}px;">
+        <div class="view-code my-3 overflow-x-auto max-w-full" style="width: {width + 18}px;">
           {@html codeHtml}
         </div>
       {/if}
@@ -94,7 +94,7 @@
 </IntersectionObserver>
 
 <style>
-  :global(pre.shiki) {
+  :global(.view-code pre.shiki) {
     padding: 0.75rem;
   }
 </style>

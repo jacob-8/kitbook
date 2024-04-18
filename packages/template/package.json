@@ -15,7 +15,7 @@
     "test:components:update": "playwright test kitbook --update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.43.1",
     "@sveltejs/adapter-auto": "2.1.0",
     "@sveltejs/kit": "1.27.1",
     "kitbook": "workspace:*",

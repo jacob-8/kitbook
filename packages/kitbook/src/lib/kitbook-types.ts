@@ -1,7 +1,46 @@
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
-export interface Variant<T extends SvelteComponent> {
+export type Variant<T extends SvelteComponent> = {
+  _meta?: VariantMeta
+} & ComponentProps<T>
+
+export interface VariantMeta {
+  description?: string
+  /** overrides Kitbook-wide viewports */
+  viewports?: Viewport[]
+  /** overrides Kitbook-wide language selection, pass an empty array to use just Kitbook's first language */
+  languages?: Language[]
+  /** contexts won't be HMRed as context must be set on component init which requires remounting the component */
+  contexts?: MockedContext[]
+  /** can pass in a string to be @html rendered or a Svelte Component - you may find Compositions easier to work with than passing in a default slot but it's here. For named slots, use a Composition. */
+  defaultSlot?: string | any
+  /** don't hydrate variant on client by turning off scripts on iframe */
+  csr?: false
+  /** don't render on server by waiting until iframe is running client side to render variant  */
+  ssr?: false
+  tests?: {
+    /** skips default snapshot test, but not additional tests */
+    skip?: boolean
+    /** each additional test will take viewports into account and run once per applicable viewport but will not take languages into account */
+    additional?: Record<string, Test>
+    /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
+    clientSideRendered?: boolean
+  }
+}
+
+export interface VariantsModule {
+  shared_meta?: VariantMeta
+  [key: string]: Variant<any>
+}
+
+export interface DeprecatedVariantsModule {
+  variants: DeprecatedVariant<any>[]
+  viewports?: Viewport[]
+  languages?: Language[]
+}
+
+export interface DeprecatedVariant<T extends SvelteComponent> {
   name?: string
   description?: string
   viewports?: Viewport[]
@@ -95,24 +134,26 @@ interface CompositionSection {
   html?: never // type guard
 }
 
-export interface VariantsModule {
-  variants: Variant<any>[]
-  viewports?: Viewport[]
-  languages?: Language[]
-}
-
 export interface CompositionModule {
   default: typeof SvelteComponent
-  viewports?: Viewport[]
-  languages?: Language[]
-  /** Set false to keep block iframe scripts and only show the server rendered version. HMR will not be working so you'll have to manually refresh to see updates.  If both `ssr` and `csr` are false, nothing will be rendered! */
-  csr?: false
-  /** Set false to only mount component client side. If both `ssr` and `csr` are false, nothing will be rendered! */
-  ssr?: false
+  config?: CompositionConfig
   /** Internal use */
   inlined?: boolean
   code?: string
 }
+
+export interface CompositionConfig {
+  /** overrides default composition full-width viewport */
+  viewports?: OptionalWidthViewport[]
+  /** overrides Kitbook-wide language selection, pass an empty array to use just Kitbook's first language */
+  languages?: Language[]
+  /** Set false to keep block iframe scripts and only show the server rendered version. HMR will not be working so you'll have to manually refresh to see updates. Submit a PR to make this live reload via refresh the same as ssr  */
+  csr?: false
+  /** Set false to only mount component client side. */
+  ssr?: false
+}
+
+export type DeprecatedCompositionModule = Omit<CompositionModule, 'config'> & CompositionConfig
 
 export interface LoadedModules {
   markdown?: MarkdownModule
@@ -167,7 +208,13 @@ export interface KitbookSettings {
 
 export interface Viewport {
   name?: string
-  width: number | null
+  width: number
+  height: number
+}
+
+export interface OptionalWidthViewport {
+  name?: string
+  width?: number
   height: number
 }
 

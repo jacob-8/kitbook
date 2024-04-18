@@ -35,8 +35,11 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
       })
 
       server.hot.on('kitbook:open-variants', ({ filepath, props }, client) => {
-        const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
-        const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
+        // TODO: parse Svelte file to get props if props is null (make it an empty object if from Viewer and component simply has no props)
+        const props_with_shared = JSON.stringify({ shared: 'remove', ...props }, null, 2).replace(`"shared": "remove"`, '...shared')
+        const code = getVariantsTemplate().replace(`{ foo: 'replace' }`, props_with_shared)
+        const code_with_component_reference = code.replace('Template.svelte', filepath.split('/').pop())
+        const template = removeQuotesFromSerializedFunctions(code_with_component_reference)
 
         const variantsPath = filepath
           .replace('.svelte', '.variants.ts')
@@ -68,12 +71,6 @@ function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase:
     client.send('kitbook:open-file', { filepath, viteBase })
   })
 }
-
-// import { generateCode, parseModule } from 'magicast'
-// magicast breaks the build - need to debug
-// const module = parseModule(VariantsTemplate)
-// module.exports.variants[0].props = serializedState
-// const { code } = generateCode(module)
 
 function getVariantsTemplate() {
   const _dirname = dirname(fileURLToPath(import.meta.url))

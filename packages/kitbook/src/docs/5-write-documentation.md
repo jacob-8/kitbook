@@ -4,7 +4,7 @@ You can document your application and components by writing markdown ending in `
 
 ## Component Documentation
 
-To document a component titled `Button.svelte` add a sibling file titled `Button.md` and begin writing. Your documentation will automatically be included in the same page as any variants and compositions you've written for that component.
+To document a component titled `Button.svelte`, navigate to the component's page in Kitbook and click `Add Docs` which will add a sibling file titled `Button.md`. Begin writing and your documentation will automatically be included in the same page as any variants and compositions you've written for that component.
 
 ## Index Page
 

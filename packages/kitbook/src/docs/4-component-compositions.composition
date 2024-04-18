@@ -1,0 +1,13 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 50 }],
+  })
+</script>
+
+<script lang="ts">
+  import { browser } from '$app/environment'
+</script>
+
+<b>Environment: {browser}</b> - Refresh me or toggle to SSR mode to see false while still not hydrated. Also, click the Code button to take a look.

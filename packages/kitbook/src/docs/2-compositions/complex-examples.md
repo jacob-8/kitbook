@@ -2,13 +2,17 @@
 
 ## Complex User Interaction
 
-Sometimes when building components perhaps you need to test interaction even more mock various component states. To build the `BottomSheet` component found in [svelte-pieces](https://github.com/jacob-8/svelte-pieces) this composition was very helpful: [[complex-examples.BottomSheet.composition]] (*TODO: composition will show here in future but for now this is a dead link and the composition is down below*). This allowed for quick adjustment of some opening height props such that the component can be tested in a variety of conditions.
+Sometimes when building components you need to test interaction even more than mock various component states. To build the `BottomSheet` component found in [svelte-pieces](https://github.com/jacob-8/svelte-pieces) this Composition was very helpful: 
 
-Note especially the use of the helper `ShowHide` component. As a composition is just a Svelte, you can do anything, even use `setContext` in your composition file.
+[[complex-examples.BottomSheet.composition]]  
+
+This allowed for quick adjustment of some opening height props such that the component can be tested in a variety of conditions.
+
+Note especially the use of the helper `ShowHide` component. As a Composition is just a Svelte, you can do anything, even use `setContext` in your Composition file.
 
 ## Component Conglomeration Recipes
 
-Sometimes you may want to prototype an arrangement of multiple components together without that specific arrangement being used in your app. You just want to place the composition alongside the document for yourself and fellow team members to be able to reference as a **recipe**. The following example combines a `Map`, `GeoJSONSource`, and `Layer` component from the [Living Dictionaries repo](https://github.com/livingtongues/living-dictionaries) into a display of earthquake clusters.
+Sometimes you may want to prototype an arrangement of multiple components together without that specific arrangement being used in your app. You just want to place the Composition alongside the document for yourself and fellow team members to be able to reference as a **recipe**. The following example combines a `Map`, `GeoJSONSource`, and `Layer` component from the [Living Dictionaries repo](https://github.com/livingtongues/living-dictionaries) into a display of earthquake clusters.
 
 
 ```svelte title="EarthquakeClusters.composition"

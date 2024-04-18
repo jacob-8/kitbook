@@ -43,7 +43,13 @@
       else
         urlForEditedFile = null
     })
+    import.meta.hot.on('kitbook:open-file', () => {
+      urlForEditedFile = null
+    })
   }
+
+  $: if (pathname)
+    urlForEditedFile = null
 </script>
 
 <LayoutPanes>

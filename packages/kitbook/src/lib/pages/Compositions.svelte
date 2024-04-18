@@ -27,18 +27,19 @@
   let containerWidth = 1000
 
   let showView = true
-  async function reset_ssr_on_composition_change(_modules) {
+  async function reset_ssr_on_change(_modules) {
     showView = false
     await tick()
     showView = true
   }
 </script>
 
-{#each Object.entries(compositionsModules) as [compositionName, { viewports: compositionViewports, languages: moduleLanguages, csr, ssr, inlined, code }]}
+{#each Object.entries(compositionsModules) as [compositionName, { config, inlined, code }] (compositionName)}
+  {@const { viewports: compositionViewports, languages: moduleLanguages, csr, ssr } = config || {}}
   {#if (show_inlined && inlined) || (!show_inlined && !inlined)}
     {#if csr === false}
       <div class="hidden">
-        {reset_ssr_on_composition_change(compositionsModules)}
+        {reset_ssr_on_change(compositionsModules)}
       </div>
     {/if}
 
@@ -64,12 +65,12 @@
                     {darkMode}
                     {csr}
                     {ssr}
+                    blockScripts={csr === false}
                     width={width || Math.min(containerWidth, 1000 - 22)}
                     {height}
                     {languageCode}
                     {addLanguageToUrl}
                     {code}
-                    blockScripts={csr === false}
                     {compositionName}>
                   </View>
                 {/if}

@@ -1,6 +1,6 @@
 # Easy Wikilinks
 
-Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add [wikilinks](https://foambubble.github.io/foam/user/features/wikilinks) between your various documentation pages in a manner that ensures they always stay up-to-date. *These links will also work in Github!*
+Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add [wikilinks](https://foambubble.github.io/foam/user/features/wikilinks) between your various documentation pages in a manner that ensures they always stay up-to-date. *These links will also work in Github and VS Code!*
 
 ## Setup Foam
 
@@ -28,13 +28,13 @@ Kitbook supports using [Foam](https://foambubble.github.io/foam/) to easily add 
   }
   ```
 
-- The [Markdown All in One extension](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) is highly recommended but not required for Foam functionality. It's best feature is the ability to paste a URL on top of highlighted text to automatically create a markdown link.
+- The [Markdown All in One extension](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) is highly recommended but not required for [Foam](https://foambubble.github.io/foam/) to work. It's best feature is the ability to paste a URL on top of highlighted text to automatically create a markdown link.
 
 ## Usage
 
-You should read the [Foam](https://foambubble.github.io/foam/) docs, but to get you started, you can create a link to any `.md` file in your repo by typing `[[` and then letting Foam's autocomplete help you as you type either the filename or the main heading. For example, to link to this page which has a name of `6-easy-wikilinks` and a main heading of `Easy Wikilinks`, just start typing heading `[[Easy Wi` and select the autocomplete option to place`[[6-easy-wikilinks]]` in your code which will render like this: [[6-easy-wikilinks]]. Now you can now click the link in your editor to jump to that file. *Note that sometimes Foam is one keystroke behind, and you may need to make one more edit to your file (like a space) and before Foam automatically creates a [wikilink](https://foambubble.github.io/foam/user/features/wikilinks) reference at the bottom of your file. Foam handles the linking in your editor and Kitbook uses these wikilink references to give you  appropriate links in the browser.*
+You should read the [Foam](https://foambubble.github.io/foam/) docs, but to get you started, you can create a link to any markdown or composition file in your repo by typing `[[` and then letting Foam's autocomplete help you as you type either the filename or the main heading. For example, to link to this page which has a name of `6-easy-wikilinks` and a main heading of `Easy Wikilinks`, just start typing heading `[[Easy Wi` and select the autocomplete option to place`[[6-easy-wikilinks]]` in your code which will render like this: [[6-easy-wikilinks]]. Now you can now click the link in your editor to jump to that file. *Note that you usually need to save the file for Foam to create the [wikilink](https://foambubble.github.io/foam/user/features/wikilinks) reference at the bottom of your file. Foam handles the linking in your editor and Kitbook uses these wikilink references to give you  appropriate links in the browser.*
 
-The Foam extension does a good job of automatically updating links as you change filenames but until you are very familiar with its behavior, it's a good idea to occasionally run [`Foam: Run Janitor`](https://foambubble.github.io/foam/user/tools/workspace-janitor) from VS Code's command palette to ensure the links across your entire repo are up to date.
+The Foam extension does a good job of automatically updating links as you change filenames but if names get out of sync somehow, you can always run [`Foam: Run Janitor`](https://foambubble.github.io/foam/user/tools/workspace-janitor) from VS Code's command palette to ensure the links across your entire repo are up to date.
 
 ### Using Aliases
 Sometimes when you link to a page in mid sentence like [[1-get-started|this project's amazing guide to getting started]] you want to use a custom alias for your wikilink. You can do that by adding a `|` character followed by your alias. That link you just saw looks like `[[1-get-started|this project's amazing guide to getting started]]` in the source code.

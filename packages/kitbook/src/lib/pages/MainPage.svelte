@@ -147,8 +147,8 @@
           <Compositions compositionsModules={compositionsModulesAfterInlined} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
-        {#if variantsModule?.variants}
-          <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} {darkMode} />
+        {#if variantsModule}
+          <Variants {variantsModule} {pathWithoutExtension} {projectViewports} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
         <EditInGithub path={data?.page?.path} {githubURL} />

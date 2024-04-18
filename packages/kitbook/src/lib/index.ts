@@ -1,4 +1,6 @@
-export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule, MarkdownModule } from './kitbook-types'
+import type { CompositionConfig } from './kitbook-types'
+
+export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, VariantMeta, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule, MarkdownModule, CompositionConfig } from './kitbook-types'
 
 export { default as Layout } from './layout/Layout.svelte'
 export { layoutLoad } from './layout/layoutLoad'
@@ -17,4 +19,8 @@ export { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from
 
 export function delay<T>(value: T, delay_ms = 1000): Promise<T> {
   return new Promise(resolve => setTimeout(() => resolve(value), delay_ms))
+}
+
+export function defineComposition(config: CompositionConfig): CompositionConfig {
+  return config
 }
