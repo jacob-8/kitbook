@@ -6,7 +6,6 @@ export function clearSnapshots(options: {
   snapshotsDirectory?: string
 } = {}): void {
   const {
-    // eslint-disable-next-line node/prefer-global/process
     projectRoot = process.cwd(),
     snapshotsDirectory = 'e2e/snapshots',
   } = options

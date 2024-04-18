@@ -113,7 +113,7 @@
 
               <Button onclick={addComposition} form="menu" color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
 
-              {#if !variantsModule?.variants}
+              {#if !variantsModule}
                 <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
               {/if}
             {/if}

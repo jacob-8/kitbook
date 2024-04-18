@@ -78,6 +78,7 @@
     "check:watch": "svelte-check --tsconfig ./jsconfig.json --threshold warning --diagnostic-sources js,svelte --watch",
     "test": "vitest",
     "test:components": "playwright test kitbook",
+    "playwright-install": "playwright install --with-deps",
     "test:components:update": "playwright test kitbook --update-snapshots"
   },
   "svelte": "./dist/index.js",

@@ -5,17 +5,16 @@ The API is stable and so the project is in **beta**. You can use this in product
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Before Svelte Summit
-- Fix visual-regression testing of variants 
-
+- improve viewer's component tree when components from packages are used which have slots
 - Viewer displays variants (fix variantIndex)
 - document-in-picture
 - create variant from current state
-- improve: viewer's component tree when components from packages are used which have slots
 - Kitbook Viewer trigger interface same as Svelte Inspector
 - cut release, explaining breaking change with Variants type
 - record
 
 ## Next Up
+- add page variants component reference broken
 - update templates to detect props
 - handle variant type when there are no component props
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build

@@ -1,5 +1,5 @@
 import type { Expect, test as playwrightTest } from '@playwright/test'
-import type { KitbookSettings, Language, Variant, VariantsModule, Viewport } from '../kitbook-types'
+import type { KitbookSettings, Language, VariantMeta, VariantsModule, Viewport } from '../kitbook-types'
 import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
 import { preparePath } from './preparePath.js'
 
@@ -20,7 +20,7 @@ export interface VariantToRun {
   url: string
   addLanguageToUrl?: KitbookSettings['addLanguageToUrl']
   filepathWithoutExtension: string
-  userAdded?: Variant<any>['tests']
+  userAdded?: VariantMeta['tests']
 }
 
 export function runComponentTests({
@@ -45,24 +45,24 @@ export function prepareVariantsToRun({ kitbookConfig, variantModules }: KitbookP
 
   const variantsToRun: VariantToRun[] = []
 
-  for (const [path, { variants, viewports: fileViewports, languages: fileLanguages }] of variantModules) {
-    variants.forEach((variant, index) => {
-      const variantViewports = variant.viewports || fileViewports || projectViewports
-      const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, index })
+  for (const [path, { shared_meta, ...variants }] of variantModules) {
+    Object.entries(variants).forEach(([name, { _meta }]) => {
+      const variantViewports = _meta?.viewports || shared_meta?.viewports || projectViewports
+      const { directory, filenameWithoutExtension, url } = preparePath({ kitbookRoute, path, variantName: name })
 
       const filepathWithoutExtension = `${directory}/${filenameWithoutExtension}`
-      const variantNameWithSafeCharacters = variant.name?.replace(/[^a-z0-9]/gi, '_')
+      const variantNameWithSafeCharacters = name?.replace(/[^a-z0-9]/gi, '_')
 
-      const variantName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters || index.toString()}`
+      const variantName = `${filepathWithoutExtension}/${variantNameWithSafeCharacters}`
 
       variantsToRun.push({
         variantName,
         viewports: variantViewports,
-        languages: getLanguages({ variantLanguages: variant.languages, moduleLanguages: fileLanguages, activeLanguages: projectLanguages }),
+        languages: getLanguages({ variantLanguages: _meta?.languages, moduleLanguages: shared_meta?.languages, activeLanguages: projectLanguages }),
         url,
         addLanguageToUrl,
         filepathWithoutExtension,
-        userAdded: variant.tests,
+        userAdded: _meta?.tests,
       })
     })
   }

@@ -15,8 +15,17 @@ export function convertDeprecatedVariantsToCurrentApi(module: VariantsModule | D
     },
   }
 
+  let no_name_index = 0
+
   module.variants.forEach((variant) => {
-    const variantKey = variant.name?.replaceAll(' ', '_') || 'No_Name'
+    let variantKey: string
+    if (variant.name) {
+      variantKey = variant.name.replaceAll(' ', '_')
+    }
+    else {
+      variantKey = `No_Name_${no_name_index}`
+      no_name_index++
+    }
     const variantData: Variant<any> = {
       ...variant.props,
       _meta: {
@@ -108,7 +117,7 @@ if (import.meta.vitest) {
           kitbookPath: '',
           activePath: '/foo',
         },
-        No_Name: {
+        No_Name_0: {
           kitbookPath: '',
           activePath: '/index',
           _meta: {
