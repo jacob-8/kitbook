@@ -5,14 +5,13 @@ The API is stable and the project is in **beta**. You can use this in production
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Before Svelte Summit
-- clone svelte inspector api with added right-click function
 - Viewer displays variants (fix variantIndex)
 - create variant from current state
-- Kitbook Viewer trigger interface same as Svelte Inspector
+- record talk
 - cut release, explaining breaking change with Variants type
-- record
 
 ## Next Up
+- module graph
 - handle users of Viewer not able to use Document Picture-in-Picture
 - add page variants component reference broken
 - update templates to detect props

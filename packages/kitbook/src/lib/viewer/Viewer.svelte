@@ -90,21 +90,23 @@
 {/if}
 
 {#if showToggleButton === 'always' || (showToggleButton === 'active' && targeting)}
-  <button
-    type="button"
-    style="
-      background-repeat: no-repeat;
-      background-position:center;
-      background-image: var(--gray-svelte-inspector-icon);
-      {toggleButtonPos
-        .split('-')
-        .map(p => `${p}: 8px;`)
-        .join('')}"
-    class="w-32px h-32px fixed bg-white border-gray-700 border rounded"
-    on:click={() => targeting = !targeting}>
-
-    <!-- <span class="i-mdi-target text-2xl" /> -->
-  </button>
+  <div
+    style={toggleButtonPos
+      .split('-')
+      .map(p => `${p}: 8px;`)
+      .join('')}
+    class="fixed bg-white border-gray-700 border rounded overflow-hidden">
+    <button type="button" on:click={toggle} title="Toggle Targeting" class="p-2 hover:bg-gray-100">
+      {#if targeting}
+        <span class="i-material-symbols-close align--3px mx-2px" />
+      {:else}
+        <span class="i-mdi-target text-xl align--4px" />
+      {/if}
+    </button>
+    {#if settings.kitbookRoute}
+      <a href={settings.languageInsertedKitbookRoute} target="_blank" title="Go to Kitbook" class="-ml-2 p-2 hover:bg-gray-100"><span class="i-tabler-external-link align--3px text-xl" /></a>
+    {/if}
+  </div>
 {/if}
 
 {#if $selectedComponent}

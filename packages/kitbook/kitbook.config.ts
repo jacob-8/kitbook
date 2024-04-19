@@ -31,4 +31,7 @@ export default defineConfig({
   expandTree: true,
   routesDirectory: 'src/lib/routes',
   kitbookRoute: '',
+  viewer: {
+    // showToggleButton: 'always',
+  },
 })
