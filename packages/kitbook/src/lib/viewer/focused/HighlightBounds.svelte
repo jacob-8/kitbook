@@ -1,6 +1,6 @@
 <script lang="ts">
   export let elementsToHighlight: Set<SvelteElementDetail>
-  export let color: 'gray' | 'blue' = 'gray'
+  export let color: 'gray' | 'blue'
 
   let highlightBounds: {
     top: number
@@ -38,11 +38,13 @@
 
   $: {
     const firstElement = elementsToHighlight.values().next().value as SvelteElementDetail
-    const { clientHeight: documentHeight } = document.documentElement
-    const { clientHeight: elementHeight } = firstElement
-    if (elementHeight < documentHeight) {
-      firstElement.scrollIntoView({ block: 'nearest' })
-      calculateBounds()
+    if (firstElement) {
+      const { clientHeight: documentHeight } = document.documentElement
+      const { clientHeight: elementHeight } = firstElement
+      if (elementHeight < documentHeight) {
+        firstElement.scrollIntoView({ block: 'nearest' })
+        calculateBounds()
+      }
     }
   }
 </script>

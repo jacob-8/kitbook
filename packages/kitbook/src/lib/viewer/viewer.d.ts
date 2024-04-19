@@ -30,6 +30,8 @@ declare global {
     parentComponent?: ComponentFragment
     childComponents: Set<ComponentFragment>
     childElements: Set<SvelteElementDetail>
+    isFromNodeModules?: boolean
+    localFilenameUsedIn?: string // for components with isFromNodeModules = true
   }
 
   type ComponentFragment = SvelteComponentDetail['component']['$$']['fragment']

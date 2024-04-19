@@ -20,7 +20,7 @@ if (import.meta.vitest) {
     test('return true if node_modules', () => {
       const component: ComponentWithChildren = {
         childElements: new Set([
-          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } as any } },
+          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } } },
           { __svelte_meta: { loc: { file: 'src/lib/Foo.svelte' } } },
         ]),
       } as ComponentWithChildren
@@ -42,7 +42,7 @@ if (import.meta.vitest) {
     test('returns filename even if mixed between local and node_modules', () => {
       const component: ComponentWithChildren = {
         childElements: new Set([
-          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } as any } },
+          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } } },
           { __svelte_meta: { loc: { file: 'src/lib/Foo.svelte' } } },
           { __svelte_meta: { loc: {} } },
           { __svelte_meta: {} },
@@ -56,7 +56,7 @@ if (import.meta.vitest) {
     test('returns false if only node_modules', () => {
       const component: ComponentWithChildren = {
         childElements: new Set([
-          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } as any } },
+          { __svelte_meta: { loc: { file: 'somewhere/node_modules/foo' } } },
         ]),
       } as ComponentWithChildren
 

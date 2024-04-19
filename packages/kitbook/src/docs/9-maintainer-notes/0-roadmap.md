@@ -5,9 +5,8 @@ The API is stable and so the project is in **beta**. You can use this in product
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Before Svelte Summit
-- improve viewer's component tree when components from packages are used which have slots
-- Viewer displays variants (fix variantIndex)
 - document-in-picture
+- Viewer displays variants (fix variantIndex)
 - create variant from current state
 - Kitbook Viewer trigger interface same as Svelte Inspector
 - cut release, explaining breaking change with Variants type

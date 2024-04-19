@@ -116,9 +116,9 @@ function listen() {
   })
 
   // @ts-expect-error - global
-  window.kitbookSvelteComponents = components
+  window.kitbook_ComponentFragment_to_ComponentWithChildren = components
   // @ts-expect-error - global
-  window.kitbookSvelteElements = elements
+  window.kitbook_ElementDetail_to_ComponentFragment = elements
 }
 
 function createComponentStore() {

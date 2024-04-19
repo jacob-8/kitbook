@@ -5,16 +5,11 @@
   import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
   import Component from './focused/Component.svelte'
-  import { getLocalFilename } from './focused/filename'
 
   export let settings: KitbookSettings
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
 
   let active = false
-
-  $: selectedIsLocal = $selectedComponent && getLocalFilename($selectedComponent)
-  $: if ($selectedComponent && !selectedIsLocal)
-    alert('This component is not local so it will not open. Kitbook needs some improvements to keep you from being able to select this component. Just avoid selecting components in node_modules for now.')
 </script>
 
 {#if active}
@@ -22,7 +17,7 @@
 
   <div
     class="fixed right-10px bottom-10px rounded max-h-90vh max-w-90vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
-    {#if selectedIsLocal}
+    {#if $selectedComponent}
       <Component {settings} />
     {:else}
       <Tree languageInsertedKitbookRoute={settings.languageInsertedKitbookRoute} on:close={() => active = false} />

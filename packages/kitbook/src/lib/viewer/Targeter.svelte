@@ -6,9 +6,10 @@
     selectedComponent,
     selectedElement,
   } from './focused/active'
-  import { componentsWithChildren, elementsToLocalParentComponent } from './tree/compiledNodes'
+  import { componentsWithChildren, elementsToParentComponent } from './tree/compiledNodes'
   import HighlightBounds from './focused/HighlightBounds.svelte'
   import { getLocalFilename } from './focused/filename'
+  import Hi from '$lib/routes/[...file]/mockComponents/Hi.svelte'
 
   onMount(() => {
     document.body.classList.add('crosshairs')
@@ -30,44 +31,21 @@
   }
 
   function hover(element: SvelteElementDetail) {
-    const selectableElement = findSelectable(element, { includeSelf: true })
-
-    if (selectableElement === $hoveredElement)
+    if ($hoveredElement === element)
       return
 
-    $hoveredElement = selectableElement
-    const hoveredFragment = $elementsToLocalParentComponent.get(selectableElement)
+    $hoveredElement = element
+    const hoveredFragment = $elementsToParentComponent.get(element)
     $hoveredComponent = $componentsWithChildren.get(hoveredFragment)
   }
 
   function select(element: SvelteElementDetail) {
-    const selectableElement = findSelectable(element, { includeSelf: true })
-
-    if (selectableElement === $selectedElement)
+    if ($selectedElement === element)
       return removeSelect()
 
-    $selectedElement = selectableElement
-    const selectedFragment = $elementsToLocalParentComponent.get(selectableElement)
+    $selectedElement = element
+    const selectedFragment = $elementsToParentComponent.get(element)
     $selectedComponent = $componentsWithChildren.get(selectedFragment)
-  }
-
-  function findSelectable(element: SvelteElementDetail, { includeSelf = false }) {
-    if (!includeSelf)
-      element = element.parentNode as SvelteElementDetail
-
-    while (element) {
-      if (isSelectable(element))
-        return element
-
-      element = element.parentNode as SvelteElementDetail
-    }
-  }
-
-  function isSelectable(element: SvelteElementDetail) {
-    const file = element.__svelte_meta?.loc?.file
-    if (!file || file.includes('node_modules'))
-      return false // no file or 3rd party
-    return true
   }
 
   let labelWidth: number
@@ -98,7 +76,7 @@
 
 {#if $hoveredComponent}
   {#if $selectedComponent !== $hoveredComponent}
-    <HighlightBounds elementsToHighlight={$hoveredComponent.childElements} />
+    <HighlightBounds elementsToHighlight={$hoveredComponent.childElements} color="gray" />
   {/if}
   <div
     style:left="{Math.min(mouseX + 10, document.documentElement.clientWidth - labelWidth - 10)}px"
@@ -109,6 +87,10 @@
       {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{getLocalFilename($hoveredComponent)?.split('src/').pop()}</span>
     </div>
   </div>
+{/if}
+
+{#if $selectedElement}
+  <HighlightBounds elementsToHighlight={new Set([$selectedElement])} color="blue" />
 {/if}
 
 <style>
