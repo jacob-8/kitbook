@@ -1,11 +1,12 @@
 # Roadmap
 
-The API is stable and so the project is in **beta**. You can use this in production if you are not bothered by some bugs relating to the UI and features that have not yet been finished. I know there are important features missing, but it's good enough to be incredibly helpful.
+The API is stable and the project is in **beta**. You can use this in production if you are not bothered by some bugs relating to the UI and features that have not yet been finished. I know there are important features missing, but it's good enough to be incredibly helpful.
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Before Svelte Summit
 - document-in-picture
+- clone svelte inspector api with added right-click function
 - Viewer displays variants (fix variantIndex)
 - create variant from current state
 - Kitbook Viewer trigger interface same as Svelte Inspector
@@ -27,6 +28,7 @@ The API is stable and so the project is in **beta**. You can use this in product
 
 ## Rough edges 
 
+- Get file location from Vite module graph from component tagName when it has no elements so that Kitbook can know which Svelte file to create variants, compositions, and markdowns for.
 - throw error if setting both csr and ssr to false
 - on build don't show folders that have no components with Kitbook files 
 - show compositions in viewer

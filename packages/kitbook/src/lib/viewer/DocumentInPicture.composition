@@ -1,0 +1,48 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import { Button } from 'svelte-pieces'
+  import DocumentInPicture from './DocumentInPicture.svelte'
+  import { browser } from '$app/environment'
+
+  let number = 21
+</script>
+
+{#if browser && window.self !== window.top}
+  <div class="text-red p-3">
+    I'm in an iframe so the API won't work. Click the <span class="i-tabler-external-link align--3px" /> in the upper right corner of this composition to try me.
+  </div>
+{/if}
+
+<DocumentInPicture let:pictureWindow>
+  <div slot="controls" class="p-3 border-b" let:openPictureWindow let:pictureWindow>
+    <Button onclick={openPictureWindow}>open</Button>
+    <Button onclick={() => number = Math.random() * 10}>change name</Button>
+    {#if pictureWindow}
+      <Button onclick={() => pictureWindow.close()}>close</Button>
+      <Button onclick={() => pictureWindow.resizeBy(50, 0)}>enlarge width</Button>
+      <Button onclick={() => pictureWindow.resizeBy(0, 50)}>enlarge height</Button>
+    {/if}
+  </div>
+
+  <div class="bg-blue/30 m-3 p-3 rounded">Put {number} in the box</div>
+  <div class="show-in-picture hidden mx-3">Show in picture</div>
+
+  {#if pictureWindow}
+    <Button class="m-3" onclick={() => window.focus()}>Focus opener tab</Button>
+  {/if}
+</DocumentInPicture>
+
+<style>
+  @media (display-mode: picture-in-picture) {
+    .show-in-picture {
+      --at-apply: "block!";
+    }
+  }
+</style>

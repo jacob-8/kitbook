@@ -30,13 +30,13 @@
 </Button>
 
 <svelte:window
-  on:keydown={(event) => {
-    if (event.altKey && event.shiftKey)
+  on:keydown={(e) => {
+    if (e.altKey && e.shiftKey)
       active = !active
-    if (event.key === 'Escape')
+    if (e.key === 'Escape')
       active = false
   }} />
 
-<!-- on:keyup={(event) => {
-  targeting = event.altKey && event.shiftKey;
+<!-- on:keyup={(e) => {
+  targeting = e.altKey && e.shiftKey;
   }} -->
