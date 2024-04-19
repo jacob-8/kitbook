@@ -15,6 +15,8 @@
   $: svxFilename = filename?.replace('.svelte', '.md')
 
   $: currentPropsState = (() => {
+    if (!$selectedComponent)
+      return null
     const { props } = $selectedComponent.componentDetail.options
     const state = $selectedComponent.componentDetail.component.$capture_state()
     const serializedState = serializeIntersection(props, state)
@@ -22,7 +24,7 @@
   })()
 </script>
 
-{#if filename}
+{#if filename && $selectedComponent}
   <div class="flex font-semibold items-center border-b border-gray-300 text-lg">
     <button type="button" on:click={() => $selectedComponent = null}><span class="i-material-symbols-arrow-back align--3px" /></button>
     <button class="mr-auto" type="button" on:click={() => openComponent(filename, viteBase)} title="Edit Component: {filename.split('src/').pop()}">

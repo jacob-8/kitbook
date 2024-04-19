@@ -5,6 +5,7 @@
   import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
   import Component from './focused/Component.svelte'
+  import DocumentInPicture from './DocumentInPicture.svelte'
 
   export let settings: KitbookSettings
   // const toggle_combo = options.toggleKeyCombo?.toLowerCase().split('-')
@@ -15,14 +16,15 @@
 {#if active}
   <Targeter />
 
-  <div
-    class="fixed right-10px bottom-10px rounded max-h-90vh max-w-90vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
-    {#if $selectedComponent}
-      <Component {settings} />
-    {:else}
-      <Tree languageInsertedKitbookRoute={settings.languageInsertedKitbookRoute} on:close={() => active = false} />
-    {/if}
-  </div>
+  <DocumentInPicture openPictureWindowOnMount on_close={() => active = false}>
+    <div class="flex flex-col">
+      {#if $selectedComponent}
+        <Component {settings} />
+      {:else}
+        <Tree languageInsertedKitbookRoute={settings.languageInsertedKitbookRoute} on:close={() => active = false} />
+      {/if}
+    </div>
+  </DocumentInPicture>
 {/if}
 
 <Button class="bottom-1 right-1 px-2! fixed !bg-white" form="menu" onclick={() => active = !active}>

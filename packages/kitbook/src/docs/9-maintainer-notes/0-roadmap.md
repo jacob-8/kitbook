@@ -5,7 +5,6 @@ The API is stable and the project is in **beta**. You can use this in production
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Before Svelte Summit
-- document-in-picture
 - clone svelte inspector api with added right-click function
 - Viewer displays variants (fix variantIndex)
 - create variant from current state
@@ -14,6 +13,7 @@ The API is stable and the project is in **beta**. You can use this in production
 - record
 
 ## Next Up
+- handle users of Viewer not able to use Document Picture-in-Picture
 - add page variants component reference broken
 - update templates to detect props
 - handle variant type when there are no component props

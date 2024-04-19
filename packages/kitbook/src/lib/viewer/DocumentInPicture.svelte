@@ -27,11 +27,13 @@
   let pictureWindow: Window
 
   onMount(() => {
-    if (openPictureWindowOnMount)
+    if (openPictureWindowOnMount) {
       openPictureWindow()
+      return () => pictureWindow?.close()
+    }
   })
 
-  async function openPictureWindow() {
+  export async function openPictureWindow() {
     if (!('documentPictureInPicture' in window))
       return alert('no browser support for document in picture - please use desktop Chrome')
 
@@ -46,7 +48,7 @@
     pictureWindow.addEventListener('keydown', handlePictureKeydown)
     pictureWindow.addEventListener('pagehide', () => {
       // eslint-disable-next-line svelte/no-dom-manipulating
-      container.append(player)
+      container?.append(player)
       pictureWindow.removeEventListener('keydown', handlePictureKeydown)
       pictureWindow = null
       on_close?.()
@@ -59,7 +61,11 @@
         const cssRules = [...styleSheet.cssRules].map(rule => rule.cssText).join('')
         const style = document.createElement('style')
 
-        style.textContent = cssRules
+        // original of `mask: var(--un-icon) no-repeat` get spread into the following and breaks un-icons;
+        const maskObfuscatedString = 'mask-image: ; -webkit-mask-position-x: ; -webkit-mask-position-y: ; mask-repeat: ; mask-origin: ; mask-clip: ; mask-composite: ; mask-mode: ;'
+        const iconMaskPropertyFixedCssRules = cssRules.replaceAll(maskObfuscatedString, 'mask-image: var(--un-icon); mask-repeat: no-repeat;')
+
+        style.textContent = iconMaskPropertyFixedCssRules
         pictureWindow.document.head.appendChild(style)
       }
       catch (e) {
@@ -74,11 +80,17 @@
     })
   }
 
+  export function resizeTo(width: number, height: number) {
+    pictureWindow.resizeTo(width, height)
+  }
+
   function handlePictureKeydown(e: KeyboardEvent) {
     if (e.key === 'Escape')
       return pictureWindow?.close()
     if (e.altKey && e.key === 'f')
       return window.focus()
+    if (e.altKey && e.key === 'r')
+      return resizeTo(width, height)
   }
 
   function handleKeydown(e: KeyboardEvent) {
@@ -93,7 +105,7 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<slot name="controls" {pictureWindow} {openPictureWindow} />
+<slot name="controls" {pictureWindow} {openPictureWindow} {resizeTo} />
 
 <div bind:this={container}>
   <div bind:this={player}>
