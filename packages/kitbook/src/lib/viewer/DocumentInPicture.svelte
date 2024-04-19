@@ -37,22 +37,28 @@
     if (!('documentPictureInPicture' in window))
       return alert('no browser support for document in picture - please use desktop Chrome')
 
-    pictureWindow = await window.documentPictureInPicture.requestWindow({
-      width,
-      height,
-    })
-    copyStyleSheetsToPictureWindow(pictureWindow)
+    try {
+      pictureWindow = await window.documentPictureInPicture.requestWindow({
+        width,
+        height,
+      })
+      copyStyleSheetsToPictureWindow(pictureWindow)
 
-    pictureWindow.document.body.append(player)
+      pictureWindow.document.body.append(player)
 
-    pictureWindow.addEventListener('keydown', handlePictureKeydown)
-    pictureWindow.addEventListener('pagehide', () => {
-      // eslint-disable-next-line svelte/no-dom-manipulating
-      container?.append(player)
-      pictureWindow.removeEventListener('keydown', handlePictureKeydown)
-      pictureWindow = null
-      on_close?.()
-    })
+      pictureWindow.addEventListener('keydown', handlePictureKeydown)
+      pictureWindow.addEventListener('pagehide', () => {
+        // eslint-disable-next-line svelte/no-dom-manipulating
+        container?.append(player)
+        pictureWindow.removeEventListener('keydown', handlePictureKeydown)
+        pictureWindow = null
+        on_close?.()
+      })
+    }
+    catch (error) {
+      alert(error)
+      console.error(error)
+    }
   }
 
   function copyStyleSheetsToPictureWindow(pictureWindow: Window) {

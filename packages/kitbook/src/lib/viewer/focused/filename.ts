@@ -6,7 +6,7 @@ export function isFromNodeModules(component: ComponentWithChildren): boolean {
   })
 }
 
-export function getLocalFilename(component: ComponentWithChildren): string | undefined {
+export function getLocalFileLocation(component: ComponentWithChildren): SvelteMeta['loc'] | undefined {
   if (!component)
     return
   const elements = Array.from(component.childElements)
@@ -14,7 +14,7 @@ export function getLocalFilename(component: ComponentWithChildren): string | und
     const filename = element?.__svelte_meta?.loc.file
     return !filename.includes('node_modules')
   })
-  return elementNotInNodeModules?.__svelte_meta?.loc?.file
+  return elementNotInNodeModules?.__svelte_meta?.loc
 }
 
 if (import.meta.vitest) {
@@ -40,7 +40,7 @@ if (import.meta.vitest) {
     })
   })
 
-  describe(getLocalFilename, () => {
+  describe(getLocalFileLocation, () => {
     test('returns filename even if mixed between local and node_modules', () => {
       const component: ComponentWithChildren = {
         childElements: new Set([
@@ -52,7 +52,7 @@ if (import.meta.vitest) {
         ]),
       } as ComponentWithChildren
 
-      expect(getLocalFilename(component)).toBe('src/lib/Foo.svelte')
+      expect(getLocalFileLocation(component).file).toBe('src/lib/Foo.svelte')
     })
 
     test('returns false if only node_modules', () => {
@@ -62,15 +62,15 @@ if (import.meta.vitest) {
         ]),
       } as ComponentWithChildren
 
-      expect(getLocalFilename(component)).toBeFalsy()
+      expect(getLocalFileLocation(component)).toBeFalsy()
     })
 
-    test('returns false if no elements', () => {
+    test('returns falsy if no elements', () => {
       const component: ComponentWithChildren = {
         childElements: new Set(),
       } as ComponentWithChildren
 
-      expect(getLocalFilename(component)).toBeFalsy()
+      expect(getLocalFileLocation(component)).toBeFalsy()
     })
   })
 }

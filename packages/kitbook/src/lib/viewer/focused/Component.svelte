@@ -3,14 +3,14 @@
   import { removeQuotesFromSerializedFunctions, serializeIntersection } from '../../open/serialize'
   import { openComponent, openComposition, openMarkdown, openVariants } from '../../open/openFiles'
   import { selectedComponent } from './active'
-  import { getLocalFilename } from './filename'
+  import { getLocalFileLocation } from './filename'
   import Tabs from './Tabs.svelte'
   import LoadVariants from './LoadVariants.svelte'
 
   export let settings: KitbookSettings
   $: ({ viewports, languageInsertedKitbookRoute, viewer: { __internal: { viteBase } } } = settings)
 
-  $: filename = getLocalFilename($selectedComponent)
+  $: filename = getLocalFileLocation($selectedComponent)?.file
   $: variantsFilename = filename?.replace('.svelte', '.variants.ts')
   $: svxFilename = filename?.replace('.svelte', '.md')
 
