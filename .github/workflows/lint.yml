@@ -20,16 +20,18 @@ jobs:
 
       - run: pnpm install
 
-      - name: Run ESLint on changed files
-        uses: tj-actions/eslint-changed-files@v24
-        with:
-          config_path: eslint.config.js
-          file_extensions: |
-            **/*.ts
-            **/*.js
-            **/*.svelte
-            **/*.composition
-            **/*.html
-            **/*.markdown
-            **/*.json
-            **/*.yml
+      - run: pnpm lint
+
+      # - name: Run ESLint on changed files
+      #   uses: tj-actions/eslint-changed-files@v24
+      #   with:
+      #     config_path: eslint.config.js
+      #     file_extensions: |
+      #       **/*.ts
+      #       **/*.js
+      #       **/*.svelte
+      #       **/*.composition
+      #       **/*.html
+      #       **/*.markdown
+      #       **/*.json
+      #       **/*.yml

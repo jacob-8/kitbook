@@ -4,7 +4,7 @@ The API is stable and the project is in **beta**. You can use this in production
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
-## Release latest changes
+## Currently working on
 - cut release, explaining breaking change with Variants type
 - check if Codeflow still works
 - Update examples to latest api
