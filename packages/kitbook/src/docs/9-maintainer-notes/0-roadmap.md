@@ -5,7 +5,6 @@ The API is stable and the project is in **beta**. You can use this in production
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Currently working on
-- cut release, explaining breaking change with Variants type
 - check if Codeflow still works
 - Update examples to latest api
 
@@ -32,6 +31,7 @@ The API is stable and the project is in **beta**. You can use this in production
 
 ## Rough edges 
 
+- order variants by order written in file, not alphabetical
 - handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
 - Viewer displays page variants (adjust file title)
 - Double-check the add page variants component reference is _ and not + in all locations
