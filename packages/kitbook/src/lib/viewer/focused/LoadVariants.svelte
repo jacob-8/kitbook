@@ -6,9 +6,11 @@
   export let viewports: Viewport[]
   export let filename: string
   export let openVariantsFn: () => void
+  export let resizeTo: (width: number, height: number) => void
 
-  let variantsModule: VariantsModule
   let loading = true
+  let variantsModule: VariantsModule
+  $: ({ shared_meta, ...variants } = variantsModule || {})
 
   $: localFilenameWithLeadingSlash = filename.split('/src').pop().replace('.svelte', '')
   $: load_variants(`/src${localFilenameWithLeadingSlash}.variants.ts`)
@@ -27,11 +29,7 @@
 </script>
 
 {#if variantsModule}
-  {#if variantsModule.variants?.length}
-    <DisplayVariants variants={variantsModule.variants} fileViewports={variantsModule.viewports || viewports} {languageInsertedKitbookRoute} {localFilenameWithLeadingSlash} />
-  {:else}
-    <button type="button" on:click={openVariantsFn}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button>
-  {/if}
+  <DisplayVariants {variants} fileViewports={shared_meta?.viewports || viewports} {languageInsertedKitbookRoute} {localFilenameWithLeadingSlash} {resizeTo} />
 {:else if loading}
   <div class="p-2">
     Loading variants...

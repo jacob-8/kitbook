@@ -1,70 +1,91 @@
 <script lang="ts">
   import type { Variant, Viewport } from 'kitbook'
+  import { getContext } from 'svelte'
+  import type { Writable } from 'svelte/store'
   import Iframe from '../../view/Iframe.svelte'
 
+  export let resizeTo: (width: number, height: number) => void
   export let languageInsertedKitbookRoute: string
   export let localFilenameWithLeadingSlash: string
-  export let variants: Variant<any>[]
   export let fileViewports: Viewport[]
+  export let variants: Record<string, Variant<any>>
+
+  const keyboardEvent = getContext<Writable<KeyboardEvent>>('picture-window-keydown')
+
+  $: variantNamesToProperties = Object.entries(variants)
 
   let currentVariantIndex = 0
-  $: variant = variants[currentVariantIndex]
-  $: isFirstVariant = currentVariantIndex === 0
-  $: isLastVariant = currentVariantIndex === variants.length - 1
+  let currentViewportIndex = 0
+  $: ([name, variant] = variantNamesToProperties[currentVariantIndex])
+  $: viewports = variant._meta?.viewports || fileViewports
+
+  // keydown is listened to in the main window's listener placed on the picture window and so for some reason Svelte does not update the $ computed variables when triggered via keydown but it does when the buttons are pushed.
+  function ensureUpdate() {
+    ([name, variant] = variantNamesToProperties[currentVariantIndex])
+    viewports = variant._meta?.viewports || fileViewports
+  }
 
   function previousVariant() {
-    if (isFirstVariant)
+    if (currentVariantIndex === 0)
       return
     currentVariantIndex = currentVariantIndex - 1
+    resizeToViewport()
   }
 
   function nextVariant() {
-    if (isLastVariant)
+    if (currentVariantIndex === variantNamesToProperties.length - 1)
       return currentVariantIndex = 0
     currentVariantIndex = currentVariantIndex + 1
+    resizeToViewport()
   }
 
-  let currentViewportIndex = 0
-  $: viewports = variant.viewports || fileViewports
-  $: viewport = viewports[currentViewportIndex]
-  $: isFirstViewport = currentViewportIndex === 0
-  $: isLastViewport = currentViewportIndex === viewports.length - 1
-
   function previousViewport() {
-    if (isFirstViewport)
+    if (currentViewportIndex === 0)
       return
     currentViewportIndex = currentViewportIndex - 1
+    resizeToViewport()
   }
 
   function nextViewport() {
-    if (isLastViewport)
+    if (currentViewportIndex === viewports.length - 1)
       return currentViewportIndex = 0
     currentViewportIndex = currentViewportIndex + 1
+    resizeToViewport()
   }
 
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'ArrowUp')
+  let container: HTMLDivElement
+  function resizeToViewport() {
+    ensureUpdate()
+    const headerHeight = container.getBoundingClientRect().top
+    resizeTo(Math.max(400, viewports[currentViewportIndex].width + 18), viewports[currentViewportIndex].height + headerHeight + 43)
+  }
+
+  $: if ($keyboardEvent)
+    handleKeydown($keyboardEvent)
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'ArrowUp')
       return previousVariant()
-    if (event.key === 'ArrowDown')
+    if (e.key === 'ArrowDown')
       return nextVariant()
-    if (event.key === 'ArrowLeft')
+    if (e.key === 'ArrowLeft')
       return previousViewport()
-    if (event.key === 'ArrowRight')
+    if (e.key === 'ArrowRight')
       return nextViewport()
   }
 </script>
 
 <div class="bg-gray-100 px-2 items-center flex flex-wrap">
-  {#if !isFirstVariant}
+  {#if currentVariantIndex > 0}
     <button
       type="button"
       title="up arrow"
       on:click={previousVariant}><span class="i-material-symbols-arrow-upward align--2px" /></button>
   {/if}
 
-  {currentVariantIndex + 1} of {variants.length}
+  {currentVariantIndex + 1} of {variantNamesToProperties.length}
 
-  {#if variants.length > 1 && !isLastVariant}
+  {#if variantNamesToProperties.length > 1 && currentVariantIndex < variantNamesToProperties.length - 1}
     <button
       type="button"
       title="down arrow"
@@ -72,14 +93,18 @@
   {/if}
 
   <div class="ml-auto">
-    {#if !isFirstViewport}
+    {#if currentViewportIndex > 0}
       <button
         type="button"
         title="left arrow"
         on:click={previousViewport}><span class="i-material-symbols-arrow-back align--2px" /></button>
     {/if}
 
-    {viewport.width} x {viewport.height}
+    <button
+      type="button"
+      title="Reset Dimensions"
+      class="opacity-75 hover:opacity-100"
+      on:click={resizeToViewport}>{viewports[currentViewportIndex].width} x {viewports[currentViewportIndex].height}</button>
 
     {#if viewports.length > 1}
       <span class="text-sm opacity-60">
@@ -87,7 +112,7 @@
       </span>
     {/if}
 
-    {#if viewports.length > 1 && !isLastViewport}
+    {#if viewports.length > 1 && currentViewportIndex < viewports.length - 1}
       <button
         type="button"
         title="right arrow"
@@ -96,11 +121,11 @@
   </div>
 </div>
 
-<div style="width: {viewport.width}px; height: {viewport.height}px;" class="border">
-  <Iframe src="{languageInsertedKitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantIndex={currentVariantIndex}" />
+<div bind:this={container} style="width: {viewports[currentViewportIndex].width}px; height: {viewports[currentViewportIndex].height}px;" class="border">
+  <Iframe src="{languageInsertedKitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantName={name}" />
 </div>
 
-<svelte:window on:keydown={handleKeydown} />
+<!-- <button type="button" on:click={openVariantsFn}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button> -->
 
 <style>
   button {

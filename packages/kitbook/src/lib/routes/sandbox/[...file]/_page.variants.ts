@@ -1,49 +1,44 @@
 import type { Variant } from 'kitbook'
 import type { SvelteComponent } from 'svelte'
 import type Component from './+page.svelte'
-
 import IndividualComponent from './mockComponents/IndividualComponent.svelte'
 
-export const variants: Variant<Component>[] = [
-  {
-    name: 'Component Variant',
-    props: {
-      data: {
-        pagesStore: null,
-        page: null,
-        pageKey: '',
+export const Component_With_Props: Variant<Component> = {
+  data: {
+    pagesStore: null,
+    pages: null,
 
-        variantIndex: '0',
-        component: IndividualComponent as typeof SvelteComponent,
-        variant: {
-          props: { name: 'James' },
-        },
-        // editedProps: null,
+    page: null,
+    pageKey: '',
 
-        pages: null,
-        settings: null,
-        darkMode: false,
+    variantName: 'First',
+    component: IndividualComponent as typeof SvelteComponent,
+    variantsModule: {
+      First: {
+        name: 'Jim',
       },
     },
+
+    darkMode: false,
+    settings: null,
   },
-  {
-    name: 'Component Variant',
-    description: 'without props',
-    props: {
-      data: {
-        pagesStore: null,
-        page: null,
-        pageKey: '',
+}
 
-        variantIndex: '0',
-        component: IndividualComponent as typeof SvelteComponent,
-        variant: null,
-        // editedProps: null, // test that this is optional
+export const Component_Without_Props: Variant<Component> = {
+  data: {
+    pagesStore: null,
+    pages: null,
 
-        pages: null,
-        settings: null,
-        darkMode: false,
-      },
+    page: null,
+    pageKey: '',
+
+    variantName: 'Second',
+    component: IndividualComponent as typeof SvelteComponent,
+    variantsModule: {
+      Second: {},
     },
+
+    darkMode: false,
+    settings: null,
   },
-]
+}

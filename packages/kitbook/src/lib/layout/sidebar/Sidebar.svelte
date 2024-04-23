@@ -5,7 +5,7 @@
   import { afterNavigate } from '$app/navigation'
 
   export let folder: FolderType
-  export let kitbookPath: string // calculated from url not passed from settings - a little inconsistent
+  export let kitbookPath: string // calculated from url, not passed from settings - a little inconsistent
   export let activePath: string
   export let showSidebar = false
   export let title: string
@@ -39,6 +39,15 @@
   <Folder {folder} {kitbookPath} {activePath} {expanded} />
   <slot name="footer" />
 
+  {#if kitbookPath}
+    <a
+      href="/"
+      class="ml-3 my-4 block">
+      <span class="i-ph-house-line-bold text-lg align--3px" />
+      Site Home
+    </a>
+  {/if}
+
   <a
     href="https://github.com/jacob-8/kitbook"
     target="_blank"
@@ -51,5 +60,7 @@
       style="height: 20px;" />
   </a>
 
-  <div class="p-3 text-sm text-gray-600">Press "ctrl+b" to show/hide tree.</div>
+  <div class="border-t"></div>
+
+  <div class="p-3 text-sm text-gray-600 hidden md:block">Press "ctrl+b" to show/hide tree.</div>
 </ResponsiveSlideover>

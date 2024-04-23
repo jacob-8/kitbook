@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
-  import type { Viewport } from 'kitbook'
+  import { defineComposition } from 'kitbook'
 
-  export const viewports: Viewport[] = [
-    { width: null, height: 500 },
-  ]
+  export const config = defineComposition({
+    viewports: [{ height: 500 }],
+  })
 </script>
 
 <script lang="ts">

@@ -1,13 +1,12 @@
-import type { Variant, Viewport } from 'kitbook'
+import type { DeprecatedVariant, Viewport } from 'kitbook'
 import type Component from './Header.svelte'
 
 export const viewports: Viewport[] = [
   { height: 200, width: 800 },
   { height: 200, width: 200 },
-  { height: 500, width: 200 },
 ]
 
-export const variants: Variant<Component>[] = [
+export const variants: DeprecatedVariant<Component>[] = [
   {
     name: 'inactive',
     props: {
@@ -20,7 +19,7 @@ export const variants: Variant<Component>[] = [
     description: 'should be blue',
     props: {
       kitbookPath: '',
-      activePath: '',
+      activePath: '/index',
     },
   },
   {

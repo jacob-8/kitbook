@@ -1,3 +1,3 @@
-<div>Before</div>
-<div><slot /></div>
-<div>After</div>
+Before
+<div class="border-b border-t"><slot /></div>
+After

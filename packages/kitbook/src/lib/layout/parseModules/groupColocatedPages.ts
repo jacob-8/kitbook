@@ -2,6 +2,7 @@ import type { SvelteComponent } from 'svelte'
 import type { CompositionModule, GroupedPage, GroupedPageMap, MarkdownModule, UngroupedPage, VariantsModule } from '../../kitbook-types'
 import { testModules } from './testModules'
 import { parseModulesIntoUngroupedPages } from './parseModulesIntoUngroupedPages'
+import { convertDeprecatedCompositionToCurrentApi, convertDeprecatedVariantsToCurrentApi } from './convertDeprecatedToCurrentApi'
 
 export function groupColocatedPages(ungrouped: UngroupedPage<MarkdownModule | { default: typeof SvelteComponent } | VariantsModule | CompositionModule>[] = [], extensions = { md: ['md'], variants: 'variants.ts', compositions: 'composition' }): GroupedPageMap {
   const allowedExtensions = [...extensions.md, extensions.variants, 'svelte']
@@ -25,13 +26,13 @@ export function groupColocatedPages(ungrouped: UngroupedPage<MarkdownModule | { 
       grouped[url].loadComponent = loadModuleObject(page) as GroupedPage['loadComponent']
     }
     else if (page.ext === extensions.variants) {
-      grouped[url].loadVariants = loadModuleObject(page) as GroupedPage['loadVariants']
+      grouped[url].loadVariants = loadVariantsModuleObject(page as UngroupedPage<VariantsModule>) as GroupedPage['loadVariants']
     }
     else if (page.ext.endsWith(extensions.compositions)) {
       const compositionName = page.ext === extensions.compositions ? 'default' : page.ext.split('.')[0]
       grouped[url].loadCompositions = {
         ...grouped[url].loadCompositions,
-        [compositionName]: loadModuleObject(page),
+        [compositionName]: loadCompositionModuleObject(page as UngroupedPage<CompositionModule>),
       } as GroupedPage['loadCompositions']
     }
   }
@@ -54,6 +55,20 @@ function convertUnderscorePrefixToPlus(s: string): string {
 function loadModuleObject<T>(page: UngroupedPage<T>) {
   return {
     loadModule: page.load.loadModule,
+    loadRaw: page.load.loadRaw,
+  }
+}
+
+function loadVariantsModuleObject(page: UngroupedPage<VariantsModule>) {
+  return {
+    loadModule: async () => convertDeprecatedVariantsToCurrentApi(await page.load.loadModule()),
+    loadRaw: page.load.loadRaw,
+  }
+}
+
+function loadCompositionModuleObject(page: UngroupedPage<CompositionModule>) {
+  return {
+    loadModule: async () => convertDeprecatedCompositionToCurrentApi(await page.load.loadModule()),
     loadRaw: page.load.loadRaw,
   }
 }

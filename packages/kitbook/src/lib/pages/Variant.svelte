@@ -1,43 +1,44 @@
 <script lang="ts">
-  import type { GroupedPageMap, Variant } from 'kitbook'
+  import type { GroupedPageMap, VariantsModule } from 'kitbook'
   import type { SvelteComponent } from 'svelte'
   import { setContext } from 'svelte'
   import type { Writable } from 'svelte/store'
 
-  export let variantIndex: string
+  export let variantsModule: VariantsModule
+  export let variantName: string
   export let component: typeof SvelteComponent
-  export let variant: Variant<any>
   export let pagesStore: Writable<GroupedPageMap>
   export let pageKey: string
 
-  // contexts won't be HMRed as context must be set on component init - would require remounting this component
-  for (const { key, context } of variant?.contexts || []) setContext(key, context)
+  const initial_contexts = variantsModule?.[variantName]?._meta?.contexts || variantsModule?.shared_meta?.contexts || [] // can't HMR update contexts
+  for (const { key, context } of initial_contexts) setContext(key, context)
 
-  let updatedVariant: Variant<any>
+  let updatedVariantsModule: VariantsModule
+
   $: pageFromUpdatingStore = $pagesStore?.[pageKey]
   $: if (pageFromUpdatingStore?.loadVariants?.loadModule) {
     pageFromUpdatingStore.loadVariants.loadModule().then((module) => {
-      updatedVariant = module?.variants?.[variantIndex]
+      updatedVariantsModule = module
     }).catch((error) => {
       console.error(error)
     })
   }
   else {
-    updatedVariant = null
+    updatedVariantsModule = null
   }
 
-  $: currentVariant = updatedVariant || variant
+  $: variant = updatedVariantsModule?.[variantName] || variantsModule?.[variantName]
+  $: ({ _meta, ...props } = variant || {})
 </script>
 
-{#if currentVariant?.slots}
-  {@const defaultSlotContent = currentVariant.slots.default}
-  <svelte:component this={component} {...currentVariant?.props}>
-    {#if typeof defaultSlotContent === 'string'}
-      {@html defaultSlotContent}
+{#if _meta?.slot}
+  <svelte:component this={component} {...props}>
+    {#if typeof _meta.slot === 'string'}
+      {@html _meta.slot}
     {:else}
-      <svelte:component this={defaultSlotContent} />
+      <svelte:component this={_meta.slot} />
     {/if}
   </svelte:component>
 {:else}
-  <svelte:component this={component} {...currentVariant?.props} />
+  <svelte:component this={component} {...props} />
 {/if}

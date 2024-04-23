@@ -19,6 +19,10 @@ export default defineConfig({
       kitbook: path.resolve('./src/lib'),
     },
   },
+  server: {
+    port: 3212,
+    strictPort: true,
+  },
   build: {
     target: 'es2015', // es6
   },

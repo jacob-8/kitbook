@@ -1,7 +1,7 @@
-import type { Variant } from 'kitbook'
+import type { DeprecatedVariant } from 'kitbook'
 import type Component from './EditInGithub.svelte'
 
-export const variants: Variant<Component>[] = [
+export const variants: DeprecatedVariant<Component>[] = [
   {
     name: 'With githubUrl context',
     props: {

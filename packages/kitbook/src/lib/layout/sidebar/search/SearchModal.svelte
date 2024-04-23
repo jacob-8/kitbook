@@ -13,7 +13,11 @@
     searching = true
   }
 
+  let modal: HTMLElement
+  let query = ''
+
   function close() {
+    query = ''
     searching = false
   }
 
@@ -26,9 +30,6 @@
   afterNavigate(() => {
     close()
   })
-
-  let modal: HTMLElement
-  let query = ''
 
   $: filteredPages = filterPages($page.data?.pages, query)
   $: activeIndex = filteredPages?.length ? 0 : null

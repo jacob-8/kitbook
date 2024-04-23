@@ -9,12 +9,12 @@
     type="button"
     class="py-1 px-2 border-r border-gray-300"
     class:active={$activeTab === 'first'}
-    on:click={() => ($activeTab = 'first')}>Current Props State</button>
+    on:click={() => ($activeTab = 'first')}>Current Props</button>
   <button
     type="button"
     class="py-1 px-2"
     class:active={$activeTab === 'second'}
-    on:click={() => ($activeTab = 'second')}>Variants</button>
+    on:click={() => ($activeTab = 'second')}>Variants & Compositions</button>
 </div>
 
 {#if $activeTab === 'first'}

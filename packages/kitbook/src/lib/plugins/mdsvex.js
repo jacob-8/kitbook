@@ -10,6 +10,7 @@ import { shikiTwoslashHighlighter } from '@kitbook/mdsvex-shiki-twoslash'
 export { mdsvex } from 'mdsvex'
 export const MDSVEX_EXTENSIONS = ['.svx']
 
+/** @deprecated */
 export const KITBOOK_MDSVEX_CONFIG = defineMDSveXConfig({
   extensions: MDSVEX_EXTENSIONS,
   remarkPlugins: [],

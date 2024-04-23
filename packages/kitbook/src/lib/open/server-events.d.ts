@@ -13,5 +13,6 @@ declare module 'vite/types/customEvent' {
 
     // to client
     'kitbook:open-file': { filepath: string; viteBase: string }
+    'kitbook:route-to-edited-file': { filepath: string }
   }
 }

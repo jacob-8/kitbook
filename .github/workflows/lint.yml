@@ -1,0 +1,37 @@
+name: Lint changes
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+
+      - run: pnpm install
+
+      - run: pnpm lint
+
+      # - name: Run ESLint on changed files
+      #   uses: tj-actions/eslint-changed-files@v24
+      #   with:
+      #     config_path: eslint.config.js
+      #     file_extensions: |
+      #       **/*.ts
+      #       **/*.js
+      #       **/*.svelte
+      #       **/*.composition
+      #       **/*.html
+      #       **/*.markdown
+      #       **/*.json
+      #       **/*.yml

@@ -11,6 +11,7 @@
   import { findKitbookPath } from './kitbookPath'
   import SearchModal from './sidebar/search/SearchModal.svelte'
   import LaunchSearch from './sidebar/search/LaunchSearch.svelte'
+  import { urlFromPath } from './parseUpdatedPath'
 
   export let settings: KitbookSettings
   export let pathname: string
@@ -19,17 +20,35 @@
   $: ({ kitbookPath, activePath } = findKitbookPath(pathname))
   let showSidebar = false
 
-  const [firstLanguage] = settings.languages
-
   let selectedLanguages = readable(null)
   $: activeLanguages = Object.values($selectedLanguages || {}).map(({ name, value }) => ({ name, code: value }))
 
-  if (settings.languages.length > 1) {
+  if (settings.languages?.length > 1) {
     const availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
+    const [firstLanguage] = settings.languages
     selectedLanguages = createPersistedStore(`${settings.title} selected-languages ${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
   }
 
   let SearchModalComponent: SearchModal
+
+  let urlForEditedFile: string
+
+  if (import.meta.hot) {
+    import.meta.hot.on('kitbook:route-to-edited-file', ({ filepath }) => {
+      const url = kitbookPath + urlFromPath(filepath)
+      const hasPage = !!Object.values(pages).find(page => page.url === url)
+      if (hasPage && location.pathname !== url)
+        urlForEditedFile = url
+      else
+        urlForEditedFile = null
+    })
+    import.meta.hot.on('kitbook:open-file', () => {
+      urlForEditedFile = null
+    })
+  }
+
+  $: if (pathname)
+    urlForEditedFile = null
 </script>
 
 <LayoutPanes>
@@ -56,6 +75,13 @@
 </LayoutPanes>
 
 <SearchModal {kitbookPath} bind:this={SearchModalComponent} />
+
+{#if urlForEditedFile}
+  <a href={urlForEditedFile} on:click={() => urlForEditedFile = null} class="fixed z-50 bottom-3 left-3 p-2 bg-black/75 rounded text-white text-sm">
+    Jump to view edits: <span class="font-semibold">{urlForEditedFile}</span>
+    <span class="i-ph-arrow-right-bold -mt-2px" />
+  </a>
+{/if}
 
 <svelte:head>
   <meta name="description" content={settings.description} />

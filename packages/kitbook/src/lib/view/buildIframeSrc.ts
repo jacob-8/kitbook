@@ -7,7 +7,7 @@ export function buildIframeUrl({
   languageCode,
   addLanguageToUrl,
   props,
-  variantIndex,
+  variantName,
   compositionName,
   darkMode,
 }: {
@@ -15,7 +15,7 @@ export function buildIframeUrl({
   languageCode?: string
   addLanguageToUrl?: KitbookSettings['addLanguageToUrl']
   props?: Record<string, any>
-  variantIndex?: number
+  variantName?: string
   compositionName?: string
   darkMode?: boolean
 }) {
@@ -25,12 +25,12 @@ export function buildIframeUrl({
     queryParams.push('darkMode=true')
   if (props)
     queryParams.push(`props=${encode(JSON.stringify(props))}`)
-  if (typeof variantIndex === 'number')
-    queryParams.push(`variantIndex=${variantIndex}`)
+  if (variantName)
+    queryParams.push(`variantName=${variantName}`)
   if (compositionName)
     queryParams.push(`compositionName=${compositionName}`)
   if (queryParams.length === 0)
-    throw new Error('No variantIndex or Composition name specified')
+    throw new Error('No variantName or compositionName specified')
 
   const queryParamsString = `?${queryParams.join('&')}`
   const url = `${kitbookPath}/sandbox${activePath}${queryParamsString}`
@@ -46,9 +46,9 @@ if (import.meta.vitest) {
     test('variant', () => {
       const actual = buildIframeUrl({
         pathname: '/kitbook/foo/bar',
-        variantIndex: 0,
+        variantName: 'simple',
       })
-      const expected = '/kitbook/sandbox/foo/bar?variantIndex=0'
+      const expected = '/kitbook/sandbox/foo/bar?variantName=simple'
       expect(actual).toEqual(expected)
     })
 
@@ -71,10 +71,10 @@ if (import.meta.vitest) {
     test('variant with props and English in url but no code and function', () => {
       const actual = buildIframeUrl({
         pathname: '/en/kitbook/foo/bar',
-        variantIndex: 1,
+        variantName: 'complex',
         props: { foo: 'bar' },
       })
-      const expected = '/en/kitbook/sandbox/foo/bar?props=N4IgZg9hIFwgRgQwE4gL5A&variantIndex=1'
+      const expected = '/en/kitbook/sandbox/foo/bar?props=N4IgZg9hIFwgRgQwE4gL5A&variantName=complex'
       expect(actual).toEqual(expected)
     })
 
@@ -85,9 +85,9 @@ if (import.meta.vitest) {
         addLanguageToUrl({ code, url }) {
           return url.replace('[lang]', code)
         },
-        variantIndex: 2,
+        variantName: 'simple',
       })
-      const expected = '/de/kitbook/sandbox/foo/bar?variantIndex=2'
+      const expected = '/de/kitbook/sandbox/foo/bar?variantName=simple'
       expect(actual).toEqual(expected)
     })
   })

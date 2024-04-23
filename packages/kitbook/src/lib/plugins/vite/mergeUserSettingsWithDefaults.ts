@@ -1,6 +1,5 @@
 import type { KitbookSettings } from '../../kitbook-types'
-import { DEFAULT_KITBOOK_SETTINGS } from './constants.js'
-import { DEFAULT_VIEWER_OPTIONS } from './viewer/options.js'
+import { DEFAULT_KITBOOK_SETTINGS, DEFAULT_VIEWER_OPTIONS } from './constants.js'
 
 export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSettings>): KitbookSettings {
   // @ts-expect-error - checking for old value
@@ -18,7 +17,7 @@ export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSetti
     },
   }
 
-  const languageInsertedKitbookRoute = combinedSettings.addLanguageToUrl ? combinedSettings.addLanguageToUrl({ code: combinedSettings.languages[0].code, url: combinedSettings.kitbookRoute }) : combinedSettings.kitbookRoute
+  const languageInsertedKitbookRoute = combinedSettings.addLanguageToUrl && combinedSettings.languages[0].code ? combinedSettings.addLanguageToUrl({ code: combinedSettings.languages[0].code, url: combinedSettings.kitbookRoute }) : combinedSettings.kitbookRoute
 
   return {
     ...combinedSettings,

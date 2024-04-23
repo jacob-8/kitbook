@@ -1,4 +1,5 @@
 export function parsePath(path: string) {
+  // console.log({ path })
   if (path === '/README.md')
     return { ext: 'md', name: 'README', dir: '/' }
   if (path === '/src/index.md')

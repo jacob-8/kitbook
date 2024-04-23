@@ -6,7 +6,7 @@ const undefinedLanguage = [{ code: null, name: null }]
 
 const variantModuleWithOneBoringVariant: [string, VariantsModule] = [
   '...src/lib/Foo.variants.ts',
-  { variants: [{ }] },
+  { No_Props: { } },
 ]
 
 describe(prepareVariantsToRun, () => {
@@ -22,8 +22,8 @@ describe(prepareVariantsToRun, () => {
       filepathWithoutExtension: 'lib/Foo',
       viewports: oneViewport,
       languages: twoLanguages,
-      variantName: 'lib/Foo/0',
-      url: '/kitbook/sandbox/lib/Foo?variantIndex=0',
+      variantName: 'lib/Foo/No_Props',
+      url: '/kitbook/sandbox/lib/Foo?variantName=No_Props',
     }
 
     test('standard', () => {
@@ -35,8 +35,7 @@ describe(prepareVariantsToRun, () => {
 
     test('one variant modules language', () => {
       const variantModuleWithOneLanguage: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
-        languages: [firstLanguage],
-        variants: [{ }],
+        No_Props: { _meta: { languages: [firstLanguage] } },
       }]
 
       expect(prepareVariantsToRun({
@@ -45,10 +44,10 @@ describe(prepareVariantsToRun, () => {
       })).toEqual([{ ...expected, languages: [firstLanguage] }])
     })
 
-    test('empty language array in variant module', () => {
+    test('empty language array in variant shared_meta', () => {
       const variantModuleWithEmptyLanguageArray: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
-        languages: [],
-        variants: [{ }],
+        shared_meta: { languages: [] },
+        No_Props: { },
       }]
 
       expect(prepareVariantsToRun({
@@ -59,7 +58,7 @@ describe(prepareVariantsToRun, () => {
 
     test('empty language array in variant', () => {
       const variantModuleWithEmptyLanguageArray: [string, VariantsModule] = ['...src/lib/Foo.variants.ts', {
-        variants: [{ languages: [] }],
+        No_Props: { _meta: { languages: [] } },
       }]
 
       expect(prepareVariantsToRun({
@@ -77,8 +76,8 @@ describe(prepareVariantsToRun, () => {
       filepathWithoutExtension: 'lib/Foo',
       viewports: oneViewport,
       languages: undefinedLanguage,
-      variantName: 'lib/Foo/0',
-      url: '/sandbox/lib/Foo?variantIndex=0',
+      variantName: 'lib/Foo/No_Props',
+      url: '/sandbox/lib/Foo?variantName=No_Props',
     }])
   })
 
@@ -87,14 +86,14 @@ describe(prepareVariantsToRun, () => {
       kitbookConfig: { viewports: oneViewport, languages: undefinedLanguage, kitbookRoute: '' } as KitbookSettings,
       variantModules: [[
         '...src/lib/Foo.variants.ts',
-        { variants: [{ tests: { skip: true } }] },
+        { No_Props: { _meta: { tests: { skip: true } } } },
       ]],
     })).toEqual([{
       filepathWithoutExtension: 'lib/Foo',
       viewports: oneViewport,
       languages: undefinedLanguage,
-      variantName: 'lib/Foo/0',
-      url: '/sandbox/lib/Foo?variantIndex=0',
+      variantName: 'lib/Foo/No_Props',
+      url: '/sandbox/lib/Foo?variantName=No_Props',
       userAdded: { skip: true },
     }])
   })
@@ -111,16 +110,8 @@ describe(prepareVariantsToRun, () => {
     ]
     const variantModules: [string, VariantsModule][] = [
       ['...src/lib/Foo.variants.ts', {
-        variants: [
-          {
-            name: 'one viewport',
-            viewports: oneViewport,
-          },
-          {
-            name: 'two viewports',
-            viewports: twoViewports,
-          },
-        ],
+        One_Viewport: { _meta: { viewports: oneViewport } },
+        Two_Viewports: { _meta: { viewports: twoViewports } },
       }],
     ] as [string, VariantsModule][]
 
@@ -129,15 +120,15 @@ describe(prepareVariantsToRun, () => {
         {
           filepathWithoutExtension: 'lib/Foo',
           languages: undefinedLanguage,
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=0',
-          variantName: 'lib/Foo/one_viewport',
+          url: '/kitbook/sandbox/lib/Foo?variantName=One_Viewport',
+          variantName: 'lib/Foo/One_Viewport',
           viewports: oneViewport,
         },
         {
           filepathWithoutExtension: 'lib/Foo',
           languages: undefinedLanguage,
-          url: '/kitbook/sandbox/lib/Foo?variantIndex=1',
-          variantName: 'lib/Foo/two_viewports',
+          url: '/kitbook/sandbox/lib/Foo?variantName=Two_Viewports',
+          variantName: 'lib/Foo/Two_Viewports',
           viewports: twoViewports,
         },
       ],

@@ -1,13 +1,18 @@
-import type { Variant } from 'kitbook'
+import type { Variant, VariantMeta } from 'kitbook'
 import type Component from './Template.svelte'
 
-// export const viewports: Viewport[] = [
-//   { width: 400, height: 200 },
-// ]
+export const shared_meta: VariantMeta = {
+  // viewports: [
+  //   { width: 500, height: 200 }
+  // ]
+}
 
-export const variants: Variant<Component>[] = [
-  {
-    name: 'Situation A',
-    props: {},
-  },
-]
+const shared = {} satisfies Partial<Variant<Component>>
+
+export const First: Variant<Component> = { 
+  ...shared,
+}
+
+// export const Second_Situation: Variant<Component> = { 
+//   ...shared,
+// }

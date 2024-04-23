@@ -1,7 +1,52 @@
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
-export interface Variant<T extends SvelteComponent> {
+type IsEmpty<T> = T extends { [x: string]: never } ? true : false
+
+export type Variant<T extends SvelteComponent> = IsEmpty<ComponentProps<T>> extends true
+  ? { _meta?: VariantMeta }
+  : { _meta?: VariantMeta } & ComponentProps<T>
+
+export type DataVariant<T extends SvelteComponent> = IsEmpty<ComponentProps<T>> extends true
+  ? { _meta?: VariantMeta }
+  : { _meta?: VariantMeta } & ComponentProps<T>['data']
+
+export interface VariantMeta {
+  description?: string
+  /** overrides Kitbook-wide viewports */
+  viewports?: Viewport[]
+  /** overrides Kitbook-wide language selection, pass an empty array to use just Kitbook's first language */
+  languages?: Language[]
+  /** contexts won't be HMRed as context must be set on component init which requires remounting the component */
+  contexts?: MockedContext[]
+  /** can pass in a string to be @html rendered or a Svelte Component for the default slot - you may find Compositions easier to work with than passing in a default slot but it's here. For named slots, use a Composition. */
+  slot?: string | any
+  /** don't hydrate variant on client by turning off scripts on iframe */
+  csr?: false
+  /** don't render on server by waiting until iframe is running client side to render variant  */
+  ssr?: false
+  tests?: {
+    /** skips default snapshot test, but not additional tests */
+    skip?: boolean
+    /** each additional test will take viewports into account and run once per applicable viewport but will not take languages into account */
+    additional?: Record<string, Test>
+    /** When running Playwright screenshot tests, wait until there are no network operations for at least 500ms, discouraged except when needing to test hydrated views. Defaults to `false`. */
+    clientSideRendered?: boolean
+  }
+}
+
+export interface VariantsModule {
+  shared_meta?: VariantMeta
+  [key: string]: Variant<any>
+}
+
+export interface DeprecatedVariantsModule {
+  variants: DeprecatedVariant<any>[]
+  viewports?: Viewport[]
+  languages?: Language[]
+}
+
+export interface DeprecatedVariant<T extends SvelteComponent> {
   name?: string
   description?: string
   viewports?: Viewport[]
@@ -95,24 +140,26 @@ interface CompositionSection {
   html?: never // type guard
 }
 
-export interface VariantsModule {
-  variants: Variant<any>[]
-  viewports?: Viewport[]
-  languages?: Language[]
-}
-
 export interface CompositionModule {
   default: typeof SvelteComponent
-  viewports?: Viewport[]
-  languages?: Language[]
-  /** Set false to keep block iframe scripts and only show the server rendered version. HMR will not be working so you'll have to manually refresh to see updates.  If both `ssr` and `csr` are false, nothing will be rendered! */
-  csr?: false
-  /** Set false to only mount component client side. If both `ssr` and `csr` are false, nothing will be rendered! */
-  ssr?: false
+  config?: CompositionConfig
   /** Internal use */
   inlined?: boolean
   code?: string
 }
+
+export interface CompositionConfig {
+  /** overrides default composition full-width viewport */
+  viewports?: OptionalWidthViewport[]
+  /** overrides Kitbook-wide language selection, pass an empty array to use just Kitbook's first language */
+  languages?: Language[]
+  /** Set false to keep block iframe scripts and only show the server rendered version.  */
+  csr?: false
+  /** Set false to only mount component client side and skip server rendering. */
+  ssr?: false
+}
+
+export type DeprecatedCompositionModule = Omit<CompositionModule, 'config'> & CompositionConfig
 
 export interface LoadedModules {
   markdown?: MarkdownModule
@@ -127,10 +174,11 @@ export interface LoadedModules {
 
 export interface KitbookSettings {
   title: string
+  /** This will be placed into the page head's description meta tag. Use it. */
   description: string
   /** Kitbook provides mobile and desktop sizes by default, but you can set your own. These will apply to every variant unless overriden by a `viewports` export from that file or from the `viewports` prop within a specific variant. */
-  viewports: Viewport[]
-  languages: Language[]
+  viewports?: Viewport[]
+  languages?: Language[]
   /**
    * Function instructing Kitbook how to apply your language codes to each URL. For example, if your route is `[lang=locale]/(app)/+page.svelte`, you would pass in:
    * ```
@@ -171,6 +219,12 @@ export interface Viewport {
   height: number
 }
 
+export interface OptionalWidthViewport {
+  name?: string
+  width?: number
+  height: number
+}
+
 export interface Language {
   name: string
   code: string
@@ -179,52 +233,32 @@ export interface Language {
 export interface ViewerOptions {
   /**
    * define a key combo to toggle inspector,
-   * @default 'alt-shift'
+   * @default 'alt-shift' - you might consider this 'option-shift' on mac but it's the same thing
    *
    * any number of modifiers `control` `shift` `alt` `meta` followed by zero or one regular key, separated by -
    * examples: control-shift, control-o, control-alt-s  meta-x control-meta
    * Some keys have native behavior (e.g. alt-s opens history menu on firefox).
    * To avoid conflicts or accidentally typing into inputs, modifier only combinations are recommended.
    */
-  // toggleKeyCombo?: string
-
-  /**
-   * define keys to select elements with via keyboard
-   * @default {parent: 'ArrowUp', child: 'ArrowDown', next: 'ArrowRight', prev: 'ArrowLeft' }
-   *
-   * improves accessibility and also helps when you want to select elements that do not have a hoverable surface area
-   * due to tight wrapping
-   *
-   * A note for users of screen-readers:
-   * If you are using arrow keys to navigate the page itself, change the navKeys to avoid conflicts.
-   * e.g. navKeys: {parent: 'w', prev: 'a', child: 's', next: 'd'}
-   *
-   *
-   * parent: select closest parent
-   * child: select first child (or grandchild)
-   * next: next sibling (or parent if no next sibling exists)
-   * prev: previous sibling (or parent if no prev sibling exists)
-   */
-  // navKeys?: { parent: string; child: string; next: string; prev: string }
-
-  /**
-   * define key to open the editor for the currently selected dom node
-   *
-   * @default 'Enter'
-   */
-  // openKey?: string
+  toggleKeyCombo?: string
 
   /**
    * inspector is automatically disabled when releasing toggleKeyCombo after holding it for a longpress
    * @default true
    */
-  // holdMode?: boolean
+  holdMode?: boolean
 
   /**
    * when to show the toggle button
    * @default 'active'
    */
-  // showToggleButton?: 'always' | 'active' | 'never'
+  showToggleButton?: 'always' | 'active' | 'never'
+
+  /**
+   * where to display the toggle button
+   * @default top-right
+   */
+  toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
 
   /**
    * internal options that are automatically set, not to be set or used by users
@@ -233,4 +267,8 @@ export interface ViewerOptions {
     /** empty string by default */
     viteBase: string
   }
+}
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 }

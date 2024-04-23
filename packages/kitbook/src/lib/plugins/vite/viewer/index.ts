@@ -1,7 +1,7 @@
 import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Plugin } from 'vite'
+import type { HMRBroadcasterClient, Plugin } from 'vite'
 import type { KitbookSettings } from 'kitbook'
 import { removeQuotesFromSerializedFunctions } from '../../../open/serialize.js'
 
@@ -30,13 +30,17 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
     },
 
     configureServer(server) {
-      server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
+      server.hot.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
         writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
       })
 
-      server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
-        const code = getVariantsTemplate().replace('props: {}', `props: ${JSON.stringify(props, null, 2)}`)
-        const template = removeQuotesFromSerializedFunctions(code.replace('Template.svelte', filepath.split('/').pop()))
+      server.hot.on('kitbook:open-variants', ({ filepath, props }, client) => {
+        // TODO: parse Svelte file to get props if props is null (make it an empty object if from Viewer and component simply has no props)
+        const props_without_newlines_tabs = JSON.stringify(props || {}, null, 2)
+          .replace(/\\n/g, '').replace(/\\t/g, '')
+        const code = getVariantsTemplate().replace('shared = {}', `shared = ${props_without_newlines_tabs}`)
+        const code_with_component_reference = code.replace('Template.svelte', filepath.split('/').pop())
+        const template = removeQuotesFromSerializedFunctions(code_with_component_reference)
 
         const variantsPath = filepath
           .replace('.svelte', '.variants.ts')
@@ -56,7 +60,7 @@ function componentListenerCode(): string {
   return readFileSync(filepath, 'utf-8')
 }
 
-function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: any) {
+function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: HMRBroadcasterClient) {
   access(filepath, constants.F_OK, (err) => {
     if (err) {
       const directory = dirname(filepath)
@@ -68,12 +72,6 @@ function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase:
     client.send('kitbook:open-file', { filepath, viteBase })
   })
 }
-
-// import { generateCode, parseModule } from 'magicast'
-// magicast breaks the build - need to debug
-// const module = parseModule(VariantsTemplate)
-// module.exports.variants[0].props = serializedState
-// const { code } = generateCode(module)
 
 function getVariantsTemplate() {
   const _dirname = dirname(fileURLToPath(import.meta.url))

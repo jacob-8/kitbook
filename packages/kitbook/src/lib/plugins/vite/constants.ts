@@ -1,4 +1,4 @@
-import type { KitbookSettings, Language } from '../../kitbook-types'
+import type { KitbookSettings, Language, ViewerOptions } from '../../kitbook-types'
 
 export const DEFAULT_VIEWPORTS = [
   { name: 'mobile', width: 320, height: 568 },
@@ -16,4 +16,11 @@ export const DEFAULT_KITBOOK_SETTINGS: KitbookSettings = {
   routesDirectory: DEFAULT_ROUTES_DIR,
   kitbookRoute: DEFAULT_KITBOOK_ROUTE,
   languages: [UNSET_LANGUAGE],
+}
+
+export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
+  holdMode: true,
+  toggleKeyCombo: 'alt-shift',
+  showToggleButton: 'active',
+  toggleButtonPos: 'top-right',
 }

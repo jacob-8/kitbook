@@ -1,0 +1,1 @@
+The image will be a random Unsplash image. If we want to it be fixed, we can pass in a seed.

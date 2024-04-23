@@ -1,1 +1,1 @@
-Documentation and page stories for colocated route can be placed here
+This page relies on name and image_seeds "data" being passed in.

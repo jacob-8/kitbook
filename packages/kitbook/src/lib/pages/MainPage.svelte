@@ -18,8 +18,9 @@
     pagesStore,
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
     pageKey,
-    settings: { viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode },
+    settings,
   } = data)
+  $: ({ viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode } = settings)
 
   $: pageFromHMR = $pagesStore?.[pageKey]
 
@@ -89,7 +90,7 @@
   <title>{pageTitle}</title>
 </svelte:head>
 
-<Layout settings={data.settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
+<Layout {settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
   {#key $page.url.pathname}
     <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
       {#if data.error}
@@ -112,7 +113,7 @@
 
               <Button onclick={addComposition} form="menu" color="black"><span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition</Button>
 
-              {#if !variantsModule?.variants}
+              {#if !variantsModule}
                 <Button onclick={() => openVariants(`${pathWithoutExtension}.svelte`)} form="menu" color="black"><span class="i-system-uicons-versions align--4px text-xl" /> Add Variant</Button>
               {/if}
             {/if}
@@ -146,8 +147,8 @@
           <Compositions compositionsModules={compositionsModulesAfterInlined} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
-        {#if variantsModule?.variants}
-          <Variants variants={variantsModule.variants} {pathWithoutExtension} viewports={variantsModule.viewports || projectViewports} moduleLanguages={variantsModule.languages} {activeLanguages} {addLanguageToUrl} {darkMode} />
+        {#if variantsModule}
+          <Variants {variantsModule} {pathWithoutExtension} {projectViewports} {activeLanguages} {addLanguageToUrl} {darkMode} />
         {/if}
 
         <EditInGithub path={data?.page?.path} {githubURL} />

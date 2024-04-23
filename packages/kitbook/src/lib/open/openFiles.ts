@@ -28,12 +28,11 @@ export function openComposition({ filepath, compositionName }: { filepath: strin
   const { filepathWithoutExtension, filenameWithoutExtensions, extension } = getFilenameAndExtension(filepath)
 
   const svelteCompositionTemplate = `<script context="module" lang="ts">
-  // import type { Viewport } from 'kitbook'
+  import { defineComposition } from 'kitbook'
   
-  // const null_defaults_to_full_width = null
-  // export const viewports: Viewport[] = [
-  //   { width: null_defaults_to_full_width, height: 250 },
-  //]
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
 </script>
 
 <script lang="ts">
@@ -47,12 +46,11 @@ export function openComposition({ filepath, compositionName }: { filepath: strin
 `
 
   const markdownCompositionTemplate = `<script context="module" lang="ts">
-  import type { Viewport } from 'kitbook'
+  import { defineComposition } from 'kitbook'
   
-  const null_defaults_to_full_width = null
-  export const viewports: Viewport[] = [
-    { width: null_defaults_to_full_width, height: 200 },
-  ]
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
 </script>
 
 <script lang="ts">

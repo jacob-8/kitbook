@@ -24,13 +24,11 @@ Would love to have you help! Read the [[0-roadmap|Roadmap]] for good places to s
 
 Or work on Kitbook locally:
 
-- `pnpm i`
+- `pnpm install`
 - `pnpm stub`
 - `pnpm dev`
 
 To update the Kitbook code while using it in your own app, you can change your `devDependency` to point to it instead of npm by using something like `"kitbook": "link:../kitbook/packages/kitbook",` then run `pnpm package:watch` in Kitbook to keep it updating on changes. 
-
-*If you want to commit that changed package.json dependency reference without breaking CI builds, you can change your build script to `pnpm install -F site kitbook && vite build`.*
 
 ---
 

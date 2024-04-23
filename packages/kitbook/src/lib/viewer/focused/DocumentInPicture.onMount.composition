@@ -1,0 +1,30 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 200 }],
+    ssr: false,
+  })
+</script>
+
+<script lang="ts">
+  import { Button, ShowHide } from 'svelte-pieces'
+  import DocumentInPicture from './DocumentInPicture.svelte'
+  import { browser } from '$app/environment'
+</script>
+
+{#if browser && window.self !== window.top}
+  <div class="text-red p-3">
+    I'm in an iframe so the API won't work. Click the <span class="i-tabler-external-link align--3px" /> in the upper right corner of this composition to try me.
+  </div>
+  {/if}
+  <ShowHide let:show let:toggle let:set>
+    <Button onclick={toggle} class="m-3">toggle</Button>
+    {#if show}
+    <DocumentInPicture width={400} height={600} openPictureWindowOnMount on_close={() => set(false)}>
+      <div class="p-3">
+        I'm in the picture window!!!
+      </div>
+    </DocumentInPicture>
+    {/if}
+  </ShowHide>

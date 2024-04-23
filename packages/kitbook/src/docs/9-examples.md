@@ -1,12 +1,14 @@
 # Examples
 
-| Live URL | Source | Stackblitz |
-| ------- | ------ | ---------- |
-| [Kitbook's Kitbook](https://kitbook.vercel.app/) (you're looking at it!)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook)  | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/kitbook) |
-| [Kitbook Template](https://kitbook-template.vercel.app/)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/template) (in Kitbook monorepo)  | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/template) |
-| [Poly-i18n Kitbook](https://poly-i18n.vercel.app/kitbook)  | [GitHub](https://github.com/jacob-8/poly-i18n) | [Play Online](https://stackblitz.com/github/jacob-8/poly-i18n) |
-| [SvelteFireTS Kitbook](https://sveltefirets.vercel.app/) (outdated Kitbook version)  | [GitHub](https://github.com/jacob-8/sveltefirets/tree/main/packages/sveltefirets)  | [Play Online](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/sveltefirets) |
-| [Svelte Pieces Kitbook](https://svelte-pieces.vercel.app/)  | [GitHub](https://github.com/jacob-8/svelte-pieces)  |  |
-| [Living Dictionaries Kitbook](https://livingdictionaries.app/kitbook)  | [GitHub](https://github.com/livingtongues/living-dictionaries/tree/main/packages/site)  |  |
+Kitbook's variants and compositions apis were recently changed. Please note that most of the usage examples beyond Kitbook are from the old syntax and are in the process of being updated to what you read in the docs here.
 
-*Already using Kitbook? Please [submit a PR](https://github.com/jacob-8/kitbook/compare) to add yours to the list here!*
+| Live URL | Source | Stackblitz | Syntax |
+| -------- | ------ | ---------- | ------ |
+| [Kitbook's Kitbook](https://kitbook.vercel.app/) (you're looking at it!)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook)  | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/kitbook) | Up-to-date |
+| [Kitbook Template](https://kitbook-template.vercel.app/) (in Kitbook monorepo)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/template) | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/template) | Up-to-date |
+| [Poly-i18n Kitbook](https://poly-i18n.vercel.app/kitbook)  | [GitHub](https://github.com/jacob-8/poly-i18n) | [Play Online](https://stackblitz.com/github/jacob-8/poly-i18n) | Previous version |
+| [SvelteFireTS Kitbook](https://sveltefirets.vercel.app/) | [GitHub](https://github.com/jacob-8/sveltefirets/tree/main/packages/sveltefirets)  | [Play Online](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/sveltefirets) | Previous version |
+| [Svelte Pieces Kitbook](https://svelte-pieces.vercel.app/)  | [GitHub](https://github.com/jacob-8/svelte-pieces)  |  | Previous version |
+| [Living Dictionaries Kitbook](https://livingdictionaries.app/kitbook)  | [GitHub](https://github.com/livingtongues/living-dictionaries/tree/main/packages/site)  |  | Previous version |
+
+*Are you using Kitbook? Please [submit a PR](https://github.com/jacob-8/kitbook/compare) to add yours to the list here!*
