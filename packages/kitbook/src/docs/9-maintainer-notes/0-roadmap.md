@@ -5,9 +5,10 @@ The API is stable and the project is in **beta**. You can use this in production
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
 ## Next Up
-- Viewer displays page variants (adjust file title)
-- create variant from current state
+- make sure docs are up to date, fix examples, and update docs/fix bugs as things are found
 - cut release, explaining breaking change with Variants type
+- create variant from current state
+- Viewer displays page variants (adjust file title)
 - Viewer displays compositions
 - show source code for each component using code editor
 - handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature

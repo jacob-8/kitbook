@@ -20,13 +20,12 @@
   $: ({ kitbookPath, activePath } = findKitbookPath(pathname))
   let showSidebar = false
 
-  const [firstLanguage] = settings.languages
-
   let selectedLanguages = readable(null)
   $: activeLanguages = Object.values($selectedLanguages || {}).map(({ name, value }) => ({ name, code: value }))
 
-  if (settings.languages.length > 1) {
+  if (settings.languages?.length > 1) {
     const availableLanguagesBasedKey = settings.languages.map(({ code }) => code).join('-')
+    const [firstLanguage] = settings.languages
     selectedLanguages = createPersistedStore(`${settings.title} selected-languages ${availableLanguagesBasedKey}`, { [firstLanguage.code]: { name: firstLanguage.name, value: firstLanguage.code } })
   }
 
