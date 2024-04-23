@@ -1,7 +1,7 @@
 {
   "name": "@kitbook/mdsvex-shiki-twoslash",
   "type": "module",
-  "version": "1.0.0-beta.24",
+  "version": "1.0.0-beta.25",
   "description": "A plugin for MDSvex that highlights code blocks using shiki-twoslash",
   "author": "Jacob Bowdoin",
   "license": "MIT",
