@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { KitbookSettings } from 'kitbook'
   import Targeter from './Targeter.svelte'
-  import { selectedComponent } from './focused/active'
   import Tree from './tree/Tree.svelte'
-  import Component from './focused/Component.svelte'
-  import DocumentInPicture from './DocumentInPicture.svelte'
+  import ComponentPropsVariants from './focused/ComponentPropsVariants.svelte'
+  import DocumentInPicture from './focused/DocumentInPicture.svelte'
+  import { componentsWithChildren, elementsToParentComponent } from './tree/compiledNodes'
+  import { hoveredComponent, hoveredElement, selectedComponent, selectedElement } from './focused/active'
 
   export let settings: KitbookSettings
   $: ({ toggleButtonPos, toggleKeyCombo, showToggleButton, holdMode, __internal: { viteBase } } = settings.viewer)
@@ -80,13 +81,24 @@
 
 {#if targeting}
   <Targeter
+    {componentsWithChildren}
+    {elementsToParentComponent}
+    {hoveredComponent}
+    {hoveredElement}
+    {selectedComponent}
+    {selectedElement}
     on_click={() => {
       if (holdMode && is_holding())
         disable()
     }}
     {viteBase} />
 
-  <Tree on:close={() => $selectedComponent = null} />
+  <Tree
+    {componentsWithChildren}
+    {hoveredComponent}
+    {selectedComponent}
+    {selectedElement}
+    on:close={() => $selectedComponent = null} />
 {/if}
 
 {#if showToggleButton === 'always' || (showToggleButton === 'active' && targeting)}
@@ -95,7 +107,7 @@
       .split('-')
       .map(p => `${p}: 8px;`)
       .join('')}
-    class="fixed bg-white border-gray-700 border rounded overflow-hidden">
+    class="fixed bg-white border-gray-700 border rounded overflow-hidden z-9999999">
     <button type="button" on:click={toggle} title="Toggle Targeting" class="p-2 hover:bg-gray-100">
       {#if targeting}
         <span class="i-material-symbols-close align--3px mx-2px" />
@@ -110,10 +122,8 @@
 {/if}
 
 {#if $selectedComponent}
-  <DocumentInPicture openPictureWindowOnMount on_close={() => $selectedComponent = null}>
-    <div class="flex flex-col">
-      <Component {settings} />
-    </div>
+  <DocumentInPicture width={600} height={400} openPictureWindowOnMount on_close={() => $selectedComponent = null} let:resizeTo>
+    <ComponentPropsVariants {settings} selectedComponent={$selectedComponent} {resizeTo} />
   </DocumentInPicture>
 {/if}
 

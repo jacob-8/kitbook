@@ -1,6 +1,12 @@
 <script lang="ts">
-  import { componentsWithChildren } from './compiledNodes'
+  import type { Readable, Writable } from 'svelte/store'
   import Component from './Component.svelte'
+
+  export let componentsWithChildren: Readable<Map<ComponentFragment, ComponentWithChildren>>
+
+  export let hoveredComponent: Writable<ComponentWithChildren>
+  export let selectedComponent: Writable<ComponentWithChildren>
+  export let selectedElement: Writable<SvelteElementDetail>
 </script>
 
 <div class="fixed right-10px bottom-10px rounded max-h-50vh max-w-50vw border border-gray bg-white overflow-y-auto flex flex-col z-9999999">
@@ -9,7 +15,12 @@
     {#if componentDetail.tagName === 'Root'}
       <!-- use spread for Svelte 3 compatibility, not needed in Svelte 4 -->
       {#each [...childComponents] as componentFragment (componentFragment)}
-        <Component {componentFragment} componentsWithChildren={$componentsWithChildren} />
+        <Component
+          {componentFragment}
+          {hoveredComponent}
+          {selectedComponent}
+          {selectedElement}
+          componentsWithChildren={$componentsWithChildren} />
       {/each}
     {/if}
   {/each}

@@ -51,7 +51,7 @@
       }}
       title="Edit Variant">
       <span class="i-system-uicons-versions align--2px" />
-      {name || ''} variant
+      {name.replaceAll('_', ' ') || ''} variant
     </button>
   </div>
   {#if description}

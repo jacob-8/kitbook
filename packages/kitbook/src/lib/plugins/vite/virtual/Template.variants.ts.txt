@@ -1,9 +1,18 @@
 import type { Variant, VariantMeta } from 'kitbook'
 import type Component from './Template.svelte'
 
-export const shared_meta: VariantMeta = {}
+export const shared_meta: VariantMeta = {
+  // viewports: [
+  //   { width: 500, height: 200 }
+  // ]
+}
 
-const shared = {
-} satisfies Partial<Variant<Component>>
+const shared = {} satisfies Partial<Variant<Component>>
 
-export const GIVE_ME_A_NAME: Variant<Component> = { foo: 'replace' }
+export const First: Variant<Component> = { 
+  ...shared,
+}
+
+// export const Second_Situation: Variant<Component> = { 
+//   ...shared,
+// }

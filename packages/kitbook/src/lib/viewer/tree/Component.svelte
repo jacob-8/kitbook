@@ -1,7 +1,11 @@
 <script lang="ts">
   import { ShowHide } from 'svelte-pieces'
-  import { hoveredComponent, selectedComponent, selectedElement } from '../focused/active'
+  import type { Writable } from 'svelte/store'
   import Element from './Element.svelte'
+
+  export let hoveredComponent: Writable<ComponentWithChildren>
+  export let selectedComponent: Writable<ComponentWithChildren>
+  export let selectedElement: Writable<SvelteElementDetail>
 
   export let componentFragment: ComponentFragment
   export let componentsWithChildren: Map<ComponentFragment, ComponentWithChildren>
@@ -52,7 +56,12 @@
 
       <!-- use spread for Svelte 3 compatibility, not needed in Svelte 4 -->
       {#each [...component.childComponents] as childFragment (childFragment)}
-        <svelte:self componentFragment={childFragment} {componentsWithChildren} />
+        <svelte:self
+          componentFragment={childFragment}
+          {hoveredComponent}
+          {selectedComponent}
+          {selectedElement}
+          {componentsWithChildren} />
       {/each}
     </div>
   </ShowHide>

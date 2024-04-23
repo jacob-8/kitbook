@@ -15,10 +15,12 @@
 </script>
 
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onMount, setContext } from 'svelte'
+  import type { Writable } from 'svelte/store'
+  import { writable } from 'svelte/store'
 
-  export let width = 400
-  export let height = 600
+  export let width: number
+  export let height: number
   export let openPictureWindowOnMount = false
   export let on_close: () => void = undefined
 
@@ -87,8 +89,19 @@
   }
 
   export function resizeTo(width: number, height: number) {
-    pictureWindow.resizeTo(width, height)
+    try {
+      // const { width: w, height: h } = pictureWindow.document.body.getBoundingClientRect()
+      // console.log({ w, h })
+      console.log({ width, height })
+      pictureWindow.resizeTo(width, height)
+    }
+    catch (error) {
+      console.error(error)
+    }
   }
+
+  const keyboardEvent = writable<KeyboardEvent>(null)
+  setContext<Writable<KeyboardEvent>>('picture-window-keydown', keyboardEvent)
 
   function handlePictureKeydown(e: KeyboardEvent) {
     if (e.key === 'Escape')
@@ -97,13 +110,12 @@
       return window.focus()
     if (e.altKey && e.key === 'r')
       return resizeTo(width, height)
+    $keyboardEvent = e
   }
 
   function handleKeydown(e: KeyboardEvent) {
     if (!pictureWindow)
       return
-    if (e.key === 'Escape')
-      return pictureWindow.close()
     if (e.altKey && e.key === 'f')
       return pictureWindow.focus()
   }
@@ -114,9 +126,20 @@
 <slot name="controls" {pictureWindow} {openPictureWindow} {resizeTo} />
 
 <div bind:this={container}>
-  <div bind:this={player}>
+  <div class="full-height-in-picture-window" bind:this={player}>
     {#if pictureWindow || !openPictureWindowOnMount}
-      <slot {pictureWindow} />
+      <slot {pictureWindow} {resizeTo} keyboardEvent={$keyboardEvent} />
     {/if}
   </div>
 </div>
+
+<style>
+  @media (display-mode: picture-in-picture) {
+    :global(.body) {
+      height: 100%;
+    }
+    .full-height-in-picture-window {
+      --at-apply: h-full flex flex-col;
+    }
+  }
+</style>

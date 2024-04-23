@@ -20,7 +20,7 @@ export const DEFAULT_KITBOOK_SETTINGS: KitbookSettings = {
 
 export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
   holdMode: true,
-  toggleKeyCombo: process.platform === 'darwin' ? 'meta-shift' : 'control-shift',
+  toggleKeyCombo: 'alt-shift',
   showToggleButton: 'active',
   toggleButtonPos: 'top-right',
 }

@@ -36,8 +36,9 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
 
       server.hot.on('kitbook:open-variants', ({ filepath, props }, client) => {
         // TODO: parse Svelte file to get props if props is null (make it an empty object if from Viewer and component simply has no props)
-        const props_with_shared = JSON.stringify({ shared: 'remove', ...props }, null, 2).replace(`"shared": "remove"`, '...shared')
-        const code = getVariantsTemplate().replace(`{ foo: 'replace' }`, props_with_shared)
+        const props_without_newlines_tabs = JSON.stringify(props || {}, null, 2)
+          .replace(/\\n/g, '').replace(/\\t/g, '')
+        const code = getVariantsTemplate().replace('shared = {}', `shared = ${props_without_newlines_tabs}`)
         const code_with_component_reference = code.replace('Template.svelte', filepath.split('/').pop())
         const template = removeQuotesFromSerializedFunctions(code_with_component_reference)
 

@@ -1,5 +1,69 @@
 import type { KitbookSettings } from '$lib/kitbook-types'
 
+export function intersection(props: Record<string, any>, state: Record<string, any>): Record<string, any> {
+  if (!props || !state)
+    return {}
+  const keyIntersection = Object.keys(props).filter(key => key in state)
+  return keyIntersection.reduce((acc, key) => {
+    acc[key] = state[key] ?? undefined // use ?? to keep from converting empty strings or 0 to null
+    return acc
+  }, {} as Record<string, any>)
+}
+
+export function difference(oldState: Record<string, any>, newState: Record<string, any>): Record<string, any> {
+  if (!oldState || !newState)
+    return {}
+  const keys = [...new Set([...Object.keys(oldState), ...Object.keys(newState)])]
+  return keys.reduce((acc, key) => {
+    if (oldState[key] !== newState[key])
+      acc[key] = newState[key] ?? undefined // use ?? to keep from converting empty strings or 0 to null
+    return acc
+  }, {} as Record<string, any>)
+}
+
+export function serializeByTurningFunctionsIntoLogs(value: any, seen = new Map()) {
+  switch (typeof value) {
+    case 'symbol':
+    case 'function':
+      return `REMOVEQUOTE_(args) => console.info(args), // ${value.toString()}_REMOVEQUOTE`
+    case 'object': {
+      if (value === null)
+        return null
+      if (Array.isArray(value))
+        return value.map(o => serializeByTurningFunctionsIntoLogs(o, seen))
+      if (seen.has(value))
+        return {}
+
+      const o: Record<string, any> = {}
+      seen.set(value, o)
+      for (const [key, v] of Object.entries(value))
+        o[key] = serializeByTurningFunctionsIntoLogs(v, seen)
+
+      return o
+    }
+    default:
+      return value
+  }
+}
+
+if (import.meta.vitest) {
+  test(serializeByTurningFunctionsIntoLogs, () => {
+    expect(serializeByTurningFunctionsIntoLogs({
+      greeting: 'hello',
+      $set(props: Record<string, any>) {
+        console.info({ props })
+      },
+    })).toMatchInlineSnapshot(`
+      {
+        "$set": "REMOVEQUOTE_(args) => console.info(args), // $set(props) {
+              console.info({ props });
+            }_REMOVEQUOTE",
+        "greeting": "hello",
+      }
+    `)
+  })
+}
+
 export function serializeIntersection(props: Record<string, any>, state: Record<string, any>): Record<string, any> {
   if (!props || !state)
     return {}
@@ -96,12 +160,22 @@ export function removeQuotesFromSerializedFunctions(code: string): string {
 }
 
 if (import.meta.vitest) {
-  test(removeQuotesFromSerializedFunctions, () => {
-    const add = (a, b) => a + b
-    const obj = { add }
-    const serialized = serializeIntersection(obj, obj)
-    const stringified = removeQuotesFromSerializedFunctions(JSON.stringify(serialized))
-    expect(stringified).toEqual('{"add":(a, b) => a + b}')
+  describe(removeQuotesFromSerializedFunctions, () => {
+    test('simple', () => {
+      const add = (a, b) => a + b
+      const obj = { add }
+      const serialized = serializeIntersection(obj, obj)
+      const stringified = removeQuotesFromSerializedFunctions(JSON.stringify(serialized))
+      expect(stringified).toEqual('{"add":(a, b) => a + b}')
+    })
+
+    test('removing newlines and tabs afterwards - needs implemented into tested function', () => {
+      const add = (a, b) => { return a + b }
+      const obj = { add }
+      const serialized = serializeIntersection(obj, obj)
+      const stringified = removeQuotesFromSerializedFunctions(JSON.stringify(serialized))
+      expect(stringified.replace(/\\n/g, '').replace(/\\t/g, '')).toMatchInlineSnapshot(`"{"add":(a, b) => {        return a + b;      }}"`)
+    })
   })
 }
 

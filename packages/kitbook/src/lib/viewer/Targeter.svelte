@@ -1,14 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import {
-    hoveredComponent,
-    hoveredElement,
-    selectedComponent,
-    selectedElement,
-  } from './focused/active'
-  import { componentsWithChildren, elementsToParentComponent } from './tree/compiledNodes'
+  import type { Readable, Writable } from 'svelte/store'
   import HighlightBounds from './focused/HighlightBounds.svelte'
   import { getLocalFileLocation } from './focused/filename'
+
+  export let componentsWithChildren: Readable<Map<ComponentFragment, ComponentWithChildren>>
+  export let elementsToParentComponent: Readable<Map<SvelteElementDetail, ComponentFragment>>
+
+  export let hoveredComponent: Writable<ComponentWithChildren>
+  export let hoveredElement: Writable<SvelteElementDetail>
+  export let selectedComponent: Writable<ComponentWithChildren>
+  export let selectedElement: Writable<SvelteElementDetail>
 
   export let on_click: () => void
   export let viteBase: string

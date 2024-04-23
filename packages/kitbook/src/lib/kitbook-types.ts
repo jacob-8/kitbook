@@ -5,6 +5,10 @@ export type Variant<T extends SvelteComponent> = {
   _meta?: VariantMeta
 } & ComponentProps<T>
 
+export type DataVariant<T extends SvelteComponent> = {
+  _meta?: VariantMeta
+} & ComponentProps<T>['data']
+
 export interface VariantMeta {
   description?: string
   /** overrides Kitbook-wide viewports */
@@ -147,9 +151,9 @@ export interface CompositionConfig {
   viewports?: OptionalWidthViewport[]
   /** overrides Kitbook-wide language selection, pass an empty array to use just Kitbook's first language */
   languages?: Language[]
-  /** Set false to keep block iframe scripts and only show the server rendered version. HMR will not be working so you'll have to manually refresh to see updates. Submit a PR to make this live reload via refresh the same as ssr  */
+  /** Set false to keep block iframe scripts and only show the server rendered version.  */
   csr?: false
-  /** Set false to only mount component client side. */
+  /** Set false to only mount component client side and skip server rendering. */
   ssr?: false
 }
 
@@ -168,10 +172,11 @@ export interface LoadedModules {
 
 export interface KitbookSettings {
   title: string
+  /** This will be placed into the page head's description meta tag. Use it. */
   description: string
   /** Kitbook provides mobile and desktop sizes by default, but you can set your own. These will apply to every variant unless overriden by a `viewports` export from that file or from the `viewports` prop within a specific variant. */
-  viewports: Viewport[]
-  languages: Language[]
+  viewports?: Viewport[]
+  languages?: Language[]
   /**
    * Function instructing Kitbook how to apply your language codes to each URL. For example, if your route is `[lang=locale]/(app)/+page.svelte`, you would pass in:
    * ```
@@ -226,7 +231,7 @@ export interface Language {
 export interface ViewerOptions {
   /**
    * define a key combo to toggle inspector,
-   * @default 'meta-shift' on mac, 'control-shift' on other os
+   * @default 'alt-shift' - you might consider this 'option-shift' on mac but it's the same thing
    *
    * any number of modifiers `control` `shift` `alt` `meta` followed by zero or one regular key, separated by -
    * examples: control-shift, control-o, control-alt-s  meta-x control-meta
@@ -260,4 +265,8 @@ export interface ViewerOptions {
     /** empty string by default */
     viteBase: string
   }
+}
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 }

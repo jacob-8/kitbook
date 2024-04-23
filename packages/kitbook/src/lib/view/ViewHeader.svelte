@@ -20,7 +20,7 @@
 <ShowHide let:show={showCode} let:toggle>
   <div class="flex items-center justify-end" class:bg-white={hovered}>
     {#if languageCode}
-      <span class:!opacity-50={hovered} class="text-sm-p-1 opacity-50">
+      <span class:!opacity-50={hovered} class="italic px-1 pb-.75 opacity-50">
         {languageCode}
       </span>
     {/if}
@@ -31,7 +31,8 @@
         title="Show Code"
         class:opacity-50={hovered}
         class="text-sm p-1 -mt-3px opacity-50 hover:opacity-100"
-        on:click={toggle}><span class="i-fa-solid-code" /> Code
+        on:click={toggle}><span class="i-fa-solid-code" />
+        <span class="hidden sm:inline">Code</span>
       </button>
     {/if}
 

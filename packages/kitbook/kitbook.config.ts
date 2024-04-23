@@ -14,11 +14,11 @@ export default defineConfig({
       width: 1024,
       height: 768,
     },
-    {
-      name: 'Tablet',
-      width: 768,
-      height: 1024,
-    },
+    // {
+    //   name: 'Tablet',
+    //   width: 768,
+    //   height: 1024,
+    // },
   ],
   languages: [{ name: null, code: null }], // This is only here to enable a composition inside Kitbook's docs. If you use this at all, you would have at least two languages here.
   addLanguageToUrl: ({ code, url }) => {

@@ -3,6 +3,7 @@
 
   export const config = defineComposition({
     viewports: [{ height: 200 }],
+    ssr: false,
   })
 </script>
 
@@ -20,10 +21,10 @@
   </div>
 {/if}
 
-<DocumentInPicture let:pictureWindow>
+<DocumentInPicture width={400} height={600}>
   <div slot="controls" class="p-3 border-b" let:openPictureWindow let:pictureWindow>
     <Button onclick={openPictureWindow}>open</Button>
-    <Button onclick={() => number = Math.random() * 10}>change name</Button>
+    <Button onclick={() => number = Math.random() * 10}>change number</Button>
     {#if pictureWindow}
       <Button onclick={() => pictureWindow.close()}>close</Button>
       <Button onclick={() => pictureWindow.resizeBy(50, 0)}>enlarge width</Button>
@@ -31,12 +32,8 @@
     {/if}
   </div>
 
-  <div class="bg-blue/30 m-3 p-3 rounded">Put {number} in the box</div>
-  <div class="show-in-picture hidden mx-3">Show in picture</div>
-
-  {#if pictureWindow}
-    <Button class="m-3" onclick={() => window.focus()}>Focus opener tab</Button>
-  {/if}
+  <div class="bg-blue/30 m-3 p-3 rounded">Put {number} in the picture window</div>
+  <div class="show-in-picture hidden mx-3">I only show up in picture</div>
 </DocumentInPicture>
 
 <style>

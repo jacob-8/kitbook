@@ -33,9 +33,11 @@ src/routes/
 │ (app)/
 │ ├ dashboard/
 │ ├ item/
-│ └ +layout.svelte <-- add app shell components like headers and backend logic like a db connection here (this note also refers to +layout.ts and +layout.server.ts)
+│ └ +layout... <-- app shell (headers, DB logic) 
 │ kitbook/
-└ +layout.svelte <-- add everything both your app and Kitbook need, like i18n and styles
+└ +layout... <-- app + Kitbook shared items (i18n, CSS)
+
++layout means all types: .svelte, .ts, .server.ts
 ```
 
 You may find it a bit jarring to have your component workbench included in your main app. Most component prototyping tools work as a companion app, but in Kitbook's early days this created a lot of friction:

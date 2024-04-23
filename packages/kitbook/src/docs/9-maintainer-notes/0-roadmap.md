@@ -4,29 +4,27 @@ The API is stable and the project is in **beta**. You can use this in production
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
-## Before Svelte Summit
-- Viewer displays variants (fix variantIndex)
-- create variant from current state
-- record talk
-- cut release, explaining breaking change with Variants type
-
 ## Next Up
-- module graph
-- handle users of Viewer not able to use Document Picture-in-Picture
-- add page variants component reference broken
+- Viewer displays page variants (adjust file title)
+- create variant from current state
+- cut release, explaining breaking change with Variants type
+- Viewer displays compositions
+- show source code for each component using code editor
+- handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
+- Use module graph to allow easy jumping up and down the graph tree easily from component to related component
+- Double-check the add page variants component reference is _ and not + in all locations
 - update templates to detect props
 - handle variant type when there are no component props
 - html snapshot regression via Vitest+happydom which stores baseline and comparisons in a single file in the static folder on build
 - snapshot compositions also
-- full-screen focus view for sandbox
+- Add full-screen focus view for sandbox
 - Next and Previous pages (Docusaurus/Vitepress style)
 - save selected languages in URL for easy sharing
-- show source code using code editor
-- editable props for variants and compositions
 - Orama search index for full-text search
 
 ## Rough edges 
 
+- fix ViewBody width on small screens overflowing region by about 25px
 - Get file location from Vite module graph from component tagName when it has no elements so that Kitbook can know which Svelte file to create variants, compositions, and markdowns for.
 - throw error if setting both csr and ssr to false
 - on build don't show folders that have no components with Kitbook files 

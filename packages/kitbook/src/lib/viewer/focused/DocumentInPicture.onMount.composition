@@ -3,6 +3,7 @@
 
   export const config = defineComposition({
     viewports: [{ height: 200 }],
+    ssr: false,
   })
 </script>
 
@@ -20,7 +21,7 @@
   <ShowHide let:show let:toggle let:set>
     <Button onclick={toggle} class="m-3">toggle</Button>
     {#if show}
-    <DocumentInPicture openPictureWindowOnMount on_close={() => set(false)}>
+    <DocumentInPicture width={400} height={600} openPictureWindowOnMount on_close={() => set(false)}>
       <div class="p-3">
         I'm in the picture window!!!
       </div>

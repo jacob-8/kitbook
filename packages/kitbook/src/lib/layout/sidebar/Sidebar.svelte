@@ -5,7 +5,7 @@
   import { afterNavigate } from '$app/navigation'
 
   export let folder: FolderType
-  export let kitbookPath: string // calculated from url not passed from settings - a little inconsistent
+  export let kitbookPath: string // calculated from url, not passed from settings - a little inconsistent
   export let activePath: string
   export let showSidebar = false
   export let title: string

@@ -1,6 +1,6 @@
 import type { CompositionConfig } from './kitbook-types'
 
-export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, VariantMeta, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule, MarkdownModule, CompositionConfig } from './kitbook-types'
+export type { KitbookSettings, Language, ViewerOptions, Viewport, Folder, Modules, Variant, DataVariant, VariantMeta, GroupedPage, GroupedPageMap, LoadedModules, UngroupedPage, VariantsModule, CompositionModule, MarkdownModule, CompositionConfig, DeepPartial } from './kitbook-types'
 
 export { default as Layout } from './layout/Layout.svelte'
 export { layoutLoad } from './layout/layoutLoad'
