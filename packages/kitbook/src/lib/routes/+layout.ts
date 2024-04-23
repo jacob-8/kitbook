@@ -7,7 +7,7 @@ import type { LayoutLoad } from './$types'
  * Vite glob patterns used for building your Kitbook. See https://vitejs.dev/guide/features.html#multiple-patterns.
  * Restrict these paths to be able to incrementally adopt Kitbook into your project.
  * Alternate extensions are not yet supported.
- * Kitbook changes in the future will cause this file to be regenerated. Your glob patterns will be preserved as long as you only edit the patterns inside the array brackets and nothing else.
+ * Kitbook changes in the future will cause this file to be regenerated. Your glob patterns will be preserved as long as you only edit the patterns inside the array brackets and nothing else (beyond basic lint cleanup - but you really should just add the routes/kitbook/* path to your lint ignore).
  */
 const components = import.meta.glob(['/src/**/*.svelte'])
 const componentsRaw = import.meta.glob(['/src/**/*.svelte'], { query: '?raw', import: 'default' })

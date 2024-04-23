@@ -33,7 +33,7 @@ export function convertDeprecatedVariantsToCurrentApi(module: VariantsModule | D
         viewports: variant.viewports,
         languages: variant.languages,
         contexts: variant.contexts,
-        defaultSlot: variant.slots?.default,
+        slot: variant.slots?.default,
         tests: variant.tests
           ? {
               skip: variant.tests.skip,
@@ -128,7 +128,7 @@ if (import.meta.vitest) {
           kitbookPath: '',
           activePath: '/foo',
           _meta: {
-            defaultSlot: 'My Workbench',
+            slot: 'My Workbench',
           },
         },
       }

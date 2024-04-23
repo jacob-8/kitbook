@@ -80,7 +80,7 @@ The use of Typescript's `satisfies` keyword in the `shared` object allows us to 
 
 ## Fine-grained control
 
-To make sure you caught it, all `_meta` settings can be set for the entire variants file and overwritten for individual variants. This is a powerful feature that allows you to control how your component is displayed in different contexts, languages, viewports, etc.
+To make sure you caught it, all `_meta` settings can be set for the entire variants file and overwritten for individual variants. This is a powerful feature that allows you to control how your component is displayed in different contexts, languages, viewports, etc. In summary, viewports and languages can be set globally by passing settings to the Kitbook Vite plugin; on a file basis in `shared_meta`; and on an individual basis in each export variant object.
 
 ## Page and Layout Variants
 

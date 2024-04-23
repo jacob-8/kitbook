@@ -305,7 +305,7 @@ Sometimes its nice to use `$lib` imports when assembling your mock data for vari
 }
 ```
 
-### Compositions (coming soon)
+### Compositions (not yet availabled)
 
 Screenshotting compositions is not yet supported but it will be added. In the meantime, if you read the source code used for variants you could probably set it up yourself.
 

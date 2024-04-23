@@ -31,12 +31,12 @@
   $: ({ _meta, ...props } = variant || {})
 </script>
 
-{#if _meta?.defaultSlot}
+{#if _meta?.slot}
   <svelte:component this={component} {...props}>
-    {#if typeof _meta.defaultSlot === 'string'}
-      {@html _meta.defaultSlot}
+    {#if typeof _meta.slot === 'string'}
+      {@html _meta.slot}
     {:else}
-      <svelte:component this={_meta.defaultSlot} />
+      <svelte:component this={_meta.slot} />
     {/if}
   </svelte:component>
 {:else}

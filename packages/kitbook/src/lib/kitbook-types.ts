@@ -1,13 +1,15 @@
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
-export type Variant<T extends SvelteComponent> = {
-  _meta?: VariantMeta
-} & ComponentProps<T>
+type IsEmpty<T> = T extends { [x: string]: never } ? true : false
 
-export type DataVariant<T extends SvelteComponent> = {
-  _meta?: VariantMeta
-} & ComponentProps<T>['data']
+export type Variant<T extends SvelteComponent> = IsEmpty<ComponentProps<T>> extends true
+  ? { _meta?: VariantMeta }
+  : { _meta?: VariantMeta } & ComponentProps<T>
+
+export type DataVariant<T extends SvelteComponent> = IsEmpty<ComponentProps<T>> extends true
+  ? { _meta?: VariantMeta }
+  : { _meta?: VariantMeta } & ComponentProps<T>['data']
 
 export interface VariantMeta {
   description?: string
@@ -17,8 +19,8 @@ export interface VariantMeta {
   languages?: Language[]
   /** contexts won't be HMRed as context must be set on component init which requires remounting the component */
   contexts?: MockedContext[]
-  /** can pass in a string to be @html rendered or a Svelte Component - you may find Compositions easier to work with than passing in a default slot but it's here. For named slots, use a Composition. */
-  defaultSlot?: string | any
+  /** can pass in a string to be @html rendered or a Svelte Component for the default slot - you may find Compositions easier to work with than passing in a default slot but it's here. For named slots, use a Composition. */
+  slot?: string | any
   /** don't hydrate variant on client by turning off scripts on iframe */
   csr?: false
   /** don't render on server by waiting until iframe is running client side to render variant  */

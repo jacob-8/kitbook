@@ -8,7 +8,9 @@ To document a component titled `Button.svelte`, navigate to the component's page
 
 ## Index Page
 
-By default Kitbook will display your project's README.md file as its home page, but you can override this by using a `src/index.md` file. If you would like to include a link to your Kitbook from your README but feel silly when the Kitbook then links to itself, you can surround the link with skip comments which Kitbook will use to strip it out:
+By default Kitbook will display your project's README.md file as its home page. *You can override this by adding a `src/index.md` file.* 
+
+If you would like to include a link to your Kitbook from your README but feel silly when the Kitbook then links to itself, you can surround the link with skip comments which Kitbook will use to strip it out:
 
 ```markdown
 <!-- Kitbook Skip -->

@@ -1,6 +1,6 @@
 # Kitbook Template
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/unocss/unocss/tree/main/examples/sveltekit-scoped)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/jacob-8/kitbook/tree/main/packages/template)
 
 You're looking at the [Kitbook](https://kitbook.vercel.app/) template. This is a minimal template to get you started. See the [examples list](https://kitbook.vercel.app/docs/9-examples) for some repos using Kitbook in production. They will give you better insight.
 

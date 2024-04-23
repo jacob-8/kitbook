@@ -1,0 +1,42 @@
+name: 🚀 New feature proposal
+description: Propose a new feature to be added to Kitbook
+labels: ['enhancement: pending triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in Kitbook and taking the time to fill out this feature proposal!
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Double-Check
+      description: Before submitting the issue, please make sure you have done the following
+      options:
+        - label: Read the entire [Kitbook docs](https://kitbook.vercel.app).
+          required: true
+        - label: Check that there isn't [already an issue](https://github.com/jacob-8/kitbook/issues) that requests a similar feature.
+          required: true
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Clear description of the requested feature
+      description: What is it that you would like to see Kitbook offer and why? Do you intend to submit a PR for this feature?
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-solution
+    attributes:
+      label: Suggested solution
+      description: Here's how it could be implemented...
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Alternative
+      description: Concise description of any alternative solutions you've considered.
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Add any other helpful context or screenshots about the feature request.

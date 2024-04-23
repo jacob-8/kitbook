@@ -62,5 +62,5 @@
 
   <div class="border-t"></div>
 
-  <div class="p-3 text-sm text-gray-600">Press "ctrl+b" to show/hide tree.</div>
+  <div class="p-3 text-sm text-gray-600 hidden md:block">Press "ctrl+b" to show/hide tree.</div>
 </ResponsiveSlideover>

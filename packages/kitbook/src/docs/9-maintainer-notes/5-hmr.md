@@ -11,9 +11,9 @@ First understand Hot Module Reloading. Start by reading:
 
 ## Key Takeaways
 
-### Svelte self-accept, TS/JS files do not self-accept hot updates
+### Svelte files self-accept, TS/JS files do not self-accept hot updates
 
-You need to understand that each file can either self-accept or not. If a file can't accept its hot update, the update bubbles up to whatever modules imported it and so on up the chain. If one of its import branches is never "caught" by being accepted and the update bubbles all the way up to the root module then a full page reload will be triggered ([svelte-hmr](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#whats-hmr-by-the-way)). At this point then, HMR has given us no benefit from a server without such feature. 
+You need to understand that each file can either self-accept or not. If a file can't accept its hot update, the update bubbles up to whatever modules imported it and so on up the chain. If one of its import branches is never "caught" by being accepted and the update bubbles all the way up to the root module then a full page reload will be triggered ([svelte-hmr](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#whats-hmr-by-the-way)). At this point then, HMR has given us no benefit over a server without such feature. 
 
 Thanks to `vite-plugin-svelte` and `svelte-hmr`, Svelte files accept their own hot updates and apply appropriately (in your developer console's "Sources" tab you can inspect your compiled Svelte files and see the HMR additions). Children components have to be remounted however as it's too difficult to programmatically know how to hot swap them.
 
@@ -38,34 +38,35 @@ If you edit a typescript file you notice `isSelfAccepting: false` but if you edi
 
 ### You can manually accept hot updates
 
-A major feature of our Kitbook is that we can quickly create component variants simply by editing an array of props objects in a Typescript file. On initial page load these are being imported in server side load functions to be able to do server side rendering of components. These are provided by a glob import:
+A major feature of our Kitbook is that we can quickly create [[3-component-variants]] simply by editing exported props objects in a Typescript file. On initial page load these are imported in server side load functions to be able to do server side rendering of components. Kitbook receives load functions for each of these modules via Vite glob imports like this:
 
-```ts title="moduleGlobImport.ts"
-export const modules = import.meta.glob(['/src/**/*.{md,svelte,variants.ts,composition}', '/README.md'])
+```ts title="+layout.js"
+const components = import.meta.glob(['/src/**/*.svelte'])
 ```
 
 Then we catch hot updates to these files and add them to a store which will replace the modules used on first load and smoothly avoid full page reloads.
 
-```ts title="moduleGlobImport.ts" {1,5-9}
-import { modulesForKitbookStore } from './hmrUpdatedModules'
-
-export const modulesForKitbook = import.meta.glob(['/src/**/*.{md,svelte,variants.ts,composition}', '/README.md'])
-
+```ts title="+layout.js"
 if (import.meta.hot) {
-  import.meta.hot.accept((newModule) => {
-    modulesForKitbookStore.set(newModule.modulesForKitbook)
+  import.meta.hot.accept((module) => {
+    if (module?._pages)
+      pagesStore.set(module._pages)
   })
 }
 ```
 
-## The Final Piece: Extracting and Hot-Reloading Each Story from a stories file
+See the `src/routes/kitbook/+layout.js` file that Kitbook added to your app for the full version.
 
-So we now have hot reloading for Svelte files (like normal), for variants arrays provided by Typescript files (and incidentally raw strings of modules imported using `as: raw` also do not self-accept), but we haven't yet solved the problem of when a stories file is saved it has to reload all of it's children stories since they are iframes placed in children components. We add a function that takes the code of a stories file and saves an individual story file to `src/kitbook/stories`. On a stories file's first load this function is called by Vite's transform hook as the story is loaded, the value of that file without the stories is then saved to a map inside the plugin. The function is also called inside handleHotUpdate for that stories file where it will compare to check if something outside of a story has changed. If nothing the hook will return an empty array to negate hot reloading the stories file. It will have taken the internal changes to a particular story and update the corresponding file which will kick in HMR just for that story.
+So we now have hot reloading for Svelte files (like normal), for variants and compositions provided by Typescript files (and the raw strings of modules imported using `as: raw` also as they do not self-accept).
 
 ## A Gotcha
 
-You can't add `import.meta.hot` to a file in a library that will be run from inside of node_modules. Vite caches those files and so hot updates will be useless. To workaround this we catch them in a virtual module.
+You can't add `import.meta.hot` to a file in a library that will be run from inside of `node_modules`. It will work great when developing on Kitbook, but then won't work when Kitbook is used in other apps. Vite caches files in `node_modules` and so hot updates caught anywhere inside of `node_modules` will be useless. We could use Vite's virtual modules, you say - nope, tried that and for some odd reason Svelte's CSS files won't be available for the server rendering part leading to ugly flashes of unstyled content. So that is why Kitbook adds a `routes/kitbook/+layout.js` file to your app, so that all HMR catching is done within your app where it will work properly.
 
 ## Review question
 
 In an ordinary SvelteKit app would updating a Typescript file only imported in a Svelte file bubble up to a full page reload? No, *but it does cause that specific Svelte file to hot update itself which will cause children components to remount.*
+
+[//begin]: # "Autogenerated link references for markdown compatibility"
+[3-component-variants]: ../3-component-variants.md "Component Variants"
+[//end]: # "Autogenerated link references"

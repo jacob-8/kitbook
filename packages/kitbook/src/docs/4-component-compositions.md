@@ -1,6 +1,6 @@
 # Component Compositions
 
-When you're prototyping and documentation needs go beyond simply passing props, context you can use Compositions. From any Kitbook page documenting a Svelte component, you can click the "Add Composition" button to create a new composition file. This will create a new file with the same name as the component you're documenting, but with the `composition` extension instead of `svelte`. For example, if you're documenting `MyComponent.svelte`, the first composition file will be `MyComponent.composition`. If you want to create further compositions, click the button again and provide a name. If you choose `foo`, the file will be `MyComponent.foo.composition`. Here's a really plain example:
+When you're prototyping and documentation needs go beyond simply passing props and context you can use Compositions. From any Kitbook page documenting a Svelte component, you can click the "Add Composition" button to create a new composition file. This will create a new file with the same name as the component you're documenting, but with the `composition` extension instead of `svelte`. For example, if you're documenting `MyComponent.svelte`, the first composition file will be `MyComponent.composition`. If you want to create further compositions, click the button again and provide a name. If you choose `foo`, the file will be `MyComponent.foo.composition`. Here's a really plain example:
 
 [[4-component-compositions.composition]]
 
