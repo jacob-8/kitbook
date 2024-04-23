@@ -19,24 +19,25 @@
   <a
     href={rootUrl}
     class:text-blue-600={activePath === `${rootUrl}index`}
-    class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden">
+    class="hover:text-blue-700 p-2 text-lg font-semibold flex items-center underline-blue-800 overflow-x-hidden block">
     <slot>Kitbook</slot>
   </a>
-  <div class="flex-1" />
+  <div class="ml-auto flex">
 
-  <slot name="searchbutton" />
+    <slot name="searchbutton" />
 
-  {#if githubURL}
-    <Button
-      form="menu"
-      size="sm"
-      href={githubURL}
-      target="_blank"
-      title="View GitHub Repo"
-      class="!flex items-center">
-      <span class="i-mdi-github text-lg" />
-    </Button>
-  {/if}
+    {#if githubURL}
+      <Button
+        form="menu"
+        size="sm"
+        href={githubURL}
+        target="_blank"
+        title="View GitHub Repo"
+        class="!flex items-center">
+        <span class="i-mdi-github text-lg" />
+      </Button>
+    {/if}
+  </div>
 </header>
 
 <style>
