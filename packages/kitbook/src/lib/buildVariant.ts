@@ -193,10 +193,10 @@ if (import.meta.vitest) {
 // // return (specific_variant: Omit<Variant<T>, keyof typeof common_variant>): Variant<T> => {
 
 // type IsEqual<A, B> =
-// 	(<G>() => G extends A ? 1 : 2) extends
-// 	(<G>() => G extends B ? 1 : 2)
-// 	  ? true
-// 	  : false
+// (<G>() => G extends A ? 1 : 2) extends
+// (<G>() => G extends B ? 1 : 2)
+//   ? true
+//   : false
 
 //     type Filter<KeyType, ExcludeType> = IsEqual<KeyType, ExcludeType> extends true ? never : (KeyType extends ExcludeType ? never : KeyType)
 
@@ -222,28 +222,28 @@ if (import.meta.vitest) {
 // import type {SetOptional} from 'type-fest';
 
 // type Foo = {
-// 	a: number;
-// 	b?: string;
-// 	c: boolean;
+// a: number;
+// b?: string;
+// c: boolean;
 // }
 
 // type SomeOptional = SetOptional<Foo, 'b' | 'c'>;
 // // type SomeOptional = {
-// // 	a: number;
-// // 	b?: string; // Was already optional and still is.
-// // 	c?: boolean; // Is now optional.
+// // a: number;
+// // b?: string; // Was already optional and still is.
+// // c?: boolean; // Is now optional.
 // // }
 // ```
 
 // @category Object
 //  */
 // type SetOptional2<BaseType, Keys extends keyof BaseType> =
-// 	Simplify<
-// 	// Pick just the keys that are readonly from the base type.
-// 	Except<BaseType, Keys> &
-// 	// Pick the keys that should be mutable from the base type and make them mutable.
-// 	Partial<Pick<BaseType, Keys>>
-// 	>
+// Simplify<
+// // Pick just the keys that are readonly from the base type.
+// Except<BaseType, Keys> &
+// // Pick the keys that should be mutable from the base type and make them mutable.
+// Partial<Pick<BaseType, Keys>>
+// >
 
 // // type SetOptional<T, F extends Partial<T>> = {
 // //   [P in keyof F]?: T[P];

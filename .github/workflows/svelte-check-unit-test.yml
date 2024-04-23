@@ -1,4 +1,4 @@
-name: Lint, Svelte Check, & Unit Test Push
+name: Svelte Check, & Unit Test Push
 
 on:
   push:
@@ -6,26 +6,6 @@ on:
       - '**'
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.6.0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: pnpm
-
-      - run: pnpm install
-
-      - name: Lint
-        run: pnpm lint
-
   unit_test:
     name: Svelte Check & Unit Test
     runs-on: ubuntu-latest
@@ -47,7 +27,7 @@ jobs:
       - run: pnpm build:deps
 
       - run: pnpm -F kitbook sync
-      - run: pnpm -F kitbook check
+      - run: pnpm check
 
       - name: Run Vitest Unit Tests
         run: pnpm test

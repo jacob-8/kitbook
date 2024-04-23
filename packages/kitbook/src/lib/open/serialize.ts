@@ -170,6 +170,7 @@ if (import.meta.vitest) {
     })
 
     test('removing newlines and tabs afterwards - needs implemented into tested function', () => {
+      // eslint-disable-next-line style/max-statements-per-line
       const add = (a, b) => { return a + b }
       const obj = { add }
       const serialized = serializeIntersection(obj, obj)

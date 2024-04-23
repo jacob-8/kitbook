@@ -3,9 +3,7 @@ import type { SvelteComponent } from 'svelte'
 import type Component from './+page.svelte'
 import IndividualComponent from './mockComponents/IndividualComponent.svelte'
 
-type ComponentVariant = Variant<Component>
-
-export const ComponentWithProps: ComponentVariant = {
+export const Component_With_Props: Variant<Component> = {
   data: {
     pagesStore: null,
     pages: null,
@@ -15,17 +13,18 @@ export const ComponentWithProps: ComponentVariant = {
 
     variantName: 'First',
     component: IndividualComponent as typeof SvelteComponent,
-    variant: {
-      name: 'James',
+    variantsModule: {
+      First: {
+        name: 'Jim',
+      },
     },
-    variantsConfig: null,
 
     darkMode: false,
     settings: null,
   },
 }
 
-export const Component_Without_Props: ComponentVariant = {
+export const Component_Without_Props: Variant<Component> = {
   data: {
     pagesStore: null,
     pages: null,
@@ -35,8 +34,9 @@ export const Component_Without_Props: ComponentVariant = {
 
     variantName: 'Second',
     component: IndividualComponent as typeof SvelteComponent,
-    variant: null,
-    variantsConfig: null,
+    variantsModule: {
+      Second: {},
+    },
 
     darkMode: false,
     settings: null,

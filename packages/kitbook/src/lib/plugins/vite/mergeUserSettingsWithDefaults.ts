@@ -1,7 +1,7 @@
 import type { KitbookSettings } from '../../kitbook-types'
 import { DEFAULT_KITBOOK_SETTINGS, DEFAULT_VIEWER_OPTIONS } from './constants.js'
 
-export function mergeUserSettingsWithDefaults(userSettings: KitbookSettings): KitbookSettings {
+export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSettings>): KitbookSettings {
   // @ts-expect-error - checking for old value
   if (userSettings.importModuleGlobs)
     throw new Error('Kitbook: `importModuleGlobs` is no longer used. Please define your glob patterns in the root Kitbook `+layout.js` file.')
@@ -25,7 +25,7 @@ export function mergeUserSettingsWithDefaults(userSettings: KitbookSettings): Ki
   }
 }
 
-function checkLanguageSetup({ languages, addLanguageToUrl }: KitbookSettings) {
+function checkLanguageSetup({ languages, addLanguageToUrl }: Partial<KitbookSettings>) {
   if (languages?.length === 0)
     throw new Error('Kitbook: Do not pass an empty `languages` array in your config.')
 
