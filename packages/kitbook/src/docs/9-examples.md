@@ -2,12 +2,12 @@
 
 Kitbook's variants and compositions apis were recently changed. Please note that most of the usage examples beyond Kitbook are from the old syntax and are in the process of being updated to what you read in the docs here.
 
-| Live URL | Source | Stackblitz | Syntax |
+| Live URL | Source | Play | Syntax |
 | -------- | ------ | ---------- | ------ |
-| [Kitbook's Kitbook](https://kitbook.vercel.app/) (you're looking at it!)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook)  | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/kitbook) | Up-to-date |
-| [Kitbook Template](https://kitbook-template.vercel.app/) (in Kitbook monorepo)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/template) | [Play Online](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/template) | Up-to-date |
-| [Poly-i18n Kitbook](https://poly-i18n.vercel.app/kitbook)  | [GitHub](https://github.com/jacob-8/poly-i18n) | [Play Online](https://stackblitz.com/github/jacob-8/poly-i18n) | Previous version |
-| [SvelteFireTS Kitbook](https://sveltefirets.vercel.app/) | [GitHub](https://github.com/jacob-8/sveltefirets/tree/main/packages/sveltefirets)  | [Play Online](https://stackblitz.com/github/jacob-8/sveltefirets/tree/main/packages/sveltefirets) | Previous version |
+| [Kitbook's Kitbook](https://kitbook.vercel.app/) (you're looking at it!)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook)  | [Codeflow](https:///pr.new/jacob-8/kitbook) | Up-to-date |
+| [Kitbook Template](https://kitbook-template.vercel.app/) (in Kitbook monorepo)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/template) | [Stackblitz](https://stackblitz.com/github/jacob-8/kitbook/tree/main/packages/template) | Up-to-date |
+| [Poly-i18n Kitbook](https://poly-i18n.vercel.app/kitbook)  | [GitHub](https://github.com/jacob-8/poly-i18n) | | Previous version |
+| [SvelteFireTS Kitbook](https://sveltefirets.vercel.app/) | [GitHub](https://github.com/jacob-8/sveltefirets/tree/main/packages/sveltefirets)  | | Previous version |
 | [Svelte Pieces Kitbook](https://svelte-pieces.vercel.app/)  | [GitHub](https://github.com/jacob-8/svelte-pieces)  |  | Previous version |
 | [Living Dictionaries Kitbook](https://livingdictionaries.app/kitbook)  | [GitHub](https://github.com/livingtongues/living-dictionaries/tree/main/packages/site)  |  | Previous version |
 
