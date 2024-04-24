@@ -1,7 +1,5 @@
 # Examples
 
-Kitbook's variants and compositions apis were recently changed. Please note that most of the usage examples beyond Kitbook are from the old syntax and are in the process of being updated to what you read in the docs here.
-
 | Live URL | Source | Play Online | Syntax |
 | -------- | ------ | ---------- | ------ |
 | [Kitbook's Kitbook](https://kitbook.vercel.app/) (you're looking at it!)  | [GitHub](https://github.com/jacob-8/kitbook/tree/main/packages/kitbook)  | [Codeflow](https:///pr.new/jacob-8/kitbook) | Up-to-date |
