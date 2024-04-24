@@ -63,7 +63,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
       }
 
       server.watcher.on('change', (filepath) => {
-        server.hot.send('kitbook:route-to-edited-file', { filepath })
+        server.ws.send('kitbook:route-to-edited-file', { filepath })
       })
     },
   }

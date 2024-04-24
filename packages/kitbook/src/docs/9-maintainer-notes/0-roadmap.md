@@ -54,7 +54,11 @@ The API is stable and the project is in **beta**. You can use this in production
 
 ## Helpful Future Inspiration
 
-- Nuxt DevTools, Vue DevTools, [vite-plugin-devtools](https://github.com/pheno-agency/vite-plugin-devtools)
 - [KitDocs](https://kit-docs.svelteness.dev/) 
 - svelte-headlessui
 - [Urara](https://github.com/importantimport/urara)
+
+## Dependency Graph inspiration
+- Nuxt DevTools, Vue DevTools, [vite-plugin-devtools](https://github.com/pheno-agency/vite-plugin-devtools)
+- https://github.com/tkskto/vue-component-analyzer
+- https://github.com/pahen/madge

@@ -53,9 +53,7 @@ export interface DeprecatedVariant<T extends SvelteComponent> {
   languages?: Language[]
   props?: ComponentProps<T>
   contexts?: MockedContext[]
-  /**
-   * Presently only the 'default' slot is supported
-   */
+  /** only the 'default' slot is supported */
   slots?: Record<string, string | any>
   tests?: {
     /** skips default snapshot test, but not additional tests */
