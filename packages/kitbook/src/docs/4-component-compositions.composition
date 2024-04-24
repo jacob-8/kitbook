@@ -2,7 +2,7 @@
   import { defineComposition } from 'kitbook'
 
   export const config = defineComposition({
-    viewports: [{ height: 50 }],
+    viewports: [{ height: 50 }], // width is optional; don't pass it to make the composition as wide as the main text container
   })
 </script>
 
@@ -10,4 +10,4 @@
   import { browser } from '$app/environment'
 </script>
 
-<b>Environment: {browser}</b> - Refresh me or toggle to SSR mode to see false while still not hydrated. Also, click the Code button to take a look.
+<b>Environment: {browser}</b> - Refresh me or toggle to SSR mode to see false while still not hydrated. Also, click the <b>Code</b> button to see how to write me.

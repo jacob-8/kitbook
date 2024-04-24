@@ -2,7 +2,7 @@
 
 To easily mock a component in a variety of states **with type safety** you can create variants of a component simply by adding a sibling file using a component's filename and replacing the `svelte` extension with `variants.ts`. In actual usage, you won't need to create this file manually as Kitbook will generate it for you when you request, via a variety of options through the interface. See this Kitbook's [[SearchResult]] page for an example with several different variants.
 
-Here's a simple Variant example, the exported property name is the name of the Variant and root level properties will be passed into the component as props:
+Here's a simple Variant example, the exported object's name is the name of the Variant and that object's root-level properties will be passed into the component as props:
 
 ```ts title="Greeting.variants.ts"
 import type { Variant } from 'kitbook'
@@ -38,7 +38,7 @@ export const Simple: Variant<Component> = {
 }
 ```
 
-When you want to share `_meta` configuration across variants, export a `shared_meta` object which will apply to all variants except for properties specifically overwritten in the variant defintion itself:
+When you want to share `_meta` configuration across variants, export a `shared_meta` object which will apply to all variants except for properties specifically overwritten in a variant's defintion:
 
 ```ts
 import type { Variant, VariantMeta } from 'kitbook'
