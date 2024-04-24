@@ -9,4 +9,4 @@
 | [Svelte Pieces Kitbook](https://svelte-pieces.vercel.app/)  | [GitHub](https://github.com/jacob-8/svelte-pieces)  | [Stackblitz](https://stackblitz.com/github/jacob-8/svelte-pieces)  | Up-to-date |
 | [Living Dictionaries Kitbook](https://livingdictionaries.app/kitbook)  | [GitHub](https://github.com/livingtongues/living-dictionaries/tree/main/packages/site)  |  | Previous version |
 
-*Are you using Kitbook? Please [submit a PR](https://github.com/jacob-8/kitbook/compare) to add yours to the list here!*
+*Are you using Kitbook? Please [submit a PR](https://github.com/jacob-8/kitbook/edit/main/packages/kitbook/src/docs/9-examples.md) to add yours to the list here!*
