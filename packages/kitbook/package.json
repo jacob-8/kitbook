@@ -118,6 +118,7 @@
     "@sveltejs/adapter-auto": "3.2.0",
     "@sveltejs/kit": "^2.5.7",
     "@sveltejs/package": "^2.3.1",
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@types/mdast": "^4.0.2",
     "@types/node": "^20.11.30",
     "@typescript/vfs": "^1.5.0",
