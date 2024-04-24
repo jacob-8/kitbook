@@ -24,3 +24,7 @@
     <div style="margin-top: 10px;">As well you could hit Alt+Shift to open the Kitbook Viewer, and click on a component to view it's props, variants, or jump directly to it in Kitbook.</div>
   {/if}
 </div>
+
+<svelte:head>
+  <title>Kitbook Template</title>
+</svelte:head>
