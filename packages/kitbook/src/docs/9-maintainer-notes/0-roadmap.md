@@ -45,7 +45,7 @@ The API is stable and the project is in **beta**. You can use this in production
 - keep sidebar active page in view
   - menu item should be expanded when linked to (currently not visible if parent folder was manually closed and then it was jumped to via a wikilink)
 - shouldn't crash upon finding oddly placed file like `/src/+layout.svelte` or `src/ind.md`
-- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc
+- Scrollspy TOC in sidebar (maybe client-side only for setup simplicity) - look at svelte-put toc and https://beartocode.github.io/carta/introduction
 - accept whichever w/h dimension is given last either via resize or by prompt
 - distinguish between Index and README in search if both exist
 - fix shiki-twoslash highlight not scrolling on small screens by learning from https://histoire.dev/guide/svelte3/controls.html

@@ -1,6 +1,6 @@
 # Visual Regression Testing
 
-The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen [here](https://github.com/jacob-8/kitbook/pull/30#issuecomment-1783993937). 
+The simple [[3-component-variants|Variants]] format enables easy visual regression testing of all your components using [Playwright](https://playwright.dev/) and a GitHub action to post the results on your PR as seen [here](https://github.com/jacob-8/kitbook/pull/36#issuecomment-2072682316). 
 
 *Note: This is not yet available for Compositions, and due to the slowness of browser rendering, a much faster option that relies on HTML diffing instead of pixel diffing is in the plans for Kitbook. Though the below solution will remain for those who really need the pixel diffing.*
 

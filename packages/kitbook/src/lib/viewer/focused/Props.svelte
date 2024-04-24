@@ -58,11 +58,8 @@
 
 <CodeMirror
   value={PropsObjectPrefix + currentPropsState}
-  tsCodeForTypes="{`type Props = {
-  data: {
-    name: string;
-    image_seeds: string[];
-    save_to_db: (order_count: number) => void;
-  }
+  tsCodeForTypes="{`/** Kitbook TODO: parse component types and enforce here. Currently any key is allowed. */
+type Props = {
+  [key: string]: any
 }`},"
   on_change={handle_change} />

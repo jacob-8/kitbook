@@ -45,7 +45,7 @@
     const env = createVirtualTypeScriptEnvironment(system, [], ts, compilerOptions)
     const config: TypeScriptConfig = { env, path }
 
-    createOrUpdateFile({ env, path: 'types.ts' }, tsCodeForTypes) // update this file to import Svelte
+    createOrUpdateFile({ env, path: 'types.ts' }, tsCodeForTypes) // update this file to import Svelte types
 
     view = new EditorView({
       parent: container,

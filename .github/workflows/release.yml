@@ -28,10 +28,6 @@ jobs:
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npx changelogithub
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
       - name: Install Dependencies
         run: pnpm i
 
@@ -43,3 +39,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           NPM_CONFIG_PROVENANCE: true
+
+      # Run this manually
+      # - run: npx changelogithub # skip until can figure out how to solve FetchError: [POST] "https://api.github.com/repos/jacob-8/kitbook/releases": 422 Unprocessable Entity
+      #   env:
+      #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
