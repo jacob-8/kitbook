@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { dev } from '$app/environment'
   import Image from '$lib/Image.svelte'
 
   export let data
@@ -16,5 +17,10 @@
     {/each}
   </div>
 
-  <div style="margin-top: 10px;">As well you could hit Alt+Shift to open the Kitbook Viewer, and click on a component to view it's props, variants, or jump directly to it in Kitbook.</div>
+  <div style="margin-top: 10px;">
+    <a href="/kitbook" style="color: blue; text-decoration: underline;">Open Kitbook</a> to view the components and their props, variants, and more.
+  </div>
+  {#if dev}
+    <div style="margin-top: 10px;">As well you could hit Alt+Shift to open the Kitbook Viewer, and click on a component to view it's props, variants, or jump directly to it in Kitbook.</div>
+  {/if}
 </div>
