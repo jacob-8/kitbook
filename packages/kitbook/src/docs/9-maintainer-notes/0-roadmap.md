@@ -53,6 +53,9 @@ The API is stable and the project is in **beta**. You can use this in production
 - fix shiki-twoslash highlight not scrolling on small screens by learning from https://histoire.dev/guide/svelte3/controls.html
 - catch when a variants file exists by itself and inform how to use variants
 - add visual regression comment if no changed snapshots
+- include page in sidebar when only have a `.composition` file (like when demonstrating some `.ts` helper function)
+- don't include Kitbook route files in the sidebar when using Kitbook by itself for a component library (like svelte-pieces)
+- sidebar isn't truly alphabetical if there are varieties of file types
 
 ## Helpful Future Inspiration
 

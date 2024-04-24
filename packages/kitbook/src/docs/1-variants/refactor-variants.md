@@ -6,7 +6,6 @@ As you have time though, you should refactor your `variants.ts` files to use the
 
 ## LLM Prompt
 
-
 I need help refactoring my `variants.ts` files according to recent api changes. My file is currently working on `DeprecatedVariantsModule` and I want you to refactor it to be like the `VariantModule` type defined in the `kitbook.ts` file. I'll give you an `old.variants.ts` file that I've already refactored to `new.variants.ts` so you can learn how to do it. Then please refactor my `todo.variants.ts` file for me.
 
 Here's my types:
@@ -87,14 +86,14 @@ export const viewports: Viewport[] = [
 
 export const variants: DeprecatedVariant<Component>[] = [
   {
-    name: 'first',
+    name: 'first situation',
     props: {
       foo: 'bar',
     },
   },
   {
-    name: 'second',
-    languages: [{ code: 'en-GB', name: 'English (UK)' }],
+    name: 'second instance',
+    languages: [{ code: 'en', name: 'English' }],
     props: {
       foo: 'zam',
     },
@@ -116,16 +115,16 @@ export const shared_meta: VariantMeta = {
 
 const shared = {} satisfies Partial<Variant<Component>>
 
-export const First: Variant<Component> = {
+export const First_Situation: Variant<Component> = {
   ...shared,
   foo: 'bar',
 }
 
-export const Second: Variant<Component> = {
+export const Second_Instance: Variant<Component> = {
   ...shared,
   foo: 'zam',
   _meta: {
-    languages: [{ code: 'en-GB', name: 'English (UK)' }],
+    languages: [{ code: 'en', name: 'English' }],
   },
 }
 ```
