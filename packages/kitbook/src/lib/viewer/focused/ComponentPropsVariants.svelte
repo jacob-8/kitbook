@@ -9,7 +9,7 @@
   export let resizeTo: (width: number, height: number) => void
   export let selectedComponent: ComponentWithChildren
   export let settings: KitbookSettings
-  $: ({ viewports, languageInsertedKitbookRoute, viewer: { __internal: { viteBase } } } = settings)
+  $: ({ viewports, _languageInsertedKitbookRoute, viewer: { __internal: { viteBase } } } = settings)
 
   $: filename = getLocalFileLocation(selectedComponent)?.file
   $: variantsFilename = filename?.replace('.svelte', '.variants.ts')
@@ -25,7 +25,7 @@
       <button type="button" on:click={() => openVariants(filename, selectedComponent.componentDetail)} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>
       <button type="button" on:click={() => openMarkdown(svxFilename)} title="Edit Documentation: {svxFilename.split('src/').pop()}"><span class="i-vscode-icons-file-type-markdown align--4px text-2xl" /></button>
       <button type="button" on:click={() => openComposition({ filepath: filename })} title="New Composition"><span class="i-carbon-chart-treemap align--2px" /></button>
-      <a href="{languageInsertedKitbookRoute}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
+      <a href="{_languageInsertedKitbookRoute}/{filename.split('src/').pop().replace('.svelte', '')}" target="_blank" title="Open in Kitbook"><span class="i-tabler-external-link align--2px text-xl" /></a>
     </div>
     <Tabs>
       <svelte:fragment slot="first">
@@ -34,7 +34,7 @@
         </div>
       </svelte:fragment>
       <svelte:fragment slot="second">
-        <LoadVariants {languageInsertedKitbookRoute} {filename} {viewports} openVariantsFn={() => openVariants(filename, selectedComponent.componentDetail)} {resizeTo} />
+        <LoadVariants {_languageInsertedKitbookRoute} {filename} {viewports} openVariantsFn={() => openVariants(filename, selectedComponent.componentDetail)} {resizeTo} />
       </svelte:fragment>
     </Tabs>
   {:else}

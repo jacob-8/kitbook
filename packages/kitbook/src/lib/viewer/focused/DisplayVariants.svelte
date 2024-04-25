@@ -5,7 +5,7 @@
   import Iframe from '../../view/Iframe.svelte'
 
   export let resizeTo: (width: number, height: number) => void
-  export let languageInsertedKitbookRoute: string
+  export let _languageInsertedKitbookRoute: string
   export let localFilenameWithLeadingSlash: string
   export let fileViewports: Viewport[]
   export let variants: Record<string, Variant<any>>
@@ -122,7 +122,7 @@
 </div>
 
 <div bind:this={container} style="width: {viewports[currentViewportIndex].width}px; height: {viewports[currentViewportIndex].height}px;" class="border">
-  <Iframe src="{languageInsertedKitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantName={name}" />
+  <Iframe src="{_languageInsertedKitbookRoute}/sandbox{localFilenameWithLeadingSlash}?variantName={name}" />
 </div>
 
 <!-- <button type="button" on:click={openVariantsFn}><span class="i-system-uicons-versions align--3px text-xl" /> Add Variant</button> -->

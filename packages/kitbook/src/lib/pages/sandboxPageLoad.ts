@@ -36,7 +36,7 @@ export async function sandboxPageLoad({ params, parent, url }) {
   if (variantName) {
     const component = (await page.loadComponent.loadModule()).default
     const variantsModule = (await page.loadVariants.loadModule())
-    // const variant = variantsModule[variantName]
+    // caution, this page prop name is confusing with SvelteKit's $page store
     return { page, pageKey, component, variantsModule, variantName, darkMode } satisfies SandboxPageLoadResult
   }
 

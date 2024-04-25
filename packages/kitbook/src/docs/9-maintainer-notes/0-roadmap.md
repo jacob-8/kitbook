@@ -4,9 +4,6 @@ The API is stable and the project is in **beta**. You can use this in production
 
 **Please feel free to [create an issue](https://github.com/jacob-8/kitbook/issues/new) and discuss what you may be able to contribute!**
 
-## Currently working on
-- Update all examples to latest api
-
 ## Planned Features (or improvements to half-baked features)
 
 - create variant from current state

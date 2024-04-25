@@ -2,7 +2,7 @@
   import type { VariantsModule, Viewport } from 'kitbook'
   import DisplayVariants from './DisplayVariants.svelte'
 
-  export let languageInsertedKitbookRoute: string
+  export let _languageInsertedKitbookRoute: string
   export let viewports: Viewport[]
   export let filename: string
   export let openVariantsFn: () => void
@@ -29,7 +29,7 @@
 </script>
 
 {#if variantsModule}
-  <DisplayVariants {variants} fileViewports={shared_meta?.viewports || viewports} {languageInsertedKitbookRoute} {localFilenameWithLeadingSlash} {resizeTo} />
+  <DisplayVariants {variants} fileViewports={shared_meta?.viewports || viewports} {_languageInsertedKitbookRoute} {localFilenameWithLeadingSlash} {resizeTo} />
 {:else if loading}
   <div class="p-2">
     Loading variants...

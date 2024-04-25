@@ -21,6 +21,8 @@ export function delay<T>(value: T, delay_ms = 1000): Promise<T> {
   return new Promise(resolve => setTimeout(() => resolve(value), delay_ms))
 }
 
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 export function defineComposition(config: CompositionConfig): CompositionConfig {
   return config
 }

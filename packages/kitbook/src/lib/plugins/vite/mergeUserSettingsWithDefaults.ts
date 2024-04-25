@@ -17,11 +17,11 @@ export function mergeUserSettingsWithDefaults(userSettings: Partial<KitbookSetti
     },
   }
 
-  const languageInsertedKitbookRoute = combinedSettings.addLanguageToUrl && combinedSettings.languages[0].code ? combinedSettings.addLanguageToUrl({ code: combinedSettings.languages[0].code, url: combinedSettings.kitbookRoute }) : combinedSettings.kitbookRoute
+  const _languageInsertedKitbookRoute = combinedSettings.addLanguageToUrl && combinedSettings.languages[0].code ? combinedSettings.addLanguageToUrl({ code: combinedSettings.languages[0].code, url: combinedSettings.kitbookRoute }) : combinedSettings.kitbookRoute
 
   return {
     ...combinedSettings,
-    languageInsertedKitbookRoute,
+    _languageInsertedKitbookRoute,
   }
 }
 

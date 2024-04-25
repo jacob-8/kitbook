@@ -116,7 +116,7 @@
       {/if}
     </button>
     {#if settings.kitbookRoute}
-      <a href={settings.languageInsertedKitbookRoute} target="_blank" title="Go to Kitbook" class="-ml-2 p-2 hover:bg-gray-100"><span class="i-tabler-external-link align--3px text-xl" /></a>
+      <a href={settings._languageInsertedKitbookRoute} target="_blank" title="Go to Kitbook" class="-ml-2 p-2 hover:bg-gray-100"><span class="i-tabler-external-link align--3px text-xl" /></a>
     {/if}
   </div>
 {/if}

@@ -32,7 +32,7 @@ export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) 
     const src = 'node_modules/kitbook/dist/routes'
     const destination = kitbookDirectory
     fs.cpSync(src, destination, { recursive: true, filter: excludeDocFiles })
-    console.info(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Except for the import.meta.glob imports in the +layout.js file, don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
+    console.info(`${bold}${green}[Kitbook] Added Kitbook route files to ${kitbookDirectory}. Except for the import.meta.glob imports or mockPageData in the +layout.js file, don't edit these. They will be automatically updated by Kitbook in future versions when needed.\n${reset}`)
   }
   catch (e) {
     console.error(`${bold}${red}[Kitbook] Error copying in needed routes: ${e}\n${reset}`)
