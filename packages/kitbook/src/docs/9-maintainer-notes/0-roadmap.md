@@ -27,6 +27,8 @@ The API is stable and the project is in **beta**. You can use this in production
 
 ## Rough edges 
 
+- enlarge menu items on mobile
+- make Typescript just a peerdependency
 - Viewer doesn't work in Stackblitz
 - Improve Main Page buttons on small screens
 - order variants by order written in file, not alphabetical
