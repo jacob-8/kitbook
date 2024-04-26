@@ -27,6 +27,7 @@ The API is stable and the project is in **beta**. You can use this in production
 
 ## Rough edges 
 
+- diagnose why styles don't get copied into the picture window in certain contexts
 - enlarge menu items on mobile
 - make Typescript just a peerdependency
 - Viewer doesn't work in Stackblitz
@@ -55,6 +56,7 @@ The API is stable and the project is in **beta**. You can use this in production
 - include page in sidebar when only have a `.composition` file (like when demonstrating some `.ts` helper function)
 - don't include Kitbook route files in the sidebar when using Kitbook by itself for a component library (like svelte-pieces)
 - sidebar isn't truly alphabetical if there are varieties of file types
+- learn why import.meta.hot.on('kitbook:route-to-edited-file') in Layout.svelte only fires the first time a file is changed and not on subsequent changes (of any file)
 
 ## Helpful Future Inspiration
 

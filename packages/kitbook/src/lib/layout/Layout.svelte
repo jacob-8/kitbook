@@ -12,6 +12,8 @@
   import SearchModal from './sidebar/search/SearchModal.svelte'
   import LaunchSearch from './sidebar/search/LaunchSearch.svelte'
   import { urlFromPath } from './parseUpdatedPath'
+  import Toast from '$lib/components/Toast.svelte'
+  import { goto } from '$app/navigation'
 
   export let settings: KitbookSettings
   export let pathname: string
@@ -77,10 +79,9 @@
 <SearchModal {kitbookPath} bind:this={SearchModalComponent} />
 
 {#if urlForEditedFile}
-  <a href={urlForEditedFile} on:click={() => urlForEditedFile = null} class="fixed z-50 bottom-3 left-3 p-2 bg-black/75 rounded text-white text-sm">
-    Jump to view edits: <span class="font-semibold">{urlForEditedFile}</span>
-    <span class="i-ph-arrow-right-bold -mt-2px" />
-  </a>
+  <Toast on_hide={() => urlForEditedFile = null} duration_ms="hold" dismissable on_click={() => goto(urlForEditedFile)}>
+    <span>Jump to view edits: <span class="font-semibold">{urlForEditedFile}</span></span>
+  </Toast>
 {/if}
 
 <svelte:head>

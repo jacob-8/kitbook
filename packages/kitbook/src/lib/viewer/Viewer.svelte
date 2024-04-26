@@ -87,18 +87,14 @@
     {hoveredElement}
     {selectedComponent}
     {selectedElement}
-    on_click={() => {
-      if (holdMode && is_holding())
-        disable()
-    }}
+    on_click={disable}
     {viteBase} />
 
   <Tree
     {componentsWithChildren}
     {hoveredComponent}
     {selectedComponent}
-    {selectedElement}
-    on:close={() => $selectedComponent = null} />
+    {selectedElement} />
 {/if}
 
 {#if showToggleButton === 'always' || (showToggleButton === 'active' && targeting)}

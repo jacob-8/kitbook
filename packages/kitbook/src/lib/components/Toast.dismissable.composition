@@ -1,0 +1,18 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    viewports: [{ height: 100 }],
+  })
+</script>
+
+<script lang="ts">
+  import { ShowHide } from 'svelte-pieces'
+  import Toast from './Toast.svelte'
+</script>
+
+<ShowHide let:show={hide} let:toggle>
+  {#if !hide}
+    <Toast on_hide={toggle} message="This one is dismissable" dismissable duration_ms="hold" />
+  {/if}
+</ShowHide>

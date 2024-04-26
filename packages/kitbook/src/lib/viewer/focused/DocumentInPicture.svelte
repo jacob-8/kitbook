@@ -18,11 +18,14 @@
   import { onMount, setContext } from 'svelte'
   import type { Writable } from 'svelte/store'
   import { writable } from 'svelte/store'
+  import Toast from '../../components/Toast.svelte'
 
   export let width: number
   export let height: number
   export let openPictureWindowOnMount = false
   export let on_close: () => void = undefined
+
+  let error: string
 
   let container: HTMLDivElement
   let player: HTMLDivElement
@@ -37,7 +40,7 @@
 
   export async function openPictureWindow() {
     if (!('documentPictureInPicture' in window))
-      return alert('no browser support for document in picture - please use desktop Chrome')
+      return alert('No browser support for document in picture - please use desktop Chrome.')
 
     try {
       pictureWindow = await window.documentPictureInPicture.requestWindow({
@@ -57,9 +60,9 @@
         on_close?.()
       })
     }
-    catch (error) {
-      alert(error)
-      console.error(error)
+    catch (err) {
+      error = err.message
+      console.error(err)
     }
   }
 
@@ -95,8 +98,8 @@
       console.log({ width, height })
       pictureWindow.resizeTo(width, height)
     }
-    catch (error) {
-      console.error(error)
+    catch (err) {
+      console.error(err.message)
     }
   }
 
@@ -132,6 +135,10 @@
     {/if}
   </div>
 </div>
+
+{#if error}
+  <Toast message={error} type="error" on_hide={() => error = null} />
+{/if}
 
 <style>
   @media (display-mode: picture-in-picture) {
