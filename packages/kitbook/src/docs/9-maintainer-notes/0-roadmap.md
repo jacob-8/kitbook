@@ -28,11 +28,8 @@ The API is stable and the project is in **beta**. You can use this in production
 ## Rough edges 
 
 - diagnose why styles don't get copied into the picture window in certain contexts
-- enlarge menu items on mobile
-- make Typescript just a peerdependency
-- Viewer doesn't work in Stackblitz
-- Improve Main Page buttons on small screens
 - order variants by order written in file, not alphabetical
+- Improve Main Page buttons on small screens
 - handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
 - Viewer displays page variants (adjust file title)
 - Double-check the add page variants component reference is _ and not + in all locations

@@ -33,7 +33,7 @@
       class:border-dotted={!active}
       class:border-l-2={active}
       class:border-blue-700={active} />
-    <span class="py-0.5" style="overflow-wrap: anywhere;">
+    <span class="py-1 sm:py-0.5" style="overflow-wrap: anywhere;">
       {page.name}
     </span>
   </a>

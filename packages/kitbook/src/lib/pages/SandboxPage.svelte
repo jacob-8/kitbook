@@ -25,3 +25,7 @@
     {/key}
   {/if}
 </div>
+
+<svelte:head>
+  <title>Kitbook Sandbox</title>
+</svelte:head>

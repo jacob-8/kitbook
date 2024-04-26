@@ -1,19 +1,12 @@
 // @ts-check
 import { writable } from 'svelte/store'
 
-if (!inIframe())
-  listen()
-
-function inIframe() {
-  try {
-    return window.self !== window.top
-  }
-  catch (e) {
-    return true
-  }
-}
+listen()
 
 function listen() {
+  // if (inKitbookIframe())
+  //   return
+
   const components = createComponentStore()
   const elements = createElementsStore()
 
@@ -205,3 +198,14 @@ function createElementsStore() {
     removeElement,
   }
 }
+
+// function inKitbookIframe() {
+//   try {
+//     const isIframe = window.self !== window.top
+//     if (isIframe && window.self.document.title === 'Kitbook Sandbox')
+//       return true
+//   }
+//   catch (e) {
+//     return true
+//   }
+// }

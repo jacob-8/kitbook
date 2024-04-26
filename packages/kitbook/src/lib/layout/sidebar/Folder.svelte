@@ -48,8 +48,6 @@
   }
 </script>
 
-<!-- TODO: don't show folder if not dev and no pages with markdown, compositions, or variants -->
-
 {#if folder.name !== 'kitbook'}
   {#if !isRootFolder}
     <div class="w-full flex pr-3 group">

@@ -143,9 +143,6 @@ importers:
       svelte2tsx:
         specifier: ^0.6.23
         version: 0.6.23(svelte@4.2.15)(typescript@5.4.5)
-      typescript:
-        specifier: ~5.4.5
-        version: 5.4.5
       unified:
         specifier: ^10.1.2
         version: 10.1.2
@@ -198,6 +195,9 @@ importers:
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
+      typescript:
+        specifier: ~5.4.5
+        version: 5.4.5
       unocss:
         specifier: ^0.59.4
         version: 0.59.4(postcss@8.4.38)(vite@5.2.10)
