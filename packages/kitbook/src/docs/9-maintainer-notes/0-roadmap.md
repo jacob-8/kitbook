@@ -27,10 +27,9 @@ The API is stable and the project is in **beta**. You can use this in production
 
 ## Rough edges 
 
-- diagnose why styles don't get copied into the picture window in certain contexts
+- handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
 - order variants by order written in file, not alphabetical
 - Improve Main Page buttons on small screens
-- handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
 - Viewer displays page variants (adjust file title)
 - Double-check the add page variants component reference is _ and not + in all locations
 - on build don't show folders that have no components with Kitbook files 
@@ -53,7 +52,7 @@ The API is stable and the project is in **beta**. You can use this in production
 - include page in sidebar when only have a `.composition` file (like when demonstrating some `.ts` helper function)
 - don't include Kitbook route files in the sidebar when using Kitbook by itself for a component library (like svelte-pieces)
 - sidebar isn't truly alphabetical if there are varieties of file types
-- learn why import.meta.hot.on('kitbook:route-to-edited-file') in Layout.svelte only fires the first time a file is changed and not on subsequent changes (of any file)
+- learn why import.meta.hot.on('to-kitbook:route-to-edited-file') in Layout.svelte only fires the first time a file is changed and not on subsequent changes (of any file)
 
 ## Helpful Future Inspiration
 

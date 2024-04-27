@@ -2,11 +2,13 @@
 import type { SvelteComponent } from 'svelte'
 import type { CompositionModule, GroupedPage, VariantsModule } from '../kitbook-types'
 import type { LayoutLoadResult } from '../layout/layoutLoad'
+import { browser } from '$app/environment'
 
 // export interface SandboxPageLoadResult<T extends SvelteComponent> {
 export interface SandboxPageLoadResult {
   page: GroupedPage
   pageKey: string
+  canMount: boolean
 
   compositionName?: string
   compositionModule?: CompositionModule
@@ -27,17 +29,23 @@ export async function sandboxPageLoad({ params, parent, url }) {
   const compositionName = url.searchParams.get('compositionName') as string
   const variantName = url.searchParams.get('variantName') as string
   const darkMode = url.searchParams.get('darkMode') === 'true'
+  const server = !browser
 
   if (compositionName) {
     const compositionModule = (await page.loadCompositions[compositionName].loadModule())
-    return { page, pageKey, compositionModule, compositionName, darkMode } satisfies SandboxPageLoadResult
+    const ssrFalse = compositionModule.config?.ssr === false
+    const canMount = !(server && ssrFalse)
+    return { page, pageKey, compositionModule, compositionName, darkMode, canMount } satisfies SandboxPageLoadResult
   }
 
   if (variantName) {
-    const component = (await page.loadComponent.loadModule()).default
     const variantsModule = (await page.loadVariants.loadModule())
+    const ssrFalse = variantsModule.shared_meta?.ssr === false
+    const canMount = !(server && ssrFalse)
+
+    const component = canMount ? (await page.loadComponent.loadModule()).default : null
     // caution, this page prop name is confusing with SvelteKit's $page store
-    return { page, pageKey, component, variantsModule, variantName, darkMode } satisfies SandboxPageLoadResult
+    return { page, pageKey, component, variantsModule, variantName, darkMode, canMount } satisfies SandboxPageLoadResult
   }
 
   // const editedProps: Record<string, any> = JSON.parse(decode(url.searchParams.get('props')) || null)

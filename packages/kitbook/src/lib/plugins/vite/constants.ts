@@ -21,6 +21,6 @@ export const DEFAULT_KITBOOK_SETTINGS: KitbookSettings = {
 export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
   holdMode: true,
   toggleKeyCombo: 'alt-shift',
-  showToggleButton: 'active',
-  toggleButtonPos: 'top-right',
+  showToggleButton: 'always',
+  openToolsIn: 'document-picture-in-picture',
 }

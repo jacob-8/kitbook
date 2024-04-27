@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { KitbookSettings } from 'kitbook'
+  import EdgeDraggable from './EdgeDraggable.svelte'
   import Targeter from './Targeter.svelte'
   import Tree from './tree/Tree.svelte'
   import ComponentPropsVariants from './focused/ComponentPropsVariants.svelte'
@@ -8,7 +9,7 @@
   import { hoveredComponent, hoveredElement, selectedComponent, selectedElement } from './focused/active'
 
   export let settings: KitbookSettings
-  $: ({ toggleButtonPos, toggleKeyCombo, showToggleButton, holdMode, __internal: { viteBase } } = settings.viewer)
+  $: ({ toggleKeyCombo, showToggleButton, holdMode, __internal: { viteBase } } = settings.viewer)
   $: toggle_combo = toggleKeyCombo?.toLowerCase().split('-')
 
   let targeting = false
@@ -79,6 +80,51 @@
   }
 </script>
 
+<EdgeDraggable let:from let:dragging let:side>
+  <div
+    class="flex items-start"
+    class:items-end={side === 'right' || side === 'bottom'}
+    class:flex-col={from === 'top'}
+    class:flex-col-reverse={from === 'bottom'}
+    class:flex-row-reverse={from === 'right'}>
+    {#if showToggleButton === 'always' || targeting}
+      <div
+        class="border border-gray/50 rounded flex group items-stretch bg-white"
+        class:flex-col={from === 'top'}
+        class:flex-col-reverse={from === 'bottom'}
+        class:flex-row-reverse={from === 'right'}>
+        {#if settings.kitbookRoute}
+          <a href={settings._languageInsertedKitbookRoute} class="p-1 hover:bg-gray-100 flex items-center" title="Open Kitbook" draggable="false">
+            <img src="https://kitbook.vercel.app/icons/favicon.svg" draggable="false" class="w-6 h-6">
+          </a>
+        {/if}
+
+        <button
+          type="button"
+          on:click={toggle}
+          title="Toggle Targeting"
+          class="p-1 hover:bg-gray-100 group-hover:block"
+          class:hidden={settings.kitbookRoute}
+          class:block!={targeting || dragging}>
+          {#if targeting}
+            <span class="i-material-symbols-close align--3px mx-2px" />
+          {:else}
+            <span class="i-mdi-target text-xl align--4px" />
+          {/if}
+        </button>
+      </div>
+    {/if}
+
+    {#if targeting}
+      <Tree
+        {componentsWithChildren}
+        {hoveredComponent}
+        {selectedComponent}
+        {selectedElement} />
+    {/if}
+  </div>
+</EdgeDraggable>
+
 {#if targeting}
   <Targeter
     {componentsWithChildren}
@@ -89,32 +135,6 @@
     {selectedElement}
     on_click={disable}
     {viteBase} />
-
-  <Tree
-    {componentsWithChildren}
-    {hoveredComponent}
-    {selectedComponent}
-    {selectedElement} />
-{/if}
-
-{#if showToggleButton === 'always' || (showToggleButton === 'active' && targeting)}
-  <div
-    style={toggleButtonPos
-      .split('-')
-      .map(p => `${p}: 8px;`)
-      .join('')}
-    class="fixed bg-white border-gray-700 border rounded overflow-hidden z-9999999">
-    <button type="button" on:click={toggle} title="Toggle Targeting" class="p-2 hover:bg-gray-100">
-      {#if targeting}
-        <span class="i-material-symbols-close align--3px mx-2px" />
-      {:else}
-        <span class="i-mdi-target text-xl align--4px" />
-      {/if}
-    </button>
-    {#if settings.kitbookRoute}
-      <a href={settings._languageInsertedKitbookRoute} target="_blank" title="Go to Kitbook" class="-ml-2 p-2 hover:bg-gray-100"><span class="i-tabler-external-link align--3px text-xl" /></a>
-    {/if}
-  </div>
 {/if}
 
 {#if $selectedComponent}
@@ -136,5 +156,10 @@
 
   :global(body.kitbook-viewer-enabled *) {
     cursor: var(--gray-svelte-inspector-icon), crosshair !important;
+  }
+
+  :global(#kitbook-viewer-host) {
+    position: relative;
+    z-index: 99999999;
   }
 </style>

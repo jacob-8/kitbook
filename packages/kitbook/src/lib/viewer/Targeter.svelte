@@ -109,8 +109,14 @@
     style:top="{document.documentElement.clientHeight < mouseY + 50 ? mouseY - 10 : mouseY + 10}px"
     bind:offsetWidth={labelWidth}
     class="fixed bg-#000000cc text-white py-2px px-1 rounded z-10000000 pointer-events-none">
-    <div>
-      {$hoveredComponent.componentDetail.tagName} <span class="text-xs text-gray">{file_location?.file.split('src/').pop()}</span>
+    <div class="flex flex-col">
+      <div>
+        {$hoveredComponent.componentDetail.tagName}
+        <span class="text-xs text-gray">{file_location?.file.split('src/').pop()}</span>
+      </div>
+      <div class="text-xs text-gray">
+        left+click opens editor, right+click opens tools
+      </div>
     </div>
   </div>
 {/if}

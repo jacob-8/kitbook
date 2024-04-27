@@ -1,0 +1,1 @@
+Does not show Kitbook icon if using Kitbook by itself to build a library because you are already in the Kitbook.

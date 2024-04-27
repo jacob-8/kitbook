@@ -4,16 +4,13 @@
   import Variant from './Variant.svelte'
   import Composition from './Composition.svelte'
   import type { SandboxPageLoadResult } from './sandboxPageLoad'
-  import { browser } from '$app/environment'
 
   export let data: SandboxPageLoadResult & LayoutLoadResult
-  $: ({ compositionModule, compositionName, component, variantsModule, variantName, pageKey, pagesStore, darkMode } = data)
-  $: clientOnlyComponentOnServer = !browser
-    && (compositionModule?.config?.ssr === false || variantsModule?.shared_meta?.ssr === false)
+  $: ({ compositionModule, compositionName, component, variantsModule, variantName, pageKey, pagesStore, darkMode, canMount } = data)
 </script>
 
 <div class="absolute inset-0 overflow-auto" class:dark={darkMode} class:bg-black={darkMode}>
-  {#if !clientOnlyComponentOnServer}
+  {#if canMount}
     {#key pageKey}
       <ErrorBoundary onError={console.error}>
         {#if variantName}

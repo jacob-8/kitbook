@@ -1,4 +1,4 @@
-import { type Writable, derived } from 'svelte/store'
+import { type Writable, derived, readable } from 'svelte/store'
 import { connectParentsAndChildren } from './connectParentsAndChildren'
 
 declare global {
@@ -7,8 +7,8 @@ declare global {
     kitbook_ElementDetail_to_ComponentFragment: Writable<Map<SvelteElementDetail, ComponentFragment>>
   }
 }
-const components = window.kitbook_ComponentFragment_to_ComponentWithChildren
-const elements = window.kitbook_ElementDetail_to_ComponentFragment
+const components = window.kitbook_ComponentFragment_to_ComponentWithChildren || readable(new Map())
+const elements = window.kitbook_ElementDetail_to_ComponentFragment || readable(new Map())
 
 export const componentsWithChildren = derived([components, elements], ([$components, $elements], set) => {
   const componentsWithElementsAdded = connectParentsAndChildren($components, $elements)

@@ -30,11 +30,20 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
     },
 
     configureServer(server) {
-      server.ws.on('kitbook:ensure-file-exists', ({ filepath, template }, client) => {
+      server.ws.on('from-kitbook:tools:focus-on', (data) => {
+        console.log({ data })
+        server.ws.send('to-kitbook:tools:focus-on', data)
+      })
+      server.ws.on('from-kitbook:tools:change-state', (data) => {
+        console.log({ data })
+        server.ws.send('to-kitbook:tools:change-state', data)
+      })
+
+      server.ws.on('from-kitbook:ensure-file-exists', ({ filepath, template }, client) => {
         writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
       })
 
-      server.ws.on('kitbook:open-variants', ({ filepath, props }, client) => {
+      server.ws.on('from-kitbook:open-variants', ({ filepath, props }, client) => {
         // TODO: parse Svelte file to get props if props is null (make it an empty object if from Viewer and component simply has no props)
         const props_without_newlines_tabs = JSON.stringify(props || {}, null, 2)
           .replace(/\\n/g, '').replace(/\\t/g, '')
@@ -69,7 +78,7 @@ function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase:
       console.info(`added ${filepath}`)
     }
 
-    client.send('kitbook:open-file', { filepath, viteBase })
+    client.send('to-kitbook:open-file', { filepath, viteBase })
   })
 }
 

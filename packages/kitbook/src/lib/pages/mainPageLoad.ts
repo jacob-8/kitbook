@@ -21,10 +21,9 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
       loadedModules.markdown = await page.loadMarkdown.loadModule()
       loadedModules.markdownRaw = await page.loadMarkdown.loadRaw()
     }
-    if (page.loadComponent) {
-      loadedModules.component = (await page.loadComponent.loadModule())?.default
+    if (page.loadComponent)
       loadedModules.componentRaw = await page.loadComponent.loadRaw()
-    }
+
     if (page.loadVariants) {
       loadedModules.variantsModule = (await page.loadVariants.loadModule())
       loadedModules.variantsRaw = await page.loadVariants.loadRaw()
