@@ -1,7 +1,7 @@
 import type { GroupedPage, Variant, VariantMeta } from 'kitbook'
 import type Component from './+page.svelte'
 
-// import { variants as hiVariants } from './mockComponents/Hi.variants'
+import { All_Languages, Single_Language } from './mockComponents/Hi.variants'
 
 export const shared_meta: VariantMeta = {}
 
@@ -35,7 +35,7 @@ export const i18n: Variant<Component> = {
       ],
     },
     loadedModules: {
-      // variantsModule: { variants: hiVariants },
+      variantsModule: { All_Languages, Single_Language },
     },
     pages: {
       '/docs/1-get-started': page,

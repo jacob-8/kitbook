@@ -43,7 +43,7 @@ export async function sandboxPageLoad({ params, parent, url }) {
     const ssrFalse = variantsModule.shared_meta?.ssr === false
     const canMount = !(server && ssrFalse)
 
-    const component = canMount ? (await page.loadComponent.loadModule()).default : null
+    const component = canMount ? (await page.loadComponent.loadModule())?.default : null
     // caution, this page prop name is confusing with SvelteKit's $page store
     return { page, pageKey, component, variantsModule, variantName, darkMode, canMount } satisfies SandboxPageLoadResult
   }
