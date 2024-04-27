@@ -148,8 +148,8 @@
 
   .target-icon {
     background-image: var(--gray-svelte-inspector-icon);
-		background-position: center;
-		background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   :global(body.kitbook-viewer-enabled *) {
