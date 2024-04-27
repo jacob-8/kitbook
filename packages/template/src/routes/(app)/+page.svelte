@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { dev } from '$app/environment'
+  import { browser, dev } from '$app/environment'
   import Image from '$lib/Image.svelte'
 
   export let data
@@ -21,7 +21,12 @@
     <a href="/kitbook" style="color: blue; text-decoration: underline;">Open Kitbook</a> to view the components and their props, variants, and more.
   </div>
   {#if dev}
-    <div style="margin-top: 10px;">As well you could press Alt+Shift to put Kitbook Viewer into targeting mode, then right-click on a component to view it's props, variants, or jump directly to it in Kitbook. Try change this image's seed prop and watching it update right here, or try changing the page's data.name prop.</div>
+    <div style="margin: 10px 0;">As well you could press Alt+Shift to put Kitbook Viewer into targeting mode, then right-click on a component to view it's props, variants, or jump directly to it in Kitbook. Try change this image's seed prop and watching it update right here, or try changing the page's data.name prop.</div>
+
+    {#if browser && window.self !== window.top}
+      <div style="color: red;">
+        If you're in a Stackblitz iframe, pop the preview out into its own tab so the inter-window communication between the main page the Tools popup will work  </div>
+    {/if}
   {/if}
 </div>
 
