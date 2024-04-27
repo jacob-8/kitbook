@@ -1,6 +1,6 @@
 Originally thought I would use window posted messages to talk between the app or main Kitbook window and the tools window, like this: 
 
-```ts title="tools"
+```ts title="main page"
 window.addEventListener('message', event => console.info(event.data))
 const toolsWindow = window.open('/tools', '_blank', 'width=600,height=400')
 toolsWindow.postMessage('Hello from the main window!', '*')

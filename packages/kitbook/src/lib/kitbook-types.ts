@@ -256,7 +256,7 @@ export interface ViewerOptions {
    * Tells Kitbook how to open the tools window. `document-picture-in-picture` will fallback to `popup` if it's not supported by your browser
    * @default 'document-picture-in-picture'
    */
-  openToolsIn?: 'popup' | 'document-picture-in-picture'
+  openToolsIn?: 'document-picture-in-picture' | 'popup'
 
   /**
    * internal options that are automatically set, not to be set or used by users

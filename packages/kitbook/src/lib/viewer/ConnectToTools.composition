@@ -1,0 +1,68 @@
+<script context="module" lang="ts">
+  import { type KitbookSettings, defineComposition } from 'kitbook'
+  import { Button } from 'svelte-pieces'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  const svelteElement = {
+    __svelte_meta: {
+      loc: {
+        file: 'src/lib/Foo.svelte',
+        char: 1,
+        line: 1,
+        column: 1,
+      },
+    },
+  } as SvelteElementDetail
+
+  // @ts-expect-error - not mocking rest of component
+  const component = {
+    componentDetail: {
+      tagName: 'Foo',
+      options: {
+        props: {
+          baz: 'bar',
+        },
+      },
+      component: {
+        $capture_state: () => ({
+          baz: 'changed',
+          local: 'this is not a prop',
+        }),
+      },
+      id: 'create_fragment',
+    },
+    childComponents: null,
+    childElements: new Set([svelteElement]),
+  } as ComponentWithChildren
+
+  let selectedComponent: ComponentWithChildren
+  let openToolsIn: KitbookSettings['viewer']['openToolsIn'] = 'popup'
+</script>
+
+<div class="mb-2">Tools will open in {openToolsIn}</div>
+
+<Button onclick={() => (selectedComponent = component)}>Select Component</Button>
+
+<Button
+  onclick={() =>
+    openToolsIn === 'popup'
+      ? (openToolsIn = 'document-picture-in-picture')
+      : (openToolsIn = 'popup')}>Switch target</Button>
+
+{#if openToolsIn === 'document-picture-in-picture'}
+  {#if window.self !== window.top}
+    <div class="text-red p-3">
+      I'm in an iframe so the API won't work. Click the <span
+        class="i-tabler-external-link align--3px" /> in the upper right corner of this composition to try me.
+    </div>
+  {/if}
+{/if}
+
+{#await import('./ConnectToTools.svelte') then { default: ConnectToTools }}
+  <ConnectToTools {selectedComponent} width={600} height={400} toolsRoute="/tools" {openToolsIn}></ConnectToTools>
+{/await}

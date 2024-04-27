@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { VariantsModule, Viewport } from 'kitbook'
   import DisplayVariants from './DisplayVariants.svelte'
+  import { convertDeprecatedVariantsToCurrentApi } from '$lib/layout/parseModules/convertDeprecatedToCurrentApi'
 
   export let _languageInsertedKitbookRoute: string
   export let viewports: Viewport[]
@@ -22,7 +23,7 @@
     const variants_files = import.meta.glob(['/src/**/*.variants.ts'])
     const variants_loader = variants_files[filename] as () => Promise<VariantsModule>
     if (variants_loader)
-      variantsModule = await variants_loader()
+      variantsModule = convertDeprecatedVariantsToCurrentApi(await variants_loader())
 
     loading = false
   }

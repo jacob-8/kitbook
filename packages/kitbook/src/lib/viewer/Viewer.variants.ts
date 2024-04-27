@@ -33,4 +33,7 @@ export const In_An_App: Variant<Component> = {
   settings: {
     ...shared_settings,
   },
+  _meta: {
+    description: 'tools route will be broken because we are pretending to have an app apart from Kitbook which we do not have.',
+  },
 }

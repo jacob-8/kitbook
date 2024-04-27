@@ -11,12 +11,19 @@ export function openVariants(filepath: string, componentDetail?: SvelteComponent
     return alert('Dev server must be running with HMR enabled to use this feature.')
 
   if (!componentDetail?.options)
-    return import.meta.hot.send('from-kitbook:open-variants', { filepath, props: {} })
+    return sendOpenVariantsRequest(filepath, {})
 
   const { props } = componentDetail.options
   const state = componentDetail.component.$capture_state()
   const serializedState = serializeIntersection(props, state)
-  import.meta.hot.send('from-kitbook:open-variants', { filepath, props: serializedState })
+  sendOpenVariantsRequest(filepath, serializedState)
+}
+
+export function sendOpenVariantsRequest(filepath: string, serializedState: Record<string, any>) {
+  if (!import.meta.hot)
+    return alert('Dev server must be running with HMR enabled to use this feature.')
+
+  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: serializedState || {} })
 }
 
 export function openMarkdown(filepath: string) {
@@ -74,7 +81,7 @@ function ensureFileExists(filepath: string, template: string) {
     .replace('+page', '_page')
     .replace('+layout', '_layout')
 
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath: pageProofPath, template })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: pageProofPath, template })
 }
 
 export function createNewPage(filepath: string) {
@@ -83,14 +90,14 @@ export function createNewPage(filepath: string) {
 </script>
 
 Hi {data.name}`
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath, template })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
 
   const pageTemplate = `export const load = (() => {
   return { name: 'Bill' }
 })`
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath: filepath.replace('+page.svelte', '+page.ts'), template: pageTemplate })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: filepath.replace('+page.svelte', '+page.ts'), template: pageTemplate })
 
-  import.meta.hot.send('from-kitbook:open-variants', { filepath, props: { data: { name: 'John' } } })
+  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: { data: { name: 'John' } } })
 }
 
 export function createNewServerEndpoint(filepath: string) {
@@ -124,7 +131,7 @@ export const POST: RequestHandler = async ({ locals: { getSession }, request }) 
   }
 }
 `
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath, template })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
   const testTemplate = `import { POST, type OperationRequestBody, type OperationResponseBody } from './+server'
 import { request } from '$lib/mocks/sveltekit-endpoint-helper'
 import { ResponseCodes } from '$lib/response-codes'
@@ -159,7 +166,7 @@ describe(POST, () => {
   })
 })
 `
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
 }
 
 export function createNewComponent(filepath: string) {
@@ -168,12 +175,12 @@ export function createNewComponent(filepath: string) {
 </script>
 
 Hi {name}`
-  import.meta.hot.send('from-kitbook:ensure-file-exists', { filepath, template })
-  import.meta.hot.send('from-kitbook:open-variants', { filepath, props: { name: 'John' } })
+  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
+  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: { name: 'John' } })
 }
 
 if (import.meta.hot) {
-  import.meta.hot.on('to-kitbook:open-file', ({ filepath, viteBase }) => {
+  import.meta.hot.on('kitbook:to-client:open-file', ({ filepath, viteBase }) => {
     const file_loc = `${filepath}:1:1`
     fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
   })

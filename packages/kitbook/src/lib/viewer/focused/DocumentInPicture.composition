@@ -10,12 +10,11 @@
 <script lang="ts">
   import { Button } from 'svelte-pieces'
   import DocumentInPicture from './DocumentInPicture.svelte'
-  import { browser } from '$app/environment'
 
   let number = 21
 </script>
 
-{#if browser && window.self !== window.top}
+{#if window.self !== window.top}
   <div class="text-red p-3">
     I'm in an iframe so the API won't work. Click the <span class="i-tabler-external-link align--3px" /> in the upper right corner of this composition to try me.
   </div>

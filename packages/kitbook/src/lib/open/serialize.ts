@@ -15,7 +15,7 @@ export function difference(oldState: Record<string, any>, newState: Record<strin
     return {}
   const keys = [...new Set([...Object.keys(oldState), ...Object.keys(newState)])]
   return keys.reduce((acc, key) => {
-    if (oldState[key] !== newState[key])
+    if (typeof newState[key] !== 'function' && oldState[key] !== newState[key])
       acc[key] = newState[key] ?? undefined // use ?? to keep from converting empty strings or 0 to null
     return acc
   }, {} as Record<string, any>)

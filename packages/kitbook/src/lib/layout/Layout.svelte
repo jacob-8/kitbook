@@ -36,7 +36,7 @@
   let urlForEditedFile: string
 
   if (import.meta.hot) {
-    import.meta.hot.on('to-kitbook:route-to-edited-file', ({ filepath }) => {
+    import.meta.hot.on('kitbook:to-client:route-to-edited-file', ({ filepath }) => {
       const url = kitbookPath + urlFromPath(filepath)
       const hasPage = !!Object.values(pages).find(page => page.url === url)
       if (hasPage && location.pathname !== url)
@@ -44,7 +44,7 @@
       else
         urlForEditedFile = null
     })
-    import.meta.hot.on('to-kitbook:open-file', () => {
+    import.meta.hot.on('kitbook:to-client:open-file', () => {
       urlForEditedFile = null
     })
   }
