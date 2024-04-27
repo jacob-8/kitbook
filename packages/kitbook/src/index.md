@@ -11,7 +11,7 @@ Documentation, Prototyping, Inspection & Testing Workbench Tool for Svelte built
 - All SvelteKit-only imports are automatically available because it runs inside your regular SvelteKit app. No need for any special mocks or compatibility hacks. 
 - Build components using the same context as your main app, like i18n.
 - [Foam](https://foambubble.github.io/foam/) based automatic updating [[6-easy-wikilinks|wiki-links]] for easy linking between pages within your Kitbook that will never get out of date.
-- Conveniently view component state from your app and quickly create component variants the [[2-viewer]] tool.
+- Conveniently view and edit component state from your app and quickly create component variants the [[2-viewer]] tool.
 - Great [[8-i18n]] support
 - Unlimited [[7-visual-regression-testing]] with Playwright
 

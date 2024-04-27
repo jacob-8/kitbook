@@ -25,7 +25,7 @@
 
     {#if browser && window.self !== window.top}
       <div style="color: red;">
-        If you're in a Stackblitz iframe, pop the preview out into its own tab so the inter-window communication between the main page the Tools popup will work  </div>
+        If you're in a Stackblitz iframe, pop the preview out into its own tab so the inter-window communication between the main page and the Tools popup will work  </div>
     {/if}
   {/if}
 </div>

@@ -1,5 +1,7 @@
 # Viewer
 
+![edit-props-in-viewer](https://github.com/jacob-8/kitbook/assets/7559478/5edf0048-6fcb-49a0-afc3-83dbad64a624)
+
 In dev mode you can press `alt+shift` to open the Kitbook Viewer. It works similar to the Svelte Inspector in that you can left-click on a component to jump to editing it in VS Code. But if you right-click you can:
 
 - edit current component props
