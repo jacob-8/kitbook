@@ -8,7 +8,7 @@ const PAGE_MARKDOWN = '_page.md'
 const LAYOUT_MARKDOWN = '_layout.md'
 const VARIANTS = 'variants.js'
 
-const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-beta.17'
+const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-beta.31'
 const FILE_WITH_NOTICE = '[...file]/+page.svelte'
 
 export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) {
