@@ -98,7 +98,7 @@
           Error: {data.error}
         </div>
       {:else}
-        {#if data.loadedModules.component}
+        {#if data.loadedModules.componentRaw}
           <div class="flex items-center font-semibold text-2xl mb-2">
             {#if !dev}
               {title}

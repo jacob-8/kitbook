@@ -2,8 +2,8 @@
 
 In dev mode you can press `alt+shift` to open the Kitbook Viewer. It works similar to the Svelte Inspector in that you can left-click on a component to jump to editing it in VS Code. But if you right-click you can:
 
-- view current component props
-- view component variants and compositions
+- edit current component props
+- view component variants (and compositions soon)
 - easily create a new variants or documentation for a component if you don't have one yet
 - and much more planned.
 

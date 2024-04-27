@@ -19,12 +19,12 @@
   })
 </script>
 
-<div class="fixed z-50 inset-x-0 bottom-0 flex flex-col items-center p-2">
+<div class="fixed z-50 inset-x-0 bottom-0 flex flex-col items-center p-2 pointer-events-none">
   <div
+    class="bg-black bg-opacity-75 text-white px-3 py-2 bottom-3 rounded max-w-sm flex items-center pointer-events-auto"
     class:text-red-300={type === 'error'}
     class:cursor-pointer={on_click}
     on:click={() => on_click?.()}
-    class="bg-black bg-opacity-75 text-white px-3 py-2 bottom-3 rounded max-w-sm flex items-center"
     in:fly={{ delay: 0, duration: 300, x: 0, y: 50, opacity: 0.1, easing: backOut }}
     out:fade={{ duration: 500 }}>
     {#if dismissable && on_click}

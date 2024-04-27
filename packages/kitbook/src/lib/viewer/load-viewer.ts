@@ -1,8 +1,8 @@
 import type { KitbookSettings } from 'kitbook'
 
 export async function loadViewer(settings: KitbookSettings) {
-  // if (inKitbookIframe())
-  //   return
+  if (inKitbookIframe())
+    return
 
   const Viewer = (await import('./Viewer.svelte')).default
   // eslint-disable-next-line no-new
@@ -21,13 +21,13 @@ function create_viewer_host() {
   return el
 }
 
-// function inKitbookIframe() {
-//   try {
-//     const isIframe = window.self !== window.top
-//     if (isIframe && window.self.document.title === 'Kitbook Sandbox')
-//       return true
-//   }
-//   catch (e) {
-//     return true
-//   }
-// }
+function inKitbookIframe() {
+  try {
+    const isIframe = window.self !== window.top
+    if (isIframe && window.self.document.title === 'Kitbook Sandbox')
+      return true
+  }
+  catch (e) {
+    return true
+  }
+}

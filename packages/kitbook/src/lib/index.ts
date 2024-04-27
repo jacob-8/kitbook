@@ -14,6 +14,7 @@ export { default as MainPage } from './pages/MainPage.svelte'
 export { mainPageLoad } from './pages/mainPageLoad'
 export { default as SandboxPage } from './pages/SandboxPage.svelte'
 export { sandboxPageLoad } from './pages/sandboxPageLoad'
+export { default as ToolsPage } from './pages/tools/ToolsPage.svelte'
 
 export { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from './lz/lz-string'
 

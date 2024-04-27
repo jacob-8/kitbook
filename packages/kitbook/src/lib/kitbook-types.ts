@@ -248,15 +248,15 @@ export interface ViewerOptions {
 
   /**
    * when to show the toggle button
-   * @default 'active'
+   * @default 'always'
    */
-  showToggleButton?: 'always' | 'active' | 'never'
+  showToggleButton?: 'always' | 'active'
 
   /**
-   * where to display the toggle button
-   * @default top-right
+   * Tells Kitbook how to open the tools window. `document-picture-in-picture` will fallback to `popup` if it's not supported by your browser
+   * @default 'document-picture-in-picture'
    */
-  toggleButtonPos?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  openToolsIn?: 'document-picture-in-picture' | 'popup'
 
   /**
    * internal options that are automatically set, not to be set or used by users

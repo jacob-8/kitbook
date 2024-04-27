@@ -1,26 +1,19 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { difference, intersection, removeQuotesFromSerializedFunctions, serializeByTurningFunctionsIntoLogs } from '../../open/serialize'
+  import { difference, removeQuotesFromSerializedFunctions, serializeByTurningFunctionsIntoLogs } from '../../open/serialize'
   import CodeMirror from './editor/CodeMirror.svelte'
+  import type { ToolsChangeState } from '$lib/server-events'
 
-  export let selectedComponent: ComponentWithChildren
-  export let resizeTo: (width: number, height: number) => void
+  export let state: Record<string, any>
+  export let changeState: (data: ToolsChangeState) => void
+  export let filename: string
 
-  $: currentPropsState = (() => {
-    if (!selectedComponent)
-      return null
-    const { props } = selectedComponent.componentDetail.options
-    const state = selectedComponent.componentDetail.component.$capture_state()
-    const stateThatIsProps = intersection(props, state)
-    const serializedStateWithLogs = serializeByTurningFunctionsIntoLogs(stateThatIsProps)
+  // export let resizeTo: (width: number, height: number) => void
+
+  $: serializedState = (() => {
+    const serializedStateWithLogs = serializeByTurningFunctionsIntoLogs(state)
     return removeQuotesFromSerializedFunctions(JSON.stringify(serializedStateWithLogs, null, 2))
   })()
-
-  // function setState(key: string, value: any) {
-  //   const state = selectedComponent.componentDetail.component.$capture_state()
-  //   console.log({ state })
-  //   selectedComponent.componentDetail.component.$set({ [key]: value })
-  // }
 
   const PropsObjectPrefix = 'const props: Props = '
 
@@ -38,13 +31,12 @@
       // TODO: remember my own console.log changes and don't update on that
       const jsString = value.replace(PropsObjectPrefix, '')
       // eslint-disable-next-line no-eval
-      const updatedProps = eval(`(${jsString})`)
-      const { props } = selectedComponent.componentDetail.options
-      const state = selectedComponent.componentDetail.component.$capture_state()
-      const currentProps = intersection(props, state)
-      const changedProps = difference(currentProps, updatedProps)
-      // console.log({ jsString, updatedProps, props, state, currentProps, changedProps })
-      selectedComponent.componentDetail.component.$set(changedProps)
+      const updatedState = eval(`(${jsString})`)
+      const changedProps = difference(state, updatedState)
+      changeState({
+        filename,
+        state: changedProps,
+      })
     }
     catch (error) {
       console.error('Invalid JSON')
@@ -57,7 +49,7 @@
 </script>
 
 <CodeMirror
-  value={PropsObjectPrefix + currentPropsState}
+  value={PropsObjectPrefix + serializedState}
   tsCodeForTypes="{`/** Kitbook TODO: parse component types and enforce here. Currently any key is allowed. */
 type Props = {
   [key: string]: any

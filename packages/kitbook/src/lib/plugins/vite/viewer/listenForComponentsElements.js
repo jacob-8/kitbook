@@ -4,8 +4,8 @@ import { writable } from 'svelte/store'
 listen()
 
 function listen() {
-  // if (inKitbookIframe())
-  //   return
+  if (inKitbookIframe())
+    return
 
   const components = createComponentStore()
   const elements = createElementsStore()
@@ -199,13 +199,13 @@ function createElementsStore() {
   }
 }
 
-// function inKitbookIframe() {
-//   try {
-//     const isIframe = window.self !== window.top
-//     if (isIframe && window.self.document.title === 'Kitbook Sandbox')
-//       return true
-//   }
-//   catch (e) {
-//     return true
-//   }
-// }
+function inKitbookIframe() {
+  try {
+    const isIframe = window.self !== window.top
+    if (isIframe && window.self.document.title === 'Kitbook Sandbox')
+      return true
+  }
+  catch (e) {
+    return true
+  }
+}

@@ -21,7 +21,7 @@
     <a href="/kitbook" style="color: blue; text-decoration: underline;">Open Kitbook</a> to view the components and their props, variants, and more.
   </div>
   {#if dev}
-    <div style="margin-top: 10px;">As well you could hit Alt+Shift to open the Kitbook Viewer, and click on a component to view it's props, variants, or jump directly to it in Kitbook.</div>
+    <div style="margin-top: 10px;">As well you could press Alt+Shift to put Kitbook Viewer into targeting mode, then right-click on a component to view it's props, variants, or jump directly to it in Kitbook. Try change this image's seed prop and watching it update right here, or try changing the page's data.name prop.</div>
   {/if}
 </div>
 

@@ -94,6 +94,7 @@
 <style>
   :global(.cm-editor) {
     height: 100%;
+    border-radius: 0 !important;
   }
 
   @media only screen {

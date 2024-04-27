@@ -1,4 +1,4 @@
-Using the bleeding edge [Document Picture-in-Picture API](https://developer.chrome.com/docs/web-platform/document-picture-in-picture#:~:text=The%20Document%20Picture%2Din%2DPicture,Picture%2Din%2DPicture%20window.) that only works in recent Chromium browsers, we can send a portion of page into a picture window using this component.
+Using the bleeding edge [Document Picture-in-Picture API](https://developer.chrome.com/docs/web-platform/document-picture-in-picture) that only works in recent Chromium browsers, we can send a portion of page into a picture window using this component.
 
 [[DocumentInPicture.composition]]
 

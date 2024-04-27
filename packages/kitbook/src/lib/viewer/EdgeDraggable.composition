@@ -1,0 +1,15 @@
+<script context="module" lang="ts">
+  import { defineComposition } from 'kitbook'
+
+  export const config = defineComposition({
+    // viewports: [{ height: 200 }],
+  })
+</script>
+
+<script lang="ts">
+  import EdgeDraggable from './EdgeDraggable.svelte'
+</script>
+
+<EdgeDraggable>
+  <div class="bg-red w-8 h-8"></div>
+</EdgeDraggable>
