@@ -27,6 +27,22 @@ And add this VSCode setting:
 }
 ```
 
+And if you are using eslint:
+
+```js twoslash title=".eslintrc.cjs" {6}
+module.exports = {
+  overrides: [
+    {
+      files: [
+        '*.svelte',
+        '*.composition'
+      ]
+      // ...
+    }
+  ]
+}
+```
+
 You can also create a Composition beside a corresponding markdown documentation page as you see in [[complex-examples]] (look at the source code) - just click the `Add Composition` button when viewing your markdown page.
 
 Now that you have a composition in place, learn how to [[5-write-documentation|document your components]], including sprinkling in compositions where helpful.
