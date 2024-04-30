@@ -3,19 +3,19 @@
     "titleBar.activeBackground": "#ff400089",
     "titleBar.inactiveBackground": "#ff3e0069",
     "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
   },
 
   // Kitbook
   "files.associations": {
-    "*.composition": "svelte"
+    "*.composition": "svelte",
   },
   "foam.completion.label": "title",
   "foam.edit.linkReferenceDefinitions": "withExtensions",
   "foam.files.ignore": [
     "**/node_modules/**/*",
     "**/.svelte-kit/**/*",
-    "**/dist/**/*"
+    "**/dist/**/*",
   ],
   "foam.files.notesExtensions": "composition",
 
@@ -25,12 +25,12 @@
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.organizeImports": "never",
   },
   // Silence stylistic rules in IDE, but still auto fix them
   "eslint.rules.customizations": [
-    { "rule": "@stylistic/*", "severity": "off" },
-    { "rule": "style*", "severity": "off" },
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "format/*", "severity": "off" },
     { "rule": "*-indent", "severity": "off" },
     { "rule": "*-spacing", "severity": "off" },
     { "rule": "*-spaces", "severity": "off" },
@@ -38,7 +38,9 @@
     { "rule": "*-dangle", "severity": "off" },
     { "rule": "*-newline", "severity": "off" },
     { "rule": "*quotes", "severity": "off" },
-    { "rule": "*semi", "severity": "off" }
+    { "rule": "*semi", "severity": "off" },
+    { "rule": "import/order", "severity": "off" },
+    { "rule": "sort-imports", "severity": "off" },
   ],
   "eslint.validate": [
     "javascript",
@@ -48,9 +50,8 @@
     "svelte",
     "json",
     "jsonc",
-    "yaml"
+    "yaml",
   ],
-  "eslint.experimental.useFlatConfig": true,
 
   "unocss.root": "packages/kitbook",
   "svelte.plugin.svelte.compilerWarnings": {
@@ -77,6 +78,6 @@
     "a11y-structure": "ignore",
     "a11y-mouse-events-have-key-events": "ignore",
     "a11y-missing-content": "ignore",
-    "a11y-no-static-element-interactions": "ignore"
-  }
+    "a11y-no-static-element-interactions": "ignore",
+  },
 }
