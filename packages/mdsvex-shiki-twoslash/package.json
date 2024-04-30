@@ -53,11 +53,11 @@
   },
   "devDependencies": {
     "@typescript/twoslash": "^3.2.1",
-    "@vitest/ui": "^1.5.0",
+    "@vitest/ui": "^1.5.2",
     "prettier": "^2.8.8",
     "svelte": "^4.2.15",
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0",
-    "vitest": "^1.5.0"
+    "vitest": "^1.5.2"
   }
 }
