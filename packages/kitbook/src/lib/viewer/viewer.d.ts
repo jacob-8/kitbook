@@ -9,9 +9,9 @@ interface SvelteDevInternal {
 interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponent<Props, Events, Slots> {
   $$: {
     fragment: {
-      m(target: Node, anchor: Node): void // mount
-      p(ctx: any, dirty: boolean): void // update
-      d(detaching: boolean): void // destroy
+      m: (target: Node, anchor: Node) => void // mount
+      p: (ctx: any, dirty: boolean) => void // update
+      d: (detaching: boolean) => void // destroy
 
       // we only use the functions above but the ones below also exist in certain contexts
       // c(): void // create
@@ -21,7 +21,7 @@ interface MySvelteComponentTyped<Props, Events, Slots> extends SvelteComponent<P
       // l(nodes: any[]): void // claim(nodes)
     }
   }
-  $capture_state(): Record<string, any>
+  $capture_state: () => Record<string, any>
 }
 
 declare global {
@@ -53,21 +53,21 @@ declare global {
     id: string
     source: string
     block: ComponentFragment
-    ctx: Array<any>
+    ctx: any[]
     type:
-    | 'anchor'
-    | 'block'
-    | 'component' // components are registered as components and as blocks
-    | 'each'
-    | 'element'
-    | 'else'
-    | 'if'
-    | 'key'
-    | 'slot'
-    | 'text'
-    | 'pending' // await
-    | 'then'
-    | 'catch'
+      | 'anchor'
+      | 'block'
+      | 'component' // components are registered as components and as blocks
+      | 'each'
+      | 'element'
+      | 'else'
+      | 'if'
+      | 'key'
+      | 'slot'
+      | 'text'
+      | 'pending' // await
+      | 'then'
+      | 'catch'
   }
 
   type SvelteElementDetail = Node & HTMLElement & {

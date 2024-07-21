@@ -26,8 +26,7 @@ function inKitbookIframe() {
     const isIframe = window.self !== window.top
     if (isIframe && window.self.document.title === 'Kitbook Sandbox')
       return true
-  }
-  catch (e) {
+  } catch (e) {
     return true
   }
 }
