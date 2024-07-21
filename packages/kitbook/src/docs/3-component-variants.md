@@ -60,7 +60,7 @@ import type Component from './Header.svelte'
 
 const shared = {
   githubURL: 'https://github.com/jacob-8/kitbook/',
-} satisfies Partial<ComponentVariant>
+} satisfies Partial<Variant<Component>>
 
 export const Home_Page: Variant<Component> = {
   ...shared,
