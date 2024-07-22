@@ -1,7 +1,7 @@
 import type { KitbookSettings } from 'kitbook'
 
 export async function loadViewer(settings: KitbookSettings) {
-  if (inKitbookIframe())
+  if (await inKitbookIframe(settings._languageInsertedKitbookRoute))
     return
 
   const Viewer = (await import('./Viewer.svelte')).default
@@ -21,11 +21,14 @@ function create_viewer_host() {
   return el
 }
 
-function inKitbookIframe() {
+async function inKitbookIframe(kitbook_route: string) {
   try {
     const isIframe = window.self !== window.top
-    if (isIframe && window.self.document.title === 'Kitbook Sandbox')
-      return true
+    if (isIframe) {
+      await new Promise(resolve => setTimeout(resolve, 2000)) // wait for titles to be set as sometimes the Sandbox title is not set yet.
+      if (window.self.document.title === 'Kitbook Sandbox')
+        return true
+    }
   } catch (e) {
     return true
   }
