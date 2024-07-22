@@ -22,8 +22,7 @@
       toggle()
       if (holdMode && targeting)
         hold_start_ts = Date.now()
-    }
-    else if (targeting && (is_holding() || e.key === 'Escape')) {
+    } else if (targeting && (is_holding() || e.key === 'Escape')) {
       targeting = false
     }
   }
@@ -77,6 +76,13 @@
     if (document.visibilityState === 'hidden')
       disable()
   }
+
+  let page_in_kitbook_path = ''
+  $: if ($componentsWithChildren) {
+    const [, PageComponent] = Array.from($componentsWithChildren).find(([, {componentDetail: {tagName}}]) => tagName === 'Page') || [];
+    if (PageComponent)
+      page_in_kitbook_path = PageComponent.localFilenameUsedIn?.split('src')?.[1]?.replace('.svelte','')
+  }
 </script>
 
 <EdgeDraggable let:from let:dragging let:side>
@@ -89,28 +95,23 @@
     {#if showToggleButton === 'always' || targeting}
       <div
         class="border border-gray/50 rounded flex group items-stretch bg-white"
-        class:flex-col={from === 'top'}
-        class:flex-col-reverse={from === 'bottom'}
-        class:flex-row-reverse={from === 'right'}>
-        {#if _languageInsertedKitbookRoute}
-          <a href={_languageInsertedKitbookRoute} class="p-1 hover:bg-gray-100 flex items-center" title="Open Kitbook" draggable="false">
-            <img src="https://kitbook.vercel.app/icons/favicon.svg" draggable="false" class="w-6 h-6">
-          </a>
-        {/if}
-
+        class:flex-col={from === 'top' || from === 'bottom'}>
         <button
           type="button"
           on:click={toggle}
           title="Toggle Targeting"
-          class="p-1 hover:bg-gray-100 rounded group-hover:flex items-center justify-center"
-          class:hidden={_languageInsertedKitbookRoute}
-          class:flex!={targeting || dragging}>
+          class="p-1 hover:bg-gray-100 rounded group-hover:flex items-center justify-center">
           {#if targeting}
             <span class="i-material-symbols-close align--3px h-6 w-6 bg-gray-500/80" />
           {:else}
             <span class="target-icon block h-6 w-6" />
           {/if}
         </button>
+        {#if _languageInsertedKitbookRoute}
+          <a href="{_languageInsertedKitbookRoute}{page_in_kitbook_path || ''}" class="p-1 hover:bg-gray-100 flex items-center" title="{page_in_kitbook_path ? 'Open this +page in Kitbook' : 'Kitbook Home'}" draggable="false">
+            <img src="https://kitbook.vercel.app/icons/favicon.svg" draggable="false" class="w-6 h-6">
+          </a>
+        {/if}
       </div>
     {/if}
 
