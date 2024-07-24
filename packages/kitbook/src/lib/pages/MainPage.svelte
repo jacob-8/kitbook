@@ -5,6 +5,7 @@
   import { openComponent, openComposition, openMarkdown, openVariants } from '../open/openFiles'
   import Layout from '../layout/Layout.svelte'
   import type { LayoutLoadResult } from '../layout/layoutLoad'
+  import { findKitbookPath } from '../layout/kitbookPath'
   import Variants from './Variants.svelte'
   import Compositions from './Compositions.svelte'
   import type { MainPageLoadResult } from './mainPageLoad'
@@ -74,7 +75,7 @@
 
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
 
-  $: if (data.pageKey === '/' && browser)
+  $: if (pageKey === '/' && browser)
     goto(`${$page.url.pathname.replace(/\/$/, '')}/index`, { replaceState: true })
 
   function addComposition() {
@@ -87,13 +88,15 @@
     }
     openComposition({ filepath })
   }
+
+  $: ({ kitbookPath, activePath } = findKitbookPath($page.url.pathname))
 </script>
 
 <svelte:head>
   <title>{pageTitle}</title>
 </svelte:head>
 
-<Layout {settings} pages={data.pages} pathname={$page.url.pathname} let:activeLanguages>
+<Layout {settings} pages={data.pages} {kitbookPath} {activePath} let:activeLanguages>
   {#key $page.url.pathname}
     <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
       {#if data.error}
@@ -122,13 +125,16 @@
             {/if}
           </div>
 
-          {#if $svelte_modules?.[pageKey]}
+          {#if dev && $svelte_modules[pageKey]}
             <div class="mb-2 flex flex-wrap">
-              {#each $svelte_modules?.[pageKey].parents as parent}
-                <a title="Parent Component: {parent}" class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="/"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>{friendly_relative_name(parent)}</a>
+              {#each $svelte_modules[pageKey].parents as parent}
+                <a title="Parent Component: {parent}" class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="{kitbookPath}/{parent}"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>{friendly_relative_name(parent)}</a>
+              {:else}
+                <a class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="{kitbookPath || '/'}"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>Routes</a>
+
               {/each}
-              {#each $svelte_modules?.[pageKey].children as child}
-                <a title="Child Component: {child}" class="px-1 py-.5 rounded bg-gray bg-op-20 hover:bg-op-35 border border-gray/50 text-xs font-semibold text-gray-8 mr-1 mb-1" href="/"><span class="i-material-symbols-arrow-downward -mt-.5 mr-1"></span>{friendly_relative_name(child)}</a>
+              {#each $svelte_modules[pageKey].children as child}
+                <a title="Child Component: {child}" class="px-1 py-.5 rounded bg-gray bg-op-20 hover:bg-op-35 border border-gray/50 text-xs font-semibold text-gray-8 mr-1 mb-1" href="{kitbookPath}/{child}"><span class="i-material-symbols-arrow-downward -mt-.5 mr-1"></span>{friendly_relative_name(child)}</a>
               {/each}
             </div>
           {/if}
@@ -152,6 +158,25 @@
                 {@html html}
               {:else if compositionName}
                 <Compositions compositionsModules={{ [compositionName]: compositionsModulesAfterInlined[compositionName] }} {pathWithoutExtension} {activeLanguages} {addLanguageToUrl} {darkMode} show_inlined />
+              {/if}
+            {/each}
+          </div>
+        {/if}
+
+        {#if dev && pageKey.endsWith('/index')}
+          <a href="#routes" class="font-semibold my-2 text-lg">Routes</a>
+          <div class="flex flex-col border-t">
+            {#each Object.keys($svelte_modules).sort((a, b) => a.localeCompare(b)) as id}
+              {#if id.endsWith('+layout') || id.endsWith('+page')}
+                <a href="{kitbookPath}{id}" class="hover:text-blue-700 p-2 border-b">
+                  {id.replace('/routes', '').replace(/\/\+(page|layout)/, '') || '/'}
+
+                  {#if id.endsWith('+layout')}
+                    <div class="inline p-1 bg-green bg-op-30 text-green-7 font-semibold rounded text-xs">
+                      layout
+                    </div>
+                  {/if}
+                </a>
               {/if}
             {/each}
           </div>

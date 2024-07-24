@@ -7,6 +7,7 @@ import { kitbookViewer } from './viewer/index.js'
 import { markdownToHtml } from './markdown/markdownToHtml.js'
 import { mergeUserSettingsWithDefaults } from './mergeUserSettingsWithDefaults.js'
 import { bold, green, reset } from './colors.js'
+import { kitbookRPC } from './rpc/rpc-plugin.js'
 
 const LOAD_MODULES_ID = 'virtual:kitbook'
 
@@ -18,7 +19,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
   initKitbook(settings)
 
   const kitbookMain: Plugin = {
-    name: 'vite-plugin-kitbook',
+    name: 'vite-plugin-kitbook:main',
     enforce: 'pre',
 
     configResolved(config) {
@@ -71,6 +72,7 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
   return [
     kitbookMain,
     kitbookViewer(settings),
+    kitbookRPC(),
   ]
 }
 

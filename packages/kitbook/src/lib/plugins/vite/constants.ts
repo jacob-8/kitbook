@@ -24,3 +24,5 @@ export const DEFAULT_VIEWER_OPTIONS: ViewerOptions = {
   showToggleButton: 'always',
   openToolsIn: 'document-picture-in-picture',
 }
+
+export const RPC_NAME = 'kitbook'

@@ -8,7 +8,6 @@
   import Sidebar from './sidebar/Sidebar.svelte'
   import { putPagesIntoFolders } from './parseModules/putPagesIntoFolders'
   import LayoutPanes from './LayoutPanes.svelte'
-  import { findKitbookPath } from './kitbookPath'
   import SearchModal from './sidebar/search/SearchModal.svelte'
   import LaunchSearch from './sidebar/search/LaunchSearch.svelte'
   import { urlFromPath } from './parseUpdatedPath'
@@ -16,10 +15,10 @@
   import { goto } from '$app/navigation'
 
   export let settings: KitbookSettings
-  export let pathname: string
+  export let kitbookPath: string
+  export let activePath: string
   export let pages: GroupedPageMap
 
-  $: ({ kitbookPath, activePath } = findKitbookPath(pathname))
   let showSidebar = false
 
   let selectedLanguages = readable(null)
@@ -49,7 +48,7 @@
     })
   }
 
-  $: if (pathname)
+  $: if (kitbookPath)
     urlForEditedFile = null
 </script>
 
