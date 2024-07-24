@@ -70,7 +70,7 @@
   }))
 
   $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
-  $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path.replace(/.*routes\//, '') : data.page?.name
+  $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path.replace(/.*routes\//, '').replace('.svelte', '') : data.page?.name
   $: shortenedTitle = title.length > 40 ? `...${title.slice(-38)}` : title
 
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
@@ -130,7 +130,7 @@
               {#each $svelte_modules[pageKey].parents as parent}
                 <a title="Parent Component: {parent}" class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="{kitbookPath}/{parent}"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>{friendly_relative_name(parent)}</a>
               {:else}
-                <a class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="{kitbookPath || '/'}"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>Routes</a>
+                <a class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="{kitbookPath.replace(/\/$/, '') || ''}/index#routes"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>Routes</a>
 
               {/each}
               {#each $svelte_modules[pageKey].children as child}
@@ -164,13 +164,12 @@
         {/if}
 
         {#if dev && pageKey.endsWith('/index')}
-          <a href="#routes" class="font-semibold my-2 text-lg">Routes</a>
+          <a href="#routes" id="routes" class="font-semibold my-2 text-lg">Routes</a>
           <div class="flex flex-col border-t">
             {#each Object.keys($svelte_modules).sort((a, b) => a.localeCompare(b)) as id}
               {#if id.endsWith('+layout') || id.endsWith('+page')}
                 <a href="{kitbookPath}{id}" class="hover:text-blue-700 p-2 border-b">
                   {id.replace('/routes', '').replace(/\/\+(page|layout)/, '') || '/'}
-
                   {#if id.endsWith('+layout')}
                     <div class="inline p-1 bg-green bg-op-30 text-green-7 font-semibold rounded text-xs">
                       layout

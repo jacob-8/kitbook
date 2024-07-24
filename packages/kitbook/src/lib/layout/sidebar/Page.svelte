@@ -9,17 +9,17 @@
   $: active = activePath === page?.url
   $: hasKitbookFiles = page?.loadMarkdown || page?.loadVariants || page?.loadCompositions
 
-  let anchorElement: HTMLAnchorElement
-  $: if (active) {
-    setTimeout(() => {
-      anchorElement?.scrollIntoView({ block: 'center' })
-    }, 10)
-  }
+// let anchorElement: HTMLAnchorElement
+  // $: if (active) {
+  //   setTimeout(() => {
+  //     anchorElement?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+  //   }, 2000)
+  // }
 </script>
 
 {#if dev || hasKitbookFiles}
+  <!-- bind:this={anchorElement} -->
   <a
-    bind:this={anchorElement}
     data-sveltekit-preload-data="off"
     class:opacity-60={!hasKitbookFiles}
     class:font-semibold={active}
