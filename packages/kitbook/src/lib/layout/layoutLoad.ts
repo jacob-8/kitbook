@@ -1,5 +1,6 @@
 import type { GroupedPageMap, KitbookSettings } from 'kitbook'
 import { pagesStore } from '../modules/hmrUpdatedModules'
+import { svelte_modules } from '../modules/svelte-modules'
 
 interface LayoutLoadInput {
   pages: GroupedPageMap
@@ -12,15 +13,15 @@ export interface LayoutLoadResult {
   pages: GroupedPageMap
   pagesStore: typeof pagesStore
   settings: KitbookSettings
+  svelte_modules: typeof svelte_modules
 }
 
-// import { derived } from 'svelte/store'
 export function layoutLoad({
   pages: initialPages,
   settings,
   mockedPageData,
-}: LayoutLoadInput): () => Promise<LayoutLoadResult> {
-  return async () => {
+}: LayoutLoadInput): () => LayoutLoadResult {
+  return () => {
     if (!Object.keys(initialPages).length)
       throw new Error('No pages found. Did you import layoutLoad into your Kitbook layout.ts file and you have at least a README.md or one +page.svelte, +layout.svelte, *.svelte, *.md, or other Kitbook file in your project?')
 
@@ -37,6 +38,7 @@ export function layoutLoad({
       pages: initialPages,
       pagesStore,
       settings,
+      svelte_modules,
       ...(mockedPageData || {}),
     }
   }

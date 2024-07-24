@@ -1,7 +1,7 @@
 import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Expect, Page } from '@playwright/test'
 
-type IsEmpty<T> = T extends { [x: string]: never } ? true : false
+type IsEmpty<T> = T extends Record<string, never> ? true : false
 
 export type Variant<T extends SvelteComponent> = IsEmpty<ComponentProps<T>> extends true
   ? { _meta?: VariantMeta }
@@ -117,7 +117,7 @@ interface LoadFunctions<T> {
 
 export type Modules = Record<string, Module>
 export type RawModules = Record<string, RawModule>
-type Module = () => Promise<{ [key: string]: any }>
+type Module = () => Promise<Record<string, any>>
 type RawModule = () => Promise<string>
 
 export interface MarkdownModule {
@@ -192,7 +192,7 @@ export interface KitbookSettings {
    * }
    * ```
    */
-  addLanguageToUrl?: ({ code, url }: { code: string; url: string }) => string
+  addLanguageToUrl?: ({ code, url }: { code: string, url: string }) => string
   /** `false` by default */
   expandTree?: boolean
   githubURL?: string
@@ -269,4 +269,18 @@ export interface ViewerOptions {
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+}
+
+export interface RPCFunctions {
+  svelte_modules: () => Promise<SvelteModules>
+  module_updated: () => void
+}
+
+export type SvelteModules = Record<string, SvelteModule>
+
+export interface SvelteModule {
+  is_route?: boolean
+  // src_based_path: string
+  parents: string[]
+  children: string[]
 }

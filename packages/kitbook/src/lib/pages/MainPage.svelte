@@ -9,6 +9,7 @@
   import Compositions from './Compositions.svelte'
   import type { MainPageLoadResult } from './mainPageLoad'
   import { splitMarkdownHtmlIntoSections } from './split-markdown-into-sections'
+  import { friendly_relative_name } from './relative-names'
   import { browser, dev } from '$app/environment'
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
@@ -20,6 +21,7 @@
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
     pageKey,
     settings,
+    svelte_modules,
   } = data)
   $: ({ viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode } = settings)
 
@@ -67,7 +69,7 @@
   }))
 
   $: pathWithoutExtension = `.${data.page?.path.replace(/.\w+$/, '')}`
-  $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path : data.page?.name
+  $: title = ['+page', '+layout'].includes(data.page?.name) ? data.page?.path.replace(/.*routes\//, '') : data.page?.name
   $: shortenedTitle = title.length > 40 ? `...${title.slice(-38)}` : title
 
   $: pageTitle = title === 'index' ? kitbookTitle : `${title} | ${kitbookTitle}`
@@ -119,6 +121,17 @@
               {/if}
             {/if}
           </div>
+
+          {#if $svelte_modules?.[pageKey]}
+            <div class="mb-2 flex flex-wrap">
+              {#each $svelte_modules?.[pageKey].parents as parent}
+                <a title="Parent Component: {parent}" class="px-1 py-.5 rounded bg-blue bg-op-20 hover:bg-op-35 border border-blue/50 text-xs font-semibold text-blue-8 mr-1 mb-1" href="/"><span class="i-material-symbols-arrow-upward -mt-.5 mr-1"></span>{friendly_relative_name(parent)}</a>
+              {/each}
+              {#each $svelte_modules?.[pageKey].children as child}
+                <a title="Child Component: {child}" class="px-1 py-.5 rounded bg-gray bg-op-20 hover:bg-op-35 border border-gray/50 text-xs font-semibold text-gray-8 mr-1 mb-1" href="/"><span class="i-material-symbols-arrow-downward -mt-.5 mr-1"></span>{friendly_relative_name(child)}</a>
+              {/each}
+            </div>
+          {/if}
         {/if}
 
         {#if markdown}

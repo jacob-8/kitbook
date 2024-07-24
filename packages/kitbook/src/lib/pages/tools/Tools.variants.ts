@@ -1,11 +1,5 @@
-import type { Variant, VariantMeta } from 'kitbook'
+import type { Variant } from 'kitbook'
 import type Component from './Tools.svelte'
-
-export const shared_meta: VariantMeta = {
-  // viewports: [
-  //   { width: 500, height: 200 }
-  // ]
-}
 
 const shared = {
   changeState: data => console.info({ changeState: data }),
@@ -23,6 +17,7 @@ const shared = {
     },
     pages: null,
     pagesStore: null,
+    svelte_modules: null,
   },
 } satisfies Partial<Variant<Component>>
 
@@ -36,7 +31,3 @@ export const First: Variant<Component> = {
     },
   },
 }
-
-// export const Second_Situation: Variant<Component> = {
-//   ...shared,
-// }
