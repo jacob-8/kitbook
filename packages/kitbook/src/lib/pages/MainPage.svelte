@@ -14,6 +14,7 @@
   import { goto } from '$app/navigation'
 
   export let data: MainPageLoadResult & LayoutLoadResult
+
   $: ({
     pagesStore,
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
@@ -121,7 +122,7 @@
         {/if}
 
         {#if markdown}
-          {#if dev && !data.loadedModules.component}
+          {#if dev && !data.loadedModules.componentRaw}
             <div class="fixed top-0 right-0 bg-white flex flex-col items-end">
               <Button onclick={addComposition} form="menu" color="black">
                 <span class="i-carbon-chart-treemap text-lg align--4px" /> Add Composition

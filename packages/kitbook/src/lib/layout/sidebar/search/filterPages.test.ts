@@ -41,16 +41,16 @@ describe('filterPages from testModules', () => {
           "url": "/README",
         },
         {
-          "name": "index",
-          "url": "/index",
-        },
-        {
           "name": "get started",
           "url": "/docs/1-get-started",
         },
         {
           "name": "you can use letters to adjust ordering",
           "url": "/docs/1a-you-can-use-letters-to-adjust-ordering",
+        },
+        {
+          "name": "index",
+          "url": "/index",
         },
         {
           "name": "why kitbook",

@@ -1,1 +1,3 @@
-This file is just here to be fed to the Main Page for demoing languages. You can ignore them here.
+# IGNORE THIS
+
+This mock component is just for being fed to the Main Page for demoing i18n.

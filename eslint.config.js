@@ -73,6 +73,12 @@ export default antfu(
       'jsonc/comma-dangle': ['error', 'always-multiline'],
     },
   },
+  {
+    files: ['**/lib/routes/+layout.ts'],
+    rules: {
+      'ts/prefer-ts-expect-error': 'off',
+    },
+  },
 ).overrides({
   'antfu/typescript/rules': {
     files: ['**/*.svelte', '**/*.composition'],

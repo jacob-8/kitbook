@@ -4,7 +4,7 @@ import { pagesStore } from '../modules/hmrUpdatedModules'
 interface LayoutLoadInput {
   pages: GroupedPageMap
   settings: KitbookSettings
-  /** Mock any additional data you want available for Components that are not +page.svelte files to be able to directly access values from the data prop on SvelteKit's page store, i.e. `$page.data` */
+  /** Mock any additional data you want available for Components that are not `+page.svelte` files to be able to directly access values from the data prop on SvelteKit's page store, i.e. `$page.data`. For `+page.svelte` it's better to directly import page data using the `data` prop so that you can customize multiple variants. */
   mockedPageData?: Record<string, any>
 }
 

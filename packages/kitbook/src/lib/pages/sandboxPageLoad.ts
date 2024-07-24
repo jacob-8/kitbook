@@ -23,7 +23,7 @@ export interface SandboxPageLoadResult {
 
 export async function sandboxPageLoad({ params, parent, url }) {
   const { pages } = await parent() as LayoutLoadResult
-  const pageKey = `/${params?.file}` || ''
+  const pageKey = params ? `/${params.file}` : ''
   const page = pages[pageKey]
 
   const compositionName = url.searchParams.get('compositionName') as string
