@@ -28,7 +28,7 @@ function create_context(user_settings: Partial<KitbookSettings>): KitbookPluginC
     config: null,
     rpc_functions: {
       // @ts-expect-error function set in RPCPlugin
-      svelte_modules: () => { console.error('svelte_modules not yet set') },
+      svelte_modules: () => {},
       module_updated: () => {},
     },
   }
