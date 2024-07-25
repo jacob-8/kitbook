@@ -1,7 +1,7 @@
 // import { decompressFromEncodedURIComponent as decode } from '../lz/lz-string'
 import type { SvelteComponent } from 'svelte'
 import type { CompositionModule, GroupedPage, VariantsModule } from '../../../kitbook-types'
-import type { LayoutLoadResult } from '../../../layout/layoutLoad'
+import type { LayoutLoadResult } from '../../layoutLoad'
 import { browser } from '$app/environment'
 
 export interface SandboxPageLoadResult {

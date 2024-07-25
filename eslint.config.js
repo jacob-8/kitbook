@@ -112,7 +112,7 @@ export default antfu(
       'ts/no-explicit-any': 'warn',
       'prefer-named-capture-group': 'warn',
       'eqeqeq': 'warn',
-
+      'ts/no-empty-function': 'off',
       'no-undef': 'off',
       'no-unused-vars': 'off',
       'no-alert': 'off',

@@ -1,6 +1,6 @@
-import { groupColocatedPages } from '../../parseModules/groupColocatedPages'
-import { parseModulesIntoUngroupedPages } from '../../parseModules/parseModulesIntoUngroupedPages'
-import { testModules } from '../../parseModules/testModules'
+import { groupColocatedPages } from '../../modules/parseModules/groupColocatedPages'
+import { parseModulesIntoUngroupedPages } from '../../modules/parseModules/parseModulesIntoUngroupedPages'
+import { testModules } from '../../modules/parseModules/testModules'
 import { filterPages } from './filterPages'
 
 describe('filterPages from testModules', () => {
@@ -9,7 +9,7 @@ describe('filterPages from testModules', () => {
 
   test('readme', () => {
     const result = filterPages(pages, 'readme')
-    expect(result.length).toBe(1)
+    expect(result).toHaveLength(1)
     expect(result[0].name).toMatchInlineSnapshot('"README"')
   })
 
@@ -20,7 +20,7 @@ describe('filterPages from testModules', () => {
 
     const result2 = filterPages(pages, 'deploytovercel')
     const result2WithSpace = filterPages(pages, 'deploy to vercel')
-    expect(result2.length).toBe(1)
+    expect(result2).toHaveLength(1)
     expect(result2[0].name).toMatchInlineSnapshot('"deploy to vercel"')
     expect(result2).toEqual(result2WithSpace)
   })

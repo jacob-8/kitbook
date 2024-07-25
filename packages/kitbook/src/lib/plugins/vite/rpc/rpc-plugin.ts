@@ -19,7 +19,6 @@ export function kitbookRPC(): Plugin {
     configureServer(server) {
       const rpcFunctions: RPCFunctions = {
         svelte_modules: () => get_svelte_modules(server, config.root),
-        // eslint-disable-next-line ts/no-empty-function
         module_updated: () => {},
       }
 

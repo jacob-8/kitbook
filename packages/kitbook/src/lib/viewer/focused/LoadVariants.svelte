@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { VariantsModule, Viewport } from 'kitbook'
+  import { convertDeprecatedVariantsToCurrentApi } from '../../modules/parseModules/convertDeprecatedToCurrentApi'
   import DisplayVariants from './DisplayVariants.svelte'
-  import { convertDeprecatedVariantsToCurrentApi } from '$lib/layout/parseModules/convertDeprecatedToCurrentApi'
 
   export let _languageInsertedKitbookRoute: string
   export let viewports: Viewport[]

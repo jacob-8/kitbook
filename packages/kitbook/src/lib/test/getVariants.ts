@@ -2,7 +2,7 @@ import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import type { VariantsModule } from '../kitbook-types'
-import { convertDeprecatedVariantsToCurrentApi } from '../layout/parseModules/convertDeprecatedToCurrentApi'
+import { convertDeprecatedVariantsToCurrentApi } from '../modules/parseModules/convertDeprecatedToCurrentApi'
 
 /**
  * This function must be run using a root level await call before you define your Playwright tests as if you run Playwright tests from within an async function the runner will error.

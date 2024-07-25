@@ -1,5 +1,5 @@
 import type { KitbookSettings } from '../kitbook-types'
-import { findKitbookPath } from '../layout/kitbookPath'
+import { findKitbookPath } from '../routes/[...file]/kitbookPath'
 import { compressToEncodedURIComponent as encode } from '../lz/lz-string'
 
 export function buildIframeUrl({

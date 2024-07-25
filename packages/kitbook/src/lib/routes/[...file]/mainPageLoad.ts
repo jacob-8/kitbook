@@ -1,5 +1,5 @@
 import type { GroupedPage, LoadedModules } from 'kitbook'
-import type { LayoutLoadResult } from '../../layout/layoutLoad'
+import type { LayoutLoadResult } from '../layoutLoad'
 
 export interface MainPageLoadResult {
   loadedModules: LoadedModules

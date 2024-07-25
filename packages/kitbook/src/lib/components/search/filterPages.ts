@@ -1,4 +1,4 @@
-import type { GroupedPage, GroupedPageMap } from '../../../kitbook-types'
+import type { GroupedPage, GroupedPageMap } from 'kitbook'
 
 export function filterPages(pageMap: GroupedPageMap, query: string) {
   const pages: GroupedPage[] = []

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { LayoutLoadResult } from '../../layout/layoutLoad'
+  import type { LayoutLoadResult } from '../layoutLoad'
   import type { ToolsChangeState, ToolsComponentDetails } from '$lib/server-events'
   import { openComponent, openComposition, openMarkdown, sendOpenVariantsRequest } from '$lib/open/openFiles'
   import LoadVariants from '$lib/viewer/focused/LoadVariants.svelte'

@@ -1,5 +1,5 @@
 import type { Variant, VariantMeta } from 'kitbook'
-import type Component from './Layout.svelte'
+import type Component from './Frame.svelte'
 import { pages } from './mock-pages'
 
 export const shared_meta: VariantMeta = {}

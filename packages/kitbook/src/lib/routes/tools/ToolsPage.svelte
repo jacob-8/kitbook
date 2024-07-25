@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import type { LayoutLoadResult } from '../../layout/layoutLoad'
+  import type { LayoutLoadResult } from '../layoutLoad'
   import Tools from './Tools.svelte'
   import type { ToolsChangeState, ToolsComponentDetails } from '$lib/server-events'
 

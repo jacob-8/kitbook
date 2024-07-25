@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button } from 'svelte-pieces'
-  import type { GroupedPage } from '../../../kitbook-types'
+  import type { GroupedPage } from 'kitbook'
 
   export let kitbookPath: string
   export let page: GroupedPage

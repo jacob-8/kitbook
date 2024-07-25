@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { GroupedPage } from '../../kitbook-types'
+  import type { GroupedPage } from 'kitbook'
   import { dev } from '$app/environment'
 
   export let page: GroupedPage

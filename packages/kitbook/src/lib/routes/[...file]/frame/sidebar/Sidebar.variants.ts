@@ -16,8 +16,3 @@ export const GIVE_ME_A_NAME: Variant<Component> = {
     description: 'This is a description',
   },
 }
-
-// export const Another_Variant: Variant<Component> = {
-//   ...shared,
-//   // add props here
-// }
