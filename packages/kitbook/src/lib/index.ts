@@ -10,11 +10,11 @@ export { groupColocatedPages } from './layout/parseModules/groupColocatedPages'
 
 export { pagesStore } from './modules/hmrUpdatedModules'
 
-export { default as MainPage } from './pages/MainPage.svelte'
-export { mainPageLoad } from './pages/mainPageLoad'
-export { default as SandboxPage } from './pages/SandboxPage.svelte'
-export { sandboxPageLoad } from './pages/sandboxPageLoad'
-export { default as ToolsPage } from './pages/tools/ToolsPage.svelte'
+export { default as MainPage } from './routes/[...file]/MainPage.svelte'
+export { mainPageLoad } from './routes/[...file]/mainPageLoad'
+export { default as SandboxPage } from './routes/sandbox/[...file]/SandboxPage.svelte'
+export { sandboxPageLoad } from './routes/sandbox/[...file]/sandboxPageLoad'
+export { default as ToolsPage } from './routes/tools/ToolsPage.svelte'
 
 export { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from './lz/lz-string'
 

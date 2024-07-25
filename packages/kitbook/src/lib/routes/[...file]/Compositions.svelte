@@ -1,8 +1,8 @@
 <script lang="ts">
   import { tick } from 'svelte'
-  import View from '../view/View.svelte'
-  import { openComposition } from '../open/openFiles'
-  import type { CompositionModule, KitbookSettings, Language } from '../kitbook-types'
+  import View from '../../view/View.svelte'
+  import { openComposition } from '../../open/openFiles'
+  import type { CompositionModule, KitbookSettings, Language } from '../../kitbook-types'
 
   export let compositionsModules: Record<string, CompositionModule>
   export let pathWithoutExtension: string
@@ -11,7 +11,7 @@
   export let darkMode: true
   export let show_inlined = false
 
-  function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[]; activeLanguages: Language[] }) {
+  function getLanguages({ moduleLanguages, activeLanguages }: { moduleLanguages: Language[], activeLanguages: Language[] }) {
     // can set individual language props to an empty array to opt-out
     if (moduleLanguages?.length === 0)
       return activeLanguages.slice(0, 1)

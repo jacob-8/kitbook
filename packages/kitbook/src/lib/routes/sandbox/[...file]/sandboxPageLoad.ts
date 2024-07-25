@@ -1,10 +1,9 @@
 // import { decompressFromEncodedURIComponent as decode } from '../lz/lz-string'
 import type { SvelteComponent } from 'svelte'
-import type { CompositionModule, GroupedPage, VariantsModule } from '../kitbook-types'
-import type { LayoutLoadResult } from '../layout/layoutLoad'
+import type { CompositionModule, GroupedPage, VariantsModule } from '../../../kitbook-types'
+import type { LayoutLoadResult } from '../../../layout/layoutLoad'
 import { browser } from '$app/environment'
 
-// export interface SandboxPageLoadResult<T extends SvelteComponent> {
 export interface SandboxPageLoadResult {
   page: GroupedPage
   pageKey: string

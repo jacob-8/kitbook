@@ -1,5 +1,5 @@
 import type { GroupedPage, LoadedModules } from 'kitbook'
-import type { LayoutLoadResult } from '../layout/layoutLoad'
+import type { LayoutLoadResult } from '../../layout/layoutLoad'
 
 export interface MainPageLoadResult {
   loadedModules: LoadedModules
@@ -52,8 +52,7 @@ export async function mainPageLoad({ params, parent }): Promise<MainPageLoadResu
       loadedModules.markdown = await readmePage.loadMarkdown.loadModule()
       loadedModules.markdownRaw = await readmePage.loadMarkdown.loadRaw()
       return { page: readmePage, pageKey, loadedModules } satisfies MainPageLoadResult
-    }
-    catch (e) {
+    } catch (e) {
       return {
         error: `Displaying your project README.md as the Kitbook homepage will only work if you allow the Vite server to access one level up from project root (/src) by setting "server.fs.allow = ['..']" in your Vite config. You must have changed the Kitbook default. See https://vitejs.dev/config/#server-fs-allow for more info. // ERROR: ${e}`,
         loadedModules,

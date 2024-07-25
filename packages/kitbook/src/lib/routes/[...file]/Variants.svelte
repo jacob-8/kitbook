@@ -1,8 +1,8 @@
 <script lang="ts">
   import { tick } from 'svelte'
-  import type { KitbookSettings, Language, VariantsModule, Viewport } from '../kitbook-types'
-  import View from '../view/View.svelte'
-  import { openVariants } from '../open/openFiles'
+  import type { KitbookSettings, Language, VariantsModule, Viewport } from '../../kitbook-types'
+  import View from '../../view/View.svelte'
+  import { openVariants } from '../../open/openFiles'
 
   export let variantsModule: VariantsModule
   export let pathWithoutExtension: string
@@ -13,7 +13,7 @@
 
   $: ({ shared_meta, ...variants } = variantsModule)
 
-  function getLanguages({ variantLanguages, activeLanguages }: { variantLanguages: Language[]; activeLanguages: Language[] }) {
+  function getLanguages({ variantLanguages, activeLanguages }: { variantLanguages: Language[], activeLanguages: Language[] }) {
     // can set individual language props to an empty array to opt-out
     if (variantLanguages?.length === 0)
       return activeLanguages.slice(0, 1)

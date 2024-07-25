@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ErrorBoundary from '../components/errorBoundary/ErrorBoundary.js'
-  import type { LayoutLoadResult } from '../layout/layoutLoad'
+  import ErrorBoundary from '../../../components/errorBoundary/ErrorBoundary.js'
+  import type { LayoutLoadResult } from '../../../layout/layoutLoad'
   import Variant from './Variant.svelte'
   import Composition from './Composition.svelte'
   import type { SandboxPageLoadResult } from './sandboxPageLoad'

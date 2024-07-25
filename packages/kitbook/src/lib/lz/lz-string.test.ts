@@ -18,7 +18,7 @@ function allPrintableCharacters() {
   return testString
 };
 
-describe('lz-string', (test) => {
+describe('lz-string', () => {
   test('compresses and decompresses: string', () => {
     const value = 'Hello world!'
     const compressed = compress(value)
