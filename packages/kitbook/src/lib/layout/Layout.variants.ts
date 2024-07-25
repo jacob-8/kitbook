@@ -6,6 +6,8 @@ export const shared_meta: VariantMeta = {}
 
 const shared = {
   pages,
+  kitbookPath: '/',
+  activePath: '/foo',
   settings: {
     githubURL: 'https://github.com',
     title: 'My Cool Kitbook',
@@ -20,7 +22,7 @@ const shared = {
 
 export const Expanded_Menu: Variant<Component> = {
   ...shared,
-  pathname: '/foo',
+  // pathname: '/foo',
   settings: {
     ...shared.settings,
     expandTree: true,
@@ -32,7 +34,7 @@ export const Expanded_Menu: Variant<Component> = {
 
 export const Not_Expanded: Variant<Component> = {
   ...shared,
-  pathname: '/foo',
+  // pathname: '/foo',
   _meta: {
     description: 'Only the active route will be expanded (since this is a Kitbook inside the Kitbook, it will be pulling the page to show from the parent Kitbook URL which renders a blank page if you click to other pages, it will break out of that variant and show a clone of the parent Kitbook)',
   },
