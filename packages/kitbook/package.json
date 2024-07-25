@@ -32,11 +32,6 @@
       "svelte": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./plugins/mdsvex": {
-      "types": "./dist/plugins/mdsvex.d.ts",
-      "svelte": "./dist/plugins/mdsvex.js",
-      "default": "./dist/plugins/mdsvex.js"
-    },
     "./viewer/load-viewer": {
       "types": "./dist/viewer/load-viewer.d.ts",
       "default": "./dist/viewer/load-viewer.js"
@@ -128,7 +123,6 @@
     "@types/mdast": "^4.0.2",
     "@types/node": "^20.11.30",
     "@unocss/svelte-scoped": "^0.59.4",
-    "mdsvex": "^0.11.0",
     "prettier": "^2.8.8",
     "publint": "^0.2.7",
     "svelte": "^4.2.15",
