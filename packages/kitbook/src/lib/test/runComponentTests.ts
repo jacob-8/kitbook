@@ -1,6 +1,6 @@
 import type { Expect, test as playwrightTest } from '@playwright/test'
 import type { KitbookSettings, Language, VariantMeta, VariantsModule, Viewport } from '../kitbook-types'
-import { mergeUserSettingsWithDefaults } from '../plugins/vite/mergeUserSettingsWithDefaults.js'
+import { merge_user_settings_with_defaults } from '../plugins/context/merge-user-settings-with-defaults.js'
 import { preparePath } from './preparePath.js'
 
 interface PlaywrightPieces {
@@ -29,7 +29,7 @@ export function runComponentTests({
   kitbookConfig,
   variantModules,
 }: PlaywrightPieces & KitbookPieces) {
-  const settings = mergeUserSettingsWithDefaults(kitbookConfig)
+  const settings = merge_user_settings_with_defaults(kitbookConfig)
   const variantsToRun = prepareVariantsToRun({ kitbookConfig: settings, variantModules })
   for (const variantToRun of variantsToRun) {
     if (!variantToRun.userAdded?.skip)
@@ -70,7 +70,7 @@ export function prepareVariantsToRun({ kitbookConfig, variantModules }: KitbookP
   return variantsToRun
 }
 
-function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: projectLanguages }: { variantLanguages: Language[]; moduleLanguages: Language[]; activeLanguages: Language[] }) {
+function getLanguages({ variantLanguages, moduleLanguages, activeLanguages: projectLanguages }: { variantLanguages: Language[], moduleLanguages: Language[], activeLanguages: Language[] }) {
   if (variantLanguages?.length === 0)
     return projectLanguages.slice(0, 1)
   if (moduleLanguages?.length === 0)
@@ -92,8 +92,7 @@ function runTestsForVariant({ test, expect, variantName, viewports, languages, u
           await page.goto(url, { waitUntil })
           await expect(page).toHaveScreenshot([`${variantName}-${viewportName}.png`])
         })
-      }
-      else {
+      } else {
         test.describe(viewportName, () => {
           test.use({ viewport: { width, height } })
           for (const language of languages) {

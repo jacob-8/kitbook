@@ -1,5 +1,5 @@
 import type { ModuleNode, ViteDevServer } from 'vite'
-import type { SvelteModules } from '../../../kitbook-types'
+import type { SvelteModules } from '../../kitbook-types'
 import { get_sfc_list } from './get-sfc-list.js'
 
 export async function get_svelte_modules(server: ViteDevServer, root: string): Promise<SvelteModules> {

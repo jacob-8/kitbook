@@ -1,4 +1,4 @@
-import type { KitbookSettings, Language, ViewerOptions } from '../../kitbook-types'
+import type { KitbookSettings, Language, ViewerOptions } from '../kitbook-types'
 
 export const DEFAULT_VIEWPORTS = [
   { name: 'mobile', width: 320, height: 568 },

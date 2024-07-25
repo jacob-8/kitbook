@@ -2,13 +2,13 @@ import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { HMRBroadcasterClient, Plugin } from 'vite'
-import type { KitbookSettings } from 'kitbook'
-import { removeQuotesFromSerializedFunctions } from '../../../open/serialize.js'
+import { removeQuotesFromSerializedFunctions } from '../../open/serialize.js'
+import type { KitbookPluginContext } from '../vite.js'
 
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
 const RESOLVED_LOAD_VIEWER_ID = `\0${LOAD_VIEWER_ID}`
 
-export function kitbookViewer(settings: KitbookSettings): Plugin {
+export function ViewerPlugin({ settings, rpc_functions }: KitbookPluginContext): Plugin {
   return {
     name: 'vite-plugin-kitbook:viewer',
     apply: 'serve',
@@ -30,6 +30,11 @@ export function kitbookViewer(settings: KitbookSettings): Plugin {
     },
 
     configureServer(server) {
+      // so that jump to file works
+      server.watcher.on('change', (filepath) => {
+        server.ws.send('kitbook:to-client:route-to-edited-file', { filepath })
+      })
+
       server.ws.on('kitbook:to-server:tools:request-component-details', (data) => {
         server.ws.send('kitbook:to-client:tools:request-component-details', data)
       })

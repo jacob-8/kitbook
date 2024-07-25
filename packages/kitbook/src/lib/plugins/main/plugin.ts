@@ -1,24 +1,14 @@
 import type { Plugin } from 'vite'
 import type { KitbookSettings } from '../../kitbook-types'
 import { serializeSettings } from '../../open/serialize.js'
-import { initKitbook } from './initKitbook.js'
+import { bold, green, reset } from '../utils/colors.js'
 import { modifyViteConfigForKitbook } from './modifyViteConfigForKitbook.js'
-import { kitbookViewer } from './viewer/index.js'
 import { markdownToHtml } from './markdown/markdownToHtml.js'
-import { mergeUserSettingsWithDefaults } from './mergeUserSettingsWithDefaults.js'
-import { bold, green, reset } from './colors.js'
-import { kitbookRPC } from './rpc/rpc-plugin.js'
 
-const LOAD_MODULES_ID = 'virtual:kitbook'
+const LOAD_MODULES_ID = 'virtual:kitbook' // only has serialized settings
 
-/**
- * Vite plugin to add a Kitbook to SvelteKit projects. Will automatically add Kitbook routes to `src/routes/kitbook` unless you update the `routesDirectory` and `kitbookRoute` settings.
- */
-export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
-  const settings = mergeUserSettingsWithDefaults(userSettings)
-  initKitbook(settings)
-
-  const kitbookMain: Plugin = {
+export function MainPlugin(settings: KitbookSettings): Plugin {
+  return {
     name: 'vite-plugin-kitbook:main',
     enforce: 'pre',
 
@@ -45,11 +35,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
     },
 
     load(id) {
-      if (id === addVirtualFilePrefix(LOAD_MODULES_ID)) {
-        return `
-        export const settings = ${serializeSettings(settings)}
-        `
-      }
+      if (id === addVirtualFilePrefix(LOAD_MODULES_ID))
+        return `export const settings = ${serializeSettings(settings)}`
     },
 
     configureServer(server) {
@@ -62,18 +49,8 @@ export function kitbook(userSettings: Partial<KitbookSettings> = {}): Plugin[] {
           console.info(`  ${green}➜${reset}  ${bold}Kitbook${reset}: ${green}${server.config.server.https ? 'https' : 'http'}://localhost:${bold}${server.config.server.port}${reset}${green}${languageAwareRoute}${reset}`)
         }
       }
-
-      server.watcher.on('change', (filepath) => {
-        server.ws.send('kitbook:to-client:route-to-edited-file', { filepath })
-      })
     },
   }
-
-  return [
-    kitbookMain,
-    kitbookViewer(settings),
-    kitbookRPC(),
-  ]
 }
 
 function addVirtualFilePrefix(id: string): string {

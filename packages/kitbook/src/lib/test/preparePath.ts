@@ -1,4 +1,4 @@
-import { DEFAULT_KITBOOK_ROUTE } from '../plugins/vite/constants.js'
+import { DEFAULT_KITBOOK_ROUTE } from '../plugins/constants.js'
 
 export function preparePath({
   path,

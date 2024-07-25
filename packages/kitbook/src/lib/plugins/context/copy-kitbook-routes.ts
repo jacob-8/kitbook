@@ -1,12 +1,12 @@
 import fs from 'node:fs'
 import { join } from 'node:path'
 import type { KitbookSettings } from 'kitbook'
-import { bold, green, red, reset } from './colors.js'
+import { bold, green, red, reset } from '../utils/colors.js'
 
 const LATEST_VERSION_WITH_ROUTES_UPDATE = 'kitbook@1.0.0-beta.31'
 const FILE_WITH_NOTICE = '[...file]/+page.svelte'
 
-export function initKitbook({ routesDirectory, kitbookRoute }: KitbookSettings) {
+export function copy_kitbook_routes({ routesDirectory, kitbookRoute }: KitbookSettings) {
   const kitbookDirectory = routesDirectory + kitbookRoute
 
   try {

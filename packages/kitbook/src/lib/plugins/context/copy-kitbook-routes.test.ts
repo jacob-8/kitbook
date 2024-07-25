@@ -1,4 +1,4 @@
-import { file_needs_copied } from './initKitbook'
+import { file_needs_copied } from './copy-kitbook-routes'
 
 test(file_needs_copied, () => {
   expect(file_needs_copied('routes/[...file]/+page.svelte')).toBeTruthy()

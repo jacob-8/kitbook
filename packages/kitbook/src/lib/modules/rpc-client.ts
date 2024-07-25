@@ -2,7 +2,7 @@ import { createRPCClient } from 'vite-dev-rpc'
 import type { BirpcReturn } from 'birpc'
 import { createHotContext } from 'vite-hot-client'
 import type { RPCFunctions } from 'kitbook'
-import { RPC_NAME } from '../plugins/vite/constants'
+import { RPC_NAME } from '../plugins/constants'
 import { update_svelte_modules } from './svelte-modules'
 import { browser } from '$app/environment'
 

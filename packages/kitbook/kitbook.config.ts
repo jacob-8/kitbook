@@ -28,7 +28,7 @@ export default defineConfig({
     return `${path}?${params.toString()}`
   },
   githubURL: 'https://github.com/jacob-8/kitbook/tree/main/packages/kitbook',
-  expandTree: true,
+  // expandTree: true,
   routesDirectory: 'src/lib/routes',
   kitbookRoute: '',
   viewer: {
