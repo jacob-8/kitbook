@@ -1,28 +1,42 @@
 import { createRPCClient } from 'vite-dev-rpc'
 import type { BirpcReturn } from 'birpc'
 import { createHotContext } from 'vite-hot-client'
-import type { RPCFunctions } from 'kitbook'
+import { writable } from 'svelte/store'
+import type { RPCFunctions, SvelteModules } from 'kitbook'
 import { RPC_NAME } from '../plugins/constants'
-import { update_svelte_modules } from './svelte-modules'
 import { browser } from '$app/environment'
 
-let rpc: BirpcReturn<RPCFunctions, Pick<RPCFunctions, 'module_updated'>>
+export const rpc_client = create_rpc_client_stores()
 
-export async function get_rpc() {
-  if (!browser)
-    return
-  if (rpc)
-    return rpc
+function create_rpc_client_stores() {
+  let functions: BirpcReturn<RPCFunctions, Pick<RPCFunctions, 'module_updated'>>
+  const svelte_modules = writable<SvelteModules>({})
+  const latest_edited_filepath = writable<string | null>(null)
 
-  // eslint-disable-next-line require-atomic-updates
-  rpc = createRPCClient<RPCFunctions, Pick<RPCFunctions, 'module_updated'>>(
-    RPC_NAME,
-    (await createHotContext())!,
-    {
-      module_updated() {
-        update_svelte_modules()
-      },
-    },
-  )
-  return rpc
+  if (browser) {
+    createHotContext().then((hot) => {
+      functions = createRPCClient<RPCFunctions, Pick<RPCFunctions, 'module_updated'>>(
+        RPC_NAME,
+        hot,
+        {
+          module_updated(filepath) {
+            latest_edited_filepath.set(filepath)
+            update_svelte_modules()
+          },
+        },
+      )
+      update_svelte_modules()
+
+      async function update_svelte_modules() {
+        const routes = await functions.svelte_modules()
+        svelte_modules.set(routes)
+      }
+    })
+  }
+
+  return {
+    functions,
+    svelte_modules,
+    latest_edited_filepath,
+  }
 }

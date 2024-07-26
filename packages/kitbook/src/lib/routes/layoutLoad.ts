@@ -1,6 +1,6 @@
 import type { GroupedPageMap, KitbookSettings } from 'kitbook'
 import { pagesStore } from '../modules/hmrUpdatedModules'
-import { svelte_modules } from '../modules/svelte-modules'
+import { rpc_client } from '../modules/rpc-client'
 
 interface LayoutLoadInput {
   pages: GroupedPageMap
@@ -13,7 +13,7 @@ export interface LayoutLoadResult {
   pages: GroupedPageMap
   pagesStore: typeof pagesStore
   settings: KitbookSettings
-  svelte_modules: typeof svelte_modules
+  rpc_client: typeof rpc_client
 }
 
 export function layoutLoad({
@@ -38,7 +38,7 @@ export function layoutLoad({
       pages: initialPages,
       pagesStore,
       settings,
-      svelte_modules,
+      rpc_client,
       ...(mockedPageData || {}),
     }
   }

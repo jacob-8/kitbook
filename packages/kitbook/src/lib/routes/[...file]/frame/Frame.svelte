@@ -18,6 +18,7 @@
   export let kitbookPath: string
   export let activePath: string
   export let pages: GroupedPageMap
+  export let latest_edited_filepath: string
 
   let showSidebar = false
 
@@ -34,21 +35,19 @@
 
   let urlForEditedFile: string
 
-  if (import.meta.hot) {
-    import.meta.hot.on('kitbook:to-client:route-to-edited-file', ({ filepath }) => {
-      const url = kitbookPath + urlFromPath(filepath)
-      const hasPage = !!Object.values(pages).find(page => page.url === url)
-      if (hasPage && location.pathname !== url)
-        urlForEditedFile = url
-      else
-        urlForEditedFile = null
-    })
-    import.meta.hot.on('kitbook:to-client:open-file', () => {
+  $: if (latest_edited_filepath)
+    setUrlForEditedFile(latest_edited_filepath)
+
+  function setUrlForEditedFile(path: string) {
+    const url = kitbookPath + urlFromPath(path)
+    const hasPage = !!Object.values(pages).find(page => page.url === url)
+    if (hasPage && location.pathname !== url)
+      urlForEditedFile = url
+    else
       urlForEditedFile = null
-    })
   }
 
-  $: if (kitbookPath)
+  $: if (activePath)
     urlForEditedFile = null
 </script>
 

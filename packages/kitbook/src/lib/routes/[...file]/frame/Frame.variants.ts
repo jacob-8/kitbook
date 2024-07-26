@@ -18,6 +18,7 @@ const shared = {
     ],
     // languages: [{ name: null, code: null }],
   },
+  latest_edited_filepath: null,
 } satisfies Partial<Variant<Component>>
 
 export const Expanded_Menu: Variant<Component> = {

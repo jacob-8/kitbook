@@ -1,7 +1,7 @@
 export function urlFromPath(filepath: string): string | null {
   const normalizedPath = filepath.replace(/\\/g, '/')
 
-  const match = normalizedPath.match(/^(?:.*\/src\/)(?<path>.+?)\/(?<filename>.+)\.[^\/]+$/)
+  const match = normalizedPath.match(/^(?:.*\/src\/)(?<path>.+)\/(?<filename>.+)$/)
   if (!match?.groups)
     return null
 
@@ -17,14 +17,22 @@ if (import.meta.vitest) {
       expect(urlFromPath('/dev/project/src/lib/components/Foo.svelte'))
         .toEqual('/lib/components/Foo')
     })
+
     test('handles windows filepaths', () => {
       expect(urlFromPath('C:\\dev\\project\\src\\routes\\+layout.svelte'))
         .toEqual('/routes/+layout')
     })
+
+    test('handles ellipsis', () => {
+      expect(urlFromPath('C:\\dev\\kitbook\\src\\lib\\routes\\[...file]\\Sidebar.md'))
+        .toEqual('/lib/routes/[...file]/Sidebar')
+    })
+
     test('handles named compositions (filenames with multiple dots)', () => {
       expect(urlFromPath('/dev/project/src/lib/components/Foo.some.composition'))
         .toEqual('/lib/components/Foo')
     })
+
     test('return null if path does not match', () => {
       expect(urlFromPath('/dev/project/some.config.ts'))
         .toBeNull()

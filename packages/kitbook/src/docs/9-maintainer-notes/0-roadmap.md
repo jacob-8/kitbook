@@ -26,14 +26,14 @@ The API is stable and the project is in **beta**. You can use this in production
 - optional Stackblitz/Codeflow/Gitpod links
 - backlinks/connections graph (see Foam examples)
 
-## Rough edges 
+## Rough edges
 
 - handle Viewer for users not able to use the bleeding edge Document Picture-in-Picture, Chrome only feature
 - order variants by order written in file, not alphabetical
 - Improve Main Page buttons on small screens
 - Viewer displays page variants (adjust file title)
 - Double-check the add page variants component reference is _ and not + in all locations
-- on build don't show folders that have no components with Kitbook files 
+- on build don't show folders that have no components with Kitbook files
 - document how to adjust glob to be able to gradually include components
 - fix ViewBody width on small screens overflowing region by about 25px
 - Get file location from Vite module graph from component tagName when it has no elements so that Kitbook can know which Svelte file to create variants, compositions, and markdowns for.
@@ -53,11 +53,10 @@ The API is stable and the project is in **beta**. You can use this in production
 - include page in sidebar when only have a `.composition` file (like when demonstrating some `.ts` helper function)
 - don't include Kitbook route files in the sidebar when using Kitbook by itself for a component library (like svelte-pieces)
 - sidebar isn't truly alphabetical if there are varieties of file types
-- learn why import.meta.hot.on('kitbook:to-client:route-to-edited-file') in Layout.svelte only fires the first time a file is changed and not on subsequent changes (of any file)
 
 ## Helpful Future Inspiration
 
-- [KitDocs](https://kit-docs.svelteness.dev/) 
+- [KitDocs](https://kit-docs.svelteness.dev/)
 - svelte-headlessui
 - [Urara](https://github.com/importantimport/urara)
 

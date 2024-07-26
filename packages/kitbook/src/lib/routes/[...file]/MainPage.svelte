@@ -22,9 +22,10 @@
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
     pageKey,
     settings,
-    svelte_modules,
+    rpc_client,
   } = data)
   $: ({ viewports: projectViewports, addLanguageToUrl, githubURL, viewer, title: kitbookTitle, darkMode } = settings)
+  $: ({ svelte_modules, latest_edited_filepath } = rpc_client)
 
   $: pageFromHMR = $pagesStore?.[pageKey]
 
@@ -96,7 +97,7 @@
   <title>{pageTitle}</title>
 </svelte:head>
 
-<Layout {settings} pages={data.pages} {kitbookPath} {activePath} let:activeLanguages>
+<Layout {settings} pages={data.pages} {kitbookPath} {activePath} let:activeLanguages latest_edited_filepath={$latest_edited_filepath}>
   {#key $page.url.pathname}
     <main style="flex: 1" class="overflow-y-auto bg-white pt-2 px-2">
       {#if data.error}

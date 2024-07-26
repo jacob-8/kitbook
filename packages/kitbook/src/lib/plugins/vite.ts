@@ -29,7 +29,7 @@ function create_context(user_settings: Partial<KitbookSettings>): KitbookPluginC
     rpc_functions: {
       // @ts-expect-error function set in RPCPlugin
       svelte_modules: () => {},
-      module_updated: () => {},
+      module_updated: (filepath) => {},
     },
   }
 }

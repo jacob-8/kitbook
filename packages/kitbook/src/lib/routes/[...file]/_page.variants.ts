@@ -16,7 +16,11 @@ const shared_data = {
     description: '',
   },
   pagesStore: null,
-  svelte_modules: null,
+  rpc_client: {
+    functions: null,
+    latest_edited_filepath: null,
+    svelte_modules: null,
+  },
   loadedModules: {},
 } satisfies Partial<Variant<Component>['data']>
 
@@ -37,24 +41,28 @@ export const Home_Page: Variant<Component> = {
     },
     page: index_page,
     pageKey: '/index',
-    svelte_modules: writable({
-      '/routes/+layout': {
-        parents: [],
-        children: [],
-      },
-      '/routes/+page': {
-        parents: ['/routes/another/[id]/+page'],
-        children: ['/lib/Button', '/lib/LunchMenu'],
-      },
-      '/routes/another/+page': {
-        parents: [],
-        children: [],
-      },
-      'lib/Button': {
-        parents: ['/routes/+page'],
-        children: [],
-      },
-    }),
+    rpc_client: {
+      functions: null,
+      latest_edited_filepath: null,
+      svelte_modules: writable({
+        '/routes/+layout': {
+          parents: [],
+          children: [],
+        },
+        '/routes/+page': {
+          parents: ['/routes/another/[id]/+page'],
+          children: ['/lib/Button', '/lib/LunchMenu'],
+        },
+        '/routes/another/+page': {
+          parents: [],
+          children: [],
+        },
+        'lib/Button': {
+          parents: ['/routes/+page'],
+          children: [],
+        },
+      }),
+    },
   },
   _meta: {
     description: 'Will display routes after any markdown',
@@ -83,12 +91,16 @@ export const Relatives: Variant<Component> = {
     },
     page: component_page,
     pageKey: '/routes/+page',
-    svelte_modules: writable({
-      '/routes/+page': {
-        parents: ['/lib/routes/another/[id]/+page'],
-        children: ['/lib/Button', '/lib/LunchMenu'],
-      },
-    }),
+    rpc_client: {
+      functions: null,
+      latest_edited_filepath: null,
+      svelte_modules: writable({
+        '/routes/+page': {
+          parents: ['/lib/routes/another/[id]/+page'],
+          children: ['/lib/Button', '/lib/LunchMenu'],
+        },
+      }),
+    },
   },
   _meta: {
     description: 'A component with both parents and children components. The links will not work inside this sandbox.',

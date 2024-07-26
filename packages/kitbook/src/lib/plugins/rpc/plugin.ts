@@ -20,13 +20,12 @@ export function RPCPlugin(context: KitbookPluginContext): Plugin {
 
       const rpc_server = createRPCServer<RPCFunctions>(RPC_NAME, server.ws, context.rpc_functions)
 
-      const debounce_module_updated = debounce(() => {
-        rpc_server.module_updated.asEvent()
+      const debounce_module_updated = debounce((filepath: string) => {
+        rpc_server.module_updated.asEvent(filepath)
       }, 100)
 
-      server.middlewares.use((req, res, next) => {
-        debounce_module_updated()
-        next()
+      server.watcher.on('change', (filepath) => {
+        debounce_module_updated(filepath)
       })
     },
   }

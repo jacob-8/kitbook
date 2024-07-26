@@ -13,7 +13,7 @@ const shared_data = {
   canMount: true,
   darkMode: false,
   settings: null,
-  svelte_modules: null,
+  rpc_client: null,
 } satisfies Partial<Variant<Component>['data']>
 
 export const Component_With_Props: Variant<Component> = {

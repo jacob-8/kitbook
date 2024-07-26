@@ -273,7 +273,7 @@ export type DeepPartial<T> = {
 
 export interface RPCFunctions {
   svelte_modules: () => Promise<SvelteModules>
-  module_updated: () => void
+  module_updated: (filepath: string) => void
 }
 
 export type SvelteModules = Record<string, SvelteModule>

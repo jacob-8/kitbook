@@ -17,7 +17,7 @@ const shared = {
     },
     pages: null,
     pagesStore: null,
-    svelte_modules: null,
+    rpc_client: null,
   },
 } satisfies Partial<Variant<Component>>
 
