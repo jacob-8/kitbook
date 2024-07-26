@@ -1,7 +1,7 @@
 import type { GroupedPage, Variant, VariantMeta } from 'kitbook'
 import { writable } from 'svelte/store'
 import type { SvelteComponent } from 'svelte'
-import type Component from './+page.svelte'
+import type Component from './MainPage.svelte'
 
 import { All_Languages, Single_Language } from './mockComponents/Hi.variants'
 import Hi from './mockComponents/Hi.svelte'

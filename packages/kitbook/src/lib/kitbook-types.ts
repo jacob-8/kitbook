@@ -284,7 +284,6 @@ export type SvelteModules = Record<string, SvelteModule>
 
 export interface SvelteModule {
   is_route?: boolean
-  // src_based_path: string
-  parents: string[]
-  children: string[]
+  parents?: string[]
+  children?: string[]
 }

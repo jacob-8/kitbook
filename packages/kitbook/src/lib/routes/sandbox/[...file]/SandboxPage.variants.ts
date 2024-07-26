@@ -1,6 +1,6 @@
 import type { Variant } from 'kitbook'
 import type { SvelteComponent } from 'svelte'
-import type Component from './+page.svelte'
+import type Component from './SandboxPage.svelte'
 import IndividualComponent from './mockComponents/IndividualComponent.svelte'
 
 const shared_data = {

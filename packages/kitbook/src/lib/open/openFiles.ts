@@ -167,5 +167,5 @@ export function createNewComponent(filepath: string) {
 
 Hi {name}`
   rpc_client.functions.open_or_create_file({ filepath, template })
-  rpc_client.functions.open_or_create_variant({ filepath, props: { data: { name: 'John' } } })
+  rpc_client.functions.open_or_create_variant({ filepath, props: { name: 'John' } })
 }

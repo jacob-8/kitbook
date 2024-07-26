@@ -11,6 +11,7 @@
   import type { MainPageLoadResult } from './mainPageLoad'
   import { splitMarkdownHtmlIntoSections } from './split-markdown-into-sections'
   import { friendly_relative_name } from './relative-names'
+  import Routes from './Routes.svelte'
   import { browser, dev } from '$app/environment'
   import { page } from '$app/stores'
   import { goto } from '$app/navigation'
@@ -165,21 +166,7 @@
         {/if}
 
         {#if dev && pageKey.endsWith('/index')}
-          <a href="#routes" id="routes" class="font-semibold my-2 text-lg">Routes</a>
-          <div class="flex flex-col border-t">
-            {#each Object.keys($svelte_modules).sort((a, b) => a.localeCompare(b)) as id}
-              {#if id.endsWith('+layout') || id.endsWith('+page')}
-                <a href="{kitbookPath}{id}" class="hover:text-blue-700 p-2 border-b">
-                  {id.replace('/routes', '').replace(/\/\+(page|layout)/, '') || '/'}
-                  {#if id.endsWith('+layout')}
-                    <div class="inline p-1 bg-green bg-op-30 text-green-7 font-semibold rounded text-xs">
-                      layout
-                    </div>
-                  {/if}
-                </a>
-              {/if}
-            {/each}
-          </div>
+          <Routes {kitbookPath} svelte_modules={$svelte_modules} />
         {/if}
 
         {#if compositionsModulesAfterInlined}
