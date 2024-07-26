@@ -33,6 +33,7 @@ function create_context(user_settings: Partial<KitbookSettings>): KitbookPluginC
       svelte_modules: () => {},
       open_or_create_variant: ({ filepath, props }) => {},
       open_or_create_file: ({filepath, template}) => {},
+      insert_child_into_component: ({parent_filepath, child_name}) => {},
       module_updated: (filepath) => {},
       open_in_editor: (url) => {},
     },

@@ -2,9 +2,8 @@ import { rpc_client } from '../modules/rpc-client'
 import { getFilenameAndExtension } from './get-filename-and-extension'
 import { serializeIntersection } from './serialize'
 
-export function openComponent(filepath: string, viteBase: string) {
-  const file_loc = `${filepath}:1:1`
-  fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
+export function openComponent(filepath: string) {
+  ensureFileExists(filepath)
 }
 
 export function openVariants(filepath: string, componentDetail?: SvelteComponentDetail) {
@@ -67,7 +66,7 @@ Place your Svelte composition here.
   ensureFileExists(`${filepathWithoutExtension}.${compositionExtension}`, template)
 }
 
-function ensureFileExists(filepath: string, template: string) {
+function ensureFileExists(filepath: string, template = '') {
   const pageProofPath = filepath
     .replace('+page', '_page')
     .replace('+layout', '_layout')
@@ -160,12 +159,12 @@ describe(POST, () => {
   rpc_client.functions.open_or_create_file({ filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
 }
 
-export function createNewComponent(filepath: string) {
+export async function createNewComponent(filepath: string) {
   const template = `<script lang="ts">
   export let name = 'Bill'
 </script>
 
-Hi {name}`
-  rpc_client.functions.open_or_create_file({ filepath, template })
-  rpc_client.functions.open_or_create_variant({ filepath, props: { name: 'John' } })
+<div>Hi {name}</div>`
+  await rpc_client.functions.open_or_create_file({ filepath, template })
+  await rpc_client.functions.open_or_create_variant({ filepath, props: { name: 'John' } })
 }

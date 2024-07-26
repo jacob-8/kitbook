@@ -275,6 +275,7 @@ export interface RPCFunctions {
   svelte_modules: () => Promise<SvelteModules>
   open_or_create_variant: ({ filepath, props }: { filepath: string, props: Record<string, any> }) => void
   open_or_create_file: ({ filepath, template }: { filepath: string, template: string }) => void
+  insert_child_into_component: ({ parent_filepath, child_name }: { parent_filepath: string, child_name: string }) => void
   // notifications
   module_updated: (filepath: string) => void
   open_in_editor: (url: string) => void

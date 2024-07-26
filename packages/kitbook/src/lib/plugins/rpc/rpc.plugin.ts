@@ -27,6 +27,10 @@ export function RPCPlugin({ config, rpc_functions }: KitbookPluginContext): Plug
         rpc_server.module_updated.asEvent(filepath)
       }, 100)
 
+      server.watcher.on('add', (filepath) => {
+        debounce_module_updated(filepath)
+      })
+
       server.watcher.on('change', (filepath) => {
         debounce_module_updated(filepath)
       })

@@ -10,7 +10,7 @@
   export let detailsForTools: ToolsComponentDetails
   export let changeState: (data: ToolsChangeState) => void
 
-  $: ({ viewports, _languageInsertedKitbookRoute, viewer: { __internal: { viteBase } } } = data.settings)
+  $: ({ viewports, _languageInsertedKitbookRoute } = data.settings)
   $: ({ filename, tagName, serializedState } = detailsForTools)
   $: variantsFilename = filename?.replace('.svelte', '.variants.ts')
   $: svxFilename = filename?.replace('.svelte', '.md')
@@ -19,7 +19,7 @@
 <div class="h-vh flex flex-col">
   {#if filename}
     <div class="flex font-semibold items-center border-b border-gray-300 text-lg">
-      <button class="mr-auto" type="button" on:click={() => openComponent(filename, viteBase)} title="Edit Component: {filename.split('src/').pop()}">
+      <button class="mr-auto" type="button" on:click={() => openComponent(filename)} title="Edit Component: {filename.split('src/').pop()}">
         <span class="i-vscode-icons-file-type-svelte align--2px" /> {tagName}
       </button>
       <button type="button" on:click={() => sendOpenVariantsRequest(filename, serializedState)} title="Edit Variants: {variantsFilename.split('src/').pop()}"><span class="i-system-uicons-versions align--3px text-xl" /></button>

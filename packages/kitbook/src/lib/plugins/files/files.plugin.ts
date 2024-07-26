@@ -4,6 +4,7 @@ import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:
 import type { Plugin } from 'vite'
 import type { KitbookPluginContext } from '../vite.js'
 import { removeQuotesFromSerializedFunctions } from '../../open/serialize.js'
+import { insert_child_component } from './insert-child-component.js'
 
 export function FilesPlugin({ rpc_functions, settings }: KitbookPluginContext): Plugin {
   function writeFileIfNeededThenOpen(filepath: string, template: string) {
@@ -38,6 +39,12 @@ export function FilesPlugin({ rpc_functions, settings }: KitbookPluginContext): 
 
   rpc_functions.open_or_create_file = ({ filepath, template }) => {
     writeFileIfNeededThenOpen(filepath, template)
+  }
+
+  rpc_functions.insert_child_into_component = ({ parent_filepath, child_name }) => {
+    const parent_code = readFileSync(parent_filepath, 'utf-8')
+    const updated_code = insert_child_component({ child_name, parent_code })
+    writeFileSync(parent_filepath, updated_code)
   }
 
   return {
