@@ -3,6 +3,7 @@
   import type { KitbookSettings, Language, VariantsModule, Viewport } from '../../kitbook-types'
   import View from '../../view/View.svelte'
   import { openVariants } from '../../open/openFiles'
+  import { dev } from '$app/environment'
 
   export let variantsModule: VariantsModule
   export let pathWithoutExtension: string
@@ -47,6 +48,8 @@
       class="capitalize relative z-2"
       type="button"
       on:click={() => {
+        if (!dev)
+          return
         openVariants(`${pathWithoutExtension}.svelte`)
       }}
       title="Edit Variant">

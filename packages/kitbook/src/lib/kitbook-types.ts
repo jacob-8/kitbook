@@ -273,7 +273,11 @@ export type DeepPartial<T> = {
 
 export interface RPCFunctions {
   svelte_modules: () => Promise<SvelteModules>
+  open_or_create_variant: ({ filepath, props }: { filepath: string, props: Record<string, any> }) => void
+  open_or_create_file: ({ filepath, template }: { filepath: string, template: string }) => void
+  // notifications
   module_updated: (filepath: string) => void
+  open_in_editor: (url: string) => void
 }
 
 export type SvelteModules = Record<string, SvelteModule>

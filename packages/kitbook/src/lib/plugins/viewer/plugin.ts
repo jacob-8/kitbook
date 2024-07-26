@@ -1,8 +1,7 @@
-import { access, constants, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { HMRBroadcasterClient, Plugin } from 'vite'
-import { removeQuotesFromSerializedFunctions } from '../../open/serialize.js'
+import type { Plugin } from 'vite'
 import type { KitbookPluginContext } from '../vite.js'
 
 const LOAD_VIEWER_ID = 'virtual:kitbook-load-viewer.js'
@@ -39,26 +38,6 @@ export function ViewerPlugin({ settings }: KitbookPluginContext): Plugin {
       server.ws.on('kitbook:to-server:tools:change-state', (data) => {
         server.ws.send('kitbook:to-client:tools:change-state', data)
       })
-
-      server.ws.on('kitbook:to-server:ensure-file-exists', ({ filepath, template }, client) => {
-        writeFileIfNeededThenOpen(filepath, template, settings.viewer.__internal.viteBase, client)
-      })
-
-      server.ws.on('kitbook:to-server:open-variants', ({ filepath, props }, client) => {
-        // TODO: parse Svelte file to get props if props is null (make it an empty object if from Viewer and component simply has no props)
-        const props_without_newlines_tabs = JSON.stringify(props || {}, null, 2)
-          .replace(/\\n/g, '').replace(/\\t/g, '')
-        const code = getVariantsTemplate().replace('shared = {}', `shared = ${props_without_newlines_tabs}`)
-        const code_with_component_reference = code.replace('Template.svelte', filepath.split('/').pop())
-        const template = removeQuotesFromSerializedFunctions(code_with_component_reference)
-
-        const variantsPath = filepath
-          .replace('.svelte', '.variants.ts')
-          .replace('+page', '_page')
-          .replace('+layout', '_layout')
-
-        writeFileIfNeededThenOpen(variantsPath, template, settings.viewer.__internal.viteBase, client)
-      })
     },
   }
 }
@@ -67,24 +46,5 @@ export function ViewerPlugin({ settings }: KitbookPluginContext): Plugin {
 function componentListenerCode(): string {
   const _dirname = dirname(fileURLToPath(import.meta.url))
   const filepath = resolve(_dirname, './listenForComponentsElements.js')
-  return readFileSync(filepath, 'utf-8')
-}
-
-function writeFileIfNeededThenOpen(filepath: string, template: string, viteBase: string, client: HMRBroadcasterClient) {
-  access(filepath, constants.F_OK, (err) => {
-    if (err) {
-      const directory = dirname(filepath)
-      mkdirSync(directory, { recursive: true })
-      writeFileSync(filepath, template)
-      console.info(`added ${filepath}`)
-    }
-
-    client.send('kitbook:to-client:open-file', { filepath, viteBase })
-  })
-}
-
-function getVariantsTemplate() {
-  const _dirname = dirname(fileURLToPath(import.meta.url))
-  const filepath = resolve(_dirname, '../virtual/Template.variants.ts.txt')
   return readFileSync(filepath, 'utf-8')
 }

@@ -24,10 +24,6 @@ export interface ToolsComponentDetails {
 
 declare module 'vite/types/customEvent' {
   interface CustomEventMap {
-    'kitbook:to-server:open-variants': { filepath: string, props: Record<string, any> }
-    'kitbook:to-server:ensure-file-exists': FilenameWithTemplate
-    'kitbook:to-client:open-file': { filepath: string, viteBase: string }
-
     'kitbook:to-server:tools:request-component-details': Record<string, any>
     'kitbook:to-client:tools:request-component-details': Record<string, any>
 

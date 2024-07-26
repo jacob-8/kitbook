@@ -3,6 +3,7 @@
   import View from '../../view/View.svelte'
   import { openComposition } from '../../open/openFiles'
   import type { CompositionModule, KitbookSettings, Language } from '../../kitbook-types'
+  import { dev } from '$app/environment'
 
   export let compositionsModules: Record<string, CompositionModule>
   export let pathWithoutExtension: string
@@ -47,7 +48,11 @@
       <button
         class="capitalize relative z-2"
         type="button"
-        on:click={() => openComposition({ filepath: `${pathWithoutExtension}.svelte`, compositionName })}
+        on:click={() => {
+          if (!dev)
+            return
+          openComposition({ filepath: `${pathWithoutExtension}.svelte`, compositionName })
+        }}
         title="Edit Composition">
         <span class="i-carbon-chart-treemap align--2px" />
         {compositionName === 'default' ? '' : compositionName} composition

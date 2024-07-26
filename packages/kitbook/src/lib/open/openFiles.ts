@@ -1,3 +1,4 @@
+import { rpc_client } from '../modules/rpc-client'
 import { getFilenameAndExtension } from './get-filename-and-extension'
 import { serializeIntersection } from './serialize'
 
@@ -7,9 +8,6 @@ export function openComponent(filepath: string, viteBase: string) {
 }
 
 export function openVariants(filepath: string, componentDetail?: SvelteComponentDetail) {
-  if (!import.meta.hot)
-    return alert('Dev server must be running with HMR enabled to use this feature.')
-
   if (!componentDetail?.options)
     return sendOpenVariantsRequest(filepath, {})
 
@@ -20,10 +18,7 @@ export function openVariants(filepath: string, componentDetail?: SvelteComponent
 }
 
 export function sendOpenVariantsRequest(filepath: string, serializedState: Record<string, any>) {
-  if (!import.meta.hot)
-    return alert('Dev server must be running with HMR enabled to use this feature.')
-
-  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: serializedState || {} })
+  rpc_client.functions.open_or_create_variant({ filepath, props: serializedState || {} })
 }
 
 export function openMarkdown(filepath: string) {
@@ -31,7 +26,7 @@ export function openMarkdown(filepath: string) {
   ensureFileExists(filepath, markdownTemplate)
 }
 
-export function openComposition({ filepath, compositionName }: { filepath: string; compositionName?: string }) {
+export function openComposition({ filepath, compositionName }: { filepath: string, compositionName?: string }) {
   const { filepathWithoutExtension, filenameWithoutExtensions, extension } = getFilenameAndExtension(filepath)
 
   const svelteCompositionTemplate = `<script context="module" lang="ts">
@@ -73,15 +68,11 @@ Place your Svelte composition here.
 }
 
 function ensureFileExists(filepath: string, template: string) {
-  // TODO: could jump to GitHub instead of error if no dev server - use githubURL + filepath
-  if (!import.meta.hot)
-    return alert('Dev server must be running with HMR enabled to use this feature.')
-
   const pageProofPath = filepath
     .replace('+page', '_page')
     .replace('+layout', '_layout')
 
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: pageProofPath, template })
+  rpc_client.functions.open_or_create_file({ filepath: pageProofPath, template })
 }
 
 export function createNewPage(filepath: string) {
@@ -90,14 +81,14 @@ export function createNewPage(filepath: string) {
 </script>
 
 Hi {data.name}`
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
+  rpc_client.functions.open_or_create_file({ filepath, template })
 
   const pageTemplate = `export const load = (() => {
   return { name: 'Bill' }
 })`
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: filepath.replace('+page.svelte', '+page.ts'), template: pageTemplate })
+  rpc_client.functions.open_or_create_file({ filepath: filepath.replace('+page.svelte', '+page.ts'), template: pageTemplate })
 
-  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: { data: { name: 'John' } } })
+  rpc_client.functions.open_or_create_variant({ filepath, props: { data: { name: 'John' } } })
 }
 
 export function createNewServerEndpoint(filepath: string) {
@@ -131,7 +122,7 @@ export const POST: RequestHandler = async ({ locals: { getSession }, request }) 
   }
 }
 `
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
+  rpc_client.functions.open_or_create_file({ filepath, template })
   const testTemplate = `import { POST, type OperationRequestBody, type OperationResponseBody } from './+server'
 import { request } from '$lib/mocks/sveltekit-endpoint-helper'
 import { ResponseCodes } from '$lib/response-codes'
@@ -166,7 +157,7 @@ describe(POST, () => {
   })
 })
 `
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
+  rpc_client.functions.open_or_create_file({ filepath: filepath.replace('+server.ts', '_server.test.ts'), template: testTemplate })
 }
 
 export function createNewComponent(filepath: string) {
@@ -175,13 +166,6 @@ export function createNewComponent(filepath: string) {
 </script>
 
 Hi {name}`
-  import.meta.hot.send('kitbook:to-server:ensure-file-exists', { filepath, template })
-  import.meta.hot.send('kitbook:to-server:open-variants', { filepath, props: { name: 'John' } })
-}
-
-if (import.meta.hot) {
-  import.meta.hot.on('kitbook:to-client:open-file', ({ filepath, viteBase }) => {
-    const file_loc = `${filepath}:1:1`
-    fetch(`${viteBase}/__open-in-editor?file=${encodeURIComponent(file_loc)}`)
-  })
+  rpc_client.functions.open_or_create_file({ filepath, template })
+  rpc_client.functions.open_or_create_variant({ filepath, props: { data: { name: 'John' } } })
 }

@@ -5,20 +5,23 @@ import type { RPCFunctions } from '../../kitbook-types'
 import type { KitbookPluginContext } from '../vite.js'
 import { get_svelte_modules } from './get-svelte-modules.js'
 
-export function RPCPlugin(context: KitbookPluginContext): Plugin {
+export function RPCPlugin({ config, rpc_functions }: KitbookPluginContext): Plugin {
   return {
     name: 'vite-plugin-kitbook:rpc',
     enforce: 'pre',
     apply: 'serve', // TODO: remove later once also getting modules from build
 
     configResolved(_config) {
-      context.config = _config
+      config = _config
     },
 
     configureServer(server) {
-      context.rpc_functions.svelte_modules = () => get_svelte_modules(server, context.config.root)
+      const rpc_server = createRPCServer<RPCFunctions>(RPC_NAME, server.ws, rpc_functions)
 
-      const rpc_server = createRPCServer<RPCFunctions>(RPC_NAME, server.ws, context.rpc_functions)
+      rpc_functions.svelte_modules = () => get_svelte_modules(server, config.root)
+      rpc_functions.open_in_editor = (url) => {
+        rpc_server.open_in_editor.asEvent(url)
+      }
 
       const debounce_module_updated = debounce((filepath: string) => {
         rpc_server.module_updated.asEvent(filepath)
