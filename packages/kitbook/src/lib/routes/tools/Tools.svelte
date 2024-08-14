@@ -10,7 +10,7 @@
   export let detailsForTools: ToolsComponentDetails
   export let changeState: (data: ToolsChangeState) => void
 
-  $: ({ viewports, _languageInsertedKitbookRoute } = data.settings)
+  $: ({ viewports, _languageInsertedKitbookRoute } = data.kitbook_settings)
   $: ({ filename, tagName, serializedState } = detailsForTools)
   $: variantsFilename = filename?.replace('.svelte', '.variants.ts')
   $: svxFilename = filename?.replace('.svelte', '.md')

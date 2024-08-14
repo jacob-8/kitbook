@@ -11,7 +11,7 @@ export const shared_meta: VariantMeta = {
 }
 
 const shared_data = {
-  settings: {
+  kitbook_settings: {
     title: 'Demo Kitbook',
     description: '',
   },
@@ -119,7 +119,7 @@ const docs_page: GroupedPage = {
 export const i18n: Variant<Component> = {
   data: {
     ...shared_data,
-    settings: {
+    kitbook_settings: {
       title: 'i18n Kitbook',
       description: '',
       expandTree: true,

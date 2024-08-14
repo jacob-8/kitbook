@@ -12,7 +12,7 @@ const shared_data = {
 
   canMount: true,
   darkMode: false,
-  settings: null,
+  kitbook_settings: null,
   rpc_client: null,
 } satisfies Partial<Variant<Component>['data']>
 

@@ -4,7 +4,7 @@ import type Component from './Tools.svelte'
 const shared = {
   changeState: data => console.info({ changeState: data }),
   data: {
-    settings: {
+    kitbook_settings: {
       description: 'This is a description',
       title: 'This is a title',
       viewports: [{ width: 500, height: 200 }],

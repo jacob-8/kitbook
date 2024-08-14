@@ -12,7 +12,7 @@ interface LayoutLoadInput {
 export interface LayoutLoadResult {
   pages: GroupedPageMap
   pagesStore: typeof pagesStore
-  settings: KitbookSettings
+  kitbook_settings: KitbookSettings // prefixed to allow users to use the settings keyword in the mockedPageData
   rpc_client: typeof rpc_client
 }
 
@@ -37,7 +37,7 @@ export function layoutLoad({
     return {
       pages: initialPages,
       pagesStore,
-      settings,
+      kitbook_settings: settings,
       rpc_client,
       ...(mockedPageData || {}),
     }

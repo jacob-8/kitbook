@@ -22,7 +22,7 @@
     pagesStore,
     loadedModules: { variantsModule: initialVariantsModule, compositionsModules: initialCompositionsModules, markdown: initialMarkdown },
     pageKey,
-    settings,
+    kitbook_settings: settings,
     rpc_client,
   } = data)
   $: ({ viewports: projectViewports, addLanguageToUrl, githubURL, title: kitbookTitle, darkMode } = settings)
