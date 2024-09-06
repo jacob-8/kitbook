@@ -61,7 +61,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite dev",
+    "dev": "vite dev --host",
     "build": "vite build",
     "build:ci": "cd ../.. && pnpm build:deps && cd packages/kitbook && pnpm build",
     "preview": "vite preview",
@@ -97,6 +97,7 @@
     "birpc": "^0.2.17",
     "codemirror": "^6.0.1",
     "fast-glob": "^3.3.2",
+    "qrcode-terminal": "^0.12.0",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-format": "^4.0.1",
     "rehype-slug": "^5.1.0",
@@ -122,6 +123,7 @@
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@types/mdast": "^4.0.2",
     "@types/node": "^20.11.30",
+    "@types/qrcode-terminal": "^0.12.2",
     "@unocss/svelte-scoped": "^0.59.4",
     "prettier": "^2.8.8",
     "publint": "^0.2.7",

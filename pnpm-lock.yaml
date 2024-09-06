@@ -116,6 +116,9 @@ importers:
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2
+      qrcode-terminal:
+        specifier: ^0.12.0
+        version: 0.12.0
       rehype-autolink-headings:
         specifier: ^6.1.1
         version: 6.1.1
@@ -186,6 +189,9 @@ importers:
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
+      '@types/qrcode-terminal':
+        specifier: ^0.12.2
+        version: 0.12.2
       '@unocss/svelte-scoped':
         specifier: ^0.59.4
         version: 0.59.4
@@ -1519,6 +1525,9 @@ packages:
 
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
+
+  '@types/qrcode-terminal@0.12.2':
+    resolution: {integrity: sha512-v+RcIEJ+Uhd6ygSQ0u5YYY7ZM+la7GgPbs0V/7l/kFs2uO4S8BcIUEMoP7za4DNIqNnUD5npf0A/7kBhrCKG5Q==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -3886,6 +3895,10 @@ packages:
 
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
+  qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
+
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -5977,6 +5990,8 @@ snapshots:
   '@types/parse5@6.0.3': {}
 
   '@types/pug@2.0.10': {}
+
+  '@types/qrcode-terminal@0.12.2': {}
 
   '@types/resolve@1.20.2': {}
 
@@ -8822,6 +8837,8 @@ snapshots:
   punycode@2.3.1: {}
 
   q@1.5.1: {}
+
+  qrcode-terminal@0.12.0: {}
 
   queue-microtask@1.2.3: {}
 
