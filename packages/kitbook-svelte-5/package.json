@@ -110,7 +110,7 @@
     "@unocss/svelte-scoped": "^0.65.1",
     "prettier": "^3.4.2",
     "publint": "^0.2.8",
-    "svelte": "^5.0.0",
+    "svelte": "^ 5.25.3",
     "svelte-check": "^4.0.0",
     "tslib": "^2.6.2",
     "typescript": "^5.0.0",

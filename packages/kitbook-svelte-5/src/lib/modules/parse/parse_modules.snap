@@ -1,0 +1,212 @@
+{
+  "README": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/README.md",
+    },
+    "name": "README",
+    "url": "README",
+  },
+  "docs/0-why-kitbook": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/docs/0-why-kitbook.md",
+    },
+    "name": "why kitbook",
+    "url": "docs/0-why-kitbook",
+  },
+  "docs/1-get-started": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/docs/1-get-started.md",
+    },
+    "name": "get started",
+    "url": "docs/1-get-started",
+  },
+  "docs/1a-you-can-use-letters-to-adjust-ordering": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/docs/1a-you-can-use-letters-to-adjust-ordering.md",
+    },
+    "name": "you can use letters to adjust ordering",
+    "url": "docs/1a-you-can-use-letters-to-adjust-ordering",
+  },
+  "docs/my-notes/0-unocss": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/docs/my-notes/0-unocss.md",
+    },
+    "name": "unocss",
+    "url": "docs/my-notes/0-unocss",
+  },
+  "docs/my-notes/1-deploy-to-vercel": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/docs/my-notes/1-deploy-to-vercel.md",
+    },
+    "name": "deploy to vercel",
+    "url": "docs/my-notes/1-deploy-to-vercel",
+  },
+  "index": {
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/index.md",
+    },
+    "name": "index",
+    "url": "index",
+  },
+  "lib/a/F": {
+    "compositions": {
+      "default": {
+        "load_composition": [Function],
+        "load_raw": [Function],
+        "path": "/src/lib/a/F.composition",
+      },
+    },
+    "name": "F",
+    "url": "lib/a/F",
+  },
+  "lib/components/ErrorBoundary": {
+    "component": {
+      "children_paths": [],
+      "load_component": [Function],
+      "parent_paths": [
+        "lib/routes/sandbox/[...file]/+page",
+      ],
+      "path": "/src/lib/components/ErrorBoundary.svelte",
+      "raw": "hi",
+    },
+    "compositions": {
+      "default": {
+        "load_composition": [Function],
+        "load_raw": [Function],
+        "path": "/src/lib/components/ErrorBoundary.composition",
+      },
+    },
+    "is_route": false,
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/lib/components/ErrorBoundary.md",
+    },
+    "name": "ErrorBoundary",
+    "stories": {
+      "load_raw": [Function],
+      "load_stories": [Function],
+      "path": "/src/lib/components/ErrorBoundary.stories.ts",
+    },
+    "url": "lib/components/ErrorBoundary",
+  },
+  "lib/components/FlakyComponent": {
+    "component": {
+      "children_paths": [],
+      "load_component": [Function],
+      "parent_paths": [
+        "lib/routes/sandbox/[...file]/+page",
+      ],
+      "path": "/src/lib/components/FlakyComponent.svelte",
+      "raw": "flake",
+    },
+    "is_route": false,
+    "name": "FlakyComponent",
+    "url": "lib/components/FlakyComponent",
+  },
+  "lib/routes/[...file]/+page": {
+    "component": {
+      "children_paths": [],
+      "load_component": [Function],
+      "parent_paths": [],
+      "path": "/src/lib/routes/[...file]/+page.svelte",
+      "raw": "<script lang="ts">
+  import type { PageData } from './$types.js'
+
+  const { data }: { data: PageData } = $props()
+</script>
+
+Routes with all their imports<br />
+
+<pre>{JSON.stringify(data, null, 2)}</pre>
+
+<!-- {#await data.parsed_modules['/src/lib/components/FlakyComponent.svelte'].component.load_component() then Component}
+  <Component />
+{/await} -->",
+    },
+    "compositions": {
+      "another": {
+        "load_composition": [Function],
+        "load_raw": [Function],
+        "path": "/src/lib/routes/[...file]/_page.another.composition",
+      },
+      "default": {
+        "load_composition": [Function],
+        "load_raw": [Function],
+        "path": "/src/lib/routes/[...file]/_page.composition",
+      },
+    },
+    "is_route": true,
+    "markdown": {
+      "load_raw": [Function],
+      "path": "/src/lib/routes/[...file]/_page.md",
+    },
+    "name": "+page",
+    "stories": {
+      "load_raw": [Function],
+      "load_stories": [Function],
+      "path": "/src/lib/routes/[...file]/_page.stories.ts",
+    },
+    "url": "lib/routes/[...file]/+page",
+  },
+  "lib/routes/[...file]/Helper": {
+    "component": {
+      "children_paths": [],
+      "load_component": [Function],
+      "parent_paths": [],
+      "path": "/src/lib/routes/[...file]/Helper.svelte",
+      "raw": "should not be route",
+    },
+    "is_route": false,
+    "name": "Helper",
+    "url": "lib/routes/[...file]/Helper",
+  },
+  "lib/routes/sandbox/[...file]/+page": {
+    "component": {
+      "children_paths": [
+        "lib/components/ErrorBoundary",
+        "lib/routes/sandbox/[...file]/Foo",
+        "lib/components/FlakyComponent",
+      ],
+      "load_component": [Function],
+      "parent_paths": [],
+      "path": "/src/lib/routes/sandbox/[...file]/+page.svelte",
+      "raw": "<script>
+  import ErrorBoundary from 'kitbook/components/ErrorBoundary.svelte'
+  import Foo from './Foo.svelte'
+</script>
+
+I'm the iframe sandbox.
+
+<ErrorBoundary>
+  {#await import('$lib/components/FlakyComponent.svelte') then { default: FlakyComponent }}
+    <FlakyComponent />
+  {/await}
+</ErrorBoundary>
+",
+    },
+    "is_route": true,
+    "name": "+page",
+    "url": "lib/routes/sandbox/[...file]/+page",
+  },
+  "lib/routes/sandbox/[...file]/Foo": {
+    "component": {
+      "children_paths": [],
+      "load_component": [Function],
+      "parent_paths": [
+        "lib/routes/sandbox/[...file]/+page",
+      ],
+      "path": "/src/lib/routes/sandbox/[...file]/Foo.svelte",
+      "raw": "I am relatively imported.",
+    },
+    "is_route": false,
+    "name": "Foo",
+    "url": "lib/routes/sandbox/[...file]/Foo",
+  },
+}
